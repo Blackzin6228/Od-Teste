@@ -29,14 +29,14 @@
 
 ## SANGUE: A Hospedeira (?)  /  B) A Mãe da Porta (?)
 
-- **Quem foi:** **Irene Valadares**, cozinheira e agente, matrícula 0311. Segurou o Coração de Ferrugem para manter a passagem aberta e **nunca largou**.
+- **Quem foi:** **Irene Valadares**, cozinheira e agente, matrícula 0311. Segurou o Cálice do Faminto para manter a passagem aberta e **nunca largou**.
 - **O que é:** o próprio **Ventre** visto como uma mulher que não consegue parar de abrigar.
 - **O que quer:** **hóspedes**. Que ninguém saia e que todos estejam bem (e presos). Para ela, cuidar e prender são a mesma coisa.
 - **Presença na dimensão (Ventre):**
   - O jogador anda em **túneis que são veias** e vê, ao longe, **um rosto de carne do tamanho de uma montanha** coberto por uma colcha de tecido branco.
   - O chão respira. O "sol" que bate como coração acelera quando ela presta atenção. A cada poucos minutos passa uma **onda quente** e fecha portas de carne atrás do jogador.
   - Nunca fala em voz alta: as paredes **sussurram nomes de familiares** do jogador, em tom de acolhimento.
-- **Forma de chefe/evento:** ela se junta numa **mulher enorme, de costas**, com o avental encharcado, o **Coração de Ferrugem batendo no peito** (visível pelas costelas abertas). Os braços são longos demais. Ela não ataca; **fecha corredores** e chama ("fica mais um pouco"). O grupo precisa **sair do Ventre rompendo as portas de carne** antes que se fechem. Não se mata, se **foge**.
+- **Forma de chefe/evento:** ela se junta numa **mulher enorme, de costas**, com o avental encharcado, o **Cálice do Faminto fervendo no peito** (visível pelas costelas abertas). Os braços são longos demais. Ela não ataca; **fecha corredores** e chama ("fica mais um pouco"). O grupo precisa **sair do Ventre rompendo as portas de carne** antes que se fechem. Não se mata, se **foge**.
 - **Cor e som:** vermelho escuro, branco manchado, ferro. Batida de coração e uma cantiga de ninar abafada.
 - **Dimensão e clima:** quente, úmido, vermelho escuro `#2A0000`, ferrugem no ar. Trilha: guitarra pesada e lenta, coração como bumbo.
 
@@ -46,7 +46,7 @@
 
 > Frase de apresentação: *"Ela julgou cada página que o Gabinete escondeu, e pagou cada sentença com uma lembrança, até sobrar só o veredito onde ficava o rosto."*
 
-- **Quem foi:** **Lúcia Antunes**, escrivã-juíza dos autos do Gabinete, matrícula 0087. Recebeu o primeiro dossiê para **decidir o que podia ser lembrado e o que devia ser apagado**. Usou o Livro-Sem-Fim para julgar. Cada sentença custou uma lembrança dela. **Não conseguiu parar de julgar.**
+- **Quem foi:** **Lúcia Antunes**, escrivã-juíza dos autos do Gabinete, matrícula 0087. Recebeu o primeiro dossiê para **decidir o que podia ser lembrado e o que devia ser apagado**. Usou a Lente do Escriba para julgar. Cada sentença custou uma lembrança dela. **Não conseguiu parar de julgar.**
 - **O que é:** a **memória da Biblioteca Muda com forma de tribunal**: um julgamento que nunca encerra. O rosto foi a última coisa que ela deu. Por isso é **sem rosto**: no lugar dele há uma superfície lisa, cor de pergaminho, onde às vezes aparece, riscada, a sentença do réu que está na sala.
 - **O que quer:** **ordem completa**. Que nada fique esquecido sem ter sido julgado. Procura **uma testemunha que lembre de tudo sem errar**, porque o último testemunho encerra o processo (e ela).
 - **Presença na dimensão (Biblioteca Muda):**
@@ -54,8 +54,8 @@
   - Luz âmbar sem fonte. Letras que se reescrevem no chão **a cada passo**, como autos sendo corrigidos. Ao longe, **páginas virando** e o **martelo de madeira** de uma sessão que nunca acaba.
   - Quando fala, aparece texto na tela como **despacho nas margens** ("Consta nos autos…"). Nunca responde pergunta direta; só pergunta de volta, como interrogatório.
   - Sinal de que está perto: o jogador ouve o próprio nome lido em voz neutra, como numa chamada de audiência.
-- **Forma de chefe/evento: a Audiência.** O grupo é o **réu**. Ela manda **perguntas em forma de salas**; cada resposta errada reescreve o corredor. O corpo é uma **figura alta e acinzentada, de 10 blocos**, de toga de papel e tiras de couro, sentada atrás de uma **bancada que ocupa o salão**, com a **superfície lisa no lugar do rosto** e as mãos em cima dos autos. O **Livro-Sem-Fim fica aberto sobre a bancada**. Vence o grupo que responde certo à última pergunta **sem usar caderno** (de memória, em equipe).
-- **Relíquia dela:** o **Livro-Sem-Fim** (receptáculo, só lore).
+- **Forma de chefe/evento: a Audiência.** O grupo é o **réu**. Ela manda **perguntas em forma de salas**; cada resposta errada reescreve o corredor. O corpo é uma **figura alta e acinzentada, de 10 blocos**, de toga de papel e tiras de couro, sentada atrás de uma **bancada que ocupa o salão**, com a **superfície lisa no lugar do rosto** e as mãos em cima dos autos. A **Lente do Escriba fica apoiada sobre os autos, na bancada**. Vence o grupo que responde certo à última pergunta **sem usar caderno** (de memória, em equipe).
+- **Relíquia dela:** a **Lente do Escriba** (receptáculo, só lore).
 - **Cor e som:** dourado frio, pergaminho, cinza. Pena riscando papel, martelo seco, sussurros em coro.
 - **Dimensão e clima:** seco, parado, dourado `#D4A92A`, sem noite. Trilha: coros, sussurros, tambores.
 
@@ -85,7 +85,7 @@
   - Uma **antena do tamanho de um arranha-céu**, torta, com a ponta nas nuvens de estática. À noite da Rede, a ponta vira **um farol roxo** visível da Clareira.
   - Céu de chuvisco. A cada transmissão o **HUD falha** e o relógio do jogador pula. Raios sem trovão atrasado.
   - Voz **picotada em rádio** (texto com letras faltando), dizendo coordenadas e matrículas em loop.
-- **Forma de chefe/evento:** uma **tempestade de transmissões**. O corpo é uma **figura de cabos e neon de 9 blocos**, que se segura pelo ar, com **a antena-relíquia (nome a escolher em `lore/reliquias-e-espadas.md`) no lugar da cabeça**. O grupo defende **repetidores** em ilhas flutuantes enquanto o Sinal tenta se religar. Vence quem mantiver 3 repetidores ligados até o amanhecer da Rede.
+- **Forma de chefe/evento:** uma **tempestade de transmissões**. O corpo é uma **figura de cabos e neon de 9 blocos**, que se segura pelo ar, com a **Bobina do Último Chamado no lugar da cabeça**, no alto da antena. O grupo defende **repetidores** em ilhas flutuantes enquanto o Sinal tenta se religar. Vence quem mantiver 3 repetidores ligados até o amanhecer da Rede.
 - **Cor e som:** roxo, ciano, magenta. Estática e sinais de rádio.
 - **Dimensão e clima:** ar carregado, roxo `#6A00FF` com ciano `#00E5FF` e magenta `#FF2BD6`. Trilha: sintetizador, guitarra processada.
 
@@ -104,7 +104,7 @@
 | Energia | O Chamado Sem Fim | A Voz da Torre | O Sinal Mais Alto |
 | Conhecimento | **A Juíza Sem Rosto** (fechado) | | |
 
-### Sangue (Irene Valadares, Ventre, relíquia: Coração de Ferrugem)
+### Sangue (Irene Valadares, Ventre, relíquia: Cálice do Faminto)
 - Uma mulher que abrigou tanto que virou prisão: o Ventre com rosto de mãe. Cuida e prende como se fosse a mesma coisa.
 - No Minecraft: escala de clima (rosto de carne do tamanho de uma montanha sob uma colcha branca); chão que respira, onda quente que fecha portas de carne; sinal de perto: sussurros com nomes de familiares. Evento: ela "pede que fique", o grupo foge.
 - Opção 1 é a "variação de Diabo": o mal que mora dentro da casa. Opção 3 é a que mais descreve o que ela faz.
@@ -114,7 +114,7 @@
 - No Minecraft: torre-relógio atravessando a lua de osso; cinza em câmera lenta, sombra que chega atrasada, som que bate depois de visto. Evento: o tempo dobra na arena, o grupo empurra o ponteiro.
 - Opção 1 é a "variação de Deus da Morte": o deus que só sobrou do último instante.
 
-### Energia (Bruna Tavares, Rede, relíquia: a antena-relíquia, nome em `lore/reliquias-e-espadas.md`)
+### Energia (Bruna Tavares, Rede, relíquia: Bobina do Último Chamado)
 - Uma técnica que pediu socorro e nunca desligou: a torre que transmite para quem estiver ouvindo, esperando ser respondida.
 - No Minecraft: antena do tamanho de um arranha-céu, farol roxo na noite da Rede; HUD que falha e relógio que pula; voz picotada com matrículas em loop. Evento: tempestade de transmissões, o grupo defende 3 repetidores.
 - Opção 1 combina com o tom de aviso; opção 2 é a mais discreta.

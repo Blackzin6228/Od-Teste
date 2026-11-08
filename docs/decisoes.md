@@ -36,6 +36,8 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 08/11/2026 | **Estilo de nome dos Artefatos**: objeto comum que ficou "errado" depois de tocar no paranormal, sombrio, cara de dossiê. Os 9 de Conhecimento, Morte e Energia aguardam escolha entre 2 opções cada. |
 | 2026-11-08 | **Regra de tom, vale para tudo daqui pra frente:** tom sério, sempre ("Ninguém brinca com o paranormal"). Nada cômico, fofo ou "viajado". Objeto que possa soar engraçado é trocado por algo perturbador, mantendo o poder. Aplicada aos Artefatos: 5 objetos trocados e 4 ajustados (`lore/artefatos-paranormais.md`); as 2 opções de nome de cada um aguardam escolha. |
 | 2026-11-08 | **Entidade de Conhecimento: "A Juíza Sem Rosto"** (nome fechado). Os nomes de Sangue, Morte e Energia aguardam escolha entre 3 opções cada (`lore/entidades.md`). |
+| 2026-11-08 | **Nomes das 4 relíquias de elemento (só lore) fechados:** Sangue = **Cálice do Faminto**, Conhecimento = **Lente do Escriba**, Morte = **Ampulheta Quebrada**, Energia = **Bobina do Último Chamado**. Objetos: taça de ferro (Sangue), lente de cabo dourado (Conhecimento), ampulheta rachada (Morte), bobina de cobre na antena (Energia). Em `lore/reliquias-e-espadas.md`. |
+| 2026-11-08 | **Nomes das 4 espadas fechados:** Sangue = **Rubra**, Conhecimento = **Letra de Quem Leu Tudo**, Morte = **Minuto Arrancado**, Energia = **Cabo da Última Chamada**. Sem craft, como já decidido. |
 
 ## Pendentes (precisam do Nikolas)
 
