@@ -315,13 +315,14 @@ class RegrasTest {
     }
 
     @Test
-    void tagDeComidaQuenteSomaETemOsEnsopados() throws Exception {
+    void tagDeComidaQuenteSomaETemEnsopadosBatataECarnes() throws Exception {
         // Pasta "item" (singular) em 1.21.1; plural é ignorado em silêncio pelo jogo.
         Path tag = Path.of("src/main/resources/data/odteste/tags/item", IdsDados.TAG_COMIDA_QUENTE + ".json");
         assertTrue(Files.exists(tag), "falta a tag " + tag);
         String json = Files.readString(tag).replaceAll("\\s", "");
         assertTrue(json.contains("\"replace\":false"), "a tag precisa somar (replace false) para outros mods entrarem");
-        for (String id : new String[] {"mushroom_stew", "rabbit_stew", "beetroot_soup", "suspicious_stew"}) {
+        for (String id : new String[] {"mushroom_stew", "rabbit_stew", "beetroot_soup", "suspicious_stew",
+                "baked_potato", "cooked_beef", "cooked_porkchop", "cooked_chicken", "cooked_mutton", "cooked_rabbit"}) {
             assertTrue(json.contains("\"minecraft:" + id + "\""), "falta minecraft:" + id + " na comida quente");
         }
     }

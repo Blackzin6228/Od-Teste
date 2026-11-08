@@ -72,7 +72,9 @@ O quanto você ainda está são. Cai rápido e volta devagar. É o "medo" do per
 3. **luz forte + grupo por perto** (o grupo acalma, bom para roleplay) e **comida quente**.
 
 **Comida quente** = tag de item `odteste:comida_quente` (`data/odteste/tags/item/comida_quente.json`, `"replace": false`).
-Hoje tem só os ensopados vanilla: ensopado de cogumelo, de coelho, sopa de beterraba e ensopado suspeito.
+Hoje tem (vanilla): ensopado de cogumelo, de coelho, sopa de beterraba, ensopado suspeito, batata assada e as carnes
+cozidas (bife, costeleta de porco, frango, carneiro e coelho assados). Lista ampliada em 08/11/2026 (decisão do Nikolas).
+Continua valendo: a Lucidez só volta por esse caminho com luz forte + grupo perto + comida quente, as três juntas.
 Comidas de outros mods (Farmer's Delight etc.) **entram sem mexer no Java**: um datapack ou o `compat/` do
 Integrador cria o mesmo arquivo `data/odteste/tags/item/comida_quente.json` com `"replace": false` e os IDs novos
 (use `{"id": "mod:item", "required": false}` para não quebrar se o mod sair do pack). As tags somam.

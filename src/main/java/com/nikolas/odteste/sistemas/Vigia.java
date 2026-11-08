@@ -37,7 +37,7 @@ public final class Vigia {
     private static final int LUZ_FORTE = 12;
 
     /**
-     * Comida quente que acalma (tag {@code odteste:comida_quente}). Hoje só os ensopados vanilla; comidas de outros
+     * Comida quente que acalma (tag {@code odteste:comida_quente}). Hoje: ensopados, batata assada e carnes cozidas vanilla; comidas de outros
      * mods entram por datapack ou pelo compat, somando na tag ({@code "replace": false}), sem mexer aqui.
      */
     public static final TagKey<Item> COMIDA_QUENTE = TagKey.create(Registries.ITEM,

@@ -26,7 +26,7 @@ Modid: `odteste` (provisório) · Lançado no servidor: **não**
 | `odteste:surto` | animação do jogador (provisória, no código) | 08/11/2026 | |
 | `odteste:marca_visivel` | pacote de rede (servidor → quem vê o jogador e ele mesmo) | 08/11/2026 | só elemento e estágio da Marca, para desenhar no corpo |
 | `odteste:paranormal` | tag de tipo de dano (`data/odteste/tags/damage_type/`) **e** tag de criatura (`.../entity_type/`) | 08/11/2026 | dano paranormal pesa mais na Lucidez; hoje vazias |
-| `odteste:comida_quente` | tag de item (`data/odteste/tags/item/comida_quente.json`, `"replace": false`) | 08/11/2026 | comer devolve Lucidez; hoje os 4 ensopados vanilla; outros mods somam por datapack/compat |
+| `odteste:comida_quente` | tag de item (`data/odteste/tags/item/comida_quente.json`, `"replace": false`) | 08/11/2026 | comer devolve Lucidez; hoje os 4 ensopados, a batata assada e as 5 carnes cozidas vanilla; outros mods somam por datapack/compat |
 | `odteste:marca_sangue_1` | textura gerada no cliente (veias, estágio 1) | 08/11/2026 | provisória, desenhada em código (`PadraoVeias`) |
 | `odteste:marca_sangue_2` | textura gerada no cliente (estágio 2) | 08/11/2026 | idem |
 | `odteste:marca_sangue_3` | textura gerada no cliente (estágio 3) | 08/11/2026 | idem |
