@@ -18,8 +18,10 @@
   "odteste.comando.transcender.definir": "Transcender de %s agora é nível %s.",
   "odteste.comando.erro.elemento": "Elemento desconhecido: %s. Use nenhum, sangue, conhecimento, morte ou energia.",
   "odteste.comando.erro.estagio": "Falta o estágio da Marca de %s (1 a 4). Só \"nenhum\" dispensa o estágio.",
-  "odteste.comando.exposicao.fonte": "%s: a fonte %s rendeu %s centésimos de Exposição (agora %s).",
+  "odteste.comando.exposicao.contato": "%s: o contato %s rendeu %s centésimos de Exposição (agora %s).",
+  "odteste.comando.lucidez.abalar": "Lucidez de %s depois do abalo: %s.",
   "odteste.comando.erro.fonte": "Fonte desconhecida: %s.",
+  "odteste.comando.erro.abalo": "Abalo desconhecido: %s.",
 
   "odteste.momento.degrau.marcado": "Alguma coisa olhou de volta.",
   "odteste.momento.marca.nenhum": "",

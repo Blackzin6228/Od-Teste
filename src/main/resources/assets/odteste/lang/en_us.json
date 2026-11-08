@@ -18,8 +18,10 @@
   "odteste.comando.transcender.definir": "%s's Transcend is now level %s.",
   "odteste.comando.erro.elemento": "Unknown element: %s. Use nenhum, sangue, conhecimento, morte or energia.",
   "odteste.comando.erro.estagio": "Missing the Mark stage for %s (1 to 4). Only \"nenhum\" can skip the stage.",
-  "odteste.comando.exposicao.fonte": "%s: source %s gave %s hundredths of Exposure (now %s).",
+  "odteste.comando.exposicao.contato": "%s: contact %s gave %s hundredths of Exposure (now %s).",
+  "odteste.comando.lucidez.abalar": "%s's Lucidity after the shock: %s.",
   "odteste.comando.erro.fonte": "Unknown source: %s.",
+  "odteste.comando.erro.abalo": "Unknown shock: %s.",
 
   "odteste.momento.degrau.marcado": "Something looked back.",
   "odteste.momento.marca.nenhum": "",

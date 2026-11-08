@@ -30,6 +30,10 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 07/11/2026 | **O jogador não escolhe a Marca.** Tirar qualquer sistema de escolha; a Marca vem do que acontece com o jogador (exposição, relíquias, eventos). |
 | 07/11/2026 | **Sistemas reaproveitados do Máscaras** (Exposição, Lucidez, Marca, Vínculo, Transcender…) ficam, mas **melhores e com muito mais animação** (jogador, efeitos, tela). |
 | 08/11/2026 | Sem o nome que Ordem Paranormal dá ao mundo paranormal: usamos "o paranormal" até a Lore propor um nome nosso. |
+| 08/11/2026 | Primeiro play test: elemento **Sangue**. |
+| 08/11/2026 | **Exposição = contato com o paranormal**: sobe com criaturas do mod (ver de perto, lutar, matar), relíquias menores (pegar, usar), rituais, dimensões dos elementos e aparições. **Não** sobe por escuro, morte comum ou mob vanilla. |
+| 08/11/2026 | **Lucidez** cai conforme as coisas acontecem: batalhas com relíquias, aparições, enfrentar mobs de Sangue e tomar dano (dano comum pouco, paranormal mais). Volta devagar descansando ou dormindo. |
+| 08/11/2026 | **Marca de Sangue visível no corpo**: camada sobre a skin (veias/cicatrizes vermelhas) que cresce com o estágio, vista por todos. Visual provisório até a prévia do Modelador. |
 
 ## Pendentes (precisam do Nikolas)
 

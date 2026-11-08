@@ -7,37 +7,37 @@ import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.level.SleepFinishedTimeEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 /**
- * Os gatilhos automáticos (só servidor). Sem lag:
+ * Os gatilhos automáticos da Lucidez e da Marca de Sangue (só servidor). Sem lag:
  * - uma checagem por jogador a cada 2 s, espalhada pelos ticks (cada jogador num tick diferente);
- * - cada checagem olha só em volta do próprio jogador (caixa pequena, nunca o mundo inteiro);
- * - o resto são eventos raros (morrer, dormir, comer).
+ * - cada checagem olha só em volta do próprio jogador (nunca o mundo inteiro);
+ * - o resto são eventos (tomar dano, dormir, comer).
+ *
+ * A Exposição **não** sobe sozinha aqui: ela é só contato com o paranormal (Exposicao.contato).
  */
 public final class Vigia {
-    /** Distância para "longe de outros jogadores" no escuro. */
-    private static final double SOZINHO_RAIO = 24;
     /** Distância para "perto do grupo" (recupera Lucidez). */
     private static final double GRUPO_RAIO = 8;
-    /** Distância do mob hostil à noite. */
-    private static final double MOB_RAIO = 8;
     /** Luz forte (bloco ou céu). */
     private static final int LUZ_FORTE = 12;
 
     /** Contadores de cada jogador. Só memória; some quando ele sai. */
     private static final class Estado {
-        int escuroSeguido;
         int grupoSeguido;
-        int desdeUltimoMob = RegrasLucidez.MOB_INTERVALO;
+        int semDano;
+        int parado;
+        int restoDano;
+        Vec3 ultimaPosicao;
     }
 
     private static final Map<UUID, Estado> ESTADOS = new HashMap<>();
@@ -46,13 +46,17 @@ public final class Vigia {
 
     public static void iniciar() {
         NeoForge.EVENT_BUS.addListener(Vigia::aoTick);
-        NeoForge.EVENT_BUS.addListener(Vigia::aoMorrer);
+        NeoForge.EVENT_BUS.addListener(Vigia::aoTomarDano);
         NeoForge.EVENT_BUS.addListener(Vigia::aoComer);
         NeoForge.EVENT_BUS.addListener(Vigia::aoAmanhecer);
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> {
             ESTADOS.remove(e.getEntity().getUUID());
             Exposicao.esquecer(e.getEntity().getUUID());
         });
+    }
+
+    private static Estado estado(ServerPlayer p) {
+        return ESTADOS.computeIfAbsent(p.getUUID(), u -> new Estado());
     }
 
     private static void aoTick(PlayerTickEvent.Post e) {
@@ -64,23 +68,19 @@ public final class Vigia {
         MarcaSangue.checar(p);
         if (p.isCreative() || p.isSpectator()) return;
 
-        Estado s = ESTADOS.computeIfAbsent(p.getUUID(), u -> new Estado());
+        Estado s = estado(p);
         ServerLevel nivel = p.serverLevel();
-        BlockPos olhos = BlockPos.containing(p.getEyePosition());
-        int luz = nivel.getMaxLocalRawBrightness(olhos);
 
-        // 1) Escuro total, longe de todo mundo: a Lucidez cai devagar e a Exposição sobe um pouco.
-        boolean sozinho = nivel.getNearestPlayer(p.getX(), p.getY(), p.getZ(), SOZINHO_RAIO,
-                o -> o != p && !o.isSpectator()) == null;
-        if (luz == 0 && sozinho) {
-            s.escuroSeguido++;
-            Lucidez.perder(p, RegrasLucidez.perdaNoEscuro(s.escuroSeguido));
-            if (RegrasLucidez.exposicaoNoEscuro(s.escuroSeguido)) Exposicao.ganhar(p, Fonte.ESCURO);
-        } else {
-            s.escuroSeguido = 0;
-        }
+        // 1) Descanso: parado e sem tomar dano há um minuto, a Lucidez volta devagar.
+        s.semDano++;
+        Vec3 aqui = p.position();
+        boolean parou = s.ultimaPosicao != null && s.ultimaPosicao.distanceTo(aqui) < RegrasLucidez.DESCANSO_PARADO;
+        s.parado = parou ? s.parado + 1 : 0;
+        s.ultimaPosicao = aqui;
+        if (RegrasLucidez.recuperaDescansando(s.semDano, s.parado)) Lucidez.recuperar(p, 1);
 
         // 2) Luz forte e outro jogador perto: o grupo acalma.
+        int luz = nivel.getMaxLocalRawBrightness(BlockPos.containing(p.getEyePosition()));
         boolean grupo = luz >= LUZ_FORTE && nivel.getNearestPlayer(p.getX(), p.getY(), p.getZ(), GRUPO_RAIO,
                 o -> o != p && !o.isSpectator()) != null;
         if (grupo) {
@@ -88,19 +88,17 @@ public final class Vigia {
         } else {
             s.grupoSeguido = 0;
         }
-
-        // 3) Mob hostil perto, à noite.
-        s.desdeUltimoMob++;
-        boolean noite = !nivel.dimensionType().hasFixedTime() && !nivel.isDay();
-        if (s.desdeUltimoMob >= RegrasLucidez.MOB_INTERVALO && noite
-                && !nivel.getEntitiesOfClass(Monster.class, p.getBoundingBox().inflate(MOB_RAIO), Monster::isAlive).isEmpty()) {
-            s.desdeUltimoMob = 0;
-            Exposicao.ganhar(p, Fonte.MOB_NOTURNO);
-        }
     }
 
-    private static void aoMorrer(LivingDeathEvent e) {
-        if (e.getEntity() instanceof ServerPlayer p) Exposicao.ganhar(p, Fonte.MORRER);
+    /** Tomar dano abala: pouco se for comum, mais se for paranormal. Só servidor. */
+    private static void aoTomarDano(LivingDamageEvent.Post e) {
+        if (!(e.getEntity() instanceof ServerPlayer p) || p.isCreative() || p.isSpectator()) return;
+        Estado s = estado(p);
+        s.semDano = 0;
+        int centesimos = RegrasLucidez.perdaPorDano(e.getNewDamage(), Paranormal.dano(e.getSource()));
+        RegrasLucidez.Acumulo a = RegrasLucidez.acumular(s.restoDano, centesimos);
+        s.restoDano = a.resto();
+        Lucidez.perder(p, a.pontos());
     }
 
     private static void aoComer(LivingEntityUseItemEvent.Finish e) {
@@ -116,9 +114,7 @@ public final class Vigia {
     private static void aoAmanhecer(SleepFinishedTimeEvent e) {
         if (!(e.getLevel() instanceof ServerLevel nivel)) return;
         for (ServerPlayer p : nivel.players()) {
-            if (p.isSleeping()) {
-                Lucidez.recuperar(p, RegrasLucidez.ganhoAoDormir(DadosJogador.lucidezMax(p)));
-            }
+            if (p.isSleeping()) Lucidez.recuperar(p, RegrasLucidez.ganhoAoDormir(DadosJogador.lucidezMax(p)));
         }
     }
 }

@@ -2,6 +2,7 @@ package com.nikolas.odteste.dados;
 
 import com.mojang.serialization.Codec;
 import com.nikolas.odteste.elementos.Elemento;
+import com.nikolas.odteste.rede.MarcaVisivel;
 import com.nikolas.odteste.rede.SincronizarJogador;
 import com.nikolas.odteste.registro.Registro;
 import com.nikolas.odteste.sistemas.Reacoes;
@@ -162,7 +163,17 @@ public final class DadosJogador {
         p.setData(MARCA_ELEMENTO, e);
         p.setData(MARCA_ESTAGIO, Limites.estagioMarca(e, estagio));
         sincronizar(p);
-        if (p instanceof ServerPlayer sp) Reacoes.marcaMudou(sp, antes, estagioAntes, e, marcaEstagio(p));
+        if (p instanceof ServerPlayer sp) {
+            MarcaVisivel.espalhar(sp);
+            Reacoes.marcaMudou(sp, antes, estagioAntes, e, marcaEstagio(p));
+        }
+    }
+
+    /** Só no cliente: grava a Marca de outro jogador (vinda de MarcaVisivel), para desenhar no corpo. */
+    public static void aplicarMarcaVisivel(Player p, Elemento elemento, int estagio) {
+        Elemento e = elemento == null ? Elemento.NENHUM : elemento;
+        p.setData(MARCA_ELEMENTO, e);
+        p.setData(MARCA_ESTAGIO, Limites.estagioMarca(e, estagio));
     }
 
     public static void definirTranscender(Player p, int nivel) {

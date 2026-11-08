@@ -20,10 +20,22 @@ public final class RegrasExposicao {
 
     private RegrasExposicao() {}
 
-    /** Ganho em centésimos, dado quantas vezes a mesma fonte já rendeu dentro da janela. */
+    /** Intensidade aceita no contato: de 0 (nada) a 5 (uma criatura forte, uma relíquia maior). */
+    public static final float INTENSIDADE_MAX = 5f;
+
+    /** Ganho em centésimos com intensidade 1. */
     public static int ganhoCentesimos(int base, int repeticoesAntes) {
-        if (base <= 0) return 0;
-        return base / (1 + Math.max(0, repeticoesAntes));
+        return ganhoCentesimos(base, 1f, repeticoesAntes);
+    }
+
+    /**
+     * Ganho em centésimos: base × intensidade, dividido por quantas vezes a mesma fonte já rendeu na janela.
+     * Intensidade fora de 0–5 (ou NaN) é presa na faixa.
+     */
+    public static int ganhoCentesimos(int base, float intensidade, int repeticoesAntes) {
+        if (base <= 0 || !(intensidade > 0)) return 0;
+        float i = Math.min(INTENSIDADE_MAX, intensidade);
+        return Math.round(base * i) / (1 + Math.max(0, repeticoesAntes));
     }
 
     public record Resultado(int exposicao, int resto) {}

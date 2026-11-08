@@ -38,10 +38,19 @@ public final class IdsDados {
     /** Camada de animação do Player Animator. */
     public static final String CAMADA_ANIMACAO = "animacao_sistemas";
 
+    /** Canal de rede que mostra a Marca de um jogador para quem está vendo ele. */
+    public static final String PACOTE_MARCA_VISIVEL = "marca_visivel";
+    /** Tag de dano e tag de criatura "paranormal" (pesam mais na Lucidez). */
+    public static final String TAG_PARANORMAL = "paranormal";
+    /** Textura (gerada no cliente) das veias da Marca de Sangue; uma por estágio: marca_sangue_1 a _4. */
+    public static final String TEXTURA_MARCA_SANGUE = "marca_sangue";
+
     /** Todos os IDs que não são dado salvo, mas também precisam estar em docs/ids.md. */
     public static final List<String> OUTROS = List.of(
             PACOTE_SINCRONIZAR, PACOTE_MOMENTO, MODIFICADOR_SANGUE, CAMADA_TELA,
-            ANIM_MARCA_APARECE, ANIM_MARCA_SOBE, ANIM_SURTO, CAMADA_ANIMACAO);
+            ANIM_MARCA_APARECE, ANIM_MARCA_SOBE, ANIM_SURTO, CAMADA_ANIMACAO,
+            PACOTE_MARCA_VISIVEL, TAG_PARANORMAL, TEXTURA_MARCA_SANGUE + "_1", TEXTURA_MARCA_SANGUE + "_2",
+            TEXTURA_MARCA_SANGUE + "_3", TEXTURA_MARCA_SANGUE + "_4");
 
     private IdsDados() {}
 }

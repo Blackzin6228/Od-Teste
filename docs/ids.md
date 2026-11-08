@@ -24,8 +24,16 @@ Modid: `odteste` (provisório) · Lançado no servidor: **não**
 | `odteste:marca_aparece` | animação do jogador (provisória, no código) | 08/11/2026 | Modelador troca pela definitiva |
 | `odteste:marca_sobe` | animação do jogador (provisória, no código) | 08/11/2026 | usada também na troca de elemento |
 | `odteste:surto` | animação do jogador (provisória, no código) | 08/11/2026 | |
+| `odteste:marca_visivel` | pacote de rede (servidor → quem vê o jogador e ele mesmo) | 08/11/2026 | só elemento e estágio da Marca, para desenhar no corpo |
+| `odteste:paranormal` | tag de tipo de dano (`data/odteste/tags/damage_type/`) **e** tag de criatura (`.../entity_type/`) | 08/11/2026 | dano paranormal pesa mais na Lucidez; hoje vazias |
+| `odteste:marca_sangue_1` | textura gerada no cliente (veias, estágio 1) | 08/11/2026 | provisória, desenhada em código (`PadraoVeias`) |
+| `odteste:marca_sangue_2` | textura gerada no cliente (estágio 2) | 08/11/2026 | idem |
+| `odteste:marca_sangue_3` | textura gerada no cliente (estágio 3) | 08/11/2026 | idem |
+| `odteste:marca_sangue_4` | textura gerada no cliente (estágio 4) | 08/11/2026 | idem |
 
-Fontes de Exposição (usadas no comando `/exposicao fonte` e no freio de repetição, **não** ficam salvas):
-`escuro`, `morrer`, `mob_noturno`, `surto`, `criatura_vista`, `criatura_morta`, `reliquia`, `rito`, `pagina`, `lugar`.
+Fontes de Exposição (usadas no comando `/exposicao contato` e no freio de repetição, **não** ficam salvas):
+`criatura_vista`, `criatura_luta`, `criatura_morta`, `reliquia_pegar`, `reliquia_usar`, `ritual`, `dimensao`, `aparicao`.
+
+Abalos de Lucidez (comando `/lucidez abalar`, **não** ficam salvos): `batalha_reliquia`, `aparicao`, `mob_sangue`.
 
 Os textos de elemento (`nenhum`, `sangue`…) também são IDs: ficam salvos no jogador.
