@@ -17,5 +17,20 @@
   "odteste.comando.transcender.ver": "%s is at Transcend level %s.",
   "odteste.comando.transcender.definir": "%s's Transcend is now level %s.",
   "odteste.comando.erro.elemento": "Unknown element: %s. Use nenhum, sangue, conhecimento, morte or energia.",
-  "odteste.comando.erro.estagio": "Missing the Mark stage for %s (1 to 4). Only \"nenhum\" can skip the stage."
+  "odteste.comando.erro.estagio": "Missing the Mark stage for %s (1 to 4). Only \"nenhum\" can skip the stage.",
+  "odteste.comando.exposicao.contato": "%s: contact %s gave %s hundredths of Exposure (now %s).",
+  "odteste.comando.lucidez.abalar": "%s's Lucidity after the shock: %s.",
+  "odteste.comando.erro.fonte": "Unknown source: %s.",
+  "odteste.comando.erro.abalo": "Unknown shock: %s.",
+
+  "odteste.momento.degrau.marcado": "Something looked back.",
+  "odteste.momento.marca.nenhum": "",
+  "odteste.momento.marca.sangue": "Your blood feels heavier.",
+  "odteste.momento.marca.conhecimento": "Something was written on you.",
+  "odteste.momento.marca.morte": "Time slowed down on your skin.",
+  "odteste.momento.marca.energia": "Your skin won't keep still.",
+
+  "odteste.configuration.title": "Od Teste",
+  "odteste.configuration.efeitos_fortes": "Strong screen effects",
+  "odteste.configuration.efeitos_fortes.tooltip": "Camera shake and tilt. SUAVE halves it; DESLIGADO leaves only vignette and sound."
 }

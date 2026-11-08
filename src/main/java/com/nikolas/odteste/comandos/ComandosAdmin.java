@@ -11,6 +11,11 @@ import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.nikolas.odteste.dados.DadosJogador;
 import com.nikolas.odteste.dados.Limites;
 import com.nikolas.odteste.elementos.Elemento;
+import com.mojang.brigadier.arguments.FloatArgumentType;
+import com.nikolas.odteste.sistemas.Abalo;
+import com.nikolas.odteste.sistemas.Exposicao;
+import com.nikolas.odteste.sistemas.Fonte;
+import com.nikolas.odteste.sistemas.Lucidez;
 import java.util.Arrays;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -38,6 +43,14 @@ public final class ComandosAdmin {
     private static final DynamicCommandExceptionType ESTAGIO_FALTANDO = new DynamicCommandExceptionType(
             nome -> Component.translatable("odteste.comando.erro.estagio", nome));
 
+    private static final DynamicCommandExceptionType FONTE_INVALIDA = new DynamicCommandExceptionType(
+            nome -> Component.translatable("odteste.comando.erro.fonte", nome));
+
+    private static final DynamicCommandExceptionType ABALO_INVALIDO = new DynamicCommandExceptionType(
+            nome -> Component.translatable("odteste.comando.erro.abalo", nome));
+
+    private static final String INTENSIDADE = "intensidade";
+
     private ComandosAdmin() {}
 
     public static void iniciar() {
@@ -55,7 +68,20 @@ public final class ComandosAdmin {
                             ServerPlayer p = alvo(c);
                             DadosJogador.definirExposicao(p, IntegerArgumentType.getInteger(c, VALOR));
                             return ok(c, "odteste.comando.exposicao.definir", DadosJogador.exposicao(p), p);
-                        })))));
+                        }))))
+                // Simula um contato com o paranormal (criatura, relíquia...) pelo mesmo caminho do conteúdo.
+                // Com elemento, soma contato: é assim que se testa a Marca aparecendo sozinha.
+                .then(Commands.literal("contato").then(jogador()
+                        .then(Commands.argument("fonte", StringArgumentType.word())
+                                .suggests((c, b) -> SharedSuggestionProvider.suggest(
+                                        Arrays.stream(Fonte.values()).map(Fonte::id), b))
+                                .executes(c -> contato(c, false, false))
+                                .then(Commands.argument("elemento", StringArgumentType.word())
+                                        .suggests((c, b) -> SharedSuggestionProvider.suggest(
+                                                Arrays.stream(Elemento.values()).map(Elemento::id), b))
+                                        .executes(c -> contato(c, true, false))
+                                        .then(Commands.argument(INTENSIDADE, FloatArgumentType.floatArg(0f, 5f))
+                                                .executes(c -> contato(c, true, true))))))));
 
         d.register(raiz("lucidez")
                 .then(Commands.literal("ver").then(jogador().executes(c -> {
@@ -76,7 +102,15 @@ public final class ComandosAdmin {
                             ServerPlayer p = alvo(c);
                             DadosJogador.definirLucidezMax(p, IntegerArgumentType.getInteger(c, VALOR));
                             return ok(c, "odteste.comando.lucidez.maxima", DadosJogador.lucidezMax(p), p);
-                        })))));
+                        }))))
+                // Simula um abalo (batalha com relíquia, aparição, mob de Sangue) pelo caminho do conteúdo.
+                .then(Commands.literal("abalar").then(jogador()
+                        .then(Commands.argument("abalo", StringArgumentType.word())
+                                .suggests((c, b) -> SharedSuggestionProvider.suggest(
+                                        Arrays.stream(Abalo.values()).map(Abalo::id), b))
+                                .executes(c -> abalar(c, 1f))
+                                .then(Commands.argument(INTENSIDADE, FloatArgumentType.floatArg(0f, 5f))
+                                        .executes(c -> abalar(c, FloatArgumentType.getFloat(c, INTENSIDADE))))))));
 
         d.register(raiz("marca")
                 .then(Commands.literal("ver").then(jogador().executes(c -> {
@@ -128,6 +162,31 @@ public final class ComandosAdmin {
         c.getSource().sendSuccess(() -> Component.translatable("odteste.comando.marca.definir",
                 p.getDisplayName(), Component.translatable(salvo.chaveTraducao()), estagioSalvo), true);
         return estagioSalvo;
+    }
+
+    private static int contato(CommandContext<CommandSourceStack> c, boolean comElemento, boolean comIntensidade)
+            throws CommandSyntaxException {
+        ServerPlayer p = alvo(c);
+        String nome = StringArgumentType.getString(c, "fonte");
+        Fonte f = Fonte.deId(nome).orElseThrow(() -> FONTE_INVALIDA.create(nome));
+        Elemento e = Elemento.NENHUM;
+        if (comElemento) {
+            String el = StringArgumentType.getString(c, "elemento");
+            e = Elemento.deId(el).orElseThrow(() -> ELEMENTO_INVALIDO.create(el));
+        }
+        float intensidade = comIntensidade ? FloatArgumentType.getFloat(c, INTENSIDADE) : 1f;
+        int ganho = Exposicao.contato(p, f, e, intensidade);
+        c.getSource().sendSuccess(() -> Component.translatable("odteste.comando.exposicao.contato",
+                p.getDisplayName(), f.id(), ganho, DadosJogador.exposicao(p)), true);
+        return ganho;
+    }
+
+    private static int abalar(CommandContext<CommandSourceStack> c, float intensidade) throws CommandSyntaxException {
+        ServerPlayer p = alvo(c);
+        String nome = StringArgumentType.getString(c, "abalo");
+        Abalo a = Abalo.deId(nome).orElseThrow(() -> ABALO_INVALIDO.create(nome));
+        Lucidez.abalar(p, a, intensidade);
+        return ok(c, "odteste.comando.lucidez.abalar", DadosJogador.lucidez(p), p);
     }
 
     // ---------- pedaços repetidos ----------

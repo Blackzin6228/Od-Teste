@@ -1,6 +1,13 @@
 # Animações dos sistemas do jogador
 
-> **Status:** proposta da mesa Dev (08/11/2026). **Só documento**: nada disto está no código ainda.
+> **Status:** proposta da mesa Dev (08/11/2026). **No código (play test de Sangue, parte 1):** seções 1, 2 e 3
+> (degraus, Lucidez e surto, Marca aparecer/trocar/subir), com tela, partícula e som, e animação de corpo
+> **provisória** pelo Player Animator para Marca e surto, e a camada de veias da Marca de Sangue no corpo (provisória,
+> desenhada em código, vista por todos). Ficou de fora, por ora: dessaturação/tela negativa (precisam
+> de shader), névoa, granulado, posturas da Lucidez para os outros (cabeça olhando para trás, respiração),
+> animação de corpo dos degraus, AAA Particles (usamos partículas vanilla), e as seções 4 e 5 (Vínculo e Transcender).
+> A opção "Efeitos fortes de tela" existe (config do cliente e tela de configuração do mod) e vem **ligada**
+> (pergunta 1 abaixo continua aberta).
 > Decisão do Nikolas (08/11/2026): os sistemas reaproveitados do Máscaras ficam muito melhores e com muito mais animação.
 > Tudo aqui é desenho nosso. Nada copiado de Ordem Paranormal ou de outra obra (animação, efeito, som, texto).
 > As frases entre aspas são exemplos provisórios; a Lore pode trocar.

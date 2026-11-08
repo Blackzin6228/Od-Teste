@@ -6,6 +6,7 @@ import com.nikolas.odteste.compat.Compat;
 import com.nikolas.odteste.dados.DadosJogador;
 import com.nikolas.odteste.rede.Rede;
 import com.nikolas.odteste.registro.Registro;
+import com.nikolas.odteste.sistemas.Vigia;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -26,6 +27,7 @@ public final class OdMod {
         Registro.registrar(barramento);
         Rede.iniciar(barramento);
         ComandosAdmin.iniciar();
+        Vigia.iniciar();
         Compat.iniciar(barramento);
         LOGGER.info("{} carregado. Integrações ligadas: {}", MODID, Compat.ligadas());
     }

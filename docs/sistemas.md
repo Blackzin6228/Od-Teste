@@ -6,7 +6,9 @@ As animações, efeitos de tela, partículas e sons de cada sistema estão em `d
 
 > **Status:** proposta da mesa Dev (07/11/2026, revisada em 08/11/2026). O que está em **[DECIDIR]** precisa do Nikolas.
 > Já está no código: os valores salvos, a faixa de cada um, a sincronização com o cliente e os comandos de admin.
-> **Ainda não está no código:** nenhum efeito, nenhum ganho ou perda automática. Isso vem depois da aprovação.
+> **Play test de Sangue, parte 1 (08/11/2026):** ganho automático de Exposição, Lucidez com efeito, surto,
+> Marca que aparece sozinha e a Marca de Sangue visível entraram no código, usando as **propostas** deste
+> documento onde ainda há [DECIDIR]. Detalhe e números na seção "No código (play test de Sangue)" no fim.
 >
 > **Nome do mundo paranormal:** enquanto a Lore não propõe um nome nosso, este documento diz só "o paranormal".
 
@@ -27,10 +29,13 @@ As animações, efeitos de tela, partículas e sons de cada sistema estão em `d
 ## 1. Exposição (0 a 100)
 Quanto o paranormal já tocou você. É a "experiência" paranormal: **só sobe** (como no Máscaras 1.32).
 
-**Sobe com** (cada fonte sobe pouco, e repetir a mesma coisa rende menos):
-- ver uma criatura paranormal pela primeira vez; matar uma;
-- fazer um rito; usar uma relíquia; ler uma Página;
-- passar tempo numa dimensão nova (quando existir) ou num lugar marcado pelo paranormal.
+**Exposição = contato com o paranormal** (decisão do Nikolas, 08/11/2026). **Sobe com** (cada fonte sobe pouco,
+e repetir a mesma coisa rende menos):
+- criaturas do mod: ver de perto, lutar, matar;
+- relíquias menores: pegar, usar;
+- rituais; tempo nas dimensões dos elementos; aparições.
+
+**Não sobe** com escuro, morte comum ou mob vanilla.
 
 **Não desce.** Nem com o tempo, nem com morte. **[DECIDIR]** Existe algum jeito raro de baixar
 (um rito caro, um evento do narrador)? Proposta: só pelo narrador.
@@ -55,14 +60,26 @@ Quanto o paranormal já tocou você. É a "experiência" paranormal: **só sobe*
 ## 2. Lucidez (0 até a Lucidez máxima)
 O quanto você ainda está são. Cai rápido e volta devagar. É o "medo" do personagem.
 
-**Cai com:**
-- ver criaturas paranormais de perto; ficar muito tempo no escuro total longe de outros jogadores;
-- pagar um rito ou a magia do elemento (tecla de afinidade, como a tecla H do Máscaras);
-- eventos do narrador.
+**Cai conforme as coisas acontecem** (decisão do Nikolas, 08/11/2026):
+- batalhas com relíquias; aparições; enfrentar mobs de Sangue;
+- **tomar dano**: dano comum conta pouco, dano paranormal conta mais;
+- pagar um rito ou a magia do elemento (tecla de afinidade, como a tecla H do Máscaras); eventos do narrador.
+- **Não** cai com escuro.
 
-**Volta com:**
-- dormir; ficar perto de luz forte e de outros jogadores (o grupo acalma — bom para roleplay);
-- comida quente (ensopados), itens próprios (ex.: uma vela que segura a Lucidez de quem está perto).
+**Volta devagar por três caminhos, todos mantidos** (decisão do Nikolas, 08/11/2026, opção B do item 4 do Revisor no PR #13):
+1. **descansando** (parado, sem tomar dano);
+2. **dormindo**;
+3. **luz forte + grupo por perto** (o grupo acalma, bom para roleplay) e **comida quente**.
+
+**Comida quente** = tag de item `odteste:comida_quente` (`data/odteste/tags/item/comida_quente.json`, `"replace": false`).
+Hoje tem (vanilla): ensopado de cogumelo, de coelho, sopa de beterraba, ensopado suspeito, batata assada e as carnes
+cozidas (bife, costeleta de porco, frango, carneiro e coelho assados). Lista ampliada em 08/11/2026 (decisão do Nikolas).
+Continua valendo: a Lucidez só volta por esse caminho com luz forte + grupo perto + comida quente, as três juntas.
+Comidas de outros mods (Farmer's Delight etc.) **entram sem mexer no Java**: um datapack ou o `compat/` do
+Integrador cria o mesmo arquivo `data/odteste/tags/item/comida_quente.json` com `"replace": false` e os IDs novos
+(use `{"id": "mod:item", "required": false}` para não quebrar se o mod sair do pack). As tags somam.
+
+Depois: itens próprios (ex.: uma vela que segura a Lucidez de quem está perto).
 
 **O que se sente** (em fração da máxima, para funcionar igual para quem transcendeu):
 
@@ -154,12 +171,73 @@ um componente do elemento e XP.
 | Cópia para o cliente do próprio jogador (ao entrar, renascer, trocar de dimensão e quando muda) | `rede/` |
 | Comandos de admin (permissão 2) | `comandos/ComandosAdmin.java` |
 
-Ainda **não** existe a contagem de contato por elemento (vem com o ganho automático de Exposição, depois da aprovação).
-Hoje não há nenhum caminho para o jogador escolher a Marca: o único jeito de mudar é o comando de admin.
+Não há nenhum caminho para o jogador escolher a Marca: ela vem do contato (abaixo) ou do comando de admin.
+
+## No código (play test de Sangue, parte 1 — 08/11/2026)
+Tudo em `sistemas/` (servidor) e `cliente/` (efeitos). As contas estão em classes `Regras*`, testadas em `RegrasTest`.
+Os números são **proposta para o play test**: mudam num lugar só.
+
+**Exposição: só contato com o paranormal.** Nada sobe sozinho por enquanto (ainda não há criaturas nem relíquias).
+O conteúdo chama o ponto de entrada:
+`Exposicao.contato(jogador, Fonte.CRIATURA_VISTA, Elemento.SANGUE, intensidade)` (intensidade 1 = normal, de 0 a 5).
+
+| Fonte (`Fonte.java`) | Quanto (1ª vez, intensidade 1) |
+|---|---|
+| `criatura_vista` — ver de perto uma criatura do mod | 1,5 |
+| `criatura_luta` — cada troca de golpes com ela | 0,4 |
+| `criatura_morta` — matar | 1 |
+| `reliquia_pegar` / `reliquia_usar` — relíquia menor | 1 / 0,5 |
+| `ritual` | 2 |
+| `dimensao` — a cada minuto numa dimensão de elemento | 0,5 |
+| `aparicao` | 3 |
+- Ganho em centésimos; o resto fica salvo (`odteste:exposicao_resto`) até completar 1 ponto.
+- Repetir a mesma fonte (e elemento) em 10 minutos rende menos (1ª inteira, 2ª metade, 3ª um terço...).
+- O ganho automático para em 99: 100 só por evento/comando.
+- Com elemento, soma no contato (`odteste:contato_elemento`), que decide a Marca.
+- Teste sem conteúdo: `/exposicao contato <jogador> <fonte> [elemento] [intensidade]`.
+
+**Lucidez:**
+- **Dano** (já ligado, evento `LivingDamageEvent.Post`, só servidor): dano comum tira 0,1 por ponto de dano
+  (1 Lucidez a cada 5 corações, no máximo 2 por golpe); dano paranormal tira 0,6 por ponto (no máximo 15 por golpe).
+  Paranormal = tipo de dano na tag `odteste:paranormal` (damage_type) ou atacante na tag `odteste:paranormal`
+  (entity_type). As duas tags estão vazias hoje: criaturas e relíquias entram lá.
+- **Abalos** (ponto de entrada `Lucidez.abalar(jogador, Abalo.X, intensidade)`): `batalha_reliquia` 3,
+  `aparicao` 10, `mob_sangue` 4. Teste: `/lucidez abalar <jogador> <abalo> [intensidade]`.
+- **Volta devagar:** descansando (parado e sem tomar dano há 60 s) +1 a cada 20 s; luz forte (12+) com outro jogador a até
+  8 blocos +1 a cada 10 s; comida da tag `odteste:comida_quente` +8; dormir a noite toda +metade da máxima.
+- Efeitos por faixa no cliente (tabela da seção 2 e `docs/animacoes.md`): vinheta que respira, sussurros e passos
+  falsos, partículas falsas, mira tremendo no arco, tela inclinada, vultos, escuridão curta, sons de criatura e coração.
+- **Surto** (proposta "desmaio"): Cegueira + Lentidão IV por 5 s e a Lucidez volta para 15% da máxima.
+  Não dá Exposição (Exposição é só contato). Quem está perto vê o corpo (animação) e ouve. Vale até para `/lucidez definir <jogador> 0`.
+- Ainda **não**: a Lucidez cair sozinha com Exposição alta ([DECIDIR] 4).
+
+**Marca:**
+- Aparece sozinha (estágio 1) quando o jogador fica Tocado e um elemento lidera o contato (empate espera).
+- Troca sozinha só no estágio 1, se outro elemento tiver o dobro do contato **e** pelo menos 3 pontos de contato
+  (protege a Marca dada pelo narrador, que começa sem contato).
+- Estágios 2 a 4 só por comando por enquanto (o rito do Vínculo ainda não existe).
+- **Marca de Sangue** (`RegrasSangue`, proposta a partir do estágio 4 "mais força quando ferido; fome que não para"):
+
+| Estágio | Ganha (com menos de metade da vida) | Paga | Visível |
+|---|---|---|---|
+| 1 | +0,5 de dano | — | veias no braço direito · 1 partícula vermelha a cada 2 s |
+| 2 | +1 de dano | — | + peito e costas · 2 |
+| 3 | +1,5 de dano | fome um pouco mais rápida | + braço esquerdo e pescoço · 3 |
+| 4 | +2,5 de dano | fome bem mais rápida (1 ponto a cada ~40 s) | + pernas · 4 |
+
+- **No corpo:** uma camada de veias vermelhas por cima da skin, que cresce com o estágio (`marcas/PadraoVeias`,
+  desenhada em código; provisória até a textura do Modelador). Todos que veem o jogador veem a camada: o servidor manda
+  elemento e estágio (pacote `odteste:marca_visivel`) quando a Marca muda e quando alguém começa a ver o jogador.
+  Lucidez e Exposição continuam só para o dono. Jogador invisível não mostra a camada.
+- As partículas são vistas por todos por perto (o servidor manda poucas, a cada 2 s). Os outros elementos já têm
+  o momento (cor, som, partícula), mas ainda **não** têm camada nem efeito no corpo.
 
 **Comandos (só admin, permissão 2):**
-- `/exposicao ver <jogador>` · `/exposicao definir <jogador> <0-100>`
-- `/lucidez ver <jogador>` · `/lucidez definir <jogador> <0-100>` (presa na máxima) · `/lucidez maxima <jogador> <10-100>`
+- `/exposicao ver <jogador>` · `/exposicao definir <jogador> <0-100>` ·
+  `/exposicao contato <jogador> <fonte> [elemento] [intensidade 0-5]` (simula um contato pelo mesmo caminho do
+  conteúdo; com elemento, soma contato e pode fazer a Marca aparecer)
+- `/lucidez ver <jogador>` · `/lucidez definir <jogador> <0-100>` (presa na máxima) · `/lucidez maxima <jogador> <10-100>` ·
+  `/lucidez abalar <jogador> <abalo> [intensidade 0-5]`
 - `/marca ver <jogador>` · `/marca definir <jogador> <elemento> <1-4>` · `/marca definir <jogador> nenhum` (tira a Marca).
   Com elemento, **o estágio é obrigatório**: sem ele, o comando dá erro e não salva nada. Estágio fora de 1–4 é barrado.
 - `/transcender ver <jogador>` · `/transcender definir <jogador> <0-4>`

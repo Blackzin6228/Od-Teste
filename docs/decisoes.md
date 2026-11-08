@@ -46,6 +46,8 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 08/11/2026 | **Espadas:** Sangue **Rubra** · Conhecimento **Letra de Quem Leu Tudo** · Morte **Minuto Arrancado** · Energia **Cabo da Última Chamada**. |
 | 2026-11-08 | **Entidade de Energia: "O Dono da Casa"** (nome fechado), dona da Bobina do Último Chamado. Ideia: quem atende o chamado da antena entrou na casa dele, e ele decide quem sai. Tom sério e de presença. |
 | 2026-11-08 | **Entidades de Sangue e Morte fechadas:** Sangue = **O Diabo**, Morte = **O Deus da Morte**. Nomes genéricos; visual, história e poderes são nossos. Origem: uma pessoa usou a relíquia e virou a entidade (Irene Valadares e Aurélio Matos). "Hospedeira" saiu (inclusive da espada Rubra). Nomes antigos de relíquia corrigidos: Cálice do Faminto, Lente do Escriba, Bobina do Último Chamado. Listas de opções de nome removidas. Tom sério, de medo e presença. Falta só a checagem final na web dos dois nomes (`lore/entidades.md`). |
+| 08/11/2026 | **Lucidez volta por três caminhos:** descansando, dormindo, e com luz forte + grupo por perto + comida quente. Comida quente é a tag `odteste:comida_quente` (ensopados vanilla; outros mods somam por datapack/compat). |
+| 08/11/2026 | **Comida quente ampliada:** a tag `odteste:comida_quente` inclui também batata assada e as carnes cozidas vanilla (`cooked_beef`, `cooked_porkchop`, `cooked_chicken`, `cooked_mutton`, `cooked_rabbit`), além dos 4 ensopados. A regra não muda: luz forte + grupo perto + comida quente, as três juntas. |
 
 ## Pendentes (precisam do Nikolas)
 
