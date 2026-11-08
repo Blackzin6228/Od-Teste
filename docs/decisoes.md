@@ -35,6 +35,7 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 08/11/2026 | **Artefatos de Sangue** com nome fechado: Agulha de Cerzir Carne, Dedal Dentado e Sino de Matadouro (o sino substitui a panela de pressão, mesmo poder). |
 | 08/11/2026 | **Estilo de nome dos Artefatos**: objeto comum que ficou "errado" depois de tocar no paranormal, sombrio, cara de dossiê. Os 9 de Conhecimento, Morte e Energia aguardam escolha entre 2 opções cada. |
 | 2026-11-08 | **Regra de tom, vale para tudo daqui pra frente:** tom sério, sempre ("Ninguém brinca com o paranormal"). Nada cômico, fofo ou "viajado". Objeto que possa soar engraçado é trocado por algo perturbador, mantendo o poder. Aplicada aos Artefatos: 5 objetos trocados e 4 ajustados (`lore/artefatos-paranormais.md`); as 2 opções de nome de cada um aguardam escolha. |
+| 2026-11-08 | **Entidade de Conhecimento: "A Juíza Sem Rosto"** (nome fechado). Os nomes de Sangue, Morte e Energia aguardam escolha entre 3 opções cada (`lore/entidades.md`). |
 
 ## Pendentes (precisam do Nikolas)
 

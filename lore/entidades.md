@@ -42,17 +42,21 @@
 
 ---
 
-## CONHECIMENTO: A) O Leitor Sem Nome (?)  /  B) O Escrivão Final (?)
+## CONHECIMENTO: **A Juíza Sem Rosto** (nome FECHADO em 2026-11-08)
 
-- **Quem foi:** **Teodoro Antunes**, escrivão do Gabinete, matrícula 0087. Copiou o primeiro dossiê e **não conseguiu parar de anotar**.
-- **O que é:** um **olho sem pupila** gigante que lê tudo o que acontece na Biblioteca Muda. Hoje só lê.
-- **O que quer:** ser **lido de volta**. Procura alguém que entenda tudo o que ele sabe sem esquecer nada, porque isso o termina.
+> Frase de apresentação: *"Ela julgou cada página que o Gabinete escondeu, e pagou cada sentença com uma lembrança, até sobrar só o veredito onde ficava o rosto."*
+
+- **Quem foi:** **Lúcia Antunes**, escrivã-juíza dos autos do Gabinete, matrícula 0087. Recebeu o primeiro dossiê para **decidir o que podia ser lembrado e o que devia ser apagado**. Usou o Livro-Sem-Fim para julgar. Cada sentença custou uma lembrança dela. **Não conseguiu parar de julgar.**
+- **O que é:** a **memória da Biblioteca Muda com forma de tribunal**: um julgamento que nunca encerra. O rosto foi a última coisa que ela deu. Por isso é **sem rosto**: no lugar dele há uma superfície lisa, cor de pergaminho, onde às vezes aparece, riscada, a sentença do réu que está na sala.
+- **O que quer:** **ordem completa**. Que nada fique esquecido sem ter sido julgado. Procura **uma testemunha que lembre de tudo sem errar**, porque o último testemunho encerra o processo (e ela).
 - **Presença na dimensão (Biblioteca Muda):**
-  - Um **salão que é o interior de um livro aberto**. A "capa" é o céu, as estantes são a margem. O olho aparece **refletido** em todo vidro dourado, nunca de frente.
-  - Luz âmbar sem fonte. Letras que se reescrevem no chão **a cada passo**. Ao longe, o som de **páginas virando**.
-  - Quando fala, aparece texto na tela como **margem de caderno**. Nunca responde pergunta direta, só com outra pergunta.
-- **Forma de chefe/evento:** ele manda **perguntas em forma de salas**; cada resposta errada reescreve o corredor. O corpo é uma **figura magra e acinzentada, de 10 blocos**, curvada sobre uma mesa que ocupa o salão, com um **olho aberto onde devia estar o rosto** e braços de tiras de couro e páginas. O **Livro-Sem-Fim fica aberto sobre a mesa**. Vence o grupo que responde certo à última pergunta **sem usar caderno** (de memória, em equipe).
-- **Cor e som:** dourado frio, pergaminho, cinza. Pena riscando papel, sussurros em coro.
+  - Um **salão que é o interior de um livro aberto**: a "capa" é o céu, as estantes são a margem. Em todo vidro dourado aparece **refletido um rosto liso, sem traços**, nunca de frente.
+  - Luz âmbar sem fonte. Letras que se reescrevem no chão **a cada passo**, como autos sendo corrigidos. Ao longe, **páginas virando** e o **martelo de madeira** de uma sessão que nunca acaba.
+  - Quando fala, aparece texto na tela como **despacho nas margens** ("Consta nos autos…"). Nunca responde pergunta direta; só pergunta de volta, como interrogatório.
+  - Sinal de que está perto: o jogador ouve o próprio nome lido em voz neutra, como numa chamada de audiência.
+- **Forma de chefe/evento: a Audiência.** O grupo é o **réu**. Ela manda **perguntas em forma de salas**; cada resposta errada reescreve o corredor. O corpo é uma **figura alta e acinzentada, de 10 blocos**, de toga de papel e tiras de couro, sentada atrás de uma **bancada que ocupa o salão**, com a **superfície lisa no lugar do rosto** e as mãos em cima dos autos. O **Livro-Sem-Fim fica aberto sobre a bancada**. Vence o grupo que responde certo à última pergunta **sem usar caderno** (de memória, em equipe).
+- **Relíquia dela:** o **Livro-Sem-Fim** (receptáculo, só lore).
+- **Cor e som:** dourado frio, pergaminho, cinza. Pena riscando papel, martelo seco, sussurros em coro.
 - **Dimensão e clima:** seco, parado, dourado `#D4A92A`, sem noite. Trilha: coros, sussurros, tambores.
 
 ---
@@ -87,6 +91,36 @@
 
 ---
 
+## Nomes das entidades: opções (a ESCOLHA É DO NIKOLAS)
+
+> Conhecimento está fechado: **A Juíza Sem Rosto**. Os nomes antigos (Hospedeira, Mãe da Porta, Hora Parada, Ponteiro Cego, Sinal Mais Alto, Estação Viva, Leitor Sem Nome, Escrivão Final) ficam só como histórico, exceto onde reaparecem abaixo.
+> Busca rasa na web: nenhuma das opções apareceu como nome de outra obra. Falta checagem final do que for escolhido.
+> Tom: título de algo que ninguém ousa chamar pelo nome.
+
+| Elemento | Opção 1 | Opção 2 | Opção 3 |
+|---|---|---|---|
+| Sangue | O Diabo de Dentro | A Mãe da Porta | A Que Não Deixa Sair |
+| Morte | O Deus do Último Segundo | A Hora Parada | O Que Marca a Hora |
+| Energia | O Chamado Sem Fim | A Voz da Torre | O Sinal Mais Alto |
+| Conhecimento | **A Juíza Sem Rosto** (fechado) | | |
+
+### Sangue (Irene Valadares, Ventre, relíquia: Coração de Ferrugem)
+- Uma mulher que abrigou tanto que virou prisão: o Ventre com rosto de mãe. Cuida e prende como se fosse a mesma coisa.
+- No Minecraft: escala de clima (rosto de carne do tamanho de uma montanha sob uma colcha branca); chão que respira, onda quente que fecha portas de carne; sinal de perto: sussurros com nomes de familiares. Evento: ela "pede que fique", o grupo foge.
+- Opção 1 é a "variação de Diabo": o mal que mora dentro da casa. Opção 3 é a que mais descreve o que ela faz.
+
+### Morte (Aurélio Matos, Ermo de Cinzas, relíquia: Ampulheta Quebrada)
+- Um relojoeiro que parou o próprio tempo e virou o relógio que ainda corre no mausoléu: o fim que não chega.
+- No Minecraft: torre-relógio atravessando a lua de osso; cinza em câmera lenta, sombra que chega atrasada, som que bate depois de visto. Evento: o tempo dobra na arena, o grupo empurra o ponteiro.
+- Opção 1 é a "variação de Deus da Morte": o deus que só sobrou do último instante.
+
+### Energia (Bruna Tavares, Rede, relíquia: a antena-relíquia, nome em `lore/reliquias-e-espadas.md`)
+- Uma técnica que pediu socorro e nunca desligou: a torre que transmite para quem estiver ouvindo, esperando ser respondida.
+- No Minecraft: antena do tamanho de um arranha-céu, farol roxo na noite da Rede; HUD que falha e relógio que pula; voz picotada com matrículas em loop. Evento: tempestade de transmissões, o grupo defende 3 repetidores.
+- Opção 1 combina com o tom de aviso; opção 2 é a mais discreta.
+
+---
+
 ## Como entidades, relíquias e espadas se relacionam
 - A relíquia é o **receptáculo** da entidade (lore). A espada é o **ofício que sobrou** da pessoa que virou a entidade (a do jogador).
 - Cada entidade tem **uma relíquia**; nenhuma relíquia sai da entidade e nenhum jogador a leva.
@@ -95,7 +129,7 @@
 - **Final:** quem fica no lugar de outro para que o grupo volte pode virar mais um "dos que vieram antes" **na história** (`lore/premissa.md`). Isso é narrativa de final, não uma transformação jogável.
 
 ## Pontos para o Nikolas decidir
-1. Os nomes (Hospedeira / Mãe da Porta; Leitor Sem Nome / Escrivão Final; Hora Parada / Ponteiro Cego; Sinal Mais Alto / Estação Viva) servem?
+1. Escolher o nome de Sangue, Morte e Energia (tabela "Nomes das entidades: opções"). Conhecimento já está fechado: A Juíza Sem Rosto.
 2. A visão "a entidade foi uma pessoa que usou a relíquia" combina com o tom, ou é pesada demais?
 3. Evento de entidade: marcado pelo servidor (horário) ou liberado por progressão?
 4. O **fragmento** que a entidade deixa serve de oferenda de ritual (não fabrica nada)? Sugestão: sim.
