@@ -104,6 +104,15 @@ class RegrasTest {
     }
 
     @Test
+    void comidaQuenteSoAcalmaComLuzEGrupo() {
+        assertTrue(RegrasLucidez.comidaAcalma(true, () -> true), "tag + luz forte + grupo");
+        assertFalse(RegrasLucidez.comidaAcalma(true, () -> false), "sozinho ou no escuro");
+        assertFalse(RegrasLucidez.comidaAcalma(false, () -> true), "comida comum");
+        // Comida comum nem olha luz e grupo.
+        assertFalse(RegrasLucidez.comidaAcalma(false, () -> { throw new AssertionError("não devia checar"); }));
+    }
+
+    @Test
     void abaloComIntensidade() {
         assertEquals(10, Abalo.APARICAO.perda(1f));
         assertEquals(50, Abalo.APARICAO.perda(99f), "intensidade presa em 5");

@@ -28,7 +28,7 @@ public final class RegrasLucidez {
     public static final double DESCANSO_PARADO = 0.5;
     /** Luz forte e outro jogador perto: +1 a cada 10 s (5 checagens). */
     public static final int GRUPO_INTERVALO = 5;
-    /** Comer ensopado ou sopa. */
+    /** Comer comida quente na luz forte, com o grupo perto. */
     public static final int GANHO_COMIDA_QUENTE = 8;
 
     // ---------- surto ----------
@@ -61,6 +61,14 @@ public final class RegrasLucidez {
     public static boolean recuperaDescansando(int checagensSemDano, int checagensParado) {
         return checagensSemDano >= DESCANSO_SEM_DANO
                 && checagensParado > 0 && checagensParado % DESCANSO_INTERVALO == 0;
+    }
+
+    /**
+     * Comida quente só acalma com as três juntas: comida da tag, luz forte e grupo perto.
+     * Luz e grupo só são olhados se a comida for da tag (comida comum não custa nada).
+     */
+    public static boolean comidaAcalma(boolean daTag, java.util.function.BooleanSupplier emGrupoNaLuz) {
+        return daTag && emGrupoNaLuz.getAsBoolean();
     }
 
     /** Lucidez depois do surto: 15% da máxima, nunca 0 (senão surtaria de novo). */

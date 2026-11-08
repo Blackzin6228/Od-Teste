@@ -81,7 +81,6 @@ public final class Vigia {
         if (p.isCreative() || p.isSpectator()) return;
 
         Estado s = estado(p);
-        ServerLevel nivel = p.serverLevel();
 
         // 1) Descanso: parado e sem tomar dano há um minuto, a Lucidez volta devagar.
         s.semDano++;
@@ -92,10 +91,7 @@ public final class Vigia {
         if (RegrasLucidez.recuperaDescansando(s.semDano, s.parado)) Lucidez.recuperar(p, 1);
 
         // 2) Luz forte e outro jogador perto: o grupo acalma.
-        int luz = nivel.getMaxLocalRawBrightness(BlockPos.containing(p.getEyePosition()));
-        boolean grupo = luz >= LUZ_FORTE && nivel.getNearestPlayer(p.getX(), p.getY(), p.getZ(), GRUPO_RAIO,
-                o -> o != p && !o.isSpectator()) != null;
-        if (grupo) {
+        if (emGrupoNaLuz(p)) {
             if (++s.grupoSeguido % RegrasLucidez.GRUPO_INTERVALO == 0) Lucidez.recuperar(p, 1);
         } else {
             s.grupoSeguido = 0;
@@ -114,11 +110,24 @@ public final class Vigia {
         Lucidez.perder(p, a.pontos());
     }
 
-    /** Comer algo da tag {@link #COMIDA_QUENTE} devolve um pouco de Lucidez. */
+    /**
+     * Luz forte onde o jogador está e outro jogador perto. Só olha em volta dele; a busca por jogador
+     * só roda se a luz já for forte.
+     */
+    private static boolean emGrupoNaLuz(ServerPlayer p) {
+        ServerLevel nivel = p.serverLevel();
+        int luz = nivel.getMaxLocalRawBrightness(BlockPos.containing(p.getEyePosition()));
+        return luz >= LUZ_FORTE && nivel.getNearestPlayer(p.getX(), p.getY(), p.getZ(), GRUPO_RAIO,
+                o -> o != p && !o.isSpectator()) != null;
+    }
+
+    /** Comer algo da tag {@link #COMIDA_QUENTE}, na luz forte e com o grupo perto, devolve um pouco de Lucidez. */
     private static void aoComer(LivingEntityUseItemEvent.Finish e) {
         if (!(e.getEntity() instanceof ServerPlayer p)) return;
         ItemStack item = e.getItem();
-        if (item.is(COMIDA_QUENTE)) Lucidez.recuperar(p, RegrasLucidez.GANHO_COMIDA_QUENTE);
+        if (RegrasLucidez.comidaAcalma(item.is(COMIDA_QUENTE), () -> emGrupoNaLuz(p))) {
+            Lucidez.recuperar(p, RegrasLucidez.GANHO_COMIDA_QUENTE);
+        }
     }
 
     /** A noite passou dormindo: quem estava na cama recupera metade da Lucidez máxima. */
