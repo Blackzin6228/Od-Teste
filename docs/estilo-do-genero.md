@@ -1,9 +1,7 @@
-> ⚠️ **Referência de gênero, não de cópia.** Este guia explica como Ordem Paranormal funciona, para entender o *clima*.
-> No mod **nada daqui é usado como está**: nenhum nome próprio do universo (Outro Lado, Membrana, Ordo Realitas, Sigilos,
-> Degolificada, Cicatrização…), nenhum símbolo, nenhuma criatura, nenhum personagem, nenhum texto, e **não** usamos
-> o conjunto Sangue/Morte/Conhecimento/Energia/Medo com o ciclo de vantagens. Os elementos do mod são novos (ver `docs/decisoes.md`).
-> Pegamos só os princípios: investigação antes de combate, medo como motor, cor como informação, símbolos como língua,
-> lugares liminares brasileiros, rituais desenhados no chão.
+> ✅ **Base da lore (decisão do Nikolas, 07/11/2026).** Os elementos Sangue, Morte, Conhecimento e Energia (e o Medo de fundo),
+> com os temas, cores e matérias abaixo, **são usados no mod**. Continua proibido copiar a **arte** (símbolos e sigilos
+> desenhados iguais, o pentagrama, logos), **personagens**, **criaturas da obra** (Degolificada, Zumbi de Sangue…) e **textos**.
+> Nossos símbolos, criaturas e personagens são originais, desenhados no estilo de cada elemento.
 
 # O Estilo de Ordem Paranormal
 

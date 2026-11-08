@@ -14,9 +14,11 @@ Antes de trabalhar, leia: este arquivo, `docs/decisoes.md`, `docs/progresso.md` 
 1. **Português**, frases curtas, sem jargão quando falar com o Nikolas.
 2. **Perguntar antes de decidir** visual, jogo, lore ou qualquer coisa difícil de desfazer. Mostrar prévia
    (imagem, print, render do Blockbench) antes de integrar. Decisão aprovada vai para `docs/decisoes.md`, com data.
-3. **Inspiração só no gênero** (`docs/estilo-do-genero.md`). Nada copiado de Ordem Paranormal ou de outra obra:
-   nomes próprios, símbolos, criaturas, personagens, textos, músicas. Nomes genéricos em português são ok
-   ("Lâmina Rubra", "Selo de Giz"); termos que identificam outra obra, não.
+3. **Elementos e gênero de Ordem Paranormal: pode** (decisão do Nikolas, 07/11/2026). Os quatro elementos
+   **Sangue, Morte, Conhecimento e Energia** (e o Medo como força de fundo), com os temas, cores e matérias descritos em
+   `docs/estilo-do-genero.md`, são a base da lore. **Não pode:** copiar a arte (símbolos/sigilos desenhados iguais,
+   o símbolo do pentagrama, logos), personagens, criaturas com nome e visual da obra, ou textos da obra. Símbolos,
+   criaturas e personagens são **nossos**, desenhados no estilo de cada elemento.
 4. **Integração sem dependência dura.** Só NeoForge e GeckoLib são obrigatórios. Todo código que toca outro mod
    fica em `compat/<mod>/` e só carrega se `Compat.Integracao.X.ligada()`. Se um mod sair do pack, o nosso abre igual.
 5. **Nunca remover mods do pack.** **WATERMeDIA e o plugin do YouTube nunca vão para o servidor.**
