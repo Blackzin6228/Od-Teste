@@ -30,6 +30,8 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 07/11/2026 | **O jogador não escolhe a Marca.** Tirar qualquer sistema de escolha; a Marca vem do que acontece com o jogador (exposição, relíquias, eventos). |
 | 07/11/2026 | **Sistemas reaproveitados do Máscaras** (Exposição, Lucidez, Marca, Vínculo, Transcender…) ficam, mas **melhores e com muito mais animação** (jogador, efeitos, tela). |
 | 08/11/2026 | Sem o nome que Ordem Paranormal dá ao mundo paranormal: usamos "o paranormal" até a Lore propor um nome nosso. |
+| 08/11/2026 | **As 4 relíquias de elemento são só lore**: receptáculos das entidades (quem usou virou a entidade). O jogador não pega nem usa; não há "jogador vira a entidade". Aparecem na história, nos eventos e nas entidades. |
+| 08/11/2026 | **Relíquias menores**: subcategoria que o jogador encontra e usa (3 por elemento, sem craft). Nome da categoria e lista ainda em proposta (`lore/reliquias-menores.md`). As **espadas** continuam do jogador, sem craft. |
 
 ## Pendentes (precisam do Nikolas)
 

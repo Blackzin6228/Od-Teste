@@ -1,125 +1,87 @@
-# Relíquias e espadas principais (PROPOSTA, versão 2)
+# Relíquias principais (só lore) e espadas (do jogador) — versão 3
 
-> **Nada aqui é cânone até o Nikolas aprovar.** Esta versão junta a decisão nova do PR #11: **uma relíquia e uma espada por elemento**,
-> e **a relíquia é o receptáculo da entidade**. Uma pessoa usou a relíquia e virou a entidade (ou foi tomada por ela).
-> Quem usar a relíquia no jogo pode se tornar a entidade, com poder enorme e preço enorme.
-> A entidade em si (aparência, dimensão, forma de chefe) está em `lore/entidades.md`.
->
-> - **As relíquias NÃO são máscaras.** Cada uma é um objeto próprio: coração, livro, ampulheta, antena.
-> - **Sem craft** (decisão do PR #9): relíquia e espada vêm por **chefe, evento ou ritual**. Oferenda de ritual não é receita, o ritual **entrega** a peça.
-> - Tudo é original: os objetos, as pessoas e as histórias são nossos. Sem nomes, objetos ou textos de Ordem Paranormal (regra 3).
-> - Cada nome tem **2 opções (A/B)**; o Nikolas escolhe, as duas ficam até lá. Nomes com (?): busquei na web e **não achei uso em outra obra**,
->   mas a busca foi rasa. Falta checagem final antes de virar item. Os personagens do passado têm nome e matrícula inventados, só para dar rosto.
-> - Tamanhos em blocos (1 bloco = 16 px).
+> **Nada aqui é cânone até o Nikolas aprovar o que for proposta.** Esta versão aplica o esclarecimento do Nikolas (08/11/2026):
+> - As **4 relíquias de elemento são LORE.** São os **receptáculos das entidades**: alguém usou a relíquia e **virou a entidade**.
+>   **O jogador não pega nem usa essas relíquias.** Sem item, sem craft, sem drop. **Não existe "jogador vira a entidade"** como mecânica
+>   (a regra antiga da Cessão, da Forma Cedida e do "Ficar" foi **removida**).
+> - As **espadas** (uma por elemento) são do jogador, **sem craft**, por evento, chefe ou ritual.
+> - O que o jogador **encontra e usa** além das espadas são as **relíquias menores**: `lore/reliquias-menores.md`.
+> - Tudo é original. Sem nomes, objetos ou textos de Ordem Paranormal além do que a regra 3 libera (elementos, gênero).
+> - Cada nome tem **2 opções (A/B)**; o Nikolas escolhe. Nomes com (?): busca rasa na web, falta checagem final.
+> - Tamanhos em blocos (1 bloco = 16 px). Os personagens do passado têm nome e matrícula inventados, só para dar rosto.
 > - Ligação com a espinha (`lore/premissa.md`): cada relíquia é **um dos que vieram antes**, trancado num objeto.
 
 ---
 
-## A regra comum: a Cessão
+## RELÍQUIAS PRINCIPAIS (lore: receptáculos das entidades)
 
-Vale para as quatro relíquias. Assim o Dev e o Integrador montam um sistema só.
-
-**Quatro degraus de uso** (o jogador nunca vê número; sente pelo visual e pelo som):
-
-| Degrau | O que é | O que acontece |
-|---|---|---|
-| 1. **Portar** | Relíquia equipada (Curios, ou na mão se não houver Curios). | Poder pequeno e custo pequeno. A Exposição sobe devagar. A entidade "percebe" o dono. |
-| 2. **Ceder** | O jogador segura a tecla de afinidade e **entrega o corpo** à entidade. | **Forma Cedida**: transformação temporária (modelo próprio, ver `lore/entidades.md`). Poder grande. A Lucidez cai a cada segundo. |
-| 3. **Ser tomado** | A Lucidez zera na Forma Cedida, ou o dono insiste demais. | A entidade **assume o controle** por cerca de 1 minuto (efeito diferente em cada elemento). Depois a relíquia **volta ao altar** da dimensão. |
-| 4. **Ficar** | Final de longo prazo (liga com Transcender nível 4 e Exposição "Atravessado", `docs/sistemas.md`). | O personagem **vira a entidade**: sai do jogo como personagem jogável. Vira o próximo rosto do elemento (chefe de evento no futuro). Só com aviso claro e confirmação em duas etapas. |
-
-**Quem pode usar:** só quem tem a **Marca do mesmo elemento** (estágio 2 ou mais) e Exposição "Fundo" ou acima.
-O jogador **não escolhe** a Marca (decisão de 08/11), então o poder vem do que ele já viveu, não de uma escolha de menu.
-Quem usar sem Marca do elemento é **rejeitado**: dano, Lucidez em queda livre e a relíquia o larga. Nunca vira a entidade.
-
-**Preço comum:** Lucidez por segundo na forma, Exposição que não desce, um pedaço da Marca que fica fixo, e a **voz** muda (liga sozinha, `docs/voz.md`).
-
-### O que impede abuso no servidor (valem para as quatro)
-1. **Uma por servidor** (proposta). A relíquia é única. Se um jogador a carrega, ninguém mais a tem. Evita corrida e evento de farm.
-   *Alternativa:* cada grupo tem a sua, mas a Forma Cedida fica mais fraca. O Nikolas decide (pergunta 4).
-2. **Vinculada à alma:** não vai para baú, Ender Chest nem troca. Se o dono **morre na forma** ou desconecta, a relíquia volta ao altar do elemento (não cai no chão para ser roubada).
-3. **Tempo limitado e recarga em tempo real:** Forma Cedida dura 60 a 90 s e só volta depois de uma recarga longa (proposta: 24 h reais). O dono pode escolher sair antes.
-4. **Poder pleno só no lugar do elemento.** Na dimensão do elemento e na Clareira, tudo funciona. Fora delas, a forma é reduzida.
-5. **PvP:** contra outro jogador, o dano da forma cai pela metade e a entidade **não toma** quem estiver em área protegida.
-6. **Sempre existe saída:** o dono da **espada do mesmo elemento** pode "cortar" a Cessão de um aliado possuído (a espada nasceu do mesmo passado). Há também um ritual de renúncia (pergunta 2).
-7. **Admin:** comandos para encerrar a Cessão, devolver a relíquia ao altar e ver o histórico. O narrador pode ligar/desligar a tomada para evento.
-8. **Nada vendável.** Nenhuma relíquia, espada ou forma dá vantagem comprada (regra 9). Só cosmético.
-
----
-
-## RELÍQUIAS (uma por elemento)
+### Como aparecem no jogo (o jogador vê, mas não leva)
+1. **Na entidade:** a entidade **carrega ou é** a relíquia (peito, mão, ponta da torre). É a parte da entidade que se vê de perto.
+2. **No evento de entidade** (`lore/entidades.md`): a relíquia aparece acesa, rachando, parando ou ligando, conforme a luta. Ela **nunca cai**.
+3. **Na história:** dossiês, cadernos, inscrições e falas da entidade contam **quem usou** e **o que deu errado**. O jogador junta as pistas.
+4. **No santuário da dimensão:** uma estrutura de cenário mostra a relíquia **atrás de vidro ou de uma aura, sem poder ser quebrada nem tocada** (bloco de cenário indestrutível, só decoração). Serve de aviso.
+5. **Como pista de Marca:** quem tem a Marca do elemento vê a relíquia **de longe, como luz** (premissa, dia 3-5). Só vê, nunca encosta.
+- **Quando a entidade recua** (evento ganho), ela deixa um **fragmento** que serve de **oferenda** de ritual. O fragmento não é a relíquia.
 
 ### SANGUE
-
 - **Nomes:** A) **Coração de Ferrugem** (?)  B) **Cálice do Faminto** (?)
-- **Que objeto é (não é máscara):** um **coração de metal enferrujado**, do tamanho de um punho. B é o mesmo conceito como uma taça de ferro sempre cheia de líquido vermelho.
-- **Aparência (para modelar depois):** coração de **0,4 bloco**, preso por correntes curtas a uma **gaiola de espinhos**, que se abre aos poucos como costelas. Rachaduras soltam luz vermelha. Cheiro (som) de ferro molhado. **Animação:** bate devagar, acelera quando há inimigo ou ferido por perto. (B: a taça ferve em vez de bater.)
+- **Objeto:** um **coração de metal enferrujado**, do tamanho de um punho. B é o mesmo conceito como uma taça de ferro sempre cheia de líquido vermelho.
+- **Aparência (cenário e entidade):** coração de **0,4 bloco**, preso por correntes curtas a uma **gaiola de espinhos**, que se abre aos poucos como costelas. Rachaduras soltam luz vermelha. **Animação:** bate devagar, acelera quando há inimigo por perto. (B: a taça ferve em vez de bater.)
 - **Materiais:** ferro escuro, carne cozida (textura), vidro vermelho emissivo.
-- **Quem a usou e virou entidade:** **Irene Valadares**, cozinheira de dia, agente de noite, matrícula 0311. O Ventre não deixava a passagem fechar e o grupo dela estava do outro lado. Ela segurou o coração e disse *"fica comigo e deixa eles passarem"*. O coração bateu no peito dela. A passagem fechou **com ela dentro**, e ela nunca mais largou. Cuidar e prender viraram a mesma coisa. Hoje é **A Hospedeira** (`lore/entidades.md`).
-- **Como obter (sem craft):** **chefe** do Ventre. O Coração Aberto (chefe de área, ver `lore/criaturas.md`) guarda o coração verdadeiro. Cai quando o grupo o derrota **três vezes** e depois faz um **ritual de giz com uma gota do próprio sangue** (custa vida, não item). O ritual **entrega**, não fabrica.
-- **Ao portar (degrau 1):** golpes curam um pouco. O dano sobe quando a vida está baixa.
-- **Ao ceder (degrau 2):** vira a **Forma Cedida da Hospedeira**: abrigo que reparte o dano do grupo, cura em área, portas de carne que bloqueiam corredor, golpes que se alimentam.
-- **Custo:** vida máxima cai aos poucos enquanto está equipada. A fome nunca sacia. Na forma, o jogador **não consegue se afastar do grupo** (saudade): longe demais, a Lucidez cai mais rápido.
-- **Se for tomado:** a Hospedeira **tranca o grupo**: salas de carne se fecham em volta dos aliados por cerca de 1 minuto, e o dono "acolhe" quem está dentro. Os aliados têm que **abrir um caminho** (ou usar a espada de Sangue para cortar a Cessão).
+- **Quem a usou e virou a entidade:** **Irene Valadares**, cozinheira de dia, agente de noite, matrícula 0311. O Ventre não deixava a passagem fechar e o grupo dela estava do outro lado. Ela segurou o coração e disse *"fica comigo e deixa eles passarem"*. O coração bateu no peito dela. A passagem fechou **com ela dentro**. Cuidar e prender viraram a mesma coisa. Hoje é **A Hospedeira** (`lore/entidades.md`).
+- **Onde se vê:** batendo no peito da Hospedeira durante o evento; no santuário, no núcleo do Ventre. O Coração Aberto (chefe de área) é só o que o Ventre cresceu **em volta** dele.
 
 ### CONHECIMENTO
-
 - **Nomes:** A) **Livro-Sem-Fim** (?)  B) **Lente do Escriba** (?)
-- **Que objeto é (não é máscara):** um **livro grosso**, de páginas que continuam sendo escritas. B é uma **lente grande de cabo dourado**, que mostra o texto por trás do texto.
+- **Objeto:** um **livro grosso**, de páginas que continuam sendo escritas. B é uma **lente grande de cabo dourado**, que mostra o texto por trás do texto.
 - **Aparência:** livro de **0,5 bloco**, fechado por tiras de couro, capa de pergaminho com uma **moldura dourada** no meio (um olho sem pupila gravado). Páginas soltas em órbita. **Animação:** as páginas viram sozinhas. A capa se abre um dedo quando alguém mente por perto. (B: a lente gira devagar e o vidro "lê" o que está atrás.)
 - **Materiais:** couro velho, ouro fosco, papel, tinta dourada.
-- **Quem a usou e virou entidade:** **Teodoro Antunes**, escrivão do Gabinete, matrícula 0087. Copiou o primeiro dossiê do lugar. O livro **continuou escrevendo depois que ele parou**. Ele leu a última página, que falava dele, e entendeu cada palavra sem esquecer nenhuma. Não conseguiu mais fechar os olhos. Hoje é **O Leitor Sem Nome** (`lore/entidades.md`).
-- **Como obter (sem craft):** **evento de investigação**. Reunir as **12 páginas** espalhadas pelo mundo e lê-las juntas num altar da Biblioteca Muda. O último salão libera o livro numa mesa de copista, junto da espada. O grupo decide quem leva qual.
-- **Ao portar:** revela escrita escondida, pistas e coordenadas de estruturas. Cada dica "gasta uma página".
-- **Ao ceder:** **Forma Cedida do Leitor**: marca inimigos com a fraqueza deles, reescreve o ambiente por poucos segundos (abre uma porta, apaga uma armadilha) e silencia a voz de quem estiver perto.
-- **Custo:** a Lucidez cai ao usar. O dono **esquece**: nomes viram "o de capa azul", a bússola gira, o mapa pessoal perde pontos fora da Biblioteca, e o inventário se embaralha de leve.
-- **Se for tomado:** o Leitor **lê em voz alta**, no chat de cena, as Páginas que o dono já coletou, em tom de sentença. O dono fica imóvel, de olhos dourados, por cerca de 1 minuto. A informação **vai para o grupo** (bom para investigação, ruim para quem queria segredo). Ao acabar, o mapa dele fica em branco por um dia.
+- **Quem a usou e virou a entidade:** **Teodoro Antunes**, escrivão do Gabinete, matrícula 0087. Copiou o primeiro dossiê do lugar. O livro **continuou escrevendo depois que ele parou**. Ele leu a última página, que falava dele, e entendeu cada palavra sem esquecer nenhuma. Não conseguiu mais fechar os olhos. Hoje é **O Leitor Sem Nome** (`lore/entidades.md`).
+- **Onde se vê:** aberto sobre a mesa do Leitor durante o evento; no santuário, no último salão da Biblioteca Muda. As **12 páginas** soltas pelo mundo são cópias do que o livro escreveu (pista de lore e de investigação, não a relíquia).
 
 ### MORTE
-
 - **Nomes:** A) **Ampulheta Quebrada** (?)  B) **Sino do Último Dia** (?)
-- **Que objeto é (não é máscara):** uma **ampulheta rachada**. B é um **sino pequeno de ferro preto**, que bate sem balançar. (Atenção: o sino se parece com o sino da premissa. Se o Nikolas preferir que o sino da floresta seja único e especial, usar só a Ampulheta.)
-- **Aparência:** ampulheta de **0,6 bloco**, vidro fosco, base de osso, armação de ferro preto, areia **cinza que sobe** em vez de cair. **Animação:** a areia sobe devagar. Ao ativar, um estalo e a areia cai de uma vez. (B: o badalo não toca o sino, o som chega depois.)
+- **Objeto:** uma **ampulheta rachada**. B é um **sino pequeno de ferro preto**, que bate sem balançar. (Atenção: o sino se parece com o sino da premissa. Se o Nikolas preferir que o sino da floresta seja único, usar só a Ampulheta.)
+- **Aparência:** ampulheta de **0,6 bloco**, vidro fosco, base de osso, armação de ferro preto, areia **cinza que sobe** em vez de cair. **Animação:** a areia sobe devagar. Ao virar, um estalo e a areia cai de uma vez. (B: o badalo não toca o sino, o som chega depois.)
 - **Materiais:** vidro fosco, osso, ferro preto, cinza.
-- **Quem a usou e virou entidade:** **Aurélio Matos**, relojoeiro, matrícula 0156. Queria voltar **uma hora** no tempo, antes do toque do sino. Virou a ampulheta de cabeça para baixo. A areia subiu e ele **não conseguiu desvirar**. Parou o próprio relógio para não envelhecer e ficou sem começo e sem fim. Hoje é **A Hora Parada** (`lore/entidades.md`).
-- **Como obter (sem craft):** **chefe** do mausoléu do Ermo de Cinzas (o chefe do mausoléu ainda precisa de nome, mesa de criaturas). Só cai se o jogador entrar **sem curar nenhuma vez** (desafio). Pegar a relíquia **faz o relógio parar** para todos na área.
-- **Ao portar:** uma vez por dia, desfaz o último golpe fatal (volta alguns segundos).
-- **Ao ceder:** **Forma Cedida da Hora Parada**: congela uma área por poucos segundos, envelhece os inimigos (lentos, armadura fraca) e dá o "último segundo" para sobreviver a um golpe fatal.
-- **Custo:** cada uso envelhece o rosto e o cabelo (a Marca de Morte avança), cura mais devagar e a sombra do dono chega sempre atrasada.
-- **Se for tomado:** o dono **vira estátua de cinza** por cerca de 1 minuto: não se move, não pode ser morto, mas o mundo continua ao redor. Os aliados têm que **proteger a estátua** até a areia descer. Quem sai da frente perde a relíquia, que volta ao altar.
+- **Quem a usou e virou a entidade:** **Aurélio Matos**, relojoeiro, matrícula 0156. Queria voltar **uma hora** no tempo, antes do toque do sino. Virou a ampulheta de cabeça para baixo. A areia subiu e ele **não conseguiu desvirar**. Parou o próprio relógio para não envelhecer e ficou sem começo e sem fim. Hoje é **A Hora Parada** (`lore/entidades.md`).
+- **Onde se vê:** é o eixo do relógio gigante da entidade; no evento, a areia sobe e desce conforme o puzzle. No santuário, no mausoléu do Ermo. É o relógio que "ainda corre".
 
 ### ENERGIA
-
 - **Nomes:** A) **Pilha de Eco** (?)  B) **Antena Torta** (?)
-- **Que objeto é (não é máscara):** uma **antena de cobre retorcida**. A) é a **bobina** que fica no coração da antena (a "pilha"); B) é a antena inteira, que se usa nas costas ou na mão. O modelo é o mesmo.
-- **Aparência:** antena de **1 bloco de altura**, cobre retorcido, uma **bobina roxa** girando e esferas de luz ciano em órbita. **Animação:** a bobina vibra, faíscas sobem em espiral. Estática no som. Dá pequenos choques em quem toca sem luva.
+- **Objeto:** uma **antena de cobre retorcida**. A) é a **bobina** que fica no coração da antena (a "pilha"); B) é a antena inteira. O modelo é o mesmo.
+- **Aparência:** antena de **1 bloco de altura**, cobre retorcido, uma **bobina roxa** girando e esferas de luz ciano em órbita. **Animação:** a bobina vibra, faíscas sobem em espiral. Estática no som.
 - **Materiais:** cobre, vidro roxo, fio trançado.
-- **Quem a usou e virou entidade:** **Bruna Tavares**, técnica de rádio, matrícula 0204. Subiu numa torre e **ligou a antena para pedir socorro**. Ninguém respondeu. Ela não conseguiu desligar, porque desligar era desistir. Foi virando o sinal. Hoje é **O Sinal Mais Alto** (`lore/entidades.md`).
-- **Como obter (sem craft):** **ritual** num pico de tempestade da Rede. Oferenda de **Núcleo Trêmulo** + descarga de **raio** (evento climático). O raio **entrega** a antena.
-- **Ao portar:** carrega com o dano que recebe. Solta descarga em cadeia que paralisa máquinas hostis e inimigos de Morte.
-- **Ao ceder:** **Forma Cedida do Sinal**: pulo curto entre pontos ("mudar de canal"), descarga em cadeia grande, religa máquinas amigas e fala com o grupo a qualquer distância.
-- **Custo:** o dono **ouve estática** o tempo todo. HUD e eletrônicos pessoais falham em horários aleatórios. Choque aleatório.
-- **Se for tomado:** o Sinal **muda o dono de canal**: teletransportes aleatórios curtos dentro de um raio por cerca de 1 minuto, e o chat de cena do dono sai em estática picotada com coordenadas. As máquinas dos aliados perto piscam.
+- **Quem a usou e virou a entidade:** **Bruna Tavares**, técnica de rádio, matrícula 0204. Subiu numa torre e **ligou a antena para pedir socorro**. Ninguém respondeu. Ela não conseguiu desligar, porque desligar era desistir. Foi virando o sinal. Hoje é **O Sinal Mais Alto** (`lore/entidades.md`).
+- **Onde se vê:** é a ponta da torre da entidade, o farol roxo; no evento, o grupo mantém os repetidores ligados para ela não se religar. No santuário, no coração da Rede.
 
 ---
 
-## ESPADAS (uma por elemento)
+## ESPADAS (uma por elemento, do jogador)
 
 > **Sem craft, sem receita.** Cada espada **já existe** no mundo e é entregue por evento, chefe ou ritual.
 > **Ligação com a história:** a espada é **o que sobrou do ofício da pessoa que virou entidade**, uma peça que ficou para trás quando ela foi tomada.
-> **Função de segurança:** o dono da espada pode **cortar a Cessão** de um aliado possuído pela entidade do mesmo elemento (custa Lucidez; a espada "lembra" do corpo que a entidade tomou).
-> **Evolui em 3 estágios**, por feitos, sem item fabricado: Adormecida, Desperta, Plena. A espada guarda o histórico. Roubar não pula estágio: ela lembra quem a despertou.
-> A espada **não é** a relíquia: sozinha ela não transforma ninguém. Quem tem as duas do mesmo elemento ganha um bônus pequeno, sem poder quebrar o jogo.
+> **Evolui em 3 estágios**, por feitos, sem item fabricado: **Adormecida** (efeito básico, custo ativo), **Desperta** (cumpriu o feito do elemento: efeito principal e visual novo), **Plena** (ritual do elemento em dimensão própria: golpe forte e brilho final). A espada guarda o histórico. Roubar não pula estágio: ela lembra quem a despertou.
+> **No evento de entidade**, a espada do elemento acerta a relíquia exposta (momento marcado da luta) com dano especial. É uma ajuda de história, não obrigatória.
+
+### Como se consegue cada uma (resumo)
+
+| Elemento | Espada | Como se consegue | Onde | No servidor (sugestão) |
+|---|---|---|---|---|
+| Sangue | Rubra / Dentes-de-Mãe | **Chefe:** cai do *Coração Aberto* na 1ª vez que o jogador o vence **sem poção de cura** | Ventre, chefe de área | Cada jogador que participou ganha a sua (uma por jogador) |
+| Conhecimento | Sentença / Pena de Ouro | **Evento:** decifrar o enigma do último salão; a espada surge numa mesa de copista | Biblioteca Muda, último salão | Cada jogador que ajudou no enigma ganha a sua |
+| Morte | Foice de Séculos / Fio-Baixo | **Ritual:** vela de osso no túmulo antigo, 1 minuto sem se mexer; o túmulo entrega a espada | Ermo de Cinzas, túmulo antigo | Cada túmulo abre uma vez por jogador |
+| Energia | Fulgor / Fio Solto | **Evento climático:** cai num ponto de raio na tempestade elétrica | A Rede, tempestade marcada | Cai um raio por jogador inscrito; quem segura metal condutor perde a vez |
 
 ### SANGUE
 - **Nomes:** A) **Rubra** (?)  B) **Dentes-de-Mãe** (?)
-- **História:** a **faca de cozinha** de Irene, que cresceu com o Ventre. A lâmina foi ganhando dentes. Por isso B: dentes de mãe, de quem cuida e também morde.
+- **História:** a **faca de cozinha** de Irene, que cresceu com o Ventre. A lâmina foi ganhando dentes. B: dentes de mãe, de quem cuida e também morde.
 - **Aparência:** lâmina **larga e levemente curva**, **1,4 bloco**, com fileiras de dentes no fio. Cabo envolto em couro vermelho. Guarda em forma de **mandíbula**. Brilho vermelho pulsante nas rachaduras. **Animação:** a mandíbula estala ao acertar.
 - **Poder:** golpes causam **sangramento** que se acumula. Quando enche, um golpe forte abre uma ferida em área.
 - **Custo:** só fica forte com a vida do dono abaixo de 70%.
 - **Como obter:** **chefe**. Cai do **Coração Aberto** na primeira vez que o jogador o vence **sem usar poção de cura**.
 - **Evolui:** *Desperta* ao vencer um combate de evento de Sangue com a vida abaixo de 30%. *Plena* em ritual de giz no Ventre, com uma gota do próprio sangue (custa vida).
-- **Ligação com a relíquia/entidade:** corta a Cessão de um aliado tomado pela Hospedeira (abre as paredes de carne). Com o Coração de Ferrugem no mesmo servidor, a espada **sente o coração bater** e tem sangramento mais forte contra quem estiver preso.
+- **Ligação com a entidade:** no evento, o coração da Hospedeira fica exposto por segundos; a espada sente o coração bater e o acerta com sangramento forte.
 
 ### CONHECIMENTO
 - **Nomes:** A) **Sentença** (?)  B) **Pena de Ouro** (?)
@@ -127,9 +89,9 @@ Quem usar sem Marca do elemento é **rejeitado**: dano, Lucidez em queda livre e
 - **Aparência:** lâmina **fina e reta**, **1,3 bloco**, com **linhas de escrita** que se acendem. Guarda em forma de **balança**. Dourado frio. **Animação:** as letras correm pelo fio antes do golpe.
 - **Poder:** marca o inimigo com uma "sentença": o próximo golpe causa dano extra e ignora parte da defesa.
 - **Custo:** gasta Lucidez a cada marca. O dono "esquece" onde guardou itens (o inventário embaralha de leve).
-- **Como obter:** **evento**. Surge junto da relíquia no último salão da Biblioteca Muda, numa mesa de copista, depois do enigma. O grupo escolhe quem leva qual.
+- **Como obter:** **evento**. Surge no último salão da Biblioteca Muda, numa mesa de copista, depois do enigma.
 - **Evolui:** *Desperta* ao decifrar o dossiê completo de um chefe. *Plena* em ritual de leitura (ler em voz alta a "sentença" do último agente do elemento, comando de cena).
-- **Ligação com a relíquia/entidade:** corta a Cessão de um aliado tomado pelo Leitor: a lâmina **lê a frase final em voz alta** e o Leitor "perde a linha". Junto com o Livro-Sem-Fim, as sentenças aparecem como notas dentro do livro (pista, não poder).
+- **Ligação com a entidade:** no evento, a lâmina lê a frase final em voz alta e o livro do Leitor "perde a linha" por um instante, expondo a relíquia.
 
 ### MORTE
 - **Nomes:** A) **Foice de Séculos** (?)  B) **Fio-Baixo** (?)
@@ -139,7 +101,7 @@ Quem usar sem Marca do elemento é **rejeitado**: dano, Lucidez em queda livre e
 - **Custo:** o dono nunca sente fome plenamente. A regeneração natural para.
 - **Como obter:** **ritual**. Num túmulo antigo do Ermo de Cinzas, acender a **vela de osso** e esperar um minuto sem se mexer. O túmulo se abre e entrega a espada.
 - **Evolui:** *Desperta* ao derrotar o **Coveiro de Séculos** (chefe) ou o equivalente de evento. *Plena* em ritual no mausoléu do relógio que ainda corre, devolvendo à cova um objeto pessoal do dono.
-- **Ligação com a relíquia/entidade:** corta a Cessão de um aliado tomado pela Hora Parada: a ponta toca a estátua de cinza e o tempo volta a correr para ela. Perto da Ampulheta, os ponteiros do relógio de pulso do jogador giram ao contrário.
+- **Ligação com a entidade:** no evento, a ponta toca o ponteiro da Hora Parada e o tempo dela falha por poucos segundos, expondo a ampulheta.
 
 ### ENERGIA
 - **Nomes:** A) **Fulgor** (?)  B) **Fio Solto** (?)
@@ -149,24 +111,21 @@ Quem usar sem Marca do elemento é **rejeitado**: dano, Lucidez em queda livre e
 - **Custo:** de vez em quando o golpe falha (aleatoriedade) e a lâmina desliga por 2 segundos.
 - **Como obter:** **evento climático**. A espada cai num ponto de raio durante a tempestade elétrica da Rede. Quem segura metal condutor na hora perde a chance.
 - **Evolui:** *Desperta* ao sobreviver a uma tempestade inteira da Rede segurando a espada. *Plena* ao derrotar a **Sobrecarga** (chefe) com a espada.
-- **Ligação com a relíquia/entidade:** corta a Cessão de um aliado tomado pelo Sinal: a ponta "aterra" a carga e o dono volta ao canal certo. Com a Antena Torta por perto, a espada **sintoniza**: a descarga em cadeia pula de um aliado para outro sem machucar.
+- **Ligação com a entidade:** no evento, a descarga em cadeia "aterra" a carga dos repetidores e abre a bobina do Sinal por poucos segundos.
 
 ---
 
 ## Hierarquia de poder
-1. **Entidades** (uma por elemento), o que a relíquia guarda. Ver `lore/entidades.md`.
-2. **Relíquias** (uma por elemento), o receptáculo.
-3. **Espadas** (uma por elemento), que evoluem em 3 estágios.
+1. **Entidades** (uma por elemento), cada uma com a sua **relíquia principal** como receptáculo (lore, não é item). Ver `lore/entidades.md`.
+2. **Espadas** (uma por elemento, do jogador), em 3 estágios.
+3. **Relíquias menores** (12, do jogador), ver `lore/reliquias-menores.md`.
 4. Armaduras sem elemento fixo (o visual muda com a Marca).
 
 ## Pontos para o Nikolas decidir
-1. Qual nome (A ou B) para cada uma das 8 peças (as duas opções ficam até lá).
-2. **Renúncia:** dá para largar a relíquia por um ritual (e perder a Marca de um estágio), ou só a espada resolve? Proposta: os dois.
-3. **Ficar (virar a entidade):** o personagem sai do jogo para sempre, ou volta como chefe de evento que o grupo enfrenta? Proposta: sai como personagem e vira o próximo chefe de evento (com aviso e confirmação em duas etapas).
-4. **Uma por servidor ou uma por grupo?** Proposta: uma por servidor.
-5. Recarga da Cessão: 24 h reais serve, ou prefere dias de jogo?
-6. As relíquias entram como **item de Curios** (equipável) ou **item de mão**? A proposta usa Curios quando existir, com fallback para a mão.
-7. Os 3 estágios das espadas (Adormecida, Desperta, Plena) servem? A função de "cortar a Cessão" no dono da espada serve?
-8. O Morte B (Sino do Último Dia) fica ou sai para não competir com o sino da floresta?
-9. ~~O Medo ganha relíquia/espada?~~ Resolvido (07/11): não.
-10. ~~Espada/relíquia com craft?~~ Resolvido (PR #9): não.
+1. Qual nome (A ou B) para cada relíquia (aparece em dossiês e placas) e para cada espada. As duas opções ficam até lá.
+2. Os 3 estágios das espadas (Adormecida, Desperta, Plena) servem?
+3. Espada no servidor: **uma por jogador** (como no resumo) ou **única por servidor**? Sugestão: uma por jogador, para evento não virar corrida.
+4. O santuário (relíquia atrás de vidro, indestrutível) agrada, ou prefere que ela só apareça na entidade e nos textos?
+5. O Morte B (Sino do Último Dia) fica ou sai para não competir com o sino da floresta?
+6. ~~O Medo ganha relíquia/espada?~~ Resolvido (07/11): não.
+7. ~~Relíquia ou espada com craft?~~ Resolvido (PR #9): não. Relíquia principal é só lore; espada é do jogador, sem craft.

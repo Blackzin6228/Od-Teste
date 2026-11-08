@@ -39,8 +39,8 @@ Não é dimensão de elemento e não tem relíquia.
 - **Coleta:** Gota Grossa, Dente Rubro, Seiva Rubra (balde), Espinho de Osso.
 - **Como se chega:** **ritual** de giz com uma gota do próprio sangue (custa vida, não item). Abre uma passagem de carne na Clareira.
 - **Travessia (visual):** tela fecha em vermelho pelas bordas, som de batida de coração que acelera, e a imagem "pisca" como pálpebra. Acorda-se com uma respiração funda.
-- **Ligação com a relíquia:** a **Relíquia do Sangue** repousa no núcleo do Ventre, dentro do chefe final. Ela só "acorda" com Seiva Rubra e se alimenta de quem a segura.
-- **Ligação com a espada:** a **Espada do Sangue** é forjada com Dente Rubro e Seiva em um poço do Ventre. Quanto mais ferida a pessoa, mais forte a lâmina, e ela cobra uma gota a cada golpe forte.
+- **Ligação com a relíquia (lore):** a relíquia do Sangue fica no núcleo do Ventre, dentro da Hospedeira. É vista no santuário e no evento, **não é pega por ninguém** (`lore/reliquias-e-espadas.md`).
+- **Ligação com a espada:** a **Espada do Sangue** cai do *Coração Aberto* (sem craft). Quanto mais ferida a pessoa, mais forte a lâmina, e ela cobra uma gota a cada golpe forte.
 
 ## 2. A Biblioteca Muda (Conhecimento)
 - **Clima:** ar seco, parado, poeira dourada em suspensão. Sem vento. Sem chuva, às vezes "chove" papel queimado.
@@ -51,8 +51,8 @@ Não é dimensão de elemento e não tem relíquia.
 - **Coleta:** Tinta de Ouvir, Fio de Pergaminho, Grafia Viva, páginas de lore.
 - **Como se chega:** **ritual de leitura**: montar uma frase com páginas achadas na Clareira (puzzle de investigação) e ler em voz alta (comando de cena). Abre uma porta de livro.
 - **Travessia (visual):** letras douradas cobrem a tela e se reorganizam, som de papel e sussurro, texto some e a cena "se escreve" ao redor.
-- **Ligação com a relíquia:** a **Relíquia do Conhecimento** fica no último salão, atrás de um enigma que usa tudo o que o grupo aprendeu pelo jogo.
-- **Ligação com a espada:** a **Espada do Conhecimento** é "escrita" numa mesa de copista com Grafia Viva. Dá bônus a quem leu mais páginas (progressão de investigação, sem número na tela).
+- **Ligação com a relíquia (lore):** a relíquia do Conhecimento (o livro) fica aberta no último salão, com o Leitor. Só se vê; não é pega por ninguém.
+- **Ligação com a espada:** a **Espada do Conhecimento** surge numa mesa de copista depois do enigma do último salão (sem craft). Dá bônus a quem leu mais páginas (progressão de investigação, sem número na tela).
 
 ## 3. O Ermo de Cinzas (Morte)
 - **Clima:** frio seco, cinza caindo devagar o tempo todo. Silêncio quase total. Sem chuva; neblina de pó.
@@ -63,8 +63,8 @@ Não é dimensão de elemento e não tem relíquia.
 - **Coleta:** Pó de Séculos, Relógio Parado, Osso Cristalino, Breu Velho.
 - **Como se chega:** **portal ritual** num lugar onde algo morreu de verdade (cova, ruína). Acende-se uma vela de osso e espera-se um minuto sem se mexer.
 - **Travessia (visual):** cor some da tela até ficar cinza, sons tocam ao contrário, partículas de cinza sobem e depois caem. A sombra do jogador chega um pouco depois.
-- **Ligação com a relíquia:** a **Relíquia da Morte** está num mausoléu sobre o único relógio que ainda corre. Pegar a relíquia faz o relógio parar para todo mundo na área.
-- **Ligação com a espada:** a **Espada da Morte** é forjada com Osso Cristalino e Breu e esfriada em cinza. Quanto mais perto de um inimigo morrer, mais fundo ela corta; também "apaga" efeitos do alvo.
+- **Ligação com a relíquia (lore):** a relíquia da Morte (a ampulheta) está num mausoléu sobre o único relógio que ainda corre, no centro da Hora Parada. Só se vê; não é pega por ninguém.
+- **Ligação com a espada:** a **Espada da Morte** é entregue por um túmulo antigo, num ritual de vela de osso (sem craft). Quanto mais perto de um inimigo morrer, mais fundo ela corta; também "apaga" efeitos do alvo.
 
 ## 4. A Rede (Energia)
 - **Clima:** ar carregado, cabelo arrepia, estática no ar. Tempestades elétricas curtas e frequentes. Sem chuva de água.
@@ -75,15 +75,15 @@ Não é dimensão de elemento e não tem relíquia.
 - **Coleta:** Fio de Cobre Vivo, Núcleo Trêmulo, Cristal de Estática, Brasa Fluida.
 - **Como se chega:** **comando de cena** + **circuito**: ligar um circuito feito de blocos do mundo (compat com Create/Mekanism, opcional) numa clareira e fechar com um raio. Sem os mods, funciona com bloco do nosso mod.
 - **Travessia (visual):** tela com chuvisco e linhas horizontais, som de estática subindo, imagem dupla por um instante, e "carrega" como tela de vídeo.
-- **Ligação com a relíquia:** a **Relíquia da Energia** fica no coração da Rede, ligada a todos os cabos. Tirá-la faz a dimensão inteira apagar e reiniciar.
-- **Ligação com a espada:** a **Espada da Energia** é montada com Núcleo Trêmulo e Cabo Vivo. Carrega com o tempo e descarrega em arco no golpe forte.
+- **Ligação com a relíquia (lore):** a relíquia da Energia (a antena) fica no coração da Rede, ligada a todos os cabos, na cabeça do Sinal. Só se vê; não é pega por ninguém.
+- **Ligação com a espada:** a **Espada da Energia** cai num ponto de raio na tempestade elétrica da Rede (sem craft). Carrega com o tempo e descarrega em arco no golpe forte.
 
 ---
 
 ## Regras para as quatro
 - **Ciclo de vantagens** (ver elementos) vale dentro de cada dimensão: criaturas de um elemento sofrem mais do elemento que o vence. Nenhum número na tela.
 - **Volta:** sempre existe um jeito de voltar à Clareira (passagem de saída perto de onde se chegou). Não há dimensão sem saída.
-- **Ordem:** não há ordem obrigatória. A dificuldade pode escalar pela relíquia/espada exigidas (decisão do Nikolas e da mesa Integrador).
+- **Ordem:** não há ordem obrigatória. A dificuldade pode escalar pela espada ou pelas relíquias menores exigidas (decisão do Nikolas e da mesa Integrador).
 - **Medo:** quem juntar as pistas das 4 descobre que o começo de todas é o mesmo. Isso é o mistério final, sem dimensão nem chefe do Medo.
 - **Técnico (para a mesa Dev):** cada dimensão = uma `Dimension` própria do mod; travessia via comando/ritual com efeito visual de cliente. Nada disso precisa de mod externo; Create/Mekanism só enfeitam a Rede (regra 4).
 
@@ -91,4 +91,4 @@ Não é dimensão de elemento e não tem relíquia.
 1. Os nomes (Ventre, Biblioteca Muda, Ermo de Cinzas, Rede) servem? Quer outros?
 2. A Clareira fica como lugar fixo de chegada, ou a chegada já é dentro de uma das 4?
 3. As quatro ficam liberadas desde o início ou abrem por progressão?
-4. O chefe de cada dimensão guarda a relíquia, ou a relíquia é achada fora do chefe?
+4. ~~O chefe guarda a relíquia?~~ Resolvido: a relíquia principal é lore (fica na entidade), ninguém a pega.

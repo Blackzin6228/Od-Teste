@@ -44,8 +44,8 @@ Cada uma deixou rastro, e o rastro é o mapa para a saída.
 
 ### O que aconteceu com eles (cada destino é um tipo de pista ou de encontro)
 - Alguns **viraram criaturas**: o monstro tem um crachá no peito. Derrotar é também ler um final de história.
-- Alguns **viraram relíquias**: o objeto guarda o que a pessoa não conseguiu largar. (Ver `lore/reliquias-e-espadas.md`.)
-- Alguns **viraram entidades**: quem ficou tempo demais num elemento e foi engolido por ele. (Ver `lore/entidades.md`.)
+- Alguns **usaram uma relíquia e viraram entidades**: o objeto guarda o que a pessoa não conseguiu largar, e ela foi engolida pelo elemento. A relíquia é só lore, o jogador não a pega. (Ver `lore/reliquias-e-espadas.md` e `lore/entidades.md`.)
+- Alguns **deixaram pertences** (coisas pequenas e comuns) que o jogador pode achar e usar: as relíquias menores. (Ver `lore/reliquias-menores.md`.)
 - Alguns **ainda estão por aí**, cansados, e podem dar um conselho (ou uma mentira).
 - Um deles **ainda toca o sino**.
 
@@ -60,7 +60,7 @@ Cada elemento guarda **o último agente que passou por ele**: um chefe com matr�
 1. **Dia 1:** clareira com névoa, uma fogueira apagada ainda **morna** e um bilhete: *"Não toquem o sino de novo."*
 2. **Noite 1:** os monstros mais fracos aparecem (ver `lore/criaturas.md`). Gente de Minecraft normal vê isso como "mob de noite". Os agentes veem **o que está errado neles**.
 3. **Dia 2-3:** acham **marcas de giz antigas** e o **primeiro acampamento de quem veio antes**.
-4. **Dia 3-5:** a primeira **relíquia** aparece de longe: uma luz que só quem tem a **Marca** vê. A primeira Marca (estágio 1) aparece em quem se expõe demais.
+4. **Dia 3-5:** a primeira **relíquia** (de uma entidade, só lore) aparece de longe: uma luz que só quem tem a **Marca** vê, sem poder tocar. A primeira Marca (estágio 1) aparece em quem se expõe demais.
 5. Eles descobrem que o lugar **guarda** o que engole, e que cada rastro leva a uma dimensão de elemento.
 
 ## 7. O grande mistério
