@@ -1,17 +1,13 @@
-# Premissa: a chegada dos agentes (PROPOSTA)
+# Premissa: Os Que Vieram Antes (versão única)
 
-> Proposta da mesa Lore. Nada aqui é cânone até o Nikolas escolher. Base aprovada: `lore/canon.md`.
-> Nomes marcados com (?) ainda precisam de checagem na web contra outras obras.
+> Decisões do Nikolas (PR #9, `docs/decisoes.md`): organização = **Gabinete do Limiar**; espinha = **"Os Que Vieram Antes"**;
+> objetivo dos agentes = **voltar para casa**; o **"troco"** (o preço de voltar) é um possível final.
+> Base aprovada: `lore/canon.md`. Nomes marcados com (?) ainda precisam de checagem na web contra outras obras.
 
 ## 1. Quem são os agentes
 Pessoas comuns com um segundo emprego. De dia: cozinheiro, motorista, estudante, eletricista.
-De noite: **agentes de campo** de uma organização pequena e sem glamour.
-
-### Nome da organização (escolher 1)
-| Opção | Nome | Por quê |
-|---|---|---|
-| A | **Serviço de Vigília** (?) | Soa burocrático e brasileiro, "vigiar" combina com investigação. Apelido: "a Vigília". |
-| B | **Gabinete do Limiar** (?) | "Limiar" = a porta entre dois mundos. Apelido: "o Gabinete". Combina com a travessia. |
+De noite: **agentes de campo do Gabinete do Limiar**, uma organização pequena e sem glamour.
+"Limiar" = a porta entre dois mundos. Apelido: "o Gabinete".
 
 Cartão do agente: crachá laminado sem foto boa, número de matrícula e uma frase: *"Atende, anota, não comenta."*
 
@@ -31,35 +27,61 @@ e acordam em pé, no meio de uma clareira, **sem a van, sem o caminho de volta**
 Dali partem as 4 dimensões dos elementos (uma para cada).
 A mochila de cada um traz só o que cada um já carregava (inventário inicial do jogador comum).
 
-## 4. Os primeiros dias
+## 4. O objetivo: voltar para casa
+Tudo no jogo responde a uma pergunta simples: **como voltar?**
+- Os agentes não querem poder. Querem **jantar em casa**. O poder (relíquias, espadas, Marca) é só o que o lugar oferece pelo caminho, e cobra por isso.
+- O Gabinete treinou todos para **anotar**. Então eles anotam: cadernos, mapa, quadro de pistas. A investigação é o jeito de jogar.
+
+## 5. A espinha: Os Que Vieram Antes
+**Outras pessoas já atravessaram esta floresta.** Agentes de matrículas antigas, e gente que nem era do Gabinete.
+Cada uma deixou rastro, e o rastro é o mapa para a saída.
+
+### O que eles deixaram
+- **Acampamentos abandonados** (cadernos rasgados, crachás de matrículas antigas, fogueiras mornas).
+- **Marcas de giz** que mostram caminhos e avisos ("não beba", "não responda").
+- **Dossiês** em páginas soltas, que contam como cada um tentou voltar.
+- **Pedaços do mundo deles** enterrados no chão (placas, postes, uma van enferrujada), como se o lugar guardasse o que engole.
+
+### O que aconteceu com eles (cada destino é um tipo de pista ou de encontro)
+- Alguns **viraram criaturas**: o monstro tem um crachá no peito. Derrotar é também ler um final de história.
+- Alguns **viraram relíquias**: o objeto guarda o que a pessoa não conseguiu largar. (Ver `lore/reliquias-e-espadas.md`.)
+- Alguns **viraram entidades**: quem ficou tempo demais num elemento e foi engolido por ele. (Ver `lore/entidades.md`.)
+- Alguns **ainda estão por aí**, cansados, e podem dar um conselho (ou uma mentira).
+- Um deles **ainda toca o sino**.
+
+### O sino
+O sino que atraiu os agentes **não foi tocado por um monstro**. Foi tocado por **alguém que veio antes e queria voltar**.
+Cada vez que alguém atravessa, o sino toca. Quem toca o sino abre a porta, mas ela abre **para dentro**.
+
+### Chefes com nome
+Cada elemento guarda **o último agente que passou por ele**: um chefe com matrícula, dossiê completo e motivo. É a ponta do rastro daquele elemento.
+
+## 6. Dias iniciais (roteiro)
 1. **Dia 1:** clareira com névoa, uma fogueira apagada ainda **morna** e um bilhete: *"Não toquem o sino de novo."*
 2. **Noite 1:** os monstros mais fracos aparecem (ver `lore/criaturas.md`). Gente de Minecraft normal vê isso como "mob de noite". Os agentes veem **o que está errado neles**.
-3. **Dia 2-3:** acham **marcas de giz antigas** e um **acampamento abandonado de outros agentes** (cadernos rasgados, crachás de matrículas antigas).
+3. **Dia 2-3:** acham **marcas de giz antigas** e o **primeiro acampamento de quem veio antes**.
 4. **Dia 3-5:** a primeira **relíquia** aparece de longe: uma luz que só quem tem a **Marca** vê. A primeira Marca (estágio 1) aparece em quem se expõe demais.
-5. Eles descobrem que **pedaços do mundo deles** (placas, postes, uma van enferrujada) estão **enterrados no chão**, como se o lugar guardasse o que engole.
+5. Eles descobrem que o lugar **guarda** o que engole, e que cada rastro leva a uma dimensão de elemento.
 
-## 5. O grande mistério
+## 7. O grande mistério
 **Por que este lugar existe e por que nos chamou?**
-Pistas que o jogo vai soltando (investigação, páginas, rituais):
 - Os quatro elementos são **fome** do lugar (cada um quer algo: o corpo, o saber, o fim, o movimento).
 - Por trás dos quatro está o **Medo**, o princípio de tudo: não é elemento, relíquia nem Marca. Ele não ataca, ele **escuta**.
-- O sino que atraiu os agentes **não foi tocado por um monstro**. Foi tocado por **alguém que veio antes e queria voltar**.
-- A pergunta final: voltar para casa **é possível sem deixar alguém para trás no lugar**? (o lugar exige um "troco").
+- Os que vieram antes **não sumiram por acaso**: o lugar pegou o que cada um tinha de mais perto da própria fome.
 
-## 6. As duas versões curtas (escolher 1)
+## 8. O final possível: o troco
+Quando os agentes juntam o rastro inteiro, descobrem a regra do lugar: **a porta de volta existe, mas exige um "troco"**.
+Para um grupo voltar, algo fica. Pode ser:
+- **uma lembrança**, **um nome**, **um elemento da Marca**, ou **uma pessoa** que escolhe ficar (e vira mais um dos "que vieram antes").
 
-### Versão 1: "O Troco"
-> Vocês eram a equipe de campo de uma rotina. O sino tocou. Agora o lugar quer algo em troca de cada um que passou.
-> Para voltar, é preciso pagar. O que cada agente está disposto a deixar para trás?
+A pergunta final: **voltar para casa é possível sem deixar alguém (ou algo de si) no lugar?**
+- Voltar **pagando** é um final.
+- Descobrir um jeito de **não pagar** é um final difícil, que pede todas as pistas.
+- Ficar e tocar o sino para o próximo grupo é um final amargo.
 
-Tom: dilema moral, escolha, preço. Combina com "o preço vem junto com o poder" do Nikolas. Bom para roleplay (cada um negocia o seu "troco").
+Como é "possível final", não prende a campanha: o servidor pode viver só da exploração, e o final fica como meta de longo prazo.
 
-### Versão 2: "Os Que Vieram Antes"
-> Outros agentes cruzaram antes de vocês. Alguns viraram relíquias, outros viraram monstros, um deles ainda toca o sino.
-> Seguir o rastro deles é a única saída.
-
-Tom: investigação, dossiê, lugar liminar. Bom para quadro de investigação, páginas espalhadas e chefes com nome (o "último agente" de cada elemento).
-
-### Recomendação da mesa
-**Versão 2 como espinha** (dá mapa, pistas e chefes) **com o dilema da Versão 1 como final** (o "troco").
-Mas a escolha é do Nikolas.
+## Pontos em aberto (para o Nikolas)
+1. Quantos finais (voltar pagando, voltar sem pagar, ficar)? Sugestão: os três.
+2. O "troco" é escolhido pelo grupo ou sorteado pelo lugar?
+3. Quem toca o sino no começo vira personagem jogável, chefe ou só voz?
