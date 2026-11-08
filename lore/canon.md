@@ -10,7 +10,10 @@ Precisam **descobrir o que fazer**.
 
 ## Elementos
 **Sangue, Conhecimento, Morte e Energia**, com temas, cores e matérias de `docs/estilo-do-genero.md`.
-O **Medo** fica de fundo (pendente: se também vira relíquia ou marca de fim de jogo).
+O **Medo** é o princípio dos 4: uma força maior por trás de tudo. Não vira relíquia nem marca.
+
+## Dimensões
+Uma dimensão para **cada elemento**: Sangue, Conhecimento, Morte e Energia.
 
 ## Peças principais
 - **4 relíquias principais**, uma por elemento.
