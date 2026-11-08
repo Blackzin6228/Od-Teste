@@ -18,6 +18,8 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 07/11/2026 | **Crafts personalizados** no nível de dificuldade do **All the Mods 10**: itens de ponta muito difíceis, puxando materiais de vários mods do pack. |
 | 07/11/2026 | **Armaduras personalizadas** sem elemento fixo: o visual se mistura com a **Marca de quem veste**. |
 | 07/11/2026 | **Troca de voz** no roleplay usando os mods que já estão no pack (Simple Voice Chat + SV Voice Changer). |
+| 07/11/2026 | **O Medo** é o princípio dos 4 elementos: fica só como **força maior** (não vira relíquia nem marca). |
+| 07/11/2026 | **Dimensões:** uma dimensão para **cada elemento** (Sangue, Conhecimento, Morte, Energia). |
 
 ## Pendentes (precisam do Nikolas)
 
@@ -28,5 +30,3 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | Sons | Só sons do Minecraft com efeito, ou sons próprios (precisam ser nossos ou com licença). |
 | Repositório público ou privado | Hoje está **público**. Para um projeto que vai gerar renda, privado protege o código e a arte. |
 | Convivência com o Máscaras 1.34.1 | Os dois mods juntos no servidor, ou o novo substitui o antigo um dia. |
-| O Medo | Só força de fundo (a dimensão em si), ou também uma relíquia/marca rara de fim de jogo. |
-| Dimensões | Quantas e quais (ex.: a dimensão de chegada + uma por elemento). |
