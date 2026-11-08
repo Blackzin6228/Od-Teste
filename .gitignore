@@ -5,6 +5,7 @@ run/
 .idea/
 out/
 libs/
+__pycache__/
 
 # cópias de trabalho das mesas (git worktree)
 .mesas/

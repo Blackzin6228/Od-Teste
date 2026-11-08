@@ -14,7 +14,7 @@ Cada mesa atualiza a sua parte ao terminar uma etapa. Legenda: ⬜ não começou
 ⬜ Dados do jogador (elemento, marcas) · ⬜ primeiro item de progressão · ⬜ primeiro ritual · ⬜ comandos de admin
 
 ## Modelador
-⬜ Guia de estilo visual aprovado · ⬜ primeiro item (prévia) · ⬜ primeira armadura · ⬜ primeira criatura
+🟦 Guia de estilo visual (`arte/guia-de-estilo.md`, falta o Nikolas escolher a resolução) · ✅ ferramenta de prévia (`ferramentas/previa/`) · 🟦 espada de exemplo (teste do pipeline, não é oficial) · ⬜ primeiro item oficial (prévia) · ⬜ primeira armadura · ⬜ primeira criatura
 
 ## Integrador
 ⬜ Escola nova no Iron's (1 magia de teste) · ⬜ ritual no Occultism · ⬜ ponte com Malum · ⬜ ramo tech (Mekanism/Create)
