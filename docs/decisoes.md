@@ -39,6 +39,7 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 08/11/2026 | **Artefatos Paranormais de Sangue (play test):** **Agulha de Cerzir Carne** (fecha feridas), **Dedal Dentado** (quem te bate sangra) e **Sino de Matadouro** (toque que dá fúria aos aliados; substitui a panela). Estilo de nome aprovado: objeto comum que ficou "errado" depois do paranormal. |
 | 08/11/2026 | **Tom sério, sempre.** "Ninguém brinca com o paranormal." Tudo (artefatos, criaturas, rituais, nomes, textos) tem que passar **medo e presença**, na pegada séria do gênero. Nada cômico ou "viajado" (ex.: a panela foi cortada por isso). Objetos do cotidiano só quando ficam realmente perturbadores. |
 | 08/11/2026 | **Artefato de Morte:** **Vela que Queima ao Contrário** (a cera sobe em vez de derreter; mostra a trilha de cinza até onde o dono morreu). Substitui a vela de aniversário/sétimo dia. |
+| 08/11/2026 | **Artefatos Paranormais (nomes fechados):** Conhecimento — **Caderneta do Último Anotador**, **Prumo de Quem Mediu a Cova**, **Óculos de Quem Não Fechou os Olhos**. Morte — **Vela que Queima ao Contrário**, **Relógio Parado às 03h07**, **Retrato de Lápide que Piscou**. Energia — **Fio Desencapado que Respira**, **Interruptor que Ninguém Apertou**, **Rádio que Chia o Seu Nome**. |
 
 ## Pendentes (precisam do Nikolas)
 
