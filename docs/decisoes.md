@@ -36,6 +36,7 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 08/11/2026 | **Exposição** sobe por **contato com o paranormal** (criaturas, relíquias, rituais, dimensões, aparições), não por escuro ou morte comum. |
 | 08/11/2026 | **Lucidez** cai conforme as coisas acontecem: batalhas com relíquias, aparições, enfrentar mobs de Sangue, **tomar dano**. |
 | 08/11/2026 | **Marca de Sangue** é **visual no corpo** do jogador (camada sobre a skin que cresce com o estágio), além das partículas. |
+| 08/11/2026 | **Artefatos Paranormais de Sangue (play test):** **Agulha de Cerzir Carne** (fecha feridas), **Dedal Dentado** (quem te bate sangra) e **Sino de Matadouro** (toque que dá fúria aos aliados; substitui a panela). Estilo de nome aprovado: objeto comum que ficou "errado" depois do paranormal. |
 
 ## Pendentes (precisam do Nikolas)
 
