@@ -42,6 +42,8 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 08/11/2026 | **Artefatos Paranormais (nomes fechados):** Conhecimento — **Caderneta do Último Anotador**, **Prumo de Quem Mediu a Cova**, **Óculos de Quem Não Fechou os Olhos**. Morte — **Vela que Queima ao Contrário**, **Relógio Parado às 03h07**, **Retrato de Lápide que Piscou**. Energia — **Fio Desencapado que Respira**, **Interruptor que Ninguém Apertou**, **Rádio que Chia o Seu Nome**. |
 | 08/11/2026 | **Entidade de Conhecimento: "a Juíza Sem Rosto".** As entidades têm nomes **com peso e únicos**, nossos. "Anfitrião" e "Magistrada" (entidades de Ordem Paranormal) não são usados; "Diabo"/"Deus da Morte" só como palavras genéricas, com entidade, história e aparência nossas. |
 | 08/11/2026 | **Lucidez volta** descansando, dormindo, com luz forte, grupo por perto e comida quente. |
+| 08/11/2026 | **Relíquias de elemento (lore):** Sangue **Cálice do Faminto** · Conhecimento **Lente do Escriba** · Morte **Ampulheta Quebrada** · Energia **Bobina do Último Chamado**. |
+| 08/11/2026 | **Espadas:** Sangue **Rubra** · Conhecimento **Letra de Quem Leu Tudo** · Morte **Minuto Arrancado** · Energia **Cabo da Última Chamada**. |
 
 ## Pendentes (precisam do Nikolas)
 
