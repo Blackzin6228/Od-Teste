@@ -6,7 +6,7 @@
 > - Tudo é **original**. Sem nomes, formas ou falas da obra Ordem Paranormal além do que a regra 3 libera.
 > - **Sem craft.** Entidade não se fabrica nem se compra.
 > - O Medo **não** é entidade: é a força maior por trás das quatro (`lore/dimensoes.md`).
-> - Nomes com (?): busca rasa na web, falta checagem final. "A Anfitriã" virou "A Hospedeira" por ficar perto demais de um nome da obra.
+> - Nomes fechados: A Juíza Sem Rosto (Conhecimento) e O Dono da Casa (Energia). Nomes com (?): busca rasa na web, falta checagem final. "A Anfitriã" virou "A Hospedeira" por ficar perto demais de um nome da obra.
 > - Ligação com a espinha (`lore/premissa.md`): cada entidade é **um dos que vieram antes**, engolido pelo elemento.
 
 ## O que é uma entidade
@@ -76,16 +76,20 @@
 
 ---
 
-## ENERGIA: A) O Sinal Mais Alto (?)  /  B) A Estação Viva (?)
+## ENERGIA: **O Dono da Casa** (nome FECHADO em 2026-11-08)
 
-- **Quem foi:** **Bruna Tavares**, técnica de rádio, matrícula 0204. Ligou a antena para **pedir socorro** e não desligou nunca.
-- **O que é:** uma **torre de transmissão viva**, o centro da Rede. Hoje transmite para quem estiver ouvindo.
-- **O que quer:** **ser ouvido**. Quer que alguém **responda**. Se alguém voltar para casa, ele espera que a resposta seja dele.
+> Frase de apresentação: *"Quem atende o chamado da antena entra na casa dele. Quem sai, sai porque ele deixou."*
+
+- **Quem foi:** **Bruna Tavares**, técnica de rádio, matrícula 0204. Ligou a antena para **pedir socorro** e não desligou nunca. Foi virando o sinal, e o sinal virou um lugar.
+- **O que é:** uma **torre de transmissão viva**, o centro da Rede, que virou **uma casa**: a Rede inteira é o interior dela. Quem responde ao chamado deixa de ouvir e **entra**.
+- **A ideia:** o chamado nunca foi um pedido de socorro para quem ouve. É a **porta aberta**. Quem atende **entrou na casa do Dono**, e é ele quem **decide quem sai**. Não mente, não ameaça: trata o jogador como **visita**, e visita só vai embora quando o dono libera.
+- **O que quer:** **ser respondido**, e de preferência por alguém que **fique**. Libera quem prova que **ouviu até o fim** (quem não desliga, não corta, não foge do sinal). Se alguém voltar para casa, ele espera que a resposta seja dele.
+- **Tom:** sério e de presença. Fala baixo, com calma, como quem tem a chave. Nunca grita, nunca faz graça.
 - **Presença na dimensão (Rede):**
   - Uma **antena do tamanho de um arranha-céu**, torta, com a ponta nas nuvens de estática. À noite da Rede, a ponta vira **um farol roxo** visível da Clareira.
   - Céu de chuvisco. A cada transmissão o **HUD falha** e o relógio do jogador pula. Raios sem trovão atrasado.
   - Voz **picotada em rádio** (texto com letras faltando), dizendo coordenadas e matrículas em loop.
-- **Forma de chefe/evento:** uma **tempestade de transmissões**. O corpo é uma **figura de cabos e neon de 9 blocos**, que se segura pelo ar, com a **Bobina do Último Chamado no lugar da cabeça**, no alto da antena. O grupo defende **repetidores** em ilhas flutuantes enquanto o Sinal tenta se religar. Vence quem mantiver 3 repetidores ligados até o amanhecer da Rede.
+- **Forma de chefe/evento:** uma **tempestade de transmissões**, a hora em que o Dono **fecha a porta**. O corpo é uma **figura de cabos e neon de 9 blocos**, que se segura pelo ar, com a **Bobina do Último Chamado no lugar da cabeça**, no alto da antena. O grupo defende **repetidores** em ilhas flutuantes enquanto o Dono tenta se religar e trancar a casa. Vence quem mantiver 3 repetidores ligados até o amanhecer da Rede: **a porta se abre e o grupo sai com a licença dele**.
 - **Cor e som:** roxo, ciano, magenta. Estática e sinais de rádio.
 - **Dimensão e clima:** ar carregado, roxo `#6A00FF` com ciano `#00E5FF` e magenta `#FF2BD6`. Trilha: sintetizador, guitarra processada.
 
@@ -93,7 +97,7 @@
 
 ## Nomes das entidades: opções (a ESCOLHA É DO NIKOLAS)
 
-> Conhecimento está fechado: **A Juíza Sem Rosto**. Os nomes antigos (Hospedeira, Mãe da Porta, Hora Parada, Ponteiro Cego, Sinal Mais Alto, Estação Viva, Leitor Sem Nome, Escrivão Final) ficam só como histórico, exceto onde reaparecem abaixo.
+> Fechados: Conhecimento = **A Juíza Sem Rosto**; Energia = **O Dono da Casa** (08/11/2026). Os nomes antigos (Hospedeira, Mãe da Porta, Hora Parada, Ponteiro Cego, Sinal Mais Alto, Estação Viva, Leitor Sem Nome, Escrivão Final) ficam só como histórico, exceto onde reaparecem abaixo.
 > Busca rasa na web: nenhuma das opções apareceu como nome de outra obra. Falta checagem final do que for escolhido.
 > Tom: título de algo que ninguém ousa chamar pelo nome.
 
@@ -101,7 +105,7 @@
 |---|---|---|---|
 | Sangue | O Diabo de Dentro | A Mãe da Porta | A Que Não Deixa Sair |
 | Morte | O Deus do Último Segundo | A Hora Parada | O Que Marca a Hora |
-| Energia | O Chamado Sem Fim | A Voz da Torre | O Sinal Mais Alto |
+| Energia | **O Dono da Casa** (fechado) | | |
 | Conhecimento | **A Juíza Sem Rosto** (fechado) | | |
 
 ### Sangue (Irene Valadares, Ventre, relíquia: Cálice do Faminto)
@@ -114,10 +118,9 @@
 - No Minecraft: torre-relógio atravessando a lua de osso; cinza em câmera lenta, sombra que chega atrasada, som que bate depois de visto. Evento: o tempo dobra na arena, o grupo empurra o ponteiro.
 - Opção 1 é a "variação de Deus da Morte": o deus que só sobrou do último instante.
 
-### Energia (Bruna Tavares, Rede, relíquia: Bobina do Último Chamado)
-- Uma técnica que pediu socorro e nunca desligou: a torre que transmite para quem estiver ouvindo, esperando ser respondida.
-- No Minecraft: antena do tamanho de um arranha-céu, farol roxo na noite da Rede; HUD que falha e relógio que pula; voz picotada com matrículas em loop. Evento: tempestade de transmissões, o grupo defende 3 repetidores.
-- Opção 1 combina com o tom de aviso; opção 2 é a mais discreta.
+### Energia: O Dono da Casa (Bruna Tavares, Rede, relíquia: Bobina do Último Chamado) - FECHADO
+- Uma técnica que pediu socorro e nunca desligou: a torre virou casa. Quem atende o chamado entra nela, e o Dono decide quem sai.
+- No Minecraft: antena do tamanho de um arranha-céu, farol roxo na noite da Rede; HUD que falha e relógio que pula; voz picotada com matrículas em loop. Evento: tempestade de transmissões, o grupo defende 3 repetidores para a porta se abrir.
 
 ---
 
@@ -129,7 +132,7 @@
 - **Final:** quem fica no lugar de outro para que o grupo volte pode virar mais um "dos que vieram antes" **na história** (`lore/premissa.md`). Isso é narrativa de final, não uma transformação jogável.
 
 ## Pontos para o Nikolas decidir
-1. Escolher o nome de Sangue, Morte e Energia (tabela "Nomes das entidades: opções"). Conhecimento já está fechado: A Juíza Sem Rosto.
+1. Escolher o nome de Sangue e Morte (tabela "Nomes das entidades: opções"). Fechados: Conhecimento = A Juíza Sem Rosto; Energia = O Dono da Casa.
 2. A visão "a entidade foi uma pessoa que usou a relíquia" combina com o tom, ou é pesada demais?
 3. Evento de entidade: marcado pelo servidor (horário) ou liberado por progressão?
 4. O **fragmento** que a entidade deixa serve de oferenda de ritual (não fabrica nada)? Sugestão: sim.

@@ -38,6 +38,7 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 2026-11-08 | **Entidade de Conhecimento: "A Juíza Sem Rosto"** (nome fechado). Os nomes de Sangue, Morte e Energia aguardam escolha entre 3 opções cada (`lore/entidades.md`). |
 | 2026-11-08 | **Nomes das 4 relíquias de elemento (só lore) fechados:** Sangue = **Cálice do Faminto**, Conhecimento = **Lente do Escriba**, Morte = **Ampulheta Quebrada**, Energia = **Bobina do Último Chamado**. Objetos: taça de ferro (Sangue), lente de cabo dourado (Conhecimento), ampulheta rachada (Morte), bobina de cobre na antena (Energia). Em `lore/reliquias-e-espadas.md`. |
 | 2026-11-08 | **Nomes das 4 espadas fechados:** Sangue = **Rubra**, Conhecimento = **Letra de Quem Leu Tudo**, Morte = **Minuto Arrancado**, Energia = **Cabo da Última Chamada**. Sem craft, como já decidido. |
+| 2026-11-08 | **Entidade de Energia: "O Dono da Casa"** (nome fechado), dona da Bobina do Último Chamado. Ideia: quem atende o chamado da antena entrou na casa dele, e ele decide quem sai. Tom sério e de presença. Faltam só Sangue e Morte (`lore/entidades.md`, `lore/reliquias-e-espadas.md`). |
 
 ## Pendentes (precisam do Nikolas)
 

@@ -52,8 +52,8 @@
 - **Objeto:** uma **bobina de cobre** que fica no coração de uma antena retorcida; é ela que guarda o pedido de socorro que nunca parou de sair.
 - **Aparência:** conjunto de **1 bloco de altura**: antena de cobre retorcido envolvendo uma **bobina roxa** girando, com esferas de luz ciano em órbita. **Animação:** a bobina vibra, faíscas sobem em espiral. Estática no som.
 - **Materiais:** cobre, vidro roxo, fio trançado.
-- **Quem a usou e virou a entidade:** **Bruna Tavares**, técnica de rádio, matrícula 0204. Subiu numa torre e **ligou a bobina da antena para pedir socorro**. Ninguém respondeu. Ela não conseguiu desligar, porque desligar era desistir. Foi virando o sinal. Hoje é **O Sinal Mais Alto** (`lore/entidades.md`).
-- **Onde se vê:** é a ponta da torre da entidade, o farol roxo; no evento, o grupo mantém os repetidores ligados para ela não se religar. No santuário, no coração da Rede.
+- **Quem a usou e virou a entidade:** **Bruna Tavares**, técnica de rádio, matrícula 0204. Subiu numa torre e **ligou a bobina da antena para pedir socorro**. Ninguém respondeu. Ela não conseguiu desligar, porque desligar era desistir. Foi virando o sinal, e o sinal virou uma casa. Quem atende o chamado entra nela, e ela decide quem sai. Hoje é **O Dono da Casa** (nome fechado em 08/11/2026, `lore/entidades.md`).
+- **Onde se vê:** é a ponta da torre da entidade, o farol roxo; no evento, o grupo mantém os repetidores ligados para ele não trancar a casa de novo. No santuário, no coração da Rede.
 
 ---
 
@@ -111,7 +111,7 @@
 - **Custo:** de vez em quando o golpe falha (aleatoriedade) e a lâmina desliga por 2 segundos.
 - **Como obter:** **evento climático**. A espada cai num ponto de raio durante a tempestade elétrica da Rede. Quem segura metal condutor na hora perde a chance.
 - **Evolui:** *Desperta* ao sobreviver a uma tempestade inteira da Rede segurando a espada. *Plena* ao derrotar a **Sobrecarga** (chefe) com a espada.
-- **Ligação com a entidade:** no evento, a descarga em cadeia "aterra" a carga dos repetidores e abre a bobina do Sinal por poucos segundos.
+- **Ligação com a entidade:** no evento, a descarga em cadeia "aterra" a carga dos repetidores e abre a bobina do Dono da Casa por poucos segundos.
 
 ---
 
