@@ -44,6 +44,8 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 08/11/2026 | **Lucidez volta** descansando, dormindo, com luz forte, grupo por perto e comida quente. |
 | 08/11/2026 | **Relíquias de elemento (lore):** Sangue **Cálice do Faminto** · Conhecimento **Lente do Escriba** · Morte **Ampulheta Quebrada** · Energia **Bobina do Último Chamado**. |
 | 08/11/2026 | **Espadas:** Sangue **Rubra** · Conhecimento **Letra de Quem Leu Tudo** · Morte **Minuto Arrancado** · Energia **Cabo da Última Chamada**. |
+| 2026-11-08 | **Entidade de Energia: "O Dono da Casa"** (nome fechado), dona da Bobina do Último Chamado. Ideia: quem atende o chamado da antena entrou na casa dele, e ele decide quem sai. Tom sério e de presença. |
+| 2026-11-08 | **Entidades de Sangue e Morte fechadas:** Sangue = **O Diabo**, Morte = **O Deus da Morte**. Nomes genéricos; visual, história e poderes são nossos. Origem: uma pessoa usou a relíquia e virou a entidade (Irene Valadares e Aurélio Matos). "Hospedeira" saiu (inclusive da espada Rubra). Nomes antigos de relíquia corrigidos: Cálice do Faminto, Lente do Escriba, Bobina do Último Chamado. Listas de opções de nome removidas. Tom sério, de medo e presença. Falta só a checagem final na web dos dois nomes (`lore/entidades.md`). |
 
 ## Pendentes (precisam do Nikolas)
 
