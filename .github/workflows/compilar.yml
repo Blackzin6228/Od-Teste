@@ -1,0 +1,99 @@
+name: Compilar
+
+# Roda em todo push e em todo Pull Request.
+# Se não compilar ou um teste falhar, fica vermelho e o PR não entra no main.
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: compilar-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  compilar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Guardar os jars do pack entre execuções
+        uses: actions/cache@v4
+        with:
+          path: libs
+          key: libs-${{ hashFiles('build.gradle') }}
+
+      - name: Baixar os mods do pack (mesmas versões do servidor)
+        run: bash ferramentas/baixar_libs.sh
+
+      - name: Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Compilar e testar
+        run: ./gradlew build --no-daemon
+
+      - name: Guardar o jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: mod-jar
+          path: build/libs/*.jar
+          if-no-files-found: error
+
+  servidor:
+    name: Ligar servidor com o pack inteiro
+    needs: compilar
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Pegar o jar compilado
+        uses: actions/download-artifact@v4
+        with:
+          name: mod-jar
+          path: jar
+
+      - name: Guardar o servidor e os mods entre execuções
+        uses: actions/cache@v4
+        with:
+          path: |
+            servidor-teste/libraries
+            servidor-teste/mods
+            servidor-teste/run.sh
+            servidor-teste/packwiz.json
+          key: servidor-${{ github.run_id }}
+          restore-keys: servidor-
+
+      - name: Ligar o servidor (falha se crashar)
+        run: |
+          JAR=$(ls jar/*.jar | grep -v -- '-sources' | head -1)
+          bash ferramentas/teste_servidor.sh "$JAR" servidor-teste
+
+      - name: Guardar os logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs-servidor
+          path: |
+            servidor-teste/console.log
+            servidor-teste/logs/latest.log
+            servidor-teste/crash-reports/
+          if-no-files-found: ignore

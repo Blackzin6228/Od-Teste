@@ -1,0 +1,119 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.148'
+    id 'idea'
+}
+
+version = mod_version
+group = mod_group_id
+
+base {
+    archivesName = mod_id
+}
+
+// O Minecraft 1.21.1 roda em Java 21.
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+repositories {
+    mavenCentral()
+}
+
+neoForge {
+    version = project.neo_version
+
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
+    }
+
+    runs {
+        client {
+            client()
+        }
+        server {
+            server()
+            programArgument '--nogui'
+        }
+        configureEach {
+            logLevel = org.slf4j.event.Level.INFO
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+// Os outros mods vêm do próprio modpack (Conguitos-smp/jars), nas versões do servidor.
+// O script ferramentas/baixar_libs.sh coloca os jars em ./libs (essa pasta não vai para o git).
+// Só servem para compilar: quem entrega os mods no jogo é o pack.
+def libsDoPack = [
+        // obrigatório
+        'geckolib-neoforge-1.21.1-4.9.3.jar',          // modelos 3D (Blockbench → GeckoLib)
+        // integrações opcionais: o mod liga cada uma só se o mod estiver no pack
+        'curios-neoforge-9.5.1+1.21.1.jar',            // acessórios
+        'irons_spellbooks-1.21.1-3.16.3.jar',          // escola de magia nova
+        'irons_lib-1.21.1-2.3.0.jar',                  // necessário para o Iron's
+        'occultism-1.21.1-neoforge-1.224.6.jar',       // rituais de giz
+        'malum-1.21.1-1.8.2.jar',                      // almas e espíritos
+        'lodestone-1.21.1-1.8.2.jar',                  // necessário para o Malum
+        'Vampirism-1.21-1.10.13.jar',                  // sangue e caçadores
+        'Botania Revived-1.21.1-1.0.3-NeoForge.jar',   // mana e natureza
+        'Mekanism-1.21.1-10.7.19.85.jar',              // ramo tech
+        'create-1.21.1-6.0.10.jar',                    // ramo tech
+        'aaa_particles-neoforge-1.21.1-2.3.4.jar',     // efeitos (Effekseer)
+        'player-animation-lib-forge-2.0.4+1.21.1.jar', // animação do jogador
+        'jei-1.21.1-neoforge-19.64.0.455.jar',         // esconder receitas
+        'emi-1.1.24+1.21.1+neoforge.jar',              // esconder receitas
+]
+
+dependencies {
+    libsDoPack.each { nome ->
+        def jar = file("libs/${nome}")
+        if (!jar.exists()) {
+            throw new GradleException("Falta libs/${nome}. Rode: bash ferramentas/baixar_libs.sh")
+        }
+        compileOnly files(jar)
+    }
+
+    testImplementation platform('org.junit:junit-bom:5.11.3')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// Preenche o neoforge.mods.toml com os valores do gradle.properties.
+var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
+    var replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            loader_version_range   : loader_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+    ]
+    inputs.properties replaceProperties
+    expand replaceProperties
+    from "src/main/templates"
+    into "build/generated/sources/modMetadata"
+}
+sourceSets.main.resources.srcDir generateModMetadata
+neoForge.ideSyncTask generateModMetadata
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}

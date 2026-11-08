@@ -1,0 +1,26 @@
+package com.nikolas.odteste;
+
+import com.mojang.logging.LogUtils;
+import com.nikolas.odteste.compat.Compat;
+import com.nikolas.odteste.registro.Registro;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import org.slf4j.Logger;
+
+/**
+ * Classe principal. Só liga os sistemas: cada sistema mora na sua pasta e se registra sozinho.
+ * O nome do mod ainda é provisório (ver docs/decisoes.md).
+ */
+@Mod(OdMod.MODID)
+public final class OdMod {
+    /** Vem do gradle.properties. Depois do primeiro lançamento no servidor, nunca mais muda. */
+    public static final String MODID = "odteste";
+    public static final Logger LOGGER = LogUtils.getLogger();
+
+    public OdMod(IEventBus barramento, ModContainer container) {
+        Registro.registrar(barramento);
+        Compat.iniciar(barramento);
+        LOGGER.info("{} carregado. Integrações ligadas: {}", MODID, Compat.ligadas());
+    }
+}
