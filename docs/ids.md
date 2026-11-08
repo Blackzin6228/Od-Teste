@@ -32,7 +32,18 @@ Modid: `odteste` (provisório) · Lançado no servidor: **não**
 | `odteste:marca_sangue_3` | textura gerada no cliente (estágio 3) | 08/11/2026 | idem |
 | `odteste:marca_sangue_4` | textura gerada no cliente (estágio 4) | 08/11/2026 | idem |
 | `odteste:exposicao_repeticao` | dado do jogador (mapa `fonte/elemento` → [início da janela em tempo do mundo, vezes]) | 08/11/2026 | freio de repetição da Exposição; salvo para relogar não zerar; só guarda janelas abertas (10 min); sobrevive à morte; não vai para o cliente |
-| `efeitos_fortes` | chave de config do cliente (`config/odteste-client.toml`: `LIGADO`, `SUAVE`, `DESLIGADO`) | 08/11/2026 | fica no PC do jogador; renomear perde a escolha de quem usa suave/desligado |
+| `efeitos_fortes` | chave de config do cliente (`config/odteste-client.toml`: `LIGADO`, `SUAVE`, `DESLIGADO`) | 08/11/2026 | fica no PC do jogador; renomear perde a escolha de quem usa suave/desligado. Desde 08/11 também desliga as alucinações que se veem (vulto, criatura, porta), a tela lavada, o balanço e a mão tremendo |
+| `odteste:lucidez_lentidao` | modificador de atributo (velocidade de movimento) | 08/11/2026 | temporário (não fica salvo); Abalado −3%, Quebrando −7%; refeito só quando a faixa muda, ao entrar e ao renascer |
+
+Alucinações (só no cliente, **nada registrado nem salvo**): o vulto e a criatura falsa usam os tipos vanilla
+`minecraft:enderman` e `minecraft:zombie` como modelo provisório, criados só no cliente com id negativo; não
+existem no servidor. A porta falsa muda só a cópia do bloco no cliente. Os nomes das alucinações
+(`RegrasHorror.Alucinacao`) não são salvos e podem mudar.
+
+Chaves de texto novas (não são IDs salvos): `odteste.frase.exposicao.<degrau>` (`comum`, `tocado`, `marcado`,
+`fundo`, `a_beira`, `atravessado`) e `odteste.frase.lucidez.<faixa>` (`firme`, `inquieto`, `abalado`, `quebrando`,
+`surto`), mostradas por `/exposicao` e `/lucidez` sem nada depois. Texto **provisório** (começa com `[provisório]`)
+até a Lore preencher.
 
 Fontes de Exposição (usadas no comando `/exposicao contato` e no freio de repetição). Ficam salvas dentro de
 `odteste:exposicao_repeticao` como `fonte/elemento` (ex.: `criatura_vista/sangue`), então também não mudam:

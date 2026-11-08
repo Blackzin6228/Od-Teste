@@ -7,7 +7,10 @@ import java.util.List;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import com.nikolas.odteste.sistemas.RegrasHorror;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.neoforged.neoforge.client.event.RenderHandEvent;
 import net.neoforged.neoforge.client.event.ViewportEvent;
 
 /**
@@ -26,6 +29,14 @@ final class Tela {
     /** Vinheta da faixa de Lucidez (0 a 1). O alvo vem de EfeitosLucidez; aqui só suaviza. */
     static float vinhetaAlvo;
     private static float vinhetaAtual;
+    /**
+     * Tela "lavada" (0 a 1): cor puxada para um cinza escuro. Aproximação de dessaturação sem shader
+     * (não briga com shaders do pack). Só com efeitos fortes.
+     */
+    static float dessaturarAlvo;
+    private static float dessaturarAtual;
+    /** Cinza escuro e frio da tela lavada: tira cor sem clarear a noite. */
+    private static final int CINZA_LAVADO = 0x2E2F34;
 
     private record Pulso(int cor, long inicio, int duracao, int batidas, float forca) {
         float valor(float t) {
@@ -104,12 +115,16 @@ final class Tela {
         PULSOS.clear();
         vinhetaMomento = escuro = tremor = inclinar = null;
         vinhetaAtual = vinhetaAlvo = 0;
+        dessaturarAtual = dessaturarAlvo = 0;
+        tremorMira = 0;
     }
 
     /** Uma vez por tick: suaviza a vinheta e joga fora o que acabou. */
     static void aoTick() {
         tick++;
         vinhetaAtual += (vinhetaAlvo - vinhetaAtual) * 0.08f;
+        float lavar = ConfigCliente.soVinhetaESom() ? 0f : dessaturarAlvo;
+        dessaturarAtual += (lavar - dessaturarAtual) * 0.02f; // entra e sai devagar (uns 2 s)
         float t = tick;
         PULSOS.removeIf(p -> t - p.inicio() > p.duracao());
         if (vinhetaMomento != null && vinhetaMomento.acabou(t)) vinhetaMomento = null;
@@ -131,11 +146,19 @@ final class Tela {
         boolean temPulso = false;
         for (Pulso p : PULSOS) temPulso |= p.valor(t) > 0.01f;
         float tudo = escuro == null ? 0 : escuro.valor(t);
-        if (escurecerBorda < 0.01f && !temPulso && tudo < 0.01f) return;
+        float lavar = dessaturarAtual;
+        if (escurecerBorda < 0.01f && !temPulso && tudo < 0.01f && lavar < 0.01f) return;
 
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
         RenderSystem.enableBlend();
+
+        // 0) Tela lavada: um véu cinza escuro por cima de tudo (tira a cor, quase não clareia o escuro).
+        if (lavar > 0.01f) {
+            RenderSystem.defaultBlendFunc();
+            int a = Math.min(200, (int) (lavar * 255));
+            g.fill(0, 0, w, h, (a << 24) | CINZA_LAVADO);
+        }
 
         // 1) Bordas escuras: a vinheta do jogo multiplicada (mesmo truque da vinheta vanilla).
         if (escurecerBorda > 0.01f) {
@@ -196,5 +219,32 @@ final class Tela {
         if (inclinar != null) {
             e.setRoll(e.getRoll() + inclinar.valor(t) * inclinarLado * forca);
         }
+        // Balanço: a cabeça pende devagar, como tontura (só com o nível de horror alto).
+        float balanco = RegrasHorror.balanco(EfeitosLucidez.nivel) * forca;
+        if (balanco > 0.001f) {
+            e.setRoll(e.getRoll() + (float) (Math.sin(t * 0.045) + 0.4 * Math.sin(t * 0.11)) * balanco);
+            e.setYaw(e.getYaw() + (float) Math.sin(t * 0.031) * balanco * 0.4f);
+        }
+    }
+
+    /** Distorção leve: a visão "respira" (o campo de visão abre e fecha um pouco). */
+    static void aoCalcularFov(ViewportEvent.ComputeFov e) {
+        float forca = ConfigCliente.tremor();
+        float d = RegrasHorror.distorcao(EfeitosLucidez.nivel) * forca;
+        if (d <= 0.0001f) return;
+        float t = (float) (tick + e.getPartialTick());
+        double onda = Math.sin(t * 0.07) * 0.7 + Math.sin(t * 0.173) * 0.3;
+        e.setFOV(e.getFOV() * (1.0 + d * onda));
+    }
+
+    /** Mão tremendo: o braço e o item na mão balançam um pouco (só a sua visão em primeira pessoa). */
+    static void aoDesenharMao(RenderHandEvent e) {
+        if (e.getHand() != InteractionHand.MAIN_HAND) return; // a mão secundária herda o mesmo deslocamento
+        float forca = ConfigCliente.tremor();
+        float amp = RegrasHorror.tremorMao(EfeitosLucidez.nivel) * forca;
+        if (amp <= 0.00001f) return;
+        float t = (float) (tick + e.getPartialTick());
+        e.getPoseStack().translate(Math.sin(t * 1.9) * amp + Math.sin(t * 5.3) * amp * 0.3,
+                Math.cos(t * 2.3) * amp * 0.8, 0);
     }
 }

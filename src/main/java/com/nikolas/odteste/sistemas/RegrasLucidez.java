@@ -76,6 +76,19 @@ public final class RegrasLucidez {
         return Math.max(1, Math.round(maxima * SURTO_VOLTA_PERCENTO / 100f));
     }
 
+    /**
+     * Lentidão leve da Lucidez baixa (fração da velocidade, negativa): Abalado −3%, Quebrando (e surto) −7%.
+     * Aplicada só quando a faixa muda (barato), como modificador temporário.
+     */
+    public static double lentidao(FaixaLucidez f) {
+        if (f == null) return 0;
+        return switch (f) {
+            case FIRME, INQUIETO -> 0;
+            case ABALADO -> -0.03;
+            case QUEBRANDO, SURTO -> -0.07;
+        };
+    }
+
     /** Dormir a noite inteira devolve metade da máxima. */
     public static int ganhoAoDormir(int maxima) {
         return Math.max(1, maxima / 2);

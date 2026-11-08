@@ -13,10 +13,14 @@ import com.nikolas.odteste.dados.Limites;
 import com.nikolas.odteste.elementos.Elemento;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.nikolas.odteste.sistemas.Abalo;
+import com.nikolas.odteste.sistemas.Degrau;
 import com.nikolas.odteste.sistemas.Exposicao;
+import com.nikolas.odteste.sistemas.FaixaLucidez;
 import com.nikolas.odteste.sistemas.Fonte;
+import com.nikolas.odteste.sistemas.FrasesFaixa;
 import com.nikolas.odteste.sistemas.Lucidez;
 import java.util.Arrays;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
@@ -31,7 +35,10 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
  * Comandos de admin (permissão 2) para ver e mexer nos valores dos jogadores.
  * São para o narrador e para teste: o jogador comum nunca vê esses números.
  *
- * /exposicao ver|definir, /lucidez ver|definir|maxima, /marca ver|definir, /transcender ver|definir
+ * /exposicao ver|definir|contato, /lucidez ver|definir|maxima|abalar, /marca ver|definir, /transcender ver|definir
+ *
+ * Exceção: /exposicao e /lucidez sozinhos são de qualquer jogador e mostram só um símbolo e uma frase da
+ * faixa dele (nunca o número).
  */
 public final class ComandosAdmin {
     private static final String JOGADOR = "jogador";
@@ -58,12 +65,18 @@ public final class ComandosAdmin {
     }
 
     static void registrar(CommandDispatcher<CommandSourceStack> d) {
-        d.register(raiz("exposicao")
-                .then(Commands.literal("ver").then(jogador().executes(c -> {
+        // Sem nada depois: qualquer jogador lê a frase da própria faixa (sem número). O resto é só admin.
+        d.register(Commands.literal("exposicao")
+                .executes(c -> {
+                    ServerPlayer p = c.getSource().getPlayerOrException();
+                    Degrau g = Degrau.de(DadosJogador.exposicao(p));
+                    return frase(c, FrasesFaixa.simbolo(g), FrasesFaixa.cor(g), FrasesFaixa.chave(g), g.ordinal());
+                })
+                .then(admin("ver").then(jogador().executes(c -> {
                     ServerPlayer p = alvo(c);
                     return ok(c, "odteste.comando.exposicao.ver", DadosJogador.exposicao(p), p, false);
                 })))
-                .then(Commands.literal("definir").then(jogador().then(valor(Limites.EXPOSICAO_MIN, Limites.EXPOSICAO_MAX)
+                .then(admin("definir").then(jogador().then(valor(Limites.EXPOSICAO_MIN, Limites.EXPOSICAO_MAX)
                         .executes(c -> {
                             ServerPlayer p = alvo(c);
                             DadosJogador.definirExposicao(p, IntegerArgumentType.getInteger(c, VALOR));
@@ -71,7 +84,7 @@ public final class ComandosAdmin {
                         }))))
                 // Simula um contato com o paranormal (criatura, relíquia...) pelo mesmo caminho do conteúdo.
                 // Com elemento, soma contato: é assim que se testa a Marca aparecendo sozinha.
-                .then(Commands.literal("contato").then(jogador()
+                .then(admin("contato").then(jogador()
                         .then(Commands.argument("fonte", StringArgumentType.word())
                                 .suggests((c, b) -> SharedSuggestionProvider.suggest(
                                         Arrays.stream(Fonte.values()).map(Fonte::id), b))
@@ -83,28 +96,33 @@ public final class ComandosAdmin {
                                         .then(Commands.argument(INTENSIDADE, FloatArgumentType.floatArg(0f, 5f))
                                                 .executes(c -> contato(c, true, true))))))));
 
-        d.register(raiz("lucidez")
-                .then(Commands.literal("ver").then(jogador().executes(c -> {
+        d.register(Commands.literal("lucidez")
+                .executes(c -> {
+                    ServerPlayer p = c.getSource().getPlayerOrException();
+                    FaixaLucidez f = FaixaLucidez.de(DadosJogador.lucidez(p), DadosJogador.lucidezMax(p));
+                    return frase(c, FrasesFaixa.simbolo(f), FrasesFaixa.cor(f), FrasesFaixa.chave(f), f.ordinal());
+                })
+                .then(admin("ver").then(jogador().executes(c -> {
                     ServerPlayer p = alvo(c);
                     c.getSource().sendSuccess(() -> Component.translatable("odteste.comando.lucidez.ver",
                             p.getDisplayName(), DadosJogador.lucidez(p), DadosJogador.lucidezMax(p)), false);
                     return DadosJogador.lucidez(p);
                 })))
                 // A Lucidez é presa na máxima do jogador: pedir 100 para quem tem máxima 70 dá 70.
-                .then(Commands.literal("definir").then(jogador().then(valor(0, Limites.LUCIDEZ_MAX_PADRAO)
+                .then(admin("definir").then(jogador().then(valor(0, Limites.LUCIDEZ_MAX_PADRAO)
                         .executes(c -> {
                             ServerPlayer p = alvo(c);
                             DadosJogador.definirLucidez(p, IntegerArgumentType.getInteger(c, VALOR));
                             return ok(c, "odteste.comando.lucidez.definir", DadosJogador.lucidez(p), p);
                         }))))
-                .then(Commands.literal("maxima").then(jogador().then(valor(Limites.LUCIDEZ_MAX_PISO, Limites.LUCIDEZ_MAX_PADRAO)
+                .then(admin("maxima").then(jogador().then(valor(Limites.LUCIDEZ_MAX_PISO, Limites.LUCIDEZ_MAX_PADRAO)
                         .executes(c -> {
                             ServerPlayer p = alvo(c);
                             DadosJogador.definirLucidezMax(p, IntegerArgumentType.getInteger(c, VALOR));
                             return ok(c, "odteste.comando.lucidez.maxima", DadosJogador.lucidezMax(p), p);
                         }))))
                 // Simula um abalo (batalha com relíquia, aparição, mob de Sangue) pelo caminho do conteúdo.
-                .then(Commands.literal("abalar").then(jogador()
+                .then(admin("abalar").then(jogador()
                         .then(Commands.argument("abalo", StringArgumentType.word())
                                 .suggests((c, b) -> SharedSuggestionProvider.suggest(
                                         Arrays.stream(Abalo.values()).map(Abalo::id), b))
@@ -193,6 +211,20 @@ public final class ComandosAdmin {
 
     private static LiteralArgumentBuilder<CommandSourceStack> raiz(String nome) {
         return Commands.literal(nome).requires(s -> s.hasPermission(2));
+    }
+
+    /** Subcomando só de admin (permissão 2), debaixo de uma raiz aberta a todos. */
+    private static LiteralArgumentBuilder<CommandSourceStack> admin(String nome) {
+        return Commands.literal(nome).requires(s -> s.hasPermission(2));
+    }
+
+    /** Símbolo colorido + frase da faixa, só para quem digitou. Nenhum número. Devolve a faixa (para comandos). */
+    private static int frase(CommandContext<CommandSourceStack> c, String simbolo, int cor, String chave, int faixa) {
+        Component msg = Component.literal(simbolo).withStyle(s -> s.withColor(cor))
+                .append(Component.literal(" "))
+                .append(Component.translatable(chave).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+        c.getSource().sendSuccess(() -> msg, false);
+        return faixa;
     }
 
     private static RequiredArgumentBuilder<CommandSourceStack, EntitySelector> jogador() {

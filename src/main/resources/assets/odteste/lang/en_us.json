@@ -30,7 +30,19 @@
   "odteste.momento.marca.morte": "Time slowed down on your skin.",
   "odteste.momento.marca.energia": "Your skin won't keep still.",
 
+  "odteste.frase.exposicao.comum": "[placeholder] Nothing has touched you. Yet.",
+  "odteste.frase.exposicao.tocado": "[placeholder] There is a sound only you can hear.",
+  "odteste.frase.exposicao.marcado": "[placeholder] Something knows your name.",
+  "odteste.frase.exposicao.fundo": "[placeholder] The dark comes closer to you than to the others.",
+  "odteste.frase.exposicao.a_beira": "[placeholder] On the other side, someone is calling you.",
+  "odteste.frase.exposicao.atravessado": "[placeholder] You are no longer whole on this side.",
+  "odteste.frase.lucidez.firme": "[placeholder] Your mind is in place.",
+  "odteste.frase.lucidez.inquieto": "[placeholder] You swear you heard something.",
+  "odteste.frase.lucidez.abalado": "[placeholder] There are footsteps behind you. Don't look.",
+  "odteste.frase.lucidez.quebrando": "[placeholder] You no longer trust what you see.",
+  "odteste.frase.lucidez.surto": "[placeholder] ...",
+
   "odteste.configuration.title": "Od Teste",
   "odteste.configuration.efeitos_fortes": "Strong screen effects",
-  "odteste.configuration.efeitos_fortes.tooltip": "Camera shake and tilt. SUAVE halves it; DESLIGADO leaves only vignette and sound."
+  "odteste.configuration.efeitos_fortes.tooltip": "Camera shake, sway and tilt, shaking hand, washed-out screen and visible hallucinations (shadow, creature, door). SUAVE halves the motion; DESLIGADO leaves only vignette and sound."
 }

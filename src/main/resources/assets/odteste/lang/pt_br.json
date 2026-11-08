@@ -30,7 +30,19 @@
   "odteste.momento.marca.morte": "O tempo ficou lento na sua pele.",
   "odteste.momento.marca.energia": "Sua pele não para quieta.",
 
+  "odteste.frase.exposicao.comum": "[provisório] Nada te tocou. Ainda.",
+  "odteste.frase.exposicao.tocado": "[provisório] Tem um som que só você ouve.",
+  "odteste.frase.exposicao.marcado": "[provisório] Alguma coisa sabe o seu nome.",
+  "odteste.frase.exposicao.fundo": "[provisório] O escuro chega mais perto de você que dos outros.",
+  "odteste.frase.exposicao.a_beira": "[provisório] Do outro lado, alguém está te chamando.",
+  "odteste.frase.exposicao.atravessado": "[provisório] Você não está mais inteiro deste lado.",
+  "odteste.frase.lucidez.firme": "[provisório] Sua cabeça está no lugar.",
+  "odteste.frase.lucidez.inquieto": "[provisório] Você jura que ouviu alguma coisa.",
+  "odteste.frase.lucidez.abalado": "[provisório] Tem passos atrás de você. Não olhe.",
+  "odteste.frase.lucidez.quebrando": "[provisório] Você não confia mais no que vê.",
+  "odteste.frase.lucidez.surto": "[provisório] ...",
+
   "odteste.configuration.title": "Od Teste",
   "odteste.configuration.efeitos_fortes": "Efeitos fortes de tela",
-  "odteste.configuration.efeitos_fortes.tooltip": "Tremor e inclinação da câmera. SUAVE corta pela metade; DESLIGADO deixa só vinheta e som."
+  "odteste.configuration.efeitos_fortes.tooltip": "Tremor, balanço e inclinação da câmera, mão tremendo, tela lavada e alucinações que se veem (vulto, criatura, porta). SUAVE corta o movimento pela metade; DESLIGADO deixa só vinheta e som."
 }

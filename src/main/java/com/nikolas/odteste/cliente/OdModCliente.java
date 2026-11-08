@@ -52,7 +52,9 @@ public final class OdModCliente {
             if (ANIMADOR) AnimacaoJogador.aoTick();
         });
         NeoForge.EVENT_BUS.addListener(Tela::aoCalcularCamera);
-        NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut e) -> Tela.limpar());
+        NeoForge.EVENT_BUS.addListener(Tela::aoCalcularFov);
+        NeoForge.EVENT_BUS.addListener(Tela::aoDesenharMao);
+        NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut e) -> EfeitosLucidez.limpar());
 
         Momento.definirReceptor(MomentosCliente::receber);
         if (ANIMADOR) AnimacaoJogador.iniciar();

@@ -21,6 +21,8 @@ public final class Reacoes {
     }
 
     public static void lucidezMudou(ServerPlayer p, int antes, int depois) {
+        int max = DadosJogador.lucidezMax(p);
+        if (FaixaLucidez.de(antes, max) != FaixaLucidez.de(depois, max)) Lucidez.atualizarLentidao(p);
         if (depois == 0 && antes > 0) Lucidez.surto(p);
     }
 
