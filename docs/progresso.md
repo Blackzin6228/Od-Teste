@@ -18,7 +18,7 @@ Cada mesa atualiza a sua parte ao terminar uma etapa. Legenda: ⬜ não começou
 ⬜ Guia de estilo visual aprovado · ⬜ primeiro item (prévia) · ⬜ primeira armadura · ⬜ primeira criatura
 
 ## Integrador
-🟦 Plano de progressão e crafts (`docs/progressao.md`, armaduras acima da MekaSuit) · 🟦 Troca de voz com controle do jogador e do admin (`docs/voz.md`) · 🟦 Magias por elemento (`docs/magias.md`) · ⬜ Escola nova no Iron's (1 magia de teste) · ⬜ ritual no Occultism · ⬜ ponte com Malum · 🟦 ramo tech: máquinas, matéria em 1-2 passos, eventos de Energia na base e pistas por fita (`docs/tech-paranormal.md`, só proposta)
+🟦 Plano de progressão e crafts (`docs/progressao.md`, armaduras acima da MekaSuit) · 🟦 Troca de voz com controle do jogador e do admin (`docs/voz.md`) · 🟦 Magias por elemento (`docs/magias.md`) · ⬜ Escola nova no Iron's (1 magia de teste) · ⬜ ritual no Occultism · ⬜ ponte com Malum · 🟦 ramo tech (máquinas = misto, decidido 08/11): processamento nas máquinas do pack (mods conferidos), 3 aparelhos nossos com ficha para o Modelador, eventos de Energia e pistas por fita (`docs/tech-paranormal.md`; receitas JSON ainda não escritas)
 
 ## Revisor
 ⬜ Checklist de revisão em uso nos PRs
