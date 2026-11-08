@@ -33,6 +33,7 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 08/11/2026 | Primeiro play test: elemento **Sangue**. |
 | 08/11/2026 | **Exposição = contato com o paranormal**: sobe com criaturas do mod (ver de perto, lutar, matar), relíquias menores (pegar, usar), rituais, dimensões dos elementos e aparições. **Não** sobe por escuro, morte comum ou mob vanilla. |
 | 08/11/2026 | **Lucidez** cai conforme as coisas acontecem: batalhas com relíquias, aparições, enfrentar mobs de Sangue e tomar dano (dano comum pouco, paranormal mais). Volta devagar descansando ou dormindo. |
+| 08/11/2026 | **Lucidez volta por três caminhos:** descansando, dormindo, e com luz forte + grupo por perto + comida quente. Comida quente é a tag `odteste:comida_quente` (ensopados vanilla; outros mods somam por datapack/compat). |
 | 08/11/2026 | **Marca de Sangue visível no corpo**: camada sobre a skin (veias/cicatrizes vermelhas) que cresce com o estágio, vista por todos. Visual provisório até a prévia do Modelador. |
 
 ## Pendentes (precisam do Nikolas)

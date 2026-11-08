@@ -66,9 +66,18 @@ O quanto você ainda está são. Cai rápido e volta devagar. É o "medo" do per
 - pagar um rito ou a magia do elemento (tecla de afinidade, como a tecla H do Máscaras); eventos do narrador.
 - **Não** cai com escuro.
 
-**Volta devagar com:**
-- descansar (parado, sem tomar dano); dormir; ficar perto de luz forte e de outros jogadores (o grupo acalma — bom para roleplay);
-- comida quente (ensopados), itens próprios (ex.: uma vela que segura a Lucidez de quem está perto).
+**Volta devagar por três caminhos, todos mantidos** (decisão do Nikolas, 08/11/2026, opção B do item 4 do Revisor no PR #13):
+1. **descansando** (parado, sem tomar dano);
+2. **dormindo**;
+3. **luz forte + grupo por perto** (o grupo acalma, bom para roleplay) e **comida quente**.
+
+**Comida quente** = tag de item `odteste:comida_quente` (`data/odteste/tags/item/comida_quente.json`, `"replace": false`).
+Hoje tem só os ensopados vanilla: ensopado de cogumelo, de coelho, sopa de beterraba e ensopado suspeito.
+Comidas de outros mods (Farmer's Delight etc.) **entram sem mexer no Java**: um datapack ou o `compat/` do
+Integrador cria o mesmo arquivo `data/odteste/tags/item/comida_quente.json` com `"replace": false` e os IDs novos
+(use `{"id": "mod:item", "required": false}` para não quebrar se o mod sair do pack). As tags somam.
+
+Depois: itens próprios (ex.: uma vela que segura a Lucidez de quem está perto).
 
 **O que se sente** (em fração da máxima, para funcionar igual para quem transcendeu):
 
@@ -193,7 +202,7 @@ O conteúdo chama o ponto de entrada:
 - **Abalos** (ponto de entrada `Lucidez.abalar(jogador, Abalo.X, intensidade)`): `batalha_reliquia` 3,
   `aparicao` 10, `mob_sangue` 4. Teste: `/lucidez abalar <jogador> <abalo> [intensidade]`.
 - **Volta devagar:** descansando (parado e sem tomar dano há 60 s) +1 a cada 20 s; luz forte (12+) com outro jogador a até
-  8 blocos +1 a cada 10 s; ensopado/sopa +8; dormir a noite toda +metade da máxima.
+  8 blocos +1 a cada 10 s; comida da tag `odteste:comida_quente` +8; dormir a noite toda +metade da máxima.
 - Efeitos por faixa no cliente (tabela da seção 2 e `docs/animacoes.md`): vinheta que respira, sussurros e passos
   falsos, partículas falsas, mira tremendo no arco, tela inclinada, vultos, escuridão curta, sons de criatura e coração.
 - **Surto** (proposta "desmaio"): Cegueira + Lentidão IV por 5 s e a Lucidez volta para 15% da máxima.

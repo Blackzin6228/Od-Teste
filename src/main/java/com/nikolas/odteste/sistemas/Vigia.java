@@ -1,14 +1,19 @@
 package com.nikolas.odteste.sistemas;
 
+import com.nikolas.odteste.OdMod;
 import com.nikolas.odteste.dados.DadosJogador;
+import com.nikolas.odteste.dados.IdsDados;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
@@ -30,6 +35,13 @@ public final class Vigia {
     private static final double GRUPO_RAIO = 8;
     /** Luz forte (bloco ou céu). */
     private static final int LUZ_FORTE = 12;
+
+    /**
+     * Comida quente que acalma (tag {@code odteste:comida_quente}). Hoje só os ensopados vanilla; comidas de outros
+     * mods entram por datapack ou pelo compat, somando na tag ({@code "replace": false}), sem mexer aqui.
+     */
+    public static final TagKey<Item> COMIDA_QUENTE = TagKey.create(Registries.ITEM,
+            ResourceLocation.fromNamespaceAndPath(OdMod.MODID, IdsDados.TAG_COMIDA_QUENTE));
 
     /** Contadores de cada jogador. Só memória; some quando ele sai. */
     private static final class Estado {
@@ -102,13 +114,11 @@ public final class Vigia {
         Lucidez.perder(p, a.pontos());
     }
 
+    /** Comer algo da tag {@link #COMIDA_QUENTE} devolve um pouco de Lucidez. */
     private static void aoComer(LivingEntityUseItemEvent.Finish e) {
         if (!(e.getEntity() instanceof ServerPlayer p)) return;
         ItemStack item = e.getItem();
-        if (item.is(Items.MUSHROOM_STEW) || item.is(Items.RABBIT_STEW) || item.is(Items.BEETROOT_SOUP)
-                || item.is(Items.SUSPICIOUS_STEW)) {
-            Lucidez.recuperar(p, RegrasLucidez.GANHO_COMIDA_QUENTE);
-        }
+        if (item.is(COMIDA_QUENTE)) Lucidez.recuperar(p, RegrasLucidez.GANHO_COMIDA_QUENTE);
     }
 
     /** A noite passou dormindo: quem estava na cama recupera metade da Lucidez máxima. */
