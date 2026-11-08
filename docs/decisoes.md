@@ -18,8 +18,17 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 07/11/2026 | **Crafts personalizados** no nível de dificuldade do **All the Mods 10**: itens de ponta muito difíceis, puxando materiais de vários mods do pack. |
 | 07/11/2026 | **Armaduras personalizadas** sem elemento fixo: o visual se mistura com a **Marca de quem veste**. |
 | 07/11/2026 | **Troca de voz** no roleplay usando os mods que já estão no pack (Simple Voice Chat + SV Voice Changer). |
-| 08/11/2026 | **O jogador não escolhe a Marca.** Ela aparece sozinha pelo que acontece com ele (Exposição, contato com relíquias e criaturas de um elemento). O comando `/marca definir` fica só para admin e evento. |
-| 08/11/2026 | **Muito mais animação** nos sistemas reaproveitados do Máscaras: corpo do jogador (Player Animator), efeitos de tela, partículas (AAA Particles) e sons vanilla com pitch baixo. Plano em `docs/animacoes.md`. |
+| 07/11/2026 | **O Medo** é o princípio dos 4 elementos: fica só como **força maior** (não vira relíquia nem marca). |
+| 07/11/2026 | **Dimensões:** uma dimensão para **cada elemento** (Sangue, Conhecimento, Morte, Energia). |
+| 07/11/2026 | **Organização dos agentes:** **Gabinete do Limiar**. |
+| 07/11/2026 | **Premissa:** os agentes precisam **voltar para casa**; **outras pessoas já atravessaram a floresta antes** deles (o rastro delas é o fio da história). |
+| 07/11/2026 | **Espadas principais e relíquias não têm craft** (nem receita difícil): só evento, chefe ou ritual. As **entidades** (uma por elemento) são as relíquias mais fortes, também sem craft. |
+| 07/11/2026 | **Troca de voz:** liga **sozinha** (pela Marca/relíquia), o **jogador pode desligar**, e o **admin pode ligar/desligar** para qualquer um. |
+| 07/11/2026 | **SV Voice Changer:** por enquanto o servidor é **playtest com amigos, sem fim comercial**, então pode usar (licença CC-BY-NC-SA). Rever antes de cobrar qualquer coisa. |
+| 07/11/2026 | **Armadura:** muito forte, boa contra o paranormal **e** contra o resto, provavelmente **mais forte que a MekaSuit**. |
+| 07/11/2026 | **Magias:** qualidade de referência do addon **Apex Arcana** do Iron's Spells (magias de topo de escola, com efeito e animação caprichados). |
+| 07/11/2026 | **O jogador não escolhe a Marca.** Tirar qualquer sistema de escolha; a Marca vem do que acontece com o jogador (exposição, relíquias, eventos). |
+| 07/11/2026 | **Sistemas reaproveitados do Máscaras** (Exposição, Lucidez, Marca, Vínculo, Transcender…) ficam, mas **melhores e com muito mais animação** (jogador, efeitos, tela). |
 | 08/11/2026 | Sem o nome que Ordem Paranormal dá ao mundo paranormal: usamos "o paranormal" até a Lore propor um nome nosso. |
 
 ## Pendentes (precisam do Nikolas)
@@ -31,5 +40,8 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | Sons | Só sons do Minecraft com efeito, ou sons próprios (precisam ser nossos ou com licença). |
 | Repositório público ou privado | Hoje está **público**. Para um projeto que vai gerar renda, privado protege o código e a arte. |
 | Convivência com o Máscaras 1.34.1 | Os dois mods juntos no servidor, ou o novo substitui o antigo um dia. |
-| O Medo | Só força de fundo (a dimensão em si), ou também uma relíquia/marca rara de fim de jogo. |
-| Dimensões | Quantas e quais (ex.: a dimensão de chegada + uma por elemento). |
+
+## Para amanhã (08/11)
+1. Aprovar o PR #9 (decisões).
+2. PR #8 (Dev): as 3 correções do Revisor, nome nosso no lugar de "Outro Lado", **tirar a escolha de Marca pelo jogador** e plano de animações dos sistemas.
+3. Lore: entidades. Integrador: magias no nível Apex Arcana, armadura acima da MekaSuit, voz.
