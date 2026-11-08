@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Teste de fumaça: liga um servidor com o pack INTEIRO do Conguitos + o jar novo do mod.
+# Teste de fumaça: liga um servidor com o pack INTEIRO (Conguitos ATM10) + o jar novo do mod.
 # Passa só se o servidor chegar no "Done" sem crash e o mod disser que carregou.
 # Uso: bash ferramentas/teste_servidor.sh <caminho-do-jar> [pasta-de-trabalho]
 set -euo pipefail
@@ -7,9 +7,13 @@ set -euo pipefail
 JAR="$(realpath "$1")"
 PASTA="$(realpath -m "${2:-servidor-teste}")"
 NEO="${NEO_VERSION:-21.1.262}"
+PACK_URL="${PACK_URL:-https://conguitos-atm10-pack.vercel.app/pack.toml}"
+BOOT_URL="https://github.com/packwiz/packwiz-installer-bootstrap/releases/latest/download/packwiz-installer-bootstrap.jar"
 PACK_REPO="${PACK_REPO:-https://raw.githubusercontent.com/Blackzin6228/Conguitos-smp/main}"
-LIMITE_SEG="${LIMITE_SEG:-900}"     # 15 minutos para ligar
+LIMITE_SEG="${LIMITE_SEG:-1500}"    # 25 minutos para ligar (ATM10 é grande)
 MEMORIA="${MEMORIA:-10G}"
+# mods só de cliente que vão soltos no pack ATM10 (o servidor não usa)
+SO_CLIENTE="moreoverlays-1.24.2-mc1.21.1-neoforge.jar notenoughanimations-neoforge-1.12.7-mc1.21.1.jar"
 MODID="${MODID:-$(grep '^mod_id=' gradle.properties | cut -d= -f2)}"
 
 mkdir -p "$PASTA"
@@ -24,26 +28,17 @@ if [[ ! -f run.sh ]]; then
 fi
 
 # 2) Mods do pack, do jeito que o servidor de verdade baixa (packwiz, lado servidor)
-# Se tiver uma cópia local do Conguitos-smp (PACK_LOCAL), copia config/kubejs antes: o packwiz confere
-# o hash e pula esses arquivos. Evita falha do raw.githubusercontent em arquivo vazio (erro 501).
-if [[ -n "${PACK_LOCAL:-}" ]]; then
-  for d in config kubejs defaultconfigs; do
-    [[ -d "$PACK_LOCAL/$d" ]] && cp -r "$PACK_LOCAL/$d" .
-  done
-fi
-echo "== baixando o pack (lado servidor)"
-curl -fsSL --retry 3 -o packwiz-installer-bootstrap.jar "$PACK_REPO/launcher/servidor/packwiz-installer-bootstrap.jar"
-curl -fsSL --retry 3 -o packwiz-installer.jar "$PACK_REPO/launcher/servidor/packwiz-installer.jar"
+echo "== baixando o pack ATM10 (lado servidor)"
+curl -fsSL --retry 3 -o packwiz-installer-bootstrap.jar "$BOOT_URL"
+curl -fsSL --retry 3 -o packwiz-installer.jar https://github.com/packwiz/packwiz-installer/releases/latest/download/packwiz-installer.jar
 baixou=0
 for tentativa in 1 2 3; do
-  if java -jar packwiz-installer-bootstrap.jar -g -s server --bootstrap-no-update \
-      --bootstrap-main-jar packwiz-installer.jar "$PACK_REPO/pack.toml" > packwiz.log 2>&1; then
-    baixou=1; break
-  fi
-  echo "packwiz falhou (tentativa $tentativa):"; grep -m3 -i "error\|failed" packwiz.log || tail -5 packwiz.log
+  if java -jar packwiz-installer-bootstrap.jar -g -s server --bootstrap-no-update --bootstrap-main-jar packwiz-installer.jar "$PACK_URL" > packwiz.log 2>&1; then baixou=1; break; fi
+  echo "packwiz falhou (tentativa $tentativa):"; grep -m5 -i "error\|failed\|excluded" packwiz.log || tail -5 packwiz.log
   sleep 10
 done
 [[ $baixou == 1 ]] || { echo "Não deu para baixar o pack."; tail -30 packwiz.log; exit 1; }
+for j in $SO_CLIENTE; do rm -f "mods/$j"; done
 
 # 3) Troca a versão do nosso mod (se o pack já tiver uma) pela nova
 rm -f "mods/$MODID-"*.jar
