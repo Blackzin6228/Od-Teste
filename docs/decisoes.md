@@ -30,7 +30,8 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 07/11/2026 | **O jogador não escolhe a Marca.** Tirar qualquer sistema de escolha; a Marca vem do que acontece com o jogador (exposição, relíquias, eventos). |
 | 07/11/2026 | **Sistemas reaproveitados do Máscaras** (Exposição, Lucidez, Marca, Vínculo, Transcender…) ficam, mas **melhores e com muito mais animação** (jogador, efeitos, tela). |
 | 08/11/2026 | Sem o nome que Ordem Paranormal dá ao mundo paranormal: usamos "o paranormal" até a Lore propor um nome nosso. |
-| 08/11/2026 | **Uma espada e uma relíquia por elemento.** A **relíquia é o receptáculo da entidade** do elemento: quem usa a relíquia pode **se tornar** (ou ser tomado pela) entidade. **Não são máscaras**: cada elemento tem um objeto próprio, original. Os nomes propostos agradaram ao Nikolas (escolha A/B pendente). |
+| 08/11/2026 | **Uma espada e uma relíquia por elemento.** As **4 relíquias de elemento são lore**: cada uma é o receptáculo da entidade do elemento (alguém a usou e virou a entidade). **Não são máscaras, não têm craft e não ficam na mão do jogador**: aparecem na história, nos eventos e nas entidades. Os nomes propostos agradaram (escolha A/B pendente). |
+| 08/11/2026 | **Relíquias menores** (subcategoria, nome nosso a definir pela Lore): objetos paranormais que o jogador **encontra e usa**, com poder e custo. Também sem craft (achadas em estruturas, chefes, eventos, rituais). |
 
 ## Pendentes (precisam do Nikolas)
 
