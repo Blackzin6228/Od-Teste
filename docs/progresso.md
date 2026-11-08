@@ -17,7 +17,7 @@ Cada mesa atualiza a sua parte ao terminar uma etapa. Legenda: ⬜ não começou
 ⬜ Guia de estilo visual aprovado · ⬜ primeiro item (prévia) · ⬜ primeira armadura · ⬜ primeira criatura
 
 ## Integrador
-⬜ Escola nova no Iron's (1 magia de teste) · ⬜ ritual no Occultism · ⬜ ponte com Malum · ⬜ ramo tech (Mekanism/Create)
+🟦 Plano de progressão e crafts (`docs/progressao.md`, armaduras acima da MekaSuit) · 🟦 Troca de voz com controle do jogador e do admin (`docs/voz.md`) · 🟦 Magias por elemento (`docs/magias.md`) · ⬜ Escola nova no Iron's (1 magia de teste) · ⬜ ritual no Occultism · ⬜ ponte com Malum · ⬜ ramo tech (Mekanism/Create)
 
 ## Revisor
 ⬜ Checklist de revisão em uso nos PRs
