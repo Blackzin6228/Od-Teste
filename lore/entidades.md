@@ -6,7 +6,8 @@
 > - Tudo é **original**. Sem nomes, formas ou falas da obra Ordem Paranormal além do que a regra 3 libera.
 > - **Sem craft.** Entidade não se fabrica nem se compra.
 > - O Medo **não** é entidade: é a força maior por trás das quatro (`lore/dimensoes.md`).
-> - Nomes fechados: A Juíza Sem Rosto (Conhecimento) e O Dono da Casa (Energia). Nomes com (?): busca rasa na web, falta checagem final. "A Anfitriã" virou "A Hospedeira" por ficar perto demais de um nome da obra.
+> - Nomes fechados (08/11/2026): **O Diabo** (Sangue), **A Juíza Sem Rosto** (Conhecimento), **O Deus da Morte** (Morte) e **O Dono da Casa** (Energia). "O Diabo" e "O Deus da Morte" são nomes genéricos; o visual, a história e os poderes são nossos.
+> - Tom: sério, de medo e de presença. Ninguém brinca com o paranormal.
 > - Ligação com a espinha (`lore/premissa.md`): cada entidade é **um dos que vieram antes**, engolido pelo elemento.
 
 ## O que é uma entidade
@@ -27,16 +28,18 @@
 
 ---
 
-## SANGUE: A Hospedeira (?)  /  B) A Mãe da Porta (?)
+## SANGUE: **O Diabo** (nome FECHADO em 2026-11-08)
 
-- **Quem foi:** **Irene Valadares**, cozinheira e agente, matrícula 0311. Segurou o Cálice do Faminto para manter a passagem aberta e **nunca largou**.
-- **O que é:** o próprio **Ventre** visto como uma mulher que não consegue parar de abrigar.
-- **O que quer:** **hóspedes**. Que ninguém saia e que todos estejam bem (e presos). Para ela, cuidar e prender são a mesma coisa.
+> Frase de apresentação: *"Ele nunca ofereceu um pacto. Ofereceu abrigo, e ninguém lembra de ter saído."*
+
+- **Quem foi:** **Irene Valadares**, cozinheira e agente, matrícula 0311. Segurou o Cálice do Faminto para manter a passagem aberta e **nunca largou**. Usou a relíquia e virou a entidade.
+- **O que é:** o próprio **Ventre** com o rosto de quem não conseguiu parar de abrigar. Do que foi Irene sobrou o **rosto de mulher**, esticado e cansado, no meio de algo que já não é ela. O nome "O Diabo" é o que os que vieram antes lhe deram: o mal que mora dentro da casa e sorri com o rosto de quem cuidou.
+- **O que quer:** **hóspedes**. Que ninguém saia e que todos estejam bem (e presos). Para ele, cuidar e prender são a mesma coisa.
 - **Presença na dimensão (Ventre):**
   - O jogador anda em **túneis que são veias** e vê, ao longe, **um rosto de carne do tamanho de uma montanha** coberto por uma colcha de tecido branco.
-  - O chão respira. O "sol" que bate como coração acelera quando ela presta atenção. A cada poucos minutos passa uma **onda quente** e fecha portas de carne atrás do jogador.
+  - O chão respira. O "sol" que bate como coração acelera quando ele presta atenção. A cada poucos minutos passa uma **onda quente** e fecha portas de carne atrás do jogador.
   - Nunca fala em voz alta: as paredes **sussurram nomes de familiares** do jogador, em tom de acolhimento.
-- **Forma de chefe/evento:** ela se junta numa **mulher enorme, de costas**, com o avental encharcado, o **Cálice do Faminto fervendo no peito** (visível pelas costelas abertas). Os braços são longos demais. Ela não ataca; **fecha corredores** e chama ("fica mais um pouco"). O grupo precisa **sair do Ventre rompendo as portas de carne** antes que se fechem. Não se mata, se **foge**.
+- **Forma de chefe/evento:** ele se junta numa **figura enorme, de costas**, com o avental de Irene encharcado, o **Cálice do Faminto fervendo no peito** (visível pelas costelas abertas). Os braços são longos demais. Não ataca; **fecha corredores** e chama ("fica mais um pouco"). O grupo precisa **sair do Ventre rompendo as portas de carne** antes que se fechem. Não se mata, se **foge**.
 - **Cor e som:** vermelho escuro, branco manchado, ferro. Batida de coração e uma cantiga de ninar abafada.
 - **Dimensão e clima:** quente, úmido, vermelho escuro `#2A0000`, ferrugem no ar. Trilha: guitarra pesada e lenta, coração como bumbo.
 
@@ -61,10 +64,12 @@
 
 ---
 
-## MORTE: A) A Hora Parada (?)  /  B) O Ponteiro Cego (?)
+## MORTE: **O Deus da Morte** (nome FECHADO em 2026-11-08)
 
-- **Quem foi:** **Aurélio Matos**, relojoeiro, matrícula 0156. Quis voltar uma hora no tempo e **parou o próprio relógio** para não envelhecer.
-- **O que é:** o **relógio que ainda corre** no mausoléu do Ermo, só que gigante. Sem começo nem fim.
+> Frase de apresentação: *"Todo deus foi pedido por alguém. Este foi pedido por um relojoeiro que queria só mais uma hora."*
+
+- **Quem foi:** **Aurélio Matos**, relojoeiro, matrícula 0156. Quis voltar uma hora no tempo, usou a Ampulheta Quebrada e **parou o próprio relógio** para não envelhecer. Virou a entidade.
+- **O que é:** o **relógio que ainda corre** no mausoléu do Ermo, só que gigante, sem começo nem fim. Não é um deus que mata: é o **deus do último instante**, o que sobrou depois que o tempo dele parou. Nada morre sem passar por ele, e nada termina na frente dele.
 - **O que quer:** **terminar**. Procura alguém que aceite receber o último segundo dele, porque isso fecha o ciclo.
 - **Presença na dimensão (Ermo de Cinzas):**
   - Uma **torre-relógio atravessada na lua de osso**, vista do chão como um ponteiro que ocupa o céu. O som dele **se atrasa**: bate depois de ser visto.
@@ -95,32 +100,16 @@
 
 ---
 
-## Nomes das entidades: opções (a ESCOLHA É DO NIKOLAS)
+## Resumo dos quatro (todos com nome fechado)
 
-> Fechados: Conhecimento = **A Juíza Sem Rosto**; Energia = **O Dono da Casa** (08/11/2026). Os nomes antigos (Hospedeira, Mãe da Porta, Hora Parada, Ponteiro Cego, Sinal Mais Alto, Estação Viva, Leitor Sem Nome, Escrivão Final) ficam só como histórico, exceto onde reaparecem abaixo.
-> Busca rasa na web: nenhuma das opções apareceu como nome de outra obra. Falta checagem final do que for escolhido.
-> Tom: título de algo que ninguém ousa chamar pelo nome.
+| Elemento | Entidade | Foi | Dimensão | Relíquia (só lore) |
+|---|---|---|---|---|
+| Sangue | O Diabo | Irene Valadares | Ventre | Cálice do Faminto |
+| Conhecimento | A Juíza Sem Rosto | Lúcia Antunes | Biblioteca Muda | Lente do Escriba |
+| Morte | O Deus da Morte | Aurélio Matos | Ermo de Cinzas | Ampulheta Quebrada |
+| Energia | O Dono da Casa | Bruna Tavares | Rede | Bobina do Último Chamado |
 
-| Elemento | Opção 1 | Opção 2 | Opção 3 |
-|---|---|---|---|
-| Sangue | O Diabo de Dentro | A Mãe da Porta | A Que Não Deixa Sair |
-| Morte | O Deus do Último Segundo | A Hora Parada | O Que Marca a Hora |
-| Energia | **O Dono da Casa** (fechado) | | |
-| Conhecimento | **A Juíza Sem Rosto** (fechado) | | |
-
-### Sangue (Irene Valadares, Ventre, relíquia: Cálice do Faminto)
-- Uma mulher que abrigou tanto que virou prisão: o Ventre com rosto de mãe. Cuida e prende como se fosse a mesma coisa.
-- No Minecraft: escala de clima (rosto de carne do tamanho de uma montanha sob uma colcha branca); chão que respira, onda quente que fecha portas de carne; sinal de perto: sussurros com nomes de familiares. Evento: ela "pede que fique", o grupo foge.
-- Opção 1 é a "variação de Diabo": o mal que mora dentro da casa. Opção 3 é a que mais descreve o que ela faz.
-
-### Morte (Aurélio Matos, Ermo de Cinzas, relíquia: Ampulheta Quebrada)
-- Um relojoeiro que parou o próprio tempo e virou o relógio que ainda corre no mausoléu: o fim que não chega.
-- No Minecraft: torre-relógio atravessando a lua de osso; cinza em câmera lenta, sombra que chega atrasada, som que bate depois de visto. Evento: o tempo dobra na arena, o grupo empurra o ponteiro.
-- Opção 1 é a "variação de Deus da Morte": o deus que só sobrou do último instante.
-
-### Energia: O Dono da Casa (Bruna Tavares, Rede, relíquia: Bobina do Último Chamado) - FECHADO
-- Uma técnica que pediu socorro e nunca desligou: a torre virou casa. Quem atende o chamado entra nela, e o Dono decide quem sai.
-- No Minecraft: antena do tamanho de um arranha-céu, farol roxo na noite da Rede; HUD que falha e relógio que pula; voz picotada com matrículas em loop. Evento: tempestade de transmissões, o grupo defende 3 repetidores para a porta se abrir.
+Pendente só a checagem final na web de que "O Diabo" e "O Deus da Morte" não são marca de outra obra além do uso genérico (o Nikolas decidiu os dois nomes).
 
 ---
 
@@ -132,9 +121,8 @@
 - **Final:** quem fica no lugar de outro para que o grupo volte pode virar mais um "dos que vieram antes" **na história** (`lore/premissa.md`). Isso é narrativa de final, não uma transformação jogável.
 
 ## Pontos para o Nikolas decidir
-1. Escolher o nome de Sangue e Morte (tabela "Nomes das entidades: opções"). Fechados: Conhecimento = A Juíza Sem Rosto; Energia = O Dono da Casa.
-2. A visão "a entidade foi uma pessoa que usou a relíquia" combina com o tom, ou é pesada demais?
-3. Evento de entidade: marcado pelo servidor (horário) ou liberado por progressão?
-4. O **fragmento** que a entidade deixa serve de oferenda de ritual (não fabrica nada)? Sugestão: sim.
-5. A recompensa extra do evento (chance de Artefato Paranormal) serve?
-6. Escala do corpo de evento (8 a 12 blocos) combina com o servidor?
+1. A visão "a entidade foi uma pessoa que usou a relíquia" combina com o tom, ou é pesada demais?
+2. Evento de entidade: marcado pelo servidor (horário) ou liberado por progressão?
+3. O **fragmento** que a entidade deixa serve de oferenda de ritual (não fabrica nada)? Sugestão: sim.
+4. A recompensa extra do evento (chance de Artefato Paranormal) serve?
+5. Escala do corpo de evento (8 a 12 blocos) combina com o servidor?

@@ -39,7 +39,7 @@ Não é dimensão de elemento e não tem relíquia.
 - **Coleta:** Gota Grossa, Dente Rubro, Seiva Rubra (balde), Espinho de Osso.
 - **Como se chega:** **ritual** de giz com uma gota do próprio sangue (custa vida, não item). Abre uma passagem de carne na Clareira.
 - **Travessia (visual):** tela fecha em vermelho pelas bordas, som de batida de coração que acelera, e a imagem "pisca" como pálpebra. Acorda-se com uma respiração funda.
-- **Ligação com a relíquia (lore):** a relíquia do Sangue fica no núcleo do Ventre, dentro da Hospedeira. É vista no santuário e no evento, **não é pega por ninguém** (`lore/reliquias-e-espadas.md`).
+- **Ligação com a relíquia (lore):** a relíquia do Sangue fica no núcleo do Ventre, dentro d'O Diabo (Cálice do Faminto). É vista no santuário e no evento, **não é pega por ninguém** (`lore/reliquias-e-espadas.md`).
 - **Ligação com a espada:** a **Espada do Sangue** cai do *Coração Aberto* (sem craft). Quanto mais ferida a pessoa, mais forte a lâmina, e ela cobra uma gota a cada golpe forte.
 
 ## 2. A Biblioteca Muda (Conhecimento)
@@ -51,7 +51,7 @@ Não é dimensão de elemento e não tem relíquia.
 - **Coleta:** Tinta de Ouvir, Fio de Pergaminho, Grafia Viva, páginas de lore.
 - **Como se chega:** **ritual de leitura**: montar uma frase com páginas achadas na Clareira (puzzle de investigação) e ler em voz alta (comando de cena). Abre uma porta de livro.
 - **Travessia (visual):** letras douradas cobrem a tela e se reorganizam, som de papel e sussurro, texto some e a cena "se escreve" ao redor.
-- **Ligação com a relíquia (lore):** a relíquia do Conhecimento (o livro) fica aberta no último salão, com o Leitor. Só se vê; não é pega por ninguém.
+- **Ligação com a relíquia (lore):** a relíquia do Conhecimento (a Lente do Escriba) fica sobre os autos no último salão, com A Juíza Sem Rosto. Só se vê; não é pega por ninguém.
 - **Ligação com a espada:** a **Espada do Conhecimento** surge numa mesa de copista depois do enigma do último salão (sem craft). Dá bônus a quem leu mais páginas (progressão de investigação, sem número na tela).
 
 ## 3. O Ermo de Cinzas (Morte)
@@ -63,7 +63,7 @@ Não é dimensão de elemento e não tem relíquia.
 - **Coleta:** Pó de Séculos, Relógio Parado, Osso Cristalino, Breu Velho.
 - **Como se chega:** **portal ritual** num lugar onde algo morreu de verdade (cova, ruína). Acende-se uma vela de osso e espera-se um minuto sem se mexer.
 - **Travessia (visual):** cor some da tela até ficar cinza, sons tocam ao contrário, partículas de cinza sobem e depois caem. A sombra do jogador chega um pouco depois.
-- **Ligação com a relíquia (lore):** a relíquia da Morte (a ampulheta) está num mausoléu sobre o único relógio que ainda corre, no centro da Hora Parada. Só se vê; não é pega por ninguém.
+- **Ligação com a relíquia (lore):** a relíquia da Morte (a Ampulheta Quebrada) está num mausoléu sobre o único relógio que ainda corre, no centro do Ermo, com O Deus da Morte. Só se vê; não é pega por ninguém.
 - **Ligação com a espada:** a **Espada da Morte** é entregue por um túmulo antigo, num ritual de vela de osso (sem craft). Quanto mais perto de um inimigo morrer, mais fundo ela corta; também "apaga" efeitos do alvo.
 
 ## 4. A Rede (Energia)
@@ -75,7 +75,7 @@ Não é dimensão de elemento e não tem relíquia.
 - **Coleta:** Fio de Cobre Vivo, Núcleo Trêmulo, Cristal de Estática, Brasa Fluida.
 - **Como se chega:** **comando de cena** + **circuito**: ligar um circuito feito de blocos do mundo (compat com Create/Mekanism, opcional) numa clareira e fechar com um raio. Sem os mods, funciona com bloco do nosso mod.
 - **Travessia (visual):** tela com chuvisco e linhas horizontais, som de estática subindo, imagem dupla por um instante, e "carrega" como tela de vídeo.
-- **Ligação com a relíquia (lore):** a relíquia da Energia (a antena) fica no coração da Rede, ligada a todos os cabos, na cabeça do Sinal. Só se vê; não é pega por ninguém.
+- **Ligação com a relíquia (lore):** a relíquia da Energia (a Bobina do Último Chamado) fica no coração da Rede, ligada a todos os cabos, na cabeça d'O Dono da Casa. Só se vê; não é pega por ninguém.
 - **Ligação com a espada:** a **Espada da Energia** cai num ponto de raio na tempestade elétrica da Rede (sem craft). Carrega com o tempo e descarrega em arco no golpe forte.
 
 ---

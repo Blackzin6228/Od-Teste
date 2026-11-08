@@ -28,8 +28,8 @@
 - **Objeto:** uma **taça de ferro enferrujado**, do tamanho de um punho fechado, sempre cheia de um líquido vermelho que nunca transborda e nunca baixa.
 - **Aparência (cenário e entidade):** taça de **0,4 bloco**, presa por correntes curtas a uma **gaiola de espinhos**, que se abre aos poucos como costelas. Rachaduras no ferro soltam luz vermelha. **Animação:** o líquido ferve devagar e sobe até a borda quando há inimigo por perto.
 - **Materiais:** ferro escuro, líquido vermelho (textura), vidro vermelho emissivo.
-- **Quem a usou e virou a entidade:** **Irene Valadares**, cozinheira de dia, agente de noite, matrícula 0311. O Ventre não deixava a passagem fechar e o grupo dela estava do outro lado. Ela segurou o cálice e disse *"fica comigo e deixa eles passarem"*. O cálice encheu até a borda e ela bebeu. A passagem fechou **com ela dentro**. Cuidar e prender viraram a mesma coisa. Hoje é **A Hospedeira** (`lore/entidades.md`).
-- **Onde se vê:** fervendo no peito da Hospedeira durante o evento; no santuário, no núcleo do Ventre. O Coração Aberto (chefe de área) é só o que o Ventre cresceu **em volta** dele.
+- **Quem a usou e virou a entidade:** **Irene Valadares**, cozinheira de dia, agente de noite, matrícula 0311. O Ventre não deixava a passagem fechar e o grupo dela estava do outro lado. Ela segurou o cálice e disse *"fica comigo e deixa eles passarem"*. O cálice encheu até a borda e ela bebeu. A passagem fechou **com ela dentro**. Cuidar e prender viraram a mesma coisa. Hoje é **O Diabo** (`lore/entidades.md`).
+- **Onde se vê:** fervendo no peito d'O Diabo durante o evento; no santuário, no núcleo do Ventre. O Coração Aberto (chefe de área) é só o que o Ventre cresceu **em volta** dele.
 
 ### CONHECIMENTO
 - **Nome (fechado):** **Lente do Escriba**
@@ -44,7 +44,7 @@
 - **Objeto:** uma **ampulheta rachada**. (O sino da floresta da premissa continua único.)
 - **Aparência:** ampulheta de **0,6 bloco**, vidro fosco, base de osso, armação de ferro preto, areia **cinza que sobe** em vez de cair. **Animação:** a areia sobe devagar. Ao virar, um estalo e a areia cai de uma vez.
 - **Materiais:** vidro fosco, osso, ferro preto, cinza.
-- **Quem a usou e virou a entidade:** **Aurélio Matos**, relojoeiro, matrícula 0156. Queria voltar **uma hora** no tempo, antes do toque do sino. Virou a ampulheta de cabeça para baixo. A areia subiu e ele **não conseguiu desvirar**. Parou o próprio relógio para não envelhecer e ficou sem começo e sem fim. Hoje é **A Hora Parada** (`lore/entidades.md`).
+- **Quem a usou e virou a entidade:** **Aurélio Matos**, relojoeiro, matrícula 0156. Queria voltar **uma hora** no tempo, antes do toque do sino. Virou a ampulheta de cabeça para baixo. A areia subiu e ele **não conseguiu desvirar**. Parou o próprio relógio para não envelhecer e ficou sem começo e sem fim. Hoje é **O Deus da Morte** (`lore/entidades.md`).
 - **Onde se vê:** é o eixo do relógio gigante da entidade; no evento, a areia sobe e desce conforme o puzzle. No santuário, no mausoléu do Ermo. É o relógio que "ainda corre".
 
 ### ENERGIA
@@ -81,7 +81,7 @@
 - **Custo:** só fica forte com a vida do dono abaixo de 70%.
 - **Como obter:** **chefe**. Cai do **Coração Aberto** na primeira vez que o jogador o vence **sem usar poção de cura**.
 - **Evolui:** *Desperta* ao vencer um combate de evento de Sangue com a vida abaixo de 30%. *Plena* em ritual de giz no Ventre, com uma gota do próprio sangue (custa vida).
-- **Ligação com a entidade:** no evento, o cálice da Hospedeira fica exposto por segundos; a espada sente o líquido ferver e o acerta com sangramento forte.
+- **Ligação com a entidade:** no evento, o cálice d'O Diabo fica exposto por segundos; a espada sente o líquido ferver e o acerta com sangramento forte.
 
 ### CONHECIMENTO
 - **Nome (fechado):** **Letra de Quem Leu Tudo**
@@ -101,7 +101,7 @@
 - **Custo:** o dono nunca sente fome plenamente. A regeneração natural para.
 - **Como obter:** **ritual**. Num túmulo antigo do Ermo de Cinzas, acender a **vela de osso** e esperar um minuto sem se mexer. O túmulo se abre e entrega a espada.
 - **Evolui:** *Desperta* ao derrotar o **Coveiro de Séculos** (chefe) ou o equivalente de evento. *Plena* em ritual no mausoléu do relógio que ainda corre, devolvendo à cova um objeto pessoal do dono.
-- **Ligação com a entidade:** no evento, a ponta toca o ponteiro da Hora Parada e o tempo dela falha por poucos segundos, expondo a ampulheta.
+- **Ligação com a entidade:** no evento, a ponta toca o ponteiro d'O Deus da Morte e o tempo dela falha por poucos segundos, expondo a ampulheta.
 
 ### ENERGIA
 - **Nome (fechado):** **Cabo da Última Chamada**

@@ -39,6 +39,7 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 2026-11-08 | **Nomes das 4 relíquias de elemento (só lore) fechados:** Sangue = **Cálice do Faminto**, Conhecimento = **Lente do Escriba**, Morte = **Ampulheta Quebrada**, Energia = **Bobina do Último Chamado**. Objetos: taça de ferro (Sangue), lente de cabo dourado (Conhecimento), ampulheta rachada (Morte), bobina de cobre na antena (Energia). Em `lore/reliquias-e-espadas.md`. |
 | 2026-11-08 | **Nomes das 4 espadas fechados:** Sangue = **Rubra**, Conhecimento = **Letra de Quem Leu Tudo**, Morte = **Minuto Arrancado**, Energia = **Cabo da Última Chamada**. Sem craft, como já decidido. |
 | 2026-11-08 | **Entidade de Energia: "O Dono da Casa"** (nome fechado), dona da Bobina do Último Chamado. Ideia: quem atende o chamado da antena entrou na casa dele, e ele decide quem sai. Tom sério e de presença. Faltam só Sangue e Morte (`lore/entidades.md`, `lore/reliquias-e-espadas.md`). |
+| 2026-11-08 | **Entidades de Sangue e Morte fechadas:** Sangue = **O Diabo**, Morte = **O Deus da Morte**. Nomes genéricos; visual, história e poderes são nossos. Origem: uma pessoa usou a relíquia e virou a entidade (Irene Valadares e Aurélio Matos). "Hospedeira" saiu (inclusive da espada Rubra). Nomes antigos de relíquia corrigidos: Cálice do Faminto, Lente do Escriba, Bobina do Último Chamado. Listas de opções de nome removidas. Tom sério, de medo e presença. Falta só a checagem final na web dos dois nomes (`lore/entidades.md`). |
 
 ## Pendentes (precisam do Nikolas)
 
