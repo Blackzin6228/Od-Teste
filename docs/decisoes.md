@@ -33,6 +33,9 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 08/11/2026 | **Uma espada e uma relíquia por elemento.** As **4 relíquias de elemento são lore**: cada uma é o receptáculo da entidade do elemento (alguém a usou e virou a entidade). **Não são máscaras, não têm craft e não ficam na mão do jogador**: aparecem na história, nos eventos e nas entidades. Os nomes propostos agradaram (escolha A/B pendente). |
 | 08/11/2026 | **Relíquias menores** (subcategoria, nome nosso a definir pela Lore): objetos paranormais que o jogador **encontra e usa**, com poder e custo. Também sem craft (achadas em estruturas, chefes, eventos, rituais). |
 | 08/11/2026 | **Primeiro play test: elemento Sangue.** Fatia jogável: sistemas com efeito visível (Exposição, Lucidez, Marca), espada de Sangue, relíquias menores de Sangue, 2 criaturas e 1 ritual. Modelos provisórios até a fase de modelagem. |
+| 08/11/2026 | **Exposição** sobe por **contato com o paranormal** (criaturas, relíquias, rituais, dimensões, aparições), não por escuro ou morte comum. |
+| 08/11/2026 | **Lucidez** cai conforme as coisas acontecem: batalhas com relíquias, aparições, enfrentar mobs de Sangue, **tomar dano**. |
+| 08/11/2026 | **Marca de Sangue** é **visual no corpo** do jogador (camada sobre a skin que cresce com o estágio), além das partículas. |
 
 ## Pendentes (precisam do Nikolas)
 
