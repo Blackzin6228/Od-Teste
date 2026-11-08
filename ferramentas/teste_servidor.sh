@@ -30,9 +30,10 @@ fi
 # 2) Mods do pack, do jeito que o servidor de verdade baixa (packwiz, lado servidor)
 echo "== baixando o pack ATM10 (lado servidor)"
 curl -fsSL --retry 3 -o packwiz-installer-bootstrap.jar "$BOOT_URL"
+curl -fsSL --retry 3 -o packwiz-installer.jar https://github.com/packwiz/packwiz-installer/releases/latest/download/packwiz-installer.jar
 baixou=0
 for tentativa in 1 2 3; do
-  if java -jar packwiz-installer-bootstrap.jar -g -s server "$PACK_URL" > packwiz.log 2>&1; then baixou=1; break; fi
+  if java -jar packwiz-installer-bootstrap.jar -g -s server --bootstrap-no-update --bootstrap-main-jar packwiz-installer.jar "$PACK_URL" > packwiz.log 2>&1; then baixou=1; break; fi
   echo "packwiz falhou (tentativa $tentativa):"; grep -m5 -i "error\|failed\|excluded" packwiz.log || tail -5 packwiz.log
   sleep 10
 done
