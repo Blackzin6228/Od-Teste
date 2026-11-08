@@ -13,8 +13,10 @@ O "1.21.8" no nome é só a última versão da faixa.
   o teste de servidor do Actions e abrir o jogo uma vez com o pack. Fica como item para o Revisor conferir.
 - O mod é **só do cliente** (mexe no microfone de quem fala). No pack ele está com `side = "both"`. Sugestão para o
   Publicador: marcar `side = "client"`. Isso **não tira o mod do pack**, só não manda para o servidor, que não precisa dele.
-- ⚠️ **Licença:** o mod usa **CC-BY-NC-SA 4.0** ("NC" = sem uso comercial). Como o servidor vai gerar renda, o Nikolas
-  precisa avaliar (ou pedir permissão ao autor, `imsawiq`). Usar no cliente de cada jogador é diferente de vender, mas o pack redistribui o jar.
+- ⚠️ **Licença:** o mod usa **CC-BY-NC-SA 4.0** ("NC" = sem uso comercial). **Decisão do Nikolas (07/11/2026):** o servidor
+  hoje é **playtest com amigos, sem fim comercial**, então o mod **fica**. **Rever antes de cobrar qualquer coisa** (pedir permissão
+  ao autor, `imsawiq`, ou tirar do pack de quem paga). Como o nosso efeito usa só a API do Simple Voice Chat (seção 3), a troca de voz
+  do nosso mod **continua funcionando** mesmo se o SV Voice Changer sair.
 
 ## 2. O que já funciona sozinho (sem o nosso mod)
 - No menu do Simple Voice Chat aparece o **Voice Changer Studio**: cada jogador escolhe a própria voz.
@@ -44,7 +46,7 @@ Não dependemos do SV Voice Changer para isso. O próprio Simple Voice Chat tem 
    Custo de processador é pequeno e fica no PC de quem fala. O servidor não sente nada.
 4. Efeitos por elemento (proposta): **Sangue** grave e rouco; **Morte** lenta, com eco longo; **Conhecimento** em camadas (sussurro junto);
    **Energia** com chiado de rádio e cortes.
-5. Uma opção nas configurações do cliente para desligar (acessibilidade).
+5. Quem liga e desliga: seção 4 (jogador e admin, por comando, salvo no servidor).
 
 ### Cuidados
 - **Ordem com o SV Voice Changer:** os dois mexem no mesmo áudio. A ordem dos plugins não é garantida, então o efeito nosso
@@ -54,10 +56,55 @@ Não dependemos do SV Voice Changer para isso. O próprio Simple Voice Chat tem 
 - O efeito só muda a voz de quem **tem o nosso mod no cliente** (todo mundo do pack tem).
 - Rádio do Walkie Talkie: conferir se o áudio dele passa pelo mesmo evento.
 
-## 4. Precisa do Nikolas
-- Se a voz muda **sozinha** (Marca alta / relíquia) ou só quando o jogador quer (tecla ou item).
-- Se a alucinação de voz (Exposição alta) entra.
-- A questão da licença NC do SV Voice Changer.
+## 4. Quem liga e desliga (decisão do Nikolas, 07/11/2026)
+A voz **liga sozinha** (Marca alta ou relíquia na mão), o **jogador pode desligar** e o **admin pode ligar ou desligar para qualquer um**.
+
+### 4.1 Três camadas, a de cima manda
+| Camada | Quem mexe | Valores | Padrão |
+|---|---|---|---|
+| 1. **Admin** | admin (narrador) | `forcar_ligada`, `forcar_desligada`, `livre` | `livre` |
+| 2. **Jogador** | o próprio jogador | `ligada`, `desligada` | `ligada` |
+| 3. **Automática** | o mod | liga se a regra bater (Marca alta / relíquia na mão), com o efeito do elemento | — |
+
+Conta final: se o admin forçou, vale o admin. Se não, e o jogador desligou, fica desligada. Se não, vale a regra automática.
+Com `forcar_ligada` sem regra batendo, usa o efeito do elemento da Marca (ou o que o admin escolher, 4.2).
+
+### 4.2 Comandos (nomes provisórios)
+**Jogador** (qualquer um):
+| Comando | O que faz |
+|---|---|
+| `/voz` | mostra o estado: ligada/desligada, por quê (regra, você, admin) e qual efeito |
+| `/voz desligar` | desliga a troca de voz para você |
+| `/voz ligar` | volta ao normal (automática) |
+
+Se o admin forçou, o jogador recebe: *"O narrador travou sua voz agora."* e o comando não muda nada.
+
+**Admin** (nível de permissão 2, ou o nó `odteste.voz.admin` pela PermissionAPI do NeoForge, para quem usa um mod de permissões):
+| Comando | O que faz |
+|---|---|
+| `/voz admin <alvos> ligar` | força ligada (aceita `@a`, `@p`, nome) |
+| `/voz admin <alvos> desligar` | força desligada |
+| `/voz admin <alvos> livre` | tira a trava; volta a valer o jogador e a regra |
+| `/voz admin <alvos> efeito <sangue\|morte\|conhecimento\|energia\|marca>` | escolhe o efeito usado quando forçada (para cena de evento) |
+| `/voz admin <alvo> ver` | mostra as três camadas do jogador |
+
+O jogador vê uma mensagem curta quando o admin muda a voz dele (pode ficar silenciosa com uma opção do comando, para não estragar a cena).
+
+### 4.3 Como funciona por dentro
+- O estado fica num **dado salvo no jogador** (anexo de dados do NeoForge), que **passa pela morte** e pelo logout. ID provisório
+  `odteste:voz`; entra em `docs/ids.md` quando virar código.
+- O servidor manda um pacote pequeno ao cliente de quem fala sempre que o estado muda (login, comando, troca de Marca, relíquia na mão).
+  O cliente só lê esse estado no `ClientSoundEvent`. Nada de conta pesada no servidor.
+- O `VoiceDistanceEvent` (alcance, no servidor) segue a mesma conta: voz desligada = alcance normal.
+- **Limite honesto:** o efeito é aplicado no PC de quem fala. Um cliente modificado conseguiria fugir dele. Para roleplay entre amigos isso basta;
+  forçar no servidor (`MicrophonePacketEvent`) pesa demais e não vale.
+- Tudo em `compat/voicechat/`. Os comandos `/voz` só aparecem se o Simple Voice Chat estiver no pack (`Compat.Integracao.VOICECHAT.ligada()`).
+
+## 5. Precisa do Nikolas
+- Se a alucinação de voz (Exposição alta, `ClientReceiveSoundEvent`) entra. Se entrar, proposta: o mesmo `/voz desligar` desliga as duas coisas,
+  e o admin tem `/voz admin <alvos> sussurros ligar|desligar`.
+- Se o jogador vê aviso quando o admin trava a voz dele (proposta: sim, menos em cena marcada como silenciosa).
+- Licença NC do SV Voice Changer: **rever antes de cobrar** (decidido para o playtest).
 
 ## Fontes
 - [Simple Voice Voice Changer no Modrinth](https://modrinth.com/project/LLsfORx9) · [no CurseForge](https://www.curseforge.com/minecraft/mc-mods/simple-voice-voice-changer)

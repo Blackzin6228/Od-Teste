@@ -1,5 +1,8 @@
 # Progressão e crafts (PROPOSTA da mesa Integrador, 07/11/2026; espera o Nikolas)
 
+> **Revisão 07/11/2026 (decisões do PR #9):** espadas e relíquias saíram do craft; armaduras refeitas para ficarem
+> acima da MekaSuit. Magias ficam em `docs/magias.md`.
+
 > Só documento. Nenhuma receita existe ainda. Nomes dos **nossos** itens são provisórios (a mesa Lore dá o nome final)
 > e só entram em `docs/ids.md` depois de aprovados. Números de quantidade são ponto de partida para balancear.
 > Itens de outros mods foram tirados da lista `mods/` do pack `Blackzin6228/Conguitos-smp` (07/11/2026). Onde está
@@ -13,8 +16,9 @@ contrário também. No roleplay, isso vira troca, encomenda e favor entre os age
 1. **Cada receita puxa 2 mods ou mais**, com pelo menos **um de magia e um de tecnologia**.
 2. **Duas portas na tecnologia** quando der: o mesmo passo aceita a máquina do Mekanism **ou** a do Modern Industrialization
    (ou do Create). Assim ninguém fica preso a um mod só.
-3. **Relíquias e espadas principais não têm receita.** Só evento, chefe ou ritual narrado. O que tem receita são os
-   **materiais para usar e melhorar** essas peças.
+3. **Relíquias, entidades e espadas principais não têm receita** (decisão do Nikolas, 07/11/2026). Só evento, chefe ou
+   ritual narrado. **Nenhum material** deste documento cria ou melhora espada ou relíquia. Os materiais servem para
+   **armaduras, componentes e itens de suporte**.
 4. **Nada de atalho por máquina** (ver seção 9): nossos materiais não viram semente, não se duplicam e não saem de fazenda automática.
 5. **Receita reserva:** toda receita que usa outro mod tem a condição `neoforge:mod_loaded`. Se o mod sair do pack, entra uma
    receita reserva, **mais cara**, feita só com o nosso mod e vanilla. O jogo nunca fica sem caminho.
@@ -64,33 +68,94 @@ Conhecimento → Harbinger (Cataclysm); Energia → Ender Guardian (Cataclysm) o
 
 ## 6. Armaduras (sem elemento fixo; o visual muda com a Marca de quem veste)
 
-A armadura **não** tenta ganhar da MekaSuit nem da armadura Caótica do Draconic. O papel dela é outro:
-**proteger contra o paranormal** (segura a Exposição, devolve Lucidez, abre espaço para Marca). Assim quem quer as duas coisas
-precisa escolher, e o nosso mod não quebra o equilíbrio do pack.
+> **Decisão do Nikolas (07/11/2026):** a armadura é **muito forte**, boa contra o paranormal **e** contra o resto,
+> provavelmente **mais forte que a MekaSuit**. Esta seção foi refeita para isso.
 
-Cada nível **melhora a mesma peça** na Mesa de Ferraria com um molde (como netherita), então o jogador não perde a armadura nem os dados dela.
+### 6.1 Contra o que estamos medindo: a MekaSuit do pack
+Lido no `config/Mekanism/gear.toml` do Conguitos-smp (Mekanism 10.7.19, valores padrão):
+- **Com energia e o conjunto inteiro**, a MekaSuit absorve **100% do dano que não ignora armadura**. Cada ponto de dano custa **100.000 J**.
+  Cada peça guarda **16 MJ** sem melhorias (cresce muito com melhorias). Queda: 100% (botas). Magia: 100%, mas **só com a Unidade de Purificação** no capacete.
+- **Sem energia**, cada peça vira uma peça de **netherita**.
+- **Pontos fracos:** (1) **dano que ignora armadura** passa inteiro (vazio, `/kill`, fome, e o "dano verdadeiro" de muitos mods e chefes);
+  (2) **depende de carregar**: luta longa contra chefe esvazia; (3) **nenhuma proteção paranormal** (Exposição, Lucidez, Marca).
 
-| Nível | Nome provisório | Pede | Onde |
-|---|---|---|---|
-| A1 | Roupa de Campo | couro + lã + Resíduo + latão do Create | mesa de craft |
-| A2 | Traje Reforçado | A1 + Liga Reforçada (Mekanism) **ou** aço do MI + Manasteel + 1 Fragmento de qualquer elemento | Mesa de Ferraria + molde (o molde sai do Altar Espiritual do Malum) |
-| A3 | Traje Marcado | A2 + placas de Allthemodium + Terrasteel + Soul Stained Steel + 2 Essências de elementos diferentes | molde feito em ritual do Occultism (giz dourado) |
-| A4 | Traje Transcendido | A3 + Vibranium + Liga Atômica + Espírito de Gaia + Núcleo Wyvern (Draconic) + 2 Núcleos | molde forjado na Forja de Hefesto (Forbidden Arcanus) |
-| A5 | Traje da Travessia | A4 + liga Unobtainium-Vibranium + Núcleo Caótico (Draconic) + 4 Corações (um de cada) | Fusão do Draconic + selado no nosso ritual |
+É nesses três pontos que a nossa ganha. Nos utilitários (voo, jato, visão noturna, ímã) ela **não tenta** ganhar: isso fica para os encaixes (6.4).
 
-## 7. Espadas
-- **Espadas principais** (uma por elemento): **sem receita**. Chegam por evento, chefe ou ritual. Crescem com a Marca do dono.
-- **Materiais para melhorar as principais** (têm receita):
-  - **Têmpera do elemento** (D3): Essência + Lingote de Allthemodium + Orbe de Melhoria do Iron's da escola parecida. Sobe um degrau da espada.
-  - **Têmpera maior** (D4 e D5): Núcleo/Coração + Vibranium/Unobtainium + Hallowed Gold do Malum. Feita na **Bigorna Arcana** do Iron's ou no Altar Espiritual.
-- **Lâminas de agente** (espadas comuns, com receita, para quem não tem uma principal):
+### 6.2 Como a nossa funciona
+- **Reserva** (nome provisório): um escudo próprio da armadura. **Não usa FE**: enche sozinho com o tempo e mais rápido quando o dono tem
+  Lucidez alta. Enquanto tem Reserva, a armadura absorve o dano **como a MekaSuit**, mas também **uma parte do dano que ignora armadura**.
+- **Nunca protege de:** `/kill`, cair no vazio e o dano narrado pelo admin (eventos). Assim ninguém fica imortal e o narrador continua mandando.
+- **Sem Reserva**, a peça não vira netherita: fica com os números de base do nível (A4 e A5 já acima da netherita).
+- **Contra o paranormal:** segura a Exposição, reduz a perda de Lucidez e protege de efeitos das nossas criaturas e dimensões.
+- **Ela escolhe o dono:** cada nível pede **nível de Transcender** (ver tabela). Quem veste sem o nível usa a peça como A2. Isso segura o poder
+  e liga a armadura ao sistema do mod.
+- **PvP:** contra outros jogadores a absorção pela Reserva cai pela metade (o PvP não vira empate eterno). Número para ajustar no playtest.
+- Cada nível **melhora a mesma peça** na Mesa de Ferraria com um molde (como netherita). Ninguém perde a peça nem os dados dela.
 
-| Nível | Pede | Onde |
+### 6.3 Níveis
+Números para começar a balancear (conjunto inteiro). Teto do jogo: armadura 30, resistência 20.
+
+| Nível | Nome provisório | Armadura / Resistência | Reserva | Absorção com Reserva | Dano que ignora armadura | Paranormal | Transcender | Comparação |
+|---|---|---|---|---|---|---|---|---|
+| A1 | Roupa de Campo | 10 / 0 | — | — | 0% | Exposição −10% | 0 | couro reforçado |
+| A2 | Traje Reforçado | 18 / 2 | pequena | 50% | 0% | Exposição −20%, Lucidez −10% de perda | 0 | perto do ferro/diamante |
+| A3 | Traje Marcado | 22 / 6 | média | 80% | 15% | −35% / −25% | 1 | acima da netherita |
+| A4 | Traje Transcendido | 26 / 12 | grande | **100%** | 35% | −50% / −40%, imune ao efeito de 1 criatura por elemento | 2 | **igual ou acima da MekaSuit cheia** |
+| A5 | Traje da Travessia | 30 / 16 | enorme, enche rápido | **100%**, inclui magia sem módulo | **60%** | −70% / −60%, imune aos efeitos das dimensões | 3 | **acima da MekaSuit** (abaixo do Caótico só em utilitário) |
+
+Resistência a recuo: A3 0,1 · A4 0,3 · A5 0,5.
+
+### 6.4 Encaixes (para não perder para a MekaSuit em utilitário)
+A partir do A3, cada peça tem **1 a 2 encaixes** para **Selos de Traje** (itens de suporte, seção 7): por exemplo voo curto, visão no escuro,
+passo silencioso, pulmão (água). Cada Selo gasta **Reserva** ao usar, não FE. Assim quem quer voo forte ainda pensa em trocar por um Selo de defesa.
+
+### 6.5 Custo (precisa estar à altura: D4 e D5)
+Valores **por peça** (vezes 4 no conjunto). Itens de outros mods com receita reserva se o mod sair (regra 5 da seção 2).
+
+| Nível | Pede (por peça) | Onde |
 |---|---|---|
-| L1 | ferro + Resíduo + latão | mesa de craft |
-| L2 | Soul Stained Steel (Malum) + Liga Infundida (Mekanism) + Fragmento | Altar Espiritual |
-| L3 | Allthemodium + Terrasteel + Essência | Infusão de Mana e depois montagem em sequência do Create |
-| L4 | Vibranium + Draconium Desperto + Núcleo | Fusão do Draconic (injetores Wyvern) |
+| A1 | couro + lã + Resíduo + latão do Create | mesa de craft |
+| A2 | A1 + Liga Reforçada (Mekanism) **ou** aço do MI + Manasteel + 1 Fragmento de qualquer elemento | Mesa de Ferraria + molde (o molde sai do Altar Espiritual do Malum) |
+| A3 | A2 + 4 placas de Allthemodium + 2 Terrasteel + Soul Stained Steel + 2 Essências de elementos diferentes | molde feito em ritual do Occultism (giz dourado) |
+| A4 | A3 + 4 blocos de Vibranium + 16 Ligas Atômicas + 8 circuitos Supremos + 32 pelotas de Polônio + 2 Espíritos de Gaia + Núcleo Desperto (Draconic) + circuito digital (MI) + **2 Núcleos** | **Fusão do Draconic** (injetores Despertos), depois o molde é selado na **Forja de Hefesto** (Forbidden Arcanus) |
+| A5 | A4 + **a peça igual da MekaSuit** com as melhorias no máximo + 2 blocos de liga Unobtainium-Vibranium + Núcleo de Energia Caótico + 16 pelotas de **antimatéria** + 4 Corações (um de cada elemento) + item do chefe da dimensão do dono | Fusão do Draconic (injetores Caóticos) + **ritual nosso**, com o dono dentro do círculo |
+
+- **Por que A5 come a MekaSuit:** fica claro no jogo que ela é "a MekaSuit levada para o paranormal". Também puxa quem joga magia a depender
+  de quem joga tech. Se o Mekanism sair do pack, a receita reserva troca a MekaSuit por **mais 2 Corações**.
+- O conjunto A5 inteiro custa, em ordem de grandeza, **mais que o Âmago** sem os chefes. Isso é de propósito: é o objetivo de fim de jogo de cada jogador.
+
+### 6.6 Visual: muda com a Marca de quem veste
+A armadura não tem elemento. O modelo é um só, e o que muda é cor, detalhe e brilho. **Precisa de prévia do Modelador e aprovação do Nikolas.**
+
+| Marca de quem veste | Ideia de visual (proposta) |
+|---|---|
+| Sem Marca | cinza de campo, tecido e placas lisas, sem brilho |
+| Sangue | placas vermelho-ferrugem, bordas com espinhos curtos, costuras que parecem pulsar |
+| Morte | preto fosco, poeira e cinza que caem das placas, linhas em espiral anti-horária gastas |
+| Conhecimento | branco e dourado, faixas com escrita própria (nossa, não sigilos da obra), fecho de corrente |
+| Energia | placas escuras com linhas neon que trocam de cor, faíscas nas juntas |
+
+- **Nível do Transcender** aumenta o detalhe (A3 mostra a cor, A4 o detalhe, A5 o brilho e partículas leves).
+- Troca **na hora** quando a Marca muda. O visual vem dos dados já sincronizados; não é um item novo, então não gasta ID.
+- **Regra 9:** a armadura dá vantagem, então **não é vendida**. Só **variações de visual** (cosmético) poderiam um dia ser vendidas.
+
+## 7. Espadas, relíquias e o que os materiais fazem
+- **Espadas principais, relíquias e entidades:** **sem receita e sem material de melhoria**. Chegam por evento, chefe ou ritual narrado e
+  crescem com a **Marca** do dono e com eventos. Nada desta página entra no caminho delas.
+- **Para onde vão os materiais de progressão** (Fragmento, Essência, Núcleo, Coração):
+  1. **Armaduras** (seção 6).
+  2. **Componentes** para outros mods (ex.: Núcleo de Energia como peça de máquina, catalisador de ritual do Occultism).
+  3. **Itens de suporte** (nomes provisórios, a Lore escolhe):
+
+| Item | O que faz | Degrau | Pede (exemplo) |
+|---|---|---|---|
+| Lanterna de Luz Negra | mostra pistas e escrita escondida | D1 | latão (Create) + Essência Arcana (Iron's) + Resíduo |
+| Vela de Vigília | segura a Lucidez de quem está perto | D2 | cera + Manasteel (Botânia) + Fragmento |
+| Selo de Giz | área pequena onde nossas criaturas não nascem | D2 | giz branco (Occultism) + Liga Infundida (Mekanism) |
+| Kit de Campo | devolve Lucidez, cura Exposição recente (não a permanente) | D3 | Essência + sangue (Vampirism) + Terrasteel |
+| Selos de Traje | encaixes da armadura (voo curto, visão, silêncio, água) | D3 a D5 | Essência/Núcleo + peça tech (circuito de Elite, Polônio, antimatéria) |
+| Âncora de Retorno | volta para o Círculo de base depois de uma dimensão | D4 | Núcleo + Pérola do Ender + componente do AE2 (conferir) |
+| Foco do Elemento | foco das magias novas (ver `docs/magias.md`) | D2 a D4 | Fragmento/Essência + orbe ou item da escola do Iron's |
 
 ## 8. Item final: "Âmago da Travessia" (nome provisório, nível ATM Star)
 
@@ -106,6 +171,7 @@ Para fazer, o servidor inteiro precisa estar no fim de jogo. Ideia de receita (e
 9. Montagem: **Fusão do Draconic** com injetores Caóticos → depois **Forja de Hefesto** (Forbidden Arcanus) → por último o **nosso ritual**,
    no círculo de giz do Occultism, **só numa noite de evento** e com os 4 elementos representados por jogadores diferentes.
 
+O Âmago **não é relíquia nem espada** (essas não têm receita). Se a Lore decidir que ele vira relíquia, ele sai desta página.
 O que ele faz é decisão do Nikolas e da Lore (ex.: abre a passagem de volta, ou faz parte do Medo). Fica marcado como pendente.
 
 ## 9. Proteção contra atalhos (para nada ficar fácil por causa de outro mod)
@@ -119,16 +185,19 @@ O que ele faz é decisão do Nikolas e da Lore (ex.: abre a passagem de volta, o
 
 ## 10. Onde entra cada sistema (resumo)
 - **Rituais do Occultism:** fechar o Núcleo (D4), molde da A3, última etapa do item final. Feitos por **dados** (`data/`), com giz e sacrifício.
-- **Altar Espiritual do Malum:** Essência (D3), molde da A2, Lâmina L2, Têmpera.
+- **Altar Espiritual do Malum:** Essência (D3), molde da A2.
 - **Infusão da Botânia:** Fragmento (D2) no poço de mana; runas no Núcleo (D4); Terrasteel e Gaia em vários níveis.
-- **Mekanism:** ligas e circuitos em todos os degraus; radiação para Morte; SPS e antimatéria para Energia e para o item final.
-- **Create:** latão e mecanismo no começo; Assombrar para Morte; montagem em sequência para fechar a Essência e a L3.
-- **Draconic:** Fusão no D4 e D5; Núcleo Caótico no item final.
+- **Mekanism:** ligas e circuitos em todos os degraus; radiação para Morte; SPS e antimatéria para Energia, para a A5 e para o item final;
+  a **MekaSuit** entra na receita da A5.
+- **Create:** latão e mecanismo no começo; Assombrar para Morte; montagem em sequência para fechar a Essência.
+- **Draconic:** Fusão no D4 e D5 (A4, A5, Coração); Núcleo Caótico na A5 e no item final.
 - **AE2, MI, Oritech, IF, Mystical Agriculture, Forbidden Arcanus:** pedaços do D4 e D5 (ver tabela de `docs/integracoes.md`).
 
 ## 11. Precisa do Nikolas
 - Aprovar os **5 degraus** e se cada receita deve pedir **magia e tech juntos** (ou aceitar só um dos dois com custo maior).
 - Nomes dos materiais (Resíduo, Matérias, Fragmento/Essência/Núcleo/Coração) → mesa Lore.
 - O que o **item final** faz e se ele é ligado ao **Medo** (pendente em `docs/decisoes.md`).
-- Se a armadura fica "contra o paranormal" (sem ganhar da MekaSuit) ou se deve ser a melhor do pack.
+- Armadura: aprovar os **números da tabela 6.3**, a regra do **Transcender mínimo**, o corte no **PvP** e se a **A5 consome a MekaSuit**.
+- Visual da armadura por Marca (6.6): espera prévia do Modelador.
+- Lista de itens de suporte (seção 7).
 - Mapa de chefe por elemento.
