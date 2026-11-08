@@ -8,6 +8,7 @@ import com.nikolas.odteste.registro.Registro;
 import com.nikolas.odteste.sistemas.Reacoes;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
@@ -53,6 +54,16 @@ public final class DadosJogador {
             IdsDados.CONTATO_ELEMENTO,
             () -> AttachmentType.<Map<String, Integer>>builder(() -> Map.of())
                     .serialize(Codec.unboundedMap(Codec.STRING, Codec.INT).xmap(DadosJogador::limparContato, m -> m))
+                    .copyOnDeath()
+                    .build());
+    /**
+     * Freio de repetição da Exposição: fonte → [início da janela (tempo do mundo), vezes]. Não vai para o cliente.
+     * Só guarda janelas abertas (10 min), então fica pequeno.
+     */
+    public static final Supplier<AttachmentType<Map<String, List<Long>>>> EXPOSICAO_REPETICAO = Registro.DADOS.register(
+            IdsDados.EXPOSICAO_REPETICAO,
+            () -> AttachmentType.<Map<String, List<Long>>>builder(() -> Map.of())
+                    .serialize(Codec.unboundedMap(Codec.STRING, Codec.LONG.listOf()))
                     .copyOnDeath()
                     .build());
 

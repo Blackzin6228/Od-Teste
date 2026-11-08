@@ -58,11 +58,35 @@ public final class RegrasExposicao {
     }
 
     /**
-     * Conta quantas vezes cada fonte rendeu dentro da janela. Fica só na memória do servidor
-     * (some ao sair do jogo): é só um freio, não precisa ser salvo.
+     * Conta quantas vezes cada fonte rendeu dentro da janela. É salvo no jogador (dado exposicao_repeticao),
+     * com o tempo do mundo: sair e voltar não zera o freio.
      */
     public static final class Repeticao {
         private final Map<String, long[]> porChave = new HashMap<>(); // [inicio da janela, vezes]
+
+        public Repeticao() {}
+
+        /** Monta a partir do que estava salvo: chave → [inicio da janela, vezes]. Entrada estragada é ignorada. */
+        public static Repeticao de(Map<String, java.util.List<Long>> salvo) {
+            Repeticao r = new Repeticao();
+            if (salvo == null) return r;
+            salvo.forEach((chave, v) -> {
+                if (chave == null || v == null || v.size() != 2 || v.get(0) == null || v.get(1) == null) return;
+                long vezes = v.get(1);
+                if (vezes <= 0) return;
+                r.porChave.put(chave, new long[] {v.get(0), Math.min(vezes, 1000)});
+            });
+            return r;
+        }
+
+        /** Para salvar: só as janelas ainda abertas em {@code agora} (as velhas saem, o dado não cresce sem fim). */
+        public Map<String, java.util.List<Long>> paraSalvar(long agora) {
+            Map<String, java.util.List<Long>> m = new HashMap<>();
+            porChave.forEach((chave, j) -> {
+                if (agora - j[0] < JANELA_REPETICAO && agora >= j[0]) m.put(chave, java.util.List.of(j[0], j[1]));
+            });
+            return Map.copyOf(m);
+        }
 
         /** Registra uma vez e devolve quantas vezes a chave já tinha rendido nesta janela. */
         public int registrar(String chave, long agora) {

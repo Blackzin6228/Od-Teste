@@ -2,9 +2,6 @@ package com.nikolas.odteste.sistemas;
 
 import com.nikolas.odteste.dados.DadosJogador;
 import com.nikolas.odteste.elementos.Elemento;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 import net.minecraft.server.level.ServerPlayer;
 
 /**
@@ -21,9 +18,6 @@ import net.minecraft.server.level.ServerPlayer;
  * Só no servidor.
  */
 public final class Exposicao {
-    /** Freio de repetição por jogador. Só memória: limpo quando o jogador sai (Vigia). */
-    private static final Map<UUID, RegrasExposicao.Repeticao> REPETICAO = new HashMap<>();
-
     private Exposicao() {}
 
     public static int contato(ServerPlayer p, Fonte fonte, Elemento elemento) {
@@ -37,8 +31,11 @@ public final class Exposicao {
     public static int contato(ServerPlayer p, Fonte fonte, Elemento elemento, float intensidade) {
         if (p == null || fonte == null) return 0;
         Elemento e = elemento == null ? Elemento.NENHUM : elemento;
-        int antes = REPETICAO.computeIfAbsent(p.getUUID(), u -> new RegrasExposicao.Repeticao())
-                .registrar(fonte.id() + "/" + e.id(), p.server.getTickCount());
+        // Tempo do mundo (salvo com o mundo): sair e voltar, ou reiniciar o servidor, não zera o freio.
+        long agora = p.server.overworld().getGameTime();
+        RegrasExposicao.Repeticao rep = RegrasExposicao.Repeticao.de(p.getData(DadosJogador.EXPOSICAO_REPETICAO));
+        int antes = rep.registrar(fonte.id() + "/" + e.id(), agora);
+        p.setData(DadosJogador.EXPOSICAO_REPETICAO, rep.paraSalvar(agora));
         int ganho = RegrasExposicao.ganhoCentesimos(fonte.base, intensidade, antes);
         if (ganho <= 0) return 0;
         DadosJogador.somarContato(p, e, ganho);
@@ -48,9 +45,5 @@ public final class Exposicao {
         // Mesmo sem mudar de ponto, o contato novo pode fazer a Marca aparecer ou trocar.
         if (r.exposicao() == atual) Reacoes.conferirMarca(p);
         return ganho;
-    }
-
-    static void esquecer(UUID jogador) {
-        REPETICAO.remove(jogador);
     }
 }

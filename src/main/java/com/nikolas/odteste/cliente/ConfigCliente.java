@@ -41,4 +41,9 @@ public final class ConfigCliente {
             return Forca.LIGADO.tremor;
         }
     }
+
+    /** "Desligado": só vinheta escura e som (sem escurecer a tela inteira, sem bordas coloridas, sem tremor). */
+    public static boolean soVinhetaESom() {
+        return tremor() <= 0;
+    }
 }

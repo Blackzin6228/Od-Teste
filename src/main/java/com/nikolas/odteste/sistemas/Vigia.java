@@ -51,7 +51,7 @@ public final class Vigia {
         NeoForge.EVENT_BUS.addListener(Vigia::aoAmanhecer);
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> {
             ESTADOS.remove(e.getEntity().getUUID());
-            Exposicao.esquecer(e.getEntity().getUUID());
+            Lucidez.esquecer(e.getEntity().getUUID());
         });
     }
 
@@ -95,6 +95,7 @@ public final class Vigia {
         if (!(e.getEntity() instanceof ServerPlayer p) || p.isCreative() || p.isSpectator()) return;
         Estado s = estado(p);
         s.semDano = 0;
+        if (Lucidez.protegido(p)) return; // logo depois do surto, dano não abala
         int centesimos = RegrasLucidez.perdaPorDano(e.getNewDamage(), Paranormal.dano(e.getSource()));
         RegrasLucidez.Acumulo a = RegrasLucidez.acumular(s.restoDano, centesimos);
         s.restoDano = a.resto();

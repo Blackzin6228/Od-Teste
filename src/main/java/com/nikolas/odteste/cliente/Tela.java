@@ -68,7 +68,9 @@ final class Tela {
 
     // ---------- pedidos (chamados por EfeitosLucidez e MomentosCliente) ----------
 
+    /** Borda colorida. Com "Efeitos fortes" desligado, não aparece (fica só vinheta e som). */
     static void pulso(int cor, int duracaoTicks, int batidas, float forca) {
+        if (ConfigCliente.soVinhetaESom()) return;
         if (PULSOS.size() >= MAX_PULSOS) PULSOS.remove(0);
         PULSOS.add(new Pulso(cor, tick, Math.max(1, duracaoTicks), batidas, forca));
     }
@@ -77,7 +79,12 @@ final class Tela {
         vinhetaMomento = new Envelope(tick, entrada, segura, saida, forca);
     }
 
+    /** Tela inteira escura. Com "Efeitos fortes" desligado, vira só a vinheta (bordas), no mesmo tempo. */
     static void escurecer(int entrada, int segura, int saida, float forca) {
+        if (ConfigCliente.soVinhetaESom()) {
+            vinheta(entrada, segura, saida, forca);
+            return;
+        }
         escuro = new Envelope(tick, entrada, segura, saida, forca);
     }
 

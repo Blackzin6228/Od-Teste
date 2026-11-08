@@ -17,10 +17,12 @@ public final class IdsDados {
     public static final String EXPOSICAO_RESTO = "exposicao_resto";
     /** Contato secreto com cada elemento (decide qual Marca aparece). */
     public static final String CONTATO_ELEMENTO = "contato_elemento";
+    /** Freio de repetição da Exposição (fonte → início da janela e vezes). Salvo para relogar não zerar. */
+    public static final String EXPOSICAO_REPETICAO = "exposicao_repeticao";
 
     public static final List<String> TODOS = List.of(
             EXPOSICAO, LUCIDEZ, LUCIDEZ_MAX, MARCA_ELEMENTO, MARCA_ESTAGIO, TRANSCENDER_NIVEL,
-            EXPOSICAO_RESTO, CONTATO_ELEMENTO);
+            EXPOSICAO_RESTO, CONTATO_ELEMENTO, EXPOSICAO_REPETICAO);
 
     /** Canal de rede que manda os dados para o cliente do próprio jogador. */
     public static final String PACOTE_SINCRONIZAR = "sincronizar_jogador";

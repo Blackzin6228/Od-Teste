@@ -36,6 +36,8 @@ public final class RegrasLucidez {
     public static final int SURTO_VOLTA_PERCENTO = 15;
     /** Duração do desmaio (Cegueira + Lentidão forte): 5 s. */
     public static final int SURTO_TICKS = 100;
+    /** Proteção depois do surto: 20 s em que nada tira Lucidez (não surta em cadeia no meio da luta). */
+    public static final int PROTECAO_SURTO_TICKS = 20 * 20;
 
     private RegrasLucidez() {}
 

@@ -198,6 +198,27 @@ class RegrasTest {
     }
 
     @Test
+    void repeticaoSobreviveAoSalvar() {
+        var rep = new RegrasExposicao.Repeticao();
+        rep.registrar("criatura_vista/sangue", 1000);
+        rep.registrar("criatura_vista/sangue", 1100);
+        rep.registrar("aparicao/nenhum", 0);
+        var salvo = rep.paraSalvar(1200 + RegrasExposicao.JANELA_REPETICAO - 1000);
+        assertFalse(salvo.containsKey("aparicao/nenhum"), "janela fechada não fica salva");
+        var lida = RegrasExposicao.Repeticao.de(salvo);
+        assertEquals(2, lida.registrar("criatura_vista/sangue", 1300), "relogar não zera o freio");
+        // Dado estragado é ignorado, sem erro.
+        var estragado = RegrasExposicao.Repeticao.de(java.util.Map.of("x", java.util.List.of(5L), "y", java.util.List.of(5L, -1L)));
+        assertEquals(0, estragado.tamanho());
+        assertEquals(0, RegrasExposicao.Repeticao.de(null).tamanho());
+    }
+
+    @Test
+    void protecaoDepoisDoSurtoCobreUmGolpeSeguinte() {
+        assertTrue(RegrasLucidez.PROTECAO_SURTO_TICKS > RegrasLucidez.SURTO_TICKS, "protege além do desmaio");
+    }
+
+    @Test
     void fontesTemIdUnicoEGanhoPositivo() {
         Set<String> ids = new HashSet<>();
         for (Fonte f : Fonte.values()) {
