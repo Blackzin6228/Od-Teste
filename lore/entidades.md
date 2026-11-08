@@ -81,7 +81,7 @@
   - Uma **antena do tamanho de um arranha-céu**, torta, com a ponta nas nuvens de estática. À noite da Rede, a ponta vira **um farol roxo** visível da Clareira.
   - Céu de chuvisco. A cada transmissão o **HUD falha** e o relógio do jogador pula. Raios sem trovão atrasado.
   - Voz **picotada em rádio** (texto com letras faltando), dizendo coordenadas e matrículas em loop.
-- **Forma de chefe/evento:** uma **tempestade de transmissões**. O corpo é uma **figura de cabos e neon de 9 blocos**, que se segura pelo ar, com **a Antena Torta no lugar da cabeça**. O grupo defende **repetidores** em ilhas flutuantes enquanto o Sinal tenta se religar. Vence quem mantiver 3 repetidores ligados até o amanhecer da Rede.
+- **Forma de chefe/evento:** uma **tempestade de transmissões**. O corpo é uma **figura de cabos e neon de 9 blocos**, que se segura pelo ar, com **a antena-relíquia (nome a escolher em `lore/reliquias-e-espadas.md`) no lugar da cabeça**. O grupo defende **repetidores** em ilhas flutuantes enquanto o Sinal tenta se religar. Vence quem mantiver 3 repetidores ligados até o amanhecer da Rede.
 - **Cor e som:** roxo, ciano, magenta. Estática e sinais de rádio.
 - **Dimensão e clima:** ar carregado, roxo `#6A00FF` com ciano `#00E5FF` e magenta `#FF2BD6`. Trilha: sintetizador, guitarra processada.
 
@@ -92,7 +92,7 @@
 - Cada entidade tem **uma relíquia**; nenhuma relíquia sai da entidade e nenhum jogador a leva.
 - **No evento**, a espada do mesmo elemento ajuda a expor a relíquia (efeito de luta, ver `lore/reliquias-e-espadas.md`).
 - O ciclo de vantagens vale na luta: o grupo que traz dano do elemento que **vence** o da entidade causa mais dano (Sangue vence Conhecimento, que vence Energia, que vence Morte, que vence Sangue).
-- **Final:** quem fica como "troco" para voltar pode virar mais um "dos que vieram antes" **na história** (`lore/premissa.md`). Isso é narrativa de final, não uma transformação jogável.
+- **Final:** quem fica no lugar de outro para que o grupo volte pode virar mais um "dos que vieram antes" **na história** (`lore/premissa.md`). Isso é narrativa de final, não uma transformação jogável.
 
 ## Pontos para o Nikolas decidir
 1. Os nomes (Hospedeira / Mãe da Porta; Leitor Sem Nome / Escrivão Final; Hora Parada / Ponteiro Cego; Sinal Mais Alto / Estação Viva) servem?

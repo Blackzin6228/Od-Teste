@@ -1,4 +1,4 @@
-# Artefatos Paranormais (PROPOSTA)
+# Artefatos Paranormais (nomes FECHADOS)
 
 > Subcategoria esclarecida pelo Nikolas. **Diferente das 4 relíquias principais**, que são só lore
 > (`lore/reliquias-e-espadas.md`), os Artefatos Paranormais o jogador **encontra e usa**.
@@ -7,12 +7,15 @@
 > não largou, e o lugar guardou. Cada uma tem uma etiqueta presa com a matrícula do dono.
 
 ## Nome da categoria (decidido)
-**Artefatos Paranormais** (decisão do Nikolas, PR #11, 08/11/2026). Substitui "relíquias menores" e as opções Achados, Resquícios e Pertences.
+**Artefatos Paranormais** (decisão do Nikolas, PR #11, 08/11/2026).
+
+## Regra de tom (decidida pelo Nikolas, 08/11/2026)
+**Tom sério, sempre. "Ninguém brinca com o paranormal."** Cada artefato precisa passar medo e presença.
+Nada cômico, fofo ou "viajado". Teste rápido: se alguém pode rir ao ler o nome em voz alta, volta para a mesa.
 
 ## Estilo dos nomes (decidido)
-Objeto comum que **ficou "errado"** depois de tocar no paranormal. Sombrio, com cara de dossiê de investigação ("Item 14: relógio de pulso, parado às 03h07, achado no pulso de ninguém").
-- Os 3 de **Sangue** estão fechados.
-- Os 9 de **Conhecimento, Morte e Energia** têm **2 opções cada**; o Nikolas escolhe uma por item.
+Objeto comum que **ficou "errado"** depois de tocar no paranormal. Sombrio, com cara de dossiê de investigação.
+**Os 12 nomes estão fechados pelo Nikolas (08/11/2026).**
 
 ## Os três custos (resumo para quem lê)
 - **Lucidez:** a cabeça do jogador. Cai ao usar coisas que mexem com a mente. Baixa demais, a tela embaça e aparecem sussurros.
@@ -25,7 +28,7 @@ Objeto comum que **ficou "errado"** depois de tocar no paranormal. Sombrio, com 
 
 ---
 
-## SANGUE (nomes fechados)
+## SANGUE
 
 | # | Nome | Objeto | O que faz | Custo | Onde se acha | Raridade |
 |---|---|---|---|---|---|---|
@@ -33,29 +36,29 @@ Objeto comum que **ficou "errado"** depois de tocar no paranormal. Sombrio, com 
 | 2 | **Dedal Dentado** | Dedal de costura, ferro escuro, com dentes por dentro | Por 20 s, quem te bate sangra (parte do dano volta nele) | Lucidez -5; perde 1 coração máximo até dormir | Acampamento de quem veio antes (pista de dossiê) | Incomum |
 | 3 | **Sino de Matadouro** | Sino de latão de açougue, badalo preto de sangue seco, que toca sem vento | Toque em área: aliados ganham Fúria (Força) e Velocidade por 15 s | Custa 3 corações de quem toca; Exposição +25 | Cai do *Coração Aberto* (chefe do Ventre) | Rara |
 
-## CONHECIMENTO (2 opções por item)
+## CONHECIMENTO
 
-| # | Nome antigo | Opção 1 | Opção 2 | Objeto | O que faz | Custo | Onde se acha | Raridade |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Caderneta de Armarinho | **Caderneta de Letra Alheia** | **Caderneta de Endereços que Não Existem** | Caderneta de capa mole, de vendedor; as anotações aparecem em outra letra | Guarda até 5 pontos (coordenadas) e os desenha no mapa; apaga o mais antigo ao passar de 5 | Lucidez -5 por ponto anotado | Estante Muda (loot da Biblioteca Muda) | Comum |
-| 2 | Régua de Escola | **Régua de Mais de Trinta Centímetros** | **Régua com Nome Riscado** | Régua de 30 cm que, medida de novo, dá sempre um pouco mais | Aponta (brilho e som) para a pista ou estrutura paranormal mais próxima num raio de 64 blocos, por 30 s | Exposição +15 | Mesa de copista, salas da Biblioteca Muda (estrutura) | Incomum |
-| 3 | Óculos de Grau Embaçado | **Óculos Devolvidos pelo Oculista** | **Óculos de Leitura sem Leitor** | Óculos de armação grossa com uma lente trincada | Por 60 s, revela giz invisível, escrita escondida e criaturas disfarçadas | Lucidez -15; avança a Marca de Conhecimento (olhos amarelados) | **Ritual**: ler em voz alta um dossiê completo sem errar | Rara |
+| # | Nome | Objeto | O que faz | Custo | Onde se acha | Raridade |
+|---|---|---|---|---|---|---|
+| 1 | **Caderneta do Último Anotador** | Caderneta de campo de capa preta, com a matrícula riscada na primeira página. Anotações novas aparecem sozinhas, numa letra que não é a sua, e param no meio da frase | Guarda até 5 pontos (coordenadas) e os desenha no mapa; apaga o mais antigo ao passar de 5 | Lucidez -5 por ponto anotado | Estante Muda (loot da Biblioteca Muda) | Comum |
+| 2 | **Prumo de Quem Mediu a Cova** | Prumo de pedreiro: peso de chumbo escuro num fio cinza, sempre úmido e frio. Solto, ele não aponta para o chão: puxa o fio, devagar, para o lado de algo que está lá fora | Aponta (puxão do fio, som grave, brilho fraco) para a pista ou estrutura paranormal mais próxima num raio de 64 blocos, por 30 s | Exposição +15 | Mesa de copista, salas da Biblioteca Muda (estrutura) | Incomum |
+| 3 | **Óculos de Quem Não Fechou os Olhos** | Óculos de armação grossa, uma lente trincada. Por dentro das lentes está sempre úmido, e a trinca, vista de perto, parece uma pálpebra entreaberta | Por 60 s, revela giz invisível, escrita escondida e criaturas disfarçadas | Lucidez -15; avança a Marca de Conhecimento (olhos amarelados) | **Ritual**: ler em voz alta um dossiê completo sem errar | Rara |
 
-## MORTE (2 opções por item)
+## MORTE
 
-| # | Nome antigo | Opção 1 | Opção 2 | Objeto | O que faz | Custo | Onde se acha | Raridade |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Vela de Aniversário Apagada | **Vela de Aniversário sem Aniversariante** | **Vela do Último Parabéns** | Vela fina, cera branca, pavio preto | Acesa, mostra uma linha de cinza até o último lugar onde o dono morreu (e os itens caídos lá) | Exposição +10 | Covas e ruínas do Ermo de Cinzas | Comum |
-| 2 | Relógio de Pulso Parado | **Relógio Parado às 03h07** | **Relógio de Pulso sem Pulso** | Relógio de pulso com os ponteiros presos | Por 3 s, projéteis e golpes à sua volta ficam em câmera lenta | Marca de Morte avança (cabelo cinza); Lucidez -10 | Ruínas de relógio (estrutura do Ermo) | Incomum |
-| 3 | Foto 3x4 Desbotada | **Foto 3x4 de Documento Vencido** | **Foto 3x4 de Quem Ainda Volta** | Foto de documento, rosto quase apagado | Se o dono morrer com ela no inventário, volta com 1 coração em vez de morrer (a foto some) | Marca de Morte avança 1 estágio de uma vez | **Ritual** no túmulo: 1 minuto parado e uma vela por jogador do grupo | Rara |
+| # | Nome | Objeto | O que faz | Custo | Onde se acha | Raridade |
+|---|---|---|---|---|---|---|
+| 1 | **Vela que Queima ao Contrário** | Vela de cera amarelada, pavio preto. A cera sobe em vez de derreter, e a chama é pequena, fria e inclinada para o lado de onde alguém partiu | Acesa, mostra uma linha de cinza até o último lugar onde o dono morreu (e os itens caídos lá) | Exposição +10 | Covas e ruínas do Ermo de Cinzas | Comum |
+| 2 | **Relógio Parado às 03h07** | Relógio de pulso com os ponteiros presos e o vidro embaçado por dentro. A pulseira de couro está sempre morna, como se tivesse acabado de ser tirada de um braço | Por 3 s, projéteis e golpes à sua volta ficam em câmera lenta | Marca de Morte avança (cabelo cinza); Lucidez -10 | Ruínas de relógio (estrutura do Ermo) | Incomum |
+| 3 | **Retrato de Lápide que Piscou** | Retrato oval de porcelana, dos que se colam em lápide, rachado, com o rosto lascado onde o nome devia estar. Quem o carrega às vezes o encontra virado do outro lado | Se o dono morrer com ele no inventário, volta com 1 coração em vez de morrer (o retrato racha ao meio e some) | Marca de Morte avança 1 estágio de uma vez | **Ritual** no túmulo: 1 minuto parado e uma vela por jogador do grupo | Rara |
 
-## ENERGIA (2 opções por item)
+## ENERGIA
 
-| # | Nome antigo | Opção 1 | Opção 2 | Objeto | O que faz | Custo | Onde se acha | Raridade |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Pilha Murcha | **Pilha Estufada, Ainda Quente** | **Pilha que Nunca Acaba** | Pilha AA estufada, sem marca legível | Recarrega um item ou máquina de energia próximo (quantia fixa pequena) | Exposição +10; causa choque leve se usada em armadura de metal | Cabos e ilhas da Rede (loot de estrutura) | Comum |
-| 2 | Controle Remoto Sem Tampa | **Controle Remoto sem Aparelho** | **Controle de Portão sem Portão** | Controle de TV, pilhas à mostra, botões gastos de apertar sem ninguém | Liga e desliga alavancas, portas e circuitos nossos até 16 blocos | Lucidez -5 | Sala de circuito na Rede (estrutura) | Incomum |
-| 3 | Rádio de Pilha | **Rádio Sintonizado em Ninguém** | **Rádio de Cabeceira Ligado Sozinho** | Radinho AM com antena torta, sintoniza chiado | Por 60 s, chia mais alto quanto mais perto de criatura (detector num raio de 24 blocos) | Exposição +30 (a estática também chama atenção); Marca de Energia avança | Cai de *Fantasma de Sinal* raro ou de evento de tempestade elétrica | Rara |
+| # | Nome | Objeto | O que faz | Custo | Onde se acha | Raridade |
+|---|---|---|---|---|---|---|
+| 1 | **Fio Desencapado que Respira** | Pedaço de cabo grosso de cobre, com a ponta desencapada. Está sempre quente e a corrente nele sobe e desce em intervalos, como um pulso. Cheira a ozônio | Recarrega um item ou máquina de energia próximo (quantia fixa pequena) | Exposição +10; causa choque leve se usado em armadura de metal | Cabos e ilhas da Rede (loot de estrutura) | Comum |
+| 2 | **Interruptor que Ninguém Apertou** | Interruptor de parede arrancado com o reboco e os fios, o plástico amarelado. Os arranhões em volta vão de dentro para fora. Estala sozinho quando há circuito por perto | Liga e desliga alavancas, portas e circuitos nossos até 16 blocos | Lucidez -5 | Sala de circuito na Rede (estrutura) | Incomum |
+| 3 | **Rádio que Chia o Seu Nome** | Radinho AM com antena torta e o mostrador parado entre duas estações. O chiado, de vez em quando, tem cadência de fala | Por 60 s, chia mais alto quanto mais perto de criatura (detector num raio de 24 blocos) | Exposição +30 (a estática também chama atenção); Marca de Energia avança | Cai de *Fantasma de Sinal* raro ou de evento de tempestade elétrica | Rara |
 
 ---
 
@@ -82,7 +85,7 @@ Para jogador, valem sempre; para o servidor, ficam em arquivo de configuração.
 9. **PvP:** nas duas primeiras horas depois de um uso, o artefato não funciona contra outro jogador (só contra criaturas).
 
 ## Pontos para o Nikolas decidir
-1. Escolher 1 das 2 opções de nome para cada um dos 9 itens (Conhecimento, Morte, Energia).
+1. ~~Escolher nomes dos 9 itens~~ Resolvido (08/11/2026): 12 nomes fechados.
 2. Os três custos por item servem? Quer que algum use só um custo, para ficar mais simples?
 3. Raros só com limite diário (2 usos) ou também com limite semanal?
 4. Podem entrar como item de **Curios** (equipável) ou ficam só na mão? Sugestão: Curios quando o mod estiver, mão como alternativa (regra 4: sem dependência dura).

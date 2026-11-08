@@ -48,8 +48,8 @@
 - **Onde se vê:** é o eixo do relógio gigante da entidade; no evento, a areia sobe e desce conforme o puzzle. No santuário, no mausoléu do Ermo. É o relógio que "ainda corre".
 
 ### ENERGIA
-- **Nomes:** A) **Pilha de Eco** (?)  B) **Antena Torta** (?)
-- **Objeto:** uma **antena de cobre retorcida**. A) é a **bobina** que fica no coração da antena (a "pilha"); B) é a antena inteira. O modelo é o mesmo.
+- **Nomes (tom sério: "Pilha de Eco" saiu por soar doméstico e cômico). Escolher 1 de 3:** A1) **Bobina do Último Chamado** (?)  A2) **Núcleo do Pedido de Socorro** (?)  B) **Antena Torta** (?) (mantida)
+- **Objeto:** uma **antena de cobre retorcida**. A1/A2 são a **bobina** que fica no coração da antena; B é a antena inteira. O modelo é o mesmo.
 - **Aparência:** antena de **1 bloco de altura**, cobre retorcido, uma **bobina roxa** girando e esferas de luz ciano em órbita. **Animação:** a bobina vibra, faíscas sobem em espiral. Estática no som.
 - **Materiais:** cobre, vidro roxo, fio trançado.
 - **Quem a usou e virou a entidade:** **Bruna Tavares**, técnica de rádio, matrícula 0204. Subiu numa torre e **ligou a antena para pedir socorro**. Ninguém respondeu. Ela não conseguiu desligar, porque desligar era desistir. Foi virando o sinal. Hoje é **O Sinal Mais Alto** (`lore/entidades.md`).
@@ -84,7 +84,7 @@
 - **Ligação com a entidade:** no evento, o coração da Hospedeira fica exposto por segundos; a espada sente o coração bater e o acerta com sangramento forte.
 
 ### CONHECIMENTO
-- **Nomes:** A) **Sentença** (?)  B) **Pena de Ouro** (?)
+- **Nomes (tom sério: "Pena de Ouro" saiu por soar delicado/de conto). Escolher:** A) **Sentença** (?) mantida  B1) **Último Parágrafo** (?)  B2) **Letra de Quem Leu Tudo** (?)
 - **História:** a **pena** com que Teodoro anotava o dossiê. Ficou tão afiada de tanto escrever que virou lâmina. B lembra a pena. A é o que ela escreve: a última frase.
 - **Aparência:** lâmina **fina e reta**, **1,3 bloco**, com **linhas de escrita** que se acendem. Guarda em forma de **balança**. Dourado frio. **Animação:** as letras correm pelo fio antes do golpe.
 - **Poder:** marca o inimigo com uma "sentença": o próximo golpe causa dano extra e ignora parte da defesa.
@@ -94,7 +94,7 @@
 - **Ligação com a entidade:** no evento, a lâmina lê a frase final em voz alta e o livro do Leitor "perde a linha" por um instante, expondo a relíquia.
 
 ### MORTE
-- **Nomes:** A) **Foice de Séculos** (?)  B) **Fio-Baixo** (?)
+- **Nomes (tom sério: "Fio-Baixo" saiu por soar brincalhão). Escolher:** A) **Foice de Séculos** (?) mantida  B1) **Minuto Arrancado** (?)  B2) **Ponteiro que Não Volta** (?)
 - **História:** o **ponteiro dos minutos** do relógio de Aurélio, que ele arrancou quando parou o tempo. Ficou comprido, curvo, afiado. B vem de "fio" (de corte) e de "baixar" (o tempo).
 - **Aparência:** **foice-espada de 1,6 bloco**. Haste de osso escuro, lâmina cinza **curva em espiral anti-horária**, pontas lascadas. Azul-frio nas bordas. **Animação:** cinza cai da lâmina a cada passo. Ao golpear, tudo fica em câmera lenta por um instante.
 - **Poder:** cada golpe "envelhece" o alvo (lento, armadura fraca). Em vida baixa, execução.
@@ -104,7 +104,7 @@
 - **Ligação com a entidade:** no evento, a ponta toca o ponteiro da Hora Parada e o tempo dela falha por poucos segundos, expondo a ampulheta.
 
 ### ENERGIA
-- **Nomes:** A) **Fulgor** (?)  B) **Fio Solto** (?)
+- **Nomes (tom sério: "Fio Solto" saiu por soar leve). Escolher:** A) **Fulgor** (?) mantida  B1) **Cabo da Última Chamada** (?)  B2) **Corrente que Não Desliga** (?)
 - **História:** o **cabo cortado** da antena em que Bruna se pendurou. O cabo ficou aceso, com a ponta solta, procurando onde encostar. B é o cabo. A é o brilho.
 - **Aparência:** espada de **lâmina translúcida de 1,3 bloco**, como um **tubo de neon** com um fio de cobre em espiral. Punho de borracha preta com pinos de metal. Roxo/magenta com ciano nas pontas. **Animação:** a lâmina "falha" (pisca) e solta faíscas.
 - **Poder:** a cada golpe, chance de descarga em cadeia. Com carga cheia, dá um salto curto (dash).
