@@ -27,6 +27,8 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 07/11/2026 | **SV Voice Changer:** por enquanto o servidor é **playtest com amigos, sem fim comercial**, então pode usar (licença CC-BY-NC-SA). Rever antes de cobrar qualquer coisa. |
 | 07/11/2026 | **Armadura:** muito forte, boa contra o paranormal **e** contra o resto, provavelmente **mais forte que a MekaSuit**. |
 | 07/11/2026 | **Magias:** qualidade de referência do addon **Apex Arcana** do Iron's Spells (magias de topo de escola, com efeito e animação caprichados). |
+| 07/11/2026 | **O jogador não escolhe a Marca.** Tirar qualquer sistema de escolha; a Marca vem do que acontece com o jogador (exposição, relíquias, eventos). |
+| 07/11/2026 | **Sistemas reaproveitados do Máscaras** (Exposição, Lucidez, Marca, Vínculo, Transcender…) ficam, mas **melhores e com muito mais animação** (jogador, efeitos, tela). |
 
 ## Pendentes (precisam do Nikolas)
 
@@ -37,3 +39,8 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | Sons | Só sons do Minecraft com efeito, ou sons próprios (precisam ser nossos ou com licença). |
 | Repositório público ou privado | Hoje está **público**. Para um projeto que vai gerar renda, privado protege o código e a arte. |
 | Convivência com o Máscaras 1.34.1 | Os dois mods juntos no servidor, ou o novo substitui o antigo um dia. |
+
+## Para amanhã (08/11)
+1. Aprovar o PR #9 (decisões).
+2. PR #8 (Dev): as 3 correções do Revisor, nome nosso no lugar de "Outro Lado", **tirar a escolha de Marca pelo jogador** e plano de animações dos sistemas.
+3. Lore: entidades. Integrador: magias no nível Apex Arcana, armadura acima da MekaSuit, voz.
