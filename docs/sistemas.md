@@ -2,16 +2,20 @@
 
 Desenho de **Exposição, Lucidez, Marca, Vínculo e Transcender**. Ponto de partida: o que o Máscaras fazia
 (`docs/referencia-mascaras.md`), com o que funcionou mantido e o resto melhorado.
+As animações, efeitos de tela, partículas e sons de cada sistema estão em `docs/animacoes.md`.
 
-> **Status:** proposta da mesa Dev (07/11/2026). O que está em **[DECIDIR]** precisa do Nikolas.
+> **Status:** proposta da mesa Dev (07/11/2026, revisada em 08/11/2026). O que está em **[DECIDIR]** precisa do Nikolas.
 > Já está no código: os valores salvos, a faixa de cada um, a sincronização com o cliente e os comandos de admin.
 > **Ainda não está no código:** nenhum efeito, nenhum ganho ou perda automática. Isso vem depois da aprovação.
+>
+> **Nome do mundo paranormal:** enquanto a Lore não propõe um nome nosso, este documento diz só "o paranormal".
 
 ## Regras que valem para todos
 1. **Nenhum número na tela.** O jogador sente pelos efeitos: som, partícula, névoa, texto curto em palavras,
    o visual da armadura e da skin. Números só para admin (comandos).
-2. **Tudo dentro do Minecraft.** Efeitos com o que o jogo já tem: sons vanilla com pitch baixo (0,4–0,7), partículas,
-   efeitos de poção curtos (Escuridão, Náusea, Lentidão), névoa do cliente, mensagens na barra de ação.
+2. **Tudo dentro do Minecraft.** Efeitos com o que o jogo e o pack já têm: sons vanilla com pitch baixo (0,5–0,7; o jogo não toca abaixo de 0,5),
+   partículas, animação do corpo (Player Animator), efeitos de poção curtos (Escuridão, Náusea, Lentidão),
+   névoa do cliente, mensagens na barra de ação.
 3. **Sem lag.** Nada roda a cada tick. Checagens a cada 1–2 segundos por jogador, só no próprio jogador.
    Efeitos visuais (sussurro, vulto, partícula falsa) rodam **no cliente**: o servidor não paga nada.
 4. **O preço vem junto com o poder.** Todo degrau que dá algo também tira algo.
@@ -21,12 +25,12 @@ Desenho de **Exposição, Lucidez, Marca, Vínculo e Transcender**. Ponto de par
 ---
 
 ## 1. Exposição (0 a 100)
-Quanto o Outro Lado já tocou você. É a "experiência" paranormal: **só sobe** (como no Máscaras 1.32).
+Quanto o paranormal já tocou você. É a "experiência" paranormal: **só sobe** (como no Máscaras 1.32).
 
 **Sobe com** (cada fonte sobe pouco, e repetir a mesma coisa rende menos):
-- ver uma criatura do Outro Lado pela primeira vez; matar uma;
+- ver uma criatura paranormal pela primeira vez; matar uma;
 - fazer um rito; usar uma relíquia; ler uma Página;
-- passar tempo numa dimensão nova (quando existir) ou num lugar marcado pelo Outro Lado.
+- passar tempo numa dimensão nova (quando existir) ou num lugar marcado pelo paranormal.
 
 **Não desce.** Nem com o tempo, nem com morte. **[DECIDIR]** Existe algum jeito raro de baixar
 (um rito caro, um evento do narrador)? Proposta: só pelo narrador.
@@ -35,11 +39,11 @@ Quanto o Outro Lado já tocou você. É a "experiência" paranormal: **só sobe*
 
 | Faixa | Degrau | O que muda no jogo |
 |---|---|---|
-| 0–19 | **Comum** | Nada. Itens do Outro Lado mostram descrição em glifos (não entende). |
-| 20–39 | **Tocado** | Começa a entender as descrições dos itens. Às vezes ouve um som que os outros não ouvem. Pode receber a primeira Marca. |
-| 40–59 | **Marcado** | Criaturas do Outro Lado percebem você de mais longe. Pode fazer Vínculo. Ritos básicos funcionam. |
+| 0–19 | **Comum** | Nada. Itens paranormais mostram descrição em glifos (não entende). |
+| 20–39 | **Tocado** | Começa a entender as descrições dos itens. Às vezes ouve um som que os outros não ouvem. A primeira Marca pode aparecer. |
+| 40–59 | **Marcado** | Criaturas paranormais percebem você de mais longe. Pode fazer Vínculo. Ritos básicos funcionam. |
 | 60–79 | **Fundo** | Ritos avançados. À noite, a névoa chega mais perto de você. Pode Transcender. |
-| 80–99 | **À beira** | Relíquias respondem melhor na sua mão. O Outro Lado "chama": vultos no canto da visão. |
+| 80–99 | **À beira** | Relíquias respondem melhor na sua mão. O paranormal "chama": vultos no canto da visão. |
 | 100 | **Atravessado** | Só por evento do narrador ou comando (como a Noite da Costura). Fim de jogo: ver Transcender nível 4. |
 
 - Subir de degrau é **um momento**: som grave para você e um eco baixo para quem está perto (até 32 blocos),
@@ -52,7 +56,7 @@ Quanto o Outro Lado já tocou você. É a "experiência" paranormal: **só sobe*
 O quanto você ainda está são. Cai rápido e volta devagar. É o "medo" do personagem.
 
 **Cai com:**
-- ver criaturas do Outro Lado de perto; ficar muito tempo no escuro total longe de outros jogadores;
+- ver criaturas paranormais de perto; ficar muito tempo no escuro total longe de outros jogadores;
 - pagar um rito ou a magia do elemento (tecla de afinidade, como a tecla H do Máscaras);
 - eventos do narrador.
 
@@ -78,8 +82,17 @@ O elemento que marcou o seu corpo: **Sangue, Conhecimento, Morte ou Energia** (o
 É **visível**: a skin ganha uma camada por estágio (pouco detalhe certeiro, como a skin do Vínculo com o
 Conhecimento que o Nikolas aprovou) e a **armadura muda com a Marca de quem veste** (decisão de 07/11/2026).
 
-**Como aparece:** quando a Exposição chega em "Tocado", o elemento com que você mais teve contato (ritos,
-relíquias, criaturas mortas) deixa a Marca de **estágio 1**. **[DECIDIR]** Aparece sozinha assim, ou só num rito?
+**O jogador não escolhe a Marca** (decisão do Nikolas, 08/11/2026). Não existe menu, item, rito ou comando de
+jogador para escolher o elemento. A Marca aparece sozinha pelo que acontece com ele:
+
+- O jogo conta, em segredo, o **contato com cada elemento**: Exposição ganha com relíquias, criaturas, ritos,
+  Páginas e lugares de um elemento. Cada fonte soma no elemento dela.
+- Quando a Exposição chega em **"Tocado"**, o elemento com mais contato deixa a Marca de **estágio 1**.
+  Empate: espera o próximo contato desempatar (a Marca não aparece no sorteio).
+- Até o Vínculo, se outro elemento passar bem à frente (proposta: o dobro do contato do atual), a Marca **troca
+  sozinha** para ele, com aviso (ver `docs/animacoes.md`).
+- O jogador influencia só **pelo que faz** (com o que anda, o que caça, onde vai), nunca por uma escolha direta.
+- O comando `/marca definir` continua existindo, mas é **só para admin e evento do narrador** (permissão 2).
 
 **Como sobe de estágio:** com Exposição + feitos do próprio elemento. Cada estágio tem um mínimo de Exposição:
 
@@ -100,17 +113,19 @@ Ciclo: **Sangue vence Conhecimento, que vence Energia, que vence Morte, que venc
 
 ## 4. Vínculo
 No Máscaras, o Vínculo era um pacto separado com o elemento. **Proposta:** o Vínculo passa a ser o
-**estágio 2 da Marca** — o momento em que você **aceita** a Marca num rito. Fica um sistema só, mais fácil de entender
-e sem dado extra salvo. **[DECIDIR]** Aceita juntar Vínculo e Marca assim?
+**estágio 2 da Marca** — o momento em que você **aceita**, num rito, a Marca que já tem. Fica um sistema só,
+mais fácil de entender e sem dado extra salvo. **[DECIDIR]** Aceita juntar Vínculo e Marca assim?
 
+- O rito **não deixa escolher** o elemento: ele só fixa o que já marcou você. Sem Marca, o rito não funciona.
 - **Ganha:** a magia do elemento sem grimório (tecla de afinidade, pagando Lucidez); armas do mesmo elemento
   ×1,2 (como no Máscaras); grimório do seu elemento gasta menos mana, o do elemento que vence o seu gasta mais
   (integração com Iron's, em `compat/`).
 - **Paga:** o elemento fica fixo. Trocar só por evento do narrador.
-- Antes do Vínculo, a Marca pode **trocar** de elemento se outro elemento dominar o seu contato.
+- Antes do Vínculo, a Marca pode **trocar sozinha** de elemento se outro elemento dominar o seu contato.
 
 ## 5. Transcender (nível 0 a 4)
 Ir mais fundo de propósito. É **escolha** do jogador, num rito, e o preço é **para sempre**.
+(A escolha é **ir mais fundo** ou não; o elemento continua sendo o da Marca, que o jogador não escolhe.)
 
 **Pede:** Vínculo (Marca estágio 2+), Exposição mínima (proposta: 60 + 10 por nível, como no Máscaras),
 um componente do elemento e XP.
@@ -120,7 +135,7 @@ um componente do elemento e XP.
 | 1 | Ritos e magia do elemento mais fortes; mais chance de o rito não gastar o componente. | Lucidez máxima −15. |
 | 2 | O anterior, mais forte. | Lucidez máxima −15. À noite, coisas estranhas perto de você (sons, portas que abrem). |
 | 3 | Habilidade única do elemento **[DECIDIR qual]**. | Lucidez máxima −15. Criaturas aparecem perto de você às vezes. |
-| 4 | **Fim de jogo** (como a Relíquia Viva do Máscaras): vira parte do Outro Lado, com um sinal no nome. | Lucidez máxima −15. A Lucidez não volta sozinha. |
+| 4 | **Fim de jogo** (como a Relíquia Viva do Máscaras): vira parte do paranormal, com um sinal no nome. | Lucidez máxima −15. A Lucidez não volta sozinha. |
 
 - Com os números propostos, nível 4 deixa a Lucidez máxima em 40. O código tem um piso de 10 (nunca zera).
 - **[DECIDIR]** O nível 4 é a mesma coisa que Exposição 100 ("Atravessado"), ou são caminhos separados?
@@ -139,10 +154,14 @@ um componente do elemento e XP.
 | Cópia para o cliente do próprio jogador (ao entrar, renascer, trocar de dimensão e quando muda) | `rede/` |
 | Comandos de admin (permissão 2) | `comandos/ComandosAdmin.java` |
 
-**Comandos:**
+Ainda **não** existe a contagem de contato por elemento (vem com o ganho automático de Exposição, depois da aprovação).
+Hoje não há nenhum caminho para o jogador escolher a Marca: o único jeito de mudar é o comando de admin.
+
+**Comandos (só admin, permissão 2):**
 - `/exposicao ver <jogador>` · `/exposicao definir <jogador> <0-100>`
 - `/lucidez ver <jogador>` · `/lucidez definir <jogador> <0-100>` (presa na máxima) · `/lucidez maxima <jogador> <10-100>`
-- `/marca ver <jogador>` · `/marca definir <jogador> <elemento> <estágio>` (`nenhum` tira a Marca; estágio 0 com elemento vira 1)
+- `/marca ver <jogador>` · `/marca definir <jogador> <elemento> <1-4>` · `/marca definir <jogador> nenhum` (tira a Marca).
+  Com elemento, **o estágio é obrigatório**: sem ele, o comando dá erro e não salva nada. Estágio fora de 1–4 é barrado.
 - `/transcender ver <jogador>` · `/transcender definir <jogador> <0-4>`
 
 ## Resumo do que precisa do Nikolas
@@ -150,7 +169,6 @@ um componente do elemento e XP.
 2. Exposição tira Lucidez máxima por degrau, ou só o Transcender cobra?
 3. O que acontece com Lucidez 0 (desmaio ou criatura).
 4. A Lucidez cai sozinha com Exposição alta?
-5. A Marca aparece sozinha ou só por rito?
-6. O que cada elemento cobra no estágio 4.
-7. Juntar Vínculo e Marca (Vínculo = estágio 2)?
-8. Habilidade do Transcender nível 3; nível 4 é o mesmo que "Atravessado"?; dá para desfazer?
+5. O que cada elemento cobra no estágio 4.
+6. Juntar Vínculo e Marca (Vínculo = estágio 2)?
+7. Habilidade do Transcender nível 3; nível 4 é o mesmo que "Atravessado"?; dá para desfazer?

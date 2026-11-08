@@ -35,6 +35,9 @@ public final class ComandosAdmin {
     private static final DynamicCommandExceptionType ELEMENTO_INVALIDO = new DynamicCommandExceptionType(
             nome -> Component.translatable("odteste.comando.erro.elemento", nome));
 
+    private static final DynamicCommandExceptionType ESTAGIO_FALTANDO = new DynamicCommandExceptionType(
+            nome -> Component.translatable("odteste.comando.erro.estagio", nome));
+
     private ComandosAdmin() {}
 
     public static void iniciar() {
@@ -88,9 +91,10 @@ public final class ComandosAdmin {
                         .then(Commands.argument("elemento", StringArgumentType.word())
                                 .suggests((c, b) -> SharedSuggestionProvider.suggest(
                                         Arrays.stream(Elemento.values()).map(Elemento::id), b))
-                                // "nenhum" não precisa de estágio: tira a Marca.
-                                .executes(c -> definirMarca(c, 0))
-                                .then(Commands.argument("estagio", IntegerArgumentType.integer(0, Limites.ESTAGIO_MAX))
+                                // Sem estágio: só "nenhum" (tira a Marca). Com elemento, o estágio é obrigatório
+                                // e dá erro claro, para o admin nunca salvar um estágio que não pediu.
+                                .executes(c -> definirMarca(c, null))
+                                .then(Commands.argument("estagio", IntegerArgumentType.integer(Limites.ESTAGIO_MIN, Limites.ESTAGIO_MAX))
                                         .executes(c -> definirMarca(c, IntegerArgumentType.getInteger(c, "estagio"))))))));
 
         d.register(raiz("transcender")
@@ -106,11 +110,19 @@ public final class ComandosAdmin {
                         })))));
     }
 
-    private static int definirMarca(CommandContext<CommandSourceStack> c, int estagio) throws CommandSyntaxException {
+    /**
+     * @param estagio null quando o comando veio sem estágio. Só vale para "nenhum";
+     *                com elemento, dá erro pedindo o estágio (1 a 4).
+     *                Com "nenhum", um estágio digitado é ignorado (sem Marca, o estágio é sempre 0).
+     */
+    private static int definirMarca(CommandContext<CommandSourceStack> c, Integer estagio) throws CommandSyntaxException {
         ServerPlayer p = alvo(c);
         String nome = StringArgumentType.getString(c, "elemento");
         Elemento e = Elemento.deId(nome).orElseThrow(() -> ELEMENTO_INVALIDO.create(nome));
-        DadosJogador.definirMarca(p, e, estagio);
+        if (estagio == null && e != Elemento.NENHUM) {
+            throw ESTAGIO_FALTANDO.create(e.id());
+        }
+        DadosJogador.definirMarca(p, e, estagio == null ? 0 : estagio);
         Elemento salvo = DadosJogador.marcaElemento(p);
         int estagioSalvo = DadosJogador.marcaEstagio(p);
         c.getSource().sendSuccess(() -> Component.translatable("odteste.comando.marca.definir",

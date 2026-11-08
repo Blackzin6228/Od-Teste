@@ -4,7 +4,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 /**
- * Os elementos do Outro Lado que podem marcar um jogador.
+ * Os elementos do paranormal que podem marcar um jogador.
  * O Medo fica de fora de propósito: é força de fundo, não Marca (pendente em docs/decisoes.md).
  *
  * Java puro (sem Minecraft) para poder ser testado no JUnit.

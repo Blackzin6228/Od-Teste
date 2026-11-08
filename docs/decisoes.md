@@ -18,6 +18,9 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 07/11/2026 | **Crafts personalizados** no nível de dificuldade do **All the Mods 10**: itens de ponta muito difíceis, puxando materiais de vários mods do pack. |
 | 07/11/2026 | **Armaduras personalizadas** sem elemento fixo: o visual se mistura com a **Marca de quem veste**. |
 | 07/11/2026 | **Troca de voz** no roleplay usando os mods que já estão no pack (Simple Voice Chat + SV Voice Changer). |
+| 08/11/2026 | **O jogador não escolhe a Marca.** Ela aparece sozinha pelo que acontece com ele (Exposição, contato com relíquias e criaturas de um elemento). O comando `/marca definir` fica só para admin e evento. |
+| 08/11/2026 | **Muito mais animação** nos sistemas reaproveitados do Máscaras: corpo do jogador (Player Animator), efeitos de tela, partículas (AAA Particles) e sons vanilla com pitch baixo. Plano em `docs/animacoes.md`. |
+| 08/11/2026 | Sem o nome que Ordem Paranormal dá ao mundo paranormal: usamos "o paranormal" até a Lore propor um nome nosso. |
 
 ## Pendentes (precisam do Nikolas)
 

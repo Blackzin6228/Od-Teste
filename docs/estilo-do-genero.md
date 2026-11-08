@@ -2,6 +2,10 @@
 > com os temas, cores e matérias abaixo, **são usados no mod**. Continua proibido copiar a **arte** (símbolos e sigilos
 > desenhados iguais, o pentagrama, logos), **personagens**, **criaturas da obra** (Degolificada, Zumbi de Sangue…) e **textos**.
 > Nossos símbolos, criaturas e personagens são originais, desenhados no estilo de cada elemento.
+>
+> ⛔ **Nomes próprios da obra não entram no mod** (nem em código, docs nossos ou traduções): o nome que a obra dá ao
+> mundo paranormal, "Membrana", "Sigilos", "Ordo Realitas" etc. Neste guia, o mundo da obra aparece como
+> "o paranormal (na obra)". Nos nossos textos, usamos "o paranormal" até a Lore propor um nome nosso (08/11/2026).
 
 # O Estilo de Ordem Paranormal
 
@@ -14,7 +18,7 @@
 
 - **O que é:** começou como uma websérie de *actual play* (RPG de mesa transmitido ao vivo) e virou franquia, com livro de regras (Jambô, 2022), quadrinhos, livros e o jogo *Enigma do Medo* (Dumativa, lançado em 28/11/2024).
 - **Gênero:** horror cósmico + investigação paranormal + fantasia sombria. Bebe de *Call of Cthulhu* e de *The Esoterrorists* (a "Ordo Veritatis" virou "Ordo Realitas", e os "esoterroristas" viraram "ocultistas").
-- **Premissa:** agentes que levam vida dupla, investigam casos e impedem que ocultistas enfraqueçam a **Membrana**, a barreira que separa a Realidade do **Outro Lado**.
+- **Premissa:** agentes que levam vida dupla, investigam casos e impedem que ocultistas enfraqueçam a **Membrana**, a barreira que separa a Realidade do **paranormal (na obra)**.
 - **Ambientação:** Brasil contemporâneo. A base principal da Ordem fica embaixo de um bar de fachada em São Paulo (o *Suvaco Seco*), e as campanhas passam por cidades do interior, sanatórios, orfanatos, escolas e circos.
 
 ---
@@ -33,9 +37,9 @@
 
 ---
 
-## 3. Os cinco Elementos do Outro Lado
+## 3. Os cinco Elementos do paranormal (na obra)
 
-O Outro Lado se divide em **Sangue, Morte, Conhecimento, Energia e Medo**. Os quatro primeiros formam um ciclo de vantagens. O Medo fica fora do ciclo.
+Na obra, o paranormal se divide em **Sangue, Morte, Conhecimento, Energia e Medo**. Os quatro primeiros formam um ciclo de vantagens. O Medo fica fora do ciclo.
 
 ```
 Sangue ──vence──▶ Conhecimento ──vence──▶ Energia ──vence──▶ Morte ──vence──▶ Sangue
@@ -59,7 +63,7 @@ Sangue ──vence──▶ Conhecimento ──vence──▶ Energia ──venc
 
 ### 📜 Conhecimento — dourado / amarelo / branco
 - **Temas:** lógica, razão, ordem, regras, justiça, equilíbrio, memória, sonhos, consciência.
-- **Matéria:** o registro escrito do Outro Lado, ou seja, os próprios **Sigilos**, que brilham em dourado.
+- **Matéria:** o registro escrito do paranormal (na obra), ou seja, os próprios **Sigilos**, que brilham em dourado.
 - **Imagens-chave:** textos, pergaminhos, **máscaras**, sussurros, sombras, cordas, correntes.
 - **Criaturas:** corpo magro e acinzentado (é o elemento menos descrito).
 - **Grupos ligados a ele:** Seita das Máscaras e Escriptas.
@@ -71,7 +75,7 @@ Sangue ──vence──▶ Conhecimento ──vence──▶ Energia ──venc
 - **Criaturas:** corpos fantasmagóricos e brilhantes (Perturbados de Energia). A entidade é o Anfitrião.
 
 ### 👁️ Medo — branco
-- **Temas:** o desconhecido, o infinito, o impossível. É a entidade do próprio Outro Lado.
+- **Temas:** o desconhecido, o infinito, o impossível. É a entidade do próprio paranormal (na obra).
 - **Regra:** não vence nem perde para nenhum elemento. Toda manifestação paranormal nasce dele.
 - **Imagens-chave:** **névoa**, chama translúcida (a *Lâmina do Medo*), vazio.
 - **Única criatura de Medo confirmada:** a Degolificada, que carrega os outros quatro elementos na composição.
@@ -88,7 +92,7 @@ Sangue ──vence──▶ Conhecimento ──vence──▶ Energia ──venc
 
 ## 4. Linguagem visual
 
-### Símbolo do Outro Lado
+### Símbolo do paranormal (na obra)
 Um pentágono grande com um pentagrama invertido dentro, num padrão que se repete. Em cada ponta há um círculo com o símbolo de um dos cinco elementos, e os Sigilos do Conhecimento ocupam o miolo. Funciona como o "brasão" do universo.
 
 ### Sigilos
@@ -149,7 +153,7 @@ Um pentágono grande com um pentagrama invertido dentro, num padrão que se repe
 
 ## Fontes
 
-- [Ordem Paranormal Wiki — Elementos do Outro Lado / Ocultismo](https://ordemparanormal.fandom.com/wiki/Elementos_do_Outro_Lado)
+- [Ordem Paranormal Wiki — Elementos / Ocultismo](https://ordemparanormal.fandom.com/wiki/Elementos_do_Outro_Lado)
 - [Ordem Paranormal Wiki — Sangue](https://ordemparanormal.fandom.com/wiki/Sangue)
 - [Ordem Paranormal Wiki — Morte](https://ordemparanormal.fandom.com/wiki/Morte)
 - [Ordem Paranormal Wiki — Conhecimento](https://ordemparanormal.fandom.com/wiki/Conhecimento)

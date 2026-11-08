@@ -16,5 +16,6 @@
   "odteste.comando.marca.definir": "Marca de %s agora é %s, estágio %s.",
   "odteste.comando.transcender.ver": "%s está no nível %s de Transcender.",
   "odteste.comando.transcender.definir": "Transcender de %s agora é nível %s.",
-  "odteste.comando.erro.elemento": "Elemento desconhecido: %s. Use nenhum, sangue, conhecimento, morte ou energia."
+  "odteste.comando.erro.elemento": "Elemento desconhecido: %s. Use nenhum, sangue, conhecimento, morte ou energia.",
+  "odteste.comando.erro.estagio": "Falta o estágio da Marca de %s (1 a 4). Só \"nenhum\" dispensa o estágio."
 }
