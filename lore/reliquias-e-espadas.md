@@ -30,7 +30,7 @@
 - **Materiais:** vidro fosco, osso, ferro, cinza.
 - **Poder:** uma vez por dia, desfaz o último golpe fatal (volta alguns segundos no tempo).
 - **Custo:** cada uso envelhece o cabelo/rosto (Marca de Morte avança) e deixa uma sombra atrasada.
-- **Como obter:** **chefe** de Morte guardado no fim da Dimensão da Cinza; só cai se o jogador entrar sem curar nenhuma vez (desafio).
+- **Como obter:** **chefe** de Morte guardado no fim do Ermo de Cinzas (dimensão da Morte, ver `lore/dimensoes.md`); só cai se o jogador entrar sem curar nenhuma vez (desafio).
 
 ### Energia
 - **Nomes:** A) **Pilha de Eco** (?)  B) **Antena Torta** (?)
@@ -63,7 +63,7 @@
 - **Aparência:** **foice-espada** de 1,6 bloco: haste de osso escuro, lâmina cinza **curva em espiral anti-horária**, pontas lascadas. **Brilho:** azul-frio nas bordas. **Animação:** cinza cai da lâmina a cada passo; ao golpear, tudo fica em câmera lenta por um instante.
 - **Poder:** cada golpe "envelhece" o alvo (lentidão, armadura enfraquecida); em baixa vida, execução.
 - **Custo:** o dono nunca sente fome plenamente; a regeneração natural para.
-- **Como obter:** craft de topo + despertar em visita a um túmulo antigo na Dimensão da Cinza.
+- **Como obter:** craft de topo + despertar em visita a um túmulo antigo no Ermo de Cinzas (dimensão da Morte).
 
 ### Energia
 - **Nomes:** A) **Fulgor** (?)  B) **Fio Solto** (?)
@@ -77,5 +77,5 @@
 ## Pontos para o Nikolas decidir
 1. Sim/não para a ideia "espada tem craft difícil + despertar por ritual".
 2. Qual nome (A ou B) para cada uma das 8 peças.
-3. O Medo ganha relíquia/espada própria? (pendente em `docs/decisoes.md`).
+3. ~~O Medo ganha relíquia/espada própria?~~ Resolvido (07/11/2026): não. O Medo é só a força maior por trás dos 4.
 4. As relíquias entram como **item de Curios** (equipável) ou **item de mão**? A proposta usa Curios quando existir, com fallback.
