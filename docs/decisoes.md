@@ -29,6 +29,7 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 07/11/2026 | **Magias:** qualidade de referência do addon **Apex Arcana** do Iron's Spells (magias de topo de escola, com efeito e animação caprichados). |
 | 07/11/2026 | **O jogador não escolhe a Marca.** Tirar qualquer sistema de escolha; a Marca vem do que acontece com o jogador (exposição, relíquias, eventos). |
 | 07/11/2026 | **Sistemas reaproveitados do Máscaras** (Exposição, Lucidez, Marca, Vínculo, Transcender…) ficam, mas **melhores e com muito mais animação** (jogador, efeitos, tela). |
+| 08/11/2026 | **O servidor vai para o ATM10** (8.5) com mods extras escolhidos pelo Nikolas. **Banco Central vai junto; o Máscaras não vai**: o mod novo substitui o Máscaras. |
 
 ## Pendentes (precisam do Nikolas)
 
