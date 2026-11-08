@@ -20,6 +20,13 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 07/11/2026 | **Troca de voz** no roleplay usando os mods que já estão no pack (Simple Voice Chat + SV Voice Changer). |
 | 07/11/2026 | **O Medo** é o princípio dos 4 elementos: fica só como **força maior** (não vira relíquia nem marca). |
 | 07/11/2026 | **Dimensões:** uma dimensão para **cada elemento** (Sangue, Conhecimento, Morte, Energia). |
+| 07/11/2026 | **Organização dos agentes:** **Gabinete do Limiar**. |
+| 07/11/2026 | **Premissa:** os agentes precisam **voltar para casa**; **outras pessoas já atravessaram a floresta antes** deles (o rastro delas é o fio da história). |
+| 07/11/2026 | **Espadas principais e relíquias não têm craft** (nem receita difícil): só evento, chefe ou ritual. As **entidades** (uma por elemento) são as relíquias mais fortes, também sem craft. |
+| 07/11/2026 | **Troca de voz:** liga **sozinha** (pela Marca/relíquia), o **jogador pode desligar**, e o **admin pode ligar/desligar** para qualquer um. |
+| 07/11/2026 | **SV Voice Changer:** por enquanto o servidor é **playtest com amigos, sem fim comercial**, então pode usar (licença CC-BY-NC-SA). Rever antes de cobrar qualquer coisa. |
+| 07/11/2026 | **Armadura:** muito forte, boa contra o paranormal **e** contra o resto, provavelmente **mais forte que a MekaSuit**. |
+| 07/11/2026 | **Magias:** qualidade de referência do addon **Apex Arcana** do Iron's Spells (magias de topo de escola, com efeito e animação caprichados). |
 
 ## Pendentes (precisam do Nikolas)
 
