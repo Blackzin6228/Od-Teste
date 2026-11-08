@@ -6,7 +6,9 @@ Só entra aqui o que o Nikolas aprovou. Propostas ficam em outros arquivos até 
 Os jogadores são **agentes** que viviam no **mundo real**, uma vida normal. A caminho de uma missão, escutam um
 **barulho numa floresta**, entram para ver e atravessam para **outra dimensão**: o mundo do Minecraft em que vivem hoje.
 Ali existem **monstros, entidades, equipamentos e relíquias desconhecidas**. Eles não sabem onde estão nem como voltar.
-Precisam **descobrir o que fazer**.
+Precisam **descobrir o que fazer** e **voltar para casa**.
+
+Eles trabalham para o **Gabinete do Limiar**. **Outras pessoas já atravessaram a floresta antes** deles; seguir o rastro delas é o caminho da história.
 
 ## Elementos
 **Sangue, Conhecimento, Morte e Energia**, com temas, cores e matérias de `docs/estilo-do-genero.md`.
@@ -18,6 +20,8 @@ Uma dimensão para **cada elemento**: Sangue, Conhecimento, Morte e Energia.
 ## Peças principais
 - **4 relíquias principais**, uma por elemento.
 - **Espadas principais**, uma por elemento.
+- Relíquias e espadas **não têm craft**: só evento, chefe ou ritual.
+- As **entidades** (uma por elemento) são as relíquias mais fortes.
 - **Armaduras** sem elemento fixo: o visual muda com a **Marca** de quem veste.
 
 ## Sistemas do jogador
