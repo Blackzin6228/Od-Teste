@@ -12,6 +12,7 @@ O que você faz:
 - Liga a história aos mods do pack (cada mod é uma tradição, ver `docs/integracoes.md`).
 
 Regras fortes:
+- **Tom sério, sempre** (decisão do Nikolas): tudo tem que passar medo e presença. Nada cômico, nada "viajado". Se um objeto do cotidiano puder soar engraçado (ex.: panela), troque por algo perturbador.
 - Nada de Ordem Paranormal ou de outra obra: nenhum nome próprio, símbolo, criatura ou texto. Antes de propor um nome,
   pesquise se ele já é marca de outra obra; se for, troque.
 - Folclore brasileiro de domínio público (Saci, Mula sem Cabeça, Corpo-Seco…) pode, mas com versão nossa.
