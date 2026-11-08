@@ -48,12 +48,13 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 2026-11-08 | **Entidades de Sangue e Morte fechadas:** Sangue = **O Diabo**, Morte = **O Deus da Morte**. Nomes genéricos; visual, história e poderes são nossos. Origem: uma pessoa usou a relíquia e virou a entidade (Irene Valadares e Aurélio Matos). "Hospedeira" saiu (inclusive da espada Rubra). Nomes antigos de relíquia corrigidos: Cálice do Faminto, Lente do Escriba, Bobina do Último Chamado. Listas de opções de nome removidas. Tom sério, de medo e presença. Falta só a checagem final na web dos dois nomes (`lore/entidades.md`). |
 | 08/11/2026 | **Lucidez volta por três caminhos:** descansando, dormindo, e com luz forte + grupo por perto + comida quente. Comida quente é a tag `odteste:comida_quente` (ensopados vanilla; outros mods somam por datapack/compat). |
 | 08/11/2026 | **Comida quente ampliada:** a tag `odteste:comida_quente` inclui também batata assada e as carnes cozidas vanilla (`cooked_beef`, `cooked_porkchop`, `cooked_chicken`, `cooked_mutton`, `cooked_rabbit`), além dos 4 ensopados. A regra não muda: luz forte + grupo perto + comida quente, as três juntas. |
+| 2026-11-08 | **Mundo definitivo.** O mundo ATM10 do servidor é o definitivo e o mod já está nele. (1) O modid **`odteste`** fica para sempre como ID interno; o nome que o jogador vê (displayName, textos) pode mudar à vontade. (2) IDs de itens, blocos, criaturas, dados salvos e configs só mudam com **remap aprovado**. (3) Estruturas da história **não usam geração de mundo** (o terreno já existe): entram por evento ou comando de admin (`/odteste evento ...`, `/odteste estrutura ...`), com template NBT, checagem de espaço e sem destruir construção de jogador. Plano em `docs/sistemas.md`; ainda não implementado. |
 
 ## Pendentes (precisam do Nikolas)
 
 | Assunto | Opções / observação |
 |---|---|
-| Nome do mod e modid | Provisório `odteste`. Trocar **antes** do primeiro lançamento (depois disso o modid fica para sempre). |
+| Nome do mod | Só o nome visível (o modid `odteste` já é definitivo, decisão de 2026-11-08). Pode mudar quando quiser. |
 | Resolução das texturas | 16x (padrão do Minecraft, combina com os outros mods) ou 32x/64x (mais detalhe, pesa mais). |
 | Sons | Só sons do Minecraft com efeito, ou sons próprios (precisam ser nossos ou com licença). |
 | Repositório público ou privado | Hoje está **público**. Para um projeto que vai gerar renda, privado protege o código e a arte. |
