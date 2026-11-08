@@ -24,11 +24,26 @@ if [[ ! -f run.sh ]]; then
 fi
 
 # 2) Mods do pack, do jeito que o servidor de verdade baixa (packwiz, lado servidor)
+# Se tiver uma cópia local do Conguitos-smp (PACK_LOCAL), copia config/kubejs antes: o packwiz confere
+# o hash e pula esses arquivos. Evita falha do raw.githubusercontent em arquivo vazio (erro 501).
+if [[ -n "${PACK_LOCAL:-}" ]]; then
+  for d in config kubejs defaultconfigs; do
+    [[ -d "$PACK_LOCAL/$d" ]] && cp -r "$PACK_LOCAL/$d" .
+  done
+fi
 echo "== baixando o pack (lado servidor)"
 curl -fsSL --retry 3 -o packwiz-installer-bootstrap.jar "$PACK_REPO/launcher/servidor/packwiz-installer-bootstrap.jar"
 curl -fsSL --retry 3 -o packwiz-installer.jar "$PACK_REPO/launcher/servidor/packwiz-installer.jar"
-java -jar packwiz-installer-bootstrap.jar -g -s server --bootstrap-no-update \
-  --bootstrap-main-jar packwiz-installer.jar "$PACK_REPO/pack.toml"
+baixou=0
+for tentativa in 1 2 3; do
+  if java -jar packwiz-installer-bootstrap.jar -g -s server --bootstrap-no-update \
+      --bootstrap-main-jar packwiz-installer.jar "$PACK_REPO/pack.toml" > packwiz.log 2>&1; then
+    baixou=1; break
+  fi
+  echo "packwiz falhou (tentativa $tentativa):"; grep -m3 -i "error\|failed" packwiz.log || tail -5 packwiz.log
+  sleep 10
+done
+[[ $baixou == 1 ]] || { echo "Não deu para baixar o pack."; tail -30 packwiz.log; exit 1; }
 
 # 3) Troca a versão do nosso mod (se o pack já tiver uma) pela nova
 rm -f "mods/$MODID-"*.jar

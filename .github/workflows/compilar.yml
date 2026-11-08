@@ -65,6 +65,16 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
+      - name: Baixar o modpack (Conguitos-smp)
+        uses: actions/checkout@v4
+        with:
+          repository: Blackzin6228/Conguitos-smp
+          path: pack
+          sparse-checkout: |
+            config
+            kubejs
+            defaultconfigs
+
       - name: Pegar o jar compilado
         uses: actions/download-artifact@v4
         with:
@@ -85,7 +95,7 @@ jobs:
       - name: Ligar o servidor (falha se crashar)
         run: |
           JAR=$(ls jar/*.jar | grep -v -- '-sources' | head -1)
-          bash ferramentas/teste_servidor.sh "$JAR" servidor-teste
+          PACK_LOCAL="$PWD/pack" bash ferramentas/teste_servidor.sh "$JAR" servidor-teste
 
       - name: Guardar os logs
         if: always()
@@ -94,6 +104,7 @@ jobs:
           name: logs-servidor
           path: |
             servidor-teste/console.log
+            servidor-teste/packwiz.log
             servidor-teste/logs/latest.log
             servidor-teste/crash-reports/
           if-no-files-found: ignore
