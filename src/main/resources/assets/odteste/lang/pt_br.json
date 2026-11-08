@@ -17,5 +17,18 @@
   "odteste.comando.transcender.ver": "%s está no nível %s de Transcender.",
   "odteste.comando.transcender.definir": "Transcender de %s agora é nível %s.",
   "odteste.comando.erro.elemento": "Elemento desconhecido: %s. Use nenhum, sangue, conhecimento, morte ou energia.",
-  "odteste.comando.erro.estagio": "Falta o estágio da Marca de %s (1 a 4). Só \"nenhum\" dispensa o estágio."
+  "odteste.comando.erro.estagio": "Falta o estágio da Marca de %s (1 a 4). Só \"nenhum\" dispensa o estágio.",
+  "odteste.comando.exposicao.fonte": "%s: a fonte %s rendeu %s centésimos de Exposição (agora %s).",
+  "odteste.comando.erro.fonte": "Fonte desconhecida: %s.",
+
+  "odteste.momento.degrau.marcado": "Alguma coisa olhou de volta.",
+  "odteste.momento.marca.nenhum": "",
+  "odteste.momento.marca.sangue": "Seu sangue pesa diferente.",
+  "odteste.momento.marca.conhecimento": "Alguma coisa ficou escrita em você.",
+  "odteste.momento.marca.morte": "O tempo ficou lento na sua pele.",
+  "odteste.momento.marca.energia": "Sua pele não para quieta.",
+
+  "odteste.configuration.title": "Od Teste",
+  "odteste.configuration.efeitos_fortes": "Efeitos fortes de tela",
+  "odteste.configuration.efeitos_fortes.tooltip": "Tremor e inclinação da câmera. SUAVE corta pela metade; DESLIGADO deixa só vinheta e som."
 }

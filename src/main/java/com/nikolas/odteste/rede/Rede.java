@@ -12,7 +12,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
  */
 public final class Rede {
     /** Versão do protocolo. Mudou o formato de algum pacote? Suba o número. */
-    private static final String VERSAO = "1";
+    private static final String VERSAO = "2";
 
     private Rede() {}
 
@@ -25,6 +25,7 @@ public final class Rede {
 
     private static void registrarPacotes(RegisterPayloadHandlersEvent evento) {
         evento.registrar(VERSAO)
-                .playToClient(SincronizarJogador.TIPO, SincronizarJogador.CODEC, SincronizarJogador::receber);
+                .playToClient(SincronizarJogador.TIPO, SincronizarJogador.CODEC, SincronizarJogador::receber)
+                .playToClient(Momento.TIPO, Momento.CODEC, Momento::receber);
     }
 }

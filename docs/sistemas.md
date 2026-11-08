@@ -6,7 +6,9 @@ As animações, efeitos de tela, partículas e sons de cada sistema estão em `d
 
 > **Status:** proposta da mesa Dev (07/11/2026, revisada em 08/11/2026). O que está em **[DECIDIR]** precisa do Nikolas.
 > Já está no código: os valores salvos, a faixa de cada um, a sincronização com o cliente e os comandos de admin.
-> **Ainda não está no código:** nenhum efeito, nenhum ganho ou perda automática. Isso vem depois da aprovação.
+> **Play test de Sangue, parte 1 (08/11/2026):** ganho automático de Exposição, Lucidez com efeito, surto,
+> Marca que aparece sozinha e a Marca de Sangue visível entraram no código, usando as **propostas** deste
+> documento onde ainda há [DECIDIR]. Detalhe e números na seção "No código (play test de Sangue)" no fim.
 >
 > **Nome do mundo paranormal:** enquanto a Lore não propõe um nome nosso, este documento diz só "o paranormal".
 
@@ -154,11 +156,55 @@ um componente do elemento e XP.
 | Cópia para o cliente do próprio jogador (ao entrar, renascer, trocar de dimensão e quando muda) | `rede/` |
 | Comandos de admin (permissão 2) | `comandos/ComandosAdmin.java` |
 
-Ainda **não** existe a contagem de contato por elemento (vem com o ganho automático de Exposição, depois da aprovação).
-Hoje não há nenhum caminho para o jogador escolher a Marca: o único jeito de mudar é o comando de admin.
+Não há nenhum caminho para o jogador escolher a Marca: ela vem do contato (abaixo) ou do comando de admin.
+
+## No código (play test de Sangue, parte 1 — 08/11/2026)
+Tudo em `sistemas/` (servidor) e `cliente/` (efeitos). As contas estão em classes `Regras*`, testadas em `RegrasTest`.
+Os números são **proposta para o play test**: mudam num lugar só.
+
+**Exposição sobe sozinha** (`Vigia`, checagem por jogador a cada 2 s, espalhada pelos ticks):
+| Gatilho | Quanto (1ª vez) |
+|---|---|
+| 60 s seguidos no escuro total (luz 0), sem outro jogador a 24 blocos | 0,5 |
+| Morrer | 2 |
+| Mob hostil a até 8 blocos, à noite (no máximo a cada 30 s) | 0,25 |
+| Surto | 3 |
+- Ganho em centésimos; o resto fica salvo (`odteste:exposicao_resto`) até completar 1 ponto.
+- Repetir a mesma fonte em 10 minutos rende menos (1ª inteira, 2ª metade, 3ª um terço...).
+- O ganho automático para em 99: 100 só por evento/comando.
+- **Ponto de entrada** para o conteúdo: `Exposicao.ganhar(jogador, Fonte.CRIATURA_VISTA, Elemento.SANGUE)`.
+  Com elemento, soma no contato (`odteste:contato_elemento`). Fontes prontas: `criatura_vista`, `criatura_morta`,
+  `reliquia`, `rito`, `pagina`, `lugar`. Para testar sem conteúdo: `/exposicao fonte <jogador> <fonte> [elemento]`.
+
+**Lucidez** (`Lucidez.perder/recuperar` são o ponto de entrada):
+- Cai: escuro total sozinho, depois de 30 s, 1 a cada 6 s (de 100 a 0 em uns 10 minutos).
+- Volta: luz forte (12+) com outro jogador a até 8 blocos, +1 a cada 10 s; ensopado/sopa +8; dormir a noite toda +metade da máxima.
+- Efeitos por faixa no cliente (tabela da seção 2 e `docs/animacoes.md`): vinheta que respira, sussurros e passos
+  falsos, partículas falsas, mira tremendo no arco, tela inclinada, vultos, escuridão curta, sons de criatura e coração.
+- **Surto** (proposta "desmaio"): Cegueira + Lentidão IV por 5 s, a Lucidez volta para 15% da máxima e a Exposição sobe 3.
+  Quem está perto vê o corpo (animação) e ouve. Vale até para `/lucidez definir <jogador> 0`.
+- Ainda **não**: a Lucidez cair sozinha com Exposição alta ([DECIDIR] 4) e a queda por ver criatura (não há criatura).
+
+**Marca:**
+- Aparece sozinha (estágio 1) quando o jogador fica Tocado e um elemento lidera o contato (empate espera).
+- Troca sozinha só no estágio 1, se outro elemento tiver o dobro do contato **e** pelo menos 3 pontos de contato
+  (protege a Marca dada pelo narrador, que começa sem contato).
+- Estágios 2 a 4 só por comando por enquanto (o rito do Vínculo ainda não existe).
+- **Marca de Sangue** (`RegrasSangue`, proposta a partir do estágio 4 "mais força quando ferido; fome que não para"):
+
+| Estágio | Ganha (com menos de metade da vida) | Paga | Visível |
+|---|---|---|---|
+| 1 | +0,5 de dano | — | 1 partícula vermelha a cada 2 s |
+| 2 | +1 de dano | — | 2 |
+| 3 | +1,5 de dano | fome um pouco mais rápida | 3 |
+| 4 | +2,5 de dano | fome bem mais rápida (1 ponto a cada ~40 s) | 4 |
+
+As partículas são vistas por todos por perto (o servidor manda poucas, a cada 2 s). Os outros elementos já têm
+o momento (cor, som, partícula), mas ainda **não** têm efeito no corpo.
 
 **Comandos (só admin, permissão 2):**
-- `/exposicao ver <jogador>` · `/exposicao definir <jogador> <0-100>`
+- `/exposicao ver <jogador>` · `/exposicao definir <jogador> <0-100>` · `/exposicao fonte <jogador> <fonte> [elemento]`
+  (simula uma fonte pelo mesmo caminho do conteúdo; com elemento, soma contato e pode fazer a Marca aparecer)
 - `/lucidez ver <jogador>` · `/lucidez definir <jogador> <0-100>` (presa na máxima) · `/lucidez maxima <jogador> <10-100>`
 - `/marca ver <jogador>` · `/marca definir <jogador> <elemento> <1-4>` · `/marca definir <jogador> nenhum` (tira a Marca).
   Com elemento, **o estágio é obrigatório**: sem ele, o comando dá erro e não salva nada. Estágio fora de 1–4 é barrado.

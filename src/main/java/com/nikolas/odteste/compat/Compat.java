@@ -19,7 +19,9 @@ public final class Compat {
         BOTANIA("botania"),
         MEKANISM("mekanism"),
         CREATE("create"),
-        CURIOS("curios");
+        CURIOS("curios"),
+        /** Animação do corpo do jogador. Só cliente: usado em cliente/ via compat/playeranimator/. */
+        PLAYER_ANIMATOR("playeranimator");
 
         public final String modid;
 

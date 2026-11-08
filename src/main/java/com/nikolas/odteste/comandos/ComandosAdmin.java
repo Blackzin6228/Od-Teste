@@ -11,6 +11,8 @@ import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.nikolas.odteste.dados.DadosJogador;
 import com.nikolas.odteste.dados.Limites;
 import com.nikolas.odteste.elementos.Elemento;
+import com.nikolas.odteste.sistemas.Exposicao;
+import com.nikolas.odteste.sistemas.Fonte;
 import java.util.Arrays;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -38,6 +40,9 @@ public final class ComandosAdmin {
     private static final DynamicCommandExceptionType ESTAGIO_FALTANDO = new DynamicCommandExceptionType(
             nome -> Component.translatable("odteste.comando.erro.estagio", nome));
 
+    private static final DynamicCommandExceptionType FONTE_INVALIDA = new DynamicCommandExceptionType(
+            nome -> Component.translatable("odteste.comando.erro.fonte", nome));
+
     private ComandosAdmin() {}
 
     public static void iniciar() {
@@ -55,7 +60,22 @@ public final class ComandosAdmin {
                             ServerPlayer p = alvo(c);
                             DadosJogador.definirExposicao(p, IntegerArgumentType.getInteger(c, VALOR));
                             return ok(c, "odteste.comando.exposicao.definir", DadosJogador.exposicao(p), p);
-                        })))));
+                        }))))
+                // Simula uma fonte (criatura, relíquia...) pelo mesmo caminho que o conteúdo vai usar.
+                // Com elemento, soma contato: é assim que se testa a Marca aparecendo sozinha.
+                .then(Commands.literal("fonte").then(jogador()
+                        .then(Commands.argument("fonte", StringArgumentType.word())
+                                .suggests((c, b) -> SharedSuggestionProvider.suggest(
+                                        Arrays.stream(Fonte.values()).map(Fonte::id), b))
+                                .executes(c -> ganharFonte(c, Elemento.NENHUM))
+                                .then(Commands.argument("elemento", StringArgumentType.word())
+                                        .suggests((c, b) -> SharedSuggestionProvider.suggest(
+                                                Arrays.stream(Elemento.values()).map(Elemento::id), b))
+                                        .executes(c -> {
+                                            String nome = StringArgumentType.getString(c, "elemento");
+                                            return ganharFonte(c, Elemento.deId(nome)
+                                                    .orElseThrow(() -> ELEMENTO_INVALIDO.create(nome)));
+                                        }))))));
 
         d.register(raiz("lucidez")
                 .then(Commands.literal("ver").then(jogador().executes(c -> {
@@ -128,6 +148,16 @@ public final class ComandosAdmin {
         c.getSource().sendSuccess(() -> Component.translatable("odteste.comando.marca.definir",
                 p.getDisplayName(), Component.translatable(salvo.chaveTraducao()), estagioSalvo), true);
         return estagioSalvo;
+    }
+
+    private static int ganharFonte(CommandContext<CommandSourceStack> c, Elemento e) throws CommandSyntaxException {
+        ServerPlayer p = alvo(c);
+        String nome = StringArgumentType.getString(c, "fonte");
+        Fonte f = Fonte.deId(nome).orElseThrow(() -> FONTE_INVALIDA.create(nome));
+        int ganho = Exposicao.ganhar(p, f, e);
+        c.getSource().sendSuccess(() -> Component.translatable("odteste.comando.exposicao.fonte",
+                p.getDisplayName(), f.id(), ganho, DadosJogador.exposicao(p)), true);
+        return ganho;
     }
 
     // ---------- pedaços repetidos ----------

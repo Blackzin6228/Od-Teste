@@ -69,11 +69,15 @@ def libsDoPack = [
         'emi-1.1.24+1.21.1+neoforge.jar',              // esconder receitas
 ]
 
+// Pasta dos jars: ./libs por padrão. Numa worktree (.mesas/...), dá para reaproveitar os jars já baixados
+// com -Ppasta_libs=/caminho/para/libs, sem baixar tudo de novo.
+def pastaLibs = project.findProperty('pasta_libs') ?: 'libs'
+
 dependencies {
     libsDoPack.each { nome ->
-        def jar = file("libs/${nome}")
+        def jar = file("${pastaLibs}/${nome}")
         if (!jar.exists()) {
-            throw new GradleException("Falta libs/${nome}. Rode: bash ferramentas/baixar_libs.sh")
+            throw new GradleException("Falta ${pastaLibs}/${nome}. Rode: bash ferramentas/baixar_libs.sh")
         }
         compileOnly files(jar)
     }

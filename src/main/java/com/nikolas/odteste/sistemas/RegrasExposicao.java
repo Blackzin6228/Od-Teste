@@ -1,0 +1,71 @@
+package com.nikolas.odteste.sistemas;
+
+import com.nikolas.odteste.dados.Limites;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Contas da Exposição. Java puro (sem Minecraft), testado em RegrasTest.
+ *
+ * - A Exposição é inteira (0–100), mas os ganhos são pequenos: o "resto" (0–99 centésimos) fica guardado
+ *   até completar um ponto.
+ * - Repetir a mesma fonte dentro de uma janela rende menos: 1ª vez inteira, 2ª metade, 3ª um terço...
+ * - O ganho automático para em 99: chegar a 100 ("Atravessado") é só por evento do narrador ou comando.
+ */
+public final class RegrasExposicao {
+    /** Teto do ganho automático. */
+    public static final int TETO_AUTOMATICO = Limites.EXPOSICAO_MAX - 1;
+    /** Janela da repetição: 10 minutos de jogo (em ticks). Depois dela, a fonte volta a render inteira. */
+    public static final long JANELA_REPETICAO = 20L * 60 * 10;
+
+    private RegrasExposicao() {}
+
+    /** Ganho em centésimos, dado quantas vezes a mesma fonte já rendeu dentro da janela. */
+    public static int ganhoCentesimos(int base, int repeticoesAntes) {
+        if (base <= 0) return 0;
+        return base / (1 + Math.max(0, repeticoesAntes));
+    }
+
+    public record Resultado(int exposicao, int resto) {}
+
+    /**
+     * Soma um ganho (centésimos) na Exposição atual. Nunca desce, nunca passa de 99 por aqui.
+     * Já em 99 (ou acima, por comando), o resto zera e nada muda.
+     */
+    public static Resultado somar(int exposicao, int resto, int ganhoCentesimos) {
+        int e = Limites.exposicao(exposicao);
+        int r = Limites.prender(resto, 0, 99);
+        if (e >= TETO_AUTOMATICO || ganhoCentesimos <= 0) {
+            return new Resultado(e, e >= TETO_AUTOMATICO ? 0 : r);
+        }
+        long total = (long) r + ganhoCentesimos;
+        long novo = e + total / 100;
+        int novoResto = (int) (total % 100);
+        if (novo >= TETO_AUTOMATICO) return new Resultado(TETO_AUTOMATICO, 0);
+        return new Resultado((int) novo, novoResto);
+    }
+
+    /**
+     * Conta quantas vezes cada fonte rendeu dentro da janela. Fica só na memória do servidor
+     * (some ao sair do jogo): é só um freio, não precisa ser salvo.
+     */
+    public static final class Repeticao {
+        private final Map<String, long[]> porChave = new HashMap<>(); // [inicio da janela, vezes]
+
+        /** Registra uma vez e devolve quantas vezes a chave já tinha rendido nesta janela. */
+        public int registrar(String chave, long agora) {
+            long[] j = porChave.get(chave);
+            if (j == null || agora - j[0] >= JANELA_REPETICAO || agora < j[0]) {
+                porChave.put(chave, new long[] {agora, 1});
+                return 0;
+            }
+            int antes = (int) j[1];
+            j[1]++;
+            return antes;
+        }
+
+        public int tamanho() {
+            return porChave.size();
+        }
+    }
+}
