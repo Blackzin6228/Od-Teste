@@ -22,7 +22,7 @@
 - **Uma por dimensão.** Não existe cópia no mundo.
 - **Como o jogador a encontra:** pela história (dossiês, santuário, falas) e pelo **evento de entidade** na dimensão.
 - **Evento de entidade:** só acontece em horário/condição marcada (o servidor organiza). Não é chefe de farm. O grupo todo enfrenta a forma de chefe. **Perder não mata ninguém para sempre. Ganhar não destrói a entidade:** ela recua e deixa um **fragmento** (oferenda de ritual, **não** é a relíquia).
-- **Recompensa do evento:** o fragmento, mais uma chance de **relíquia menor** do elemento (`lore/reliquias-menores.md`) para cada jogador que participou (drop pessoal, sem farm).
+- **Recompensa do evento:** o fragmento, mais uma chance de **Artefato Paranormal** do elemento (`lore/artefatos-paranormais.md`) para cada jogador que participou (drop pessoal, sem farm).
 - Nenhuma dá vantagem vendável (regra 9).
 
 ---
@@ -99,5 +99,5 @@
 2. A visão "a entidade foi uma pessoa que usou a relíquia" combina com o tom, ou é pesada demais?
 3. Evento de entidade: marcado pelo servidor (horário) ou liberado por progressão?
 4. O **fragmento** que a entidade deixa serve de oferenda de ritual (não fabrica nada)? Sugestão: sim.
-5. A recompensa extra do evento (chance de relíquia menor) serve?
+5. A recompensa extra do evento (chance de Artefato Paranormal) serve?
 6. Escala do corpo de evento (8 a 12 blocos) combina com o servidor?

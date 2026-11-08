@@ -45,7 +45,7 @@ Cada uma deixou rastro, e o rastro é o mapa para a saída.
 ### O que aconteceu com eles (cada destino é um tipo de pista ou de encontro)
 - Alguns **viraram criaturas**: o monstro tem um crachá no peito. Derrotar é também ler um final de história.
 - Alguns **usaram uma relíquia e viraram entidades**: o objeto guarda o que a pessoa não conseguiu largar, e ela foi engolida pelo elemento. A relíquia é só lore, o jogador não a pega. (Ver `lore/reliquias-e-espadas.md` e `lore/entidades.md`.)
-- Alguns **deixaram pertences** (coisas pequenas e comuns) que o jogador pode achar e usar: as relíquias menores. (Ver `lore/reliquias-menores.md`.)
+- Alguns **deixaram pertences** (coisas pequenas e comuns) que o jogador pode achar e usar: os Artefatos Paranormais. (Ver `lore/artefatos-paranormais.md`.)
 - Alguns **ainda estão por aí**, cansados, e podem dar um conselho (ou uma mentira).
 - Um deles **ainda toca o sino**.
 

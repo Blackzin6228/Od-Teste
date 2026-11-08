@@ -83,7 +83,7 @@ Não é dimensão de elemento e não tem relíquia.
 ## Regras para as quatro
 - **Ciclo de vantagens** (ver elementos) vale dentro de cada dimensão: criaturas de um elemento sofrem mais do elemento que o vence. Nenhum número na tela.
 - **Volta:** sempre existe um jeito de voltar à Clareira (passagem de saída perto de onde se chegou). Não há dimensão sem saída.
-- **Ordem:** não há ordem obrigatória. A dificuldade pode escalar pela espada ou pelas relíquias menores exigidas (decisão do Nikolas e da mesa Integrador).
+- **Ordem:** não há ordem obrigatória. A dificuldade pode escalar pela espada ou pelos Artefatos Paranormais exigidos (decisão do Nikolas e da mesa Integrador).
 - **Medo:** quem juntar as pistas das 4 descobre que o começo de todas é o mesmo. Isso é o mistério final, sem dimensão nem chefe do Medo.
 - **Técnico (para a mesa Dev):** cada dimensão = uma `Dimension` própria do mod; travessia via comando/ritual com efeito visual de cliente. Nada disso precisa de mod externo; Create/Mekanism só enfeitam a Rede (regra 4).
 

@@ -5,7 +5,7 @@
 >   **O jogador não pega nem usa essas relíquias.** Sem item, sem craft, sem drop. **Não existe "jogador vira a entidade"** como mecânica
 >   (a regra antiga da Cessão, da Forma Cedida e do "Ficar" foi **removida**).
 > - As **espadas** (uma por elemento) são do jogador, **sem craft**, por evento, chefe ou ritual.
-> - O que o jogador **encontra e usa** além das espadas são as **relíquias menores**: `lore/reliquias-menores.md`.
+> - O que o jogador **encontra e usa** além das espadas são os **Artefatos Paranormais**: `lore/artefatos-paranormais.md`.
 > - Tudo é original. Sem nomes, objetos ou textos de Ordem Paranormal além do que a regra 3 libera (elementos, gênero).
 > - Cada nome tem **2 opções (A/B)**; o Nikolas escolhe. Nomes com (?): busca rasa na web, falta checagem final.
 > - Tamanhos em blocos (1 bloco = 16 px). Os personagens do passado têm nome e matrícula inventados, só para dar rosto.
@@ -118,7 +118,7 @@
 ## Hierarquia de poder
 1. **Entidades** (uma por elemento), cada uma com a sua **relíquia principal** como receptáculo (lore, não é item). Ver `lore/entidades.md`.
 2. **Espadas** (uma por elemento, do jogador), em 3 estágios.
-3. **Relíquias menores** (12, do jogador), ver `lore/reliquias-menores.md`.
+3. **Artefatos Paranormais** (12, do jogador), ver `lore/artefatos-paranormais.md`.
 4. Armaduras sem elemento fixo (o visual muda com a Marca).
 
 ## Pontos para o Nikolas decidir
