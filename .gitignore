@@ -5,3 +5,6 @@ run/
 .idea/
 out/
 libs/
+
+# cópias de trabalho das mesas (git worktree)
+.mesas/
