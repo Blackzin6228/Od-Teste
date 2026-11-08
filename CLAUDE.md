@@ -7,7 +7,7 @@ Antes de trabalhar, leia: este arquivo, `docs/decisoes.md`, `docs/progresso.md` 
 
 ## Projeto
 - NeoForge **1.21.1** (21.1.262), Java 21. Modid provisório **`odteste`** (vem do `gradle.properties`).
-- Modpack: `Blackzin6228/Conguitos-smp` (packwiz, ~410 mods). O mod compila contra os jars **desse** pack.
+- Modpack: **Conguitos ATM10** (repositório privado `Blackzin6228/Conguitos-ATM10`, publicado em `conguitos-atm10-pack.vercel.app`). ATM10 8.5 + extras, ~530 mods. O teste de servidor usa **esse** pack. (A compilação ainda usa os jars do Conguitos-smp antigo: mesmas versões das APIs.)
 - Dono: **Nikolas** (GitHub `Blackzin6228`). Meta: projeto grande, para um servidor futuro que gere renda.
 
 ## Regras que não mudam

@@ -54,7 +54,7 @@ jobs:
     name: Ligar servidor com o pack inteiro
     needs: compilar
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - name: Baixar o código
         uses: actions/checkout@v4
@@ -64,16 +64,6 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-
-      - name: Baixar o modpack (Conguitos-smp)
-        uses: actions/checkout@v4
-        with:
-          repository: Blackzin6228/Conguitos-smp
-          path: pack
-          sparse-checkout: |
-            config
-            kubejs
-            defaultconfigs
 
       - name: Pegar o jar compilado
         uses: actions/download-artifact@v4
@@ -92,10 +82,15 @@ jobs:
           key: servidor-${{ github.run_id }}
           restore-keys: servidor-
 
+      - name: Mais memória (swap de 8 GB)
+        run: |
+          sudo fallocate -l 8G /swapextra && sudo chmod 600 /swapextra
+          sudo mkswap /swapextra && sudo swapon /swapextra && free -h
+
       - name: Ligar o servidor (falha se crashar)
         run: |
           JAR=$(ls jar/*.jar | grep -v -- '-sources' | head -1)
-          PACK_LOCAL="$PWD/pack" bash ferramentas/teste_servidor.sh "$JAR" servidor-teste
+          bash ferramentas/teste_servidor.sh "$JAR" servidor-teste
 
       - name: Guardar os logs
         if: always()
