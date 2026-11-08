@@ -1,1 +1,21 @@
-{ "itemGroup.odteste": "Od Teste" }
+{
+  "itemGroup.odteste": "Od Teste",
+
+  "odteste.elemento.nenhum": "None",
+  "odteste.elemento.sangue": "Blood",
+  "odteste.elemento.conhecimento": "Knowledge",
+  "odteste.elemento.morte": "Death",
+  "odteste.elemento.energia": "Energy",
+
+  "odteste.comando.exposicao.ver": "%s has Exposure %s.",
+  "odteste.comando.exposicao.definir": "%s's Exposure is now %s.",
+  "odteste.comando.lucidez.ver": "%s has Lucidity %s of %s.",
+  "odteste.comando.lucidez.definir": "%s's Lucidity is now %s.",
+  "odteste.comando.lucidez.maxima": "%s's maximum Lucidity is now %s.",
+  "odteste.comando.marca.ver": "%s has the Mark of %s, stage %s.",
+  "odteste.comando.marca.definir": "%s's Mark is now %s, stage %s.",
+  "odteste.comando.transcender.ver": "%s is at Transcend level %s.",
+  "odteste.comando.transcender.definir": "%s's Transcend is now level %s.",
+  "odteste.comando.erro.elemento": "Unknown element: %s. Use nenhum, sangue, conhecimento, morte or energia.",
+  "odteste.comando.erro.estagio": "Missing the Mark stage for %s (1 to 4). Only \"nenhum\" can skip the stage."
+}

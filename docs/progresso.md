@@ -11,7 +11,7 @@ Cada mesa atualiza a sua parte ao terminar uma etapa. Legenda: ⬜ não começou
 ⬜ Propostas de elementos (2 ou 3) · ⬜ escolha do Nikolas · ⬜ papel de cada mod (revisar `docs/integracoes.md`) · ⬜ primeiro arco
 
 ## Dev
-⬜ Dados do jogador (elemento, marcas) · ⬜ primeiro item de progressão · ⬜ primeiro ritual · ⬜ comandos de admin
+🟦 Dados do jogador (Exposição, Lucidez, Marca, Transcender) · 🟦 comandos de admin · 🟦 desenho dos sistemas (`docs/sistemas.md`, com [DECIDIR]) · 🟦 plano de animações (`docs/animacoes.md`) · ⬜ efeitos de cada degrau (espera aprovação) · ⬜ primeiro item de progressão · ⬜ primeiro ritual
 
 ## Modelador
 ⬜ Guia de estilo visual aprovado · ⬜ primeiro item (prévia) · ⬜ primeira armadura · ⬜ primeira criatura

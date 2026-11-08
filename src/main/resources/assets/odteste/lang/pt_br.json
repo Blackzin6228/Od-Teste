@@ -1,1 +1,21 @@
-{ "itemGroup.odteste": "Od Teste" }
+{
+  "itemGroup.odteste": "Od Teste",
+
+  "odteste.elemento.nenhum": "Nenhum",
+  "odteste.elemento.sangue": "Sangue",
+  "odteste.elemento.conhecimento": "Conhecimento",
+  "odteste.elemento.morte": "Morte",
+  "odteste.elemento.energia": "Energia",
+
+  "odteste.comando.exposicao.ver": "%s tem Exposição %s.",
+  "odteste.comando.exposicao.definir": "Exposição de %s agora é %s.",
+  "odteste.comando.lucidez.ver": "%s tem Lucidez %s de %s.",
+  "odteste.comando.lucidez.definir": "Lucidez de %s agora é %s.",
+  "odteste.comando.lucidez.maxima": "Lucidez máxima de %s agora é %s.",
+  "odteste.comando.marca.ver": "%s tem Marca de %s, estágio %s.",
+  "odteste.comando.marca.definir": "Marca de %s agora é %s, estágio %s.",
+  "odteste.comando.transcender.ver": "%s está no nível %s de Transcender.",
+  "odteste.comando.transcender.definir": "Transcender de %s agora é nível %s.",
+  "odteste.comando.erro.elemento": "Elemento desconhecido: %s. Use nenhum, sangue, conhecimento, morte ou energia.",
+  "odteste.comando.erro.estagio": "Falta o estágio da Marca de %s (1 a 4). Só \"nenhum\" dispensa o estágio."
+}

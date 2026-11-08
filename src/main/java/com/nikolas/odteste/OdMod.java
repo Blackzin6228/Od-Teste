@@ -1,7 +1,10 @@
 package com.nikolas.odteste;
 
 import com.mojang.logging.LogUtils;
+import com.nikolas.odteste.comandos.ComandosAdmin;
 import com.nikolas.odteste.compat.Compat;
+import com.nikolas.odteste.dados.DadosJogador;
+import com.nikolas.odteste.rede.Rede;
 import com.nikolas.odteste.registro.Registro;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -19,7 +22,10 @@ public final class OdMod {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public OdMod(IEventBus barramento, ModContainer container) {
+        DadosJogador.iniciar();
         Registro.registrar(barramento);
+        Rede.iniciar(barramento);
+        ComandosAdmin.iniciar();
         Compat.iniciar(barramento);
         LOGGER.info("{} carregado. Integrações ligadas: {}", MODID, Compat.ligadas());
     }
