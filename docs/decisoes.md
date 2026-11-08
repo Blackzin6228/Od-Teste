@@ -30,6 +30,20 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 07/11/2026 | **O jogador não escolhe a Marca.** Tirar qualquer sistema de escolha; a Marca vem do que acontece com o jogador (exposição, relíquias, eventos). |
 | 07/11/2026 | **Sistemas reaproveitados do Máscaras** (Exposição, Lucidez, Marca, Vínculo, Transcender…) ficam, mas **melhores e com muito mais animação** (jogador, efeitos, tela). |
 | 08/11/2026 | Sem o nome que Ordem Paranormal dá ao mundo paranormal: usamos "o paranormal" até a Lore propor um nome nosso. |
+| 08/11/2026 | **Uma espada e uma relíquia por elemento.** As **4 relíquias de elemento são lore**: cada uma é o receptáculo da entidade do elemento (alguém a usou e virou a entidade). **Não são máscaras, não têm craft e não ficam na mão do jogador**: aparecem na história, nos eventos e nas entidades. Os nomes propostos agradaram (escolha A/B pendente). |
+| 08/11/2026 | **Artefatos Paranormais** (subcategoria; antes "relíquias menores"): objetos paranormais que o jogador **encontra e usa**, com poder e custo. Também sem craft (achadas em estruturas, chefes, eventos, rituais). |
+| 08/11/2026 | **Primeiro play test: elemento Sangue.** Fatia jogável: sistemas com efeito visível (Exposição, Lucidez, Marca), espada de Sangue, relíquias menores de Sangue, 2 criaturas e 1 ritual. Modelos provisórios até a fase de modelagem. |
+| 08/11/2026 | **Exposição** sobe por **contato com o paranormal** (criaturas, relíquias, rituais, dimensões, aparições), não por escuro ou morte comum. |
+| 08/11/2026 | **Lucidez** cai conforme as coisas acontecem: batalhas com relíquias, aparições, enfrentar mobs de Sangue, **tomar dano**. |
+| 08/11/2026 | **Marca de Sangue** é **visual no corpo** do jogador (camada sobre a skin que cresce com o estágio), além das partículas. |
+| 08/11/2026 | **Artefatos Paranormais de Sangue (play test):** **Agulha de Cerzir Carne** (fecha feridas), **Dedal Dentado** (quem te bate sangra) e **Sino de Matadouro** (toque que dá fúria aos aliados; substitui a panela). Estilo de nome aprovado: objeto comum que ficou "errado" depois do paranormal. |
+| 08/11/2026 | **Tom sério, sempre.** "Ninguém brinca com o paranormal." Tudo (artefatos, criaturas, rituais, nomes, textos) tem que passar **medo e presença**, na pegada séria do gênero. Nada cômico ou "viajado" (ex.: a panela foi cortada por isso). Objetos do cotidiano só quando ficam realmente perturbadores. |
+| 08/11/2026 | **Artefato de Morte:** **Vela que Queima ao Contrário** (a cera sobe em vez de derreter; mostra a trilha de cinza até onde o dono morreu). Substitui a vela de aniversário/sétimo dia. |
+| 08/11/2026 | **Artefatos Paranormais (nomes fechados):** Conhecimento — **Caderneta do Último Anotador**, **Prumo de Quem Mediu a Cova**, **Óculos de Quem Não Fechou os Olhos**. Morte — **Vela que Queima ao Contrário**, **Relógio Parado às 03h07**, **Retrato de Lápide que Piscou**. Energia — **Fio Desencapado que Respira**, **Interruptor que Ninguém Apertou**, **Rádio que Chia o Seu Nome**. |
+| 08/11/2026 | **Entidade de Conhecimento: "a Juíza Sem Rosto".** As entidades têm nomes **com peso e únicos**, nossos. "Anfitrião" e "Magistrada" (entidades de Ordem Paranormal) não são usados; "Diabo"/"Deus da Morte" só como palavras genéricas, com entidade, história e aparência nossas. |
+| 08/11/2026 | **Lucidez volta** descansando, dormindo, com luz forte, grupo por perto e comida quente. |
+| 08/11/2026 | **Relíquias de elemento (lore):** Sangue **Cálice do Faminto** · Conhecimento **Lente do Escriba** · Morte **Ampulheta Quebrada** · Energia **Bobina do Último Chamado**. |
+| 08/11/2026 | **Espadas:** Sangue **Rubra** · Conhecimento **Letra de Quem Leu Tudo** · Morte **Minuto Arrancado** · Energia **Cabo da Última Chamada**. |
 
 ## Pendentes (precisam do Nikolas)
 
