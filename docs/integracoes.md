@@ -30,6 +30,8 @@ Detalhe da progressão em `docs/progressao.md` (degraus D1 a D5) e da voz em `do
 | **Industrial Foregoing** | — | só como ingrediente | **Gás Éter** (precisa do Wither) no D4 e no item final. Triturador de mobs **não** gera drop nosso |
 | **Powah, Extreme Reactors** | — | energia | Orbe Energizante (Energia); reator na corrente de Morte (opcional) |
 
+Ramo tech na lore (máquinas FE, matéria em 1 ou 2 passos, eventos de Energia, pistas por fita): proposta em `docs/tech-paranormal.md`. Nada pronto ainda.
+
 ## Chefes (itens para Corações e item final)
 Cataclysm, Twilight Forest, Mowzie's Mobs e chefes do Iron's. Mapa por elemento em `docs/progressao.md` (seção 5.2). **Conferir drops.**
 
