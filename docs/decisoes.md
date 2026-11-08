@@ -20,6 +20,7 @@ Cada linha é uma decisão do Nikolas. Vale para todas as mesas até ser trocada
 | 07/11/2026 | **Troca de voz** no roleplay usando os mods que já estão no pack (Simple Voice Chat + SV Voice Changer). |
 | 07/11/2026 | **O Medo** é o princípio dos 4 elementos: fica só como **força maior** (não vira relíquia nem marca). |
 | 07/11/2026 | **Dimensões:** uma dimensão para **cada elemento** (Sangue, Conhecimento, Morte, Energia). |
+| 07/11/2026 | **Modelagem fica para o final.** O Nikolas vai trazer as ideias de visual antes; até lá a mesa Modelador não faz modelo, textura nem prévia de peça do mod. |
 
 ## Pendentes (precisam do Nikolas)
 
