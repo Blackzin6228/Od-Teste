@@ -18,10 +18,11 @@ O **Medo** é o princípio dos 4: uma força maior por trás de tudo. Não vira 
 Uma dimensão para **cada elemento**: Sangue, Conhecimento, Morte e Energia.
 
 ## Peças principais
-- **4 relíquias principais**, uma por elemento.
-- **Espadas principais**, uma por elemento.
-- Relíquias e espadas **não têm craft**: só evento, chefe ou ritual.
-- As **entidades** (uma por elemento) são as relíquias mais fortes.
+- **4 relíquias principais**, uma por elemento: **só lore**, receptáculos das entidades. O jogador não pega nem usa.
+- **Espadas principais**, uma por elemento, do jogador.
+- **Artefatos Paranormais**: categoria que o jogador encontra e usa (`lore/artefatos-paranormais.md`, nomes dos 9 itens ainda em proposta).
+- Relíquias e espadas **não têm craft**: só evento, chefe, estrutura ou ritual.
+- As **entidades** (uma por elemento) foram quem usou a relíquia e virou a entidade.
 - **Armaduras** sem elemento fixo: o visual muda com a **Marca** de quem veste.
 
 ## Sistemas do jogador

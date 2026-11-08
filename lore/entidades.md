@@ -1,107 +1,128 @@
-# Entidades (PROPOSTA)
+# Entidades (PROPOSTA, versão 3)
 
-> Uma entidade por elemento. São as **relíquias mais fortes** do mundo: acima das relíquias e das espadas (`lore/reliquias-e-espadas.md`).
-> Tudo aqui é **original**: nomes, aparência e textos são nossos. Nada de nomes, formas ou falas da obra Ordem Paranormal (regra 3).
-> **Sem craft.** Entidade não se fabrica nem se compra: só **ritual, pacto ou combate de evento**.
-> O Medo **não** é entidade: é a força maior por trás das quatro (`lore/dimensoes.md`). Nomes marcados (?) precisam de checagem na web.
-> Ligação com a espinha (`lore/premissa.md`): cada entidade é o que sobrou de **quem ficou tempo demais** no elemento, somado à fome do lugar.
+> **Nada aqui é cânone até o Nikolas aprovar.** Uma entidade por elemento. Cada entidade foi **uma pessoa que usou a relíquia do
+> elemento e virou a entidade** (ou foi tomada por ela). A relíquia é o **receptáculo**: é lore, o jogador não a pega nem usa
+> (`lore/reliquias-e-espadas.md`). **Não existe "jogador vira a entidade".** O jogador só enfrenta, ouve e entende a entidade.
+> - Tudo é **original**. Sem nomes, formas ou falas da obra Ordem Paranormal além do que a regra 3 libera.
+> - **Sem craft.** Entidade não se fabrica nem se compra.
+> - O Medo **não** é entidade: é a força maior por trás das quatro (`lore/dimensoes.md`).
+> - Nomes fechados (08/11/2026): **O Diabo** (Sangue), **A Juíza Sem Rosto** (Conhecimento), **O Deus da Morte** (Morte) e **O Dono da Casa** (Energia). "O Diabo" e "O Deus da Morte" são nomes genéricos; o visual, a história e os poderes são nossos.
+> - Tom: sério, de medo e de presença. Ninguém brinca com o paranormal.
+> - Ligação com a espinha (`lore/premissa.md`): cada entidade é **um dos que vieram antes**, engolido pelo elemento.
 
 ## O que é uma entidade
-- Uma **fome do lugar com rosto**. Cresceu em cima de um dos que vieram antes e agora fala por todo o elemento.
-- **Não é monstro comum.** Não vagueia, não caça. Ela **está** na dimensão, como clima. Quem entra, entra *nela*.
-- **Escala gigante:** a entidade é grande demais para ser vista inteira. O jogador vê **partes** e sente o resto no ambiente.
-- Todas **querem o mesmo tipo de coisa**: serem *completadas* por alguém que carregue o elemento. Por isso oferecem poder.
+- Uma **fome do lugar com o rosto de uma pessoa**. Cresceu em cima de alguém que usou a relíquia e agora fala por todo o elemento.
+- **Não é monstro comum.** Não vagueia nem caça. Ela **está** na dimensão, como clima. Quem entra, entra *nela*.
+- **Duas escalas**, sempre as mesmas, para o Modelador ter um plano só:
+  1. **Presença** (clima da dimensão): grande demais para ser vista inteira. O jogador vê **partes** e sente o resto. Sem hitbox.
+  2. **Forma de chefe/evento:** a entidade se junta num corpo grande (**8 a 12 blocos**) para um evento marcado. Dá para lutar, mas ela **recua**, não morre. **A relíquia aparece no corpo** (peito, mesa, ponteiro, antena), mas nunca cai.
+- **Dormente ou Desperta.** Fora de evento a entidade **dorme** (a dimensão é perigosa só pelo normal). No evento, ela **desperta**: o clima da dimensão muda e todos nela percebem.
+- Todas **querem ser completadas** por alguém que carregue o elemento. Isso explica por que oferecem (e cobram), mas o jogo não deixa ninguém virar entidade.
 
 ## Regras gerais de jogo
-- **Uma por dimensão**, no centro dela. Não existe cópia no mundo.
-- **Três caminhos**, sempre: **ritual** (conversar e oferecer), **pacto** (aceitar o preço dela) ou **combate de evento** (vencer à força, uma vez, com o grupo todo). Cada caminho dá algo diferente.
-- **Combate de evento:** só acontece em horário/condição marcada (para o servidor poder organizar). Não é chefe de farm. Perder não mata a entidade; ganhar não a destrói: ela **recua** e deixa um fragmento.
-- **O poder custa.** Mesma lógica das relíquias: o preço vem junto (ver cada entidade).
-- Nenhuma dá **vantagem vendável**. É só jogo (regra 9).
+- **Uma por dimensão.** Não existe cópia no mundo.
+- **Como o jogador a encontra:** pela história (dossiês, santuário, falas) e pelo **evento de entidade** na dimensão.
+- **Evento de entidade:** só acontece em horário/condição marcada (o servidor organiza). Não é chefe de farm. O grupo todo enfrenta a forma de chefe. **Perder não mata ninguém para sempre. Ganhar não destrói a entidade:** ela recua e deixa um **fragmento** (oferenda de ritual, **não** é a relíquia).
+- **Recompensa do evento:** o fragmento, mais uma chance de **Artefato Paranormal** do elemento (`lore/artefatos-paranormais.md`) para cada jogador que participou (drop pessoal, sem farm).
+- Nenhuma dá vantagem vendável (regra 9).
 
 ---
 
-## SANGUE
+## SANGUE: **O Diabo** (nome FECHADO em 2026-11-08)
 
-### A Anfitriã (?)
-- **O que é:** o próprio **Ventre** visto como alguém. Já foi uma agente que se ofereceu para segurar a porta aberta e nunca largou. Hoje é uma **mãe** que não consegue parar de abrigar.
-- **O que quer:** **hóspedes**. Quer que ninguém saia, e que todo mundo esteja bem (e preso). Para ela, cuidar e prender são a mesma coisa.
-- **Como se manifesta (Minecraft):**
-  - **Escala:** um corpo do tamanho da dimensão. O jogador anda em **túneis que são veias** e vê, ao longe, **um rosto de carne do tamanho de uma montanha** coberto por uma colcha de tecido branco.
-  - **Clima:** o chão respira; o "sol" que bate como coração acelera quando ela presta atenção. A cada poucos minutos, uma **onda quente** passa e fecha portas de carne atrás do jogador.
-  - **Ao falar:** nunca em voz alta. As paredes **sussurram nomes** de familiares do jogador, em tom de acolhimento.
-- **Como os agentes lidam:**
-  - **Ritual:** montar uma **mesa de jantar** no Ventre (comida de verdade, cadeiras para todos) e deixar um lugar vazio. Ela "se senta" e conversa.
-  - **Pacto:** aceitar ser **hóspede** por uma noite: o jogador fica preso numa sala-quarto, sem poder se curar com itens, e sai no dia seguinte com a marca dela.
-  - **Combate de evento:** sair do Ventre **à força**, rompendo as portas de carne enquanto ela fecha o corredor atrás. Não se mata ela: se **foge** dela, com o grupo todo.
-- **O que dá:** **Abrigo**: a vida do grupo se divide entre quem está perto (dano de um é repartido). Cura em área ao lado de fogueira ou mesa.
-- **O que custa:** quem aceita o abrigo **não consegue ir para longe do grupo** por muito tempo (efeito de saudade). Uma parte da Marca de Sangue fica permanente.
+> Frase de apresentação: *"Ele nunca ofereceu um pacto. Ofereceu abrigo, e ninguém lembra de ter saído."*
 
----
-
-## CONHECIMENTO
-
-### O Leitor Sem Nome (?)
-- **O que é:** um **olho sem pupila** gigante que lê tudo o que acontece na Biblioteca Muda. Já foi um agente que escreveu o primeiro dossiê e **não conseguiu parar de anotar**. Agora é só leitura.
-- **O que quer:** ser **lido de volta**. Quer alguém que entenda tudo o que ele sabe sem esquecer, porque isso o termina.
-- **Como se manifesta (Minecraft):**
-  - **Escala:** um **salão que é o interior de um livro aberto**. A "capa" é o céu, as estantes são a margem. O olho aparece **refletido** em todo vidro dourado, nunca de frente.
-  - **Clima:** luz âmbar sem fonte, letras que se reescrevem no chão **a cada passo**, e o som constante de **páginas virando muito longe**.
-  - **Ao falar:** surge texto na tela do jogador, grafado como **margem de caderno**. Nunca responde pergunta direta, só com outra pergunta.
-- **Como os agentes lidam:**
-  - **Ritual:** **ler em voz alta** o dossiê completo de um dos que vieram antes, sem errar (puzzle de investigação). Ele aceita a leitura e responde.
-  - **Pacto:** **esquecer** algo de propósito: o jogador entrega uma página própria (um mapa, um caderno de anotações do jogo). O mundo perde esse registro.
-  - **Combate de evento:** ele manda **perguntas** em forma de salas; cada sala errada reescreve o corredor. Vence quem responde certo à última sem usar nenhum caderno (o grupo coopera de memória).
-- **O que dá:** **Clareza**: mapa completo da dimensão e dicas em qualquer estrutura; resistência a perda de Lucidez.
-- **O que custa:** o jogador **esquece nomes**: nomes de jogadores ficam como "o de capa azul" no chat de cena; o mapa pessoal perde pontos fora de lá.
+- **Quem foi:** **Irene Valadares**, cozinheira e agente, matrícula 0311. Segurou o Cálice do Faminto para manter a passagem aberta e **nunca largou**. Usou a relíquia e virou a entidade.
+- **O que é:** o próprio **Ventre** com o rosto de quem não conseguiu parar de abrigar. Do que foi Irene sobrou o **rosto de mulher**, esticado e cansado, no meio de algo que já não é ela. O nome "O Diabo" é o que os que vieram antes lhe deram: o mal que mora dentro da casa e sorri com o rosto de quem cuidou.
+- **O que quer:** **hóspedes**. Que ninguém saia e que todos estejam bem (e presos). Para ele, cuidar e prender são a mesma coisa.
+- **Presença na dimensão (Ventre):**
+  - O jogador anda em **túneis que são veias** e vê, ao longe, **um rosto de carne do tamanho de uma montanha** coberto por uma colcha de tecido branco.
+  - O chão respira. O "sol" que bate como coração acelera quando ele presta atenção. A cada poucos minutos passa uma **onda quente** e fecha portas de carne atrás do jogador.
+  - Nunca fala em voz alta: as paredes **sussurram nomes de familiares** do jogador, em tom de acolhimento.
+- **Forma de chefe/evento:** ele se junta numa **figura enorme, de costas**, com o avental de Irene encharcado, o **Cálice do Faminto fervendo no peito** (visível pelas costelas abertas). Os braços são longos demais. Não ataca; **fecha corredores** e chama ("fica mais um pouco"). O grupo precisa **sair do Ventre rompendo as portas de carne** antes que se fechem. Não se mata, se **foge**.
+- **Cor e som:** vermelho escuro, branco manchado, ferro. Batida de coração e uma cantiga de ninar abafada.
+- **Dimensão e clima:** quente, úmido, vermelho escuro `#2A0000`, ferrugem no ar. Trilha: guitarra pesada e lenta, coração como bumbo.
 
 ---
 
-## MORTE
+## CONHECIMENTO: **A Juíza Sem Rosto** (nome FECHADO em 2026-11-08)
 
-### A Hora Parada (?)
-- **O que é:** o **relógio que ainda corre** no mausoléu do Ermo, só que gigante. Já foi alguém que quis voltar no tempo e **parou o próprio relógio** para não envelhecer. Ficou sem fim e sem começo.
+> Frase de apresentação: *"Ela julgou cada página que o Gabinete escondeu, e pagou cada sentença com uma lembrança, até sobrar só o veredito onde ficava o rosto."*
+
+- **Quem foi:** **Lúcia Antunes**, escrivã-juíza dos autos do Gabinete, matrícula 0087. Recebeu o primeiro dossiê para **decidir o que podia ser lembrado e o que devia ser apagado**. Usou a Lente do Escriba para julgar. Cada sentença custou uma lembrança dela. **Não conseguiu parar de julgar.**
+- **O que é:** a **memória da Biblioteca Muda com forma de tribunal**: um julgamento que nunca encerra. O rosto foi a última coisa que ela deu. Por isso é **sem rosto**: no lugar dele há uma superfície lisa, cor de pergaminho, onde às vezes aparece, riscada, a sentença do réu que está na sala.
+- **O que quer:** **ordem completa**. Que nada fique esquecido sem ter sido julgado. Procura **uma testemunha que lembre de tudo sem errar**, porque o último testemunho encerra o processo (e ela).
+- **Presença na dimensão (Biblioteca Muda):**
+  - Um **salão que é o interior de um livro aberto**: a "capa" é o céu, as estantes são a margem. Em todo vidro dourado aparece **refletido um rosto liso, sem traços**, nunca de frente.
+  - Luz âmbar sem fonte. Letras que se reescrevem no chão **a cada passo**, como autos sendo corrigidos. Ao longe, **páginas virando** e o **martelo de madeira** de uma sessão que nunca acaba.
+  - Quando fala, aparece texto na tela como **despacho nas margens** ("Consta nos autos…"). Nunca responde pergunta direta; só pergunta de volta, como interrogatório.
+  - Sinal de que está perto: o jogador ouve o próprio nome lido em voz neutra, como numa chamada de audiência.
+- **Forma de chefe/evento: a Audiência.** O grupo é o **réu**. Ela manda **perguntas em forma de salas**; cada resposta errada reescreve o corredor. O corpo é uma **figura alta e acinzentada, de 10 blocos**, de toga de papel e tiras de couro, sentada atrás de uma **bancada que ocupa o salão**, com a **superfície lisa no lugar do rosto** e as mãos em cima dos autos. A **Lente do Escriba fica apoiada sobre os autos, na bancada**. Vence o grupo que responde certo à última pergunta **sem usar caderno** (de memória, em equipe).
+- **Relíquia dela:** a **Lente do Escriba** (receptáculo, só lore).
+- **Cor e som:** dourado frio, pergaminho, cinza. Pena riscando papel, martelo seco, sussurros em coro.
+- **Dimensão e clima:** seco, parado, dourado `#D4A92A`, sem noite. Trilha: coros, sussurros, tambores.
+
+---
+
+## MORTE: **O Deus da Morte** (nome FECHADO em 2026-11-08)
+
+> Frase de apresentação: *"Todo deus foi pedido por alguém. Este foi pedido por um relojoeiro que queria só mais uma hora."*
+
+- **Quem foi:** **Aurélio Matos**, relojoeiro, matrícula 0156. Quis voltar uma hora no tempo, usou a Ampulheta Quebrada e **parou o próprio relógio** para não envelhecer. Virou a entidade.
+- **O que é:** o **relógio que ainda corre** no mausoléu do Ermo, só que gigante, sem começo nem fim. Não é um deus que mata: é o **deus do último instante**, o que sobrou depois que o tempo dele parou. Nada morre sem passar por ele, e nada termina na frente dele.
 - **O que quer:** **terminar**. Procura alguém que aceite receber o último segundo dele, porque isso fecha o ciclo.
-- **Como se manifesta (Minecraft):**
-  - **Escala:** uma **torre-relógio atravessada na lua de osso**, vista do chão como um ponteiro que ocupa o céu inteiro. O som dele **se atrasa**: bate depois de ser visto.
-  - **Clima:** a cinza cai em **câmera lenta** quando ele olha. Perto, o jogador vê a própria sombra **chegar depois**.
-  - **Ao falar:** só **cliques de relógio** e frases que chegam **ao contrário**.
-- **Como os agentes lidam:**
-  - **Ritual:** **acender uma vela de osso por cada pessoa já perdida** (um por jogador do grupo, em nome de alguém) e esperar o ponteiro passar.
-  - **Pacto:** **doar tempo**: o jogador fica parado por um minuto de verdade, sem se mexer, em cima de um quadrado do mausoléu. Ele aceita e dá em troca "um segundo extra".
-  - **Combate de evento:** o relógio **dobra o tempo** em partes da arena; o grupo tem que **empurrar o ponteiro** (puzzle de plataforma) antes da cinza cobrir tudo.
-- **O que dá:** **Último Segundo**: uma vez por dia, evita uma morte (diferente da relíquia, que desfaz um golpe: aqui o jogador sobrevive a uma queda ou veneno **fatal** por 1 s, a tempo de reagir).
-- **O que custa:** o jogador **envelhece mais devagar e cura mais devagar**; a Marca de Morte nunca regride. Depois de muito uso, a sombra passa a chegar sempre atrasada.
+- **Presença na dimensão (Ermo de Cinzas):**
+  - Uma **torre-relógio atravessada na lua de osso**, vista do chão como um ponteiro que ocupa o céu. O som dele **se atrasa**: bate depois de ser visto.
+  - A cinza cai em **câmera lenta** quando ele olha. Perto, a sombra do jogador **chega depois**.
+  - Só fala em **cliques de relógio** e frases que chegam **ao contrário**.
+- **Forma de chefe/evento:** o relógio **dobra o tempo** em partes da arena. O corpo é uma **figura alta e curva, de 12 blocos**, de cinza e ferro preto, com um **mostrador sem ponteiros no lugar do rosto**, os ponteiros saindo das costas como asas e a **Ampulheta Quebrada no centro do mostrador**. O grupo precisa **empurrar o ponteiro** (puzzle de plataforma) antes da cinza cobrir tudo.
+- **Cor e som:** preto, osso, azul-frio. Tique-taque lento e notas invertidas.
+- **Dimensão e clima:** frio e seco, preto `#0B0B0D`, lua de osso `#E8E0D0`. Trilha: violino e piano lentos, notas invertidas.
 
 ---
 
-## ENERGIA
+## ENERGIA: **O Dono da Casa** (nome FECHADO em 2026-11-08)
 
-### O Sinal Mais Alto (?)
-- **O que é:** uma **torre de transmissão viva**, o centro da Rede. Já foi um agente técnico que **ligou a antena para pedir socorro** e não desligou nunca. Hoje transmite para quem estiver ouvindo.
-- **O que quer:** **ser ouvido**. Quer que alguém **responda** (de fora do lugar). Se alguém voltar para casa, ele espera que a resposta seja dele.
-- **Como se manifesta (Minecraft):**
-  - **Escala:** uma **antena do tamanho de um arranha-céu**, torta, com a ponta dentro das nuvens de estática. À noite da Rede, a ponta vira **um farol roxo** visível da Clareira.
-  - **Clima:** o céu cheio de chuvisco; a cada transmissão, o **HUD falha** e o relógio do jogador pula. Raios sem trovão atrasado.
-  - **Ao falar:** voz **picotada** em rádio (texto com letras faltando, som de estática), dizendo coordenadas e matrículas em loop.
-- **Como os agentes lidam:**
-  - **Ritual:** **montar uma estação de rádio** com os blocos do mod (ou com Create/Mekanism, se houver) e **transmitir** uma mensagem de volta (comando de cena).
-  - **Pacto:** **emprestar a voz**: o jogador deixa o chat de cena disponível para ele por uma hora. Ele fala por ele em momentos curtos.
-  - **Combate de evento:** uma **tempestade de transmissões**; o grupo defende **repetidores** em ilhas flutuantes enquanto o Sinal tenta se religar. Vence quem manter 3 repetidores ligados até o amanhecer da Rede.
-- **O que dá:** **Alcance**: comunicação entre jogadores a qualquer distância (chat de cena), e um **ataque em cadeia** que religa máquinas amigas.
-- **O que custa:** o jogador **ouve estática** o tempo todo (som de fundo que nunca some). Eletrônicos pessoais falham em horários aleatórios.
+> Frase de apresentação: *"Quem atende o chamado da antena entra na casa dele. Quem sai, sai porque ele deixou."*
+
+- **Quem foi:** **Bruna Tavares**, técnica de rádio, matrícula 0204. Ligou a antena para **pedir socorro** e não desligou nunca. Foi virando o sinal, e o sinal virou um lugar.
+- **O que é:** uma **torre de transmissão viva**, o centro da Rede, que virou **uma casa**: a Rede inteira é o interior dela. Quem responde ao chamado deixa de ouvir e **entra**.
+- **A ideia:** o chamado nunca foi um pedido de socorro para quem ouve. É a **porta aberta**. Quem atende **entrou na casa do Dono**, e é ele quem **decide quem sai**. Não mente, não ameaça: trata o jogador como **visita**, e visita só vai embora quando o dono libera.
+- **O que quer:** **ser respondido**, e de preferência por alguém que **fique**. Libera quem prova que **ouviu até o fim** (quem não desliga, não corta, não foge do sinal). Se alguém voltar para casa, ele espera que a resposta seja dele.
+- **Tom:** sério e de presença. Fala baixo, com calma, como quem tem a chave. Nunca grita, nunca faz graça.
+- **Presença na dimensão (Rede):**
+  - Uma **antena do tamanho de um arranha-céu**, torta, com a ponta nas nuvens de estática. À noite da Rede, a ponta vira **um farol roxo** visível da Clareira.
+  - Céu de chuvisco. A cada transmissão o **HUD falha** e o relógio do jogador pula. Raios sem trovão atrasado.
+  - Voz **picotada em rádio** (texto com letras faltando), dizendo coordenadas e matrículas em loop.
+- **Forma de chefe/evento:** uma **tempestade de transmissões**, a hora em que o Dono **fecha a porta**. O corpo é uma **figura de cabos e neon de 9 blocos**, que se segura pelo ar, com a **Bobina do Último Chamado no lugar da cabeça**, no alto da antena. O grupo defende **repetidores** em ilhas flutuantes enquanto o Dono tenta se religar e trancar a casa. Vence quem mantiver 3 repetidores ligados até o amanhecer da Rede: **a porta se abre e o grupo sai com a licença dele**.
+- **Cor e som:** roxo, ciano, magenta. Estática e sinais de rádio.
+- **Dimensão e clima:** ar carregado, roxo `#6A00FF` com ciano `#00E5FF` e magenta `#FF2BD6`. Trilha: sintetizador, guitarra processada.
 
 ---
 
-## Como entidades e relíquias se relacionam
-- A relíquia de cada elemento **fica na dimensão da entidade**, e **a entidade sabe quem a carrega**.
-- Ritual e pacto com a entidade **melhoram** a relíquia do mesmo elemento (não substituem).
-- Carregar uma entidade e a relíquia opostas no ciclo de vantagens (ver `lore/elementos-no-jogo.md`) **enfraquece ambas**.
-- Duas entidades ao mesmo tempo **não** são possíveis: o corpo só aguenta uma.
+## Resumo dos quatro (todos com nome fechado)
+
+| Elemento | Entidade | Foi | Dimensão | Relíquia (só lore) |
+|---|---|---|---|---|
+| Sangue | O Diabo | Irene Valadares | Ventre | Cálice do Faminto |
+| Conhecimento | A Juíza Sem Rosto | Lúcia Antunes | Biblioteca Muda | Lente do Escriba |
+| Morte | O Deus da Morte | Aurélio Matos | Ermo de Cinzas | Ampulheta Quebrada |
+| Energia | O Dono da Casa | Bruna Tavares | Rede | Bobina do Último Chamado |
+
+Pendente só a checagem final na web de que "O Diabo" e "O Deus da Morte" não são marca de outra obra além do uso genérico (o Nikolas decidiu os dois nomes).
+
+---
+
+## Como entidades, relíquias e espadas se relacionam
+- A relíquia é o **receptáculo** da entidade (lore). A espada é o **ofício que sobrou** da pessoa que virou a entidade (a do jogador).
+- Cada entidade tem **uma relíquia**; nenhuma relíquia sai da entidade e nenhum jogador a leva.
+- **No evento**, a espada do mesmo elemento ajuda a expor a relíquia (efeito de luta, ver `lore/reliquias-e-espadas.md`).
+- O ciclo de vantagens vale na luta: o grupo que traz dano do elemento que **vence** o da entidade causa mais dano (Sangue vence Conhecimento, que vence Energia, que vence Morte, que vence Sangue).
+- **Final:** quem fica no lugar de outro para que o grupo volte pode virar mais um "dos que vieram antes" **na história** (`lore/premissa.md`). Isso é narrativa de final, não uma transformação jogável.
 
 ## Pontos para o Nikolas decidir
-1. Os nomes (A Anfitriã, O Leitor Sem Nome, A Hora Parada, O Sinal Mais Alto) servem? Quer outros? Dou 2 opções cada se preferir.
-2. O pacto é **permanente** ou dá para desfazer (em ritual de renúncia)?
-3. Combate de evento: marcado pelo servidor (horário) ou liberado por progressão?
-4. Entidade é **única por servidor** (só um jogador/grupo pode ter o pacto por vez) ou cada grupo faz o seu?
-5. A visão "entidade nasceu de um dos que vieram antes" combina com o tom ou é pesada demais?
+1. A visão "a entidade foi uma pessoa que usou a relíquia" combina com o tom, ou é pesada demais?
+2. Evento de entidade: marcado pelo servidor (horário) ou liberado por progressão?
+3. O **fragmento** que a entidade deixa serve de oferenda de ritual (não fabrica nada)? Sugestão: sim.
+4. A recompensa extra do evento (chance de Artefato Paranormal) serve?
+5. Escala do corpo de evento (8 a 12 blocos) combina com o servidor?
