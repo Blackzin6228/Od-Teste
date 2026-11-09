@@ -44,8 +44,19 @@ public final class RegrasAnalisador {
         return energia >= GASTO_CHECAGEM;
     }
 
+    /** Tem energia para decifrar sinal perto. */
     public static boolean podeLer(int energia) {
-        return energia >= CUSTO_LEITURA;
+        return podePagar(energia, CUSTO_LEITURA);
+    }
+
+    /** Tem energia para apontar a direção de uma fonte longe (mais barato que decifrar). */
+    public static boolean podeApontar(int energia) {
+        return podePagar(energia, CUSTO_DIRECAO);
+    }
+
+    /** Cada leitura exige só o próprio custo, nunca o da leitura mais cara. */
+    public static boolean podePagar(int energia, int custo) {
+        return energia >= Math.max(0, custo);
     }
 
     public static boolean esperouLeitura(long agora, long ultimaLeitura) {

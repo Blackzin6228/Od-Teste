@@ -93,10 +93,10 @@ public class AnalisadorSinalEntidade extends BlockEntity {
         if (!RegrasAnalisador.esperouLeitura(agora, ultimaLeitura)) return;
         ultimaLeitura = agora;
 
-        if (!RegrasAnalisador.podeLer(bateria.getEnergyStored())) {
-            jogador.displayClientMessage(Component.translatable("odteste.analisador.sem_energia")
-                    .withStyle(ChatFormatting.GRAY), true);
-            nivel.playSound(null, worldPosition, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.4f, 0.6f);
+        // Desligado (sem energia nem para ficar ligado): nem tenta. O custo de cada leitura é checado abaixo,
+        // só para a leitura que vai acontecer.
+        if (!RegrasAnalisador.ficaLigado(bateria.getEnergyStored())) {
+            semEnergia(nivel, jogador);
             return;
         }
 
@@ -113,6 +113,10 @@ public class AnalisadorSinalEntidade extends BlockEntity {
             return;
         }
 
+        if (!RegrasAnalisador.podeLer(bateria.getEnergyStored())) {
+            semEnergia(nivel, jogador);
+            return;
+        }
         bateria.gastar(RegrasAnalisador.CUSTO_LEITURA);
         nivel.playSound(null, worldPosition, SoundEvents.NOTE_BLOCK_BIT.value(), SoundSource.BLOCKS, 0.7f, 0.5f);
         jogador.sendSystemMessage(Component.translatable("odteste.analisador.cabecalho")
@@ -147,6 +151,10 @@ public class AnalisadorSinalEntidade extends BlockEntity {
         RegrasSinal.Direcao lado = RegrasSinal.direcao(jogador.getYRot(),
                 alvo.getX() + 0.5 - jogador.getX(), alvo.getZ() + 0.5 - jogador.getZ());
 
+        if (!RegrasAnalisador.podeApontar(bateria.getEnergyStored())) {
+            semEnergia(nivel, jogador);
+            return true;
+        }
         bateria.gastar(RegrasAnalisador.CUSTO_DIRECAO);
         float tom = switch (forca) {
             case FORTE -> 1.0f;
@@ -158,6 +166,12 @@ public class AnalisadorSinalEntidade extends BlockEntity {
         jogador.displayClientMessage(Component.translatable(forca.chave(), Component.translatable(lado.chave()))
                 .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
         return true;
+    }
+
+    private void semEnergia(ServerLevel nivel, Player jogador) {
+        jogador.displayClientMessage(Component.translatable("odteste.analisador.sem_energia")
+                .withStyle(ChatFormatting.GRAY), true);
+        nivel.playSound(null, worldPosition, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.4f, 0.6f);
     }
 
     // ---------- salvar ----------
