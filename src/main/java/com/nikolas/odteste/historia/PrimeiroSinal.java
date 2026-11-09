@@ -11,10 +11,12 @@ import com.nikolas.odteste.sistemas.Lucidez;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -30,6 +32,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEventPacket;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,11 +40,16 @@ import net.minecraft.server.network.Filterable;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
@@ -73,6 +81,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -110,6 +120,15 @@ public final class PrimeiroSinal {
     private static final Map<UUID, Long> ULTIMA_PERDA = new HashMap<>();
     private static final Map<String, String> ULTIMA_PLACA = new HashMap<>();
     private static final Map<UUID, Integer> ULTIMA_FRASE = new HashMap<>();
+    /**
+     * Aldeões parados olhando o sino, por grupo. Só memória: o freio é um modificador temporário de velocidade
+     * (o jogo não salva) e o dano é barrado por evento. Nada disso vai para o disco, então chunk descarregado,
+     * salvamento automático, crash ou o mod sair do pack nunca deixam aldeão travado.
+     */
+    private static final Map<String, List<Villager>> PARADOS = new HashMap<>();
+    private static final Set<UUID> PARADOS_IDS = new HashSet<>();
+    static final ResourceLocation MODIFICADOR_PARADO =
+            ResourceLocation.fromNamespaceAndPath(OdMod.MODID, IdsHistoria.MODIFICADOR_ALDEAO_PARADO);
     private static DadosHistoria cache;
 
     private PrimeiroSinal() {}
@@ -121,6 +140,8 @@ public final class PrimeiroSinal {
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoQuebrar);
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoExplodir);
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoEntrarNoMundo);
+        NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoSairDoMundo);
+        NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoLevarDano);
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedInEvent e) -> {
             if (e.getEntity() instanceof ServerPlayer p) {
                 DadosHistoria d = dados(p.server);
@@ -133,13 +154,14 @@ public final class PrimeiroSinal {
             }
         });
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> ULTIMA_FRASE.remove(e.getEntity().getUUID()));
-        // Ao desligar, os aldeões parados voltam ao normal antes de salvar: se um dia o mod sair do pack,
-        // nenhum aldeão fica preso sem IA no mundo.
+        // Ao desligar, os aldeões parados voltam ao normal (o freio já não é salvo; isto é capricho) e os que a
+        // versão antiga deixou com NoAI também voltam antes de salvar.
         NeoForge.EVENT_BUS.addListener((ServerStoppingEvent e) -> {
-            if (cache == null) return;
-            for (VilaMarcada v : cache.vilas.values()) {
+            for (String g : new ArrayList<>(PARADOS.keySet())) liberar(g);
+            DadosHistoria d = dados(e.getServer());
+            for (VilaMarcada v : d.vilas.values()) {
                 ServerLevel nivel = e.getServer().getLevel(v.dimensao);
-                if (nivel != null && !v.congelados.isEmpty()) descongelar(nivel, v, cache);
+                if (nivel != null && !v.congelados.isEmpty()) devolverAntigos(nivel, v, d);
             }
         });
         NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> {
@@ -147,6 +169,8 @@ public final class PrimeiroSinal {
             ULTIMA_PERDA.clear();
             ULTIMA_PLACA.clear();
             ULTIMA_FRASE.clear();
+            PARADOS.clear();
+            PARADOS_IDS.clear();
             cache = null;
         });
     }
@@ -455,6 +479,8 @@ public final class PrimeiroSinal {
         }
 
         int mantidos = v.blocos.restaurar(nivel);
+        liberar(v.grupo);
+        // Aldeões que a versão antiga deixou com NoAI salvo: voltam agora ou quando o chunk carregar.
         for (Map.Entry<UUID, Integer> e : v.congelados.entrySet()) {
             if (nivel.getEntity(e.getKey()) instanceof Villager a) {
                 devolver(a, e.getValue());
@@ -497,6 +523,7 @@ public final class PrimeiroSinal {
             if (!nivel.hasChunk(v.sino.getX() >> 4, v.sino.getZ() >> 4)) {
                 // Vila longe de todo mundo: ninguém ouve, nada roda.
                 OUVINTES.remove(v.grupo);
+                liberar(v.grupo);
                 continue;
             }
             if (segundo) porSegundo(s, nivel, v, d);
@@ -528,8 +555,12 @@ public final class PrimeiroSinal {
         }
         ouvintes.keySet().retainAll(presentes);
 
-        if (alguemPertoDosAldeoes) congelar(nivel, v, d);
-        else if (!v.congelados.isEmpty()) descongelar(nivel, v, d);
+        if (alguemPertoDosAldeoes) {
+            congelar(nivel, v, d);
+        } else {
+            liberar(v.grupo);
+            if (!v.congelados.isEmpty()) devolverAntigos(nivel, v, d);
+        }
 
         if (alguemPertoDaCama && nivel.hasChunk(v.cama.getX() >> 4, v.cama.getZ() >> 4)) manchar(nivel, v.cama);
         if (alguemPertoDaPlaca && !v.resolvido) lerPlaca(s, nivel, v, d);
@@ -643,26 +674,70 @@ public final class PrimeiroSinal {
         nivel.sendParticles(SANGUE, cama.getX() + 0.5, cama.getY() + 0.6, cama.getZ() + 0.5, 3, 0.3, 0.02, 0.3, 0);
     }
 
-    /** Aldeões perto do sino param e olham para ele. Guardamos como estavam para devolver igual. */
+    /**
+     * Aldeões perto do sino param e olham para ele (até {@link RegrasAto1#MAX_ALDEOES}). O freio é um modificador
+     * temporário de velocidade e o olhar é uma memória que o jogo não salva: nada fica no disco.
+     */
     private static void congelar(ServerLevel nivel, VilaMarcada v, DadosHistoria d) {
+        List<Villager> parados = PARADOS.computeIfAbsent(v.grupo, k -> new ArrayList<>());
+        Iterator<Villager> it = parados.iterator();
+        while (it.hasNext()) {
+            Villager a = it.next();
+            if (a.isRemoved() || !a.isAlive()) {
+                PARADOS_IDS.remove(a.getUUID());
+                it.remove();
+            }
+        }
         List<Villager> aldeoes = nivel.getEntitiesOfClass(Villager.class,
                 new AABB(v.sino).inflate(RegrasAto1.RAIO_ALDEOES), Villager::isAlive);
-        int n = 0;
         for (Villager a : aldeoes) {
-            if (n++ >= RegrasAto1.MAX_ALDEOES) break;
-            if (v.congelados.containsKey(a.getUUID())) continue;
-            int como = (a.isNoAi() ? VilaMarcada.ERA_SEM_IA : 0) | (a.isInvulnerable() ? VilaMarcada.ERA_INVULNERAVEL : 0);
-            v.congelados.put(a.getUUID(), como);
-            a.getNavigation().stop();
-            a.setNoAi(true);
-            // Parado não foge: sem isso, a vila perderia aldeões para os zumbis por nossa causa.
-            a.setInvulnerable(true);
-            olharPara(a, Vec3.atCenterOf(v.sino));
-            d.setDirty();
+            // Parado pela versão antiga (NoAI salvo): volta ao normal antes.
+            Integer antigo = v.congelados.remove(a.getUUID());
+            if (antigo != null) {
+                devolver(a, antigo);
+                d.setDirty();
+            }
+            if (PARADOS_IDS.contains(a.getUUID()) || parados.size() >= RegrasAto1.MAX_ALDEOES) continue;
+            parar(a, v.sino);
+            parados.add(a);
+            PARADOS_IDS.add(a.getUUID());
+        }
+        Vec3 alvo = Vec3.atCenterOf(v.sino);
+        for (Villager a : parados) {
+            a.getBrain().setMemory(MemoryModuleType.LOOK_TARGET, new BlockPosTracker(v.sino));
+            a.getLookControl().setLookAt(alvo.x, alvo.y, alvo.z);
         }
     }
 
-    private static void descongelar(ServerLevel nivel, VilaMarcada v, DadosHistoria d) {
+    private static void parar(Villager a, BlockPos sino) {
+        AttributeInstance vel = a.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (vel != null && !vel.hasModifier(MODIFICADOR_PARADO)) {
+            vel.addTransientModifier(new AttributeModifier(MODIFICADOR_PARADO, -1.0,
+                    AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+        }
+        a.getNavigation().stop();
+        a.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
+        olharPara(a, Vec3.atCenterOf(sino));
+    }
+
+    private static void soltar(Villager a) {
+        AttributeInstance vel = a.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (vel != null) vel.removeModifier(MODIFICADOR_PARADO);
+        a.getBrain().eraseMemory(MemoryModuleType.LOOK_TARGET);
+    }
+
+    /** Solta todos os aldeões parados do grupo (ninguém perto, chunk descarregado, desfazer). */
+    private static void liberar(String grupo) {
+        List<Villager> l = PARADOS.remove(grupo);
+        if (l == null) return;
+        for (Villager a : l) {
+            PARADOS_IDS.remove(a.getUUID());
+            if (!a.isRemoved()) soltar(a);
+        }
+    }
+
+    /** Aldeões que a versão antiga (até o PR #22) deixou com NoAI/invulnerável salvo: voltam como eram. */
+    private static void devolverAntigos(ServerLevel nivel, VilaMarcada v, DadosHistoria d) {
         Iterator<Map.Entry<UUID, Integer>> it = v.congelados.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<UUID, Integer> e = it.next();
@@ -768,18 +843,10 @@ public final class PrimeiroSinal {
         return null;
     }
 
-    private static VilaMarcada vilaDoAldeao(UUID u) {
-        if (cache == null) return null;
-        for (VilaMarcada v : cache.vilas.values()) {
-            if (v.congelados.containsKey(u)) return v;
-        }
-        return null;
-    }
-
     /** Aldeão parado não troca: a troca vira uma frase curta. */
     private static void aoInteragirComAldeao(PlayerInteractEvent.EntityInteract e) {
         if (e.getLevel().isClientSide() || !(e.getTarget() instanceof Villager a)) return;
-        if (vilaDoAldeao(a.getUUID()) == null) return;
+        if (!PARADOS_IDS.contains(a.getUUID())) return;
         e.setCancellationResult(InteractionResult.SUCCESS);
         e.setCanceled(true);
         if (e.getHand() != InteractionHand.MAIN_HAND || !(e.getEntity() instanceof ServerPlayer p)) return;
@@ -815,20 +882,44 @@ public final class PrimeiroSinal {
         e.getAffectedBlocks().removeIf(p -> vilaDoBloco(e.getLevel(), p) != null);
     }
 
-    /** Aldeão que ficou parado com o chunk descarregado volta ao normal quando o chunk carrega. */
+    /**
+     * Aldeão que a versão antiga deixou parado (NoAI salvo no disco) volta ao normal quando carrega.
+     * Usa {@link #dados}, não o cache: quando o servidor liga, os chunks do spawn carregam antes do primeiro tick.
+     */
     private static void aoEntrarNoMundo(EntityJoinLevelEvent e) {
-        if (e.getLevel().isClientSide() || !(e.getEntity() instanceof Villager a) || cache == null) return;
-        Integer como = cache.descongelarDepois.remove(a.getUUID());
+        if (!(e.getEntity() instanceof Villager a) || e.getLevel().isClientSide()) return;
+        MinecraftServer s = e.getLevel().getServer();
+        if (s == null) return;
+        DadosHistoria d = dados(s);
+        Integer como = d.descongelarDepois.remove(a.getUUID());
         if (como != null) {
             devolver(a, como);
-            cache.setDirty();
+            d.setDirty();
             return;
         }
-        VilaMarcada v = vilaDoAldeao(a.getUUID());
-        if (v != null) {
-            // Voltou do disco ainda parado: devolve; se tiver jogador perto, o próximo segundo para de novo.
-            devolver(a, v.congelados.remove(a.getUUID()));
-            cache.setDirty();
+        for (VilaMarcada v : d.vilas.values()) {
+            Integer c = v.congelados.remove(a.getUUID());
+            if (c != null) {
+                // Se tiver jogador perto, o próximo segundo para de novo (agora sem nada salvo).
+                devolver(a, c);
+                d.setDirty();
+                return;
+            }
         }
+    }
+
+    /** Aldeão parado que sai do mundo (chunk descarregou, morreu, trocou de dimensão) sai da lista e do freio. */
+    private static void aoSairDoMundo(EntityLeaveLevelEvent e) {
+        if (!(e.getEntity() instanceof Villager a) || e.getLevel().isClientSide()) return;
+        if (!PARADOS_IDS.remove(a.getUUID())) return;
+        soltar(a);
+        for (List<Villager> l : PARADOS.values()) l.removeIf(x -> x == a);
+    }
+
+    /** Parado não foge: sem isso, a vila perderia aldeões para os zumbis por nossa causa. /kill ainda funciona. */
+    private static void aoLevarDano(LivingIncomingDamageEvent e) {
+        if (!(e.getEntity() instanceof Villager a) || !PARADOS_IDS.contains(a.getUUID())) return;
+        if (e.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY)) return;
+        e.setCanceled(true);
     }
 }

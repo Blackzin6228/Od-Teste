@@ -37,7 +37,11 @@ public final class VilaMarcada {
     /** O aldeão que sumiu, salvo inteiro (trocas, profissão, casa) para voltar no desfazer. */
     public CompoundTag aldeao;
     public final Backup blocos;
-    /** Aldeões parados olhando o sino → como estavam antes. */
+    /**
+     * Só para mundos salvos pela versão antiga (até o PR #22), que parava aldeões com NoAI salvo no disco:
+     * UUID → como estavam antes. Esvazia sozinho (cada um volta ao normal quando carrega). A versão nova
+     * para os aldeões só em memória e nunca escreve aqui.
+     */
     public final Map<UUID, Integer> congelados = new HashMap<>();
     /** O baú já abriu (FERRO escrito na placa). */
     public boolean resolvido;
