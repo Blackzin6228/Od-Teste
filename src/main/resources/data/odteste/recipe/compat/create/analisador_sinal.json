@@ -1,0 +1,18 @@
+{
+  "neoforge:conditions": [{ "type": "neoforge:mod_loaded", "modid": "create" }],
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "LRL",
+    "TNT",
+    "LGL"
+  ],
+  "key": {
+    "L": { "item": "create:brass_ingot" },
+    "R": { "item": "minecraft:lightning_rod" },
+    "T": { "item": "create:electron_tube" },
+    "N": { "item": "minecraft:note_block" },
+    "G": { "item": "minecraft:glass" }
+  },
+  "result": { "id": "odteste:analisador_sinal", "count": 1 }
+}

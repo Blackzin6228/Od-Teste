@@ -64,6 +64,15 @@
   "odteste.horror.sussurro.nome.2": "About time, %s.",
   "odteste.horror.sussurro.voz": "…%s, come…",
 
+  "block.odteste.analisador_sinal": "Signal Analyzer",
+  "odteste.analisador.dica": "Hears what the ear cannot. Needs energy.",
+  "odteste.analisador.sem_energia": "The needle does not even move. No energy.",
+  "odteste.analisador.estatica": "Only static. Nothing is calling nearby.",
+  "odteste.analisador.cabecalho": "The needle trembles. The device pulls apart what it heard:",
+  "odteste.analisador.camada": "Underneath, in a tone the ear cannot catch:",
+  "odteste.sinal.sino_vila.decifrado": "FERRO",
+  "odteste.sinal.sino_vila.camada": "NAO ENTREM PELA PORTA DA FRENTE",
+
   "odteste.configuration.title": "Od Teste",
   "odteste.configuration.efeitos_fortes": "Strong screen effects",
   "odteste.configuration.efeitos_fortes.tooltip": "Camera shake, tilt and visual hallucinations (figures, doors, blocks). SUAVE halves it; DESLIGADO leaves only vignette, sound and text."

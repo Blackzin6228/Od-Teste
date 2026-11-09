@@ -1,6 +1,7 @@
 package com.nikolas.odteste;
 
 import com.mojang.logging.LogUtils;
+import com.nikolas.odteste.aparelhos.Aparelhos;
 import com.nikolas.odteste.comandos.ComandosAdmin;
 import com.nikolas.odteste.compat.Compat;
 import com.nikolas.odteste.dados.DadosJogador;
@@ -24,6 +25,7 @@ public final class OdMod {
 
     public OdMod(IEventBus barramento, ModContainer container) {
         DadosJogador.iniciar();
+        Aparelhos.iniciar(barramento);
         Registro.registrar(barramento);
         Rede.iniciar(barramento);
         ComandosAdmin.iniciar();

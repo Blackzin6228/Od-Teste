@@ -64,6 +64,15 @@
   "odteste.horror.sussurro.nome.2": "Já era hora, %s.",
   "odteste.horror.sussurro.voz": "…%s, vem…",
 
+  "block.odteste.analisador_sinal": "Analisador de Sinal",
+  "odteste.analisador.dica": "Ouve o que o ouvido não pega. Precisa de energia.",
+  "odteste.analisador.sem_energia": "O ponteiro nem se mexe. Falta energia.",
+  "odteste.analisador.estatica": "Só estática. Nada chama por perto.",
+  "odteste.analisador.cabecalho": "O ponteiro treme. O aparelho separa o que ouviu:",
+  "odteste.analisador.camada": "Por baixo, num tom que o ouvido não pega:",
+  "odteste.sinal.sino_vila.decifrado": "FERRO",
+  "odteste.sinal.sino_vila.camada": "NAO ENTREM PELA PORTA DA FRENTE",
+
   "odteste.configuration.title": "Od Teste",
   "odteste.configuration.efeitos_fortes": "Efeitos fortes de tela",
   "odteste.configuration.efeitos_fortes.tooltip": "Tremor, inclinação e alucinações visuais (vultos, portas, blocos). SUAVE corta pela metade; DESLIGADO deixa só vinheta, som e texto."

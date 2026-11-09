@@ -1,0 +1,7 @@
+{
+  "__comment": "PROVISORIO: ligado e com sinal por perto.",
+  "parent": "odteste:block/analisador_sinal",
+  "textures": {
+    "frente": "minecraft:block/copper_bulb_lit_powered"
+  }
+}

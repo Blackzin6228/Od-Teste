@@ -34,6 +34,11 @@ Modid: `odteste` (definitivo, decisão de 2026-11-08) · Lançado no servidor: *
 | `odteste:exposicao_repeticao` | dado do jogador (mapa `fonte/elemento` → [início da janela em tempo do mundo, vezes]) | 08/11/2026 | freio de repetição da Exposição; salvo para relogar não zerar; só guarda janelas abertas (10 min); sobrevive à morte; não vai para o cliente |
 | `efeitos_fortes` | chave de config do cliente (`config/odteste-client.toml`: `LIGADO`, `SUAVE`, `DESLIGADO`) | 08/11/2026 | fica no PC do jogador; renomear perde a escolha de quem usa suave/desligado. Desde 08/11 também desliga as alucinações que se veem (vulto, criatura, porta), a tela lavada, o balanço e a mão tremendo; SUAVE: porta só com som, vulto e criatura somem em 1 s, tela e corpo pela metade |
 | `odteste:lucidez_lentidao` | modificador de atributo (velocidade de movimento) | 08/11/2026 | temporário (não fica salvo); só Lucidez Quebrando (e surto) **com luz 7 ou menos**: −8% (`docs/horror.md` 2.3); conferido na checagem de 2 s do Vigia, na troca de faixa, ao entrar e ao renascer |
+| `odteste:analisador_sinal` | bloco **e** item do bloco | 2026-11-08 | Analisador de Sinal (aparelho FE, mesa Integrador). Modelo provisório |
+| `odteste:analisador_sinal` | tipo de block entity | 2026-11-08 | guarda a energia; aceita FE de qualquer lado (capacidade de energia do NeoForge), não entrega |
+| `energia` | chave NBT dentro do block entity `odteste:analisador_sinal` (inteiro 0–100.000) | 2026-11-08 | valor fora da faixa é corrigido ao carregar. Quebrar o bloco perde a energia (não vai no item) |
+| `facing`, `ligado`, `sinal` | propriedades do estado do bloco `odteste:analisador_sinal` (`facing`: north/east/south/west; `ligado`, `sinal`: true/false) | 2026-11-08 | ficam salvas no mundo com o bloco: renomear exige remap |
+| `odteste:compat/mekanism/analisador_sinal`, `odteste:compat/create/analisador_sinal`, `odteste:reserva/analisador_sinal` | receitas | 2026-11-08 | Mekanism e Create só com o mod no pack; a reserva vanilla (mais cara) só sem nenhum dos dois. Livro de receitas guarda o ID: mudar só com aviso |
 
 Alucinações (só no cliente, **nada registrado nem salvo**): o vulto e a criatura falsa usam os modelos vanilla
 `minecraft:enderman` e `minecraft:zombie` como molde provisório, **desenhados por evento de render e nunca
@@ -54,3 +59,7 @@ Fontes de Exposição (usadas no comando `/exposicao contato` e no freio de repe
 Abalos de Lucidez (comando `/lucidez abalar`, **não** ficam salvos): `batalha_reliquia`, `aparicao`, `mob_sangue`.
 
 Os textos de elemento (`nenhum`, `sangue`…) também são IDs: ficam salvos no jogador.
+
+Sinais do Analisador (`sinais/Sinal`): o `id` do sinal (ex.: `sino_vila`) **não é salvo**; serve para log e para achar
+os textos `odteste.sinal.<id>.decifrado` e `odteste.sinal.<id>.camada`. Os pontos marcados com `SinaisNoMundo.marcar`
+ficam só em memória (quem marca guarda no próprio dado salvo e marca de novo ao ligar).
