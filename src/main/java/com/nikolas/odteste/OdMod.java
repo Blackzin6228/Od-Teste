@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.nikolas.odteste.comandos.ComandosAdmin;
 import com.nikolas.odteste.comandos.ComandosHistoria;
 import com.nikolas.odteste.historia.PrimeiroSinal;
+import com.nikolas.odteste.historia.vilacalada.PistasVilaCalada;
 import com.nikolas.odteste.compat.Compat;
 import com.nikolas.odteste.criaturas.Criaturas;
 import com.nikolas.odteste.dados.DadosJogador;
@@ -38,6 +39,7 @@ public final class OdMod {
         ComandosHistoria.iniciar();
         Vigia.iniciar();
         PrimeiroSinal.iniciar();
+        PistasVilaCalada.iniciar();
         Compat.iniciar(barramento);
         LOGGER.info("{} carregado. Integrações ligadas: {}", MODID, Compat.ligadas());
     }
