@@ -50,7 +50,10 @@ public final class Itens {
 
     /** Itens sem receita: fora da aba do criativo e escondidos no JEI/EMI (compat/jei, compat/emi). */
     public static List<Item> escondidos() {
-        return List.of(RUBRA.get(), AGULHA.get(), DEDAL.get(), SINO.get(), MATERIA_SANGUE.get());
+        List<Item> todos = new java.util.ArrayList<>(
+                List.of(RUBRA.get(), AGULHA.get(), DEDAL.get(), SINO.get(), MATERIA_SANGUE.get()));
+        todos.addAll(com.nikolas.odteste.blocos.capela.BlocosCapela.escondidos());
+        return todos;
     }
 
     /** Força o carregamento da classe (registros) e liga os eventos dos artefatos. */
