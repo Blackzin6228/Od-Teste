@@ -31,6 +31,16 @@ class RegrasCapelaTest {
     }
 
     @Test
+    void freioLiberaUmaVezACadaDoisSegundos() {
+        assertTrue(RegrasCapela.passouIntervalo(null, 1000));
+        assertFalse(RegrasCapela.passouIntervalo(1000L, 1000));
+        assertFalse(RegrasCapela.passouIntervalo(1000L, 1039));
+        assertTrue(RegrasCapela.passouIntervalo(1000L, 1040));
+        // relógio voltou (mundo trocado): libera em vez de travar para sempre
+        assertTrue(RegrasCapela.passouIntervalo(1000L, 10));
+    }
+
+    @Test
     void velaSoAcalmaQuemEstaPerto() {
         assertTrue(RegrasCapela.pertoDaVela(0));
         assertTrue(RegrasCapela.pertoDaVela(25));

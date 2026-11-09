@@ -29,6 +29,16 @@ public final class RegrasCapela {
         return Math.floorMod(tempoDoMundo + deslocamento, TICKS_POR_CHECAGEM) == 0;
     }
 
+    /**
+     * Freio por jogador: já passaram 2 s desde a última vez (ganho da vela ou perda da poça)?
+     * Sem registro = libera. Relógio que voltou (mundo trocado) também libera, para não travar.
+     */
+    public static boolean passouIntervalo(Long ultima, long agora) {
+        if (ultima == null) return true;
+        long passou = agora - ultima;
+        return passou >= TICKS_POR_CHECAGEM || passou < 0;
+    }
+
     /** O jogador está perto o bastante da vela? Recebe a distância ao quadrado (sem raiz). */
     public static boolean pertoDaVela(double distanciaAoQuadrado) {
         return distanciaAoQuadrado >= 0 && distanciaAoQuadrado <= VELA_RAIO * VELA_RAIO;

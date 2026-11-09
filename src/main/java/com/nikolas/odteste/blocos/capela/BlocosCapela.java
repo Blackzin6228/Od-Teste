@@ -9,6 +9,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -56,8 +58,17 @@ public final class BlocosCapela {
 
     private BlocosCapela() {}
 
-    /** Força o carregamento da classe (registros). Chamado antes de Registro.registrar. */
-    public static void iniciar() {}
+    /** Uma vez por jogador a cada 2 s, somando todas as velas / todas as poças. */
+    static final Freio FREIO_VELA = new Freio();
+    static final Freio FREIO_POCA = new Freio();
+
+    /** Força o carregamento da classe (registros) e limpa o freio de quem sai. Chamado antes de Registro.registrar. */
+    public static void iniciar() {
+        NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> {
+            FREIO_VELA.esquecer(e.getEntity().getUUID());
+            FREIO_POCA.esquecer(e.getEntity().getUUID());
+        });
+    }
 
     /** Sem receita: fora do criativo e escondidos no JEI/EMI. */
     public static List<Item> escondidos() {
