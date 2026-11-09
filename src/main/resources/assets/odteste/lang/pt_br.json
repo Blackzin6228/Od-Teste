@@ -221,6 +221,8 @@
   "odteste.analisador.camada": "Por baixo, num tom que o ouvido não pega:",
   "odteste.sinal.sino_vila.decifrado": "FERRO",
   "odteste.sinal.sino_vila.camada": "NAO ENTREM PELA PORTA DA FRENTE",
+  "odteste.sinal.vila_calada.decifrado": "VENHAM",
+  "odteste.sinal.vila_calada.camada": "A CAMA JA ESTA FEITA",
 
   "odteste.analisador.longe.fraca": "Um chiado fraco, quase nada. Parece vir %s.",
   "odteste.analisador.longe.media": "O ruído fica mais claro. Vem %s.",

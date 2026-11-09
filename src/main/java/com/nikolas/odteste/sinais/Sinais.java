@@ -81,13 +81,7 @@ public final class Sinais {
      * (que vem da âncora da história, ver {@link FonteVilaCalada}).
      */
     public static Optional<FontesFixas.Fonte> fonteFixaMaisProxima(ServerLevel nivel, BlockPos centro, int alcance) {
-        Optional<FontesFixas.Fonte> salva;
-        try {
-            salva = FontesFixas.de(nivel.getServer()).maisProxima(nivel, centro, alcance);
-        } catch (RuntimeException erro) {
-            OdMod.LOGGER.error("Fontes fixas falharam em {}; ignoradas", centro, erro);
-            salva = Optional.empty();
-        }
+        Optional<FontesFixas.Fonte> salva = fonteFixaSalvaMaisProxima(nivel, centro, alcance);
         Optional<FontesFixas.Fonte> vila;
         try {
             vila = FonteVilaCalada.aoAlcance(nivel, centro, alcance);
@@ -98,6 +92,27 @@ public final class Sinais {
         if (vila.isEmpty()) return salva;
         double d2Salva = salva.map(f -> f.pos().distSqr(centro)).orElse(Double.MAX_VALUE);
         return RegrasFonteVila.vilaGanha(salva.isPresent(), d2Salva, vila.get().pos().distSqr(centro)) ? vila : salva;
+    }
+
+    /**
+     * Só as fontes salvas (sem a Vila Calada). Para o que o aparelho faz sozinho, sem o jogador usar: o som da
+     * vila espera decisão do Nikolas.
+     */
+    public static Optional<FontesFixas.Fonte> fonteFixaSalvaMaisProxima(ServerLevel nivel, BlockPos centro, int alcance) {
+        try {
+            return FontesFixas.de(nivel.getServer()).maisProxima(nivel, centro, alcance);
+        } catch (RuntimeException erro) {
+            OdMod.LOGGER.error("Fontes fixas falharam em {}; ignoradas", centro, erro);
+            return Optional.empty();
+        }
+    }
+
+    /** Algum destes sinais pode fazer o aparelho soar sozinho? O da Vila Calada não ({@link RegrasFonteVila#silencioso}). */
+    public static boolean temSinalComSom(List<Sinal> sinais) {
+        for (Sinal s : sinais) {
+            if (!RegrasFonteVila.silencioso(s.id())) return true;
+        }
+        return false;
     }
 
     public static void registrarFonte(FonteDeSinal fonte) {

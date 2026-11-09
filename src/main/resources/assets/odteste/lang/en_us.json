@@ -220,6 +220,8 @@
   "odteste.analisador.camada": "Underneath, in a tone the ear cannot catch:",
   "odteste.sinal.sino_vila.decifrado": "FERRO",
   "odteste.sinal.sino_vila.camada": "NAO ENTREM PELA PORTA DA FRENTE",
+  "odteste.sinal.vila_calada.decifrado": "VENHAM",
+  "odteste.sinal.vila_calada.camada": "A CAMA JA ESTA FEITA",
 
   "odteste.analisador.longe.fraca": "A faint hiss, almost nothing. It seems to come from %s.",
   "odteste.analisador.longe.media": "The noise gets clearer. It comes from %s.",

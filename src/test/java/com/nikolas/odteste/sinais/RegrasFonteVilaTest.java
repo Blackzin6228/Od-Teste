@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /** A Vila Calada como fonte de sinal (Java puro). */
@@ -48,9 +52,33 @@ class RegrasFonteVilaTest {
     }
 
     @Test
-    void tipoDaVilaTemTexto() {
+    void tipoDaVilaTemTexto() throws IOException {
         assertTrue(RegrasSinal.tipoConhecido(RegrasFonteVila.TIPO));
         assertTrue(RegrasSinal.nomeValido(RegrasFonteVila.ID_FONTE));
-        assertEquals("odteste.sinal.vila_calada.decifrado", "odteste.sinal." + RegrasFonteVila.TIPO + ".decifrado");
+        for (String lang : List.of("pt_br", "en_us")) {
+            String json = Files.readString(Path.of("src/main/resources/assets/odteste/lang/" + lang + ".json"));
+            for (String parte : List.of("decifrado", "camada")) {
+                String chave = "odteste.sinal." + RegrasFonteVila.TIPO + "." + parte;
+                assertTrue(json.contains("\"" + chave + "\""), lang + " sem " + chave);
+            }
+        }
+    }
+
+    @Test
+    void soOSinalDaAncoraFicaCalado() {
+        assertTrue(RegrasFonteVila.silencioso(RegrasFonteVila.ID_SINAL));
+        assertFalse(RegrasFonteVila.silencioso("sino_vila"), "fonte salva pelo admin segue com o chiado de sempre");
+        assertFalse(RegrasFonteVila.silencioso(RegrasFonteVila.TIPO), "fonte salva do tipo vila_calada também");
+        assertFalse(RegrasFonteVila.silencioso(null));
+    }
+
+    @Test
+    void fonteSalvaDoSinoPertoDaAncoraGanha() {
+        int r = RegrasFonteVila.RAIO_DUPLICADA;
+        assertTrue(RegrasFonteVila.duplicada("sino_vila", 0, 0, 0));
+        assertTrue(RegrasFonteVila.duplicada("sino_vila", r, 0, 0));
+        assertTrue(RegrasFonteVila.duplicada(RegrasFonteVila.TIPO, 10, 5, -10));
+        assertFalse(RegrasFonteVila.duplicada("sino_vila", r + 1, 0, 0), "longe da vila: são dois sinais");
+        assertFalse(RegrasFonteVila.duplicada("outro_tipo", 0, 0, 0), "outro sinal no mesmo lugar não esconde a vila");
     }
 }

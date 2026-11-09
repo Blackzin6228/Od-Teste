@@ -11,8 +11,28 @@ public final class RegrasFonteVila {
     public static final String TIPO = "vila_calada";
     /** O sinal da vila tem segunda camada (o que só o aparelho separa). */
     public static final boolean COM_CAMADA = true;
+    /**
+     * Id do {@link Sinal} que nasce da âncora (não é salvo). Diferente do tipo para o aparelho saber que é a vila
+     * e não tocar som sozinho por ela.
+     */
+    public static final String ID_SINAL = "ancora_vila_calada";
+    /** Fonte salva do sino a até esta distância da âncora: a salva ganha e a da âncora some (sem texto dobrado). */
+    public static final int RAIO_DUPLICADA = 64;
 
     private RegrasFonteVila() {}
+
+    /**
+     * O sinal é o da âncora? O som da vila sem o jogador usar o aparelho espera decisão do Nikolas:
+     * o aparelho não faz chiado nem clique sozinho por ele (só luz). Usar o aparelho continua fazendo o som de sempre.
+     */
+    public static boolean silencioso(String idSinal) {
+        return ID_SINAL.equals(idSinal);
+    }
+
+    /** Uma fonte salva deste tipo, nesta distância da âncora, já é o sino da vila. */
+    public static boolean duplicada(String tipoSalvo, long dx, long dy, long dz) {
+        return ("sino_vila".equals(tipoSalvo) || TIPO.equals(tipoSalvo)) && dentro(dx, dy, dz, RAIO_DUPLICADA);
+    }
 
     /**
      * A vila emite? Só com a pista ligada pelo admin, a âncora gravada e o aparelho na mesma dimensão dela.

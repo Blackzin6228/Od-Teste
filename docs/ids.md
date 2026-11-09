@@ -131,7 +131,9 @@ Fontes de sinal fixas (`sinais/FontesFixas`, mesa Integrador, 2026-11-09): **dad
 Chaves dentro do arquivo não mudam: `fontes` (lista), e em cada uma `id`, `dim`, `pos` (long), `tipo`, `camada`.
 O `id` da fonte (ex.: `sino_vila_calada`) é escolhido por quem registra (`Sinais.registrarFonteFixa` ou
 `/odteste sinal fonte adicionar`) e fica salvo: renomear perde a fonte. O `tipo` escolhe os textos
-`odteste.sinal.<tipo>.*` (ex.: `sino_vila`). No máximo 256 fontes. Textos novos (não salvos):
+`odteste.sinal.<tipo>.*` (ex.: `sino_vila`). No máximo 256 fontes. Tipos conhecidos (vão no campo `tipo`, não mudam):
+`sino_vila` e `vila_calada` (2026-11-09, PR #47: o tipo da Vila Calada; a vila em si não é salva aqui, vem da âncora
+`vila_calada` da história). Textos novos (não salvos):
 `odteste.analisador.longe.<fraca|media|forte>`, `odteste.analisador.direcao.<frente|frente_direita|direita|tras_direita|tras|tras_esquerda|esquerda|frente_esquerda>`, `odteste.sinal.fonte.*` (admin).
 
 Marcadores de texto dos eventos (não ficam salvos, mas os textos da Lore usam): `escolhido_sangue`,
