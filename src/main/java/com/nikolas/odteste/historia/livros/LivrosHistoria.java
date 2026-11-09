@@ -22,6 +22,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.server.network.Filterable;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -150,13 +151,18 @@ public final class LivrosHistoria {
     /** Na mão: o evento vem antes do vanilla abrir o livro, então quem lê já vê a versão dele. */
     @SubscribeEvent
     public static void usarItem(PlayerInteractEvent.RightClickItem e) {
-        if (e.getEntity() instanceof ServerPlayer p) abrir(p, e.getItemStack());
+        // O clique dispara uma vez por mão. Conta a principal; a outra mão só se a principal não tem livro
+        // (aí o vanilla abre o da outra mão). Assim nunca monta dois livros no mesmo clique.
+        if (!(e.getEntity() instanceof ServerPlayer p)) return;
+        if (e.getHand() == InteractionHand.MAIN_HAND || !p.getMainHandItem().is(Items.WRITTEN_BOOK)) {
+            abrir(p, e.getItemStack());
+        }
     }
 
     /** No atril: monta o livro do atril para quem vai ler (quem lê por último define o que está lá). */
     @SubscribeEvent
     public static void usarBloco(PlayerInteractEvent.RightClickBlock e) {
-        if (!(e.getEntity() instanceof ServerPlayer p)) return;
+        if (e.getHand() != InteractionHand.MAIN_HAND || !(e.getEntity() instanceof ServerPlayer p)) return;
         if (!(e.getLevel().getBlockEntity(e.getPos()) instanceof LecternBlockEntity atril) || !atril.hasBook()) return;
         ItemStack livro = atril.getBook();
         if (idDe(livro).isEmpty()) return;
@@ -174,7 +180,7 @@ public final class LivrosHistoria {
                     // Só os do nosso modid: o id salvo no item é o nome do arquivo.
                     if (!OdMod.MODID.equals(rl.getNamespace())) return;
                     try {
-                        novos.put(rl.getPath(), LeitorLivros.ler(rl.getPath(), json));
+                        novos.put(rl.getPath(), LeitorLivros.ler(rl.getPath(), json, OdMod.LOGGER::warn));
                     } catch (RuntimeException erro) {
                         OdMod.LOGGER.error("Livro de história {} com erro: {}", rl, erro.getMessage());
                     }

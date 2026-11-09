@@ -39,6 +39,9 @@ Modid: `odteste` (definitivo, decisão de 2026-11-08) · Lançado no servidor: *
 | `odteste:livro_carniceiro_1` | peça de história (item vanilla `minecraft:written_book` com custom_data `{odteste_peca: "odteste:livro_carniceiro_1"}`) | 2026-11-08 | Livro do Carniceiro, página 1 (Enigma 1). Texto provisório |
 | `odteste:mapa_rasgado_esquerda` | peça de história (item vanilla `minecraft:paper` com custom_data `{odteste_peca: "odteste:mapa_rasgado_esquerda"}`) | 2026-11-08 | metade esquerda do Mapa Rasgado (Enigma 1). Provisório: vira mapa de verdade no Enigma 2 |
 | `odteste_peca` | chave do custom_data dos itens de história | 2026-11-08 | o mod reconhece as peças por ela; o valor é o ID da peça (linhas acima) |
+| `odteste:livro` | chave do custom_data dos livros de história (item vanilla `minecraft:written_book` com `{"odteste:livro": "<id>"}`) | 2026-11-09 | fica gravado no item e nunca muda; o valor é o id do livro (nome do arquivo em `data/odteste/odteste_livros/`). O texto é remontado a cada leitura |
+| `sineiro` | id de livro de história (`data/odteste/odteste_livros/sineiro.json`) | 2026-11-09 | Livro do Sineiro (Ato 1). Fica gravado no item: renomear o arquivo quebra os livros que já existem. Texto provisório |
+| `odteste_livros_lidos` | dado do mundo (`SavedData`, arquivo `data/odteste_livros_lidos.dat` do overworld) | 2026-11-09 | quem já abriu cada livro (uuid → lista de ids), para o gancho `LivroAbertoPrimeiraVez` disparar uma vez só |
 
 História (Ato 1, parte A). Ficam salvos dentro de `odteste_historia`, então também não mudam:
 - **Marcos do grupo:** `primeiro_sinal` (Cena 1 solta para o grupo), `enigma_sino` (FERRO escrito na placa, baú aberto).

@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Lê o JSON de um livro. Formato (todos os campos de condição são opcionais):
@@ -26,11 +27,28 @@ import java.util.List;
 public final class LeitorLivros {
     private LeitorLivros() {}
 
-    /** @throws IllegalArgumentException se o arquivo estiver errado (a mensagem diz onde) */
+    /** Limite de letras de uma página do livro vanilla (o mesmo do livro e pena). Texto + trechos escondidos. */
+    public static final int MAX_PAGINA = 1024;
+    /** Limite do título do livro vanilla. */
+    public static final int MAX_TITULO = 32;
+
+    /** Sem aviso (para teste). */
     public static Livro ler(String id, JsonElement json) {
+        return ler(id, json, aviso -> {});
+    }
+
+    /**
+     * @param aviso recebe uma mensagem quando algo é cortado por passar do limite
+     * @throws IllegalArgumentException se o arquivo estiver errado (a mensagem diz onde)
+     */
+    public static Livro ler(String id, JsonElement json, Consumer<String> aviso) {
         if (json == null || !json.isJsonObject()) throw new IllegalArgumentException("o livro precisa ser um objeto");
         JsonObject o = json.getAsJsonObject();
         String titulo = texto(o, "titulo", id);
+        if (titulo.length() > MAX_TITULO) {
+            aviso.accept("livro " + id + ": título com mais de " + MAX_TITULO + " letras, cortado");
+            titulo = titulo.substring(0, MAX_TITULO);
+        }
         String autor = texto(o, "autor", "?");
         int geracao = o.has("geracao") ? o.get("geracao").getAsInt() : 0;
         if (!o.has("paginas") || !o.get("paginas").isJsonArray()) throw new IllegalArgumentException("falta \"paginas\"");
@@ -39,7 +57,7 @@ public final class LeitorLivros {
         List<Livro.Pagina> paginas = new ArrayList<>();
         for (int i = 0; i < ps.size(); i++) {
             try {
-                paginas.add(pagina(ps.get(i)));
+                paginas.add(cortar(pagina(ps.get(i)), "livro " + id + ", página " + (i + 1), aviso));
             } catch (RuntimeException e) {
                 throw new IllegalArgumentException("página " + (i + 1) + ": " + e.getMessage(), e);
             }
@@ -58,6 +76,39 @@ public final class LeitorLivros {
             }
         }
         return new Livro.Pagina(texto(p, "texto", ""), limiar(p), escondidos);
+    }
+
+    /**
+     * Corta a página no limite do livro vanilla: primeiro o texto, depois os trechos escondidos na ordem
+     * (cada trecho conta mais 2 letras, a linha em branco antes dele). O que não cabe some, com aviso.
+     */
+    static Livro.Pagina cortar(Livro.Pagina p, String onde, Consumer<String> aviso) {
+        int sobra = MAX_PAGINA;
+        String texto = p.texto();
+        boolean cortou = false;
+        if (texto.length() > sobra) {
+            texto = texto.substring(0, sobra);
+            cortou = true;
+        }
+        sobra -= texto.length();
+        List<Livro.Trecho> escondidos = new ArrayList<>();
+        for (Livro.Trecho t : p.escondidos()) {
+            int cabe = sobra - (texto.isEmpty() && escondidos.isEmpty() ? 0 : 2);
+            if (cabe <= 0) {
+                cortou = true;
+                continue;
+            }
+            String tt = t.texto();
+            if (tt.length() > cabe) {
+                tt = tt.substring(0, cabe);
+                cortou = true;
+            }
+            escondidos.add(new Livro.Trecho(tt, t.exposicaoMinima()));
+            sobra = cabe - tt.length();
+        }
+        if (!cortou) return p;
+        aviso.accept(onde + ": passou de " + MAX_PAGINA + " letras, o fim foi cortado");
+        return new Livro.Pagina(texto, p.exposicaoMinima(), escondidos);
     }
 
     private static int limiar(JsonObject o) {

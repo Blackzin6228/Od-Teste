@@ -73,7 +73,8 @@ public final class ComandosHistoria {
                 .then(grupo())
                 .then(evento())
                 .then(estrutura())
-                .then(ComandosElemento.elemento()).then(ComandosLivros.livro()));
+                .then(ComandosLivros.livro())
+                .then(ComandosElemento.elemento()));
     }
 
     private static DadosHistoria dados(CommandContext<CommandSourceStack> c) {
