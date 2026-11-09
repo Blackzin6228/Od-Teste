@@ -618,6 +618,49 @@ public final class PrimeiroSinal {
         return cd != null && cd.contains(IdsHistoria.CHAVE_PECA);
     }
 
+    /**
+     * Tranca de novo só o Enigma 1 (play test, ou grupo que precisa refazer): placa em branco dos dois lados,
+     * baú trancado e sem as peças de história, e o marco {@code enigma_sino} sai (se foi este evento que deu).
+     * O resto do Primeiro Sinal (sino, aldeões, aldeão sumido) continua. Itens de jogador no baú caem no chão.
+     */
+    public static Resposta retrancar(MinecraftServer s, String nomeGrupo) {
+        DadosHistoria d = dados(s);
+        VilaMarcada v = Grupos.normalizar(nomeGrupo).map(d.vilas::get).orElse(null);
+        if (v == null) return Resposta.erro("odteste.evento.erro.nada_para_desfazer", nomeGrupo);
+        if (!v.resolvido) return Resposta.erro("odteste.evento.erro.nao_resolvido", v.grupo);
+        ServerLevel nivel = s.getLevel(v.dimensao);
+        if (nivel == null) return Resposta.erro("odteste.evento.erro.dimensao");
+        for (BlockPos p : new BlockPos[] {v.bau, v.placa}) {
+            if (p != null && !nivel.hasChunk(p.getX() >> 4, p.getZ() >> 4)) {
+                return Resposta.erro("odteste.evento.erro.descarregado", p.getX(), p.getY(), p.getZ());
+            }
+        }
+        int[] pecas = {0};
+        int soltos = 0;
+        if (v.bau != null && nivel.getBlockEntity(v.bau) instanceof ChestBlockEntity bau) {
+            soltos = Backup.soltarItens(nivel, v.bau, bau, it -> {
+                if (!ehPeca(it)) return false;
+                pecas[0]++;
+                return true;
+            });
+        }
+        if (v.placa != null && nivel.getBlockEntity(v.placa) instanceof SignBlockEntity placa) {
+            placa.setText(new SignText(), true);
+            placa.setText(new SignText(), false);
+            placa.setWaxed(false);
+            placa.setChanged();
+            BlockState st = nivel.getBlockState(v.placa);
+            nivel.sendBlockUpdated(v.placa, st, st, Block.UPDATE_ALL);
+        }
+        v.resolvido = false;
+        if (v.marcosDados.remove(IdsHistoria.MARCO_ENIGMA_SINO)) d.grupos.desmarcar(v.grupo, IdsHistoria.MARCO_ENIGMA_SINO);
+        ULTIMA_PLACA.remove(v.grupo);
+        d.setDirty();
+        OdMod.LOGGER.info("Enigma do sino trancado de novo para o grupo {}", v.grupo);
+        return new Resposta(true, comItensSoltos(Component.translatable("odteste.evento.retrancado", v.grupo, pecas[0]),
+                soltos, v.bau));
+    }
+
     /** Onde o aldeão estava quando sumiu (chave "Pos" do jogo), ou null se o arquivo não tem. */
     private static BlockPos posicaoSalva(CompoundTag aldeao) {
         net.minecraft.nbt.ListTag pos = aldeao.getList("Pos", net.minecraft.nbt.Tag.TAG_DOUBLE);

@@ -43,7 +43,8 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
  * Comandos da história, todos só de admin (permissão 2):
  *
  * /odteste grupo criar|adicionar|tirar|apagar|ver
- * /odteste evento primeiro_sinal <grupo> [ponto] · desfazer <grupo> · ver <grupo> · ancorar <lugar> <ponto> · desancorar <lugar>
+ * /odteste evento primeiro_sinal <grupo> [ponto] · desfazer <grupo> · retrancar <grupo> (só o Enigma 1) · ver <grupo>
+ *   · ancorar <lugar> <ponto> · desancorar <lugar>
  * /odteste estrutura prever|colocar <template> <ponto> [rotação] · desfazer <id> · lista
  * /odteste elemento <jogador> [elemento] · revelar <jogador> (ComandosElemento)
  *
@@ -197,6 +198,10 @@ public final class ComandosHistoria {
                         .then(Commands.argument(PONTO, BlockPosArgument.blockPos()).executes(c -> primeiroSinal(c, true)))))
                 .then(Commands.literal("desfazer").then(argGrupo().executes(c -> {
                     PrimeiroSinal.Resposta r = PrimeiroSinal.desfazer(c.getSource().getServer(), StringArgumentType.getString(c, GRUPO));
+                    return responder(c, r.ok(), r.mensagem());
+                })))
+                .then(Commands.literal("retrancar").then(argGrupo().executes(c -> {
+                    PrimeiroSinal.Resposta r = PrimeiroSinal.retrancar(c.getSource().getServer(), StringArgumentType.getString(c, GRUPO));
                     return responder(c, r.ok(), r.mensagem());
                 })))
                 .then(Commands.literal("ver").then(argGrupo().executes(ComandosHistoria::verGrupo)))
