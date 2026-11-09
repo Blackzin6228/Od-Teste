@@ -19,6 +19,7 @@ Cada mesa atualiza a sua parte ao terminar uma etapa. Legenda: ⬜ não começou
 
 ## Modelador
 ⬜ Guia de estilo visual aprovado · ⬜ primeiro item (prévia) · ⬜ primeira armadura · ⬜ primeira criatura
+🟨 Ferramenta de estruturas (08/11/2026): `ferramentas/estruturas/` monta estruturas por código (paredes com variação, telhado, piso, mobília, luz, desgaste, sangue), exporta `.nbt` vanilla 1.21.1 (Create/`/place template`), valida e gera prévia PNG (4 lados, cortes e plantas por andar). Protótipo `capela_fazenda` (25x15x20, Sangue) escrito; **falta rodar `bash ferramentas/estruturas/gerar.sh`** para gerar o `.nbt` e as prévias (a mesa não teve permissão de rodar Python) · ⬜ prévia aprovada pelo Nikolas · ⬜ teste colando no mundo
 
 ## Integrador
 🟦 Plano de progressão e crafts (`docs/progressao.md`, armaduras acima da MekaSuit) · 🟦 Troca de voz com controle do jogador e do admin (`docs/voz.md`) · 🟦 Magias por elemento (`docs/magias.md`) · ⬜ Escola nova no Iron's (1 magia de teste) · ⬜ ritual no Occultism · ⬜ ponte com Malum · 🟦 ramo tech (máquinas = misto, decidido 08/11): processamento nas máquinas do pack (mods conferidos), 3 aparelhos nossos com ficha para o Modelador, eventos de Energia e pistas por fita (`docs/tech-paranormal.md`; receitas JSON ainda não escritas)
