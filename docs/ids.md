@@ -4,7 +4,7 @@ Tudo que o mod registra (itens, blocos, criaturas, efeitos, dados salvos no joga
 Enquanto o mod não foi lançado no servidor, pode mudar. **Depois do lançamento, um ID listado aqui nunca some**
 sem uma conversão (remap) aprovada pelo Nikolas.
 
-Modid: `odteste` (provisório) · Lançado no servidor: **não**
+Modid: `odteste` (fixo para sempre; o nome visível pode mudar) · Lançado no servidor: **sim, 08/11/2026 (mundo definitivo)**
 
 | ID | Tipo | Desde | Observação |
 |---|---|---|---|
