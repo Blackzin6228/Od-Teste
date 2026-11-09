@@ -2,12 +2,15 @@
 
 Status: **rascunho para o Nikolas aprovar.** O Ato 1 foi **refeito** em 08/11/2026 na nova direção (produção de qualidade: estruturas grandes e enigmas que saem do jogo).
 Os outros atos são esqueleto. Base: `lore/canon.md`, `docs/decisoes.md`, `docs/decisoes/2026-11-08-producao-estruturas-e-enigmas-fora.md`.
-Detalhes do Ato 1 em: `lore/fichas-estruturas.md` (os lugares) e `lore/enigmas-fora.md` (o que se resolve fora do jogo).
+Detalhes do Ato 1 em: `lore/fichas-estruturas.md` (os lugares, incluindo a **Vila Calada**), `lore/enigmas-fora.md` (o que se resolve fora do jogo) e `lore/livro-do-sineiro.md` (o texto do livro).
+**Atualização de 09/11/2026:** a **Vila Calada** (vila destruída) é o **destino do Ato 1**; lá o grupo acha o **Livro do Sineiro** e a primeira pista de como voltar à realidade.
+A vila comum da abertura é o primeiro gancho. Decisão: `docs/decisoes/2026-11-09-vila-calada-destino-ato1.md`.
 
 ## Regras do roteiro
 - **Os protagonistas são quem está jogando.** Nenhum texto usa nome fixo de amigo. O mod troca marcadores na hora de mostrar:
   `{jogador}` (quem lê), `{grupo}` (todos do grupo, em lista), `{parceiro}` (outro do grupo, sorteado), `{anfitriao}` (quem está
   com a maior Exposição). Serve igual para o grupo de amigos e para um servidor grande.
+  (Nos textos da Vila Calada, `{marcado}` é só outro nome de `{anfitriao}`.)
   Marcadores de **elemento** (ver `docs/decisoes/2026-11-08-elemento-do-jogador.md`): `{escolhido_sangue}`, `{escolhido_conhecimento}`,
   `{escolhido_morte}`, `{escolhido_energia}`. Sem escolhido no grupo, cai em `{anfitriao}` (ou no que o admin escolher). **Nunca nome de jogador no repositório.**
 - **O admin que joga não tem elemento.** No texto é `{ilegivel}`. Ver "O Ilegível".
@@ -68,9 +71,16 @@ O admin que joga não tem elemento. O paranormal lê todo mundo; dele, não lê 
 Elemento em foco: **Sangue** (vermelho, fome, dor, bestialidade). Entidade: **o Diabo**.
 
 ## O percurso em uma olhada
-Cinco lugares grandes, ligados por pistas e por enigmas que saem do jogo:
+**Objetivo do Ato 1: chegar à Vila Calada** (destino) e ler o Livro do Sineiro. O jogador não recebe tutorial: a história puxa.
+A abertura na vila comum é o gancho; três pistas apontam o rumo; a Vila Calada entrega o livro; o livro dá o "porquê" dos cinco lugares seguintes.
 
 ```
+Vila comum (abertura: sino sozinho, aldeão some, vila parada, Morse FERRO na placa)
+        |  três pistas: sino ao longe, aldeões virados, mapa de cartógrafo
+        v
+VILA CALADA (destino)  --Livro do Sineiro--> primeira pista de como voltar (págs. 11 e 12)
+        |  pág. 13: ensina a ler o sino (dois tons, cinco em cinco) e liga ao Enigma 1
+        v
 Clareira e o Carro  --Fita (Morse + espectrograma)-->  FERRO
         |  Mapa Rasgado (César)
         v
@@ -89,18 +99,64 @@ Casa da Repetidora  --console: silencia o sino--> localização da Fazenda
 Fazenda do Sino Mudo (Casarão + Capela)  --Mesa do Pacto--> Evento do Diabo --> Pista do Ato 2
 ```
 
+**O fio da descoberta (o que leva a quê):**
+0. **A vila destruída.** A vila comum chama (sino, aldeões, cama, mapa). Na Vila Calada, o livro diz o que aconteceu, que há uma porta aberta e que o sino ensina a ouvir.
+   O sino tocando uma vez ao abrir o livro é o aviso de que algo, longe, respondeu.
+1. **A Clareira.** A Fita dá a palavra; a caixa dá o Diário e a metade do Mapa.
+2. **O Frigorífico.** O Mapa leva lá; os ganchos dão o Livro-Caixa, a outra metade e a Faca de Osso.
+3. **A Pousada e o Arquivo.** O Livro-Caixa leva à Pousada; o vídeo abre o Arquivo; o Arquivo dá a palavra de retorno.
+4. **A Repetidora.** A palavra cala o sino de metal; o telégrafo dá a Fazenda.
+5. **A Fazenda.** A Mesa do Pacto chama o Diabo.
+O passo zero dá o "porquê". Os passos de 1 a 5 funcionam sozinhos, para quem chega sem ele.
+
 Nenhuma etapa pede recurso. Os enigmas de fora têm três níveis de dificuldade; o grupo só precisa passar o do meio.
+Quem pula o livro ainda resolve tudo pelo caminho dos cinco lugares: o livro dá contexto e a pista de volta, não trava nada.
+
+## Cena 0 — A vila comum (abertura, primeiro gancho)
+Já programada (`docs/decisoes/2026-11-09-vila-como-abertura.md`). Serve para ensinar o paranormal sem tutorial.
+- O sino da vila comum toca sozinho. Um aldeão some. Os outros ficam parados. Na placa, o Morse **FERRO**.
+- Primeira Exposição e primeira queda pequena de Lucidez. O jogador aprende que o mundo "responde".
+- **Gancho:** a partir da primeira noite o grupo começa a receber as **três pistas** (abaixo). Elas apontam para a Vila Calada, não para a Clareira.
+
+## Cena 1B — A Vila Calada (o destino do Ato 1)
+Ficha: `fichas-estruturas.md`, "Vila Calada". Livro: `livro-do-sineiro.md`.
+Estrutura grande, colocada pelo admin (comando de admin, sem apagar construção de jogador). A posição registrada é a que as três pistas usam.
+
+**As três pistas (nenhuma é tutorial; cada uma sozinha aponta, as três fecham a certeza):**
+1. **O sino ao longe, à noite.** Toque grave e rachado, sempre da mesma direção.
+2. **Os aldeões e a cama.** Todos parados de frente para a mesma direção; a cama do aldeão sumido, molhada de vermelho, com a cabeceira virada para lá.
+3. **O mapa de cartógrafo.** Aparece no inventário de `{anfitriao}` ao amanhecer; só uma rosa dos ventos e um sino rachado, e o terreno se desenha conforme se anda.
+- Atalho tech: o Analisador de Sinal capta o sino. Se o grupo não se mexer por muitas noites, o jogo avisa o admin ("{grupo} não seguiu o sino").
+
+**O que se faz lá (sem recurso e sem combate obrigatório):**
+- Atravessar a vila (campo queimado, praça e poço, capela). Famintos parados de dia, soltos de noite. Rota pelas sombras até o campanário. A vela da capela devolve Lucidez.
+- Subir ao campanário (qualquer bloco serve). O **Livro do Sineiro** está no atril. Abrir o livro faz o sino tocar uma vez.
+- No vão quebrado do campanário, avista-se a direção da vila comum: uma coisa chama a outra.
+
+**O que o livro entrega:**
+- **Pág. 11 e 12 (para todos): a primeira pista de como voltar.** O sino precisa tocar ao contrário. Para isso, quatro portas pequenas precisam responder
+  (a que sangra, a que cala, a que lembra, a que acende) e há uma quinta que é parede. O Sineiro só fechou uma, a que sangrava, e mal.
+  Isto é o fio dos Atos: o Ato 1 é a porta que sangra (o Diabo); Atos 3 e 4 são as outras; o Ato 5 é o sino ao contrário.
+- **Pág. 13:** ensina a ler o sino de graça (dois tons, cinco em cinco). Ponte para o Enigma 1 (Morse) e o 2 (César, deslocamento 5), só para quem leu.
+- **Pág. 14:** em branco; com Exposição mostra que o grupo foi chamado ("sua cama aqui já estava feita").
+- Ganchos de personagem: o Compadre e a Moça do Terço (casa dela com os botões de pedra), a mesma do Terço no cofre da Pousada.
+- Para `{ilegivel}`: a vela da capela acende normalmente; as páginas em vermelho não aparecem para ele (sem Exposição que o leia). Ele pode ver, uma vez, o Aldeão de Pé no poço, de lado.
+
+**Depois do livro:** o grupo sabe que há o que investigar e por quê. A Fita da Clareira e os cinco lugares seguintes são o caminho para fechar a porta que sangra.
 
 ## Cena 1 — A Clareira (prólogo curto)
+**Vem da Cena 1B.** Na noite depois do livro, o sino rachado da Vila Calada não toca. Quem fica atento ouve, longe, um rádio de carro chiando no lugar dele.
 O grupo **já está do outro lado** desde que entrou na floresta. Não há tutorial em tela.
-- **Gatilho:** o admin solta o evento "Primeiro Sinal" (ou o mod solta sozinho na primeira noite de neblina depois de ativado). O grupo é guiado à Clareira (a schematic já está colocada).
+- **Gatilho:** o admin solta o evento "Primeiro Sinal" (ou o mod solta sozinho na primeira noite de neblina depois que alguém do grupo abriu o Livro do Sineiro; sem o livro, na primeira noite de neblina depois de ativado). O grupo é guiado à Clareira (a schematic já está colocada).
 - Cada jogador recebe a mochila com o **próprio nome** bordado: lanterna que falha, rádio sem sinal, caderno em branco.
 - Texto de abertura (uma vez, letras pequenas):
   > *{grupo}. Vocês ouviram o barulho e entraram. Vocês nunca saíram. Só esqueceram.*
 - Som: o barulho de metal arrastando, de 2 em 2 minutos, **começa a ser ouvido no mundo todo** (mais tarde é a chave do Ato 5; no Ato 1 vem da Repetidora).
 - **Enigma 1: a Fita da Clareira** (fora do jogo, ver `enigmas-fora.md` E1). O toca-fitas do carro toca Morse; a palavra abre a caixa de ferramentas.
   Dentro: Diário p. 1 e a metade esquerda do **Mapa Rasgado** (E2, César).
-- Lucidez cheia, Exposição zero. A primeira queda é no Frigorífico.
+  **Ponte com a Vila Calada:** quem leu a pág. 13 do Livro do Sineiro já sabe ouvir os dois tons e contar de cinco em cinco; o Morse e o César ficam mais fáceis. Quem não leu resolve igual.
+- A Clareira vem depois da Vila Calada no caminho normal, mas não é obrigatória nessa ordem (o grupo pode achar o carro antes).
+- Lucidez e Exposição já mexeram na abertura e na Vila Calada. A grande queda continua no Frigorífico.
 
 ## Cena 2 — O Frigorífico do Km 9 (a primeira grande construção)
 Ficha: `fichas-estruturas.md`, estrutura 2. O Mapa aponta o lugar (rumo e distância reais).
@@ -211,6 +267,7 @@ O evento acontece **na Capela da Fazenda do Sino Mudo**.
 - Cada gancho é caminho **alternativo**, nunca obrigatório.
 
 ## O que o Ato 1 entrega ao jogador
+- A **Vila Calada** (destino), o **Livro do Sineiro** e a primeira pista de como voltar à realidade: o sino precisa tocar ao contrário; quatro portas pequenas e uma parede.
 - Cinco lugares explorados, quatro peças de história (Fita, Mapa, Livro-Caixa, Faca de Osso) e, se aceitou, o Sino do Pacto.
 - A experiência de resolver enigmas **fora do jogo** (site, vídeo, áudio).
 - Exposição subindo de forma legível; Lucidez sendo testada.
@@ -238,6 +295,7 @@ O evento acontece **na Capela da Fazenda do Sino Mudo**.
 - O Medo. Pendente de decisão: só força de fundo ou também relíquia/marca rara de fim de jogo.
 
 # ATO 5 — O CAMINHO DE VOLTA (esqueleto)
+- Fio do Livro do Sineiro: "o sino tocando ao contrário" (págs. 11 e 12 do livro) é a mesma coisa que o desenho da porta com quatro fechaduras. As quatro portas pequenas respondem uma por Ato; a quinta, a parede, é o Medo.
 - O barulho de metal volta como mapa: o desenho da porta com quatro fechaduras (E6, bônus do Ato 1) vira a chave. As 4 relíquias abrem a porta.
 - Decisão em aberto: o grupo volta, fica ou escolhe.
 
@@ -253,3 +311,5 @@ O evento acontece **na Capela da Fazenda do Sino Mudo**.
 7. Chat de texto bloqueado na capela: aceita?
 8. O Ilegível: "ver o que fica entre os elementos" é o bônus certo? Alternativas: (a) ver só o que o **Medo** esconde (Ato 4); (b) ouvir "de perto" o barulho de metal (Ato 5).
 9. As máquinas tech nomeadas: quer que o Integrador veja a viabilidade antes de aprovar?
+10. Vila Calada: aprova o nome (provisório), o texto do livro e a ordem (vila comum, Vila Calada, depois os cinco lugares)? O Sineiro fechou "a que sangrava, e mal": gostou como justificativa do Diabo ainda solto?
+11. O Morse FERRO da placa da vila comum e a Fita da Clareira repetem a mesma palavra. Quer manter (reforço) ou mudar uma delas?
