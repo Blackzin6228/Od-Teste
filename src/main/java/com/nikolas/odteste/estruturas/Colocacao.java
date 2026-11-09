@@ -68,6 +68,11 @@ public record Colocacao(String id, String template, ResourceKey<Level> dimensao,
             this.admin = admin;
         }
 
+        /** Quantas posições ajustam os vizinhos por tick no fim do desfazer: cada uma mexe em até 12 blocos. */
+        public int vizinhosPorTick() {
+            return Math.max(1, limite / 8);
+        }
+
         public boolean ativa() {
             return fase == Fase.CONFERINDO || fase == Fase.COLOCANDO || fase == Fase.DESFAZENDO;
         }

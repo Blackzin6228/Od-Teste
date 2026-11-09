@@ -9,7 +9,8 @@ import net.neoforged.neoforge.common.ModConfigSpec;
  * {@code estruturas.blocos_por_tick}: tamanho de cada fatia de uma estrutura grande. Menor = mais suave e mais lento.
  */
 public final class ConfigEstruturas {
-    public static final int PADRAO = 8192;
+    /** Padrão de 4.096 (folga para o resto do servidor). Mundo que já tem o arquivo .toml fica com o valor de lá. */
+    public static final int PADRAO = 4096;
     public static final ModConfigSpec SPEC;
     public static final ModConfigSpec.IntValue BLOCOS_POR_TICK;
 
