@@ -76,6 +76,8 @@ import net.minecraft.world.level.block.entity.BannerPatterns;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
+import net.minecraft.world.level.block.entity.SignText;
+import net.minecraft.world.level.block.piston.PistonStructureResolver;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RotationSegment;
 import net.minecraft.world.phys.AABB;
@@ -88,6 +90,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.ExplosionEvent;
+import net.neoforged.neoforge.event.level.PistonEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
@@ -140,6 +143,7 @@ public final class PrimeiroSinal {
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoClicarBloco);
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoQuebrar);
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoExplodir);
+        NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoPistao);
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoEntrarNoMundo);
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoSairDoMundo);
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoLevarDano);
@@ -247,6 +251,8 @@ public final class PrimeiroSinal {
                 .setValue(StandingSignBlock.ROTATION, RotationSegment.convertToSegment(frente)));
         v.bau = bau;
         v.placa = placa;
+        v.apoioPlaca = placa.below();
+        v.apoioPlacaBloco = semDados(nivel.getBlockState(v.apoioPlaca));
 
         // Estandarte numa parede, de preferência dentro de uma casa (opcional: sem parede livre, segue sem ele).
         Optional<BlockPos[]> parede = acharParede(mundo, sino);
@@ -257,6 +263,8 @@ public final class PrimeiroSinal {
             colocar(nivel, blocos, pf[0], st);
             pintarEstandarte(nivel, pf[0]);
             v.estandarte = pf[0];
+            v.apoioEstandarte = pf[0].relative(f.getOpposite());
+            v.apoioEstandarteBloco = semDados(nivel.getBlockState(v.apoioEstandarte));
         }
 
         // Um aldeão some. A cama dele fica (e mancha).
@@ -414,6 +422,88 @@ public final class PrimeiroSinal {
 
     private static void colocar(ServerLevel nivel, Backup b, BlockPos p, BlockState st) {
         b.colocar(nivel, p, st);
+    }
+
+    /** Bloco de apoio que dá para repor igual: sem dados (baú, máquina) e não ar. Senão, null. */
+    private static BlockState semDados(BlockState s) {
+        return s.isAir() || s.hasBlockEntity() || !s.getFluidState().isEmpty() ? null : s;
+    }
+
+    // ------------------------------------------------------------------ proteção do enigma
+
+    /**
+     * Se uma peça do enigma sumiu (apoio quebrado por algo que não é jogador, máquina de outro mod, água...),
+     * põe de volta no mesmo lugar. Só ocupa lugar livre (ar ou planta, sem claim): nunca quebra o que alguém pôs.
+     * O apoio que sumiu volta como o bloco da vila que era. Roda uma vez por segundo, só com jogador perto e
+     * enquanto o enigma não foi resolvido: poucas leituras de bloco.
+     */
+    private static void recolocar(ServerLevel nivel, VilaMarcada v, DadosHistoria d) {
+        MundoReal mundo = new MundoReal(nivel);
+        lembrarApoios(nivel, mundo, v, d);
+        if (v.nota != null) repor(nivel, mundo, v, v.nota, Blocks.NOTE_BLOCK.defaultBlockState(), null, null);
+        if (v.bau == null) return;
+        Direction frente = direcaoPara(v.bau, v.sino);
+        repor(nivel, mundo, v, v.bau, Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, frente), null, null);
+        if (v.placa != null) {
+            repor(nivel, mundo, v, v.placa, Blocks.OAK_SIGN.defaultBlockState()
+                    .setValue(StandingSignBlock.ROTATION, RotationSegment.convertToSegment(frente)),
+                    v.apoioDaPlaca(), v.apoioPlacaBloco);
+        }
+        if (v.estandarte != null && v.apoioEstandarte != null) {
+            Direction f = null;
+            for (Direction h : Direction.Plane.HORIZONTAL) {
+                if (v.apoioEstandarte.relative(h).equals(v.estandarte)) f = h;
+            }
+            if (f != null) {
+                BlockState st = Blocks.BLACK_WALL_BANNER.defaultBlockState().setValue(WallBannerBlock.FACING, f);
+                if (repor(nivel, mundo, v, v.estandarte, st, v.apoioEstandarte, v.apoioEstandarteBloco)) {
+                    pintarEstandarte(nivel, v.estandarte);
+                }
+            }
+        }
+    }
+
+    /** Mundo da versão antiga: anota os apoios na primeira vez que o mod os vê no lugar. */
+    private static void lembrarApoios(ServerLevel nivel, MundoReal mundo, VilaMarcada v, DadosHistoria d) {
+        if (v.placa != null && v.apoioPlaca == null) {
+            v.apoioPlaca = v.placa.below();
+            d.setDirty();
+        }
+        if (v.apoioPlaca != null && v.apoioPlacaBloco == null && mundo.carregado(v.apoioPlaca.getX(), v.apoioPlaca.getZ())
+                && mundo.firme(v.apoioPlaca)) {
+            v.apoioPlacaBloco = semDados(nivel.getBlockState(v.apoioPlaca));
+            if (v.apoioPlacaBloco != null) d.setDirty();
+        }
+        if (v.estandarte != null && v.apoioEstandarte == null && mundo.carregado(v.estandarte.getX(), v.estandarte.getZ())) {
+            BlockState b = nivel.getBlockState(v.estandarte);
+            if (b.getBlock() instanceof WallBannerBlock) {
+                v.apoioEstandarte = v.estandarte.relative(b.getValue(WallBannerBlock.FACING).getOpposite());
+                d.setDirty();
+            }
+        }
+        if (v.apoioEstandarte != null && v.apoioEstandarteBloco == null
+                && mundo.carregado(v.apoioEstandarte.getX(), v.apoioEstandarte.getZ())) {
+            v.apoioEstandarteBloco = semDados(nivel.getBlockState(v.apoioEstandarte));
+            if (v.apoioEstandarteBloco != null) d.setDirty();
+        }
+    }
+
+    /** Põe {@code nosso} em {@code p} se ele sumiu e o lugar está livre (e o apoio, se faltar). @return se pôs */
+    private static boolean repor(ServerLevel nivel, MundoReal mundo, VilaMarcada v, BlockPos p, BlockState nosso,
+                                 BlockPos apoio, BlockState blocoApoio) {
+        if (!mundo.carregado(p.getX(), p.getZ())) return false;
+        BlockState agora = nivel.getBlockState(p);
+        if (agora.is(nosso.getBlock()) || !mundo.tipo(p).livre) return false;
+        if (apoio != null && !nosso.canSurvive(nivel, p)) {
+            if (blocoApoio == null || !mundo.tipo(apoio).livre) return false;
+            nivel.setBlock(apoio, blocoApoio, Block.UPDATE_ALL);
+        }
+        if (!nosso.canSurvive(nivel, p)) return false;
+        v.blocos.tirarOutraMetade(nivel, p, agora);
+        nivel.setBlock(p, nosso, Block.UPDATE_ALL);
+        OdMod.LOGGER.info("Primeiro Sinal: {} do grupo {} tinha sumido e voltou em {}",
+                BuiltInRegistries.BLOCK.getKey(nosso.getBlock()), v.grupo, p.toShortString());
+        return true;
     }
 
     /** Símbolo provisório (cruz vermelha com centro preto) até o Modelador desenhar a Cruz de Ferro. */
@@ -592,6 +682,7 @@ public final class PrimeiroSinal {
             if (!v.congelados.isEmpty()) devolverAntigos(nivel, v, d);
         }
 
+        if (!v.resolvido && !presentes.isEmpty()) recolocar(nivel, v, d);
         if (alguemPertoDaCama && nivel.hasChunk(v.cama.getX() >> 4, v.cama.getZ() >> 4)) manchar(nivel, v.cama);
         if (alguemPertoDaPlaca && !v.resolvido) lerPlaca(s, nivel, v, d);
     }
@@ -864,13 +955,49 @@ public final class PrimeiroSinal {
 
     // ------------------------------------------------------------------ eventos do jogo
 
+    /** A vila de quem este bloco é peça (ou apoio de peça). Null se não é de nenhuma. */
     private static VilaMarcada vilaDoBloco(Level nivel, BlockPos p) {
-        if (cache == null) return null;
-        for (VilaMarcada v : cache.vilas.values()) {
-            if (v.dimensao != nivel.dimension()) continue;
-            if (p.equals(v.nota) || p.equals(v.bau) || p.equals(v.placa) || p.equals(v.estandarte)) return v;
+        MinecraftServer s = nivel.getServer();
+        if (s == null) return null;
+        for (VilaMarcada v : dados(s).vilas.values()) {
+            if (v.dimensao == nivel.dimension() && v.protege(p)) return v;
         }
         return null;
+    }
+
+    /** Raio em volta do sino onde um pistão pode mexer em peça nossa (as peças ficam a até ~25 blocos). */
+    private static final int RAIO_PISTAO = 48;
+
+    /** Pistão não empurra nem puxa peça do enigma nem o apoio dela. Longe de toda vila, sai na hora. */
+    private static void aoPistao(PistonEvent.Pre e) {
+        if (!(e.getLevel() instanceof Level nivel) || nivel.isClientSide()) return;
+        MinecraftServer s = nivel.getServer();
+        if (s == null) return;
+        DadosHistoria d = dados(s);
+        if (d.vilas.isEmpty()) return;
+        BlockPos pistao = e.getPos();
+        boolean perto = false;
+        for (VilaMarcada v : d.vilas.values()) {
+            if (v.dimensao == nivel.dimension() && v.sino.distSqr(pistao) <= (double) RAIO_PISTAO * RAIO_PISTAO) {
+                perto = true;
+                break;
+            }
+        }
+        if (!perto) return;
+        PistonStructureResolver r = e.getStructureHelper();
+        if (r == null || !r.resolve()) return;
+        for (BlockPos p : r.getToPush()) {
+            if (vilaDoBloco(nivel, p) != null) {
+                e.setCanceled(true);
+                return;
+            }
+        }
+        for (BlockPos p : r.getToDestroy()) {
+            if (vilaDoBloco(nivel, p) != null) {
+                e.setCanceled(true);
+                return;
+            }
+        }
     }
 
     /** Aldeão parado não troca: a troca vira uma frase curta. */
@@ -901,14 +1028,19 @@ public final class PrimeiroSinal {
                 .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
     }
 
-    /** Os blocos que pusemos na vila não quebram (o admin tira com o desfazer). */
+    /**
+     * Os blocos que pusemos na vila e os que seguram a placa e o estandarte não quebram enquanto o evento existir
+     * (o admin tira tudo com o desfazer).
+     */
     private static void aoQuebrar(BlockEvent.BreakEvent e) {
         if (!(e.getLevel() instanceof Level nivel) || nivel.isClientSide()) return;
         if (vilaDoBloco(nivel, e.getPos()) != null) e.setCanceled(true);
     }
 
     private static void aoExplodir(ExplosionEvent.Detonate e) {
-        if (e.getLevel().isClientSide() || cache == null || cache.vilas.isEmpty()) return;
+        if (e.getLevel().isClientSide()) return;
+        MinecraftServer s = e.getLevel().getServer();
+        if (s == null || dados(s).vilas.isEmpty()) return;
         e.getAffectedBlocks().removeIf(p -> vilaDoBloco(e.getLevel(), p) != null);
     }
 

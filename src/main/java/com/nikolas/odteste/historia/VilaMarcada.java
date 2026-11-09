@@ -7,14 +7,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * A vila marcada pela Cena 1 de um grupo, com tudo o que precisa para desfazer: blocos que pusemos,
@@ -34,6 +37,15 @@ public final class VilaMarcada {
     public BlockPos placa;
     public BlockPos estandarte;
     public BlockPos cama;
+    /**
+     * Blocos da vila que seguram a placa (embaixo dela) e o estandarte (a parede atrás). Ficam protegidos enquanto o
+     * evento existir e, se sumirem mesmo assim, o evento põe de volta o mesmo bloco. Mundos da versão antiga não
+     * tinham: o mod anota na primeira vez que vê o bloco lá.
+     */
+    public BlockPos apoioPlaca;
+    public BlockState apoioPlacaBloco;
+    public BlockPos apoioEstandarte;
+    public BlockState apoioEstandarteBloco;
     /** O aldeão que sumiu, salvo inteiro (trocas, profissão, casa) para voltar no desfazer. */
     public CompoundTag aldeao;
     public final Backup blocos;
@@ -63,6 +75,25 @@ public final class VilaMarcada {
         return t.contains(chave, Tag.TAG_LONG) ? BlockPos.of(t.getLong(chave)) : null;
     }
 
+    /** Onde fica o apoio da placa (o bloco embaixo dela), também em mundo da versão antiga. */
+    public BlockPos apoioDaPlaca() {
+        if (apoioPlaca != null) return apoioPlaca;
+        return placa == null ? null : placa.below();
+    }
+
+    /** O bloco é nosso ou segura um bloco nosso (não pode quebrar nem ser empurrado)? */
+    public boolean protege(BlockPos p) {
+        return p.equals(nota) || p.equals(bau) || p.equals(placa) || p.equals(estandarte)
+                || p.equals(apoioDaPlaca()) || p.equals(apoioEstandarte);
+    }
+
+    /** Bloco salvo; null se não tem ou se virou ar (bloco de mod que saiu do pack). */
+    private static BlockState bloco(CompoundTag t, String chave) {
+        if (!t.contains(chave, Tag.TAG_COMPOUND)) return null;
+        BlockState s = NbtUtils.readBlockState(BuiltInRegistries.BLOCK.asLookup(), t.getCompound(chave));
+        return s.isAir() ? null : s;
+    }
+
     public CompoundTag salvar() {
         CompoundTag t = new CompoundTag();
         t.putString("grupo", grupo);
@@ -73,6 +104,10 @@ public final class VilaMarcada {
         pos(t, "placa", placa);
         pos(t, "estandarte", estandarte);
         pos(t, "cama", cama);
+        pos(t, "apoio_placa", apoioPlaca);
+        if (apoioPlacaBloco != null) t.put("apoio_placa_bloco", NbtUtils.writeBlockState(apoioPlacaBloco));
+        pos(t, "apoio_estandarte", apoioEstandarte);
+        if (apoioEstandarteBloco != null) t.put("apoio_estandarte_bloco", NbtUtils.writeBlockState(apoioEstandarteBloco));
         if (aldeao != null) t.put("aldeao", aldeao);
         t.put("blocos", blocos.salvar());
         CompoundTag cong = new CompoundTag();
@@ -101,6 +136,10 @@ public final class VilaMarcada {
         v.placa = pos(t, "placa");
         v.estandarte = pos(t, "estandarte");
         v.cama = pos(t, "cama");
+        v.apoioPlaca = pos(t, "apoio_placa");
+        v.apoioPlacaBloco = bloco(t, "apoio_placa_bloco");
+        v.apoioEstandarte = pos(t, "apoio_estandarte");
+        v.apoioEstandarteBloco = bloco(t, "apoio_estandarte_bloco");
         if (t.contains("aldeao", Tag.TAG_COMPOUND)) v.aldeao = t.getCompound("aldeao");
         CompoundTag cong = t.getCompound("congelados");
         for (String k : cong.getAllKeys()) {
