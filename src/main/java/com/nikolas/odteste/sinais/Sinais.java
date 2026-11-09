@@ -31,6 +31,7 @@ public final class Sinais {
     static {
         FONTES.add(SinaisNoMundo::perto);
         FONTES.add((nivel, centro, raio) -> FontesFixas.de(nivel.getServer()).perto(nivel, centro, raio));
+        FONTES.add(FonteVilaCalada::perto);
     }
 
     private Sinais() {}
@@ -75,14 +76,28 @@ public final class Sinais {
         return FontesFixas.de(servidor).todas();
     }
 
-    /** A fonte fixa mais perto a até {@code alcance} blocos, na mesma dimensão. */
+    /**
+     * A fonte fixa mais perto a até {@code alcance} blocos, na mesma dimensão. Conta as salvas e a Vila Calada
+     * (que vem da âncora da história, ver {@link FonteVilaCalada}).
+     */
     public static Optional<FontesFixas.Fonte> fonteFixaMaisProxima(ServerLevel nivel, BlockPos centro, int alcance) {
+        Optional<FontesFixas.Fonte> salva;
         try {
-            return FontesFixas.de(nivel.getServer()).maisProxima(nivel, centro, alcance);
+            salva = FontesFixas.de(nivel.getServer()).maisProxima(nivel, centro, alcance);
         } catch (RuntimeException erro) {
             OdMod.LOGGER.error("Fontes fixas falharam em {}; ignoradas", centro, erro);
-            return Optional.empty();
+            salva = Optional.empty();
         }
+        Optional<FontesFixas.Fonte> vila;
+        try {
+            vila = FonteVilaCalada.aoAlcance(nivel, centro, alcance);
+        } catch (RuntimeException erro) {
+            OdMod.LOGGER.error("Sinal da Vila Calada falhou em {}; ignorado", centro, erro);
+            vila = Optional.empty();
+        }
+        if (vila.isEmpty()) return salva;
+        double d2Salva = salva.map(f -> f.pos().distSqr(centro)).orElse(Double.MAX_VALUE);
+        return RegrasFonteVila.vilaGanha(salva.isPresent(), d2Salva, vila.get().pos().distSqr(centro)) ? vila : salva;
     }
 
     public static void registrarFonte(FonteDeSinal fonte) {

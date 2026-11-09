@@ -36,7 +36,7 @@ public final class RegrasSinal {
      * Tipos de sinal que têm texto no lang ({@code odteste.sinal.<tipo>.decifrado}). Conteúdo novo acrescenta o
      * seu por {@link Sinais#registrarTipo}. Fonte fixa só aceita tipo desta lista.
      */
-    private static final Set<String> TIPOS = new CopyOnWriteArraySet<>(List.of("sino_vila"));
+    private static final Set<String> TIPOS = new CopyOnWriteArraySet<>(List.of("sino_vila", RegrasFonteVila.TIPO));
 
     private RegrasSinal() {}
 
