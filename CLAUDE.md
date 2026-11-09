@@ -3,7 +3,7 @@
 Mod **novo, do zero**. Não é continuação do Máscaras Relíquia: o repositório `Blackzin6228/Mascaras` serve só como
 referência técnica (como ele resolveu GeckoLib, Curios, Iron's, publicação no pack). Nada de lore, nome ou visual vem de lá.
 
-Antes de trabalhar, leia: este arquivo, `docs/decisoes.md`, `docs/progresso.md` e o arquivo da sua mesa em `.claude/agents/`.
+Antes de trabalhar, leia: este arquivo, `docs/decisoes.md` + a pasta `docs/decisoes/`, `docs/progresso.md` e o arquivo da sua mesa em `.claude/agents/`.
 
 ## Projeto
 - NeoForge **1.21.1** (21.1.262), Java 21. Modid **`odteste`**, definitivo (vem do `gradle.properties`). O nome que o jogador vê pode mudar.
@@ -14,7 +14,7 @@ Antes de trabalhar, leia: este arquivo, `docs/decisoes.md`, `docs/progresso.md` 
 ## Regras que não mudam
 1. **Português**, frases curtas, sem jargão quando falar com o Nikolas.
 2. **Perguntar antes de decidir** visual, jogo, lore ou qualquer coisa difícil de desfazer. Mostrar prévia
-   (imagem, print, render do Blockbench) antes de integrar. Decisão aprovada vai para `docs/decisoes.md`, com data.
+   (imagem, print, render do Blockbench) antes de integrar. Decisão aprovada vira **um arquivo novo** em `docs/decisoes/` (`AAAA-MM-DD-assunto.md`, uma decisão por arquivo). Não acrescente linhas no fim de `docs/decisoes.md` (fica como histórico até 08/11/2026): vários PRs mexendo no mesmo fim de arquivo dão conflito.
 3. **Elementos e gênero de Ordem Paranormal: pode** (decisão do Nikolas, 07/11/2026). Os quatro elementos
    **Sangue, Morte, Conhecimento e Energia** (e o Medo como força de fundo), com os temas, cores e matérias descritos em
    `docs/estilo-do-genero.md`, são a base da lore. **Não pode:** copiar a arte (símbolos/sigilos desenhados iguais,
