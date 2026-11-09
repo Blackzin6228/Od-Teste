@@ -95,7 +95,8 @@ public final class ComandosHistoria {
                 .then(evento())
                 .then(estrutura())
                 .then(ComandosLivros.livro())
-                .then(ComandosElemento.elemento()));
+                .then(ComandosElemento.elemento())
+                .then(ComandosSinais.sinal()));
     }
 
     private static DadosHistoria dados(CommandContext<CommandSourceStack> c) {
