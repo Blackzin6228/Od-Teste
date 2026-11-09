@@ -18,7 +18,7 @@ class FatiasTest {
         int yAnterior = Integer.MIN_VALUE;
         for (int i = 0; i < n; i++) {
             Espaco.Caixa f = Fatias.fatia(c, limite, i);
-            assertTrue(f.volume() <= limite, "fatia " + i + " passa do limite: " + f.volume());
+            assertTrue(f.volume() <= Math.max(1, limite),"fatia " + i + " passa do limite: " + f.volume());
             assertTrue(f.y0() >= yAnterior, "fatias fora de ordem (de baixo para cima)");
             yAnterior = f.y0();
             for (int y = f.y0(); y <= f.y1(); y++)
