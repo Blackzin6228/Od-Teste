@@ -85,6 +85,29 @@ class FatiasTest {
         }
     }
 
+    /** O template é fatiado por camada: cada fatia tem que estar inteira na camada que o código diz. */
+    @Test
+    void cadaFatiaFicaNaSuaCamada() {
+        for (int limite : new int[] {1, 5, 400, 4096, 8192, 100_000}) {
+            for (Espaco.Caixa c : new Espaco.Caixa[] {Espaco.Caixa.deTamanho(-30, 62, 7, 72, 30, 64),
+                    Espaco.Caixa.deTamanho(0, -10, 0, 100, 9, 100), Espaco.Caixa.deTamanho(3, 3, 3, 3, 2, 7)}) {
+                int camadas = Fatias.camadas(c, limite);
+                int anterior = 0;
+                for (int i = 0; i < Fatias.total(c, limite); i++) {
+                    Espaco.Caixa f = Fatias.fatia(c, limite, i);
+                    int k = Fatias.camadaDaFatia(c, limite, i);
+                    assertTrue(k >= anterior && k < camadas, "camada fora de ordem");
+                    anterior = k;
+                    assertEquals(k, Fatias.camadaDoY(c, limite, f.y0()));
+                    assertEquals(k, Fatias.camadaDoY(c, limite, f.y1()));
+                }
+                assertEquals(camadas - 1, anterior);
+                assertEquals(0, Fatias.camadaDoY(c, limite, c.y0() - 5));
+                assertEquals(camadas - 1, Fatias.camadaDoY(c, limite, c.y1() + 5));
+            }
+        }
+    }
+
     @Test
     void indiceForaDaFaixaFalha() {
         Espaco.Caixa c = Espaco.Caixa.deTamanho(0, 0, 0, 4, 4, 4);

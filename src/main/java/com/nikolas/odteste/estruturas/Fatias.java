@@ -33,6 +33,23 @@ public final class Fatias {
         return (int) n;
     }
 
+    /** Quantas camadas (grupos de altura) as fatias usam. Cada fatia fica inteira dentro de uma camada. */
+    public static int camadas(Espaco.Caixa c, int limite) {
+        return partes(c.altura(), passo(c, limite)[0]);
+    }
+
+    /** Em que camada fica a fatia {@code i}. As fatias andam camada por camada, de baixo para cima. */
+    public static int camadaDaFatia(Espaco.Caixa c, int limite, int i) {
+        int[] p = passo(c, limite);
+        return i / (partes(c.largura(), p[1]) * partes(c.fundo(), p[2]));
+    }
+
+    /** Em que camada fica o bloco de altura {@code y} do mundo (fora da caixa vai para a primeira ou a última). */
+    public static int camadaDoY(Espaco.Caixa c, int limite, int y) {
+        int k = (y - c.y0()) / passo(c, limite)[0];
+        return Math.max(0, Math.min(camadas(c, limite) - 1, k));
+    }
+
     /** A fatia de número {@code i} (de 0 a {@code total - 1}). */
     public static Espaco.Caixa fatia(Espaco.Caixa c, int limite, int i) {
         int[] p = passo(c, limite);

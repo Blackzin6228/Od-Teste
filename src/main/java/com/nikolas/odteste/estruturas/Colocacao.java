@@ -1,10 +1,12 @@
 package com.nikolas.odteste.estruturas;
 
+import it.unimi.dsi.fastutil.longs.LongArrayList;
 import java.util.Locale;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.LongArrayTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
@@ -22,6 +24,8 @@ public record Colocacao(String id, String template, ResourceKey<Level> dimensao,
 
     /** Em que pé está uma colocação em partes. */
     public enum Fase {
+        /** Conferindo o espaço da caixa inteira, uma fatia por tick, sem pôr nada. Bloqueio cancela. */
+        CONFERINDO,
         /** Pondo uma fatia por tick. */
         COLOCANDO,
         /** Uma fatia achou bloqueio: espera o admin ({@code continuar} ou {@code desfazer}). */
@@ -48,6 +52,12 @@ public record Colocacao(String id, String template, ResourceKey<Level> dimensao,
         public int fatia;
         public Fase fase;
         public UUID admin;
+        /**
+         * Só no desfazer: posições já devolvidas que ainda vão ajustar os vizinhos no fim (salvas, para o ajuste
+         * não se perder se o servidor reiniciar no meio) e quantas já ajustaram.
+         */
+        public final LongArrayList vizinhos = new LongArrayList();
+        public int vizinhosFeitos;
 
         public Partes(Rotation rotacao, int limite, int total, int fatia, Fase fase, UUID admin) {
             this.rotacao = rotacao;
@@ -59,7 +69,7 @@ public record Colocacao(String id, String template, ResourceKey<Level> dimensao,
         }
 
         public boolean ativa() {
-            return fase == Fase.COLOCANDO || fase == Fase.DESFAZENDO;
+            return fase == Fase.CONFERINDO || fase == Fase.COLOCANDO || fase == Fase.DESFAZENDO;
         }
 
         CompoundTag salvar() {
@@ -70,14 +80,21 @@ public record Colocacao(String id, String template, ResourceKey<Level> dimensao,
             t.putInt("fatia", fatia);
             t.putString("fase", fase.name().toLowerCase(Locale.ROOT));
             if (admin != null) t.putUUID("admin", admin);
+            if (fase == Fase.DESFAZENDO && !vizinhos.isEmpty()) {
+                t.put("vizinhos", new LongArrayTag(vizinhos.toLongArray()));
+                t.putInt("vizinhos_feitos", vizinhosFeitos);
+            }
             return t;
         }
 
         static Partes carregar(CompoundTag t) {
             Rotation r = Rotation.NONE;
             for (Rotation x : Rotation.values()) if (x.name().equalsIgnoreCase(t.getString("rotacao"))) r = x;
-            return new Partes(r, t.getInt("limite"), t.getInt("total"), t.getInt("fatia"),
+            Partes p = new Partes(r, t.getInt("limite"), t.getInt("total"), t.getInt("fatia"),
                     Fase.ler(t.getString("fase")), t.hasUUID("admin") ? t.getUUID("admin") : null);
+            p.vizinhos.addElements(0, t.getLongArray("vizinhos"));
+            p.vizinhosFeitos = Math.max(0, Math.min(p.vizinhos.size(), t.getInt("vizinhos_feitos")));
+            return p;
         }
     }
 

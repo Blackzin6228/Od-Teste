@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Rotation;
@@ -84,7 +88,7 @@ public final class Estruturas {
     /**
      * Estrutura grande (acima de {@link #VOLUME_MAXIMO}) até esse volume vai em partes ({@link EmPartes}).
      * 524.288 = 128 x 32 x 128; a Vila Calada final (~100 x 30 x 100) cabe com folga.
-     * O {@code prever} lê a caixa inteira num tick só: acima disso a leitura começa a pesar.
+     * O {@code prever} só lê o chão (até 128 x 128); o resto é conferido em partes antes de pôr qualquer bloco.
      */
     public static final long VOLUME_MAXIMO_PARTES = 524_288;
 
@@ -92,6 +96,51 @@ public final class Estruturas {
     public static boolean grandeDemaisAtePartes(StructureTemplate t, Rotation rotacao) {
         var tamanho = t.getSize(rotacao);
         return (long) tamanho.getX() * tamanho.getY() * tamanho.getZ() > VOLUME_MAXIMO_PARTES;
+    }
+
+    /** Só o chão embaixo (estrutura grande: o resto é conferido em partes por {@link EmPartes}). */
+    public static Espaco.Resultado checarChao(ServerLevel nivel, StructureTemplate t, BlockPos ponto, Rotation rotacao) {
+        return Espaco.checarChao(caixa(t, ponto, rotacao), new MundoReal(nivel));
+    }
+
+    /**
+     * Separa os blocos do template por camada das fatias ({@link Fatias#camadaDoY}), uma vez só por colocação:
+     * cada tick carrega só a camada da vez, em vez de o jogo passar o template inteiro por fatia.
+     * Cada pedaço é um template com o mesmo tamanho e a mesma paleta, então cai exatamente no mesmo lugar.
+     * O custo (salvar o template uma vez) é de uma vez só, no começo (ou ao retomar depois de reiniciar).
+     */
+    static CompoundTag[] porCamada(StructureTemplate t, BlockPos ponto, Rotation rotacao, Espaco.Caixa c, int limite) {
+        CompoundTag raiz = t.save(new CompoundTag());
+        int n = Fatias.camadas(c, limite);
+        ListTag[] blocos = new ListTag[n];
+        for (int k = 0; k < n; k++) blocos[k] = new ListTag();
+        StructurePlaceSettings ajustes = ajustes(rotacao);
+        ListTag todos = raiz.getList("blocks", Tag.TAG_COMPOUND);
+        for (int i = 0; i < todos.size(); i++) {
+            CompoundTag b = todos.getCompound(i);
+            ListTag pos = b.getList("pos", Tag.TAG_INT);
+            BlockPos local = new BlockPos(pos.getInt(0), pos.getInt(1), pos.getInt(2));
+            int y = StructureTemplate.calculateRelativePosition(ajustes, local).offset(ponto).getY();
+            blocos[Fatias.camadaDoY(c, limite, y)].add(b);
+        }
+        CompoundTag[] saida = new CompoundTag[n];
+        for (int k = 0; k < n; k++) {
+            CompoundTag s = new CompoundTag();
+            for (String chave : new String[] {"size", "palette", "palettes", "DataVersion"}) {
+                if (raiz.contains(chave)) s.put(chave, raiz.get(chave));
+            }
+            s.put("blocks", blocos[k]);
+            s.put("entities", new ListTag());
+            saida[k] = s;
+        }
+        return saida;
+    }
+
+    /** Monta o template de uma camada (de {@link #porCamada}). */
+    static StructureTemplate carregarCamada(CompoundTag camada) {
+        StructureTemplate t = new StructureTemplate();
+        t.load(BuiltInRegistries.BLOCK.asLookup(), camada);
+        return t;
     }
 
     /** Coloca no ponto, só se a checagem passar. Nunca procura outro lugar. */
@@ -144,7 +193,7 @@ public final class Estruturas {
                 for (int z = c.z0(); z <= c.z1(); z++) antes[i++] = nivel.getBlockState(m.set(x, y, z));
         StructurePlaceSettings ajustes = ajustes(rotacao);
         if (emPartes) {
-            // Mesmo recurso da geração do jogo: o template inteiro é lido, mas só sai bloco dentro da caixa.
+            // Mesmo recurso da geração do jogo: só sai bloco dentro da caixa (o template já vem só com a camada).
             ajustes.setBoundingBox(new BoundingBox(c.x0(), c.y0(), c.z0(), c.x1(), c.y1(), c.z1()));
             ajustes.setKnownShape(true);
         }

@@ -318,18 +318,21 @@ public final class ComandosHistoria {
             return erro(c, "odteste.estrutura.erro.grande", Estruturas.VOLUME_MAXIMO_PARTES);
         }
         Espaco.Caixa caixa = Estruturas.caixa(t.get(), p, r);
-        Espaco.Resultado res = Estruturas.checar(nivel, t.get(), p, r);
+        boolean grande = Estruturas.grandeDemais(t.get(), r);
+        // Grande: aqui só o chão (uma camada). O resto da caixa é conferido em partes no colocar, antes de pôr nada.
+        Espaco.Resultado res = grande ? Estruturas.checarChao(nivel, t.get(), p, r) : Estruturas.checar(nivel, t.get(), p, r);
         if (c.getSource().getEntity() instanceof ServerPlayer admin) contorno(nivel, admin, caixa, res);
         if (res.cabe()) {
             // Só prévia que cabe libera o colocar.
             PREVIAS.put(c.getSource().getTextName(), chavePrevia(id, p, r));
             PREVIAS_QUANDO.put(c.getSource().getTextName(), System.currentTimeMillis());
             int ret = ok(c, "odteste.estrutura.prever.cabe", id.toString(), caixa.volume());
-            if (Estruturas.grandeDemais(t.get(), r)) {
+            if (grande) {
                 int n = EmPartes.fatiasPrevistas(caixa);
                 // TODO lang
-                c.getSource().sendSuccess(() -> Component.literal("Grande: vai em " + n + " partes, uma por tick (~"
-                        + Math.max(1, n / 20) + " s). Chunks precisam estar carregados.").withStyle(ChatFormatting.GRAY), false);
+                c.getSource().sendSuccess(() -> Component.literal("Grande: o chão serve. No colocar, o espaço é conferido em "
+                        + n + " partes e só depois a estrutura entra, uma parte por tick (~" + Math.max(1, 2 * n / 20)
+                        + " s no total). Chunks precisam estar carregados.").withStyle(ChatFormatting.GRAY), false);
             }
             return ret;
         }
@@ -428,14 +431,14 @@ public final class ComandosHistoria {
     }
 
     /**
-     * Estrutura grande: confere a caixa inteira de novo (o mundo pode ter mudado desde o prever) e começa a pôr
-     * uma fatia por tick. Cada fatia ainda confere o próprio espaço antes de pôr.
+     * Estrutura grande: confere o chão de novo (o mundo pode ter mudado desde o prever) e começa. Primeiro o
+     * espaço da caixa é conferido em partes, sem pôr nada; depois cada fatia confere o próprio espaço e entra.
      */
     private static int colocarEmPartes(CommandContext<CommandSourceStack> c, ServerLevel nivel, StructureTemplate t,
                                        ResourceLocation id, BlockPos p, Rotation r, String quem) {
         if (Estruturas.grandeDemaisAtePartes(t, r)) return erro(c, "odteste.estrutura.erro.grande", Estruturas.VOLUME_MAXIMO_PARTES);
         PREVIAS.remove(quem);
-        Espaco.Resultado res = Estruturas.checar(nivel, t, p, r);
+        Espaco.Resultado res = Estruturas.checarChao(nivel, t, p, r);
         if (!res.cabe()) {
             erro(c, "odteste.estrutura.erro.sem_lugar", id.toString(), res.x(), res.y(), res.z(), motivo(res.motivo()));
             sugerir(c, nivel, t, id, p, r);
@@ -448,9 +451,9 @@ public final class ComandosHistoria {
         d.colocacoes.put(idColocacao, col);
         d.setDirty();
         // TODO lang
-        return responder(c, true, Component.literal("Colocando " + id + " em " + col.partes().total + " partes (id "
-                + idColocacao + "). O progresso aparece no chat. Para cancelar e tirar tudo: /odteste estrutura desfazer "
-                + idColocacao));
+        return responder(c, true, Component.literal("Conferindo o espaço de " + id + " em " + col.partes().total
+                + " partes (id " + idColocacao + "); se couber, a estrutura entra logo depois. O progresso aparece no chat. "
+                + "Para cancelar e tirar tudo: /odteste estrutura desfazer " + idColocacao));
     }
 
     private static int continuarEstrutura(CommandContext<CommandSourceStack> c) {

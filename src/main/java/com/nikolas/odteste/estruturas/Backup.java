@@ -1,5 +1,6 @@
 package com.nikolas.odteste.estruturas;
 
+import it.unimi.dsi.fastutil.longs.LongArrayList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -125,9 +126,9 @@ public final class Backup {
      * Baú nosso: o que for peça de história ({@code descartar}) sai; o resto é de jogador e cai no chão.
      */
     public Restauracao restaurar(ServerLevel nivel, Predicate<ItemStack> descartar) {
-        List<BlockPos> trocados = new ArrayList<>();
+        LongArrayList trocados = new LongArrayList();
         Restauracao r = restaurarDe(nivel, descartar, 0, trocados);
-        for (BlockPos p : trocados) atualizarVizinhos(nivel, p);
+        for (int i = 0; i < trocados.size(); i++) atualizarVizinhos(nivel, BlockPos.of(trocados.getLong(i)));
         return r;
     }
 
@@ -137,7 +138,7 @@ public final class Backup {
      * Os vizinhos <b>não</b> reagem aqui: as posições trocadas vão para {@code trocados}, e quem chama roda
      * {@link #atualizarVizinhos} em todas no fim (senão uma tocha nossa cai da parede nossa antes da hora).
      */
-    public Restauracao restaurarParte(ServerLevel nivel, Predicate<ItemStack> descartar, int limite, List<BlockPos> trocados) {
+    public Restauracao restaurarParte(ServerLevel nivel, Predicate<ItemStack> descartar, int limite, LongArrayList trocados) {
         int de = Math.max(0, posicoes.size() - Math.max(1, limite));
         Restauracao r = restaurarDe(nivel, descartar, de, trocados);
         for (int i = posicoes.size() - 1; i >= de; i--) {
@@ -166,7 +167,7 @@ public final class Backup {
         nivel.blockUpdated(p, st.getBlock());
     }
 
-    private Restauracao restaurarDe(ServerLevel nivel, Predicate<ItemStack> descartar, int de, List<BlockPos> trocados) {
+    private Restauracao restaurarDe(ServerLevel nivel, Predicate<ItemStack> descartar, int de, LongArrayList trocados) {
         int mantidos = 0;
         int soltos = 0;
         BlockPos onde = null;
@@ -186,7 +187,7 @@ public final class Backup {
             }
             if (be != null) Clearable.tryClear(be);
             nivel.setBlock(p, paleta.get(originais.get(i)), SEM_VIZINHOS);
-            trocados.add(p);
+            trocados.add(p.asLong());
         }
         return new Restauracao(mantidos, soltos, onde);
     }

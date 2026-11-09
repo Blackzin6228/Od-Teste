@@ -116,6 +116,15 @@ public final class Espaco {
      * uma camada, e para assim que faltar chão demais): em cima de ravina ou água, nem lê a caixa.
      */
     public static Resultado checarComChao(Caixa c, Mundo m) {
+        Resultado chao = checarChao(c, m);
+        return chao.cabe() ? checar(c, m) : chao;
+    }
+
+    /**
+     * Só o chão embaixo da caixa (uma camada; para assim que faltar chão demais). A estrutura grande confere só
+     * isto no {@code prever}: o resto da caixa é conferido em partes, um pedaço por tick.
+     */
+    public static Resultado checarChao(Caixa c, Mundo m) {
         int area = c.largura() * c.fundo();
         int maxFalhas = area - (int) Math.ceil(area * CHAO_MINIMO);
         int falhas = 0;
@@ -127,7 +136,7 @@ public final class Espaco {
                 if (!t.chao && ++falhas > maxFalhas) return new Resultado(false, c.x0(), y, c.z0(), Tipo.AR);
             }
         }
-        return checar(c, m);
+        return Resultado.OK;
     }
 
     /**

@@ -1,14 +1,13 @@
 package com.nikolas.odteste.estruturas;
 
 import com.nikolas.odteste.OdMod;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -26,15 +25,17 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
  * Colocação e desfazer de estrutura grande em partes: uma fatia ({@link Fatias}) por tick, no máximo
  * {@code blocos_por_tick} blocos ({@link ConfigEstruturas}). Só uma estrutura anda por tick.
  *
- * Regras que continuam valendo:
- * <ul>
- * <li>Cada fatia confere o espaço de novo logo antes de pôr (um jogador pode ter construído ali depois do
- * {@code prever}). Bloqueio pausa e avisa o admin: nada de jogador é apagado.</li>
- * <li>Chunk não carregado: espera (avisa uma vez), não carrega chunk.</li>
- * <li>Tudo entra no mesmo {@link Backup}; {@code desfazer} funciona a qualquer momento, inclusive no meio.</li>
- * <li>O andamento ({@link Colocacao.Partes}) fica salvo junto da colocação: se o servidor reiniciar, continua
- * da fatia salva. Se a fatia achar bloco que não esperava (o mundo salvou antes do andamento), pausa.</li>
- * </ul>
+ * Fases ({@link Colocacao.Fase}):
+ * <ol>
+ * <li><b>conferindo</b>: confere o espaço da caixa inteira, fatia por fatia, sem pôr nada. Bloqueio cancela
+ * (nada foi colocado, a colocação some). Assim o servidor nunca lê a caixa inteira num tick só.</li>
+ * <li><b>colocando</b>: cada fatia confere o próprio espaço de novo logo antes de pôr (um jogador pode ter
+ * construído ali no meio). Bloqueio pausa e avisa o admin: nada de jogador é apagado.</li>
+ * <li><b>pronta</b>, ou <b>pausada</b> (espera {@code continuar} ou {@code desfazer}).</li>
+ * <li><b>desfazendo</b>: um pedaço do backup por tick; no fim os vizinhos se ajustam, também aos pedaços.</li>
+ * </ol>
+ * Chunk não carregado: espera (avisa uma vez), não carrega chunk. O andamento fica salvo junto da colocação:
+ * se o servidor reiniciar, continua de onde parou.
  */
 public final class EmPartes {
     /** O que a colocação em partes precisa de fora do pacote (os dados salvos ficam na história). */
@@ -50,12 +51,14 @@ public final class EmPartes {
     /** Ticks de espera quando falta chunk carregado. */
     private static final int ESPERA_CHUNK = 40;
 
-    /** Só memória (some ao reiniciar): template já lido, avisos e o que falta atualizar no fim do desfazer. */
+    /** Só memória (some ao reiniciar e é refeita): template separado por camada, avisos e contagens. */
     private static final class Memoria {
-        StructureTemplate template;
         Espaco.Caixa caixa;
-        final List<BlockPos> trocados = new ArrayList<>();
-        int vizinhosFeitos;
+        StructureTemplate template;
+        /** Blocos de cada camada; a camada sai daqui quando é carregada (a memória vai liberando). */
+        CompoundTag[] camadas;
+        int camadaAtual = -1;
+        StructureTemplate templateCamada;
         int inicialDesfazer = -1;
         int mantidos;
         int soltos;
@@ -88,14 +91,14 @@ public final class EmPartes {
     // ------------------------------------------------------------------ comandos
 
     /**
-     * Começa a colocar (quem chama já conferiu o espaço da caixa inteira e põe a colocação nos dados).
+     * Começa pela conferência do espaço (quem chama já conferiu o chão e põe a colocação nos dados).
      * @param admin quem recebe os avisos no chat (null = só no log)
      */
     public static Colocacao comecar(ServerLevel nivel, StructureTemplate t, String id, ResourceLocation template,
                                     BlockPos ponto, Rotation rotacao, UUID admin) {
         Espaco.Caixa c = Estruturas.caixa(t, ponto, rotacao);
         int limite = ConfigEstruturas.blocosPorTick();
-        Colocacao.Partes p = new Colocacao.Partes(rotacao, limite, Fatias.total(c, limite), 0, Colocacao.Fase.COLOCANDO, admin);
+        Colocacao.Partes p = new Colocacao.Partes(rotacao, limite, Fatias.total(c, limite), 0, Colocacao.Fase.CONFERINDO, admin);
         Memoria m = new Memoria();
         m.template = t;
         m.caixa = c;
@@ -109,22 +112,29 @@ public final class EmPartes {
         return Fatias.total(c, ConfigEstruturas.blocosPorTick());
     }
 
-    /** Pausada volta a andar (a próxima fatia confere o espaço de novo). */
+    /** Pausada volta a andar. Se nada foi posto ainda, confere tudo de novo antes. */
     public static boolean continuar(Colocacao col, UUID admin) {
         Colocacao.Partes p = col.partes();
         if (p == null || p.fase != Colocacao.Fase.PAUSADA) return false;
-        p.fase = Colocacao.Fase.COLOCANDO;
+        if (col.backup().tamanho() == 0) {
+            p.fase = Colocacao.Fase.CONFERINDO;
+            p.fatia = 0;
+        } else {
+            p.fase = Colocacao.Fase.COLOCANDO; // a próxima fatia confere o próprio espaço antes de pôr
+        }
         if (admin != null) p.admin = admin;
         MEMORIA.remove(col.id());
         talvez = true;
         return true;
     }
 
-    /** Começa a desfazer em partes (pode ser no meio da colocação). */
+    /** Começa a desfazer em partes (pode ser no meio da conferência ou da colocação). */
     public static boolean desfazer(Colocacao col, UUID admin) {
         Colocacao.Partes p = col.partes();
         if (p == null || p.fase == Colocacao.Fase.DESFAZENDO) return false;
         p.fase = Colocacao.Fase.DESFAZENDO;
+        p.vizinhos.clear();
+        p.vizinhosFeitos = 0;
         if (admin != null) p.admin = admin;
         MEMORIA.remove(col.id());
         talvez = true;
@@ -165,14 +175,81 @@ public final class EmPartes {
         if (alvo == null) return;
         Memoria m = MEMORIA.computeIfAbsent(alvo.id(), k -> new Memoria());
         try {
-            if (alvo.partes().fase == Colocacao.Fase.DESFAZENDO) passoDesfazer(s, alvo, m, agora);
-            else passoColocar(s, alvo, m, agora);
+            switch (alvo.partes().fase) {
+                case CONFERINDO -> passoConferir(s, alvo, m, agora);
+                case COLOCANDO -> passoColocar(s, alvo, m, agora);
+                case DESFAZENDO -> passoDesfazer(s, alvo, m, agora);
+                default -> { }
+            }
         } catch (RuntimeException ex) {
             // Nunca derrubar o servidor nem repetir o erro todo tick: para e espera o admin.
             OdMod.LOGGER.error("Estrutura {} parou com erro", alvo.id(), ex);
-            if (alvo.partes().fase == Colocacao.Fase.COLOCANDO) pausar(s, alvo, "erro interno (ver o log)");
+            if (alvo.partes().fase != Colocacao.Fase.DESFAZENDO) pausar(s, alvo, "erro interno (ver o log)");
             else m.esperaAte = agora + 20 * 60;
         }
+    }
+
+    /** Lê o template e a caixa (uma vez por colocação, ou de novo depois de reiniciar). Falso = parou. */
+    private static boolean preparar(MinecraftServer s, Colocacao col, Memoria m, ServerLevel nivel) {
+        if (m.caixa != null) return true;
+        Colocacao.Partes p = col.partes();
+        ResourceLocation rl = ResourceLocation.tryParse(col.template());
+        m.template = rl == null ? null : Estruturas.template(nivel, rl).orElse(null);
+        if (m.template == null) {
+            pausar(s, col, "o template sumiu");
+            return false;
+        }
+        m.caixa = Estruturas.caixa(m.template, col.canto(), p.rotacao);
+        if (Fatias.total(m.caixa, p.limite) != p.total) {
+            // O arquivo da estrutura mudou de tamanho depois que começou: as fatias não batem mais.
+            m.caixa = null;
+            pausar(s, col, "o template mudou de tamanho");
+            return false;
+        }
+        m.ultimoDecimo = p.total == 0 ? 0 : p.fatia * 10 / p.total;
+        return true;
+    }
+
+    private static void passoConferir(MinecraftServer s, Colocacao col, Memoria m, long agora) {
+        Colocacao.Partes p = col.partes();
+        ServerLevel nivel = s.getLevel(col.dimensao());
+        if (nivel == null) {
+            pausar(s, col, "a dimensão não existe");
+            return;
+        }
+        if (!preparar(s, col, m, nivel)) return;
+        if (p.fatia >= p.total) {
+            p.fase = Colocacao.Fase.COLOCANDO;
+            p.fatia = 0;
+            m.ultimoDecimo = 0;
+            acesso.sujo(s);
+            // TODO lang
+            avisar(s, p, Component.literal("Estrutura " + col.id() + ": espaço conferido, colocando em " + p.total + " partes.")
+                    .withStyle(ChatFormatting.GRAY));
+            return;
+        }
+        Espaco.Resultado r = Espaco.checar(Fatias.fatia(m.caixa, p.limite, p.fatia), new MundoReal(nivel));
+        if (!r.cabe()) {
+            if (r.motivo() == Espaco.Tipo.NAO_CARREGADO) {
+                esperarChunk(s, col, m, agora, r.x(), r.y(), r.z());
+                return;
+            }
+            // Nada foi posto: só cancela.
+            acesso.colocacoes(s).remove(col.id());
+            MEMORIA.remove(col.id());
+            acesso.sujo(s);
+            // TODO lang
+            avisar(s, p, Component.literal("Estrutura " + col.id() + " (" + col.template() + ") não cabe: bloqueio em "
+                            + r.x() + " " + r.y() + " " + r.z() + " (")
+                    .append(motivo(r))
+                    .append("). Nada foi colocado; escolha outro ponto e use prever de novo.")
+                    .withStyle(ChatFormatting.RED));
+            return;
+        }
+        p.fatia++;
+        m.avisouEspera = false;
+        acesso.sujo(s);
+        progresso(s, col, m, "Conferindo");
     }
 
     private static void passoColocar(MinecraftServer s, Colocacao col, Memoria m, long agora) {
@@ -182,21 +259,7 @@ public final class EmPartes {
             pausar(s, col, "a dimensão não existe");
             return;
         }
-        if (m.template == null) {
-            ResourceLocation rl = ResourceLocation.tryParse(col.template());
-            m.template = rl == null ? null : Estruturas.template(nivel, rl).orElse(null);
-            if (m.template == null) {
-                pausar(s, col, "o template sumiu");
-                return;
-            }
-            m.caixa = Estruturas.caixa(m.template, col.canto(), p.rotacao);
-            m.ultimoDecimo = p.total == 0 ? 0 : p.fatia * 10 / p.total;
-        }
-        if (Fatias.total(m.caixa, p.limite) != p.total) {
-            // O arquivo da estrutura mudou de tamanho depois que começou: as fatias não batem mais.
-            pausar(s, col, "o template mudou de tamanho");
-            return;
-        }
+        if (!preparar(s, col, m, nivel)) return;
         if (p.fatia >= p.total) {
             terminarColocacao(s, col);
             return;
@@ -211,7 +274,18 @@ public final class EmPartes {
             pausar(s, col, r);
             return;
         }
-        Estruturas.colocarParte(nivel, m.template, col.canto(), p.rotacao, f, col.backup(), true);
+        // O template é separado por camada uma vez só; cada tick carrega só a camada da vez.
+        if (m.camadas == null) {
+            m.camadas = Estruturas.porCamada(m.template, col.canto(), p.rotacao, m.caixa, p.limite);
+            m.template = null;
+        }
+        int k = Fatias.camadaDaFatia(m.caixa, p.limite, p.fatia);
+        if (k != m.camadaAtual) {
+            m.templateCamada = Estruturas.carregarCamada(m.camadas[k]);
+            m.camadas[k] = null;
+            m.camadaAtual = k;
+        }
+        Estruturas.colocarParte(nivel, m.templateCamada, col.canto(), p.rotacao, f, col.backup(), true);
         p.fatia++;
         m.avisouEspera = false;
         acesso.sujo(s);
@@ -219,13 +293,17 @@ public final class EmPartes {
             terminarColocacao(s, col);
             return;
         }
-        int decimo = p.fatia * 10 / p.total;
-        if (decimo > m.ultimoDecimo) {
-            m.ultimoDecimo = decimo;
-            // TODO lang
-            avisar(s, p, Component.literal("Estrutura " + col.id() + ": " + decimo * 10 + "% (" + p.fatia + "/" + p.total + ")")
-                    .withStyle(ChatFormatting.GRAY));
-        }
+        progresso(s, col, m, "Colocando");
+    }
+
+    private static void progresso(MinecraftServer s, Colocacao col, Memoria m, String fazendo) {
+        Colocacao.Partes p = col.partes();
+        int decimo = p.total == 0 ? 10 : p.fatia * 10 / p.total;
+        if (decimo <= m.ultimoDecimo || decimo >= 10) return;
+        m.ultimoDecimo = decimo;
+        // TODO lang
+        avisar(s, p, Component.literal(fazendo + " " + col.id() + ": " + decimo * 10 + "% (" + p.fatia + "/" + p.total + ")")
+                .withStyle(ChatFormatting.GRAY));
     }
 
     private static void terminarColocacao(MinecraftServer s, Colocacao col) {
@@ -259,7 +337,7 @@ public final class EmPartes {
                 esperarChunk(s, col, m, agora, fora.getX(), fora.getY(), fora.getZ());
                 return;
             }
-            Backup.Restauracao r = b.restaurarParte(nivel, acesso::ehPeca, p.limite, m.trocados);
+            Backup.Restauracao r = b.restaurarParte(nivel, acesso::ehPeca, p.limite, p.vizinhos);
             m.mantidos += r.mantidos();
             m.soltos += r.itensSoltos();
             if (m.ondeSoltou == null) m.ondeSoltou = r.ondeSoltou();
@@ -273,11 +351,12 @@ public final class EmPartes {
             }
             return;
         }
-        // Tudo de volta: agora os vizinhos se ajustam, também aos pedaços.
-        if (m.vizinhosFeitos < m.trocados.size()) {
-            int ate = Math.min(m.trocados.size(), m.vizinhosFeitos + p.limite);
-            for (int i = m.vizinhosFeitos; i < ate; i++) Backup.atualizarVizinhos(nivel, m.trocados.get(i));
-            m.vizinhosFeitos = ate;
+        // Tudo de volta: agora os vizinhos se ajustam, também aos pedaços (a lista fica salva).
+        if (p.vizinhosFeitos < p.vizinhos.size()) {
+            int ate = Math.min(p.vizinhos.size(), p.vizinhosFeitos + p.limite);
+            for (int i = p.vizinhosFeitos; i < ate; i++) Backup.atualizarVizinhos(nivel, BlockPos.of(p.vizinhos.getLong(i)));
+            p.vizinhosFeitos = ate;
+            acesso.sujo(s);
             return;
         }
         acesso.colocacoes(s).remove(col.id());
@@ -300,10 +379,14 @@ public final class EmPartes {
                 + " carregar (fique perto). Continua sozinha.").withStyle(ChatFormatting.YELLOW));
     }
 
+    private static Component motivo(Espaco.Resultado r) {
+        return Component.translatable("odteste.espaco." + r.motivo().name().toLowerCase(Locale.ROOT));
+    }
+
     private static void pausar(MinecraftServer s, Colocacao col, Espaco.Resultado r) {
         // TODO lang
         pausar(s, col, Component.literal("bloqueio em " + r.x() + " " + r.y() + " " + r.z() + " (")
-                .append(Component.translatable("odteste.espaco." + r.motivo().name().toLowerCase(Locale.ROOT)))
+                .append(motivo(r))
                 .append(")"));
     }
 
@@ -323,7 +406,7 @@ public final class EmPartes {
                 .withStyle(ChatFormatting.RED));
     }
 
-    /** Avisa o admin que começou (se estiver online) e sempre deixa no log. */
+    /** Avisa o admin da colocação (se estiver online) e sempre deixa no log. */
     private static void avisar(MinecraftServer s, Colocacao.Partes p, Component msg) {
         OdMod.LOGGER.info("[estrutura] {}", msg.getString());
         if (p.admin == null) return;
