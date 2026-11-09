@@ -37,7 +37,7 @@ Status: **rascunho para o Nikolas aprovar.** Item de história do Ato 1, guardad
 > Na primeira noite pediram pão, e houve pão. Na segunda pediram carne, e o gado parou de cair. Ninguém viu o homem. Só uma mesa posta na capela, com uma cadeira a mais. Ninguém perguntou de quem era.
 
 **Página 6**
-> Depois a carne não bastou. Comiam, e a fome ficava. O Carniceiro passou a trabalhar de madrugada. O cheiro de ferro subiu do curral para a rua, e da rua entrou nas camas. Chamavam isso de bênção.
+> Depois a carne não bastou. Comiam, e a fome ficava. O Açougueiro passou a trabalhar de madrugada. O cheiro de ferro subiu do curral para a rua, e da rua entrou nas camas. Chamavam isso de bênção.
 >
 > [vermelho, Exposição média] *Os dentes vieram depois da carne.*
 
@@ -79,9 +79,9 @@ Status: **rascunho para o Nikolas aprovar.** Item de história do Ato 1, guardad
 | Pág. 7 | Botões de pedra no peitoril | O grupo acha a casa da Moça do Terço (ficha) |
 | Pág. 9 e 11 | O sino é uma porta | O Ato 5 (sino tocando ao contrário) |
 | Pág. 12 | Quatro portas pequenas + uma parede | Os quatro elementos e o Medo, sem dizer nomes |
-| Pág. 13 | Dois tons, cinco em cinco, "outro sino" | Dá o Morse (Enigma 1) e a cifra de César deslocamento 5 (Enigma 2) a quem leu |
+| Pág. 13 | Dois tons, cinco em cinco, "outro sino" | Dá o Morse dos blocos de nota do Moinho Parado (E1, PORTA) e a cifra de César deslocamento 5 (E2) a quem leu |
 | Pág. 14 | "Ninguém tocou a segunda vez" | A entrada já aconteceu; o grupo foi chamado |
 
 ## Pontos para o Nikolas conferir
 - O Sineiro fechou "a que sangrava, e mal": é por isso que o Diabo ainda está solto no Ato 1. Gosta?
-- O Compadre e a Moça do Terço aparecem aqui como moradores. No Livro-Caixa (Enigma 4) eles são os dois nomes que se repetem. Continuam NPCs nossos.
+- O Compadre e a Moça do Terço aparecem aqui como moradores. No Livro de Trocas do Açougueiro (E3 em `enigmas-fora.md`) eles são os dois nomes que se repetem. Continuam NPCs nossos.
