@@ -472,9 +472,26 @@ public final class PrimeiroSinal {
         List<BlockPos> conferir = new ArrayList<>(v.blocos.posicoes());
         conferir.add(v.sino);
         if (v.cama != null) conferir.add(v.cama);
+        BlockPos ondeAldeao = v.aldeao == null ? null : posicaoSalva(v.aldeao);
+        if (ondeAldeao != null) conferir.add(ondeAldeao);
         for (BlockPos p : conferir) {
             if (!nivel.hasChunk(p.getX() >> 4, p.getZ() >> 4)) {
                 return Resposta.erro("odteste.evento.erro.descarregado", p.getX(), p.getY(), p.getZ());
+            }
+        }
+
+        // O aldeão volta primeiro. Se não voltar, nada muda: a vila e o aldeão salvo ficam para tentar de novo.
+        boolean voltou = false;
+        if (v.aldeao != null) {
+            Entity e = EntityType.loadEntityRecursive(v.aldeao.copy(), nivel, x -> x);
+            if (e != null) {
+                if (nivel.getEntity(e.getUUID()) != null) e.setUUID(UUID.randomUUID());
+                voltou = nivel.addFreshEntity(e);
+            }
+            if (!voltou) {
+                OdMod.LOGGER.warn("Primeiro Sinal: o aldeão do grupo {} não voltou no desfazer; a vila fica marcada", v.grupo);
+                BlockPos p = ondeAldeao == null ? v.sino : ondeAldeao;
+                return Resposta.erro("odteste.evento.erro.aldeao_nao_voltou", v.grupo, p.getX(), p.getY(), p.getZ());
             }
         }
 
@@ -488,14 +505,6 @@ public final class PrimeiroSinal {
                 d.descongelarDepois.put(e.getKey(), e.getValue());
             }
         }
-        boolean voltou = false;
-        if (v.aldeao != null) {
-            Entity e = EntityType.loadEntityRecursive(v.aldeao, nivel, x -> x);
-            if (e != null) {
-                if (nivel.getEntity(e.getUUID()) != null) e.setUUID(UUID.randomUUID());
-                voltou = nivel.addFreshEntity(e);
-            }
-        }
         for (String m : v.marcosDados) d.grupos.desmarcar(v.grupo, m);
         d.vilas.remove(v.grupo);
         OUVINTES.remove(v.grupo);
@@ -503,6 +512,13 @@ public final class PrimeiroSinal {
         d.setDirty();
         return new Resposta(true, Component.translatable("odteste.evento.desfazer.ok", v.grupo, mantidos,
                 Component.translatable(v.aldeao == null ? "odteste.evento.nao" : voltou ? "odteste.evento.sim" : "odteste.evento.falhou")));
+    }
+
+    /** Onde o aldeão estava quando sumiu (chave "Pos" do jogo), ou null se o arquivo não tem. */
+    private static BlockPos posicaoSalva(CompoundTag aldeao) {
+        net.minecraft.nbt.ListTag pos = aldeao.getList("Pos", net.minecraft.nbt.Tag.TAG_DOUBLE);
+        if (pos.size() != 3) return null;
+        return BlockPos.containing(pos.getDouble(0), pos.getDouble(1), pos.getDouble(2));
     }
 
     private static void devolver(Villager a, int como) {
