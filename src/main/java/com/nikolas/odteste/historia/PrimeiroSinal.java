@@ -140,6 +140,8 @@ public final class PrimeiroSinal {
     private PrimeiroSinal() {}
 
     public static void iniciar() {
+        // Soltar sozinho na noite de neblina e o aviso "não seguiu o sino" (pacote gatilhos).
+        com.nikolas.odteste.historia.gatilhos.Gatilhos.iniciar();
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoTick);
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoInteragirComAldeao);
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoClicarBloco);
