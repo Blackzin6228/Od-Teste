@@ -30,6 +30,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.protocol.game.ClientboundBlockEventPacket;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.resources.ResourceLocation;
@@ -412,9 +413,7 @@ public final class PrimeiroSinal {
     }
 
     private static void colocar(ServerLevel nivel, Backup b, BlockPos p, BlockState st) {
-        BlockState antes = nivel.getBlockState(p);
-        nivel.setBlock(p, st, Block.UPDATE_ALL);
-        b.anotar(p, antes, nivel.getBlockState(p));
+        b.colocar(nivel, p, st);
     }
 
     /** Símbolo provisório (cruz vermelha com centro preto) até o Modelador desenhar a Cruz de Ferro. */
@@ -495,7 +494,8 @@ public final class PrimeiroSinal {
             }
         }
 
-        int mantidos = v.blocos.restaurar(nivel);
+        Backup.Restauracao rest = v.blocos.restaurar(nivel, PrimeiroSinal::ehPeca);
+        int mantidos = rest.mantidos();
         liberar(v.grupo);
         // Aldeões que a versão antiga deixou com NoAI salvo: voltam agora ou quando o chunk carregar.
         for (Map.Entry<UUID, Integer> e : v.congelados.entrySet()) {
@@ -510,8 +510,22 @@ public final class PrimeiroSinal {
         OUVINTES.remove(v.grupo);
         ULTIMA_PLACA.remove(v.grupo);
         d.setDirty();
-        return new Resposta(true, Component.translatable("odteste.evento.desfazer.ok", v.grupo, mantidos,
-                Component.translatable(v.aldeao == null ? "odteste.evento.nao" : voltou ? "odteste.evento.sim" : "odteste.evento.falhou")));
+        MutableComponent msg = Component.translatable("odteste.evento.desfazer.ok", v.grupo, mantidos,
+                Component.translatable(v.aldeao == null ? "odteste.evento.nao" : voltou ? "odteste.evento.sim" : "odteste.evento.falhou"));
+        return new Resposta(true, comItensSoltos(msg, rest.itensSoltos(), rest.ondeSoltou()));
+    }
+
+    /** Junta à resposta do admin o aviso de itens de jogador soltos no chão (se houve). */
+    public static MutableComponent comItensSoltos(MutableComponent msg, int soltos, BlockPos onde) {
+        if (soltos <= 0 || onde == null) return msg;
+        return msg.append(" ").append(Component.translatable("odteste.historia.itens_soltos",
+                soltos, onde.getX(), onde.getY(), onde.getZ()));
+    }
+
+    /** Item é peça de história nossa (livro, mapa)? O desfazer tira essas do baú; o resto é do jogador. */
+    public static boolean ehPeca(ItemStack it) {
+        CustomData cd = it.get(DataComponents.CUSTOM_DATA);
+        return cd != null && cd.contains(IdsHistoria.CHAVE_PECA);
     }
 
     /** Onde o aldeão estava quando sumiu (chave "Pos" do jogo), ou null se o arquivo não tem. */

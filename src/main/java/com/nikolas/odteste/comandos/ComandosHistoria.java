@@ -375,10 +375,11 @@ public final class ComandosHistoria {
             BlockPos p = faltando.get(0);
             return erro(c, "odteste.evento.erro.descarregado", p.getX(), p.getY(), p.getZ());
         }
-        int mantidos = b.restaurar(nivel);
+        Backup.Restauracao rest = b.restaurar(nivel, PrimeiroSinal::ehPeca);
         d.colocacoes.remove(id);
         d.setDirty();
-        return ok(c, "odteste.estrutura.desfeita", id, mantidos);
+        return responder(c, true, PrimeiroSinal.comItensSoltos(
+                Component.translatable("odteste.estrutura.desfeita", id, rest.mantidos()), rest.itensSoltos(), rest.ondeSoltou()));
     }
 
     private static int listarEstruturas(CommandContext<CommandSourceStack> c) {
