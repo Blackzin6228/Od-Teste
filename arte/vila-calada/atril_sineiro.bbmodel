@@ -1,0 +1,49 @@
+{
+	"meta": {"format_version": "4.10", "model_format": "java_block", "box_uv": false},
+	"name": "atril_sineiro",
+	"parent": "",
+	"ambientocclusion": true,
+	"front_gui_light": false,
+	"visible_box": [1, 1, 0],
+	"variable_placeholders": "",
+	"variable_placeholder_buttons": [],
+	"unhandled_root_fields": {},
+	"resolution": {"width": 16, "height": 16},
+	"elements": [
+		{"name": "base", "box_uv": false, "rescale": false, "locked": false, "from": [3, 0, 3], "to": [13, 2, 13], "autouv": 0, "color": 0, "origin": [8, 0, 8],
+			"faces": {"north": {"uv": [3, 14, 13, 16], "texture": 0}, "east": {"uv": [3, 14, 13, 16], "texture": 0}, "south": {"uv": [3, 14, 13, 16], "texture": 0}, "west": {"uv": [3, 14, 13, 16], "texture": 0}, "up": {"uv": [3, 3, 13, 13], "texture": 0}, "down": {"uv": [3, 3, 13, 13], "texture": 0, "cullface": "down"}},
+			"type": "cube", "uuid": "a7f1c000-0000-4000-8000-000000000001"},
+		{"name": "poste", "box_uv": false, "rescale": false, "locked": false, "from": [6, 2, 6], "to": [10, 12, 10], "autouv": 0, "color": 0, "origin": [8, 2, 8],
+			"faces": {"north": {"uv": [6, 4, 10, 14], "texture": 0}, "east": {"uv": [6, 4, 10, 14], "texture": 0}, "south": {"uv": [6, 4, 10, 14], "texture": 0}, "west": {"uv": [6, 4, 10, 14], "texture": 0}, "up": {"uv": [6, 6, 10, 10], "texture": 0}, "down": {"uv": [6, 6, 10, 10], "texture": 0}},
+			"type": "cube", "uuid": "a7f1c000-0000-4000-8000-000000000002"},
+		{"name": "tampo", "box_uv": false, "rescale": false, "locked": false, "from": [1, 12, 2], "to": [15, 14, 14], "autouv": 0, "color": 0, "rotation": [-22.5, 0, 0], "origin": [8, 12, 8],
+			"faces": {"north": {"uv": [1, 2, 15, 4], "texture": 0}, "east": {"uv": [2, 2, 14, 4], "texture": 0}, "south": {"uv": [1, 2, 15, 4], "texture": 0}, "west": {"uv": [2, 2, 14, 4], "texture": 0}, "up": {"uv": [1, 2, 15, 14], "texture": 0}, "down": {"uv": [1, 2, 15, 14], "texture": 0}},
+			"type": "cube", "uuid": "a7f1c000-0000-4000-8000-000000000003"},
+		{"name": "borda", "box_uv": false, "rescale": false, "locked": false, "from": [1, 14, 2], "to": [15, 15, 3], "autouv": 0, "color": 0, "rotation": [-22.5, 0, 0], "origin": [8, 12, 8],
+			"faces": {"north": {"uv": [1, 1, 15, 2], "texture": 0}, "east": {"uv": [2, 1, 3, 2], "texture": 0}, "south": {"uv": [1, 1, 15, 2], "texture": 0}, "west": {"uv": [2, 1, 3, 2], "texture": 0}, "up": {"uv": [1, 2, 15, 3], "texture": 0}, "down": {"uv": [1, 2, 15, 3], "texture": 0}},
+			"type": "cube", "uuid": "a7f1c000-0000-4000-8000-000000000004"},
+		{"name": "capa", "box_uv": false, "rescale": false, "locked": false, "from": [2.5, 14, 3.5], "to": [13.5, 14.5, 12.5], "autouv": 0, "color": 0, "rotation": [-22.5, 0, 0], "origin": [8, 12, 8],
+			"faces": {"north": {"uv": [0, 15, 11, 16], "texture": 1}, "east": {"uv": [0, 15, 9, 16], "texture": 1}, "south": {"uv": [0, 15, 11, 16], "texture": 1}, "west": {"uv": [0, 15, 9, 16], "texture": 1}, "up": {"uv": [0, 10, 11, 16], "texture": 1}, "down": {"uv": [0, 10, 11, 16], "texture": 1}},
+			"type": "cube", "uuid": "a7f1c000-0000-4000-8000-000000000005"},
+		{"name": "paginas", "box_uv": false, "rescale": false, "locked": false, "from": [3, 14.5, 4], "to": [13, 15.5, 12], "autouv": 0, "color": 0, "rotation": [-22.5, 0, 0], "origin": [8, 12, 8],
+			"faces": {"north": {"uv": [0, 8, 10, 9], "texture": 1}, "east": {"uv": [0, 9, 8, 10], "texture": 1}, "south": {"uv": [0, 8, 10, 9], "texture": 1}, "west": {"uv": [0, 9, 8, 10], "texture": 1}, "up": {"uv": [0, 0, 10, 8], "texture": 1}, "down": {"uv": [0, 10, 10, 15], "texture": 1}},
+			"type": "cube", "uuid": "a7f1c000-0000-4000-8000-000000000006"},
+		{"name": "fita", "box_uv": false, "rescale": false, "locked": false, "from": [7.5, 10, 1.75], "to": [8.5, 15.25, 2], "autouv": 0, "color": 0, "rotation": [-22.5, 0, 0], "origin": [8, 12, 8],
+			"faces": {"north": {"uv": [12, 0, 13, 6], "texture": 1}, "east": {"uv": [12, 0, 13, 6], "texture": 1}, "south": {"uv": [12, 0, 13, 6], "texture": 1}, "west": {"uv": [12, 0, 13, 6], "texture": 1}, "up": {"uv": [12, 0, 13, 1], "texture": 1}, "down": {"uv": [12, 5, 13, 6], "texture": 1}},
+			"type": "cube", "uuid": "a7f1c000-0000-4000-8000-000000000007"}
+	],
+	"outliner": [
+		"a7f1c000-0000-4000-8000-000000000001",
+		"a7f1c000-0000-4000-8000-000000000002",
+		"a7f1c000-0000-4000-8000-000000000003",
+		"a7f1c000-0000-4000-8000-000000000004",
+		"a7f1c000-0000-4000-8000-000000000005",
+		"a7f1c000-0000-4000-8000-000000000006",
+		"a7f1c000-0000-4000-8000-000000000007"
+	],
+	"textures": [
+		{"path": "", "name": "atril_madeira.png", "folder": "block", "namespace": "odteste", "id": "0", "width": 16, "height": 16, "uv_width": 16, "uv_height": 16, "particle": true, "use_as_default": false, "layers_enabled": false, "sync_to_project": "", "render_mode": "default", "render_sides": "auto", "frame_time": 1, "frame_order_type": "loop", "frame_order": "", "frame_interpolate": false, "visible": true, "internal": false, "saved": true, "uuid": "a7f1c000-0000-4000-8000-000000000201", "relative_path": "texturas/atril_madeira.png"},
+		{"path": "", "name": "atril_livro.png", "folder": "block", "namespace": "odteste", "id": "1", "width": 16, "height": 16, "uv_width": 16, "uv_height": 16, "particle": false, "use_as_default": false, "layers_enabled": false, "sync_to_project": "", "render_mode": "default", "render_sides": "auto", "frame_time": 1, "frame_order_type": "loop", "frame_order": "", "frame_interpolate": false, "visible": true, "internal": false, "saved": true, "uuid": "a7f1c000-0000-4000-8000-000000000202", "relative_path": "texturas/atril_livro.png"}
+	],
+	"display": {}
+}
