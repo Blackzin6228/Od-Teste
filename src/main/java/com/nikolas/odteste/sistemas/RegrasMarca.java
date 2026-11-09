@@ -45,8 +45,30 @@ public final class RegrasMarca {
 
     /** Sem Marca e já Tocado: o elemento com mais contato marca (estágio 1). Empate espera o próximo contato. */
     public static Optional<Elemento> marcaQueAparece(int exposicao, Map<Elemento, Integer> contato) {
+        return marcaQueAparece(exposicao, contato, Elemento.NENHUM, false);
+    }
+
+    /**
+     * Com o elemento do jogador definido pelo admin, a Marca só aparece nesse elemento, e só depois de revelado
+     * (antes disso o corpo entregaria o segredo). O contato continua contando escondido.
+     * Sem elemento: a regra de sempre (o contato decide).
+     */
+    public static Optional<Elemento> marcaQueAparece(int exposicao, Map<Elemento, Integer> contato,
+                                                     Elemento doJogador, boolean revelado) {
         if (!Degrau.de(exposicao).peloMenos(Degrau.TOCADO)) return Optional.empty();
-        return lider(contato, null);
+        if (doJogador == null || doJogador == Elemento.NENHUM) return lider(contato, null);
+        return revelado ? Optional.of(doJogador) : Optional.empty();
+    }
+
+    /**
+     * Com o elemento do jogador definido, a Marca nunca troca para outro elemento. Uma Marca antiga de outro elemento
+     * (de antes do admin definir) volta para o elemento dele, se ainda estiver no estágio 1 e ele já foi revelado.
+     */
+    public static Optional<Elemento> trocaSozinha(Elemento atual, int estagio, Map<Elemento, Integer> contato,
+                                                  Elemento doJogador, boolean revelado) {
+        if (doJogador == null || doJogador == Elemento.NENHUM) return trocaSozinha(atual, estagio, contato);
+        if (atual == null || atual == Elemento.NENHUM || atual == doJogador) return Optional.empty();
+        return revelado && estagio == 1 ? Optional.of(doJogador) : Optional.empty();
     }
 
     /**

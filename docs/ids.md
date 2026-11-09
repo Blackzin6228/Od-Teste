@@ -76,6 +76,8 @@ seguidas), e `odteste.horror.sussurro.nome`, `.nome.2`, `.voz` (nome sussurrado 
 | `odteste:textures/entity/retalhado.png`, `odteste:textures/entity/sanguessuga_mae.png` | texturas geradas no cliente | 2026-11-08 | provisórias (código em `cliente/ModeloCriatura`); o Modelador troca por PNG no mesmo caminho |
 | `odteste_sem_materia` | etiqueta de criatura (scoreboard tag, salva na criatura) | 2026-11-08 | criatura de spawner: não solta matéria |
 | `odteste:criatura_noite` | dado do jogador (número da noite = dia do relógio; −1 = nunca) | 2026-11-08 | noite em que a última criatura de Sangue nasceu sozinha perto dele (limite de 1 por jogador Tocado por noite); sobrevive à morte; não vai para o cliente |
+| `odteste:elemento` | dado do jogador (texto: `nenhum`, `sangue`, `conhecimento`, `morte`, `energia`) | 2026-11-08 | elemento definido pelo admin (`/odteste elemento`); sobrevive à morte; texto desconhecido vira `nenhum`; **nunca vai para o cliente** (nem do dono) |
+| `odteste:elemento_revelado` | dado do jogador (sim/não) | 2026-11-08 | a história já revelou o elemento (`/odteste elemento revelar`); trocar ou tirar o elemento volta para "não"; sobrevive à morte; nunca vai para o cliente |
 | `odteste_sentiram` | chave salva na criatura de Sangue (lista de UUIDs, até 32) | 2026-11-08 | jogadores que já viram esta criatura (Exposição e Lucidez só uma vez); sobrevive a reinício |
 | `odteste:esconder_jei` | plugin do JEI (`compat/jei`) | 2026-11-08 | esconde itens sem receita e as receitas `odteste:` (ritual do Occultism); não é salvo. O EMI usa `compat/emi` (sem ID) |
 | `efeitos_fortes` | chave de config do cliente (`config/odteste-client.toml`: `LIGADO`, `SUAVE`, `DESLIGADO`) | 08/11/2026 | fica no PC do jogador; renomear perde a escolha de quem usa suave/desligado |
@@ -87,3 +89,7 @@ Fontes de Exposição (usadas no comando `/exposicao contato` e no freio de repe
 Abalos de Lucidez (comando `/lucidez abalar`, **não** ficam salvos): `batalha_reliquia`, `aparicao`, `mob_sangue`.
 
 Os textos de elemento (`nenhum`, `sangue`…) também são IDs: ficam salvos no jogador.
+
+Marcadores de texto dos eventos (não ficam salvos, mas os textos da Lore usam): `escolhido_sangue`,
+`escolhido_conhecimento`, `escolhido_morte`, `escolhido_energia` (nome de quem é daquele elemento no grupo;
+`ElementoJogador.marcadores`).

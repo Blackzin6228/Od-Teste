@@ -89,7 +89,41 @@ public final class DadosJogador {
                     .copyOnDeath()
                     .build());
 
+    /**
+     * Elemento do jogador, definido pelo admin. **Nunca vai para o cliente** (nem do dono): antes de revelado,
+     * o jogador não pode ver o elemento em lugar nenhum. Texto desconhecido vira nenhum.
+     */
+    public static final Supplier<AttachmentType<Elemento>> ELEMENTO = Registro.DADOS.register(
+            IdsDados.ELEMENTO,
+            () -> AttachmentType.builder(() -> Elemento.NENHUM)
+                    .serialize(Codec.STRING.xmap(Elemento::deIdOuNenhum, Elemento::id))
+                    .copyOnDeath()
+                    .build());
+    /** A história já revelou o elemento? Nunca vai para o cliente. */
+    public static final Supplier<AttachmentType<Boolean>> ELEMENTO_REVELADO = Registro.DADOS.register(
+            IdsDados.ELEMENTO_REVELADO,
+            () -> AttachmentType.builder(() -> false)
+                    .serialize(Codec.BOOL)
+                    .copyOnDeath()
+                    .build());
+
     private DadosJogador() {}
+
+    /** Elemento do jogador (nenhum se o admin não definiu). Use sistemas.ElementoJogador para mudar. */
+    public static Elemento elemento(Player p) {
+        return p.getData(ELEMENTO);
+    }
+
+    public static boolean elementoRevelado(Player p) {
+        return elemento(p) != Elemento.NENHUM && p.getData(ELEMENTO_REVELADO);
+    }
+
+    /** Grava sem avisar ninguém (o cliente nunca recebe). Quem chama é ElementoJogador. */
+    public static void gravarElemento(Player p, Elemento e, boolean revelado) {
+        Elemento v = e == null ? Elemento.NENHUM : e;
+        p.setData(ELEMENTO, v);
+        p.setData(ELEMENTO_REVELADO, v != Elemento.NENHUM && revelado);
+    }
 
     public static long criaturaNoite(Player p) {
         return p.getData(CRIATURA_NOITE);

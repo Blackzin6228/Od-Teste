@@ -45,6 +45,7 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
  * /odteste grupo criar|adicionar|tirar|apagar|ver
  * /odteste evento primeiro_sinal <grupo> [ponto] · desfazer <grupo> · ver <grupo> · ancorar <lugar> <ponto> · desancorar <lugar>
  * /odteste estrutura prever|colocar <template> <ponto> [rotação] · desfazer <id> · lista
+ * /odteste elemento <jogador> [elemento] · revelar <jogador> (ComandosElemento)
  *
  * Para o admin, número aparece (coordenadas, contagens). Para o jogador, nunca.
  */
@@ -71,7 +72,8 @@ public final class ComandosHistoria {
         d.register(Commands.literal("odteste").requires(s -> s.hasPermission(2))
                 .then(grupo())
                 .then(evento())
-                .then(estrutura()));
+                .then(estrutura())
+                .then(ComandosElemento.elemento()));
     }
 
     private static DadosHistoria dados(CommandContext<CommandSourceStack> c) {

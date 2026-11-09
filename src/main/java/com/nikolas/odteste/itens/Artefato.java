@@ -2,6 +2,7 @@ package com.nikolas.odteste.itens;
 
 import com.nikolas.odteste.dados.DadosJogador;
 import com.nikolas.odteste.elementos.Elemento;
+import com.nikolas.odteste.sistemas.ElementoJogador;
 import com.nikolas.odteste.sistemas.Exposicao;
 import com.nikolas.odteste.sistemas.Fonte;
 import java.util.List;
@@ -37,8 +38,18 @@ public abstract class Artefato extends Item {
         this.elemento = elemento;
     }
 
+    /** Custo de Lucidez ou Exposição: 30% menor se o artefato é do elemento do jogador (sem número na tela). */
+    protected int custo(ServerPlayer p, int base) {
+        return ElementoJogador.custo(p, base, elemento);
+    }
+
+    /** Custo em vida: 30% menor se o artefato é do elemento do jogador. */
+    protected float custoVida(ServerPlayer p, float base) {
+        return ElementoJogador.custoVida(p, base, elemento);
+    }
+
     /**
-     * O poder e o custo do artefato. Só servidor.
+     * O poder e o custo do artefato. Só servidor. Custos passam por {@link #custo} e {@link #custoVida}.
      * @param dobro true se foi usado de novo em menos de 5 min (Lucidez/Exposição em dobro)
      * @return false se o artefato recusou (nada é cobrado nem entra em recarga)
      */

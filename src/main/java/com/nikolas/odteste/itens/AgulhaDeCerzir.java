@@ -29,7 +29,7 @@ public final class AgulhaDeCerzir extends Artefato {
 
         // Primeiro a Marca (contato), depois a Exposição: assim a Marca que aparecer já é a de Sangue.
         DadosJogador.somarContato(p, Elemento.SANGUE, RegrasArtefato.AGULHA_CONTATO_MARCA);
-        Exposicao.custo(p, Elemento.SANGUE, RegrasArtefato.AGULHA_EXPOSICAO * (dobro ? 2 : 1));
+        Exposicao.custo(p, Elemento.SANGUE, custo(p, RegrasArtefato.AGULHA_EXPOSICAO * (dobro ? 2 : 1)));
 
         p.serverLevel().playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.SLIME_SQUISH_SMALL,
                 SoundSource.PLAYERS, 0.6f, 0.5f);

@@ -25,9 +25,15 @@ public final class IdsDados {
     /** Noite (dia do relógio) em que a última criatura de Sangue nasceu sozinha perto do jogador. */
     public static final String CRIATURA_NOITE = "criatura_noite";
 
+    /** Elemento do jogador, definido pelo admin (nenhum = sem elemento). Nunca vai para o cliente. */
+    public static final String ELEMENTO = "elemento";
+    /** Se a história já revelou o elemento ao jogador. Nunca vai para o cliente. */
+    public static final String ELEMENTO_REVELADO = "elemento_revelado";
+
     public static final List<String> TODOS = List.of(
             EXPOSICAO, LUCIDEZ, LUCIDEZ_MAX, MARCA_ELEMENTO, MARCA_ESTAGIO, TRANSCENDER_NIVEL,
-            EXPOSICAO_RESTO, CONTATO_ELEMENTO, EXPOSICAO_REPETICAO, ARTEFATO_RECARGA, CRIATURA_NOITE);
+            EXPOSICAO_RESTO, CONTATO_ELEMENTO, EXPOSICAO_REPETICAO, ARTEFATO_RECARGA, CRIATURA_NOITE,
+            ELEMENTO, ELEMENTO_REVELADO);
 
     // ---------- Play test de Sangue, parte 2: conteúdo ----------
 
