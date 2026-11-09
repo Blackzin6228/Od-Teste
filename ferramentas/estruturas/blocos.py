@@ -95,6 +95,17 @@ BLOCOS = {
     "red_wall_banner": ((150, 30, 28), "la"),
     # sangue (o acento vermelho): pó de redstone sem energia, deitado no chão
     "redstone_wire": ((112, 8, 6), "sangue"),
+    # Vila Calada (100 x 100)
+    "light": ((0, 0, 0), "nada"),  # bloco de luz invisível (só para não nascer monstro)
+    "bone_block": ((222, 218, 198), "liso"),
+    "stone_button": ((122, 122, 122), "pedra"),
+    "spruce_sign": ((114, 84, 48), "tabuas"),
+    "damaged_anvil": ((70, 70, 74), "metal_escuro"),
+    "carved_pumpkin": ((196, 116, 24), "liso"),
+    "white_carpet": ((230, 230, 230), "la"),
+    "red_bed": ((150, 36, 32), "la"),
+    "mud": ((58, 52, 56), "terra"),
+    "red_stained_glass_pane": ((150, 40, 36), "vidro"),
     "air": ((0, 0, 0), "nada"),
 }
 
@@ -119,10 +130,14 @@ _FAMILIAS = [
                                          "powered": _BOOL, "waterlogged": _BOOL}),
     (lambda n: n.endswith("_door"), {"facing": _DIR4, "half": {"upper", "lower"}, "hinge": {"left", "right"},
                                      "open": _BOOL, "powered": _BOOL}),
-    (lambda n: n.endswith("_fence") or n in ("glass_pane", "iron_bars"),
+    (lambda n: n.endswith("_fence") or n.endswith("glass_pane") or n == "iron_bars",
      {"north": _BOOL, "south": _BOOL, "east": _BOOL, "west": _BOOL, "waterlogged": _BOOL}),
     (lambda n: n.endswith("_bed"), {"facing": _DIR4, "part": {"head", "foot"}, "occupied": _BOOL}),
-    (lambda n: n.endswith("_log") or n == "hay_block", {"axis": {"x", "y", "z"}}),
+    (lambda n: n.endswith("_log") or n in ("hay_block", "bone_block"), {"axis": {"x", "y", "z"}}),
+    (lambda n: n == "light", {"level": {str(i) for i in range(16)}, "waterlogged": _BOOL}),
+    (lambda n: n == "stone_button", {"face": {"floor", "wall", "ceiling"}, "facing": _DIR4, "powered": _BOOL}),
+    (lambda n: n == "spruce_sign", {"rotation": {str(i) for i in range(16)}, "waterlogged": _BOOL}),
+    (lambda n: n in ("damaged_anvil", "carved_pumpkin"), {"facing": _DIR4}),
     (lambda n: n == "chain", {"axis": {"x", "y", "z"}, "waterlogged": _BOOL}),
     (lambda n: n == "lantern", {"hanging": _BOOL, "waterlogged": _BOOL}),
     (lambda n: n.endswith("candle"), {"candles": {"1", "2", "3", "4"}, "lit": _BOOL, "waterlogged": _BOOL}),
@@ -175,8 +190,15 @@ def _verdade(p, k):
 def formas(nome, p):
     """Lista de (caixa, material) do bloco. p é um dict de propriedades (texto)."""
     n = curto(nome)
-    if n == "air":
+    if n in ("air", "light"):
         return []
+    if n == "stone_button":
+        return [((.3125, 0, .375, .6875, .125, .625), n)]
+    if n == "spruce_sign":
+        return [((.4375, 0, .4375, .5625, .5625, .5625), n), ((0, .5, .4375, 1, 1, .5625), n)]
+    if n == "damaged_anvil":
+        return [((.125, 0, .125, .875, .25, .875), n), ((.3125, .25, .25, .6875, .625, .75), n),
+                ((0, .625, .1875, 1, 1, .8125), n)]
     if n.endswith("_slab"):
         t = p.get("type", "bottom")
         if t == "bottom":
@@ -212,7 +234,7 @@ def formas(nome, p):
         return caixas or [((.25, 0, .25, .75, 1, .75), n)]
     if n == "redstone_wire":
         return [((.1, 0, .1, .9, .04, .9), n)]
-    if n in ("glass_pane", "iron_bars"):
+    if n.endswith("glass_pane") or n == "iron_bars":
         a, b = .4375, .5625
         caixas = []
         ew = _verdade(p, "east") or _verdade(p, "west")
