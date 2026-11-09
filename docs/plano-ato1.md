@@ -125,6 +125,34 @@ Regras para não dar conflito:
 Regras de antes continuam: `docs/progresso.md` e `docs/ids.md` só a CEO, uma linha de registro em comum é resolvida no merge.
 Esperando: o Integrador fica livre até a revisão do #21; o Faminto (1.6, 1.7) espera o ok da prévia do #38.
 
+## Feito até 09/11 (fim da segunda rodada)
+| PR | O que entrou | Item |
+|---|---|---|
+| #21 | Analisador de Sinal + fontes de sinal fixas (`sinais/FontesFixas`) | 1.3 ✅ |
+| #36 | Livros de história com páginas por Exposição (texto em arquivo de dados) | 1.2 ✅ |
+| #37 | Estrutura grande em partes (passa de 16.384 blocos, backup e desfazer) | 1.1 ✅ |
+| #41 | Âncora `vila_calada` + três pistas (sino ao longe, aldeões virados, cama manchada) | 1.8 ✅ |
+| #42 | Vila Calada ~100x100: prévia (falta o ok do Nikolas para virar a estrutura final, 1.4) | 1.4 🟦 |
+| #38, #40 | Prévias do Faminto e do atril; roteiro "bem Minecraft" da Lore | 1.5 🟦, roteiro |
+| #31 | Correções da abertura | 2.1 ✅ |
+
+Ainda aberto: **#39** (vela da capela e poças, 1.10), na revisão.
+**Pendente do Nikolas:** o sino da Vila Calada tocar como **som ambiente à noite**. Ninguém implementa isso até ele responder.
+
+## Terceira rodada (lançada em 09/11)
+| Tarefa | Mesa | Branch | Arquivos dela (ninguém mais mexe) |
+|---|---|---|---|
+| 2.2 Evento solta sozinho na primeira noite de neblina + 1.11 aviso ao admin "{grupo} não seguiu o sino" | Dev | `mesa-dev/neblina-aviso` | `historia/PrimeiroSinal.java`, `historia/RegrasAto1.java`, pacote novo `historia/gatilhos/` |
+| 1.9 Mapa de cartógrafo que se desenha (mapa vanilla, sem ID novo) | Dev 2 (**começa quando o #39 entrar**) | `mesa-dev/mapa-cartografo` | pacote novo `historia/mapa/` |
+| Vila Calada como fonte de sinal no Analisador (lê a âncora, não mexe nela) | Integrador | `mesa-integrador/sinal-vila-calada` | `sinais/` |
+| 1.12 Prévias de som (vento e arrasto; **sem o sino**) + 2.4 prévia do estandarte | Modelador | `mesa-modelador/sons-estandarte` | `arte/sons/`, `arte/estandarte/` |
+| 1.13 Textos finais da vila e do livro (em documento; a CEO passa para o `lang` depois do #39) | Lore | `mesa-lore/textos-vila-calada` | `lore/textos-vila-calada.md` |
+| Revisão do #39 e de cada PR de código desta rodada | Revisor | (só lê) | nenhum |
+
+Regras de antes continuam: `docs/progresso.md`, `docs/ids.md` e os `lang` só a CEO (cada PR lista as chaves novas).
+`OdMod.java` e `Itens.java` estão no #39: ninguém mais mexe neles nesta rodada (no máximo uma linha de registro, resolvida no merge).
+Esperando o Nikolas: Faminto (1.6, 1.7) e o atril, Vila Calada final (1.4), sino ambiente à noite.
+
 ## Próximo passo
-Aprovar o roteiro novo da Lore → reescrever as Fases 3 a 5 com os lugares novos. Ordem de merge: #37 → #21 → #36 → pistas e vela.
-Lore antes de código, código antes de revisão.
+Ok das prévias → Faminto e Vila Calada final. Depois, 1.14 (teste de ponta a ponta) e 2.3 (mochila, Dev 2).
+Reescrever as Fases 3 a 5 com os lugares do roteiro novo (#40). Lore antes de código, código antes de revisão.
