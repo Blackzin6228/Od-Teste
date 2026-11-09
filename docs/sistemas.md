@@ -250,3 +250,44 @@ O conteúdo chama o ponto de entrada:
 5. O que cada elemento cobra no estágio 4.
 6. Juntar Vínculo e Marca (Vínculo = estágio 2)?
 7. Habilidade do Transcender nível 3; nível 4 é o mesmo que "Atravessado"?; dá para desfazer?
+
+---
+
+## Próximo sistema: Colocar estruturas por evento/comando
+> **Status:** plano da mesa Dev (2026-11-08). **Não implementado.** Motivo: o mundo ATM10 é definitivo e o terreno
+> já existe, então estrutura da história não pode depender de geração de mundo (decisão de 2026-11-08).
+
+**Comandos** (só admin, permissão **2+**):
+- `/odteste estrutura prever <id> <pos> [rotação]` — mostra o contorno (partículas, só para quem rodou) e diz se cabe.
+- `/odteste estrutura colocar <id> <pos> [rotação]` — coloca, só se a checagem passar.
+- `/odteste estrutura desfazer <id>` — devolve os blocos que estavam lá antes.
+- `/odteste evento iniciar <id>` · `/odteste evento parar <id>` — um evento pode colocar e tirar estruturas sozinho.
+- Rotação: `0`, `90`, `180`, `270` (padrão `0`).
+
+**Templates:** arquivos NBT do jogo em `data/odteste/structure/<id>.nbt` (salvos com Structure Block).
+Carregados pelo `StructureTemplateManager` do vanilla, sem worldgen.
+
+**Checagem de espaço** (antes de colocar, bloco por bloco da caixa da estrutura):
+- Só substitui ar e blocos "substituíveis" (grama alta, flores, neve fina, folhas soltas; lista numa tag `odteste:substituivel`).
+- **Nunca** mexe em block entity (baú, fornalha, máquina, placa...) nem em bloco que não está na lista.
+- Bloco de jogador: tudo que não é natural conta como construção. Na dúvida, **não coloca** e avisa.
+- Proteção de mods (claims, ex.: FTB Chunks / Open Parties): checagem opcional em `compat/<mod>/`,
+  atrás de `Compat.Integracao.X.ligada()`. Se o mod sair do pack, a checagem só some.
+- Falhou: não coloca nada e mostra onde está o bloqueio (posição e motivo).
+
+**Prévia antes de colocar:** `colocar` sem `prever` antes avisa e pede para rodar `prever` (ou repetir com confirmação).
+
+**Desfazer:** antes de colocar, guarda os blocos substituídos (estado + posição). `desfazer` restaura e apaga o backup.
+
+**Dados salvos:** um registro no mundo (`SavedData`) com cada estrutura colocada (id, posição, rotação, dimensão,
+backup) e eventos ativos. IDs novos (template, dado salvo, tag) entram em `docs/ids.md` **quando implementar**.
+
+**Só chunks já gerados:** se algum chunk da caixa não existe ou não está carregado, o comando recusa. Nunca gera
+terreno novo. Pode carregar por pouco tempo um chunk que já existe, só durante a colocação.
+
+**Riscos:**
+- **Lag:** estrutura grande colocada de uma vez trava o tick. Solução: limite de tamanho e colocação em partes
+  (ex.: alguns milhares de blocos por tick).
+- **Chunks não carregados:** colocar meia estrutura. Solução: checar todos os chunks antes e recusar se faltar algum.
+- **Backup grande:** muitos blocos no `SavedData`. Solução: limite de tamanho e apagar o backup ao confirmar.
+- **Engano de admin:** `desfazer` existe para isso; mesmo assim, backup do mundo antes de evento grande (regra 7).
