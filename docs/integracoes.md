@@ -21,7 +21,7 @@ Detalhe da progressão em `docs/progressao.md` (degraus D1 a D5) e da voz em `do
 | Mod | Tradição na lore (proposta) | Como integra no jogo | Papel na progressão |
 |---|---|---|---|
 | **Mekanism (+ Evolved Mekanism)** | Os céticos: medem, contêm e processam | Máquinas para detectar, conter e transformar material paranormal | Ligas e circuitos em todos os degraus; radiação para Morte; **SPS e antimatéria** no D5 e no item final |
-| **Create (+ New Age, Addition, Occult Engineering)** | Os céticos (mecânicos) | Contraptions para processar material paranormal | Latão e mecanismo no D1; **Assombrar** (Morte); **montagem em sequência** fecha a Essência e a L3; energizador (Energia) |
+| **Create (+ Crafts & Additions)** | Os céticos (mecânicos) | Contraptions para processar material paranormal | Latão e mecanismo no D1; **Assombrar** (Morte); **montagem em sequência** fecha a Essência e a L3; carregar na Bobina Tesla do Crafts & Additions (Energia). New Age e Occult Engineering **não achados no pack** (2026-11-08) |
 | **Allthemodium** | — | só como metal | Allthemodium (D3), Vibranium (D4), Unobtainium e ligas (D5) |
 | **Draconic Evolution** | — | Fusão como mesa de fim de jogo | **Fusão** monta o **Coração** (D5), a L4 e a A5; Núcleo Caótico no item final |
 | **AE2 (+ MEGA Cells, Advanced AE)** | Os céticos (dados) | Discos e processadores guardam o "registro" | Processadores no D2; peças de **Conhecimento**; célula MEGA no item final |
@@ -29,6 +29,21 @@ Detalhe da progressão em `docs/progressao.md` (degraus D1 a D5) e da voz em `do
 | **Oritech** | Os céticos (física) | Acelerador de partículas | Peças de **Energia** no D3–D4; item do acelerador no item final |
 | **Industrial Foregoing** | — | só como ingrediente | **Gás Éter** (precisa do Wither) no D4 e no item final. Triturador de mobs **não** gera drop nosso |
 | **Powah, Extreme Reactors** | — | energia | Orbe Energizante (Energia); reator na corrente de Morte (opcional) |
+
+Ramo tech (decidido 2026-11-08: **máquinas = misto**): a matéria paranormal é processada **nas máquinas do pack**
+(só receitas novas, em dados, com `neoforge:mod_loaded`), e só **3 aparelhos nossos** (Rádio, Antena, Câmara de
+Contenção). Detalhe em `docs/tech-paranormal.md`. Nada pronto ainda (nenhum JSON escrito).
+
+| Mod (confirmado no pack em 2026-11-08) | Receitas de matéria paranormal |
+|---|---|
+| Mekanism | passo 1 (Enriquecimento) e passo 2 dos 4 elementos |
+| Create | passo 1 (Moer) e passo 2 dos 4 elementos (Misturar aquecido, Assombrar, Prensar) |
+| Create Crafts & Additions | passo 2 de Energia (carregar). Substitui o Create New Age, que **não está no pack** |
+| Industrial Foregoing | passo 2 de Morte e Conhecimento (Câmara de Dissolução) |
+| Powah | passo 2 de Energia (Orbe Energizante) |
+| Immersive Engineering, Modern Industrialization, Oritech, Ender IO | passo 1 (moer), sempre 1 → 1 sem saída extra |
+
+Tipos de receita e modids exatos: **conferir nos jars do ATM10** antes de escrever o JSON.
 
 ## Chefes (itens para Corações e item final)
 Cataclysm, Twilight Forest, Mowzie's Mobs e chefes do Iron's. Mapa por elemento em `docs/progressao.md` (seção 5.2). **Conferir drops.**
