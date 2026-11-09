@@ -76,17 +76,18 @@ public final class RegrasLucidez {
         return Math.max(1, Math.round(maxima * SURTO_VOLTA_PERCENTO / 100f));
     }
 
+    /** Luz fraca: luz do lugar (bloco ou céu, já contando a noite) de 7 para baixo. */
+    public static final int LUZ_FRACA = 7;
+    /** Lentidão leve da Lucidez Baixa com pouca luz (docs/horror.md 2.3): −8%. */
+    public static final double LENTIDAO_LUZ_FRACA = -0.08;
+
     /**
-     * Lentidão leve da Lucidez baixa (fração da velocidade, negativa): Abalado −3%, Quebrando (e surto) −7%.
-     * Aplicada só quando a faixa muda (barato), como modificador temporário.
+     * Lentidão leve (fração da velocidade, negativa): só na Lucidez Baixa (Quebrando, e no surto) e só com
+     * pouca luz. Fora disso, nada. Refeita na checagem de 2 s do Vigia, como modificador temporário.
      */
-    public static double lentidao(FaixaLucidez f) {
-        if (f == null) return 0;
-        return switch (f) {
-            case FIRME, INQUIETO -> 0;
-            case ABALADO -> -0.03;
-            case QUEBRANDO, SURTO -> -0.07;
-        };
+    public static double lentidao(FaixaLucidez f, int luz) {
+        if (f != FaixaLucidez.QUEBRANDO && f != FaixaLucidez.SURTO) return 0;
+        return luz <= LUZ_FRACA ? LENTIDAO_LUZ_FRACA : 0;
     }
 
     /** Dormir a noite inteira devolve metade da máxima. */

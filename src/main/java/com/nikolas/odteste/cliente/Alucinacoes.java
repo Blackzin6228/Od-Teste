@@ -1,17 +1,20 @@
 package com.nikolas.odteste.cliente;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.nikolas.odteste.sistemas.RegrasHorror;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.prediction.BlockStatePredictionHandler;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -23,28 +26,58 @@ import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 
 /**
- * Alucinações que se veem: vulto no canto da visão, criatura parada e porta que abre sozinha.
- * Tudo só neste cliente:
- * - o vulto e a criatura são entidades criadas aqui, com id negativo (o servidor nunca usa), nunca registradas,
- *   nunca enviadas e nunca salvas; não dá para mirar nem bater nelas (o cliente nem manda pacote);
- * - a porta muda só a cópia do bloco neste cliente; o mundo de verdade (servidor) não muda, e a cópia volta
- *   sozinha em 1,5–3 s (ou na hora, se o servidor mandar o bloco de novo).
- * As regras de quando sumir estão em RegrasHorror (testadas).
+ * Alucinações que se veem: vulto no canto da visão, criatura falsa e porta que abre sozinha. Tudo só neste cliente.
+ *
+ * Vulto e criatura: são desenhados por evento de render (RenderLevelStageEvent), usando um modelo vanilla como
+ * molde. A entidade-molde **nunca entra no mundo do cliente** (nada de addEntity): minimapas (JourneyMap, Xaero,
+ * FTB Chunks), radares e "o que é isso" (Jade) só enxergam o que está no mundo, então não veem nada. Também não dá
+ * para mirar nem bater: não existe para a física.
+ *
+ * Porta: a troca do bloco passa pelo mesmo mecanismo que o jogo usa quando você coloca um bloco antes do servidor
+ * confirmar ("previsão de bloco"). Enquanto a porta falsa está na tela, o cliente guarda o estado real que o servidor
+ * mandar para aquele bloco (outro jogador abriu, aldeão, redstone...). No fim, ou se você mexer em algum bloco antes,
+ * o jogo devolve exatamente o estado real. A porta real nunca fica errada.
  */
 final class Alucinacoes {
-    /** Ids negativos: o servidor só usa positivos, então nunca colide com uma entidade de verdade. */
+    /** Ids negativos: o servidor só usa positivos (o molde nem entra no mundo, mas alguns mods guardam coisas por id). */
     private static int proximoId = -0x0D7E0000;
 
-    private static Entity vulto;
-    private static Entity mob;
+    /** Uma figura falsa: posição, idade e comportamento. O corpo é só o molde do desenho. */
+    private static final class Figura {
+        final LivingEntity corpo;
+        final ClientLevel nivel;
+        final int vida;
+        /** Vem até você (Lucidez Baixa). */
+        final boolean anda;
+        /** Fica de costas e, ao ser olhada, some e reaparece uma vez mais perto (Exposição Crítica). */
+        final boolean costas;
+        boolean reapareceu;
+        int idade;
+
+        Figura(LivingEntity corpo, ClientLevel nivel, int vida, boolean anda, boolean costas) {
+            this.corpo = corpo;
+            this.nivel = nivel;
+            this.vida = vida;
+            this.anda = anda;
+            this.costas = costas;
+        }
+    }
+
+    private static Figura vulto;
+    private static Figura mob;
     private static Porta porta;
 
-    private record Porta(ClientLevel nivel, BlockPos pos, BlockState original, BlockState falsa,
-                         BlockPos outra, BlockState outraOriginal, BlockState outraFalsa,
-                         boolean alcapao, long fecharEm) {}
+    /**
+     * @param sequencia número da previsão de bloco que guarda o estado real (-1 = só som, nada mudou na tela)
+     */
+    private record Porta(ClientLevel nivel, BlockPos pos, BlockState falsa, int sequencia, boolean alcapao,
+                         long fecharEm) {}
 
     private Alucinacoes() {}
 
@@ -53,28 +86,38 @@ final class Alucinacoes {
         return vulto != null || mob != null || porta != null;
     }
 
+    /** Tem um vulto na tela agora (para a lentidão sutil da Exposição Crítica)? */
+    static boolean vultoPresente() {
+        return vulto != null;
+    }
+
     /** Uma vez por tick do cliente. Barato: só olha as (no máximo três) alucinações vivas. */
     static void aoTick(LocalPlayer p, long agora) {
         ClientLevel nivel = Minecraft.getInstance().level;
         if (vulto != null) {
-            if (vulto.level() != nivel || vulto.isRemoved()) {
+            Figura f = vulto;
+            f.idade++;
+            if (f.nivel != nivel || RegrasHorror.vultoSome(cosOlhar(p, f.corpo), p.distanceToSqr(f.corpo), f.idade, f.vida)) {
+                sumir(f, nivel);
                 vulto = null;
             } else {
-                Vec3 olhar = p.getViewVector(1f);
-                Vec3 ate = vulto.position().add(0, 1.5, 0).subtract(p.getEyePosition());
-                double cos = ate.lengthSqr() < 1e-6 ? 1 : olhar.dot(ate.normalize());
-                if (RegrasHorror.vultoSome(cos, p.distanceToSqr(vulto), vulto.tickCount)) {
-                    sumir(vulto, nivel);
-                    vulto = null;
-                }
+                virarPara(f, p);
             }
         }
         if (mob != null) {
-            if (mob.level() != nivel || mob.isRemoved()) {
+            Figura f = mob;
+            f.idade++;
+            if (f.nivel != nivel || RegrasHorror.mobSome(p.distanceToSqr(f.corpo), f.idade, f.vida)) {
+                sumir(f, nivel);
                 mob = null;
-            } else if (RegrasHorror.mobSome(p.distanceToSqr(mob), mob.tickCount)) {
-                sumir(mob, nivel);
+            } else if (f.costas && cosOlhar(p, f.corpo) >= RegrasHorror.COS_OLHOU) {
+                // Olhou: some. Na primeira vez, reaparece mais perto, em outro lugar.
+                sumir(f, nivel);
                 mob = null;
+                if (!f.reapareceu) reaparecer(p, f);
+            } else {
+                if (f.anda) andar(f, p);
+                virarPara(f, p);
             }
         }
         if (porta != null && (agora >= porta.fecharEm() || nivel != porta.nivel())) {
@@ -83,45 +126,73 @@ final class Alucinacoes {
     }
 
     static void limpar() {
-        ClientLevel nivel = Minecraft.getInstance().level;
-        if (vulto != null && nivel != null && vulto.level() == nivel) nivel.removeEntity(vulto.getId(), Entity.RemovalReason.DISCARDED);
-        if (mob != null && nivel != null && mob.level() == nivel) nivel.removeEntity(mob.getId(), Entity.RemovalReason.DISCARDED);
         vulto = mob = null;
-        if (porta != null) fecharPorta(nivel);
+        if (porta != null) fecharPorta(Minecraft.getInstance().level);
+    }
+
+    private static double cosOlhar(LocalPlayer p, LivingEntity e) {
+        Vec3 olhar = p.getViewVector(1f);
+        Vec3 ate = e.position().add(0, e.getBbHeight() * 0.8, 0).subtract(p.getEyePosition());
+        return ate.lengthSqr() < 1e-6 ? 1 : olhar.dot(ate.normalize());
     }
 
     // ---------- vulto ----------
 
-    /** Vulto parado no canto da visão (35–50° do centro, 7–11 blocos). Devolve false se não achou chão. */
-    static boolean vulto(LocalPlayer p) {
+    /** Vulto parado no canto da visão (35–50° do centro, 12–16 blocos). Devolve false se não achou chão. */
+    static boolean vulto(LocalPlayer p, boolean suave) {
         if (vulto != null) return false;
         RandomSource r = p.getRandom();
         float yaw = p.getYRot() + RegrasHorror.vultoAngulo(r::nextInt);
         Vec3 pos = noChao(p, yaw, RegrasHorror.vultoDistancia(r::nextInt));
         if (pos == null) return false;
-        vulto = criar(new VultoFalso(p.level()), pos, p);
-        return vulto != null;
+        LivingEntity corpo = molde(new EnderMan(EntityType.ENDERMAN, p.level()), pos, p, false);
+        if (corpo == null) return false;
+        vulto = new Figura(corpo, (ClientLevel) p.level(), suave ? RegrasHorror.VIDA_SUAVE : RegrasHorror.VULTO_VIDA,
+                false, false);
+        return true;
     }
 
     // ---------- criatura falsa ----------
 
-    /** Criatura parada, longe (14–20 blocos), num lado qualquer. Some quando você chega a 6 blocos. */
-    static boolean mobFalso(LocalPlayer p) {
+    /**
+     * Criatura parada, longe (14–20 blocos), fora do centro da visão.
+     * @param anda   Lucidez Baixa: vem até você e some a 3 blocos
+     * @param suave  SUAVE: silhueta parada que some em 1 s
+     */
+    static boolean mobFalso(LocalPlayer p, boolean anda, boolean suave) {
         if (mob != null) return false;
         RandomSource r = p.getRandom();
         float yaw = p.getYRot() + 60 + r.nextInt(241); // qualquer lado, menos bem na frente
         Vec3 pos = noChao(p, yaw, RegrasHorror.mobDistancia(r::nextInt));
         if (pos == null) return false;
-        mob = criar(new MobFalso(p.level()), pos, p);
-        return mob != null;
+        boolean costas = !anda && !suave;
+        LivingEntity corpo = molde(new Zombie(EntityType.ZOMBIE, p.level()), pos, p, costas);
+        if (corpo == null) return false;
+        mob = new Figura(corpo, (ClientLevel) p.level(), suave ? RegrasHorror.VIDA_SUAVE : RegrasHorror.MOB_VIDA,
+                anda && !suave, costas);
+        return true;
     }
 
-    private static Entity criar(LivingEntity e, Vec3 pos, LocalPlayer p) {
-        ClientLevel nivel = Minecraft.getInstance().level;
-        if (nivel == null) return null;
+    /** A criatura de costas reaparece uma vez, mais perto, num outro canto. */
+    private static void reaparecer(LocalPlayer p, Figura antes) {
+        RandomSource r = p.getRandom();
+        double dist = RegrasHorror.mobReaparece(Math.sqrt(p.distanceToSqr(antes.corpo)));
+        float yaw = p.getYRot() + 60 + r.nextInt(241);
+        Vec3 pos = noChao(p, yaw, dist);
+        if (pos == null) return;
+        LivingEntity corpo = molde(new Zombie(EntityType.ZOMBIE, p.level()), pos, p, true);
+        if (corpo == null) return;
+        Figura f = new Figura(corpo, antes.nivel, RegrasHorror.MOB_VIDA, false, true);
+        f.reapareceu = true;
+        mob = f;
+    }
+
+    /** Prepara o molde: posição e rotação. Nunca é adicionado ao mundo. */
+    private static LivingEntity molde(LivingEntity e, Vec3 pos, LocalPlayer p, boolean costas) {
+        if (Minecraft.getInstance().level == null) return null;
         e.setId(proximoId--);
         if (proximoId > -0x0D000000) proximoId = -0x0D7E0000; // nunca chega perto de zero
-        float yaw = olharPara(pos, p);
+        float yaw = olharPara(pos, p) + (costas ? 180f : 0f);
         e.moveTo(pos.x, pos.y, pos.z, yaw, 0f);
         e.setYHeadRot(yaw);
         e.setYBodyRot(yaw);
@@ -129,19 +200,41 @@ final class Alucinacoes {
         e.yBodyRotO = yaw;
         e.setSilent(true);
         e.setNoGravity(true);
-        nivel.addEntity(e);
         return e;
     }
 
+    private static void virarPara(Figura f, LocalPlayer p) {
+        LivingEntity e = f.corpo;
+        float yaw = olharPara(e.position(), p) + (f.costas ? 180f : 0f);
+        e.yRotO = e.getYRot();
+        e.yHeadRotO = e.getYHeadRot();
+        e.yBodyRotO = e.yBodyRot;
+        e.setYRot(yaw);
+        e.setYHeadRot(yaw);
+        e.setYBodyRot(yaw);
+    }
+
+    /** Um passinho na sua direção (sem física: o molde não está no mundo). */
+    private static void andar(Figura f, LocalPlayer p) {
+        LivingEntity e = f.corpo;
+        Vec3 ate = new Vec3(p.getX() - e.getX(), 0, p.getZ() - e.getZ());
+        if (ate.lengthSqr() < 1e-6) return;
+        Vec3 passo = ate.normalize().scale(RegrasHorror.MOB_PASSO);
+        e.xo = e.getX();
+        e.yo = e.getY();
+        e.zo = e.getZ();
+        e.setPos(e.getX() + passo.x, e.getY(), e.getZ() + passo.z);
+        e.walkAnimation.update((float) RegrasHorror.MOB_PASSO * 4f, 0.4f);
+    }
+
     /** Some sem barulho, deixando um fiapo de fumaça. */
-    private static void sumir(Entity e, ClientLevel nivel) {
-        if (nivel != null) {
-            for (int i = 0; i < 6; i++) {
-                nivel.addParticle(ParticleTypes.SMOKE, e.getX() + (e.getRandom().nextDouble() - 0.5) * 0.5,
-                        e.getY() + e.getRandom().nextDouble() * e.getBbHeight(),
-                        e.getZ() + (e.getRandom().nextDouble() - 0.5) * 0.5, 0, 0.01, 0);
-            }
-            nivel.removeEntity(e.getId(), Entity.RemovalReason.DISCARDED);
+    private static void sumir(Figura f, ClientLevel nivel) {
+        if (nivel == null || f.nivel != nivel) return;
+        LivingEntity e = f.corpo;
+        RandomSource r = e.getRandom();
+        for (int i = 0; i < 6; i++) {
+            nivel.addParticle(ParticleTypes.SMOKE, e.getX() + (r.nextDouble() - 0.5) * 0.5,
+                    e.getY() + r.nextDouble() * e.getBbHeight(), e.getZ() + (r.nextDouble() - 0.5) * 0.5, 0, 0.01, 0);
         }
     }
 
@@ -176,13 +269,50 @@ final class Alucinacoes {
         return nivel.getBlockState(pos).getCollisionShape(nivel, pos).isEmpty();
     }
 
+    // ---------- desenho ----------
+
+    /** Desenha as figuras, depois das entidades de verdade. Sem figura, sai na primeira linha. */
+    static void desenhar(RenderLevelStageEvent e) {
+        if (e.getStage() != RenderLevelStageEvent.Stage.AFTER_ENTITIES) return;
+        if (vulto == null && mob == null) return;
+        Minecraft mc = Minecraft.getInstance();
+        ClientLevel nivel = mc.level;
+        if (nivel == null) return;
+        Vec3 cam = e.getCamera().getPosition();
+        float pt = e.getPartialTick().getGameTimeDeltaPartialTick(false);
+        MultiBufferSource.BufferSource buf = mc.renderBuffers().bufferSource();
+        EntityRenderDispatcher d = mc.getEntityRenderDispatcher();
+        PoseStack pose = e.getPoseStack();
+        desenhar(vulto, nivel, d, cam, pt, pose, buf);
+        desenhar(mob, nivel, d, cam, pt, pose, buf);
+        buf.endBatch();
+    }
+
+    private static void desenhar(Figura f, ClientLevel nivel, EntityRenderDispatcher d, Vec3 cam, float pt,
+                                 PoseStack pose, MultiBufferSource buf) {
+        if (f == null || f.nivel != nivel) return;
+        LivingEntity c = f.corpo;
+        double x = Mth.lerp(pt, c.xo, c.getX()) - cam.x;
+        double y = Mth.lerp(pt, c.yo, c.getY()) - cam.y;
+        double z = Mth.lerp(pt, c.zo, c.getZ()) - cam.z;
+        float yaw = Mth.rotLerp(pt, c.yRotO, c.getYRot());
+        d.render(c, x, y, z, yaw, pt, pose, buf, d.getPackedLightCoords(c, pt));
+    }
+
     // ---------- porta ----------
 
-    /** Uma porta ou alçapão fechado perto (3 a 6 blocos) parece abrir, com o som. Devolve false se não tem. */
-    static boolean porta(LocalPlayer p, long agora) {
+    /**
+     * Uma porta ou alçapão fechado perto (3 a 6 blocos) parece abrir, com o som. Devolve false se não tem.
+     * @param soSom SUAVE: só o som da porta, sem mudar nada na tela
+     */
+    static boolean porta(LocalPlayer p, long agora, boolean soSom) {
         if (porta != null) return false;
-        ClientLevel nivel = Minecraft.getInstance().level;
+        Minecraft mc = Minecraft.getInstance();
+        ClientLevel nivel = mc.level;
         if (nivel == null) return false;
+        // Nunca no bloco que você está mirando (onde você clicaria).
+        BlockPos mirado = mc.hitResult instanceof BlockHitResult alvo && alvo.getType() == HitResult.Type.BLOCK
+                ? alvo.getBlockPos() : null;
         BlockPos centro = p.blockPosition();
         int r = RegrasHorror.PORTA_RAIO;
         int ry = RegrasHorror.PORTA_RAIO_Y;
@@ -193,52 +323,59 @@ final class Alucinacoes {
             if (!s.hasProperty(BlockStateProperties.OPEN) || s.getValue(BlockStateProperties.OPEN)) continue;
             boolean ehPorta = s.getBlock() instanceof DoorBlock
                     && s.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER;
-            if (ehPorta || s.getBlock() instanceof TrapDoorBlock) {
-                achadas.add(b.immutable());
-                if (achadas.size() >= 16) break;
-            }
+            if (!ehPorta && !(s.getBlock() instanceof TrapDoorBlock)) continue;
+            if (mirado != null && (b.equals(mirado) || (ehPorta && b.above().equals(mirado)))) continue;
+            achadas.add(b.immutable());
+            if (achadas.size() >= 16) break;
         }
         if (achadas.isEmpty()) return false;
 
         BlockPos pos = achadas.get(p.getRandom().nextInt(achadas.size()));
         BlockState original = nivel.getBlockState(pos);
-        BlockState falsa = original.setValue(BlockStateProperties.OPEN, true);
         boolean alcapao = original.getBlock() instanceof TrapDoorBlock;
-        BlockPos outra = null;
-        BlockState outraOriginal = null;
-        BlockState outraFalsa = null;
-        if (!alcapao) {
-            outra = pos.above();
-            outraOriginal = nivel.getBlockState(outra);
-            if (!(outraOriginal.getBlock() instanceof DoorBlock) || !outraOriginal.hasProperty(BlockStateProperties.OPEN)) {
-                return false;
-            }
-            outraFalsa = outraOriginal.setValue(BlockStateProperties.OPEN, true);
+        BlockPos outra = alcapao ? null : pos.above();
+        BlockState outraOriginal = outra == null ? null : nivel.getBlockState(outra);
+        if (outra != null && (!(outraOriginal.getBlock() instanceof DoorBlock)
+                || !outraOriginal.hasProperty(BlockStateProperties.OPEN))) {
+            return false;
         }
-        porta = new Porta(nivel, pos, original, falsa, outra, outraOriginal, outraFalsa, alcapao,
-                agora + RegrasHorror.portaDuracao(p.getRandom()::nextInt));
-        trocar(nivel, pos, falsa);
-        if (outra != null) trocar(nivel, outra, outraFalsa);
+        long fecharEm = agora + RegrasHorror.portaDuracao(p.getRandom()::nextInt);
         Sons.em(Vec3.atCenterOf(pos), alcapao ? SoundEvents.WOODEN_TRAPDOOR_OPEN : SoundEvents.WOODEN_DOOR_OPEN,
                 0.6f, 0.6f);
+        if (soSom) {
+            porta = new Porta(nivel, pos, null, -1, alcapao, fecharEm);
+            return true;
+        }
+
+        BlockState falsa = original.setValue(BlockStateProperties.OPEN, true);
+        // Troca dentro de uma "previsão": o jogo guarda o estado real e devolve ele no fim (ou antes, se você
+        // interagir com algum bloco). Atualizações do servidor para este bloco ficam guardadas, nunca se perdem.
+        BlockStatePredictionHandler previsao = nivel.getBlockStatePredictionHandler();
+        int sequencia;
+        try (BlockStatePredictionHandler h = previsao.startPredicting()) {
+            sequencia = h.currentSequence();
+            trocar(nivel, pos, falsa);
+            if (outra != null) trocar(nivel, outra, outraOriginal.setValue(BlockStateProperties.OPEN, true));
+        }
+        porta = new Porta(nivel, pos, falsa, sequencia, alcapao, fecharEm);
         return true;
     }
 
-    /** Fecha a porta falsa: só se a cópia do cliente ainda for a nossa (se o servidor mandou outra, fica a dele). */
+    /** Fim da porta falsa: o jogo devolve o estado real que o servidor mandou (porta e metade de cima). */
     private static void fecharPorta(ClientLevel nivel) {
         Porta f = porta;
         porta = null;
         // Mundo trocado (dimensão, saiu): a cópia velha foi jogada fora junto, não há o que desfazer.
         if (f == null || nivel == null || nivel != f.nivel()) return;
-        boolean voltou = false;
-        if (nivel.getBlockState(f.pos()) == f.falsa()) {
-            trocar(nivel, f.pos(), f.original());
-            voltou = true;
+        boolean mudou;
+        if (f.falsa() == null) {
+            mudou = true; // só som: fecha no som também
+        } else {
+            BlockState antes = nivel.getBlockState(f.pos());
+            nivel.handleBlockChangedAck(f.sequencia());
+            mudou = nivel.getBlockState(f.pos()) != antes;
         }
-        if (f.outra() != null && nivel.getBlockState(f.outra()) == f.outraFalsa()) {
-            trocar(nivel, f.outra(), f.outraOriginal());
-        }
-        if (voltou) {
+        if (mudou) {
             Sons.em(Vec3.atCenterOf(f.pos()), f.alcapao() ? SoundEvents.WOODEN_TRAPDOOR_CLOSE
                     : SoundEvents.WOODEN_DOOR_CLOSE, 0.5f, 0.6f);
         }
@@ -247,83 +384,5 @@ final class Alucinacoes {
     /** Troca só a cópia do cliente, sem avisar vizinhos (2 = redesenhar, 16 = não recalcular formas). */
     private static void trocar(ClientLevel nivel, BlockPos pos, BlockState s) {
         nivel.setBlock(pos, s, Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE);
-    }
-
-    // ---------- as figuras ----------
-
-    /** Parada, olhando para você, sem cérebro, sem som, sem colisão, sem mira. Modelo vanilla provisório. */
-    private static void parada(LivingEntity e) {
-        LocalPlayer p = Minecraft.getInstance().player;
-        if (p == null) return;
-        float yaw = olharPara(e.position(), p);
-        e.yHeadRotO = e.getYHeadRot();
-        e.yBodyRotO = e.yBodyRot;
-        e.setYHeadRot(yaw);
-        e.setYBodyRot(yaw);
-        e.setYRot(yaw);
-    }
-
-    /** O vulto: silhueta alta e escura (modelo do Enderman até o Modelador fazer o nosso). */
-    private static final class VultoFalso extends EnderMan {
-        VultoFalso(Level nivel) {
-            super(EntityType.ENDERMAN, nivel);
-        }
-
-        @Override
-        public void tick() {
-            parada(this);
-        }
-
-        @Override
-        public boolean isPickable() {
-            return false;
-        }
-
-        @Override
-        public boolean isPushable() {
-            return false;
-        }
-
-        @Override
-        public boolean isAttackable() {
-            return false;
-        }
-
-        @Override
-        public boolean shouldBeSaved() {
-            return false;
-        }
-    }
-
-    /** A criatura falsa (modelo do zumbi até termos as nossas criaturas). */
-    private static final class MobFalso extends Zombie {
-        MobFalso(Level nivel) {
-            super(EntityType.ZOMBIE, nivel);
-        }
-
-        @Override
-        public void tick() {
-            parada(this);
-        }
-
-        @Override
-        public boolean isPickable() {
-            return false;
-        }
-
-        @Override
-        public boolean isPushable() {
-            return false;
-        }
-
-        @Override
-        public boolean isAttackable() {
-            return false;
-        }
-
-        @Override
-        public boolean shouldBeSaved() {
-            return false;
-        }
     }
 }

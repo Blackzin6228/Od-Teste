@@ -123,7 +123,7 @@ final class Tela {
     static void aoTick() {
         tick++;
         vinhetaAtual += (vinhetaAlvo - vinhetaAtual) * 0.08f;
-        float lavar = ConfigCliente.soVinhetaESom() ? 0f : dessaturarAlvo;
+        float lavar = dessaturarAlvo * ConfigCliente.tremor(); // SUAVE: metade; DESLIGADO: nada
         dessaturarAtual += (lavar - dessaturarAtual) * 0.02f; // entra e sai devagar (uns 2 s)
         float t = tick;
         PULSOS.removeIf(p -> t - p.inicio() > p.duracao());
@@ -219,8 +219,8 @@ final class Tela {
         if (inclinar != null) {
             e.setRoll(e.getRoll() + inclinar.valor(t) * inclinarLado * forca);
         }
-        // Balanço: a cabeça pende devagar, como tontura (só com o nível de horror alto).
-        float balanco = RegrasHorror.balanco(EfeitosLucidez.nivel) * forca;
+        // Balanço: a cabeça pende devagar, como respirar fundo (Exposição Alta parado, Lucidez Baixa andando).
+        float balanco = EfeitosLucidez.balanco * forca;
         if (balanco > 0.001f) {
             e.setRoll(e.getRoll() + (float) (Math.sin(t * 0.045) + 0.4 * Math.sin(t * 0.11)) * balanco);
             e.setYaw(e.getYaw() + (float) Math.sin(t * 0.031) * balanco * 0.4f);
@@ -237,11 +237,14 @@ final class Tela {
         e.setFOV(e.getFOV() * (1.0 + d * onda));
     }
 
-    /** Mão tremendo: o braço e o item na mão balançam um pouco (só a sua visão em primeira pessoa). */
+    /**
+     * Mão tremendo: o braço e o item na mão balançam um pouco (só a sua visão em primeira pessoa).
+     * Só nas situações do horror.md (item paranormal parado, mirar ou usar item); EfeitosLucidez calcula.
+     */
     static void aoDesenharMao(RenderHandEvent e) {
         if (e.getHand() != InteractionHand.MAIN_HAND) return; // a mão secundária herda o mesmo deslocamento
         float forca = ConfigCliente.tremor();
-        float amp = RegrasHorror.tremorMao(EfeitosLucidez.nivel) * forca;
+        float amp = EfeitosLucidez.mao * forca;
         if (amp <= 0.00001f) return;
         float t = (float) (tick + e.getPartialTick());
         e.getPoseStack().translate(Math.sin(t * 1.9) * amp + Math.sin(t * 5.3) * amp * 0.3,

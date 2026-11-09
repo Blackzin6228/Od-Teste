@@ -85,6 +85,8 @@ public final class Vigia {
         if (!p.isAlive()) return;
 
         MarcaSangue.checar(p);
+        // Lentidão leve só com Lucidez Baixa e pouca luz: a luz muda sem a faixa mudar, então confere aqui.
+        Lucidez.atualizarLentidao(p);
         if (p.isCreative() || p.isSpectator()) return;
 
         Estado s = estado(p);

@@ -7,6 +7,7 @@ import com.nikolas.odteste.elementos.Elemento;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -77,13 +78,18 @@ public final class Lucidez {
     }
 
     /**
-     * Lentidão leve conforme a faixa (RegrasLucidez.lentidao). Chamada só quando a faixa muda, ao entrar e ao
-     * renascer: nunca por tick. Modificador temporário (não salva; se o mod sair, não sobra nada no jogador).
+     * Lentidão leve da Lucidez Baixa com pouca luz (RegrasLucidez.lentidao). Chamada na checagem de 2 s do Vigia,
+     * quando a faixa muda, ao entrar e ao renascer: nunca por tick, e só lê a luz de um bloco.
+     * Modificador temporário (não salva; se o mod sair, não sobra nada no jogador).
      */
     public static void atualizarLentidao(ServerPlayer p) {
         AttributeInstance vel = p.getAttribute(Attributes.MOVEMENT_SPEED);
         if (vel == null) return;
-        double valor = RegrasLucidez.lentidao(FaixaLucidez.de(DadosJogador.lucidez(p), DadosJogador.lucidezMax(p)));
+        double valor = 0;
+        if (!p.isCreative() && !p.isSpectator()) {
+            int luz = p.serverLevel().getMaxLocalRawBrightness(BlockPos.containing(p.getEyePosition()));
+            valor = RegrasLucidez.lentidao(FaixaLucidez.de(DadosJogador.lucidez(p), DadosJogador.lucidezMax(p)), luz);
+        }
         AttributeModifier atual = vel.getModifier(ID_LENTIDAO);
         if (atual != null && atual.amount() == valor) return;
         vel.removeModifier(ID_LENTIDAO);

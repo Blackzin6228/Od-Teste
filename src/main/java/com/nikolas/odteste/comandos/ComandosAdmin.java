@@ -20,6 +20,9 @@ import com.nikolas.odteste.sistemas.Fonte;
 import com.nikolas.odteste.sistemas.FrasesFaixa;
 import com.nikolas.odteste.sistemas.Lucidez;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -30,6 +33,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 /**
  * Comandos de admin (permissão 2) para ver e mexer nos valores dos jogadores.
@@ -60,8 +64,23 @@ public final class ComandosAdmin {
 
     private ComandosAdmin() {}
 
+    /** Última variação de frase que cada jogador leu (para não repetir). Só memória; some quando ele sai. */
+    private static final Map<UUID, Integer> ULTIMA_EXPOSICAO = new HashMap<>();
+    private static final Map<UUID, Integer> ULTIMA_LUCIDEZ = new HashMap<>();
+
     public static void iniciar() {
         NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent e) -> registrar(e.getDispatcher()));
+        NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> {
+            ULTIMA_EXPOSICAO.remove(e.getEntity().getUUID());
+            ULTIMA_LUCIDEZ.remove(e.getEntity().getUUID());
+        });
+    }
+
+    /** Sorteia a variação da frase (1 a 3), nunca igual à última que esse jogador leu. */
+    private static int variacao(Map<UUID, Integer> ultimas, ServerPlayer p) {
+        int v = FrasesFaixa.sortear(ultimas.getOrDefault(p.getUUID(), 0), p.getRandom()::nextInt);
+        ultimas.put(p.getUUID(), v);
+        return v;
     }
 
     static void registrar(CommandDispatcher<CommandSourceStack> d) {
@@ -70,7 +89,8 @@ public final class ComandosAdmin {
                 .executes(c -> {
                     ServerPlayer p = c.getSource().getPlayerOrException();
                     Degrau g = Degrau.de(DadosJogador.exposicao(p));
-                    return frase(c, FrasesFaixa.simbolo(g), FrasesFaixa.cor(g), FrasesFaixa.chave(g), g.ordinal());
+                    int v = variacao(ULTIMA_EXPOSICAO, p);
+                    return frase(c, FrasesFaixa.simbolo(g), FrasesFaixa.cor(g), FrasesFaixa.chave(g, v), g.ordinal());
                 })
                 .then(admin("ver").then(jogador().executes(c -> {
                     ServerPlayer p = alvo(c);
@@ -100,7 +120,8 @@ public final class ComandosAdmin {
                 .executes(c -> {
                     ServerPlayer p = c.getSource().getPlayerOrException();
                     FaixaLucidez f = FaixaLucidez.de(DadosJogador.lucidez(p), DadosJogador.lucidezMax(p));
-                    return frase(c, FrasesFaixa.simbolo(f), FrasesFaixa.cor(f), FrasesFaixa.chave(f), f.ordinal());
+                    int v = variacao(ULTIMA_LUCIDEZ, p);
+                    return frase(c, FrasesFaixa.simbolo(f), FrasesFaixa.cor(f), FrasesFaixa.chave(f, v), f.ordinal());
                 })
                 .then(admin("ver").then(jogador().executes(c -> {
                     ServerPlayer p = alvo(c);

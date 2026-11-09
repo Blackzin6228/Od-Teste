@@ -1,43 +1,65 @@
 package com.nikolas.odteste.sistemas;
 
-import java.util.Locale;
-
 /**
  * O que o jogador lê ao digitar /exposicao ou /lucidez sem nada: um símbolo e uma frase da faixa, nunca o número.
- * Os textos ficam no lang (chaves odteste.frase.*), com texto provisório até a Lore escrever (docs/horror.md).
- * Os símbolos também são provisórios. Java puro, testado em RegrasHorrorTest.
+ * Frases da Lore (docs/horror.md, seção 3): chaves {@code odteste.horror.<sistema>.<faixa>.<1-3>}, sorteadas entre
+ * as 3 variações, nunca a mesma duas vezes seguidas. Os símbolos são provisórios. Java puro, testado em RegrasHorrorTest.
  */
 public final class FrasesFaixa {
+    /** Quantas variações cada faixa tem. */
+    public static final int VARIACOES = 3;
+
+    private static final String[] GRUPO_EXPOSICAO = {"comum", "baixa", "media", "alta", "critica"};
+    private static final String[] GRUPO_LUCIDEZ = {"firme", "alta", "media", "baixa", "surto"};
+
     private FrasesFaixa() {}
 
-    public static String chave(Degrau d) {
-        return "odteste.frase.exposicao." + d.name().toLowerCase(Locale.ROOT);
+    /** Nome da faixa no horror.md: Comum, Baixa (Tocado), Média (Marcado), Alta (Fundo), Crítica (À beira/Atravessado). */
+    public static String grupo(Degrau d) {
+        return GRUPO_EXPOSICAO[RegrasHorror.faixa(d)];
     }
 
-    public static String chave(FaixaLucidez f) {
-        return "odteste.frase.lucidez." + f.name().toLowerCase(Locale.ROOT);
+    /** Firme, Alta (Inquieto), Média (Abalado), Baixa (Quebrando), Surto. */
+    public static String grupo(FaixaLucidez f) {
+        return GRUPO_LUCIDEZ[f.ordinal()];
+    }
+
+    /** @param variacao de 1 a {@link #VARIACOES} */
+    public static String chave(Degrau d, int variacao) {
+        return "odteste.horror.exposicao." + grupo(d) + "." + variacao;
+    }
+
+    public static String chave(FaixaLucidez f, int variacao) {
+        return "odteste.horror.lucidez." + grupo(f) + "." + variacao;
+    }
+
+    /** Sorteia de 1 a 3, diferente de {@code anterior} (0 = nenhuma ainda). */
+    public static int sortear(int anterior, RegrasHorror.Sorteio s) {
+        if (anterior < 1 || anterior > VARIACOES) return 1 + s.ate(VARIACOES);
+        int v = 1 + s.ate(VARIACOES - 1); // 1 ou 2
+        return v >= anterior ? v + 1 : v;
     }
 
     /** O círculo vai enchendo conforme o paranormal toca você. */
     public static String simbolo(Degrau d) {
         return switch (d) {
-            case COMUM -> "○";       // ○
-            case TOCADO -> "◔";      // ◔
-            case MARCADO -> "◑";     // ◑
-            case FUNDO -> "◕";       // ◕
-            case A_BEIRA -> "●";     // ●
-            case ATRAVESSADO -> "◉"; // ◉
+            case COMUM -> "○";
+            case TOCADO -> "◔";
+            case MARCADO -> "◑";
+            case FUNDO -> "◕";
+            case A_BEIRA -> "●";
+            case ATRAVESSADO -> "◉";
         };
     }
 
     /** O losango vai se esvaziando conforme a cabeça cede. */
     public static String simbolo(FaixaLucidez f) {
         return switch (f) {
-            case FIRME -> "◆";     // ◆
-            case INQUIETO -> "◈";  // ◈
-            case ABALADO -> "◇";   // ◇
-            case QUEBRANDO -> "⋄"; // ⋄
-            case SURTO -> "✕";     // ✕
+            case FIRME -> "◆";
+            case INQUIETO -> "◈";
+            case ABALADO -> "◇";
+            case QUEBRANDO -> "⋄";
+            case SURTO -> "✕";
         };
     }
 
