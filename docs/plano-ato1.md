@@ -12,22 +12,28 @@ As horas são de trabalho de mesa (agente + revisão). Não contam o tempo de es
 ## Onde estamos (09/11)
 - **Pronto no main:** abertura na vila comum (sino, aldeão some, Morse FERRO, baú), grupos, Marca de Sangue,
   comandos `estrutura prever|colocar|desfazer`.
-- **Em PR:** correções da abertura (#31), Analisador de Sinal (#21), protótipo da Vila Calada em `.nbt` (#32, empilhado sobre o #27),
+- **Já mesclado depois:** correções da abertura (#31).
+- **Em PR:** estrutura em partes (#37), livros por Exposição (#36), prévias Faminto e atril (#38), Analisador de Sinal (#21), protótipo da Vila Calada em `.nbt` (#32, empilhado sobre o #27),
   Lore da Vila Calada (#34), arte da Marca de Sangue (#25, ainda sem integrar).
 - **Não existe ainda:** os outros cinco lugares (nenhum `.nbt`), as criaturas do Ato 1, os itens de história além de dois, os blocos de enigma
   e o Evento do Diabo.
 
-## Fase 0: decisões do Nikolas (bloqueiam as fases seguintes)
-| # | Decisão | Bloqueia |
-|---|---|---|
-| N1 | Vila Calada: nome, texto do livro, ficha, ordem (vila comum → Vila Calada → cinco lugares). PR #34 | 1, 2 |
-| N2 | Protótipo da vila (#32): aceitar o 72x64 ou refazer pela ficha (~100x100) | 1.4 |
-| N3 | FERRO repetido na placa e na Fita: manter ou trocar uma | 3.1 |
-| N4 | Nomes: "Livro do Carniceiro" ou "Diário do Açougueiro", e "Magarefe" | 3 |
-| N5 | Quem constrói as estruturas grandes e se diminui 30% | 1.4, 3, 4 |
-| N6 | Enigmas fora do jogo: onde hospedar o site, quem faz vídeo e áudios | 3.3, 4.2 |
-| N7 | Regras: chat bloqueado na capela, pacto sem castigo, queda na Repetidora | 5 |
-| N8 | Prévias: Faminto e atril (M1), Marca de Sangue (#25) | 1.6, 5 |
+## Fase 0: decisões do Nikolas (respondidas em 09/11)
+| # | Decisão | Resposta | Arquivo |
+|---|---|---|---|
+| N1 | Vila Calada: nome, livro, ficha, ordem | **Aprovada** (vila comum → Vila Calada → cinco lugares) | `decisoes/2026-11-09-vila-calada.md` |
+| N2 | Protótipo 72x64 ou refazer | **Refazer com ~100x100** pela ficha, prévia antes | `decisoes/2026-11-09-vila-calada.md` |
+| N3 | FERRO repetido | **Segunda palavra muda** (Lore escolhe) | `decisoes/2026-11-09-segunda-palavra-morse.md` |
+| N4 | Nomes | **"Diário do Açougueiro"** e **"Magarefe"** | `decisoes/2026-11-09-nomes-acougueiro-magarefe.md` |
+| N5 | Quem constrói | **As mesas geram**; o Nikolas pode retocar no criativo | `decisoes/2026-11-09-quem-constroi-estruturas.md` |
+| N6 | Enigmas fora do jogo | **Site novo na Vercel**; áudios e vídeos pelas mesas | `decisoes/2026-11-09-site-enigmas-fora.md` |
+| N7 | Regras | Capela **só voz** (chat bloqueado), pacto **sem castigo**, queda **sem morte instantânea** (dano e susto) | `decisoes/2026-11-09-regras-capela-pacto-queda.md` |
+| N8 | Prévias | O Nikolas aprova Faminto, atril (#38) e Marca (#25) quando chegarem | `decisoes/2026-11-09-previas-pendentes.md` |
+| NOVO | Ato 1 "bem Minecraft" | **Sem carro, fita, TV, VHS.** A Lore refaz os cinco lugares; nada deles é programado antes | `decisoes/2026-11-09-ato1-bem-minecraft.md` |
+
+**Efeito no plano:** Fases 1 e 2 seguem. **Fases 3, 4 e 5 estão congeladas**: os nomes de lugares e itens abaixo
+(Carro, Fita K7, Frigorífico, Pousada, VHS, Repetidora) são do roteiro antigo e vão ser trocados quando o roteiro novo
+(`mesa-lore/ato1-minecraft`) for aprovado. As horas continuam como estimativa.
 
 ## Fase 1: Vila Calada (o destino), cerca de 95 h
 | # | Item | Tipo | Mesa | Horas |
@@ -107,5 +113,18 @@ Regras para não dar conflito:
 - Ponto comum conhecido: a **linha de registro de comandos** (Dev 2 e Integrador acrescentam uma linha cada). Conflito de uma linha, a CEO resolve no merge.
 - Ordem de merge: #31 → 1.1 → 1.3 (#21) → 1.2. Prévias não entram em código.
 
+## Segunda rodada (lançada em 09/11, depois da Fase 0)
+| Tarefa | Mesa | Branch | Arquivos dela (ninguém mais mexe) |
+|---|---|---|---|
+| Cinco lugares "bem Minecraft", nova palavra Morse, nomes N4 | Lore | `mesa-lore/ato1-minecraft` (sobre o #34) | `lore/roteiro.md`, `lore/fichas-estruturas.md`, `lore/enigmas-fora.md` |
+| 1.4 Vila Calada ~100x100, **só prévia** | Modelador | `mesa-modelador/vila-calada-100` (sobre o #32) | `arte/vila-calada-100/` |
+| 1.8 Âncora `vila_calada` + três pistas | Dev | `mesa-dev/vila-calada-pistas` (sobre o #37) | `historia/vilacalada/` |
+| 1.10 Vela da capela e poças | Dev 2 | `mesa-dev/vela-pocas` | pacote novo dos dois blocos |
+| Revisão de #36, #37 e #21 | Revisor | (só lê) | nenhum |
+
+Regras de antes continuam: `docs/progresso.md` e `docs/ids.md` só a CEO, uma linha de registro em comum é resolvida no merge.
+Esperando: o Integrador fica livre até a revisão do #21; o Faminto (1.6, 1.7) espera o ok da prévia do #38.
+
 ## Próximo passo
-Quando N1 e N2 saírem: 1.4, 1.7 e 1.8 em paralelo. Depois, as fases na ordem acima. Lore antes de código, código antes de revisão.
+Aprovar o roteiro novo da Lore → reescrever as Fases 3 a 5 com os lugares novos. Ordem de merge: #37 → #21 → #36 → pistas e vela.
+Lore antes de código, código antes de revisão.
