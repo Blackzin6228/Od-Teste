@@ -283,12 +283,12 @@ final class Alucinacoes {
         MultiBufferSource.BufferSource buf = mc.renderBuffers().bufferSource();
         EntityRenderDispatcher d = mc.getEntityRenderDispatcher();
         PoseStack pose = e.getPoseStack();
-        desenhar(vulto, nivel, d, cam, pt, pose, buf);
-        desenhar(mob, nivel, d, cam, pt, pose, buf);
+        desenharFigura(vulto, nivel, d, cam, pt, pose, buf);
+        desenharFigura(mob, nivel, d, cam, pt, pose, buf);
         buf.endBatch();
     }
 
-    private static void desenhar(Figura f, ClientLevel nivel, EntityRenderDispatcher d, Vec3 cam, float pt,
+    private static void desenharFigura(Figura f, ClientLevel nivel, EntityRenderDispatcher d, Vec3 cam, float pt,
                                  PoseStack pose, MultiBufferSource buf) {
         if (f == null || f.nivel != nivel) return;
         LivingEntity c = f.corpo;
