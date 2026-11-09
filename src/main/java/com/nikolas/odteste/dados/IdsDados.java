@@ -25,9 +25,15 @@ public final class IdsDados {
     /** Noite (dia do relógio) em que a última criatura de Sangue nasceu sozinha perto do jogador. */
     public static final String CRIATURA_NOITE = "criatura_noite";
 
+    /** Elemento do jogador, definido pelo admin (nenhum = sem elemento). Nunca vai para o cliente. */
+    public static final String ELEMENTO = "elemento";
+    /** Se a história já revelou o elemento ao jogador. Nunca vai para o cliente. */
+    public static final String ELEMENTO_REVELADO = "elemento_revelado";
+
     public static final List<String> TODOS = List.of(
             EXPOSICAO, LUCIDEZ, LUCIDEZ_MAX, MARCA_ELEMENTO, MARCA_ESTAGIO, TRANSCENDER_NIVEL,
-            EXPOSICAO_RESTO, CONTATO_ELEMENTO, EXPOSICAO_REPETICAO, ARTEFATO_RECARGA, CRIATURA_NOITE);
+            EXPOSICAO_RESTO, CONTATO_ELEMENTO, EXPOSICAO_REPETICAO, ARTEFATO_RECARGA, CRIATURA_NOITE,
+            ELEMENTO, ELEMENTO_REVELADO);
 
     // ---------- Play test de Sangue, parte 2: conteúdo ----------
 
@@ -88,6 +94,14 @@ public final class IdsDados {
     /** Modificador de velocidade da Lucidez baixa (temporário: não fica salvo no jogador). */
     public static final String MODIFICADOR_LENTIDAO = "lucidez_lentidao";
 
+    /** Tag de bloco: o que a história pode ocupar além do ar (data/odteste/tags/block/substituivel.json). */
+    public static final String TAG_SUBSTITUIVEL = "substituivel";
+    /** Peças de história (item vanilla com custom_data {odteste_peca: "odteste:..."}). */
+    public static final String PECA_LIVRO_CARNICEIRO_1 = "livro_carniceiro_1";
+    public static final String PECA_MAPA_ESQUERDA = "mapa_rasgado_esquerda";
+    /** Arquivo de dados do mundo com grupos, progresso e eventos (data/odteste_historia.dat). Sem "odteste:". */
+    public static final String ARQUIVO_HISTORIA = "odteste_historia";
+
     /** Todos os IDs que não são dado salvo, mas também precisam estar em docs/ids.md. */
     public static final List<String> OUTROS = List.of(
             PACOTE_SINCRONIZAR, PACOTE_MOMENTO, MODIFICADOR_SANGUE, MODIFICADOR_LENTIDAO, CAMADA_TELA,
@@ -96,7 +110,8 @@ public final class IdsDados {
             TEXTURA_MARCA_SANGUE + "_3", TEXTURA_MARCA_SANGUE + "_4",
             ITEM_RUBRA, ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO, ITEM_MATERIA_SANGUE,
             CRIATURA_RETALHADO, CRIATURA_SANGUESSUGA, SANGRAMENTO, ABA, MODIFICADOR_DEDAL, RITUAL_CHAMADO,
-            "ritual/" + RITUAL_CHAMADO, PLUGIN_JEI);
+            "ritual/" + RITUAL_CHAMADO, PLUGIN_JEI,
+            TAG_SUBSTITUIVEL, PECA_LIVRO_CARNICEIRO_1, PECA_MAPA_ESQUERDA);
 
     private IdsDados() {}
 }

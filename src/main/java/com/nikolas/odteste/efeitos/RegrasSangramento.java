@@ -26,8 +26,13 @@ public final class RegrasSangramento {
 
     /** Vida abaixo de 70% da máxima? (máxima inválida conta como "não"). */
     public static boolean rubraForte(float vida, float vidaMax) {
+        return rubraForte(vida, vidaMax, RUBRA_LIMIAR_VIDA);
+    }
+
+    /** Igual, com outro limiar (o dono de Sangue acorda a Rubra mais cedo: RegrasElemento.limiarVida). */
+    public static boolean rubraForte(float vida, float vidaMax, float limiar) {
         if (!(vidaMax > 0)) return false;
-        return vida < vidaMax * RUBRA_LIMIAR_VIDA;
+        return vida < vidaMax * limiar;
     }
 
     /** O golpe da Rubra abre a ferida quando o alvo já está no acúmulo máximo. */

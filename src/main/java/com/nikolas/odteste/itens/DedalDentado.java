@@ -50,11 +50,13 @@ public final class DedalDentado extends Artefato {
     protected boolean usar(ServerPlayer p, boolean dobro) {
         long agora = p.server.overworld().getGameTime();
         ATIVO_ATE.put(p.getUUID(), agora + RegrasArtefato.DEDAL_TICKS); // não empilha: reinicia o tempo
-        Lucidez.perder(p, RegrasArtefato.DEDAL_LUCIDEZ * (dobro ? 2 : 1));
+        Lucidez.perder(p, custo(p, RegrasArtefato.DEDAL_LUCIDEZ * (dobro ? 2 : 1)));
 
         AttributeInstance vida = p.getAttribute(Attributes.MAX_HEALTH);
         if (vida != null && !vida.hasModifier(ID_CORACAO)) {
-            vida.addPermanentModifier(new AttributeModifier(ID_CORACAO, RegrasArtefato.DEDAL_VIDA_MAX,
+            // O valor é negativo: o desconto vale sobre o tamanho da perda.
+            double perda = custoVida(p, (float) -RegrasArtefato.DEDAL_VIDA_MAX);
+            vida.addPermanentModifier(new AttributeModifier(ID_CORACAO, -perda,
                     AttributeModifier.Operation.ADD_VALUE));
             if (p.getHealth() > p.getMaxHealth()) p.setHealth(p.getMaxHealth());
         }

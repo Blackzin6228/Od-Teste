@@ -3,6 +3,8 @@ package com.nikolas.odteste.itens;
 import com.nikolas.odteste.efeitos.RegrasSangramento;
 import com.nikolas.odteste.efeitos.Sangramento;
 import com.nikolas.odteste.elementos.Elemento;
+import com.nikolas.odteste.elementos.RegrasElemento;
+import com.nikolas.odteste.sistemas.ElementoJogador;
 import com.nikolas.odteste.sistemas.Exposicao;
 import com.nikolas.odteste.sistemas.Fonte;
 import java.util.List;
@@ -44,7 +46,10 @@ public final class Rubra extends SwordItem {
 
     @Override
     public boolean hurtEnemy(ItemStack item, LivingEntity alvo, LivingEntity dono) {
-        if (dono.level() instanceof ServerLevel nivel && RegrasSangramento.rubraForte(dono.getHealth(), dono.getMaxHealth())) {
+        // Dono de Sangue: o custo (a vida que precisa faltar) é 30% menor. Mob ou outro elemento: 70%.
+        Elemento doDono = dono instanceof Player j ? ElementoJogador.de(j) : Elemento.NENHUM;
+        float limiar = RegrasElemento.limiarVida(RegrasSangramento.RUBRA_LIMIAR_VIDA, doDono, Elemento.SANGUE);
+        if (dono.level() instanceof ServerLevel nivel && RegrasSangramento.rubraForte(dono.getHealth(), dono.getMaxHealth(), limiar)) {
             int atual = Sangramento.nivel(alvo);
             if (RegrasSangramento.abreFerida(atual)) {
                 abrirFerida(nivel, alvo, dono);
