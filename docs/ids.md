@@ -40,6 +40,7 @@ Modid: `odteste` (definitivo, decisão de 2026-11-08) · Lançado no servidor: *
 | `odteste:mapa_rasgado_esquerda` | peça de história (item vanilla `minecraft:paper` com custom_data `{odteste_peca: "odteste:mapa_rasgado_esquerda"}`) | 2026-11-08 | metade esquerda do Mapa Rasgado (Enigma 1). Provisório: vira mapa de verdade no Enigma 2 |
 | `odteste_peca` | chave do custom_data dos itens de história | 2026-11-08 | o mod reconhece as peças por ela; o valor é o ID da peça (linhas acima) |
 | `odteste:aldeao_parado` | modificador de atributo (velocidade de movimento, −100%) | 2026-11-09 | temporário (não fica salvo); só nos aldeões parados olhando o sino do Primeiro Sinal, com jogador perto |
+| `estruturas.blocos_por_tick` | chave de config do servidor (`serverconfig/odteste-server.toml` do mundo, seção `[estruturas]`; inteiro, padrão 4096, mínimo 256, máximo 65536) | 2026-11-09 | blocos por tick ao conferir, colocar e desfazer estrutura grande em partes. Mudar no meio só vale para a próxima colocação (cada uma guarda o `limite` com que começou) |
 
 História (Ato 1, parte A). Ficam salvos dentro de `odteste_historia`, então também não mudam:
 - **Marcos do grupo:** `primeiro_sinal` (Cena 1 solta para o grupo), `enigma_sino` (FERRO escrito na placa, baú aberto).
@@ -54,7 +55,14 @@ História (Ato 1, parte A). Ficam salvos dentro de `odteste_historia`, então ta
     `congelados`, `resolvido`, `marcos`, e desde 2026-11-09 `apoio_placa`, `apoio_placa_bloco`, `apoio_estandarte`,
     `apoio_estandarte_bloco` (blocos da vila que seguram a placa e o estandarte; mundos antigos ganham na primeira
     vez que o mod vê o bloco). Vila sem `sino` é ignorada (não roda), mas fica no arquivo igual.
-  - cada colocação (`colocacoes`): `id`, `template`, `dim`, `canto`, `backup`.
+  - cada colocação (`colocacoes`): `id`, `template`, `dim`, `canto`, `backup`, e desde 2026-11-09 `partes` (só em
+    estrutura grande, colocada em partes; colocação sem `partes` é a pequena, de uma vez, e continua igual).
+    Dentro de `partes`: `rotacao` (`none`, `clockwise_90`, `clockwise_180`, `counterclockwise_90`), `limite` (blocos
+    por fatia usados quando começou), `total` (fatias), `fatia` (próxima fatia), `fase`, `admin` (UUID de quem pediu,
+    pode faltar), e só enquanto desfaz `vizinhos` (posições já devolvidas que ainda ajustam os vizinhos) e
+    `vizinhos_feitos`. Valores de `fase`: `conferindo`, `colocando`, `pausada`, `pronta`, `desfazendo` (valor
+    desconhecido vira `pausada`: para e espera o admin). O backup de uma estrutura pronta fica no arquivo até o
+    `desfazer` (a Vila Calada são centenas de milhares de posições).
   - cada backup de blocos (`blocos` da vila e `backup` da colocação): `paleta`, `pos`, `original`, `colocado`.
 - Aldeões parados olhando o sino (desde 2026-11-09): **nada fica salvo**. O freio é o modificador temporário
   `odteste:aldeao_parado` (o jogo não grava no disco), o olhar é uma memória que o jogo não grava e o dano é barrado

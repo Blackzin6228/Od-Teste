@@ -1,5 +1,9 @@
 package com.nikolas.odteste.estruturas;
 
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.longs.Long2IntOpenHashMap;
+import it.unimi.dsi.fastutil.longs.LongArrayList;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -30,28 +34,59 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
  */
 public final class Backup {
     private final List<BlockState> paleta = new ArrayList<>();
-    private final List<Long> posicoes = new ArrayList<>();
-    private final List<Integer> originais = new ArrayList<>();
-    private final List<Integer> colocados = new ArrayList<>();
+    /** Estado -> índice na paleta (a paleta pode crescer bastante numa estrutura grande). */
+    private final Object2IntOpenHashMap<BlockState> indicePaleta = new Object2IntOpenHashMap<>();
+    // Listas de primitivos (fastutil): numa estrutura de 500 mil blocos, nada de um objeto por posição.
+    private final LongArrayList posicoes = new LongArrayList();
+    private final IntArrayList originais = new IntArrayList();
+    private final IntArrayList colocados = new IntArrayList();
+    /**
+     * Posição -> índice da última anotação dela. Só memória, montado na primeira consulta e jogado fora quando
+     * uma anotação sai (aí os índices mudam). Assim {@link #contem} e {@link #ehNosso} custam O(1) por bloco.
+     */
+    private Long2IntOpenHashMap ultima;
+
+    public Backup() {
+        indicePaleta.defaultReturnValue(-1);
+    }
 
     public int tamanho() {
         return posicoes.size();
     }
 
     public boolean contem(BlockPos p) {
-        return posicoes.contains(p.asLong());
+        return mapa().containsKey(p.asLong());
+    }
+
+    /**
+     * A posição está no backup e ainda tem o bloco que nós pusemos por último (mesmo teste do desfazer)?
+     * Serve para a fatia que parou no meio: o que já entrou é nosso, não é bloqueio.
+     */
+    public boolean ehNosso(BlockPos p, BlockState agora) {
+        int i = mapa().get(p.asLong());
+        return i >= 0 && agora.is(paleta.get(colocados.getInt(i)).getBlock());
+    }
+
+    private Long2IntOpenHashMap mapa() {
+        if (ultima == null) {
+            ultima = new Long2IntOpenHashMap(posicoes.size());
+            ultima.defaultReturnValue(-1);
+            for (int i = 0; i < posicoes.size(); i++) ultima.put(posicoes.getLong(i), i);
+        }
+        return ultima;
     }
 
     public List<BlockPos> posicoes() {
         List<BlockPos> l = new ArrayList<>(posicoes.size());
-        for (long p : posicoes) l.add(BlockPos.of(p));
+        for (int i = 0; i < posicoes.size(); i++) l.add(BlockPos.of(posicoes.getLong(i)));
         return l;
     }
 
     private int indice(BlockState s) {
-        int i = paleta.indexOf(s);
+        int i = indicePaleta.getInt(s);
         if (i >= 0) return i;
         paleta.add(s);
+        indicePaleta.put(s, paleta.size() - 1);
         return paleta.size() - 1;
     }
 
@@ -59,16 +94,31 @@ public final class Backup {
         posicoes.add(p.asLong());
         originais.add(indice(original));
         colocados.add(indice(colocado));
+        if (ultima != null) ultima.put(p.asLong(), posicoes.size() - 1);
     }
 
-    /** Esquece as anotações de uma posição (o bloco voltou ao que era sem o desfazer). */
+    /** Corta as anotações a partir de {@code de} (as últimas). */
+    private void cortar(int de) {
+        if (de >= posicoes.size()) return;
+        posicoes.size(de);
+        originais.size(de);
+        colocados.size(de);
+        ultima = null;
+    }
+
+    /**
+     * Esquece a última anotação de uma posição (o bloco voltou ao que era sem o desfazer). Só a última: na colocação
+     * em partes a mesma posição pode ter uma anotação mais antiga, de outra fatia, que precisa ficar.
+     */
     void esquecer(BlockPos p) {
         long l = p.asLong();
         for (int i = posicoes.size() - 1; i >= 0; i--) {
-            if (posicoes.get(i) == l) {
-                posicoes.remove(i);
-                originais.remove(i);
-                colocados.remove(i);
+            if (posicoes.getLong(i) == l) {
+                posicoes.removeLong(i);
+                originais.removeInt(i);
+                colocados.removeInt(i);
+                ultima = null;
+                return;
             }
         }
     }
@@ -121,14 +171,51 @@ public final class Backup {
      * Baú nosso: o que for peça de história ({@code descartar}) sai; o resto é de jogador e cai no chão.
      */
     public Restauracao restaurar(ServerLevel nivel, Predicate<ItemStack> descartar) {
+        LongArrayList trocados = new LongArrayList();
+        Restauracao r = restaurarDe(nivel, descartar, 0, trocados);
+        for (int i = 0; i < trocados.size(); i++) atualizarVizinhos(nivel, BlockPos.of(trocados.getLong(i)));
+        return r;
+    }
+
+    /**
+     * Desfaz só as últimas {@code limite} anotações (para estrutura grande, um pedaço por tick) e tira elas do
+     * backup: se o servidor cair no meio, o que sobrou no backup é exatamente o que falta desfazer.
+     * Os vizinhos <b>não</b> reagem aqui: as posições trocadas vão para {@code trocados}, e quem chama roda
+     * {@link #atualizarVizinhos} em todas no fim (senão uma tocha nossa cai da parede nossa antes da hora).
+     */
+    public Restauracao restaurarParte(ServerLevel nivel, Predicate<ItemStack> descartar, int limite, LongArrayList trocados) {
+        int de = Math.max(0, posicoes.size() - Math.max(1, limite));
+        Restauracao r = restaurarDe(nivel, descartar, de, trocados);
+        cortar(de);
+        return r;
+    }
+
+    /** A primeira posição, entre as últimas {@code limite} anotações, num chunk não carregado (ou null). */
+    public BlockPos descarregadaNoFim(ServerLevel nivel, int limite) {
+        int de = Math.max(0, posicoes.size() - Math.max(1, limite));
+        for (int i = posicoes.size() - 1; i >= de; i--) {
+            BlockPos p = BlockPos.of(posicoes.getLong(i));
+            if (!nivel.hasChunk(p.getX() >> 4, p.getZ() >> 4)) return p;
+        }
+        return null;
+    }
+
+    /** Depois de desfazer: o bloco e os vizinhos se ajustam (planta sem chão cai, cerca reconecta). */
+    public static void atualizarVizinhos(ServerLevel nivel, BlockPos p) {
+        if (!nivel.hasChunk(p.getX() >> 4, p.getZ() >> 4)) return;
+        BlockState st = nivel.getBlockState(p);
+        st.updateNeighbourShapes(nivel, p, Block.UPDATE_ALL);
+        nivel.blockUpdated(p, st.getBlock());
+    }
+
+    private Restauracao restaurarDe(ServerLevel nivel, Predicate<ItemStack> descartar, int de, LongArrayList trocados) {
         int mantidos = 0;
         int soltos = 0;
         BlockPos onde = null;
-        List<BlockPos> trocados = new ArrayList<>();
-        for (int i = posicoes.size() - 1; i >= 0; i--) {
-            BlockPos p = BlockPos.of(posicoes.get(i));
+        for (int i = posicoes.size() - 1; i >= de; i--) {
+            BlockPos p = BlockPos.of(posicoes.getLong(i));
             BlockState agora = nivel.getBlockState(p);
-            BlockState nosso = paleta.get(colocados.get(i));
+            BlockState nosso = paleta.get(colocados.getInt(i));
             if (!agora.is(nosso.getBlock())) {
                 mantidos++;
                 continue;
@@ -140,13 +227,8 @@ public final class Backup {
                 soltos += n;
             }
             if (be != null) Clearable.tryClear(be);
-            nivel.setBlock(p, paleta.get(originais.get(i)), SEM_VIZINHOS);
-            trocados.add(p);
-        }
-        for (BlockPos p : trocados) {
-            BlockState st = nivel.getBlockState(p);
-            st.updateNeighbourShapes(nivel, p, Block.UPDATE_ALL);
-            nivel.blockUpdated(p, st.getBlock());
+            nivel.setBlock(p, paleta.get(originais.getInt(i)), SEM_VIZINHOS);
+            trocados.add(p.asLong());
         }
         return new Restauracao(mantidos, soltos, onde);
     }
@@ -172,17 +254,10 @@ public final class Backup {
         ListTag pal = new ListTag();
         for (BlockState s : paleta) pal.add(NbtUtils.writeBlockState(s));
         t.put("paleta", pal);
-        long[] pos = new long[posicoes.size()];
-        int[] ori = new int[posicoes.size()];
-        int[] col = new int[posicoes.size()];
-        for (int i = 0; i < pos.length; i++) {
-            pos[i] = posicoes.get(i);
-            ori[i] = originais.get(i);
-            col[i] = colocados.get(i);
-        }
-        t.put("pos", new LongArrayTag(pos));
-        t.put("original", new IntArrayTag(ori));
-        t.put("colocado", new IntArrayTag(col));
+        // Mesmo formato de antes (pos/original/colocado): o que já está salvo no mundo continua lendo igual.
+        t.put("pos", new LongArrayTag(posicoes.toLongArray()));
+        t.put("original", new IntArrayTag(originais.toIntArray()));
+        t.put("colocado", new IntArrayTag(colocados.toIntArray()));
         return t;
     }
 
@@ -190,7 +265,10 @@ public final class Backup {
         Backup b = new Backup();
         ListTag pal = t.getList("paleta", Tag.TAG_COMPOUND);
         for (int i = 0; i < pal.size(); i++) {
-            b.paleta.add(NbtUtils.readBlockState(BuiltInRegistries.BLOCK.asLookup(), pal.getCompound(i)));
+            BlockState s = NbtUtils.readBlockState(BuiltInRegistries.BLOCK.asLookup(), pal.getCompound(i));
+            b.paleta.add(s);
+            // Paleta salva pode repetir estado (bloco de mod que sumiu vira ar): fica o primeiro índice.
+            b.indicePaleta.putIfAbsent(s, i);
         }
         long[] pos = t.getLongArray("pos");
         int[] ori = t.getIntArray("original");

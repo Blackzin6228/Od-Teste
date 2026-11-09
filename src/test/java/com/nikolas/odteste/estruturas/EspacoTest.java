@@ -49,6 +49,18 @@ class EspacoTest {
         assertTrue(Espaco.checarComChao(caixa3x3(0, 64, 0), m).cabe());
     }
 
+    /** Estrutura grande: o prever só confere o chão; bloco dentro da caixa fica para a conferência em partes. */
+    @Test
+    void chaoSoOlhaACamadaDeBaixo() {
+        MundoFalso m = new MundoFalso();
+        m.por(1, 65, 1, Espaco.Tipo.OCUPADO);
+        assertTrue(Espaco.checarChao(caixa3x3(0, 64, 0), m).cabe());
+        assertFalse(Espaco.checarComChao(caixa3x3(0, 64, 0), m).cabe());
+        assertFalse(Espaco.checarChao(caixa3x3(0, 70, 0), m).cabe()); // voando
+        m.chunkProtegidoX = 0;
+        assertEquals(Espaco.Tipo.PROTEGIDO, Espaco.checarChao(caixa3x3(0, 64, 0), m).motivo());
+    }
+
     @Test
     void plantaPodeSerOcupada() {
         MundoFalso m = new MundoFalso();
