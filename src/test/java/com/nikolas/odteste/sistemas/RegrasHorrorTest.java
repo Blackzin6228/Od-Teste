@@ -281,9 +281,9 @@ class RegrasHorrorTest {
         }
         assertEquals(6, RegrasHorror.ECO_TICKS[1]);
         assertEquals(14, RegrasHorror.ECO_TICKS[2]);
-        assertEquals(0.3f, RegrasHorror.ecoVolume(0.3f, 0));
-        assertEquals(0.15f, RegrasHorror.ecoVolume(0.3f, 1));
-        assertEquals(0.075f, RegrasHorror.ecoVolume(0.3f, 2));
+        assertEquals(0.3f, RegrasHorror.ecoVolume(0.3f, 0), 1e-6);
+        assertEquals(0.15f, RegrasHorror.ecoVolume(0.3f, 1), 1e-6);
+        assertEquals(0.075f, RegrasHorror.ecoVolume(0.3f, 2), 1e-6);
         assertEquals(RegrasHorror.VOLUME_MAX, RegrasHorror.ecoVolume(2f, 0), "nunca passa de 0,6");
         assertEquals(0.6f, RegrasHorror.ecoPitch(0.65f, 1), 1e-6);
     }

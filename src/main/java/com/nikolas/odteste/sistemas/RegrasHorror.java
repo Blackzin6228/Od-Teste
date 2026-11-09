@@ -398,12 +398,12 @@ public final class RegrasHorror {
     public static final float VOLUME_MAX = 0.6f;
 
     public static float pitch(Sorteio s) {
-        return PITCH_MIN + (PITCH_MAX - PITCH_MIN) * s.ate(101) / 100f;
+        return Math.min(PITCH_MAX, PITCH_MIN + (PITCH_MAX - PITCH_MIN) * s.ate(101) / 100f);
     }
 
     /** Base dos sons com eco: 0,6–0,7, para os ecos (−0,05 cada) ainda tocarem acima de 0,5. */
     public static float pitchComEco(Sorteio s) {
-        return 0.6f + 0.1f * s.ate(101) / 100f;
+        return Math.min(PITCH_MAX, 0.6f + 0.1f * s.ate(101) / 100f); // min: a conta em float passa um tiquinho
     }
 
     /** Eco (horror.md "Sobre o som"): o mesmo som de novo 6 e 14 ticks depois. */
@@ -417,6 +417,6 @@ public final class RegrasHorror {
 
     /** Pitch da batida {@code i} do eco: 0,05 mais grave a cada repetição, nunca abaixo de 0,5. */
     public static float ecoPitch(float pitch, int i) {
-        return Math.max(PITCH_MIN, pitch - 0.05f * Math.max(0, i));
+        return Math.min(PITCH_MAX, Math.max(PITCH_MIN, pitch - 0.05f * Math.max(0, i)));
     }
 }
