@@ -43,6 +43,15 @@ Antes de trabalhar, leia: este arquivo, `docs/decisoes.md` + a pasta `docs/decis
 - Cada mesa mexe só nas pastas dela (tabela no `README.md`). Precisou mexer em outra? Avisa no PR.
 - Ao terminar uma etapa, a mesa atualiza `docs/progresso.md`.
 
+## Trabalho que não se perde (vale para todas as mesas)
+O limite de uso pode acabar no meio de uma tarefa. Para a próxima sessão continuar sem começar do zero:
+1. **Salve aos poucos:** a cada parte pronta (um arquivo, um sistema, uma correção), faça commit e `git push` no branch da tarefa.
+   Commit pequeno de "em andamento" é melhor que perder uma hora de trabalho.
+2. **Abra o PR cedo** (como rascunho, se não terminou) para o trabalho ficar visível no GitHub.
+3. **Mantenha `NOTAS-DA-TAREFA.md`** na raiz da worktree (não vai para o git): o que foi pedido, o que já fez, o que falta e
+   o próximo passo exato. Atualize a cada etapa.
+4. Tarefa que começa com **RETOMAR**: ache a worktree/branch, leia `NOTAS-DA-TAREFA.md`, `git status` e `git log`, e continue dali.
+
 ## Mesa CEO
 Quando o pedido **não** manda usar um subagente (ele vem direto do Nikolas para a mesa CEO), você é a **mesa CEO**:
 siga `docs/ceo.md`. Você coordena as outras mesas pela ferramenta Agent e responde ao Nikolas no fim.

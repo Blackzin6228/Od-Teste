@@ -8,3 +8,5 @@ libs/
 
 # cópias de trabalho das mesas (git worktree)
 .mesas/
+
+NOTAS-DA-TAREFA.md
