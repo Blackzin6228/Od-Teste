@@ -67,7 +67,27 @@ public final class DadosJogador {
                     .copyOnDeath()
                     .build());
 
+    /**
+     * Último uso de cada Artefato Paranormal: id do item → tempo do mundo. Não vai para o cliente.
+     * Salvo para a recarga não zerar ao sair e voltar. Só guarda usos recentes (ver RegrasArtefato.limpar).
+     */
+    public static final Supplier<AttachmentType<Map<String, Long>>> ARTEFATO_RECARGA = Registro.DADOS.register(
+            IdsDados.ARTEFATO_RECARGA,
+            () -> AttachmentType.<Map<String, Long>>builder(() -> Map.of())
+                    .serialize(Codec.unboundedMap(Codec.STRING, Codec.LONG))
+                    .copyOnDeath()
+                    .build());
+
     private DadosJogador() {}
+
+    /** Usos recentes de artefatos (id do item → tempo do mundo). */
+    public static Map<String, Long> usosArtefato(Player p) {
+        return p.getData(ARTEFATO_RECARGA);
+    }
+
+    public static void definirUsosArtefato(Player p, Map<String, Long> usos) {
+        p.setData(ARTEFATO_RECARGA, Map.copyOf(usos));
+    }
 
     /** Força o carregamento da classe, para os registros entrarem antes do evento de registro. */
     public static void iniciar() {}

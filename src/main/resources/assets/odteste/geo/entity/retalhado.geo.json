@@ -1,0 +1,55 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.retalhado",
+        "texture_width": 256,
+        "texture_height": 256,
+        "visible_bounds_width": 4,
+        "visible_bounds_height": 4,
+        "visible_bounds_offset": [0, 1.5, 0]
+      },
+      "bones": [
+        { "name": "raiz", "pivot": [0, 0, 0] },
+        {
+          "name": "perna_dir", "parent": "raiz", "pivot": [-4.5, 22, 0],
+          "cubes": [ { "origin": [-8, 0, -3], "size": [7, 22, 7], "uv": [0, 0] } ]
+        },
+        {
+          "name": "perna_esq", "parent": "raiz", "pivot": [4.5, 22, 0],
+          "cubes": [ { "origin": [1, 0, -3], "size": [7, 22, 7], "uv": [0, 40] } ]
+        },
+        {
+          "name": "tronco", "parent": "raiz", "pivot": [0, 22, 0],
+          "cubes": [
+            { "origin": [-9, 22, -4], "size": [18, 12, 9], "uv": [64, 0] },
+            { "origin": [-12, 34, -8], "size": [24, 12, 12], "uv": [64, 40] }
+          ]
+        },
+        {
+          "name": "coracao", "parent": "tronco", "pivot": [0, 39, -8],
+          "cubes": [ { "origin": [-2, 37, -9], "size": [4, 4, 1], "uv": [160, 0] } ]
+        },
+        {
+          "name": "cabeca", "parent": "tronco", "pivot": [0, 40, -8],
+          "cubes": [ { "origin": [-4, 36, -15], "size": [8, 9, 7], "uv": [160, 40] } ]
+        },
+        {
+          "name": "braco_dir", "parent": "tronco", "pivot": [-14.5, 44, -2],
+          "cubes": [
+            { "origin": [-17, 12, -5], "size": [5, 32, 6], "uv": [0, 80] },
+            { "origin": [-18, 12, -13], "size": [1, 14, 9], "uv": [40, 80] }
+          ]
+        },
+        {
+          "name": "braco_esq", "parent": "tronco", "pivot": [14.5, 44, -2],
+          "cubes": [
+            { "origin": [12, 12, -5], "size": [5, 32, 6], "uv": [0, 130] },
+            { "origin": [13, 9, -6], "size": [2, 3, 3], "uv": [40, 130] }
+          ]
+        }
+      ]
+    }
+  ]
+}

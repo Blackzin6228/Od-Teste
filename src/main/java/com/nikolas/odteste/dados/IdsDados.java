@@ -20,9 +20,40 @@ public final class IdsDados {
     /** Freio de repetição da Exposição (fonte → início da janela e vezes). Salvo para relogar não zerar. */
     public static final String EXPOSICAO_REPETICAO = "exposicao_repeticao";
 
+    /** Último uso de cada Artefato Paranormal (id do item → tempo do mundo). Recarga que sobrevive a relogar. */
+    public static final String ARTEFATO_RECARGA = "artefato_recarga";
+
     public static final List<String> TODOS = List.of(
             EXPOSICAO, LUCIDEZ, LUCIDEZ_MAX, MARCA_ELEMENTO, MARCA_ESTAGIO, TRANSCENDER_NIVEL,
-            EXPOSICAO_RESTO, CONTATO_ELEMENTO, EXPOSICAO_REPETICAO);
+            EXPOSICAO_RESTO, CONTATO_ELEMENTO, EXPOSICAO_REPETICAO, ARTEFATO_RECARGA);
+
+    // ---------- Play test de Sangue, parte 2: conteúdo ----------
+
+    /** Espada de Sangue (sem receita). */
+    public static final String ITEM_RUBRA = "rubra";
+    /** Artefatos Paranormais de Sangue (sem receita). */
+    public static final String ITEM_AGULHA = "agulha_de_cerzir_carne";
+    public static final String ITEM_DEDAL = "dedal_dentado";
+    public static final String ITEM_SINO = "sino_de_matadouro";
+    /** Matéria paranormal de Sangue, bruta (cai das criaturas). */
+    public static final String ITEM_MATERIA_SANGUE = "materia_sangue_bruta";
+    public static final List<String> ITENS = List.of(ITEM_RUBRA, ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO, ITEM_MATERIA_SANGUE);
+
+    /** Criaturas de Sangue (GeckoLib). Mesmo nome no modificador de bioma e na tabela de drop. */
+    public static final String CRIATURA_RETALHADO = "retalhado";
+    public static final String CRIATURA_SANGUESSUGA = "sanguessuga_mae";
+    public static final List<String> CRIATURAS = List.of(CRIATURA_RETALHADO, CRIATURA_SANGUESSUGA);
+
+    /** Efeito "Sangramento" e o tipo de dano com o mesmo nome (data/odteste/damage_type/). */
+    public static final String SANGRAMENTO = "sangramento";
+    /** Aba do modo criativo. */
+    public static final String ABA = "principal";
+    /** Modificador de vida máxima do Dedal Dentado (−1 coração até dormir; fica salvo no jogador). */
+    public static final String MODIFICADOR_DEDAL = "dedal_coracao";
+    /** Ritual do Occultism (fábrica de ritual); a receita é odteste:ritual/chamado_de_sangue. */
+    public static final String RITUAL_CHAMADO = "chamado_de_sangue";
+    /** Etiqueta (scoreboard tag) da criatura que veio de spawner: não solta matéria. Fica salva na criatura. */
+    public static final String ETIQUETA_SEM_MATERIA = "odteste_sem_materia";
 
     /** Canal de rede que manda os dados para o cliente do próprio jogador. */
     public static final String PACOTE_SINCRONIZAR = "sincronizar_jogador";
@@ -54,7 +85,10 @@ public final class IdsDados {
             PACOTE_SINCRONIZAR, PACOTE_MOMENTO, MODIFICADOR_SANGUE, CAMADA_TELA,
             ANIM_MARCA_APARECE, ANIM_MARCA_SOBE, ANIM_SURTO, CAMADA_ANIMACAO,
             PACOTE_MARCA_VISIVEL, TAG_PARANORMAL, TAG_COMIDA_QUENTE, TEXTURA_MARCA_SANGUE + "_1", TEXTURA_MARCA_SANGUE + "_2",
-            TEXTURA_MARCA_SANGUE + "_3", TEXTURA_MARCA_SANGUE + "_4");
+            TEXTURA_MARCA_SANGUE + "_3", TEXTURA_MARCA_SANGUE + "_4",
+            ITEM_RUBRA, ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO, ITEM_MATERIA_SANGUE,
+            CRIATURA_RETALHADO, CRIATURA_SANGUESSUGA, SANGRAMENTO, ABA, MODIFICADOR_DEDAL, RITUAL_CHAMADO,
+            "ritual/" + RITUAL_CHAMADO);
 
     private IdsDados() {}
 }

@@ -38,12 +38,25 @@ public final class Exposicao {
         p.setData(DadosJogador.EXPOSICAO_REPETICAO, rep.paraSalvar(agora));
         int ganho = RegrasExposicao.ganhoCentesimos(fonte.base, intensidade, antes);
         if (ganho <= 0) return 0;
+        aplicar(p, e, ganho);
+        return ganho;
+    }
+
+    /**
+     * Custo de um Artefato Paranormal: pontos inteiros de Exposição, **sem** o freio de repetição (o artefato já
+     * tem recarga e cobra o dobro se for usado de novo cedo). Também para em 99. Com elemento, soma no contato.
+     */
+    public static void custo(ServerPlayer p, Elemento elemento, int pontos) {
+        if (p == null || pontos <= 0) return;
+        aplicar(p, elemento == null ? Elemento.NENHUM : elemento, pontos * 100);
+    }
+
+    private static void aplicar(ServerPlayer p, Elemento e, int ganho) {
         DadosJogador.somarContato(p, e, ganho);
         int atual = DadosJogador.exposicao(p);
         RegrasExposicao.Resultado r = RegrasExposicao.somar(atual, DadosJogador.exposicaoResto(p), ganho);
         DadosJogador.definirExposicaoComResto(p, r.exposicao(), r.resto());
         // Mesmo sem mudar de ponto, o contato novo pode fazer a Marca aparecer ou trocar.
         if (r.exposicao() == atual) Reacoes.conferirMarca(p);
-        return ganho;
     }
 }

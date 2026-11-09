@@ -2,6 +2,7 @@ package com.nikolas.odteste.registro;
 
 import com.nikolas.odteste.OdMod;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -23,6 +24,9 @@ public final class Registro {
             DeferredRegister.create(Registries.ENTITY_TYPE, OdMod.MODID);
     public static final DeferredRegister<CreativeModeTab> ABAS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, OdMod.MODID);
+    /** Efeitos (sangramento). */
+    public static final DeferredRegister<MobEffect> EFEITOS =
+            DeferredRegister.create(Registries.MOB_EFFECT, OdMod.MODID);
     /** Dados presos ao jogador e ao mundo (marcas, elemento, progresso). */
     public static final DeferredRegister<AttachmentType<?>> DADOS =
             DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, OdMod.MODID);
@@ -35,6 +39,7 @@ public final class Registro {
         BLOCOS_COM_DADOS.register(barramento);
         CRIATURAS.register(barramento);
         ABAS.register(barramento);
+        EFEITOS.register(barramento);
         DADOS.register(barramento);
     }
 }

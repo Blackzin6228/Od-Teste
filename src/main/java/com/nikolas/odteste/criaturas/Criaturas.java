@@ -1,0 +1,78 @@
+package com.nikolas.odteste.criaturas;
+
+import com.nikolas.odteste.OdMod;
+import com.nikolas.odteste.dados.DadosJogador;
+import com.nikolas.odteste.dados.IdsDados;
+import com.nikolas.odteste.registro.Registro;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+
+/**
+ * Criaturas do mod (IDs em docs/ids.md). Onde nascem: data/odteste/neoforge/biome_modifier/ (peso baixo, só
+ * Overworld) e a regra paranormal de {@link RegrasCriaturas#podeNascer}.
+ */
+public final class Criaturas {
+    public static final DeferredHolder<EntityType<?>, EntityType<Retalhado>> RETALHADO = Registro.CRIATURAS.register(
+            IdsDados.CRIATURA_RETALHADO,
+            () -> EntityType.Builder.<Retalhado>of(Retalhado::new, MobCategory.MONSTER)
+                    .sized(1.5f, 3.0f)
+                    .clientTrackingRange(10)
+                    .build(OdMod.MODID + ":" + IdsDados.CRIATURA_RETALHADO));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<SanguessugaMae>> SANGUESSUGA = Registro.CRIATURAS.register(
+            IdsDados.CRIATURA_SANGUESSUGA,
+            () -> EntityType.Builder.<SanguessugaMae>of(SanguessugaMae::new, MobCategory.MONSTER)
+                    .sized(2.6f, 1.9f)
+                    .clientTrackingRange(10)
+                    .build(OdMod.MODID + ":" + IdsDados.CRIATURA_SANGUESSUGA));
+
+    private Criaturas() {}
+
+    public static void iniciar(IEventBus barramento) {
+        barramento.addListener((EntityAttributeCreationEvent e) -> {
+            e.put(RETALHADO.get(), Retalhado.atributos().build());
+            e.put(SANGUESSUGA.get(), SanguessugaMae.atributos().build());
+        });
+        barramento.addListener((RegisterSpawnPlacementsEvent e) -> {
+            e.register(RETALHADO.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                    Criaturas::podeNascer, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            e.register(SANGUESSUGA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                    Criaturas::podeNascer, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        });
+    }
+
+    /**
+     * Nascimento natural: raro e só em condição paranormal (RegrasCriaturas). Spawner, ritual e comando
+     * seguem só a regra de monstro comum. As contas baratas vêm primeiro; a busca de jogador olha só em volta.
+     */
+    static <T extends Monster> boolean podeNascer(EntityType<T> tipo, ServerLevelAccessor acesso, MobSpawnType motivo,
+                                                  BlockPos pos, RandomSource sorte) {
+        if (motivo == MobSpawnType.NATURAL || motivo == MobSpawnType.CHUNK_GENERATION) {
+            ServerLevel nivel = acesso.getLevel();
+            if (nivel.dimension() != Level.OVERWORLD) return false;
+            BlockPos spawn = nivel.getSharedSpawnPos();
+            Player perto = nivel.getNearestPlayer(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
+                    RegrasCriaturas.RAIO_JOGADOR, o -> !o.isSpectator());
+            int exposicao = perto == null ? 0 : DadosJogador.exposicao(perto);
+            if (!RegrasCriaturas.podeNascer(nivel.getGameTime(), pos.getX() - spawn.getX(), pos.getZ() - spawn.getZ(),
+                    exposicao)) {
+                return false;
+            }
+        }
+        return Monster.checkMonsterSpawnRules(tipo, acesso, motivo, pos, sorte);
+    }
+}
