@@ -1,285 +1,333 @@
 # Roteiro (mesa lore)
 
-Status: **rascunho para o Nikolas aprovar.** Só o Ato 1 está completo (refeito em 08/11/2026 após o feedback
-`docs/decisoes/2026-11-08-roteiro-minecraft.md`). Os outros atos são esqueleto.
-Base: `lore/canon.md`, `docs/decisoes.md`, `docs/integracoes.md`.
+Status: **rascunho para o Nikolas aprovar.** O Ato 1 foi **refeito** em 08/11/2026 na nova direção (produção de qualidade: estruturas grandes e enigmas que saem do jogo).
+Os outros atos são esqueleto. Base: `lore/canon.md`, `docs/decisoes.md`, `docs/decisoes/2026-11-08-producao-estruturas-e-enigmas-fora.md`.
+Detalhes do Ato 1 em: `lore/fichas-estruturas.md` (os lugares, incluindo a **Vila Calada**), `lore/enigmas-fora.md` (o que se resolve fora do jogo) e `lore/livro-do-sineiro.md` (o texto do livro).
+**Atualização de 09/11/2026:** a **Vila Calada** (vila destruída) é o **destino do Ato 1**; lá o grupo acha o **Livro do Sineiro** e a primeira pista de como voltar à realidade.
+A vila comum da abertura é o primeiro gancho. Decisão: `docs/decisoes/2026-11-09-vila-calada-destino-ato1.md`.
+**Atualização de 09/11/2026 (Minecraft puro):** os cinco lugares depois da Vila Calada foram refeitos com cara de Minecraft (`docs/decisoes/2026-11-08-roteiro-minecraft.md`).
+Saíram carro, toca-fitas, fita K7, frigorífico, câmara fria, pousada, VHS, TV e crachá. Entraram moinho, açougue de aldeão, casa de cartógrafo, torre de vigia, blocos de nota, mapas, estandartes e disco.
+Aplicadas as decisões do Nikolas de 09/11: N3 (segunda palavra em Morse é **PORTA**), N4 (**Diário do Açougueiro** e **Magarefe**), N5 (estruturas no tamanho de trabalho de mesa), N6 (site novo com áudio e vídeo das mesas), N7 (chat bloqueado na capela, pacto sem castigo, queda sem morte instantânea).
 
 ## Regras do roteiro
 - **Os protagonistas são quem está jogando.** Nenhum texto usa nome fixo de amigo. O mod troca marcadores na hora de mostrar:
   `{jogador}` (quem lê), `{grupo}` (todos do grupo, em lista), `{parceiro}` (outro do grupo, sorteado), `{marcado}` (quem está
   com a maior Exposição). Serve igual para o grupo de amigos e para um servidor grande.
-- **Estamos no universo do Minecraft.** Tudo o que se acha tem cara do jogo: livro, mapa, placa, cabeça, sino, estandarte, vela,
-  altar de bloco, vila, aldeão, ruína. Nada de carro, posto, estrada, fita, toca-fitas ou câmara fria. O paranormal **entorta o que já
-  existe**: ele não traz objetos de fora, ele muda o que o jogador já conhece.
-- **A entrada já aconteceu.** O mundo do jogo já é o outro lado. Ninguém "chega": o grupo descobre, aos poucos, que já estava aqui.
-- **Enigmas em três lugares:**
-  - **(a) No mapa que já existe:** vilas, ruínas e estruturas do ATM10 que o paranormal *marca* (estandarte, sino, cama, placa).
-  - **(b) Rituais de giz:** o grupo desenha, pergunta, e a resposta *aparece* (visão, voz ou símbolo no chão).
-  - **(c) Estruturas nossas:** nascem por evento, sempre com blocos e proporções de Minecraft.
-- **A história chega por** pistas no mundo (livro, mapa, placa, cabeça), **eventos ao vivo** soltos pelo admin e **enigmas de verdade**
-  (Morse, cifra, símbolo, ordem) que dá para resolver fora do jogo, com papel e caneta.
+  (`{marcado}` substitui o antigo `{anfitriao}`, decisão de 08/11. Se o Dev já usou `{anfitriao}` no código, os dois valem a mesma coisa.)
+  Marcadores de **elemento** (ver `docs/decisoes/2026-11-08-elemento-do-jogador.md`): `{escolhido_sangue}`, `{escolhido_conhecimento}`,
+  `{escolhido_morte}`, `{escolhido_energia}`. Sem escolhido no grupo, cai em `{marcado}` (ou no que o admin escolher). **Nunca nome de jogador no repositório.**
+- **O admin que joga não tem elemento.** No texto é `{ilegivel}`. Ver "O Ilegível".
+- **Cada jogador (menos o `{ilegivel}`) tem um elemento e não sabe qual.** Descobre jogando. A Marca é só a do elemento dele; os enigmas e a entidade
+  do elemento falam com o escolhido; espada e artefatos do próprio elemento custam menos para ele (sem deixar os outros inúteis).
+- **A história chega por quatro caminhos:** (1) **lugares grandes** com pistas posicionadas, (2) **eventos ao vivo** soltos pelo admin,
+  (3) **enigmas dentro do jogo** e (4) **enigmas fora do jogo** (site, áudio, imagem, vídeo) que voltam ao jogo como **palavra**.
 - **Ritmo:** enigma resolvido libera o próximo **sozinho**. Aparição grande de entidade só quando o **admin** solta.
   O jogo avisa o admin quando o grupo chega perto ("{grupo} resolveu a Mesa: evento do Diabo pronto").
-- **Pouco grind.** Nada de juntar recurso para avançar. Quem não quer tech ou magia avança só com a cabeça.
-  Tech e magia dão **atalhos e camadas extras**, nunca bloqueio.
-- **Nenhum número na tela.** Tudo em palavra, som e imagem. (Número dentro do mundo, como velas num bloco, pode.)
+- **Pouco grind.** Nada de juntar recurso para avançar. Tech e magia dão **atalhos e camadas extras**, nunca bloqueio.
+- **Todo enigma de fora tem plano B dentro do jogo** (Dica em livro liberada pelo admin). Site fora do ar não trava a história.
+- **Nenhum número na tela** (regra do Nikolas). Tudo em palavra, som e imagem. O que volta ao jogo é palavra.
 - **Texto do jogo:** frases curtas, segunda pessoa, sugere e não explica. O preço vem junto com o poder.
-- Texto escondido em vermelho existe em todo documento. Só aparece com Exposição média/alta ou com luz negra (tech).
-- **Tom:** sério, de medo e presença. Sem piada, sem sustos baratos. O medo vem do que é familiar ficando errado.
+- **Estética Minecraft, tom sério.** Só o que existe no jogo: vilas, aldeões, moinhos, currais, torres, sinos, blocos de nota, mapas de cartógrafo,
+  estandartes, livros, baús, cabeças, jukebox. O paranormal **entorta** o que já existe. Nada de carro, estrada asfaltada, rádio, TV ou fita.
+- Texto escondido em vermelho existe em livros do jogo. Só aparece com Exposição média/alta ou com luz negra (tech).
 
-## Regra de manifestação (decisão de 08/11/2026: o mundo atual é o definitivo)
-O mundo do servidor (ATM10, pré-gerado com Chunky num raio de ~3000 blocos e já explorado) **não será refeito**.
-Por isso **nenhum lugar da história depende de worldgen em terreno já gerado.**
-- **Marcar o que existe (a):** o mod "marca" uma vila ou ruína que já está no mapa (estandarte, placa, cama manchada, sino). Não muda o terreno,
-  só acrescenta detalhe. O admin pode trocar a vila escolhida.
-- **Manifestação por evento (c):** quando o grupo cumpre o gatilho, o lugar **aparece** perto deles ou num ponto livre que o mod escolhe
-  (o admin pode trocar). Aviso antes: som, neblina, sino. A técnica é decisão do Dev/Integrador.
-- **Ponto do admin:** todo lugar pode ser ancorado pelo admin onde ele quiser.
-- **Dimensões dos elementos:** lugares do Ato 2 em diante ficam nas dimensões novas.
-- **Coordenadas dos enigmas** apontam para o ponto onde o lugar vai se manifestar, calculado na hora. A pista é verdadeira porque o lugar nasce ali.
-- **Efeito de história:** não é erro, é o tema. O paranormal não está num lugar do mapa: ele *já está em tudo*.
+## Colocação dos lugares (substitui a "regra de manifestação", decisão de 08/11)
+O mundo do servidor (ATM10, pré-gerado e já explorado) **não será refeito**. Agora:
+- Cada lugar do Ato 1 é uma **schematic** (`.nbt`) feita pelas mesas; o Nikolas pode retocar no criativo e coloca no mundo, no ponto que fizer sentido (Create Schematicannon ou comando).
+- O Dev entrega um comando para **registrar a posição** de cada lugar. As pistas que dizem "rumo e distância" (Mapa Rasgado, Livro de Trocas, sinos da Torre) usam a posição registrada.
+  Assim a pista é verdadeira em qualquer mundo.
+- A "manifestação por evento" (o lugar nascer ao ler a pista) fica como **opção** futura. Não é obrigatória.
+- Lugares dos Atos 2 em diante ficam em dimensões novas (não existem no mundo gerado) e também podem ser schematics.
+- **Vilas** continuam, como **detalhe**: uma vila próxima de cada lugar, com aldeões parados, placas e o sino da vila. Nunca o centro de um enigma.
+
+## O Ilegível (o admin que joga)
+O admin que joga não tem elemento. O paranormal lê todo mundo; dele, não lê nada. No texto é `{ilegivel}`.
+- **As entidades se confundem com ele.** O Magarefe demora a notar, o Pendurado nunca aparece para ele, mas ele **não é protegido**: o que o acha, acha de verdade.
+  Texto, uma vez: *"Alguma coisa olhou para você e não achou nada."*
+- **Os enigmas dentro do jogo não falam com ele.** Cálice, vela e segunda leitura não reagem. Ele resolve junto, sem o sinal dos escolhidos.
+  Os **enigmas de fora** são iguais para todos (site, áudio, vídeo): ele é um dos que mais se beneficia, porque não depende do sinal do jogo.
+- **Ele vê o que fica entre os elementos** (a silhueta no lugar a mais antes da hora, a segunda porta que só aparece de lado). Um momento por Ato, no máximo, solto pelo admin.
+  Só serve se ele **contar para o grupo**. Lucidez baixa faz o mundo mentir, então o que ele conta precisa de confirmação.
+- Sem Marca, sem espada barata. Armas dos elementos funcionam no custo cheio.
+- Se o admin não estiver jogando, nada disso aparece.
 
 ## Os dois medidores
-- **Exposição** (só sobe). Quanto do paranormal já entrou em você. **Mais Exposição = vê mais** (texto vermelho, aparições que os amigos não veem)
-  **e é visto mais** (entidades te acham de longe).
-- **Lucidez** (cai e volta). A cabeça inteira. Cai com susto, errar enigma, escuro, ouvir o que não devia. Volta perto de luz, de um amigo
-  (voice chat conta) e com a Vela de Sebo. Quando acaba, o mundo **mente**: pista falsa e aparição falsa só para ele. A saída é conferir com o grupo.
+- **Exposição** (só sobe). Mede quanto do paranormal já entrou em você. Sobe ao ler coisa maldita, entrar em lugar marcado, ver aparição, aceitar pacto.
+  **Mais Exposição = vê mais e é visto mais.**
+- **Lucidez** (cai e volta). É a cabeça inteira. Cai com susto, errar enigma, ficar sozinho no escuro. Volta perto de luz, perto de um amigo (voice chat conta) e com a Vela de Sebo.
+  Quando acaba, o mundo **mente**: pista falsa e aparição falsa só para ele. A saída é confirmar com o grupo.
 - Regra de ouro: **Exposição abre a porta, Lucidez paga o pedágio.**
 
-## Os cinco atos
+## Os cinco atos (visão geral)
 
 | Ato | Nome provisório | O que acontece | Estado |
 |---|---|---|---|
-| 1 | A Vila que Toca | Os primeiros sinais no mundo que já é o outro lado. Sangue e o Diabo | **completo abaixo** |
-| 2 | O Outro Lado | O grupo entende onde está. Primeiras dimensões novas | esqueleto |
-| 3 | As Mesas | Uma entidade por elemento: Diabo (Sangue), Conhecimento, Morte, Energia | esqueleto |
+| 1 | A Floresta | Vila Calada, cinco lugares, enigmas dentro e fora do jogo, o Sangue e o Diabo | **refeito abaixo** |
+| 2 | O Outro Lado | O paranormal é um lugar. Primeiras dimensões novas | esqueleto |
+| 3 | As Mesas | Uma entidade por elemento | esqueleto |
 | 4 | O Fundo | O Medo (pendente de decisão do Nikolas) | esqueleto |
-| 5 | O Caminho de Volta | Reunir as 4 relíquias e achar a saída pelo sino | esqueleto |
+| 5 | O Caminho de Volta | Reunir as 4 relíquias e achar a saída pelo barulho de metal | esqueleto |
 
 ---
 
-# ATO 1 — A VILA QUE TOCA
+# ATO 1 — A FLORESTA
 
 Elemento em foco: **Sangue** (vermelho, fome, dor, bestialidade). Entidade: **o Diabo**.
-Cenário: **vilas de aldeões**, o sino, a cama, o curral, a capela de pedra. Tudo o que o jogador já viu mil vezes, só que errado.
 
-## O fio da descoberta (o que o grupo vai entendendo, em ordem)
-Cada enigma entrega uma frase a mais da mesma verdade: *vocês já passaram pela porta.*
-1. Sino da vila toca sozinho: **alguma coisa está chamando**.
-2. Mapa desenha um lugar que não existe: **o mundo está sendo reescrito**.
-3. Livro do carniceiro fala de "quem entrou": **outros já entraram antes**.
-4. Livro-Caixa tem um nome de {marcado} em tinta fresca: **esperavam por vocês**.
-5. Mesa posta com a **cabeça** de cada jogador: **vocês já estão sentados**.
-O jogo nunca diz "vocês já entraram". O grupo é quem chega lá, e deve chegar sozinho.
+## O percurso em uma olhada
+**Objetivo do Ato 1: chegar à Vila Calada** (destino) e ler o Livro do Sineiro. O jogador não recebe tutorial: a história puxa.
+A abertura na vila comum é o gancho; três pistas apontam o rumo; a Vila Calada entrega o livro; o livro dá o "porquê" dos cinco lugares seguintes.
 
-## Cena 1 — O sino que toca sozinho (sem enigma, só clima)
-Nenhum tutorial, nenhuma chegada. O grupo está no mundo como sempre esteve.
-- **Gatilho:** o admin solta o evento "Primeiro Sinal" (ou o mod solta sozinho na primeira noite de neblina depois de ativado).
-  O mod escolhe uma **vila já existente** perto do grupo (ou a que o admin indicar) e a *marca*.
-- **A marca na vila (tudo vanilla entortado):**
-  - O **sino da vila** toca sozinho, sem ninguém tocar, em intervalos regulares. Ouve-se de longe.
-  - Um **aldeão sumiu**. Sua cama continua lá, com o lençol **molhado de vermelho** (textura nossa de cama manchada). Sem corpo, sem mob, sem rastro.
-  - Os aldeões restantes não se viram para o jogador: ficam **parados olhando para o sino**. Não trocam mais. Os preços nas trocas viram frases curtas
-    ("Não é fome. É chamado.").
-  - Em uma casa, um **estandarte** pendurado com um símbolo nosso (a **Cruz de Ferro**, símbolo de Sangue a ser desenhado pelo Modelador).
-- Texto de abertura (aparece uma vez, no chat, em letras pequenas):
-  > *{grupo}. Vocês ouviram o sino e entraram. Foi antes. Vocês só esqueceram.*
-- Lucidez: cheia. Exposição: zero. A primeira queda vem no enigma 1, de propósito: o jogador aprende o medidor jogando.
+```
+Vila comum (abertura: sino sozinho, aldeão some, vila parada, Morse FERRO na placa)
+        |  três pistas: sino ao longe, aldeões virados, mapa de cartógrafo
+        v
+VILA CALADA (destino)  --Livro do Sineiro--> primeira pista de como voltar (págs. 11 e 12)
+        |  pág. 13: ensina a ler o sino (dois tons, cinco em cinco)
+        v
+1. Moinho Parado  --blocos de nota tocam Morse (E1)--> PORTA abre o baú
+        |  Mapa Rasgado, metade esquerda (E2, César)
+        v
+2. Casa do Açougueiro  --quatro correntes (ordem)--> Livro de Trocas, metade direita, Faca de Osso
+        |  Livro de Trocas (E3, Riscos de Corte): no verso, o rumo da Casa do Cartógrafo
+        v
+3. Casa do Cartógrafo  --círculo de giz--> palavra do vídeo  --Último Olhar (E4)--> senha do Atlas
+        |  Atlas do Cartógrafo (site, E5): três achados --> palavra de retorno
+        v
+4. Torre das Correntes  --cadeado do alçapão: cala o sino--> blocos de nota dão o rumo da Fazenda
+        |
+        v
+5. Fazenda do Sino Mudo (Casarão + Capela)  --Mesa do Pacto--> Evento do Diabo --> Pista do Ato 2
+```
 
-## Cena 2 — Cinco enigmas em cadeia
-A ordem é fixa, mas o grupo pode se dividir e trabalhar dois ao mesmo tempo.
-Cada enigma tem **versão sem aparelho** (cabeça e papel) e **versão com aparelho** (tech). Ambas sempre possíveis.
+**O fio da descoberta (o que leva a quê):**
+0. **A vila destruída.** A vila comum chama (sino, aldeões, cama, mapa). Na Vila Calada, o livro diz o que aconteceu, que há uma porta aberta e que o sino ensina a ouvir.
+   O sino tocando uma vez ao abrir o livro é o aviso de que algo, longe, respondeu.
+1. **O Moinho Parado.** Os blocos de nota tocam a palavra; o baú dá o Diário p. 1, a metade do Mapa e o endereço do Atlas.
+2. **A Casa do Açougueiro.** O Mapa leva lá; as correntes dão o Livro de Trocas, a outra metade e a Faca de Osso.
+3. **A Casa do Cartógrafo e o Atlas.** O Livro de Trocas leva à casa; o giz dá a palavra do vídeo; o vídeo abre o Atlas; o Atlas dá a palavra de retorno.
+4. **A Torre das Correntes.** A palavra cala o sino de ferro; os blocos de nota da torre dão a Fazenda.
+5. **A Fazenda.** A Mesa do Pacto chama o Diabo.
+O passo zero dá o "porquê". Os passos de 1 a 5 funcionam sozinhos, para quem chega sem ele.
 
-### Enigma 1 — O Sino da Vila (lugar do tipo a: o que já existe)
-- **O que se acha:** a vila marcada da Cena 1. Ao lado do sino, um **bloco de notas** que ninguém colocou, e um **baú de ferreiro trancado**
-  com uma **placa em branco** presa na frente.
-- **Como se resolve:** o sino toca uma sequência de **toques longos e curtos**, e a cada toque o bloco de notas responde com uma nota
-  **grave (traço)** ou **aguda (ponto)**. É **código Morse de verdade**.
-  Sequência: `..-.  .  .-.  .-.  ---` = **FERRO**. O grupo anota (ou grava o áudio do jogo) e traduz fora do jogo.
-- **Como se abre:** o jogador **escreve a palavra na placa** (edita a placa em branco) e o baú destrava. É o primeiro uso do mundo
-  como interface: nada de menu, só placa.
-- **O que se ganha:** o **Livro do Carniceiro, página 1** (livro e pena, escrita à mão) e a **metade esquerda do Mapa Rasgado**
-  (um mapa de cartógrafo cortado ao meio).
-- **Exposição:** média ou mais faz o sino bater mais devagar (ponto e traço ficam fáceis de separar). Primeira escolha: ouvir parado, sem risco,
-  ou deixar a Exposição subir para ficar fácil.
-- **Lucidez:** ficar perto do sino até o fim da sequência inteira tira um pouco (o som entra na cabeça). Só contar os toques de longe não tira.
-- **Camada tech:** o **Analisador de Sinal** (máquina nossa, gasta energia) lê o sino e entrega `FERRO` direto. Só ele separa uma **segunda camada**,
-  em tom que o ouvido não pega: `NAO ENTREM PELA PORTA DA FRENTE`. Quem não tem aparelho descobre isso a duras penas no enigma 3.
+**Por que as duas palavras em Morse se encaixam:** a placa da vila comum diz **FERRO**; o Moinho toca **PORTA**. Juntas: *porta de ferro*.
+É a porta lateral da Casa do Açougueiro (uma porta de ferro de verdade, de botão), o jeito seguro de entrar. E é o que o Livro do Sineiro diz do sino: uma porta.
+Quem junta as duas sem ler nada mais já tem um aviso. Quem não junta resolve igual.
 
-### Enigma 2 — O Mapa que Desenha o que Não Existe (tipo a, com ritual de giz tipo b)
-- **O que se acha:** a metade esquerda do mapa de cartógrafo. **O mapa desenha um lugar que não existe**: uma casinha de pedra, um curral,
-  num ponto onde o terreno mostra só floresta. Na margem, uma frase em letras trocadas.
-- **Cifra:** **César com deslocamento 5** (o tamanho de FERRO; a página 1 do livro diz "cinco passos de cada vez"). A frase traz o **rumo e a
-  distância reais** do lugar, em palavras. Exemplo de formato (frase de teste): `XNLF T WNT UFWF T STWYJ` -> **SIGA O RIO PARA O NORTE**.
-  No jogo: "...MIL E DUZENTOS PASSOS A LESTE". Decifra-se com qualquer régua de César, fora do jogo.
-- **Ritual de giz (tipo b):** a frase dá rumo e distância, mas o mapa tem a metade que falta. Para saber *exatamente onde*, o grupo
-  desenha com giz (Occultism, ou giz nosso se o mod não estiver) o **Círculo de Pergunta**, cujo desenho está no verso da página 1 do livro,
-  e deixa o mapa no centro. A **resposta aparece no chão**: pegadas de giz em linha, que somem aos poucos, apontando na direção do lugar.
-  Se o círculo for desenhado errado, a **voz** responde: uma só palavra, baixa, "não".
-- **O que destrava:** o **Matadouro da Aldeia** se manifesta no ponto indicado quando alguém lê o mapa pela primeira vez.
-  O jogo não põe marcador. Se o grupo perder o papel, o **Dossiê** guarda a frase cifrada, nunca a resposta.
-- **Exposição:** média revela no verso, em vermelho, **a regra da cifra** ("cada letra anda cinco casas"). Alta mostra também uma cruz de ferro no ponto.
-- **Lucidez:** com Lucidez baixa, uma letra da frase muda de lugar ao olhar de novo. O amigo vê a frase certa. Primeiro enigma que ensina "pergunte para o outro".
-- **Camada tech:** a **Lâmpada de Luz Negra** revela no verso uma **grade** que é o mesmo caminho, em coordenadas. Atalho, não substituto.
+Nenhuma etapa pede recurso. Os enigmas de fora têm três níveis de dificuldade; o grupo só precisa passar o do meio.
+Quem pula o livro ainda resolve tudo pelo caminho dos cinco lugares: o livro dá contexto e a pista de volta, não trava nada.
 
-### Enigma 3 — O Matadouro da Aldeia (lugar do tipo c: estrutura nossa)
-- **O que se acha:** um **galpão pequeno de tábuas e pedra** (como uma casa de açougueiro de vila, escura e baixa) que nasceu onde o mapa mostrou.
-  Dentro: um **defumadouro**, uma **mesa de trabalho** e quatro **cabeças** em postes de cerca, cada uma de um bicho, com um **botão** embaixo:
-  **Lobo, Vaca, Coelho, Porco**. Na parede, uma placa: *"O Carniceiro ensina a ordem. Não adianta pedir."*
-- **Como se resolve:** a **página 2 do Livro do Carniceiro** (num barril, atrás do balcão) diz:
+## Cena 0 — A vila comum (abertura, primeiro gancho)
+Já programada (`docs/decisoes/2026-11-09-vila-como-abertura.md`). Serve para ensinar o paranormal sem tutorial.
+- O sino da vila comum toca sozinho. Um aldeão some. Os outros ficam parados. Na placa, o Morse **FERRO**.
+- Primeira Exposição e primeira queda pequena de Lucidez. O jogador aprende que o mundo "responde".
+- **Gancho:** a partir da primeira noite o grupo começa a receber as **três pistas** (abaixo). Elas apontam para a Vila Calada.
+
+## Cena 1B — A Vila Calada (o destino do Ato 1)
+Ficha: `fichas-estruturas.md`, "Vila Calada". Livro: `livro-do-sineiro.md`.
+Estrutura grande, colocada pelo admin (comando de admin, sem apagar construção de jogador). A posição registrada é a que as três pistas usam.
+
+**As três pistas (nenhuma é tutorial; cada uma sozinha aponta, as três fecham a certeza):**
+1. **O sino ao longe, à noite.** Toque grave e rachado, sempre da mesma direção.
+2. **Os aldeões e a cama.** Todos parados de frente para a mesma direção; a cama do aldeão sumido, molhada de vermelho, com a cabeceira virada para lá.
+3. **O mapa de cartógrafo.** Aparece no inventário de `{marcado}` ao amanhecer; só uma rosa dos ventos e um sino rachado, e o terreno se desenha conforme se anda.
+- Atalho tech: o Analisador de Sinal capta o sino. Se o grupo não se mexer por muitas noites, o jogo avisa o admin ("{grupo} não seguiu o sino").
+
+**O que se faz lá (sem recurso e sem combate obrigatório):**
+- Atravessar a vila (campo queimado, praça e poço, capela). Famintos parados de dia, soltos de noite. Rota pelas sombras até o campanário. A vela da capela devolve Lucidez.
+- Subir ao campanário (qualquer bloco serve). O **Livro do Sineiro** está no atril. Abrir o livro faz o sino tocar uma vez.
+- No vão quebrado do campanário, avista-se a direção da vila comum: uma coisa chama a outra.
+
+**O que o livro entrega:**
+- **Pág. 11 e 12 (para todos): a primeira pista de como voltar.** O sino precisa tocar ao contrário. Para isso, quatro portas pequenas precisam responder
+  (a que sangra, a que cala, a que lembra, a que acende) e há uma quinta que é parede. O Sineiro só fechou uma, a que sangrava, e mal.
+  Isto é o fio dos Atos: o Ato 1 é a porta que sangra (o Diabo); Atos 3 e 4 são as outras; o Ato 5 é o sino ao contrário.
+- **Pág. 13:** ensina a ler o sino de graça (dois tons, cinco em cinco). Ponte para o Enigma 1 (Morse do Moinho) e o 2 (César, deslocamento 5), só para quem leu.
+- **Pág. 14:** em branco; com Exposição mostra que o grupo foi chamado ("sua cama aqui já estava feita").
+- Ganchos de personagem: o Compadre e a Moça do Terço (casa dela com os botões de pedra). O **Terço** dela está guardado na Casa do Cartógrafo.
+- Para `{ilegivel}`: a vela da capela acende normalmente; as páginas em vermelho não aparecem para ele (sem Exposição que o leia). Ele pode ver, uma vez, o Aldeão de Pé no poço, de lado.
+
+**Depois do livro:** o grupo sabe que há o que investigar e por quê. Os cinco lugares seguintes são o caminho para fechar a porta que sangra.
+
+## Cena 1 — O Moinho Parado (prólogo curto)
+Ficha: `fichas-estruturas.md`, lugar 1. **Vem da Cena 1B.**
+Na noite depois do livro, o sino rachado da Vila Calada não toca. Quem fica atento ouve, longe, **blocos de nota** tocando a mesma sequência, dois tons, sem melodia.
+O grupo **já está do outro lado** desde que entrou na floresta. Não há tutorial em tela.
+- **Gatilho:** o admin solta o evento "Primeiro Sinal" (ou o mod solta sozinho na primeira noite de neblina depois que alguém do grupo abriu o Livro do Sineiro; sem o livro, na primeira noite de neblina depois de ativado).
+  O som posicional guia o grupo até o Moinho (a schematic já está colocada).
+- **Chegada:** um moinho de vento de aldeia, à beira de um rio seco. As pás estão paradas, mas a roda de dentro range. Do lado, a casa do moleiro, de porta aberta, mesa posta para um.
+  Na prateleira da casa, **cabeças de esqueleto viradas para a parede**, uma para cada jogador do grupo (o mod conta quantos são). Ninguém sabe quem as pôs.
+- Texto de abertura (uma vez, letras pequenas, ao entrar no moinho):
+  > *{grupo}. Vocês ouviram o barulho e entraram. Vocês nunca saíram. Só esqueceram.*
+- Som: o barulho de **correntes arrastando**, de tempos em tempos, **começa a ser ouvido no mundo todo** (mais tarde é a chave do Ato 5; no Ato 1 vem da Torre das Correntes).
+- **Enigma 1: a Gravação do Moinho** (ver `enigmas-fora.md` E1). No alto do moinho, uma fileira de **blocos de nota** ligada à roda toca Morse: grave e longo é traço, agudo e curto é ponto.
+  A palavra é **PORTA**. Ela abre o **baú com cadeado de letras** do moleiro. Dentro: **Diário do Açougueiro p. 1**, a metade esquerda do **Mapa Rasgado** (E2, César)
+  e, escrito a carvão na tampa do baú, o **endereço do Atlas do Cartógrafo** (o site).
+  A roda trava no meio da sequência quase sempre: dentro do jogo, ouvir inteira pede paciência (uma noite inteira de vigília). A gravação limpa fica no Atlas, aberta pela palavra **FERRO** da abertura.
+  **Ponte com a Vila Calada:** quem leu a pág. 13 do Livro do Sineiro já sabe ouvir os dois tons e contar de cinco em cinco; o Morse e o César ficam mais fáceis. Quem não leu resolve igual.
+- O Moinho vem depois da Vila Calada no caminho normal, mas não é obrigatório nessa ordem (o grupo pode achar o moinho antes).
+- Lucidez e Exposição já mexeram na abertura e na Vila Calada. A grande queda continua na Casa do Açougueiro.
+
+## Cena 2 — A Casa do Açougueiro (a primeira grande construção)
+Ficha: `fichas-estruturas.md`, lugar 2. O Mapa Rasgado aponta o lugar (rumo e distância reais).
+Era o açougue de uma vila que não existe mais: casa do aldeão açougueiro, curral, casa de abate e porão de salga. Só a casa ficou.
+- **Chegada:** o curral tem cercas inteiras e nenhum bicho. O cocho está cheio. A porta da frente é de madeira, larga, de duas folhas; do lado do curral, uma **porta de ferro** pequena, de botão.
+  Quem ouviu o aviso escondido da Gravação do Moinho (ou juntou FERRO e PORTA) entra pela de ferro; quem entra pela da frente **acorda o Magarefe**.
+- **Enigma 3 (dentro do jogo): as quatro correntes.** Na casa de abate, quatro **correntes** descem do teto. Embaixo de cada uma, uma placa de madeira com o nome de um bicho:
+  **Cão, Vaca, Lebre, Javali**, e uma alavanca. O **Diário do Açougueiro p. 2** (no balcão, ao lado do defumador) diz a ordem em verso:
   > *Primeiro o que obedece. Depois o que dá leite. Depois o que foge. Por último, o que morde.*
-  Ordem dos botões: **Lobo, Vaca, Coelho, Porco.** Pode ser apertada por pessoas diferentes (bom para o grupo).
-  Se erra, a cabeça "vira para você" e o jogador ouve algo respirando (ver Aparição 2).
-- **O que destrava:** o **fundo da adega** (um alçapão de ferro). Dentro: o **Livro-Caixa** e a **metade direita do Mapa Rasgado**.
-  Para juntar as metades, o grupo usa a **mesa de cartografia** (vanilla) e o mapa fecha. Cai também a **Faca de Osso** (item de história,
-  sem vantagem em combate, serve de chave no enigma 5).
-- **Exposição:** média faz os bichos das cabeças se mexerem de leve quando se olha de lado. A ordem certa pisca primeiro. Alta mostra a ordem toda,
-  mas o Magarefe te sente de longe (ver Aparição 3).
-- **Lucidez:** errar a ordem tira Lucidez de quem apertou e de quem está dentro. Acertar devolve um pouco: primeira vitória.
-- **Camada tech:** o **Medidor de Resíduo** apita mais forte perto da cabeça certa de cada vez. O aviso do Analisador (enigma 1) faz sentido: o galpão tem
-  uma **porta dos fundos** que evita o Magarefe. Quem escutou o aviso entra por ela.
+  Cada alavanca faz soar um bloco de nota escondido, de altura diferente. Vídeo opcional (E7): o **Olho do Palheiro** mostra a ordem pelo **som**. Segunda via.
+- Acertando, o alçapão de ferro do porão de salga abre: **Livro de Trocas**, **metade direita do Mapa**, **Faca de Osso**.
+- **Enigma 4 (fora do jogo): o Livro de Trocas** (E3, Riscos de Corte, análise de frequência). É o livro em que o Açougueiro anotava o que cada aldeão deu em troca de carne.
+  Texto claro da última página: *O DIABO NAO ROUBA. ELE ACEITA. VENHAM A MESA QUANDO O SINO CALAR.* No verso, em Morse escrito (pontos e traços a tinta), o rumo da **Casa do Cartógrafo**.
+- **Exposição:** média faz as placas balançarem; alta mostra a ordem inteira (as correntes certas pingam), mas o Magarefe sente de longe.
+- **Lucidez:** erro nas correntes tira de quem está lá dentro; acertar devolve um pouco.
+- **Tech:** o **Medidor de Resíduo** apita mais forte perto da corrente certa.
 
-### Enigma 4 — O Livro-Caixa (alfabeto nosso)
-- **O que se acha:** um livro de contas do carniceiro, com colunas de nomes e quantias escritas em **símbolos** (os **Riscos de Corte**, alfabeto nosso,
-  não copiado de nenhum outro). Na última página, uma frase longa no mesmo alfabeto.
-- **Como se resolve:** a **página 3** dá uma tabela parcial (as 10 primeiras letras). O resto sai por **análise de frequência**
-  (substituição simples). Texto claro:
-  > *O DIABO NAO ROUBA. ELE ACEITA. VENHAM A MESA QUANDO O SINO CALAR.*
-  O livro lista dívidas de aldeões que sumiram. Dois nomes aparecem em todas as páginas: **"o Compadre"** e **"a Moça do Terço"** (ganchos
-  para os próximos atos; NPCs inventados por nós). Só o último pagamento traz nome **dinâmico**: `{marcado}`, em tinta fresca, como se já esperassem.
-- **O que destrava:** a **Capela da Mesa**. A coordenada vem no verso em **notas** (uma pauta de bloco de notas, mesmo Morse do sino do enigma 1,
-  o grupo percebe que o sino ensinou a ler). "Quando o sino calar": o sino da vila **para de tocar** quando o grupo termina de ler o livro.
-  O silêncio é a pista: dá para ouvir o intervalo entre dois toques que ficou para sempre.
-- **Exposição:** média traduz as 3 primeiras letras sozinhas. Alta traduz o nome `{marcado}`, que só aparece para ele.
-- **Lucidez:** com Lucidez baixa, o símbolo parece mudar e o mesmo risco vira duas letras. Dá para conferir com o amigo.
-- **Camada tech:** o **Analisador de Sinal** lê a tinta e dá a tabela **completa**. O **Medidor** mostra que o livro ainda "bebe".
+## Cena 3 — A Casa do Cartógrafo e o Atlas (o primeiro enigma que sai do jogo)
+Ficha: lugar 3. O Livro de Trocas diz o caminho.
+O cartógrafo da vila perdida desenhou, no fim, um lugar que não existia. Foi ele quem fez o mapa que apareceu no inventário de `{marcado}` na Cena 1B.
+- **Dentro da casa:** paredes cobertas de **mapas em molduras**, a **mesa de cartografia** com um mapa pela metade, uma estante, a escada em caracol até o mirante.
+  No **mapa-mural** do salão, marcas de **estandarte** com nomes (o jeito do jogo de marcar mapa): os nomes dos moradores da Vila Calada. **A última marca tem o nome de `{marcado}`**,
+  e está em cima de onde ele dormiu na noite anterior.
+- **No mirante:** uma **luneta** apoiada na janela, apontada para a Fazenda (que ainda não se vê: só neblina). No chão, um **círculo de giz pela metade**.
+- **Ritual de giz (dentro do jogo):** completar o círculo (giz do Occultism ou o nosso Círculo) e esperar a noite dentro dele, **em dupla ou mais**.
+  As cinzas no centro se arrumam numa **palavra**. É a palavra que abre o vídeo no Atlas. Sozinho, o círculo não responde e a Lucidez cai.
+- **Enigma 5 (fora do jogo): o Último Olhar do Cartógrafo** (E4). Cerca de um minuto, gravado **dentro do jogo, em primeira pessoa**: o cartógrafo sobe a escada com uma vela, escreve na mesa de cartografia
+  e dá nome a um mapa. O nome do mapa aparece por um instante: é a **senha do Atlas**. Pausar resolve. As legendas de som (no estilo do jogo) escondem uma frase a mais.
+- **Baú do cartógrafo** (cadeado de letras) abre com a mesma senha e guarda o **Terço da Moça** (gancho do Ato 2).
+- **Enigma 6 (fora do jogo): o Atlas do Cartógrafo** (site, E5). Com a senha, três páginas para o grupo dividir:
+  - **Carta do Clérigo** (página de livro manchada de tinta preta, texto ainda por baixo): diz *"a torre é o sino"*.
+  - **Desenho a carvão do Açougueiro** (imagem com texto nas sombras): diz *"corrente"*.
+  - **O Eco do Poço** (voz ao contrário): diz *"a palavra do dono"*.
+  As três palavras entram na página **Resposta**. O site devolve a **palavra de retorno**.
+- **Exposição:** vídeo e áudio entram na cabeça. A Exposição sobe um pouco ao ver o vídeo inteiro. Quem pula o "quadro único" (o vulto pendurado na escada) não perde nada, mas perde clima.
+- **Lucidez:** ficar sozinho na escada do mirante tira devagar.
+- **Plano B:** Dica em livro, liberada pelo admin.
 
-### Enigma 5 — A Mesa do Pacto (cooperativo; estrutura nossa + ritual)
-- **O que se acha:** uma **capela de pedra e tábuas** (como as ruínas de vilas antigas), sem teto em parte. No meio, uma **mesa longa** com
-  uma cadeira para cada jogador do grupo mais uma. Em cada cadeira, a **cabeça do jogador** (cabeça de jogador real, a de cada um do grupo)
-  e à frente dela uma **vela** de altura diferente (velas nossas) num **cálice de barro**. A cadeira da ponta tem uma **cabeça sem pele**,
-  e sangue seco no chão. Atrás, um **altar de bloco** coberto por um pano.
-- **Como se resolve:** cada jogador senta na **cadeira com a própria cabeça** e acende a própria vela, **sem poder escrever no chat**
-  na capela (o voice chat continua: vira jogo de sinais, e todos entendem por quê). A ordem vem do **poema da página 4**, que fica
-  no cálice do jogador de nome sorteado `{parceiro}`:
+## Cena 4 — A Torre das Correntes (o barulho tem origem)
+Ficha: lugar 4. A localização vem da Carta do Clérigo e da luneta do mirante (agora a torre aparece na neblina).
+- Torre de vigia de pedra, velha e rachada, no alto de um morro. No topo, um **sino de ferro** grande, **sem badalo**, pendurado por **correntes** que balançam e arrastam na pedra sem vento. É daqui que vem o barulho.
+- **Enigma 7 (volta ao jogo): o alçapão do sino.** No último andar, um **alçapão com cadeado de letras**. O jogador escreve a **palavra de retorno** do Atlas. As correntes travam e o sino **cala**.
+  Logo abaixo, uma fileira de **blocos de nota** começa a tocar, em Morse, o **rumo da Fazenda**.
+  Ao calar o sino, o barulho de correntes **para em todo o mundo** por um tempo (Prelúdio do Diabo).
+- **Bônus (E6): o Disco Riscado.** Na jukebox do porão, um disco que toca o barulho das correntes. Visto em espectrograma, desenha uma porta com quatro fechaduras. Não dá avanço; dá sinal para o Ato 5.
+- **Perigos:** altura (a escada em volta da parede tem degraus faltando). **Queda não mata de uma vez** (decisão N7): dói muito, dá susto e tira Lucidez. Porão no escuro. Sem Magarefe aqui.
+
+## Cena 5 — A Fazenda do Sino Mudo e a Mesa do Pacto (cooperativo)
+Ficha: lugar 5. Só abre depois do alçapão da Torre (a capela está de portas fechadas até então).
+- **Casarão:** o poema do Diário p. 4 (escritório), o retrato virado, o quarto fechado. A ordem das velas fica aqui.
+- **Capela da Mesa:** no meio, uma **mesa posta** com um lugar para cada jogador do grupo mais um. Prato com **nome**, **vela** de altura diferente, **cálice** vazio. O lugar a mais, sujo de sangue seco.
+- **Como se resolve (dentro do jogo):** cada jogador se senta no lugar com seu nome e acende a vela, **sem falar em texto** (decisão N7: o chat de texto bloqueia dentro da capela; a voz continua: jogo de sinais).
+  Poema do Diário p. 4:
   > *Quem gastou mais, acende primeiro. Quem chegou agora, por último.*
-  Da **vela mais baixa para a mais alta**. Fora de ordem, todas apagam e o grupo perde Lucidez.
-  Com a **Faca de Osso** o jogador "corta" a vela mais difícil (pavio sob o cálice). Por isso a faca importa.
-- **Descoberta final:** a cabeça de cada um já estava ali. A mesa estava posta antes de qualquer um entrar. O grupo entende, sem ninguém dizer,
-  que já passou a porta.
-- **O que destrava:** o pano cai do altar e mostra o **Altar do Aceite**: um bloco de pedra com um cálice e a palavra *"Chame."*
-  Quando **todos** acendem, o jogo avisa o admin: **Evento do Diabo pronto**. Até o admin soltar, o altar fica quieto e aparece uma vez:
-  *"Ele já ouviu. Ele vem quando quiser."* (O ritmo fica na mão do admin.)
-- **Exposição:** acender a vela sobe a Exposição de todos (gosto de ferro na boca, depois pulsação na tela). A quem tem Exposição alta,
-  a cadeira da ponta mostra uma silhueta por um instante.
-- **Lucidez:** cai um pouco para todos quando a última vela acende. Sair da capela devolve.
-- **Camada tech:** o **Gravador de Evento** (bateria do Mekanism) deixado na mesa **captura o evento do Diabo**. Quem não grava ouve só metade;
-  quem grava e passa no Analisador acha a frase escondida.
+  Da vela **mais baixa para a mais alta**. Fora de ordem apaga todas e tira Lucidez do grupo. A **Faca de Osso** corta a vela difícil.
+- **Revelação do elemento (decisão de 08/11):**
+  - **{escolhido_sangue}:** o cálice se enche de líquido escuro e quente, cheiro de ferro, a vela dele é a única que não treme. Texto único: *"Esse lugar é seu desde antes. Beba ou não. Já está na sua boca."*
+  - **Presságios dos outros três** (sem nome, cada um só percebe o seu):
+    - **Conhecimento:** a chama inclina na direção de um livro que não está ali; o prato mostra uma palavra ao contrário por um instante.
+    - **Morte:** a vela fica fria (cera suja de pó), o cálice mostra a cara sem rosto, o relógio no inventário para.
+    - **Energia:** a vela estala, o cabelo arrepia, zumbido no metal do cálice, a bússola gira sem parar.
+  - **{ilegivel}:** o cálice fica seco, a vela acende sem tremer, nada acontece. *"Não tem nome aqui para você."* Ele vê **uma vez** a silhueta do lugar a mais virar a cabeça e hesitar.
+  - O jogador de presságio não sabe o que viu. O Ato do elemento dele explica depois.
+  - O admin vê no aviso "Mesa resolvida" quais elementos acordaram, sem mostrar ao grupo.
+- **Altar do Aceite:** o altar gira e mostra um cálice de pedra com *"Chame."* Quando todos acendem, o jogo avisa o admin: **Evento do Diabo pronto**. Até soltar, o altar fica quieto:
+  *"Ele já ouviu. Ele vem quando quiser."*
+- **Exposição:** acender sobe a de todos. **Lucidez:** cai um pouco no fim; sair da capela devolve.
+- **Tech:** o **Gravador de Evento** na mesa captura o evento do Diabo.
 
 ## Aparições do Ato 1 (escalonadas)
-Respeitam as regras técnicas de `lore/propostas-elementos.md` (poucas partículas, mobs simples). A 1 e a 2 são só efeito.
+Poucas partículas e mobs simples (ver `lore/propostas-elementos.md`). Cada aparição só é *permitida* quando o respectivo lugar está aberto.
 
-| # | Nome | Quando | O que é | Quem vê |
+| # | Nome | Onde / quando | O que é | Quem vê |
 |---|---|---|---|---|
-| 1 | **O Cheiro** | Do enigma 1 em diante | Cheiro de ferro (som de gota, partícula vermelha rala, neblina avermelhada leve). Nenhuma criatura | Todos |
-| 2 | **O Aldeão de Pé** | Erro no enigma 3 ou Exposição alta perto do galpão | Um aldeão sem rosto, de pé, olhando a parede. Visto só pelo canto do olho, some se olham direto | **Só o jogador de maior Exposição**, nunca os amigos (efeito de cliente). Quem vê perde um pouco de Lucidez |
-| 3 | **O Magarefe** | Entrar pela porta da frente do galpão, ou Exposição alta lá dentro | Criatura de Sangue de verdade: alto, ombros largos, avental, cutelo, cabeça baixa. Anda devagar, **não morre** nesse ato (vira perseguição). Sair do galpão o faz parar. Entrar pelos fundos não o acorda | Todos |
-| 4 | **A Convidada** | Quando uma vela apaga por erro no enigma 5 | Figura sentada na cadeira da ponta por 3 segundos. Anuncia que o Diabo vai chegar | Todos na capela |
+| 1 | **O Cheiro** | Do Moinho em diante | Cheiro de ferro (som de gota, partícula vermelha rala, neblina avermelhada leve) | Todos |
+| 2 | **O Pendurado** | Casa do Açougueiro (erro nas correntes), escada da Casa do Cartógrafo (Exposição alta) | Silhueta pendurada vista pelo canto do olho; some se se olha direto | **Só o jogador com maior Exposição** (efeito de cliente) |
+| 3 | **O Magarefe** | Casa do Açougueiro, entrando pela frente ou pelo porão | Criatura de Sangue: alto, ombros largos, avental, cutelo, cabeça baixa. Anda devagar, **não morre** no Ato 1. Perde o interesse quando o grupo sai com a Faca de Osso | Todos |
+| 4 | **A Convidada** | Capela, quando todas as velas apagam por erro | Figura sentada no lugar a mais por um instante. Anuncia o Diabo | Todos na capela |
 
-- O Magarefe fica de fora do evento ao vivo. Não precisa de jogador para derrotá-lo: ele **perde o interesse** quando o grupo sai com a Faca de Osso.
-  Isso evita grind de combate. Versão tech: a **Câmara de Contenção** o prende e coleta Resíduo (rota opcional).
-- Cada aparição só é *permitida* quando o respectivo enigma está aberto. A história nunca anda para trás.
+- Para `{ilegivel}`: o Pendurado nunca aparece; o Magarefe o confunde; a Convidada vira a cabeça para ele e não o reconhece.
+- Versão tech: a **Câmara de Contenção** prende o Magarefe e coleta Resíduo (opcional).
 
 ## Evento ao vivo — O Diabo (admin solta)
-Nossa versão: **o Diabo não rouba, não obriga e não grita. Ele aceita.** Fala calmo, usa os nomes de quem está ali, só oferece o que a pessoa
-já queria. Visual: silhueta alta de terno largo e sujo, chapéu de abas moles, sem rosto definido, mãos calmas; só se vê o vermelho dos olhos
-de quem está perto. O modelador decide o resto com prévia. Sem relação com símbolo, texto ou desenho de outra obra. A base é o folclore popular
-brasileiro do pacto na encruzilhada, que é domínio público.
+Nossa versão: **o Diabo não rouba, não obriga e não grita. Ele aceita.** Fala calmo, usa os nomes de quem está ali e só oferece o que a pessoa já queria.
+Visual: silhueta alta de terno largo e sujo, chapéu de abas moles, sem rosto definido; só se vê o vermelho dos olhos de quem está perto.
+Base: folclore popular brasileiro do pacto na encruzilhada (domínio público). Sem relação com símbolo, texto ou desenho de outra obra.
+O evento acontece **na Capela da Fazenda do Sino Mudo**.
 
-**Quando:** depois que o jogo avisa o admin "Mesa resolvida". O admin escolhe a hora. Recomendação: grupo reunido na capela, mas o evento pode alcançar o servidor inteiro.
+**Fases (`/evento diabo <fase>`, nome provisório):**
+1. **Prelúdio.** O servidor sente: céu avermelha, sinos de vila tocam no horizonte, o barulho de correntes já parou (Cena 4). Mensagem global: *Alguém acendeu uma vela do outro lado do mapa.*
+2. **Chegada.** Na capela, a silhueta senta no lugar vazio. Longe, uma sombra enorme no horizonte, na direção da Fazenda, por um instante longo. Som de cadeira arrastando.
+3. **Conversa.** O admin fala pelo voice changer e pelo chat com as falas prontas.
+4. **Oferta e resolução** para `{escolhido_sangue}` (ou `{marcado}`). **Sem castigo nas duas saídas** (decisão N7):
+   - **Aceita:** Exposição dele sobe um degrau; nasce o primeiro sinal da **Marca de Sangue** (só para quem tem Sangue; sem escolhido, fica pendente). Ganha o **Sino do Pacto**. O Diabo some e o altar vira cinzas. Preço de história: os amigos dele ficam com um olho no pescoço dele (ele agora é visto sempre).
+   - **Recusa:** o Diabo sorri, diz que o convite fica e volta no Ato 3. Exposição do grupo sobe pouco. Ninguém é punido; o pacto fica pendente.
 
-**Fases (o admin dispara uma de cada vez com `/evento diabo <fase>`, nome provisório):**
-1. **Prelúdio.** O servidor todo sente: céu avermelha, **todos os sinos de vila tocam juntos uma vez e calam**. Lucidez de todos cai um tico. Mensagem global:
-   > *Alguém acendeu uma vela do outro lado do mapa.*
-2. **Chegada.** Na capela, a silhueta senta na cadeira da ponta. Longe, uma sombra enorme no horizonte **na direção da capela**, por 10 segundos. Som de cadeira arrastando.
-3. **Conversa.** O admin fala pelo voice changer (Simple Voice Chat + SV Voice Changer) e pelo chat com as falas prontas abaixo.
-4. **Oferta e resolução.** A oferta vai para o `{marcado}` (ou quem o admin escolher). Duas saídas, ambas avançam:
-   - **Aceita:** a Exposição dele sobe um degrau. Aparece o primeiro sinal da **Marca de Sangue** (a Marca vem sozinha, o jogador não escolhe).
-     Ganha o **Sino do Pacto**, item de história. O Diabo some e o altar vira cinzas. Preço: ele agora é sempre visto pelas entidades.
-   - **Recusa:** o Diabo sorri, diz que o convite fica e volta no Ato 3. A Exposição do grupo sobe só um pouco. Ninguém é punido: o pacto fica **pendente**.
-
-**Falas prontas (admin lê ou manda no chat):**
+**Falas prontas:**
 - *{grupo}. Sentem. A mesa é de vocês.*
 - *{marcado}. Seu nome estava aqui antes de você chegar. Não é magia. É memória.*
 - *Eu não pego nada. Vocês me dão. Eu só guardo.*
 - *{parceiro} está com fome. Você sabe. Eu também sei.*
 - *Todo pacto começa assim: com alguém dizendo que não quer.*
-- *Vocês vieram por um sino. Eu sou o intervalo entre dois toques.*
-- *Vão. Voltam depois. Vocês sempre voltam. A porta é redonda.*
-- Fala escondida (só Gravador + Analisador): *"Ele não cobra o que você dá. Cobra o que você guarda."* Decide a escolha do Diabo no Ato 3.
+- *Vocês vieram por um barulho. Eu sou o intervalo entre dois barulhos.*
+- *Vão. Voltam depois. Vocês sempre voltam. O caminho é redondo.*
+- Só para `{ilegivel}`: *{ilegivel}. Eu não consigo ler você. Isso me incomoda. Fique.*
+- Escondida (Gravador + Analisador): *"Ele não cobra o que você dá. Cobra o que você guarda."*
 
-**Ao final do evento:** o grupo recebe a **Pista do Ato 2**: uma **carta com selo de cera**, queimada na borda, endereçada a `{grupo}`, com o
-símbolo de **Conhecimento** (um olho de tinta, a definir com o Modelador). Aponta para uma biblioteca.
+**Ao final:** o grupo recebe a **Pista do Ato 2**: carta com selo de cera queimada na borda, endereçada a `{grupo}`, marcada com o símbolo de **Conhecimento** (um olho de tinta, a definir com o Modelador). Aponta para uma biblioteca. A carta fica na **cripta da capela**, que se abre depois do evento.
 
-## Ganchos para quem joga tech (Mekanism / Create)
-Tudo opcional. Nenhuma máquina é requisito.
-
-**Máquinas do paranormal (nossas):**
-- **Analisador de Sinal:** lê sino, nota, tinta e áudio de evento. Entrega camadas que o ouvido não pega.
-- **Lâmpada de Luz Negra:** revela texto e grade em mapas e livros.
-- **Medidor de Resíduo:** apita perto de matéria paranormal.
-- **Câmara de Contenção:** prende criatura de Sangue e coleta Resíduo.
-- **Gravador de Evento:** guarda a fala do Diabo.
-
-**Matéria paranormal:** **Resíduo Rubro** (líquido grosso do Sangue, cheiro de ferro). Pode ser refinado em **Rubro Refinado** (itens de Sangue)
-e guardado em tanque. **Guardar tem preço:** atrai **Incursões** (ondas curtas de mobs de Sangue na base). O Medidor apita minutos antes.
-Defesa tech: torres, Câmara. Defesa mágica: Selo de Giz na porta. Desligável no servidor (`incursoes=false`). Quem não guarda, não sofre.
-
-**Pistas que só aparelho decifra:** sino (frase escondida), mapa (grade), Livro-Caixa (tabela completa), evento (frase do Diabo). Bônus de história, nunca porta travada.
-
-## Ganchos para quem joga magia
-- **Occultism:** o Selo de Giz protege a porta dos fundos do galpão (Magarefe não acorda) e dá o Círculo de Pergunta do enigma 2.
-- **Iron's Spells:** a Faca de Osso pode ser "lida" por magia de rastro: fumaça entre o galpão e a capela.
-- **Vampirism:** a Moça do Terço é NPC ligada a esse mod (ato futuro).
-- Cada gancho é caminho **alternativo**, não obrigatório.
+## Ganchos para tech e magia (tudo opcional)
+- **Mekanism/Create (nossas máquinas):** Analisador de Sinal (lê blocos de nota, disco, tinta e áudio em camadas), Lâmpada de Luz Negra, Medidor de Resíduo, Câmara de Contenção, Gravador de Evento.
+  Atalhos de história; nada trava sem eles. Matéria: **Resíduo Rubro**, que atrai Incursões na base (desligáveis, avisadas antes pelo Medidor).
+- **Create:** com o Create no pack, as pás do Moinho Parado podem girar de verdade (rolamento de moinho). Girar o moinho faz a sequência tocar inteira, sem esperar a noite. Atalho, não obrigação.
+- **Occultism:** Selo de Giz protege a porta de ferro da Casa do Açougueiro do Magarefe. O giz do Occultism serve para o círculo do mirante do Cartógrafo (sem ele, o nosso Círculo).
+- **Iron's Spells:** a Faca de Osso pode ser "lida" por uma magia de rastro que mostra, em fumaça, o caminho da Casa do Açougueiro até a Fazenda.
+- **Vampirism:** a Moça do Terço (NPC, Ato 2) é ligada a esse mod.
+- Cada gancho é caminho **alternativo**, nunca obrigatório.
 
 ## O que o Ato 1 entrega ao jogador
-- Quatro peças de história: Livro do Carniceiro, Mapa, Livro-Caixa, Faca de Osso (e, se aceitou, o Sino do Pacto).
-- Exposição subindo de forma legível (sem número), Lucidez sendo testada.
-- A Marca de Sangue **pode** nascer aqui (pelo pacto), mas não é garantida.
-- O Magarefe e o Diabo apresentados. O Diabo volta no Ato 3.
-- A certeza calada de que o jogo todo já é o outro lado.
-- A Pista do Ato 2.
+- A **Vila Calada** (destino), o **Livro do Sineiro** e a primeira pista de como voltar à realidade: o sino precisa tocar ao contrário; quatro portas pequenas e uma parede.
+- Cinco lugares explorados, quatro peças de história (Mapa Rasgado, Livro de Trocas, Faca de Osso, Terço da Moça) e, se aceitou, o Sino do Pacto.
+- A experiência de resolver enigmas **fora do jogo** (site, vídeo, áudio).
+- Exposição subindo de forma legível; Lucidez sendo testada.
+- A Marca de Sangue **pode** nascer aqui.
+- O Magarefe e o Diabo apresentados. A Pista do Ato 2.
 
 ---
 
 # ATO 2 — O OUTRO LADO (esqueleto)
-- O grupo recebe a carta de Conhecimento e acha a **Biblioteca Submersa** (nome provisório): numa **dimensão nova**, acessada por uma porta que aparece perto do grupo.
-- Descoberta: o paranormal é um **lugar** e tem regras. O sino era uma porta, e já tinha sido aberta.
-- Enigmas centrais: sigilos nossos (alfabeto novo), plantas, "mapas que mudam".
-- Pendente: nome do mundo paranormal (usar só "o paranormal" até a Lore propor um nome).
+- O grupo recebe a carta de Conhecimento e acha a **Biblioteca Submersa** (nome provisório), uma **estrutura grande** numa **dimensão nova**.
+  Mesma direção: andares, salas, pistas posicionadas, mais enigmas fora (mais páginas no Atlas?).
+- O presságio da Mesa ganha explicação. A porta da Biblioteca só abre inteira com `{escolhido_conhecimento}`; `{escolhido_morte}` e `{escolhido_energia}` recebem mais um presságio curto.
+- `{ilegivel}` no Ato 2: a porta não responde a ele, mas é o único que vê, de lado, o livro que "falta" na estante.
+- Descoberta: o paranormal é um **lugar** e tem regras. O barulho era uma porta que se fechou.
+- Pendente: nome do mundo paranormal (usar só "o paranormal" até a Lore propor um nome nosso).
 
 # ATO 3 — AS MESAS (esqueleto)
-- Uma entidade por elemento, em ordem decidida pelo Nikolas: **Diabo (Sangue)**, Conhecimento, Morte, Energia.
-- Cada uma tem seu "Ato 1" reduzido: 3 a 4 enigmas, aparições e um evento ao vivo.
-- Cada entidade devolve uma **relíquia** e uma **espada**. A pergunta do Diabo volta aqui, sem castigo.
+- Uma entidade por elemento, em ordem decidida pelo Nikolas: **Diabo (Sangue)**, e as de **Conhecimento, Morte, Energia**.
+- Cada uma tem seu "Ato 1" reduzido: **uma estrutura grande**, 3 a 4 enigmas (um deles fora do jogo), aparições e um evento ao vivo.
+- Cada entidade fala com o seu escolhido; sem escolhido, o admin decide o plano B.
+- `{ilegivel}`: nenhuma entidade tem o que dizer a ele; em cada Mesa, um momento em que vê o ponto cego daquele elemento.
+- Cada entidade devolve uma **relíquia** e uma **espada**. A pergunta do Diabo volta aqui.
 
 # ATO 4 — O FUNDO (esqueleto)
-- O Medo. Pendente de decisão (`docs/decisoes.md`, Pendentes).
+- O Medo. Pendente de decisão: só força de fundo ou também relíquia/marca rara de fim de jogo.
 
 # ATO 5 — O CAMINHO DE VOLTA (esqueleto)
-- O sino do Ato 1 volta, agora como mapa: as 4 relíquias fazem o **sino da primeira vila** tocar ao contrário.
-- Em aberto: o grupo volta, fica ou escolhe. Servidor grande: "voltar" vira fim de temporada.
+- Fio do Livro do Sineiro: "o sino tocando ao contrário" (págs. 11 e 12 do livro) é a mesma coisa que o desenho da porta com quatro fechaduras. As quatro portas pequenas respondem uma por Ato; a quinta, a parede, é o Medo.
+- O barulho de correntes volta como mapa: o desenho da porta com quatro fechaduras (E6, bônus do Ato 1) vira a chave. As 4 relíquias abrem a porta.
+- Decisão em aberto: o grupo volta, fica ou escolhe.
 
 ---
 
 ## Perguntas para o Nikolas
-1. O Ato 1 está no tom certo? Algum enigma difícil ou fácil demais?
-2. Aceitar ou recusar o pacto do Diabo: gosta de **sem castigo** nas duas saídas?
-3. "O Magarefe" serve? Alternativas: "O Carniceiro", "O Açougueiro". (Checar contra outras obras.)
-4. Mantemos "o Diabo" como palavra genérica, entidade e visual nossos? Confirme.
-5. Chat de texto bloqueado na capela: aceita? (vira jogo de sinais com voz)
-6. Tudo bem o lugar "nascer" quando o grupo lê a pista, ou o admin sempre escolhe o ponto?
-7. As máquinas tech nomeadas: quer que o Integrador veja viabilidade antes?
-8. **Novo:** `lore/premissa.md` ainda tem a van, a estrada de serra e o Gabinete do Limiar. Reescrevo para "a entrada já aconteceu, o mundo do Minecraft é o outro lado"? O Gabinete e os crachás continuam, ou saem?
-9. **Novo:** cabeça de jogador real na mesa do enigma 5: vira cabeça com a skin de cada um. Tudo bem para servidor público (skin é dado de conta)?
+Respondidas em 09/11 e já aplicadas: chat bloqueado na capela, pacto sem castigo, queda sem morte instantânea (N7); Magarefe e Diário do Açougueiro (N4);
+FERRO só na abertura (N3); quem constrói (N5); site novo com áudio e vídeo (N6).
+1. Os cinco lugares novos (Moinho Parado, Casa do Açougueiro, Casa do Cartógrafo, Torre das Correntes, Fazenda do Sino Mudo) ficaram "bem Minecraft"? Algum troca?
+2. A Fazenda conta como o quinto lugar (como antes), ou quer cinco lugares novos **antes** dela? Recomendo a primeira: cabe no trabalho de mesa (N5).
+3. Nome do site: **Atlas do Cartógrafo**, **O Atlas** ou **Mapoteca**? Recomendo o primeiro.
+4. O Diabo como nome: você já decidiu manter. A versão aqui é nossa. Confirme.
+5. O Ilegível: "ver o que fica entre os elementos" é o bônus certo? Alternativas: (a) ver só o que o **Medo** esconde (Ato 4); (b) ouvir "de perto" o barulho de correntes (Ato 5).
+6. As máquinas tech nomeadas: quer que o Integrador veja a viabilidade antes de aprovar?
+7. Vila Calada: aprova o nome (provisório), o texto do livro e a ordem (vila comum, Vila Calada, depois os cinco lugares)?
+8. A premissa da van e da estrada de serra (`lore/premissa.md`) ainda é de antes do "Minecraft puro". Quer que a Lore reescreva junto?

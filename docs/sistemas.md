@@ -254,8 +254,14 @@ O conteúdo chama o ponto de entrada:
 ---
 
 ## Próximo sistema: Colocar estruturas por evento/comando
-> **Status:** plano da mesa Dev (2026-11-08). **Não implementado.** Motivo: o mundo ATM10 é definitivo e o terreno
+> **Status:** plano da mesa Dev (2026-11-08). Motivo: o mundo ATM10 é definitivo e o terreno
 > já existe, então estrutura da história não pode depender de geração de mundo (decisão de 2026-11-08).
+> **Implementado no PR do Ato 1, parte A** (pacote `estruturas/`, comandos em `comandos/ComandosHistoria`), com estas
+> diferenças do plano: os comandos ficaram `/odteste estrutura prever|colocar|desfazer|lista` e os eventos
+> `/odteste evento <nome> <grupo> [ponto]` + `/odteste evento desfazer <grupo>`; o `colocar` só roda depois de um
+> `prever` igual (5 min) e, se não couber, procura outro ponto até 32 blocos; só chunk **carregado** (nunca carrega
+> nem gera); limite de 16.384 blocos colocados de uma vez (ainda não em partes). Detalhe em
+> `docs/decisoes/2026-11-08-eventos-ato1.md`.
 
 **Comandos** (só admin, permissão **2+**):
 - `/odteste estrutura prever <id> <pos> [rotação]` — mostra o contorno (partículas, só para quem rodou) e diz se cabe.

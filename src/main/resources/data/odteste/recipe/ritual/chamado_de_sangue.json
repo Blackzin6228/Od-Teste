@@ -1,0 +1,28 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "occultism" }
+  ],
+  "type": "occultism:ritual",
+  "ritual_type": "odteste:chamado_de_sangue",
+  "pentacle_id": "occultism:summon_foliot",
+  "activation_item": { "item": "odteste:materia_sangue_bruta" },
+  "duration": 30,
+  "entity_to_sacrifice": {
+    "tag": "c:cows",
+    "display_name": "ritual.occultism.sacrifice.cows"
+  },
+  "entity_to_summon": "odteste:retalhado",
+  "ingredients": [
+    { "item": "odteste:materia_sangue_bruta" },
+    { "item": "minecraft:bone" },
+    { "item": "minecraft:rotten_flesh" },
+    { "item": "minecraft:iron_ingot" }
+  ],
+  "result": { "id": "occultism:jei_dummy/none" },
+  "ritual_dummy": {
+    "id": "occultism:ritual_dummy/custom_ritual_summon",
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.odteste.ritual.chamado_de_sangue\"}"
+    }
+  }
+}
