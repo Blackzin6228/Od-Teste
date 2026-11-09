@@ -1,5 +1,6 @@
 package com.nikolas.odteste.historia;
 
+import com.nikolas.odteste.historia.vilacalada.IdsVilaCalada;
 import java.util.List;
 
 /**
@@ -10,11 +11,12 @@ public final class IdsHistoria {
     /** Marcos do progresso do grupo. */
     public static final String MARCO_PRIMEIRO_SINAL = "primeiro_sinal";
     public static final String MARCO_ENIGMA_SINO = "enigma_sino";
-    public static final List<String> MARCOS = List.of(MARCO_PRIMEIRO_SINAL, MARCO_ENIGMA_SINO);
+    public static final List<String> MARCOS = List.of(MARCO_PRIMEIRO_SINAL, MARCO_ENIGMA_SINO,
+            IdsVilaCalada.MARCO_CHEGOU);
 
     /** Lugares que o admin pode ancorar. */
     public static final String LUGAR_VILA_DO_SINO = "vila_do_sino";
-    public static final List<String> LUGARES = List.of(LUGAR_VILA_DO_SINO);
+    public static final List<String> LUGARES = List.of(LUGAR_VILA_DO_SINO, IdsVilaCalada.LUGAR_VILA_CALADA);
 
     /** Eventos do comando /odteste evento. Não ficam salvos (só o marco que eles dão). */
     public static final String EVENTO_PRIMEIRO_SINAL = "primeiro_sinal";
