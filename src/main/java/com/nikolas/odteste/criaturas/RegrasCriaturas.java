@@ -10,13 +10,22 @@ package com.nikolas.odteste.criaturas;
  * - só perto (até {@link #RAIO_JOGADOR} blocos) de um jogador já "Tocado" (Exposição 20+): o paranormal vem atrás
  *   de quem ele já percebeu;
  * - e só onde um monstro comum também nasceria (escuro, dificuldade não pacífica).
- * O peso no bioma também é baixo (ver data/odteste/neoforge/biome_modifier/).
+ * Limites, para continuar raro:
+ * - no máximo 1 por jogador Tocado por noite (dia do relógio; salvo no jogador em {@code odteste:criatura_noite});
+ * - nunca se já existe outra criatura de Sangue a menos de {@link #RAIO_AREA} blocos (cobre o chunk e os vizinhos).
+ * O peso no bioma também é baixo e fica fora dos biomas sem monstro (ver data/odteste/neoforge/biome_modifier/).
  */
 public final class RegrasCriaturas {
     public static final long DIAS_MINIMOS = 3;
     public static final int DISTANCIA_SPAWN = 256;
     public static final int RAIO_JOGADOR = 48;
     public static final int EXPOSICAO_MINIMA = 20;
+    /** Raio (horizontal) em que só pode haver uma criatura de Sangue nascida sozinha. */
+    public static final int RAIO_AREA = 48;
+    /** Altura (para cima e para baixo) da mesma busca. */
+    public static final int ALTURA_AREA = 32;
+    /** Valor de "nunca nasceu nenhuma perto deste jogador". */
+    public static final long NUNCA = -1;
 
     /** Raio em que a criatura "é vista" (Exposição e Lucidez, uma vez por jogador por criatura). */
     public static final double RAIO_VISTA = 12;
@@ -37,6 +46,16 @@ public final class RegrasCriaturas {
         if (tempoDoMundo / 24000L < DIAS_MINIMOS) return false;
         if (dx * dx + dz * dz < (double) DISTANCIA_SPAWN * DISTANCIA_SPAWN) return false;
         return exposicaoPerto >= EXPOSICAO_MINIMA;
+    }
+
+    /** Número da noite (um por dia do relógio do mundo; dormir passa para a próxima). */
+    public static long noite(long horaDoDia) {
+        return Math.floorDiv(horaDoDia, 24000L);
+    }
+
+    /** No máximo uma por jogador Tocado por noite. */
+    public static boolean livreNestaNoite(long ultimaNoite, long noiteAtual) {
+        return ultimaNoite != noiteAtual;
     }
 
     /**

@@ -123,6 +123,26 @@ class RegrasConteudoTest {
     }
 
     @Test
+    void umaPorJogadorTocadoPorNoite() {
+        long noite = RegrasCriaturas.noite(5 * 24000L + 18000);
+        assertEquals(5, noite);
+        // Dormir passa o relógio para a manhã seguinte: noite nova.
+        assertEquals(6, RegrasCriaturas.noite(6 * 24000L + 100));
+        assertTrue(RegrasCriaturas.livreNestaNoite(RegrasCriaturas.NUNCA, noite));
+        assertFalse(RegrasCriaturas.livreNestaNoite(noite, noite));
+        assertTrue(RegrasCriaturas.livreNestaNoite(noite - 1, noite));
+    }
+
+    @Test
+    void naoNascemEmBiomaSemMonstro() throws Exception {
+        for (String id : IdsDados.CRIATURAS) {
+            String spawn = Files.readString(DATA.resolve("neoforge/biome_modifier/" + id + ".json"));
+            assertTrue(spawn.contains("\"neoforge:not\"") && spawn.contains("minecraft:mushroom_fields")
+                    && spawn.contains("#c:no_default_monsters"), id + " não pode nascer em Mushroom Fields");
+        }
+    }
+
+    @Test
     void retalhadoCegoNasCostas() {
         assertEquals(1.5f, RegrasCriaturas.multiplicadorCostas(-1));
         assertEquals(1.5f, RegrasCriaturas.multiplicadorCostas(-0.6));

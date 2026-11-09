@@ -16,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
@@ -72,7 +73,26 @@ public final class Criaturas {
                     exposicao)) {
                 return false;
             }
+            // 1 por jogador Tocado por noite.
+            if (!RegrasCriaturas.livreNestaNoite(DadosJogador.criaturaNoite(perto),
+                    RegrasCriaturas.noite(nivel.getDayTime()))) {
+                return false;
+            }
+            // Já tem uma de Sangue por perto (busca só nesta área, só quando o sorteio de spawn chega aqui).
+            if (temCriaturaPerto(nivel, pos)) return false;
         }
         return Monster.checkMonsterSpawnRules(tipo, acesso, motivo, pos, sorte);
+    }
+
+    private static boolean temCriaturaPerto(ServerLevel nivel, BlockPos pos) {
+        AABB area = new AABB(pos).inflate(RegrasCriaturas.RAIO_AREA, RegrasCriaturas.ALTURA_AREA, RegrasCriaturas.RAIO_AREA);
+        return !nivel.getEntitiesOfClass(CriaturaDeSangue.class, area, e -> e.isAlive()).isEmpty();
+    }
+
+    /** Chamado quando uma criatura de Sangue nasce sozinha: gasta a noite do jogador Tocado mais perto. */
+    static void gastarNoite(ServerLevel nivel, double x, double y, double z) {
+        Player perto = nivel.getNearestPlayer(x, y, z, RegrasCriaturas.RAIO_JOGADOR,
+                o -> !o.isSpectator() && DadosJogador.exposicao(o) >= RegrasCriaturas.EXPOSICAO_MINIMA);
+        if (perto != null) DadosJogador.definirCriaturaNoite(perto, RegrasCriaturas.noite(nivel.getDayTime()));
     }
 }

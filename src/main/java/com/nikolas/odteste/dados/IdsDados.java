@@ -22,10 +22,12 @@ public final class IdsDados {
 
     /** Último uso de cada Artefato Paranormal (id do item → tempo do mundo). Recarga que sobrevive a relogar. */
     public static final String ARTEFATO_RECARGA = "artefato_recarga";
+    /** Noite (dia do relógio) em que a última criatura de Sangue nasceu sozinha perto do jogador. */
+    public static final String CRIATURA_NOITE = "criatura_noite";
 
     public static final List<String> TODOS = List.of(
             EXPOSICAO, LUCIDEZ, LUCIDEZ_MAX, MARCA_ELEMENTO, MARCA_ESTAGIO, TRANSCENDER_NIVEL,
-            EXPOSICAO_RESTO, CONTATO_ELEMENTO, EXPOSICAO_REPETICAO, ARTEFATO_RECARGA);
+            EXPOSICAO_RESTO, CONTATO_ELEMENTO, EXPOSICAO_REPETICAO, ARTEFATO_RECARGA, CRIATURA_NOITE);
 
     // ---------- Play test de Sangue, parte 2: conteúdo ----------
 
@@ -54,6 +56,10 @@ public final class IdsDados {
     public static final String RITUAL_CHAMADO = "chamado_de_sangue";
     /** Etiqueta (scoreboard tag) da criatura que veio de spawner: não solta matéria. Fica salva na criatura. */
     public static final String ETIQUETA_SEM_MATERIA = "odteste_sem_materia";
+    /** Chave salva na criatura: jogadores que já a viram (Exposição e Lucidez só uma vez por jogador). */
+    public static final String CHAVE_SENTIRAM = "odteste_sentiram";
+    /** Plugin do JEI que esconde os itens e o ritual sem receita. */
+    public static final String PLUGIN_JEI = "esconder_jei";
 
     /** Canal de rede que manda os dados para o cliente do próprio jogador. */
     public static final String PACOTE_SINCRONIZAR = "sincronizar_jogador";
@@ -90,7 +96,7 @@ public final class IdsDados {
             TEXTURA_MARCA_SANGUE + "_3", TEXTURA_MARCA_SANGUE + "_4",
             ITEM_RUBRA, ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO, ITEM_MATERIA_SANGUE,
             CRIATURA_RETALHADO, CRIATURA_SANGUESSUGA, SANGRAMENTO, ABA, MODIFICADOR_DEDAL, RITUAL_CHAMADO,
-            "ritual/" + RITUAL_CHAMADO);
+            "ritual/" + RITUAL_CHAMADO, PLUGIN_JEI);
 
     private IdsDados() {}
 }

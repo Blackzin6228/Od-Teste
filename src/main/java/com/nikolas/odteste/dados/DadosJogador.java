@@ -78,7 +78,26 @@ public final class DadosJogador {
                     .copyOnDeath()
                     .build());
 
+    /**
+     * Noite (dia do relógio) em que a última criatura de Sangue nasceu sozinha perto do jogador. Não vai para o
+     * cliente. Salvo para sair e voltar não liberar outra na mesma noite.
+     */
+    public static final Supplier<AttachmentType<Long>> CRIATURA_NOITE = Registro.DADOS.register(
+            IdsDados.CRIATURA_NOITE,
+            () -> AttachmentType.builder(() -> -1L)
+                    .serialize(Codec.LONG)
+                    .copyOnDeath()
+                    .build());
+
     private DadosJogador() {}
+
+    public static long criaturaNoite(Player p) {
+        return p.getData(CRIATURA_NOITE);
+    }
+
+    public static void definirCriaturaNoite(Player p, long noite) {
+        p.setData(CRIATURA_NOITE, noite);
+    }
 
     /** Usos recentes de artefatos (id do item → tempo do mundo). */
     public static Map<String, Long> usosArtefato(Player p) {

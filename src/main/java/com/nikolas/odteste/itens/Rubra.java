@@ -35,7 +35,8 @@ import net.minecraft.world.item.component.Unbreakable;
 public final class Rubra extends SwordItem {
     public Rubra() {
         super(Tiers.DIAMOND, new Item.Properties()
-                .attributes(SwordItem.createAttributes(Tiers.DIAMOND, 3, -2.4f))
+                // Sem número na tela: os atributos valem, mas o tooltip não mostra dano nem velocidade.
+                .attributes(SwordItem.createAttributes(Tiers.DIAMOND, 3, -2.4f).withTooltip(false))
                 .rarity(Rarity.EPIC)
                 .fireResistant()
                 .component(DataComponents.UNBREAKABLE, new Unbreakable(false)));
@@ -63,6 +64,8 @@ public final class Rubra extends SwordItem {
                 e -> e != dono && e.isAlive() && (e == alvo
                         || (!(e instanceof Player) && !(e instanceof TamableAnimal t && t.isTame()))));
         for (LivingEntity e : perto) {
+            // O alvo acabou de levar o golpe e está no tempo de imunidade: sem zerar, a ferida não pegaria nele.
+            if (e == alvo) e.invulnerableTime = 0;
             e.hurt(Sangramento.fonte(nivel, dono), RegrasSangramento.FERIDA_DANO);
             Sangramento.aplicar(e, 1, RegrasSangramento.DURACAO_RUBRA, dono);
         }

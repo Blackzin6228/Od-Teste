@@ -34,20 +34,24 @@ public final class Itens {
                 }
             });
 
+    /**
+     * Aba do criativo. Fica registrada (o ID não some), mas vazia: o jogo esconde aba sem item. Itens sem receita
+     * não aparecem no criativo nem no JEI/EMI (docs/progressao.md, regra 6); o admin pega por /give.
+     * Item novo que tiver receita entra aqui e fora de {@link #escondidos()}.
+     */
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ABA = Registro.ABAS.register(IdsDados.ABA,
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.odteste"))
                     .icon(() -> new ItemStack(RUBRA.get()))
-                    .displayItems((parametros, saida) -> {
-                        saida.accept(RUBRA.get());
-                        saida.accept(AGULHA.get());
-                        saida.accept(DEDAL.get());
-                        saida.accept(SINO.get());
-                        saida.accept(MATERIA_SANGUE.get());
-                    })
+                    .displayItems((parametros, saida) -> {})
                     .build());
 
     private Itens() {}
+
+    /** Itens sem receita: fora da aba do criativo e escondidos no JEI/EMI (compat/jei, compat/emi). */
+    public static List<Item> escondidos() {
+        return List.of(RUBRA.get(), AGULHA.get(), DEDAL.get(), SINO.get(), MATERIA_SANGUE.get());
+    }
 
     /** Força o carregamento da classe (registros) e liga os eventos dos artefatos. */
     public static void iniciar() {

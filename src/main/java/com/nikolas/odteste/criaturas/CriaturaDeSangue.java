@@ -6,9 +6,13 @@ import com.nikolas.odteste.sistemas.Abalo;
 import com.nikolas.odteste.sistemas.Exposicao;
 import com.nikolas.odteste.sistemas.Fonte;
 import com.nikolas.odteste.sistemas.Lucidez;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -38,8 +42,10 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  */
 public abstract class CriaturaDeSangue extends Monster implements GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    /** Jogadores que já sentiram esta criatura (só memória; poucos por criatura). */
-    private final Set<UUID> sentiram = new HashSet<>();
+    /** Jogadores que já sentiram esta criatura. Salvo na criatura (sobrevive a reinício); poucos por criatura. */
+    private final Set<UUID> sentiram = new LinkedHashSet<>();
+    /** Teto da lista salva: mais que isso, os mais antigos saem (nunca cresce sem limite). */
+    private static final int MAX_SENTIRAM = 32;
     private boolean semMateria;
 
     protected CriaturaDeSangue(EntityType<? extends Monster> tipo, Level level) {
@@ -64,11 +70,34 @@ public abstract class CriaturaDeSangue extends Monster implements GeoEntity {
         Player perto = level().getNearestPlayer(this, RegrasCriaturas.RAIO_VISTA);
         if (!(perto instanceof ServerPlayer p) || p instanceof FakePlayer || p.isCreative() || p.isSpectator()) return;
         if (sentiram.contains(p.getUUID()) || !hasLineOfSight(p)) return;
+        if (sentiram.size() >= MAX_SENTIRAM) sentiram.remove(sentiram.iterator().next());
         sentiram.add(p.getUUID());
         Exposicao.contato(p, Fonte.CRIATURA_VISTA, Elemento.SANGUE, intensidade());
         Lucidez.abalar(p, Abalo.MOB_SANGUE, intensidade());
         // Só quem viu escuta: um coração grave, longe.
         p.playNotifySound(SoundEvents.WARDEN_HEARTBEAT, SoundSource.HOSTILE, 0.6f, 0.5f);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        ListTag lista = new ListTag();
+        for (UUID id : sentiram) lista.add(NbtUtils.createUUID(id));
+        tag.put(IdsDados.CHAVE_SENTIRAM, lista);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        sentiram.clear();
+        ListTag lista = tag.getList(IdsDados.CHAVE_SENTIRAM, Tag.TAG_INT_ARRAY);
+        for (int i = 0; i < lista.size() && sentiram.size() < MAX_SENTIRAM; i++) {
+            try {
+                sentiram.add(NbtUtils.loadUUID(lista.get(i)));
+            } catch (IllegalArgumentException ignorado) {
+                // Entrada estragada (arquivo editado à mão): ignora.
+            }
+        }
     }
 
     @Override
@@ -109,6 +138,10 @@ public abstract class CriaturaDeSangue extends Monster implements GeoEntity {
                                         @Nullable SpawnGroupData dados) {
         // Regra anti-farm: nada cai de criatura de spawner.
         if (motivo == MobSpawnType.SPAWNER || motivo == MobSpawnType.TRIAL_SPAWNER) addTag(IdsDados.ETIQUETA_SEM_MATERIA);
+        // Nasceu sozinha: o jogador Tocado mais perto não atrai outra nesta noite.
+        if (motivo == MobSpawnType.NATURAL || motivo == MobSpawnType.CHUNK_GENERATION) {
+            Criaturas.gastarNoite(nivel.getLevel(), getX(), getY(), getZ());
+        }
         return super.finalizeSpawn(nivel, dificuldade, motivo, dados);
     }
 

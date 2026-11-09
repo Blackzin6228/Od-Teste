@@ -55,12 +55,15 @@ seguidas), e `odteste.horror.sussurro.nome`, `.nome.2`, `.voz` (nome sussurrado 
 | `odteste:retalhado` | criatura (GeckoLib) **e** modificador de bioma (`data/odteste/neoforge/biome_modifier/`) **e** tabela de drop (`odteste:entities/retalhado`) | 2026-11-08 | modelo provisório; nome "(?)" ainda proposta da Lore |
 | `odteste:sanguessuga_mae` | criatura (GeckoLib) **e** modificador de bioma **e** tabela de drop (`odteste:entities/sanguessuga_mae`) | 2026-11-08 | modelo provisório; nome "(?)" ainda proposta da Lore |
 | `odteste:sangramento` | efeito **e** tipo de dano (`data/odteste/damage_type/`) | 2026-11-08 | dano está nas tags `odteste:paranormal` e `minecraft:bypasses_armor`; o efeito não mostra ícone nem tempo |
-| `odteste:principal` | aba do modo criativo | 2026-11-08 | |
+| `odteste:principal` | aba do modo criativo | 2026-11-08 | hoje vazia (o jogo esconde): itens sem receita ficam fora do criativo e do JEI/EMI; admin usa `/give` |
 | `odteste:dedal_coracao` | modificador de atributo (vida máxima, −2) | 2026-11-08 | **fica salvo** no jogador até ele dormir a noite toda |
 | `odteste:chamado_de_sangue` | fábrica de ritual do Occultism (`occultism:ritual_factories`) | 2026-11-08 | só existe com o Occultism no pack |
 | `odteste:ritual/chamado_de_sangue` | receita de ritual do Occultism | 2026-11-08 | condição `neoforge:mod_loaded` occultism; chaves de texto `ritual.odteste.chamado_de_sangue.*` |
 | `odteste:textures/entity/retalhado.png`, `odteste:textures/entity/sanguessuga_mae.png` | texturas geradas no cliente | 2026-11-08 | provisórias (código em `cliente/ModeloCriatura`); o Modelador troca por PNG no mesmo caminho |
 | `odteste_sem_materia` | etiqueta de criatura (scoreboard tag, salva na criatura) | 2026-11-08 | criatura de spawner: não solta matéria |
+| `odteste:criatura_noite` | dado do jogador (número da noite = dia do relógio; −1 = nunca) | 2026-11-08 | noite em que a última criatura de Sangue nasceu sozinha perto dele (limite de 1 por jogador Tocado por noite); sobrevive à morte; não vai para o cliente |
+| `odteste_sentiram` | chave salva na criatura de Sangue (lista de UUIDs, até 32) | 2026-11-08 | jogadores que já viram esta criatura (Exposição e Lucidez só uma vez); sobrevive a reinício |
+| `odteste:esconder_jei` | plugin do JEI (`compat/jei`) | 2026-11-08 | esconde itens sem receita e as receitas `odteste:` (ritual do Occultism); não é salvo. O EMI usa `compat/emi` (sem ID) |
 | `efeitos_fortes` | chave de config do cliente (`config/odteste-client.toml`: `LIGADO`, `SUAVE`, `DESLIGADO`) | 08/11/2026 | fica no PC do jogador; renomear perde a escolha de quem usa suave/desligado |
 
 Fontes de Exposição (usadas no comando `/exposicao contato` e no freio de repetição). Ficam salvas dentro de

@@ -20,6 +20,9 @@ public final class Compat {
         MEKANISM("mekanism"),
         CREATE("create"),
         CURIOS("curios"),
+        /** Lista de itens e receitas. O JEI e o EMI acham o nosso plugin sozinhos (compat/jei, compat/emi). */
+        JEI("jei"),
+        EMI("emi"),
         /** Animação do corpo do jogador. Só cliente: usado em cliente/ via compat/playeranimator/. */
         PLAYER_ANIMATOR("playeranimator");
 
