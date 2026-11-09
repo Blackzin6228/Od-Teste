@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "conditions": [
+        { "condition": "minecraft:killed_by_player" }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "odteste:materia_sangue_bruta",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:enchanted_count_increase",
+              "enchantment": "minecraft:looting",
+              "count": { "type": "minecraft:uniform", "min": 0, "max": 1 },
+              "limit": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "random_sequence": "odteste:entities/retalhado"
+}
