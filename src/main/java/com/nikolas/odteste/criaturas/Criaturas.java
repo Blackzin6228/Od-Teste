@@ -92,7 +92,8 @@ public final class Criaturas {
     /** Chamado quando uma criatura de Sangue nasce sozinha: gasta a noite do jogador Tocado mais perto. */
     static void gastarNoite(ServerLevel nivel, double x, double y, double z) {
         Player perto = nivel.getNearestPlayer(x, y, z, RegrasCriaturas.RAIO_JOGADOR,
-                o -> !o.isSpectator() && DadosJogador.exposicao(o) >= RegrasCriaturas.EXPOSICAO_MINIMA);
+                o -> o instanceof Player j && !j.isSpectator()
+                        && DadosJogador.exposicao(j) >= RegrasCriaturas.EXPOSICAO_MINIMA);
         if (perto != null) DadosJogador.definirCriaturaNoite(perto, RegrasCriaturas.noite(nivel.getDayTime()));
     }
 }
