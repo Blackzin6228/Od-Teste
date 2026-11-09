@@ -1,5 +1,8 @@
 package com.nikolas.odteste.sinais;
 
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.regex.Pattern;
 
 /**
@@ -29,11 +32,31 @@ public final class RegrasSinal {
         }
     }
 
+    /**
+     * Tipos de sinal que têm texto no lang ({@code odteste.sinal.<tipo>.decifrado}). Conteúdo novo acrescenta o
+     * seu por {@link Sinais#registrarTipo}. Fonte fixa só aceita tipo desta lista.
+     */
+    private static final Set<String> TIPOS = new CopyOnWriteArraySet<>(List.of("sino_vila"));
+
     private RegrasSinal() {}
 
     /** Id e tipo de fonte: letras minúsculas, números e _, até 32. */
     public static boolean nomeValido(String nome) {
         return nome != null && NOME.matcher(nome).matches();
+    }
+
+    /** O tipo existe (tem texto)? */
+    public static boolean tipoConhecido(String tipo) {
+        return tipo != null && TIPOS.contains(tipo);
+    }
+
+    /** Tipos conhecidos, em ordem alfabética (para sugestão e mensagem de erro). */
+    public static List<String> tipos() {
+        return TIPOS.stream().sorted().toList();
+    }
+
+    static boolean acrescentarTipo(String tipo) {
+        return nomeValido(tipo) && TIPOS.add(tipo);
     }
 
     /**

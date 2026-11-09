@@ -36,7 +36,15 @@ public final class Sinais {
     private Sinais() {}
 
     /** Resposta de {@link #registrarFonteFixa}. */
-    public enum Resultado { OK, NOME_INVALIDO, CHEIO }
+    public enum Resultado { OK, NOME_INVALIDO, TIPO_DESCONHECIDO, CHEIO }
+
+    /**
+     * Avisa que existe um tipo de sinal novo (com textos {@code odteste.sinal.<tipo>.decifrado} / {@code .camada}
+     * no lang). Sem isso, fonte fixa desse tipo é recusada. {@code false} se o nome é inválido ou já existia.
+     */
+    public static boolean registrarTipo(String tipo) {
+        return RegrasSinal.acrescentarTipo(tipo);
+    }
 
     // ---------- fontes fixas (salvas no mundo, captadas de longe) ----------
 

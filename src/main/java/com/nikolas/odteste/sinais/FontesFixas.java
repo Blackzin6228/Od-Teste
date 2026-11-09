@@ -55,6 +55,7 @@ public final class FontesFixas extends SavedData {
 
     Sinais.Resultado colocar(Fonte f) {
         if (!RegrasSinal.nomeValido(f.id()) || !RegrasSinal.nomeValido(f.tipo())) return Sinais.Resultado.NOME_INVALIDO;
+        if (!RegrasSinal.tipoConhecido(f.tipo())) return Sinais.Resultado.TIPO_DESCONHECIDO;
         if (!fontes.containsKey(f.id()) && fontes.size() >= RegrasSinal.MAX_FONTES) return Sinais.Resultado.CHEIO;
         fontes.put(f.id(), f);
         setDirty();

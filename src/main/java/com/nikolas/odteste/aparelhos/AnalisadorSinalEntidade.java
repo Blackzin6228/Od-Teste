@@ -49,12 +49,10 @@ public class AnalisadorSinalEntidade extends BlockEntity {
     public static void tickServidor(Level nivel, BlockPos pos, BlockState estado, AnalisadorSinalEntidade be) {
         if (!(nivel instanceof ServerLevel servidor)) return;
         if (!RegrasAnalisador.vezDeChecar(nivel.getGameTime(), pos.asLong())) return;
-        if (!nivel.hasNearbyAlivePlayer(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-                RegrasAnalisador.RAIO_JOGADOR)) {
-            return; // ninguém perto: não gasta, não procura
-        }
-
-        boolean ligado = RegrasAnalisador.ficaLigado(be.bateria.getEnergyStored());
+        boolean alguemPerto = nivel.hasNearbyAlivePlayer(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+                RegrasAnalisador.RAIO_JOGADOR);
+        // Ninguém perto: desliga (sem luz nem sinal), não gasta e não procura.
+        boolean ligado = alguemPerto && RegrasAnalisador.ficaLigado(be.bateria.getEnergyStored());
         boolean sinal = false;
         if (ligado) {
             be.bateria.gastar(RegrasAnalisador.GASTO_CHECAGEM);

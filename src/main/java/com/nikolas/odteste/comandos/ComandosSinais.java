@@ -36,7 +36,7 @@ public final class ComandosSinais {
                         .then(Commands.argument(ID, StringArgumentType.word())
                                 .then(Commands.argument(TIPO, StringArgumentType.word())
                                         .suggests((c, b) -> SharedSuggestionProvider.suggest(
-                                                java.util.List.of("sino_vila"), b))
+                                                RegrasSinal.tipos(), b))
                                         .executes(c -> adicionar(c, BlockPos.containing(c.getSource().getPosition())))
                                         .then(Commands.argument(PONTO, BlockPosArgument.blockPos())
                                                 .executes(c -> adicionar(c,
@@ -59,6 +59,11 @@ public final class ComandosSinais {
             case NOME_INVALIDO -> {
                 s.sendFailure(Component.translatable("odteste.sinal.fonte.erro.nome",
                         RegrasSinal.nomeValido(id) ? tipo : id));
+                return 0;
+            }
+            case TIPO_DESCONHECIDO -> {
+                s.sendFailure(Component.translatableWithFallback("odteste.sinal.fonte.erro.tipo",
+                        "Tipo de sinal desconhecido: %s. Tipos: %s", tipo, String.join(", ", RegrasSinal.tipos())));
                 return 0;
             }
             case CHEIO -> {
