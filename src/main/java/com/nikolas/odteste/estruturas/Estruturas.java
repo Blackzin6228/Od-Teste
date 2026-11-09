@@ -21,7 +21,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
  * com um {@code prever} lá antes de colocar. Tudo fica num {@link Backup} para desfazer.
  */
 public final class Estruturas {
-    /** Maior estrutura aceita (blocos da caixa). Acima disso trava o tick: dividir o template. */
+    /** Maior estrutura colocada de uma vez (blocos da caixa). Acima disso vai em partes, uma fatia por tick ({@link EmPartes}). */
     public static final long VOLUME_MAXIMO = 16384;
     /** Busca de ponto sugerido: raio, passo e tentativas. */
     public static final int RAIO_BUSCA = 32;
@@ -81,6 +81,19 @@ public final class Estruturas {
                 .map(p -> new BlockPos(p[0] + dx, p[1] + dy, p[2] + dz));
     }
 
+    /**
+     * Estrutura grande (acima de {@link #VOLUME_MAXIMO}) até esse volume vai em partes ({@link EmPartes}).
+     * 524.288 = 128 x 32 x 128; a Vila Calada final (~100 x 30 x 100) cabe com folga.
+     * O {@code prever} lê a caixa inteira num tick só: acima disso a leitura começa a pesar.
+     */
+    public static final long VOLUME_MAXIMO_PARTES = 524_288;
+
+    /** Grande demais até para colocar em partes. */
+    public static boolean grandeDemaisAtePartes(StructureTemplate t, Rotation rotacao) {
+        var tamanho = t.getSize(rotacao);
+        return (long) tamanho.getX() * tamanho.getY() * tamanho.getZ() > VOLUME_MAXIMO_PARTES;
+    }
+
     /** Coloca no ponto, só se a checagem passar. Nunca procura outro lugar. */
     public static Tentativa colocar(ServerLevel nivel, StructureTemplate t, BlockPos ponto, Rotation rotacao) {
         if (grandeDemais(t, rotacao)) return new Tentativa(false, ponto, null, Optional.empty(), "grande");
@@ -88,8 +101,19 @@ public final class Estruturas {
         Espaco.Caixa c = caixa(t, ponto, rotacao);
         Espaco.Resultado r = Espaco.checarComChao(c, mundo);
         if (!r.cabe()) return new Tentativa(false, ponto, r, Optional.empty(), "nao_cabe");
-
         Backup b = new Backup();
+        colocarParte(nivel, t, ponto, rotacao, c, b, false);
+        return new Tentativa(true, ponto, r, Optional.of(b), "");
+    }
+
+    /**
+     * Põe só o pedaço do template que cai dentro de {@code parte} e anota no backup. Não confere espaço: quem
+     * chama confere antes. Com {@code emPartes}, as bordas entre fatias não se ajustam (o template já guarda o
+     * formato certo de cada bloco; ajustar contra a fatia ainda vazia derrubaria tocha e placa).
+     */
+    static void colocarParte(ServerLevel nivel, StructureTemplate t, BlockPos ponto, Rotation rotacao,
+                             Espaco.Caixa parte, Backup b, boolean emPartes) {
+        Espaco.Caixa c = parte;
         BlockPos.MutableBlockPos m = new BlockPos.MutableBlockPos();
 
         // Planta de duas metades com só uma metade na caixa: a outra metade sai junto e entra no backup,
@@ -118,7 +142,13 @@ public final class Estruturas {
         for (int y = c.y0(); y <= c.y1(); y++)
             for (int x = c.x0(); x <= c.x1(); x++)
                 for (int z = c.z0(); z <= c.z1(); z++) antes[i++] = nivel.getBlockState(m.set(x, y, z));
-        t.placeInWorld(nivel, ponto, ponto, ajustes(rotacao), nivel.getRandom(), 2);
+        StructurePlaceSettings ajustes = ajustes(rotacao);
+        if (emPartes) {
+            // Mesmo recurso da geração do jogo: o template inteiro é lido, mas só sai bloco dentro da caixa.
+            ajustes.setBoundingBox(new BoundingBox(c.x0(), c.y0(), c.z0(), c.x1(), c.y1(), c.z1()));
+            ajustes.setKnownShape(true);
+        }
+        t.placeInWorld(nivel, ponto, ponto, ajustes, nivel.getRandom(), 2);
         i = 0;
         for (int y = c.y0(); y <= c.y1(); y++)
             for (int x = c.x0(); x <= c.x1(); x++)
@@ -137,6 +167,5 @@ public final class Estruturas {
                 b.esquecer(foraTirada.get(k));
             }
         }
-        return new Tentativa(true, ponto, r, Optional.of(b), "");
     }
 }

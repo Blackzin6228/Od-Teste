@@ -61,7 +61,10 @@ public final class Backup {
         colocados.add(indice(colocado));
     }
 
-    /** Esquece as anotações de uma posição (o bloco voltou ao que era sem o desfazer). */
+    /**
+     * Esquece a última anotação de uma posição (o bloco voltou ao que era sem o desfazer). Só a última: na colocação
+     * em partes a mesma posição pode ter uma anotação mais antiga, de outra fatia, que precisa ficar.
+     */
     void esquecer(BlockPos p) {
         long l = p.asLong();
         for (int i = posicoes.size() - 1; i >= 0; i--) {
@@ -69,6 +72,7 @@ public final class Backup {
                 posicoes.remove(i);
                 originais.remove(i);
                 colocados.remove(i);
+                return;
             }
         }
     }
@@ -121,11 +125,52 @@ public final class Backup {
      * Baú nosso: o que for peça de história ({@code descartar}) sai; o resto é de jogador e cai no chão.
      */
     public Restauracao restaurar(ServerLevel nivel, Predicate<ItemStack> descartar) {
+        List<BlockPos> trocados = new ArrayList<>();
+        Restauracao r = restaurarDe(nivel, descartar, 0, trocados);
+        for (BlockPos p : trocados) atualizarVizinhos(nivel, p);
+        return r;
+    }
+
+    /**
+     * Desfaz só as últimas {@code limite} anotações (para estrutura grande, um pedaço por tick) e tira elas do
+     * backup: se o servidor cair no meio, o que sobrou no backup é exatamente o que falta desfazer.
+     * Os vizinhos <b>não</b> reagem aqui: as posições trocadas vão para {@code trocados}, e quem chama roda
+     * {@link #atualizarVizinhos} em todas no fim (senão uma tocha nossa cai da parede nossa antes da hora).
+     */
+    public Restauracao restaurarParte(ServerLevel nivel, Predicate<ItemStack> descartar, int limite, List<BlockPos> trocados) {
+        int de = Math.max(0, posicoes.size() - Math.max(1, limite));
+        Restauracao r = restaurarDe(nivel, descartar, de, trocados);
+        for (int i = posicoes.size() - 1; i >= de; i--) {
+            posicoes.remove(i);
+            originais.remove(i);
+            colocados.remove(i);
+        }
+        return r;
+    }
+
+    /** A primeira posição, entre as últimas {@code limite} anotações, num chunk não carregado (ou null). */
+    public BlockPos descarregadaNoFim(ServerLevel nivel, int limite) {
+        int de = Math.max(0, posicoes.size() - Math.max(1, limite));
+        for (int i = posicoes.size() - 1; i >= de; i--) {
+            BlockPos p = BlockPos.of(posicoes.get(i));
+            if (!nivel.hasChunk(p.getX() >> 4, p.getZ() >> 4)) return p;
+        }
+        return null;
+    }
+
+    /** Depois de desfazer: o bloco e os vizinhos se ajustam (planta sem chão cai, cerca reconecta). */
+    public static void atualizarVizinhos(ServerLevel nivel, BlockPos p) {
+        if (!nivel.hasChunk(p.getX() >> 4, p.getZ() >> 4)) return;
+        BlockState st = nivel.getBlockState(p);
+        st.updateNeighbourShapes(nivel, p, Block.UPDATE_ALL);
+        nivel.blockUpdated(p, st.getBlock());
+    }
+
+    private Restauracao restaurarDe(ServerLevel nivel, Predicate<ItemStack> descartar, int de, List<BlockPos> trocados) {
         int mantidos = 0;
         int soltos = 0;
         BlockPos onde = null;
-        List<BlockPos> trocados = new ArrayList<>();
-        for (int i = posicoes.size() - 1; i >= 0; i--) {
+        for (int i = posicoes.size() - 1; i >= de; i--) {
             BlockPos p = BlockPos.of(posicoes.get(i));
             BlockState agora = nivel.getBlockState(p);
             BlockState nosso = paleta.get(colocados.get(i));
@@ -142,11 +187,6 @@ public final class Backup {
             if (be != null) Clearable.tryClear(be);
             nivel.setBlock(p, paleta.get(originais.get(i)), SEM_VIZINHOS);
             trocados.add(p);
-        }
-        for (BlockPos p : trocados) {
-            BlockState st = nivel.getBlockState(p);
-            st.updateNeighbourShapes(nivel, p, Block.UPDATE_ALL);
-            nivel.blockUpdated(p, st.getBlock());
         }
         return new Restauracao(mantidos, soltos, onde);
     }
