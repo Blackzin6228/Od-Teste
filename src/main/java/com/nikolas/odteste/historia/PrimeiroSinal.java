@@ -43,6 +43,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -959,8 +960,8 @@ public final class PrimeiroSinal {
         v.resolvido = true;
         if (d.grupos.marcar(v.grupo, IdsHistoria.MARCO_ENIGMA_SINO)) v.marcosDados.add(IdsHistoria.MARCO_ENIGMA_SINO);
         if (nivel.getBlockEntity(v.bau) instanceof ChestBlockEntity bau) {
-            bau.setItem(11, livroDoCarniceiro());
-            bau.setItem(15, metadeEsquerdaDoMapa());
+            porPeca(nivel, v.bau, bau, ESPACO_LIVRO, livroDoCarniceiro());
+            porPeca(nivel, v.bau, bau, ESPACO_MAPA, metadeEsquerdaDoMapa());
             bau.setChanged();
         }
         nivel.playSound(null, v.bau, SoundEvents.IRON_TRAPDOOR_OPEN, SoundSource.BLOCKS, 0.6f, 0.5f);
@@ -973,6 +974,35 @@ public final class PrimeiroSinal {
             if (p.hasPermissions(2)) p.sendSystemMessage(aviso);
         }
         OdMod.LOGGER.info("Enigma do sino resolvido pelo grupo {}", v.grupo);
+    }
+
+    /** Espaços do baú onde as peças entram (11 e 15: meio das pontas da fileira do meio). */
+    private static final int ESPACO_LIVRO = 11;
+    private static final int ESPACO_MAPA = 15;
+
+    /**
+     * Põe a peça no espaço dela sem apagar nada. Funil ou cano de outro mod pode ter posto item no baú trancado:
+     * esse item vai para um espaço livre ou, se o baú estiver cheio, cai no chão em cima do baú.
+     */
+    private static void porPeca(ServerLevel nivel, BlockPos onde, ChestBlockEntity bau, int espaco, ItemStack peca) {
+        ItemStack antes = bau.getItem(espaco);
+        if (!antes.isEmpty()) {
+            int livre = -1;
+            for (int i = 0; i < bau.getContainerSize(); i++) {
+                if (i != ESPACO_LIVRO && i != ESPACO_MAPA && bau.getItem(i).isEmpty()) {
+                    livre = i;
+                    break;
+                }
+            }
+            ItemStack tirado = bau.removeItemNoUpdate(espaco);
+            if (livre >= 0) {
+                bau.setItem(livre, tirado);
+            } else {
+                Containers.dropItemStack(nivel, onde.getX() + 0.5, onde.getY() + 1.0, onde.getZ() + 0.5, tirado);
+                OdMod.LOGGER.info("Primeiro Sinal: baú cheio em {}; um item que estava lá caiu no chão", onde);
+            }
+        }
+        bau.setItem(espaco, peca);
     }
 
     private static void peca(ItemStack item, String id) {
