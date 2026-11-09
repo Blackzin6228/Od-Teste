@@ -1,140 +1,163 @@
 # Fichas de estruturas do Ato 1 (mesa lore)
 
 Status: **rascunho para o Nikolas aprovar.** Base: `lore/roteiro.md` (Ato 1 refeito) e `docs/decisoes/2026-11-08-producao-estruturas-e-enigmas-fora.md`.
-Nenhum nome de jogador aqui. Nenhum número aparece para o jogador dentro das estruturas (placas de quarto e datas são palavra ou desenho; ver cada ficha).
+Nenhum nome de jogador aqui. Nenhum número aparece para o jogador dentro das estruturas (placas são palavra ou desenho; ver cada ficha).
+**09/11/2026:** os lugares 1 a 4 foram refeitos em "Minecraft puro" (`docs/decisoes/2026-11-08-roteiro-minecraft.md`): saíram Clareira e Carro, Frigorífico, Pousada e Casa da Repetidora.
+Tamanhos revistos para trabalho de mesa (decisão N5): cada lugar cabe em **16 a 40 horas** de trabalho de mesa; o Nikolas pode retocar no criativo.
 
 ## Regras comuns de construção
+- **Quem faz:** as mesas montam a schematic; o Nikolas retoca no criativo se quiser e coloca no mundo (N5). Prévia (print ou render) antes de integrar.
 - **Formato:** schematic `.nbt`, uma por estrutura, com a origem no canto sudoeste do térreo (para colocar sempre igual).
 - **Paleta vanilla.** A base usa só blocos do jogo puro, para a schematic abrir em qualquer lugar (regra de não depender de mod).
   Decoração de mods do pack pode entrar numa segunda versão `-decor`, nunca na base.
+- **Cara de Minecraft:** tudo o que aparece é bloco ou item do jogo (ou nosso, no mesmo estilo). Nada de carro, máquina moderna, TV, fita ou crachá.
 - **Altura do chão:** a schematic leva um "colar" de terra de 2 blocos em volta, para encaixar em terreno irregular. O admin aplaina ou usa Create Schematicannon com "substituir ar".
-- **Luz:** pouca e com defeito. Lanterna apagada, lâmpada de redstone quebrada, vela solitária. Nunca tocha pregada na parede (some o clima). Tem de haver luz suficiente para **não nascer monstro dentro**, exceto onde a ficha diz o contrário.
+- **Luz:** pouca e com defeito. Lanterna apagada, vela solitária, fogueira de alma quase apagada. Nunca tocha pregada na parede (some o clima). Tem de haver luz suficiente para **não nascer monstro dentro**, exceto onde a ficha diz o contrário.
   Os monstros comuns do jogo não devem competir com nossos perigos: cada ficha marca "sem spawn" onde importa (blocos de luz invisíveis são aceitos).
-- **Pistas posicionadas** são blocos de dados (baú, barril, lectern, placa, item em moldura). O conteúdo dos livros e itens de história vem do mod; a ficha diz só **onde** fica.
+- **Pistas posicionadas** são blocos de dados (baú, barril, atril, placa, item em moldura, estandarte). O conteúdo dos livros e itens de história vem do mod; a ficha diz só **onde** fica.
 - **Sem caça-tesouro:** toda pista fica à vista ou atrás de um enigma, nunca escondida atrás de bloco falso.
 - **Um desenho de percurso:** cada lugar tem um caminho principal claro e dois ou três cantos de sombra. Quem se perde deve se perder por medo, não por labirinto.
 - **Perigo sem grind:** nada aqui exige combate repetido.
 - **Valores de tamanho** são aproximados (largura x profundidade x altura, em blocos). O construtor tem liberdade de 10%.
 
 ## Mapa do Ato 1 (ordem de visita)
-1. Clareira e o Carro (prólogo)
-2. Frigorífico do Km 9
-3. Pousada do Km 12
-4. Casa da Repetidora
+0. Vila Calada (destino; ficha no fim deste arquivo)
+1. Moinho Parado (prólogo)
+2. Casa do Açougueiro
+3. Casa do Cartógrafo
+4. Torre das Correntes
 5. Fazenda do Sino Mudo (Casarão + Capela da Mesa)
 
-Distância sugerida entre elas: o suficiente para uma caminhada de alguns minutos (algumas centenas de blocos), em ordem de estrada.
-O Nikolas escolhe os pontos; o mod registra a posição de cada um (ver roteiro).
+Distância sugerida entre elas: o suficiente para uma caminhada de alguns minutos (algumas centenas de blocos), seguindo rios, trilhas e vales, nunca estrada.
+O Nikolas escolhe os pontos; o mod registra a posição de cada um (ver roteiro). Uma vila de verdade do mundo pode ficar perto, como detalhe.
+
+| Lugar | Tamanho | Trabalho de mesa (estimativa) |
+|---|---|---|
+| 1. Moinho Parado | 36 x 30 x 26 | 16 a 20 h |
+| 2. Casa do Açougueiro | 48 x 36 x 16, mais 7 de porão | 30 a 40 h |
+| 3. Casa do Cartógrafo | 26 x 22 x 30 | 20 a 26 h |
+| 4. Torre das Correntes | 20 x 20 x 40, mais 8 de porão | 22 a 28 h |
+| 5. Fazenda do Sino Mudo | 72 x 60 x 18, mais 6 de porão e cripta | 34 a 40 h |
 
 ---
 
-## 1. Clareira e o Carro
-- **Função:** o primeiro lugar. Dá o clima, entrega a mochila e a **Fita K7**, e liga o jogo ao primeiro enigma fora (a fita).
-- **Tamanho:** 34 x 34 x 10. Pequeno de propósito: é o prólogo.
-- **Andares/salas:** um só nível. Uma clareira redonda de grama morta, anel de árvores mortas (troncos de carvalho sem folhas), estrada de terra na borda,
-  o carro, uma fogueira apagada, uma barraca rasgada, um poste de luz quebrado.
-- **Paleta:** terra batida, cascalho, grama seca (musgo), troncos descascados, lã cinza (barraca), ferro e bloco de ferro oxidado (cobre oxidado) para o carro, carvão, teias.
-- **Clima:** noite, neblina baixa, silêncio, metal arrastando ao longe. O carro tem a porta aberta e o rádio ligado em chiado.
+## 1. Moinho Parado
+- **Função:** o primeiro lugar. Dá o clima, toca o **Morse PORTA** nos blocos de nota (E1), guarda o baú com o Diário p. 1, a metade esquerda do Mapa Rasgado e o **endereço do Atlas** (site).
+- **Tamanho:** 36 x 30 x 26. Pequeno de propósito: é o prólogo.
+- **Partes:**
+  - **O moinho:** torre de pedra e tábua, base 9 x 9, três andares por dentro, pás de lã cinza e cerca (quatro, uma quebrada). No térreo, sacos de trigo (fardos de feno) e um mó (pedra lisa).
+    No último andar, a **fileira de blocos de nota** ligada à roda de madeira (redstone escondida). Uma janela redonda olha para o rio seco.
+  - **Casa do moleiro:** casa de aldeão pequena, porta aberta, mesa posta para um, prato com pão mofado (pão em moldura), cama desfeita.
+    Uma prateleira com **cabeças de esqueleto viradas para a parede**, uma por jogador do grupo (o mod coloca quantas forem).
+    Ao pé da cama, o **baú com cadeado de letras** (cinco letras).
+  - **Rio seco:** leito de cascalho e areia grossa, uma ponte de tábua, uma roda d'água parada sem água.
+  - **Celeiro:** pequeno, telhado furado, um espantalho (armadura em suporte com abóbora entalhada) virado para o moinho.
+- **Paleta:** pedregulho e pedregulho com musgo, tábua de abeto e carvalho escuro, troncos descascados, lã cinza, cascalho, areia grossa, feno, teias.
+- **Clima:** noite, neblina baixa, rio sem água, as pás paradas e a roda de dentro rangendo. Os blocos de nota tocam, travam, voltam. Correntes arrastando ao longe.
 - **Pistas:**
-  - **Carro:** toca-fitas no painel com a **Fita K7** (batidas Morse + voz chiada + camada escondida de frequência alta). Caixa de ferramentas no porta-malas com cadeado de letras (cinco).
-  - **Barraca:** as mochilas com os nomes dos jogadores (item do mod), uma por jogador.
-  - **Poste:** adesivo desbotado com o desenho de uma cruz de ferro (reaparece no Mapa).
-- **Por onde se entra:** pela estrada de terra, a pé. O carro está virado para o grupo.
-- **Perigos:** nenhum físico. O **Cheiro** (neblina avermelhada leve) cresce com o tempo. O barulho de metal começa aqui.
+  - **Último andar:** os blocos de nota (Morse PORTA; ver `enigmas-fora.md` E1). A roda trava no meio quase sempre; inteira só numa vigília de noite toda.
+  - **Baú do moleiro:** Diário do Açougueiro p. 1, metade esquerda do Mapa Rasgado. Na tampa, a carvão, o endereço do **Atlas do Cartógrafo**.
+  - **Celeiro:** um estandarte rasgado com a **Cruz de Ferro** (nossa; reaparece no Mapa e na Torre).
+- **Por onde se entra:** pela ponte, a pé. A porta do moinho está aberta.
+- **Perigos:** nenhum físico. O **Cheiro** (neblina avermelhada leve) cresce com o tempo. O barulho de correntes começa a ser ouvido aqui. Sem spawn dentro do moinho e da casa.
+- **Integração:** com o Create no pack, a versão `-decor` troca as pás por um rolamento de moinho; girar faz a sequência tocar inteira (atalho).
 
-## 2. Frigorífico do Km 9
-- **Função:** o grande lugar do Ato 1. Entrega o Livro-Caixa, a metade direita do Mapa, a Faca de Osso, o crachá com a entrada do Arquivo (site secreto)
-  e apresenta o **Magarefe**. Maior estrutura da primeira metade.
-- **Tamanho:** 72 x 48 x 26 (térreo e mezanino) mais 10 de profundidade no subsolo.
-- **Andares e salas:**
-  - **Pátio** (cercado de tela e ferro): docas de carga, dois caminhões velhos, tonéis, o portão da frente (grande, de ferro) e a **porta lateral** (pequena, sem luz).
-  - **Térreo:** recepção com balcão e luz piscando; **loja do açougue** com balcão de vidro, ganchos nas paredes, ladrilho; corredor de serviço; **sala dos ganchos** (pé-direito alto, trilho no teto, quatro ganchos grandes com plaquinhas de **Cão, Vaca, Lebre, Javali**, uma alavanca ao lado de cada);
-    vestiário com armários; refeitório com mesa de metal.
-  - **Câmaras frias:** três salas de ladrilho branco sujo, a do meio trancada (a "câmara fria" do enigma): tem o cofre de parede com o Livro-Caixa.
-  - **Mezanino:** corredor de passarela de ferro sobre a sala dos ganchos; **escritório do gerente** (mesa, arquivo, quadro de avisos, o crachá com a entrada do Arquivo, um telefone preto); sala de segurança com um painel de câmeras de TV apagadas (decoração) e uma fita VHS (o vídeo do Frigorífico, ver `enigmas-fora.md`).
-  - **Subsolo:** sala de abate (ralos, bancada, esgoto raso), sala das caldeiras, saída de serviço que dá para fora, por uma escada de ferro. É o lugar do Magarefe.
-- **Paleta:** concreto cinza claro e cinza escuro (como ladrilho e piso), tijolo de pedra rachado, ladrilho de terracota branca e azul-claro (câmaras), barras de ferro, ferro e cobre oxidado, calcário, vidro sujo, piso de madeira escura (escritório), alçapões como grades, seiva vermelha: terracota vermelha e lã vermelha em poças pequenas, nunca em grande quantidade.
-- **Clima:** frio, ladrilho, cheiro de ferro (partícula rala vermelha), mosca, luz de rede elétrica que cai e volta, motor de câmara fria ao fundo.
-  Tudo o que é "carne" é sugerido (ganchos, ladrilho, poça), não mostrado. Tom sério, nada gratuito.
+## 2. Casa do Açougueiro
+- **Função:** o grande lugar do Ato 1. Entrega o **Livro de Trocas**, a metade direita do Mapa, a **Faca de Osso** e apresenta o **Magarefe**. Maior estrutura antes da Fazenda.
+- **Tamanho:** 48 x 36 x 16, mais 7 de profundidade no porão de salga.
+- **História do lugar:** o açougue da vila perdida. O aldeão açougueiro vendia carne aos vizinhos e anotava, num livro, o que cada um dava em troca.
+  Nos últimos invernos, o que davam deixou de ser esmeralda.
+- **Partes:**
+  - **Curral** (cerca de carvalho escuro): cocho cheio de trigo, nenhum bicho, chão de terra batida com sulcos. Um portão de cerca entreaberto.
+  - **Loja** (térreo, frente): balcão de tábua, dois **defumadores** (a bancada do açougueiro no jogo), ganchos de corrente na parede com nada pendurado, barris.
+    A **porta da frente** é larga, de madeira, duas folhas.
+  - **Casa de abate** (térreo, fundo): pé-direito alto (10), vigas de carvalho escuro, **quatro correntes** que descem do teto. Embaixo de cada uma, uma placa de madeira (**Cão, Vaca, Lebre, Javali**) e uma alavanca.
+    Ralo no chão (alçapões de ferro). O **alçapão grande** do porão fica no meio, trancado.
+  - **Palheiro** (sótão): feno, uma escada de mão, uma fresta no assoalho que olha para a casa de abate (é de onde o vídeo E7 foi "gravado").
+  - **Moradia** do açougueiro (anexo): cama, mesa, estante quebrada, lareira apagada.
+  - **Porão de salga:** pedra, barris em fila, bancada de pedra lisa, ralo, uma saída de serviço por escada de mão até o curral. É o lugar do Magarefe.
+- **Paleta:** carvalho escuro e abeto, pedregulho, tijolo de pedra rachado, pedra lisa, barras de ferro, correntes, terracota branca suja (piso da casa de abate), barris, feno.
+  Vermelho só em poças pequenas (terracota vermelha, lã vermelha), nunca em grande quantidade.
+- **Clima:** frio de pedra, cheiro de ferro (partícula rala vermelha), moscas (som), defumador soltando fumaça sem fogo, correntes rangendo. Tudo o que é "carne" é sugerido (corrente, ralo, poça), não mostrado. Tom sério, nada gratuito.
 - **Pistas:**
-  - **Recepção:** livro de recibos aberto (pano de fundo), cartaz "Consulta de pedidos" com o **desenho de um cadeado** e o espaço de uma senha (liga ao site).
-  - **Balcão da loja:** **Diário do Açougueiro, páginas 2 e 3** (ordem dos bichos; tabela parcial de símbolos).
-  - **Sala dos ganchos:** as plaquinhas e as alavancas (enigma de ordem). O recado na parede: *"O Açougueiro ensina a ordem. Não adianta pedir."*
-  - **Câmara fria do meio:** **Livro-Caixa**, **metade direita do Mapa**, **Faca de Osso**.
-  - **Escritório do gerente:** crachá (usuário e endereço do Arquivo; a senha não está aqui), o telefone, e um calendário de parede só com **desenhos** (sem números).
-  - **Sala de segurança:** a fita VHS "Câmera 2 - Gancho" (opcional).
-- **Por onde se entra:** pela **porta da frente** (portão de ferro, do pátio; acorda o Magarefe) ou pela **porta lateral** (pequena, sem aviso; só quem ouviu o aviso da camada escondida da fita sabe).
-  Há uma terceira entrada, discreta, pelo subsolo (escada de serviço), que pega o Magarefe de frente. Ela existe para o grupo corajoso e para a perseguição.
-- **Perigos:** o **Magarefe** (perseguição lenta, entra pela frente). Erro na ordem dos ganchos: o gancho balança, sobe a Exposição e cai Lucidez.
-  O **Pendurado** (efeito visual só para quem tem a maior Exposição) aparece no gancho vazio. Zonas com **sem spawn**: toda a estrutura.
+  - **Balcão da loja:** **Diário do Açougueiro, páginas 2 e 3** (ordem dos bichos; tabela parcial dos Riscos de Corte).
+  - **Casa de abate:** as placas e as alavancas (enigma de ordem). Riscado na viga: *"O Açougueiro ensina a ordem. Não adianta pedir."*
+  - **Porão de salga** (abre com a ordem certa): **Livro de Trocas**, **metade direita do Mapa**, **Faca de Osso**, num barril aberto sobre a bancada.
+  - **Palheiro:** riscada na viga, a palavra que abre o vídeo E7 no Atlas (opcional).
+- **Por onde se entra:** pela **porta da frente** (acorda o Magarefe) ou pela **porta de ferro** do lado do curral (de botão; quem ouviu o aviso do E1 ou juntou FERRO e PORTA sabe).
+  Há uma terceira entrada pela escada de serviço do porão, que pega o Magarefe de frente. Ela existe para o grupo corajoso e para a perseguição.
+- **Perigos:** o **Magarefe** (perseguição lenta, entra pela frente). Erro na ordem das correntes: a corrente balança, sobe a Exposição e cai Lucidez.
+  O **Pendurado** (efeito visual só para quem tem a maior Exposição) aparece na corrente vazia. **Sem spawn** em toda a estrutura.
 
-## 3. Pousada do Km 12
-- **Função:** o lugar do "vídeo achado". Entrega o **vídeo da câmera de segurança** (senha do Arquivo) e o telefone do qual sai o **áudio ao contrário**. Mostra que o Açougueiro tinha cúmplices e hóspedes.
-- **Tamanho:** 54 x 30 x 22 (dois andares e sótão) mais 8 de profundidade no porão.
-- **Andares e salas:**
-  - **Pátio/estacionamento** de cascalho, placa de neon apagada ("POUSADA" em letras, a primeira apagada), três vagas de carro com uma perua velha.
-  - **Térreo:** recepção (balcão, quadro de chaves vazio, livro de hóspedes, telefone de disco, TV de tubo em cima do balcão com videocassete), sala de jantar, cozinha (fogão, panelas, ovo podre), corredor de serviço, lavanderia.
-  - **Andar de cima:** corredor comprido de quartos, **sete quartos** (cada um com porta de cor diferente, sem número: o número vira cor e objeto), um banheiro coletivo no fim, a janela quebrada do corredor.
-  - **Quarto de cor lilás ("o do canto"):** o quarto do hóspede do vídeo. Cama desfeita, mala aberta, caderno, uma TV e um vídeo cassete ligado a uma câmera. Um cofre embutido no armário.
-  - **Sótão:** quarto da faxineira / gerente, com a cama de lado, fios, o telefone de onde veio a ligação.
-  - **Porão:** adega e depósito. Uma porta de ferro com o desenho de uma cruz (liga ao Frigorífico). Vazio de monstro; só ruído.
-- **Paleta:** tábua de madeira escura e abeto, tapete vermelho-escuro e verde-musgo, papel de parede (lã e terracota estampadas), ferro, vidro, cobre, tijolo (fundos), cerâmica de vaso (decoração), cama e estantes.
-- **Clima:** pensão de estrada à noite. Silêncio de hóspede que não saiu. Rádio ligado numa estação sem sinal. A TV está em chiado e, de vez em quando, mostra o corredor lá de cima por um instante.
+## 3. Casa do Cartógrafo
+- **Função:** o lugar do "vídeo achado". Tem o **ritual de giz** que dá a palavra do vídeo, o **Último Olhar do Cartógrafo** (E4, senha do Atlas) e o baú com o **Terço da Moça**.
+  Explica o mapa que apareceu na Cena 1B: o cartógrafo desenhou um lugar que não existia, e o mapa continua desenhando.
+- **Tamanho:** 26 x 22 x 30 (casa de dois andares e uma torre-mirante).
+- **Partes:**
+  - **Salão** (térreo): paredes cobertas de **mapas em molduras**, a **mesa de cartografia** com um mapa pela metade, uma estante, um baú com cadeado de letras.
+    No meio, o **mapa-mural** (vários mapas lado a lado, em molduras) com **marcas de estandarte com nome**: os moradores da Vila Calada. A última marca tem o nome de `{marcado}`.
+  - **Quarto** (andar de cima): cama arrumada, uma vela apagada, tinteiro (frasco com tinta de lula) e penas.
+  - **Escada em caracol** até o mirante: estreita, de pedra, com janelas pequenas. É onde o Pendurado aparece.
+  - **Mirante:** sala redonda no alto, uma **luneta** apoiada na janela que dá para a Fazenda, e no chão um **círculo de giz pela metade**.
+- **Paleta:** tijolo de pedra e pedra lisa, tábua de bétula e abeto, lã branca e marrom, estantes, molduras, vidro, cobre oxidado (telhado da torre).
+- **Clima:** papel e silêncio. Vento na torre. As marcas do mapa-mural mudam de lugar entre uma visita e outra (o mod troca de manhã).
 - **Pistas:**
-  - **Recepção:** livro de hóspedes (nomes inventados por nós; **o último nome é `{anfitriao}`, escrito em tinta fresca**); a **fita VHS** na TV (vídeo da câmera do corredor).
-  - **Quarto lilás:** o **caderno** do hóspede (desenhos), o cofre no armário, que abre com a mesma palavra do quadro de chaves do vídeo (E4 em `enigmas-fora.md`) e guarda o **Terço da Moça** (item de história, gancho do Ato 2).
-  - **Sótão:** o telefone e o gravador de fita (de onde sai o áudio ao contrário, que também está no Arquivo).
-- **Por onde se entra:** pela porta da frente (sem trancar), pela cozinha (nos fundos) ou pela janela quebrada do corredor.
-- **Perigos:** sem monstro fixo. O **Pendurado** pode aparecer no corredor (efeito de cliente). Quem fica sozinho no corredor perde Lucidez devagar. Sem spawn dentro.
+  - **Mapa-mural:** marcas com nomes; a última com `{marcado}`, em cima de onde ele dormiu.
+  - **Mirante:** o círculo de giz (ritual em dupla ou mais, de noite: as cinzas do centro formam a palavra do vídeo). A luneta: olhando por ela depois do Atlas, a **Torre das Correntes** aparece na neblina.
+  - **Baú do salão:** abre com a senha do Atlas (a mesma do vídeo) e guarda o **Terço da Moça** (gancho do Ato 2).
+- **Por onde se entra:** pela porta da frente (sem tranca) ou pela janela do salão.
+- **Perigos:** sem monstro fixo. O **Pendurado** pode aparecer na escada (efeito de cliente). Quem fica sozinho na escada ou no círculo perde Lucidez devagar. Sem spawn dentro.
 
-## 4. Casa da Repetidora
-- **Função:** a **origem do barulho de metal**. Quem resolve o Arquivo silencia a repetidora e recebe a **localização da Fazenda**. Também guarda o segredo do Ato 5 (o espectrograma do barulho).
-- **Tamanho:** 32 x 32 x 52 (torre de 46 de altura) mais 14 de profundidade (bunker).
-- **Andares e salas:**
-  - **Cerca e portão** (cadeado grande), guarita, caixa de luz.
-  - **Casa de máquinas:** sala quadrada com painéis, fios, bancadas, uma mesa do operador com **console** (bloco de interação) e **telegrafo** (dispositivo de Morse).
-  - **Torre:** escada de ferro em espiral até o topo (cuidado com a queda), plataformas a cada poucos blocos, o **sino** de metal pendurado no topo (cego, sem badalo, balança mesmo sem vento). A "voz" do barulho.
-  - **Bunker:** dois níveis de corredor de concreto, sala dos geradores, sala do arquivo com estantes de fita magnética e **a sala do espectrograma** (uma parede de telas apagadas).
-- **Paleta:** ferro, concreto cinza escuro, cobre oxidado, vidro rachado, lã cinza, terracota cinza, madeira escura, barras de ferro, cascalho, correntes.
-- **Clima:** isolamento, vento, zumbido de transformador, sino sem badalo. Aqui o som é o personagem.
+## 4. Torre das Correntes
+- **Função:** a **origem do barulho de correntes**. Quem resolve o Atlas cala o sino e recebe o **rumo da Fazenda**. Também guarda o segredo do Ato 5 (o Disco Riscado).
+- **Tamanho:** 20 x 20 x 40 (torre de 36 de altura no alto de um morro) mais 8 de profundidade (porão).
+- **Partes:**
+  - **Muro baixo e portão** de pedra, quebrado; um estandarte da **Cruz de Ferro** no portão.
+  - **Térreo:** sala de guarda, mesa, armeiro vazio (suportes de armadura sem armadura), a entrada do porão.
+  - **Escada:** sobe colada à parede de dentro, com **degraus faltando**. No fundo do vão, um monte de **fardos de feno** (amortece a queda, como no jogo).
+  - **Sala do sino** (topo): o **sino de ferro** grande (feito de blocos de ferro e correntes), **sem badalo**, pendurado por **correntes** que balançam e arrastam na pedra sem vento.
+    No chão, o **alçapão com cadeado de letras**. Logo abaixo, uma fileira de **blocos de nota**.
+  - **Porão:** pedra úmida, duas salas, uma **jukebox** com o **Disco Riscado**, e o caderno do vigia.
+- **Paleta:** tijolo de pedra rachado e com musgo, pedregulho, blocos de ferro, correntes, barras de ferro, carvalho escuro, cascalho.
+- **Clima:** isolamento, vento, correntes arrastando. Aqui o som é o personagem. Quando o sino cala, o silêncio é a recompensa e o medo.
 - **Pistas:**
-  - **Console:** campo de palavra (o jogador digita uma **palavra**, nunca número). Resposta do Arquivo. Se certa, o sino para e o telégrafo imprime a localização da Fazenda em Morse.
-  - **Mesa do operador:** diário de bordo do operador, que fala do "barulho", sem explicar.
-  - **Bunker:** quadro de fita e a **sala do espectrograma** (a imagem escondida no som: ver `enigmas-fora.md`).
-- **Por onde se entra:** portão da frente (cadeado cujo código é o **desenho** da cruz de ferro, no cartão do Frigorífico) ou escalando a cerca (cai Lucidez e sobe Exposição).
-- **Perigos:** altura (queda mata o jogo, não a Lucidez: decisão a confirmar com o Dev, pode ser só dano). O Magarefe não vem aqui. Quem desce ao bunker sozinho perde Lucidez; em dupla, não.
+  - **Alçapão do sino:** cadeado de letras (o jogador escreve uma **palavra**, nunca número). Resposta do Atlas. Se certa, as correntes travam, o sino cala e os blocos de nota tocam, em Morse, o rumo da Fazenda.
+  - **Caderno do vigia** (porão): fala do "barulho", sem explicar. *"Não é o vento que mexe o sino. É alguém do outro lado puxando a corda."*
+  - **Jukebox:** o Disco Riscado (a imagem escondida no som; ver `enigmas-fora.md` E6).
+- **Por onde se entra:** pelo portão (aberto) ou escalando o muro (cai Lucidez e sobe Exposição).
+- **Perigos:** altura. **Queda não mata de uma vez** (decisão N7): dói muito, dá susto e tira Lucidez; o feno no fundo do vão e o mod seguram o dano. O Magarefe não vem aqui. Quem desce ao porão sozinho perde Lucidez; em dupla, não.
 
 ## 5. Fazenda do Sino Mudo
-- **Função:** o clímax do Ato 1. Aqui está a **Mesa do Pacto**, o evento do Diabo e a Pista do Ato 2. Também o lugar das vilas: moradores de uma vila próxima (NPC fantasma, detalhe) vêm de longe para ver a mesa.
-- **Tamanho total:** 110 x 90 x 22. Dividida em três blocos:
-  - **Casarão:** 42 x 28 x 22 (três andares) mais 8 de profundidade (porão).
-  - **Capela da Mesa:** 24 x 16 x 16 mais 8 de profundidade (cripta).
-  - **Terreiro:** curral, galpão, cemitério pequeno, poço, caminho de pedra, árvore grande no meio.
+- **Função:** o clímax do Ato 1. Aqui está a **Mesa do Pacto**, o evento do Diabo e a Pista do Ato 2. Aldeões de uma vila próxima (detalhe) aparecem parados na cerca, de longe, olhando para a capela.
+- **Tamanho total:** 72 x 60 x 18 (antes 110 x 90; reduzido para caber no trabalho de mesa). Três blocos:
+  - **Casarão:** 30 x 20 x 16 (dois andares e sótão) mais 6 de profundidade (porão).
+  - **Capela da Mesa:** 20 x 14 x 14 mais 6 de profundidade (cripta).
+  - **Terreiro:** curral, galpão, cemitério pequeno, poço, caminho de pedra, árvore grande no meio, o **sino do terreiro** num poste.
 - **Andares e salas do Casarão:**
-  - **Térreo:** varanda larga, sala de visitas, sala de jantar (mesa comprida, cadeiras tombadas), cozinha de lenha, corredor.
-  - **Primeiro andar:** quatro quartos, um por "lugar na mesa" (ligam à vela de altura diferente), banheiro de ferro, escritório do fazendeiro (**Diário do Açougueiro, página 4**, o poema das velas).
-  - **Segundo andar / sótão:** quarto fechado com o retrato virado; baú vazio com a marca de um terço que alguém levou (o terço está na Pousada).
-  - **Porão:** adega e passagem para a cripta da capela.
+  - **Térreo:** varanda larga, sala de visitas, sala de jantar (mesa comprida, cadeiras tombadas: escadas de madeira viradas), cozinha com fornalha e defumador.
+  - **Andar de cima:** quatro quartos (camas de cores diferentes, uma por "lugar na mesa"), escritório do fazendeiro (**Diário do Açougueiro, página 4**, o poema das velas).
+  - **Sótão:** quarto fechado com o retrato virado; baú vazio com a marca de um terço que alguém levou (o terço está na Casa do Cartógrafo).
+  - **Porão:** adega de barris e passagem para a cripta da capela.
 - **Andares e salas da Capela:**
-  - **Nave:** bancos, **a Mesa do Pacto no meio**, cinco ou mais lugares postos (um por jogador do grupo mais um a mais no fim). Cada lugar: prato com o **nome do jogador** (item do mod), uma **vela** de altura diferente e um **cálice** vazio.
+  - **Nave:** bancos, **a Mesa do Pacto no meio**, um lugar posto para cada jogador do grupo mais um a mais no fim. Cada lugar: prato com o **nome do jogador** (item do mod), uma **vela** de altura diferente e um **cálice** vazio.
   - **Altar:** estrutura de pedra que gira e revela o **Altar do Aceite** (cálice de pedra com *"Chame."*).
   - **Cripta:** pequeno nicho com túmulos e uma vela acesa há muito tempo. Guarda a **carta com o selo de cera** da Pista do Ato 2 (só aparece depois do evento).
-- **Paleta:** pedra caiada (calcário e diorito), tijolo de pedra, madeira de carvalho escura, ladrilho de terracota branca com padrão (piso da nave), vitral escuro (vidro tingido de vermelho-escuro e azul-marinho), ferro, correntes, velas, tapete vermelho, lã.
+- **Paleta:** calcita e diorito (caiado), tijolo de pedra, carvalho escuro, terracota branca com padrão (piso da nave), vitral escuro (vidro tingido de vermelho-escuro e azul-marinho), ferro, correntes, velas, tapete vermelho, lã.
 - **Clima:** abandono religioso. Pó dourado em luz de vitral. Cheiro de cera e ferro. Sino pendurado, mudo.
 - **Pistas:**
-  - **Casarão, escritório:** Diário p. 4 (o poema), em frasco de cálice.
-  - **Casarão, quarto do retrato:** o **retrato virado**: quando virado, mostra o rosto de um velho **sem olhos**; atrás, um recado a lápis.
+  - **Casarão, escritório:** Diário p. 4 (o poema), num atril.
+  - **Casarão, sótão:** o **retrato virado** (pintura nossa): quando virado, mostra o rosto de um velho **sem olhos**; atrás, um recado a carvão.
   - **Mesa:** pratos com nomes; velas; cálices.
   - **Cripta:** a carta com o selo.
-- **Por onde se entra:** pelo portão da fazenda (aberto) e pela capela, que só **se abre** quando a Repetidora foi silenciada. Antes disso, a capela está de portas fechadas e o sino do terreiro toca (ouve-se).
-- **Perigos:** dentro da capela o chat de texto fica bloqueado (decisão do roteiro). Velas fora de ordem apagam todas e tiram Lucidez do grupo. Sem monstro. **A Convidada** (figura no lugar a mais) é o susto. O evento do Diabo acontece aqui, solto pelo admin.
+- **Por onde se entra:** pelo portão da fazenda (aberto) e pela capela, que só **se abre** quando o sino da Torre das Correntes foi calado. Antes disso, a capela está de portas fechadas e o sino do terreiro toca (ouve-se).
+- **Perigos:** dentro da capela o **chat de texto fica bloqueado; a voz continua** (decisão N7). Velas fora de ordem apagam todas e tiram Lucidez do grupo. Sem monstro. **A Convidada** (figura no lugar a mais) é o susto. O evento do Diabo acontece aqui, solto pelo admin.
 
 ## Perguntas para o Nikolas
-1. As cinco estruturas estão no tamanho certo? Dá para reduzir tudo em 30% sem perder o efeito, se o custo de construção pesar.
-2. Quem constrói? (a) Nikolas à mão no criativo, com estas fichas de guia; (b) a mesa Modelador/Dev gera as schematics por script a partir de plantas em texto; (c) mistura: script faz estrutura e paredes, Nikolas dá o acabamento.
-3. O Frigorífico tem uma terceira entrada pelo subsolo: gosta, ou tira para simplificar?
-4. A Casa da Repetidora é nova no roteiro (antes o "sino calar" era só o rádio parar). Aprova?
-5. A Fazenda tem espaço para "vilas como detalhe". Quer que o Frigorífico e a Pousada fiquem perto de uma vila de verdade do mundo já gerado (ruído de moradores ao longe), ou isolados?
+Respondidas em 09/11 e aplicadas: quem constrói (N5: as mesas, você retoca), queda sem morte (N7), chat bloqueado na capela (N7).
+1. Os tamanhos novos (tabela do mapa) estão bons? Se pesar, dá para cortar o anexo da Casa do Açougueiro e o celeiro do Moinho sem perder nada de história.
+2. A Casa do Açougueiro tem uma terceira entrada pelo porão: (a) mantém (recomendo: dá a perseguição); (b) tira para simplificar.
+3. As marcas de estandarte do mapa-mural mudam de lugar a cada manhã: (a) sim, é o medo do lugar (recomendo); (b) ficam paradas, mais simples para o Dev.
+4. Quer uma vila de verdade do mundo perto da Casa do Açougueiro e da Casa do Cartógrafo (aldeões parados ao longe), ou ficam isoladas?
 
 ---
 
@@ -197,7 +220,7 @@ poucas partículas (regras de `lore/propostas-elementos.md`).
 - **De noite:** o sino rachado toca. Os Famintos **saem para as ruas** e andam devagar. **Nenhum é obrigatório de enfrentar.** Há rota pelas sombras até o campanário.
 - **Poças que "sangram":** na praça e no curral, algumas poças vermelhas pulsam (partícula rala). Ficar parado nelas tira um pouco de **Lucidez**.
 - **O Aldeão de Pé** (Aparição 2 do roteiro) pode aparecer na praça, **só para o jogador de maior Exposição**.
-- **O Magarefe não aparece aqui.** Ele é do galpão (Enigma 3). Aqui a ameaça é a vila inteira, devagar.
+- **O Magarefe não aparece aqui.** Ele é da Casa do Açougueiro (Enigma 3). Aqui a ameaça é a vila inteira, devagar.
 - **Refúgio:** dentro da capela, perto da **vela**, a Lucidez volta. Os Famintos não entram na capela com a vela acesa.
 - **Sem grind de combate:** os Famintos não carregam nada que o grupo precise. Matar não destrava nada.
 - Para o admin: `incursoes` e aparições podem ser desligadas por config; a vila funciona como cenário e livro mesmo assim.
@@ -221,7 +244,7 @@ Nenhuma é tutorial na tela. Todas usam o que o jogador já conhece de Minecraft
    Quem anda uns blocos nessa direção vê a neblina avermelhar.
 3. **O mapa que aparece com o grupo.** Ao amanhecer da primeira noite, um **mapa de cartógrafo** surge no inventário de `{marcado}`, sem ninguém ter dado.
    Ele mostra **só uma rosa dos ventos e um sino rachado desenhado a tinta**; o terreno em volta só se desenha **conforme se anda** nessa direção.
-   Nenhum texto. (Técnica: decisão do Dev.)
+   Nenhum texto. (Técnica: decisão do Dev.) Quem o desenhou fica claro na Casa do Cartógrafo.
 - **Atalho tech (não é pista obrigatória):** o **Analisador de Sinal** capta o sino rachado como um sinal de baixa frequência e indica a direção.
 - **Ajuda para o admin:** se o grupo passar muitas noites sem se mexer, o jogo avisa o admin ("{grupo} não seguiu o sino"), e o admin decide se solta um empurrão
   (o sino mais perto, um Faminto vagando até a vila comum).
