@@ -135,3 +135,99 @@ O Nikolas escolhe os pontos; o mod registra a posição de cada um (ver roteiro)
 3. O Frigorífico tem uma terceira entrada pelo subsolo: gosta, ou tira para simplificar?
 4. A Casa da Repetidora é nova no roteiro (antes o "sino calar" era só o rádio parar). Aprova?
 5. A Fazenda tem espaço para "vilas como detalhe". Quer que o Frigorífico e a Pousada fiquem perto de uma vila de verdade do mundo já gerado (ruído de moradores ao longe), ou isolados?
+
+---
+
+# Vila Calada (Ato 1)
+
+Nome provisório. Busca feita em 09/11/2026: nenhuma obra conhecida usa "Vila Calada". (Conferir de novo antes de fixar.)
+Texto do livro: `lore/livro-do-sineiro.md`. Decisão: `docs/decisoes/2026-11-09-vila-destruida.md`.
+
+## Em uma frase
+A vila onde o sino foi tocado pela última vez: totalmente destruída, com a primeira pista de como voltar.
+
+## Onde e como entra
+- **Estrutura grande, bem produzida, colocada pelo admin** (nunca por geração de mundo). Fica em terreno livre, aberto, sem construção de jogador.
+- **Distância:** longe o bastante para ser uma viagem (uma noite de caminhada), perto o bastante para não virar grind. Sugestão: entre 700 e 1200 blocos da vila comum marcada na Cena 1.
+- O admin pode trocar o ponto. As três pistas (abaixo) sempre apontam para o ponto escolhido.
+- Dá para chegar a pé, de dia ou de noite. A noite é mais bonita e mais perigosa.
+
+## Tamanho e forma
+- Cerca de 100 por 100 blocos, com um muro baixo de pedra e estacas, quebrado em vários pontos.
+- **Entrada pelo sul** (um caminho de terra que sai do campo queimado). Uma **rua principal** vai do sul ao norte, até a capela.
+  Uma **rua cruzada** corta de leste a oeste na altura do poço. Ruas de terra batida e cascalho, com sulcos de roda e poças escuras.
+- **Praça central** com o **poço**. É o coração da vila e da história.
+- **Cerca de 14 casas**, todas de aldeão, todas pequenas e baixas:
+  - 7 **queimadas** (só as paredes de pedra baixa e as vigas pretas).
+  - 5 **desabadas** (telhado no chão, dentro cheio de entulho).
+  - 2 **inteiras por fora e erradas por dentro** (ferreiro e Compadre, abaixo).
+- Em volta, **campos queimados** (plantação seca e preta, espantalhos caídos) e um **cemitério** atrás da capela com covas abertas e vazias.
+
+## Os lugares (da entrada para o fundo)
+
+| Lugar | O que o jogador vê | Pista escondida |
+|---|---|---|
+| **Campo queimado** (entrada) | Plantação preta, cercas partidas, um espantalho de cabeça para baixo | Pegadas de cinza em fila, todas indo para dentro da vila. Nenhuma sai |
+| **Curral comprido** (oeste) | Cercado enorme, ossos de gado em fileiras certinhas, valas de terra avermelhada | Cheiro de ferro mais forte aqui. Estandartes da Cruz de Ferro rasgados |
+| **Casa da Moça do Terço** (oeste, perto da praça) | Peitoril cheio de botões de pedra, um para cada nome, e **um espaço vazio** | A fileira de botões está em ordem do mais velho ao mais novo. O vazio é a ponta. Ganchos para o Ato 3 |
+| **Praça e poço** (centro) | Poço seco, corda podre, o chão em volta liso, como se muita gente tivesse parado ali | Uma placa na beira: *"Aqui ele ouvia."* No fundo (descida curta), um nicho com um baú de mantimentos (pão, maçã) e a Cruz de Ferro riscada na pedra. Com Exposição alta, uma silhueta de chapéu mole sentada na beira, só por um instante |
+| **Casa do ferreiro** (leste) | Forja apagada, bigorna rachada ao meio, ferramentas espalhadas | Falta o **martelo**. Ele está no campanário (ver o livro) |
+| **Casa do Compadre** (sudeste, isolada) | A única com **telhado inteiro** e porta aberta. Mesa comprida posta para muita gente, pratos vazios | Uma **cama feita, de lençol branco**: a única limpa da vila. Para quem tem Exposição alta, o travesseiro está marcado com o nome de `{marcado}` |
+| **Capela** (norte, no alto) | Pedra e tábua, sem teto, vitrais quebrados, bancos virados. Uma **mesa** com **cadeira a mais**, virada para a porta. **Uma vela acesa**, a única da vila | A vela é o ponto de descanso (devolve Lucidez; ver Perigos). No chão, sangue seco em arrastos até o campanário |
+| **Campanário** (ao lado da capela) | Torre alta de pedra, meio desabada. O **sino rachado**, torto na viga | **Onde está o Livro do Sineiro**, num **atril** (lectern) ao pé do sino, com o martelo ao lado |
+| **Cemitério** (atrás da capela) | Covas abertas, lápides sem nome, terra revirada **para fora** | Nenhum corpo. Em uma lápide, um risco de **Cruz de Ferro** |
+
+### O lugar do livro (o objetivo)
+- O **Livro do Sineiro** fica no **atril do campanário**, no alto, perto do sino.
+- **Acesso:** uma escada de madeira queimada, com alguns degraus faltando. **Qualquer bloco resolve** (sem exigir item raro). Nada de grind.
+- Quando alguém **abre o livro**, o sino rachado **toca uma vez**, fraco. É o aviso de que a vila "ouviu". Depois, silêncio.
+- O livro é **um só**. Pode ser pego (cada jogador lê a cópia que o admin der, ou lê no atril). A decisão de cópia fica com o Dev.
+- Fora do livro, o campanário tem **um vão quebrado** na parede: de lá, no horizonte, **dá para ver a direção da vila comum**. Pista visual de que uma coisa chama a outra.
+
+## O que a vila entrega ao grupo
+1. O **Livro do Sineiro** (história do mundo + primeira pista de como voltar: páginas 11 e 12).
+2. A certeza de que o **sino é uma porta** e de que a vila comum marcada na Cena 1 ainda tem um sino vivo.
+3. Os dois ganchos de personagem: **o Compadre** e **a Moça do Terço**.
+4. Comida no poço e uma vela segura: um fôlego antes de seguir.
+
+## Perigos (poucos, de propósito)
+Criatura de **Sangue**: **o Faminto** (nome provisório; aldeão curvado, pele esticada, boca aberta demais, mãos longas). Mob simples,
+poucas partículas (regras de `lore/propostas-elementos.md`).
+- **De dia:** 3 ou 4 Famintos **parados dentro das casas**, de frente para a parede. Acordam com barulho (quebrar bloco, correr perto) ou luz forte colada. Dá para atravessar de lado, devagar.
+- **De noite:** o sino rachado toca. Os Famintos **saem para as ruas** e andam devagar. **Nenhum é obrigatório de enfrentar.** Há rota pelas sombras até o campanário.
+- **Poças que "sangram":** na praça e no curral, algumas poças vermelhas pulsam (partícula rala). Ficar parado nelas tira um pouco de **Lucidez**.
+- **O Aldeão de Pé** (Aparição 2 do roteiro) pode aparecer na praça, **só para o jogador de maior Exposição**.
+- **O Magarefe não aparece aqui.** Ele é do galpão (Enigma 3). Aqui a ameaça é a vila inteira, devagar.
+- **Refúgio:** dentro da capela, perto da **vela**, a Lucidez volta. Os Famintos não entram na capela com a vela acesa.
+- **Sem grind de combate:** os Famintos não carregam nada que o grupo precise. Matar não destrava nada.
+- Para o admin: `incursoes` e aparições podem ser desligadas por config; a vila funciona como cenário e livro mesmo assim.
+
+## Clima (som, luz, cor)
+- **Cor:** vermelho e preto de Sangue sobre cinza. Pedra, tábua carbonizada, terra avermelhada. Poucos pontos de cor: o vermelho dos estandartes e a vela.
+- **Céu:** nublado e baixo. **Neblina avermelhada leve** rente ao chão, mais densa de noite. Cinza caindo devagar (partícula discreta).
+- **Som:** quase silêncio. Vento, madeira estalando, um rangido de corrente. Sem música. De noite, o **sino rachado** toca grave, em intervalo longo.
+  O silêncio entre os toques é a parte mais assustadora: não preenchê-lo.
+- **Luz:** escura mesmo de dia (neblina). Tochas e fogueiras só onde o grupo as pôs. Nada acende sozinho, **exceto a vela da capela**.
+- **Cheiro (som e partícula):** ferro. É a Aparição 1 (O Cheiro) do roteiro, mais forte aqui.
+
+## As três pistas que levam o grupo até a vila
+Regra das três pistas: cada pista sozinha já aponta o rumo, e as três juntas fecham a certeza.
+Nenhuma é tutorial na tela. Todas usam o que o jogador já conhece de Minecraft.
+
+1. **O sino ouvido de longe, à noite.** Um toque grave, rachado, diferente do sino da vila comum, vindo **sempre da mesma direção**
+   (som posicional, mais alto quando se anda para lá). Começa na primeira noite do "Primeiro Sinal". Quem para e escuta percebe de onde vem.
+2. **A vila comum aponta.** Na Cena 1, os aldeões não olham mais para o sino: **todos ficam parados, de frente para a mesma direção**,
+   a da Vila Calada. Dentro de casa, a cama do aldeão sumido tem o lençol molhado de vermelho e a **cabeceira virada para lá**.
+   Quem anda uns blocos nessa direção vê a neblina avermelhar.
+3. **O mapa que aparece com o grupo.** Ao amanhecer da primeira noite, um **mapa de cartógrafo** surge no inventário de `{marcado}`, sem ninguém ter dado.
+   Ele mostra **só uma rosa dos ventos e um sino rachado desenhado a tinta**; o terreno em volta só se desenha **conforme se anda** nessa direção.
+   Nenhum texto. (Técnica: decisão do Dev.)
+- **Atalho tech (não é pista obrigatória):** o **Analisador de Sinal** capta o sino rachado como um sinal de baixa frequência e indica a direção.
+- **Ajuda para o admin:** se o grupo passar muitas noites sem se mexer, o jogo avisa o admin ("{grupo} não seguiu o sino"), e o admin decide se solta um empurrão
+  (o sino mais perto, um Faminto vagando até a vila comum).
+
+## O que fica faltando
+- Prévia do Modelador/Construtor antes de qualquer construção (decisão do Nikolas).
+- Nome e desenho final do Faminto (Modelador, com ficha em `lore/criaturas.md`).
+- Estandarte da Cruz de Ferro e atril/livro com textura nossa (Modelador).
+- Sons: sino rachado grave, vento, arrasto (Sons).
