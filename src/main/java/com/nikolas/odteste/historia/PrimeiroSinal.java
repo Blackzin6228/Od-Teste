@@ -57,6 +57,7 @@ import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.HoneycombItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
@@ -622,12 +623,13 @@ public final class PrimeiroSinal {
      * Tranca de novo só o Enigma 1 (play test, ou grupo que precisa refazer): placa em branco dos dois lados,
      * baú trancado e sem as peças de história, e o marco {@code enigma_sino} sai (se foi este evento que deu).
      * O resto do Primeiro Sinal (sino, aldeões, aldeão sumido) continua. Itens de jogador no baú caem no chão.
+     * Funciona também com o enigma ainda trancado (placa encerada ou rabiscada).
      */
     public static Resposta retrancar(MinecraftServer s, String nomeGrupo) {
         DadosHistoria d = dados(s);
         VilaMarcada v = Grupos.normalizar(nomeGrupo).map(d.vilas::get).orElse(null);
         if (v == null) return Resposta.erro("odteste.evento.erro.nada_para_desfazer", nomeGrupo);
-        if (!v.resolvido) return Resposta.erro("odteste.evento.erro.nao_resolvido", v.grupo);
+        // Também com o enigma ainda trancado: limpa a placa e tira a cera (placa travada por favo de mel).
         ServerLevel nivel = s.getLevel(v.dimensao);
         if (nivel == null) return Resposta.erro("odteste.evento.erro.dimensao");
         for (BlockPos p : new BlockPos[] {v.bau, v.placa}) {
@@ -928,6 +930,13 @@ public final class PrimeiroSinal {
 
     private static void lerPlaca(MinecraftServer s, ServerLevel nivel, VilaMarcada v, DadosHistoria d) {
         if (!(nivel.getBlockEntity(v.placa) instanceof SignBlockEntity placa)) return;
+        if (placa.isWaxed()) {
+            // Cera que entrou por outro caminho (item de outro mod, placa antiga): sai, senão ninguém escreve mais.
+            placa.setWaxed(false);
+            placa.setChanged();
+            BlockState st = nivel.getBlockState(v.placa);
+            nivel.sendBlockUpdated(v.placa, st, st, Block.UPDATE_CLIENTS);
+        }
         List<String> frente = new ArrayList<>(4);
         List<String> verso = new ArrayList<>(4);
         for (int i = 0; i < 4; i++) {
@@ -1056,11 +1065,18 @@ public final class PrimeiroSinal {
                 .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
     }
 
-    /** Baú trancado até a placa dizer a palavra. */
+    /** Baú trancado até a placa dizer a palavra. A placa não aceita cera enquanto o enigma está trancado. */
     private static void aoClicarBloco(PlayerInteractEvent.RightClickBlock e) {
         if (e.getLevel().isClientSide()) return;
         VilaMarcada v = vilaDoBloco(e.getLevel(), e.getPos());
-        if (v == null || v.resolvido || !e.getPos().equals(v.bau)) return;
+        if (v == null || v.resolvido) return;
+        if (e.getPos().equals(v.placa) && e.getItemStack().getItem() instanceof HoneycombItem) {
+            // Placa encerada não aceita texto e é protegida: travaria o enigma para sempre.
+            e.setCancellationResult(InteractionResult.FAIL);
+            e.setCanceled(true);
+            return;
+        }
+        if (!e.getPos().equals(v.bau)) return;
         e.setCancellationResult(InteractionResult.SUCCESS);
         e.setCanceled(true);
         if (e.getHand() != InteractionHand.MAIN_HAND || !(e.getEntity() instanceof ServerPlayer p)) return;

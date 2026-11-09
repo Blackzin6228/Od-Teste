@@ -135,8 +135,7 @@
   "odteste.evento.erro.descarregado": "Chunk not loaded at %s %s %s. Go there and try again (undo never loads chunks).",
   "odteste.evento.erro.lugar": "Unknown place or no anchor: %s.",
   "odteste.evento.erro.aldeao_nao_voltou": "The villager of group %s could not come back (near %s %s %s; see the log). Nothing was undone: the village and the saved villager stay. Clear the spot and try again.",
-  "odteste.evento.erro.nao_resolvido": "Puzzle 1 of group %s is still locked.",
-  "odteste.evento.retrancado": "Puzzle 1 of group %s locked again: blank sign, locked and empty chest. Story pieces removed from the chest: %s.",
+  "odteste.evento.retrancado": "Puzzle 1 of group %s locked again: blank unwaxed sign, locked and empty chest. Story pieces removed from the chest: %s.",
   "odteste.historia.itens_soltos": "%s stack(s) of player items were in our chests and were dropped on the ground (first at %s %s %s).",
 
   "odteste.grupo.erro.nome": "Invalid name: %s (lowercase letters, numbers and _, up to 24).",
