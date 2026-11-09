@@ -94,6 +94,7 @@ public final class ComandosHistoria {
                 .then(grupo())
                 .then(evento())
                 .then(estrutura())
+                .then(ComandosLivros.livro())
                 .then(ComandosElemento.elemento()));
     }
 
