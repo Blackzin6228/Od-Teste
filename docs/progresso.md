@@ -9,6 +9,7 @@ Cada mesa atualiza a sua parte ao terminar uma etapa. Legenda: ⬜ não começou
 
 ## Lore
 🟦 Artefatos Paranormais revisados com a regra de tom sério (08/11/2026): 5 objetos trocados, 4 ajustados, 2 opções de nome cada, esperando a escolha do Nikolas (`lore/artefatos-paranormais.md`)
+🟦 Horror de Exposição e Lucidez (08/11/2026): tabelas por faixa, frases dos comandos, acessibilidade e lang (`docs/horror.md`), esperando o ok do Nikolas
 ⬜ Propostas de elementos (2 ou 3) · ⬜ escolha do Nikolas · ⬜ papel de cada mod (revisar `docs/integracoes.md`) · ⬜ primeiro arco
 
 ## Dev
@@ -18,7 +19,7 @@ Cada mesa atualiza a sua parte ao terminar uma etapa. Legenda: ⬜ não começou
 ⬜ Guia de estilo visual aprovado · ⬜ primeiro item (prévia) · ⬜ primeira armadura · ⬜ primeira criatura
 
 ## Integrador
-🟦 Plano de progressão e crafts (`docs/progressao.md`, armaduras acima da MekaSuit) · 🟦 Troca de voz com controle do jogador e do admin (`docs/voz.md`) · 🟦 Magias por elemento (`docs/magias.md`) · ⬜ Escola nova no Iron's (1 magia de teste) · ⬜ ritual no Occultism · ⬜ ponte com Malum · ⬜ ramo tech (Mekanism/Create)
+🟦 Plano de progressão e crafts (`docs/progressao.md`, armaduras acima da MekaSuit) · 🟦 Troca de voz com controle do jogador e do admin (`docs/voz.md`) · 🟦 Magias por elemento (`docs/magias.md`) · ⬜ Escola nova no Iron's (1 magia de teste) · ⬜ ritual no Occultism · ⬜ ponte com Malum · 🟦 ramo tech (máquinas = misto, decidido 08/11): processamento nas máquinas do pack (mods conferidos), 3 aparelhos nossos com ficha para o Modelador, eventos de Energia e pistas por fita (`docs/tech-paranormal.md`; receitas JSON ainda não escritas)
 
 ## Revisor
 ⬜ Checklist de revisão em uso nos PRs
