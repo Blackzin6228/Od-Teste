@@ -60,6 +60,12 @@ public final class PocaDeSangue extends Block implements LiquidBlockContainer {
         return false;
     }
 
+    /** O balde pergunta isto antes: o padrão aceita bloco sem colisão, e aí a lava levaria a poça. */
+    @Override
+    protected boolean canBeReplaced(BlockState estado, Fluid liquido) {
+        return false;
+    }
+
     @Override
     public boolean placeLiquid(LevelAccessor nivel, BlockPos pos, BlockState estado, FluidState liquido) {
         return false;

@@ -66,6 +66,12 @@ public final class VelaDaCapela extends Block implements EntityBlock, LiquidBloc
         return false;
     }
 
+    /** O balde pergunta isto antes: o padrão aceita bloco não sólido, e aí a lava apagaria a vela. */
+    @Override
+    protected boolean canBeReplaced(BlockState estado, Fluid liquido) {
+        return false;
+    }
+
     @Override
     public boolean placeLiquid(LevelAccessor nivel, BlockPos pos, BlockState estado, FluidState liquido) {
         return false;
