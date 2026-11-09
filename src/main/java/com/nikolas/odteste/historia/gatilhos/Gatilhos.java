@@ -81,7 +81,7 @@ public final class Gatilhos {
                     soltar(s, g, st);
                 }
                 case AVISAR_ADMIN -> {
-                    paraAdmins(s, Component.translatable("odteste.gatilhos.admin.nao_seguiu_sino", g.nome())
+                    paraAdmins(s, Component.translatable("odteste.gatilhos.admin.nao_seguiu_sino", g.nome(), st.noites)
                             .withStyle(ChatFormatting.GOLD));
                     st.avisou();
                     OdMod.LOGGER.info("Gatilhos: o grupo {} não seguiu o sino ({} noites)", g.nome(), st.noites);
@@ -102,8 +102,11 @@ public final class Gatilhos {
         } else {
             // Sem vila perto, sem espaço...: tenta de novo na próxima noite de neblina.
             OdMod.LOGGER.info("Gatilhos: Primeiro Sinal não soltou para o grupo {}: {}", g.nome(), r.mensagem().getString());
-            paraAdmins(s, Component.translatable("odteste.gatilhos.admin.primeiro_sinal_falhou", g.nome(), r.mensagem())
-                    .withStyle(ChatFormatting.GRAY));
+            // O admin só é avisado na primeira falha do grupo (chuva toda noite não vira spam no chat).
+            if (st.falhou()) {
+                paraAdmins(s, Component.translatable("odteste.gatilhos.admin.primeiro_sinal_falhou", g.nome(), r.mensagem())
+                        .withStyle(ChatFormatting.GRAY));
+            }
         }
     }
 

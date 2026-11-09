@@ -10,11 +10,12 @@ public final class IdsGatilhos {
     /** Arquivo próprio ({@code data/odteste_gatilhos.dat} do overworld): o que cada grupo já passou nos gatilhos. */
     public static final String ARQUIVO = "odteste_gatilhos";
 
-    /** Chave de fora do arquivo: grupo → estado. */
+    /** Chaves de fora do arquivo: versão do formato e grupo → estado. */
+    public static final String CHAVE_VERSAO = "versao";
     public static final String CHAVE_GRUPOS = "grupos";
     /** Chaves do estado de cada grupo (EstadoGrupo). */
     public static final List<String> CHAVES_GRUPO =
-            List.of("ja_teve", "armado", "livro_lido", "noites", "ultima_noite", "avisado");
+            List.of("ja_teve", "armado", "livro_lido", "noites", "ultima_noite", "avisado", "falha_avisada");
 
     /** Arquivo de config do servidor ({@code serverconfig/} do mundo). */
     public static final String ARQUIVO_CONFIG = "odteste-gatilhos-server.toml";

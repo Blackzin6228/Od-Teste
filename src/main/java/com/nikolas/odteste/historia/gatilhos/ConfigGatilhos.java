@@ -9,6 +9,8 @@ import net.neoforged.neoforge.common.ModConfigSpec;
  * O admin muda com o servidor ligado: o NeoForge relê o arquivo sozinho.
  */
 public final class ConfigGatilhos {
+    /** Desligado por padrão: "neblina = chuva" ainda espera o ok do Nikolas. */
+    public static final boolean PADRAO_AUTOMATICO = false;
     public static final ModConfigSpec SPEC;
     public static final ModConfigSpec.BooleanValue AUTOMATICO;
     public static final ModConfigSpec.BooleanValue PRECISA_CHUVA;
@@ -18,9 +20,10 @@ public final class ConfigGatilhos {
     static {
         ModConfigSpec.Builder b = new ModConfigSpec.Builder();
         b.push(IdsGatilhos.SECAO_CONFIG);
-        AUTOMATICO = b.comment("O Primeiro Sinal solta sozinho na primeira noite de neblina para grupo que ainda não o teve.",
-                        "false = só o admin solta (/odteste evento primeiro_sinal).")
-                .define("primeiro_sinal_automatico", true);
+        AUTOMATICO = b.comment("O Primeiro Sinal solta sozinho na primeira noite de neblina para grupo criado depois",
+                        "desta versão e que ainda não o teve. false (padrão) = só o admin solta (/odteste evento primeiro_sinal).",
+                        "Desligado até o Nikolas aprovar \"noite de neblina = noite com chuva\".")
+                .define("primeiro_sinal_automatico", PADRAO_AUTOMATICO);
         PRECISA_CHUVA = b.comment("Noite de neblina = noite com chuva no overworld. false = qualquer noite vale.")
                 .define("neblina_precisa_chuva", true);
         AVISO_LIGADO = b.comment("Avisar os admins quando um grupo não segue o sino até a Vila Calada.")
@@ -42,7 +45,7 @@ public final class ConfigGatilhos {
     // Seguros de chamar antes da config carregar: devolvem o padrão.
 
     public static boolean automatico() {
-        return ler(AUTOMATICO, true);
+        return ler(AUTOMATICO, PADRAO_AUTOMATICO);
     }
 
     public static boolean precisaChuva() {

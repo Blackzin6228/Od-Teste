@@ -23,6 +23,8 @@ public final class EstadoGrupo {
     public long ultimaNoite = NENHUMA;
     /** O admin já recebeu "{grupo} não seguiu o sino". Uma vez por grupo. */
     public boolean avisado;
+    /** O admin já recebeu "o Primeiro Sinal não soltou" deste grupo. Uma vez por grupo (o log segue toda vez). */
+    public boolean falhaAvisada;
 
     /** Dia da última tentativa de soltar o evento (uma por noite). Só memória. */
     long diaTentado = NENHUMA;
@@ -43,6 +45,14 @@ public final class EstadoGrupo {
     public void avisou() {
         if (!avisado) sujo = true;
         avisado = true;
+    }
+
+    /** @return true só na primeira falha (aí o admin é avisado). */
+    public boolean falhou() {
+        if (falhaAvisada) return false;
+        falhaAvisada = true;
+        sujo = true;
+        return true;
     }
 
     /** Lê e limpa o "mudou". */

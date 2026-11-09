@@ -136,6 +136,35 @@ class RegrasGatilhosTest {
     }
 
     @Test
+    void primeiraCriacaoDoArquivo_gruposQueJaExistemNuncaSoltam_soOsNovos() {
+        java.util.Map<String, EstadoGrupo> estados = new java.util.LinkedHashMap<>();
+        RegrasGatilhos.primeiraCriacao(estados, List.of("antigo_a", "antigo_b"));
+        assertTrue(estados.get("antigo_a").jaTeve);
+        assertTrue(estados.get("antigo_b").jaTeve);
+        // Antigo, sem o marco, numa noite de neblina com o automático ligado: nada.
+        EstadoGrupo antigo = estados.get("antigo_a");
+        RegrasGatilhos.passo(antigo, m(DIA, false), novo());
+        assertEquals(Acao.NADA, RegrasGatilhos.passo(antigo, m(NOITE, true), novo()));
+        // Grupo criado depois: automático.
+        EstadoGrupo depois = estados.computeIfAbsent("novo", k -> new EstadoGrupo());
+        RegrasGatilhos.passo(depois, m(DIA, false), novo());
+        assertEquals(Acao.SOLTAR_PRIMEIRO_SINAL, RegrasGatilhos.passo(depois, m(NOITE, true), novo()));
+    }
+
+    @Test
+    void automaticoVemDesligadoPorPadrao() {
+        assertFalse(ConfigGatilhos.PADRAO_AUTOMATICO, "neblina = chuva ainda não foi aprovada");
+    }
+
+    @Test
+    void falhaAvisaOAdminUmaVezSo() {
+        EstadoGrupo st = new EstadoGrupo();
+        assertTrue(st.falhou());
+        assertFalse(st.falhou(), "segunda noite de chuva sem vila: só no log");
+        assertTrue(st.falhaAvisada);
+    }
+
+    @Test
     void limiteDaConfigFicaNaFaixa() {
         assertEquals(RegrasGatilhos.NOITES_AVISO_MIN, RegrasGatilhos.noitesAviso(0));
         assertEquals(RegrasGatilhos.NOITES_AVISO_MAX, RegrasGatilhos.noitesAviso(9_999));

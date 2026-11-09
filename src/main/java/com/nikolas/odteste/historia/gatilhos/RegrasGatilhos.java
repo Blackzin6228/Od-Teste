@@ -1,6 +1,8 @@
 package com.nikolas.odteste.historia.gatilhos;
 
 import com.nikolas.odteste.historia.vilacalada.RegrasVilaCalada;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * Regras dos gatilhos do Ato 1 (Java puro, testado em RegrasGatilhosTest):
@@ -57,6 +59,17 @@ public final class RegrasGatilhos {
 
     public static boolean noiteDeNeblina(long hora, boolean chuva, boolean precisaChuva) {
         return noite(hora) && (chuva || !precisaChuva);
+    }
+
+    /**
+     * Arquivo dos gatilhos criado agora (atualização num mundo que já existe): todo grupo que já existe fica
+     * "já teve" e nunca solta sozinho. Só grupos criados depois ficam automáticos.
+     */
+    public static void primeiraCriacao(Map<String, EstadoGrupo> estados, Collection<String> gruposExistentes) {
+        for (String g : gruposExistentes) {
+            EstadoGrupo st = estados.computeIfAbsent(g, k -> new EstadoGrupo());
+            st.soltou();
+        }
     }
 
     public static int noitesAviso(int config) {

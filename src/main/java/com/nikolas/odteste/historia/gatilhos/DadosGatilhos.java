@@ -1,5 +1,8 @@
 package com.nikolas.odteste.historia.gatilhos;
 
+import com.nikolas.odteste.OdMod;
+import com.nikolas.odteste.historia.DadosHistoria;
+import com.nikolas.odteste.historia.Grupos;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -16,12 +19,36 @@ import net.minecraft.world.level.saveddata.SavedData;
  */
 public final class DadosGatilhos extends SavedData {
     public static final SavedData.Factory<DadosGatilhos> FABRICA =
-            new SavedData.Factory<>(DadosGatilhos::new, DadosGatilhos::carregar, null);
+            new SavedData.Factory<>(DadosGatilhos::criar, DadosGatilhos::carregar, null);
+    /** Formato do arquivo (gravado; ainda só existe o 1). */
+    static final int VERSAO = 1;
 
     private final Map<String, EstadoGrupo> grupos = new LinkedHashMap<>();
+    /** Criado agora (não veio do disco): os grupos que já existem ainda precisam virar "já teve". Só memória. */
+    private boolean novo;
+
+    private DadosGatilhos() {}
+
+    /** O arquivo não existia: mundo novo ou atualização num mundo que já existe. */
+    private static DadosGatilhos criar() {
+        DadosGatilhos d = new DadosGatilhos();
+        d.novo = true;
+        return d;
+    }
 
     public static DadosGatilhos de(MinecraftServer s) {
-        return s.overworld().getDataStorage().computeIfAbsent(FABRICA, IdsGatilhos.ARQUIVO);
+        DadosGatilhos d = s.overworld().getDataStorage().computeIfAbsent(FABRICA, IdsGatilhos.ARQUIVO);
+        if (d.novo) {
+            // Todo grupo que já existe fica de fora do automático. Grava já: assim o arquivo existe na próxima
+            // vez, e grupo criado depois não é confundido com grupo antigo.
+            d.novo = false;
+            RegrasGatilhos.primeiraCriacao(d.grupos,
+                    DadosHistoria.de(s).grupos.todos().stream().map(Grupos.Grupo::nome).toList());
+            d.setDirty();
+            OdMod.LOGGER.info("Gatilhos: arquivo novo; {} grupo(s) que já existiam ficam fora do Primeiro Sinal automático",
+                    d.grupos.size());
+        }
+        return d;
     }
 
     public EstadoGrupo estado(String grupo) {
@@ -47,8 +74,10 @@ public final class DadosGatilhos extends SavedData {
             c.putInt("noites", st.noites);
             if (st.ultimaNoite != EstadoGrupo.NENHUMA) c.putLong("ultima_noite", st.ultimaNoite);
             c.putBoolean("avisado", st.avisado);
+            c.putBoolean("falha_avisada", st.falhaAvisada);
             cg.put(nome, c);
         });
+        t.putInt(IdsGatilhos.CHAVE_VERSAO, VERSAO);
         t.put(IdsGatilhos.CHAVE_GRUPOS, cg);
         return t;
     }
@@ -65,6 +94,7 @@ public final class DadosGatilhos extends SavedData {
             st.noites = Math.max(0, c.getInt("noites"));
             if (c.contains("ultima_noite", Tag.TAG_LONG)) st.ultimaNoite = c.getLong("ultima_noite");
             st.avisado = c.getBoolean("avisado");
+            st.falhaAvisada = c.getBoolean("falha_avisada");
             d.grupos.put(nome, st);
         }
         return d;
