@@ -9,6 +9,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
 
 /**
  * O que conta como paranormal, por tag (data/odteste/tags/...). Hoje as duas tags estão vazias: o conteúdo
@@ -18,6 +19,9 @@ public final class Paranormal {
     public static final TagKey<DamageType> DANO = TagKey.create(Registries.DAMAGE_TYPE,
             ResourceLocation.fromNamespaceAndPath(OdMod.MODID, IdsDados.TAG_PARANORMAL));
     public static final TagKey<EntityType<?>> CRIATURA = TagKey.create(Registries.ENTITY_TYPE,
+            ResourceLocation.fromNamespaceAndPath(OdMod.MODID, IdsDados.TAG_PARANORMAL));
+    /** Item paranormal (artefatos, relíquias): segurar parado faz a mão tremer com Exposição Média+. Hoje vazia. */
+    public static final TagKey<Item> ITEM = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath(OdMod.MODID, IdsDados.TAG_PARANORMAL));
 
     private Paranormal() {}

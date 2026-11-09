@@ -1,11 +1,18 @@
 package com.nikolas.odteste.sistemas;
 
+import com.nikolas.odteste.OdMod;
 import com.nikolas.odteste.dados.DadosJogador;
+import com.nikolas.odteste.dados.IdsDados;
 import com.nikolas.odteste.elementos.Elemento;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 
@@ -20,6 +27,8 @@ public final class Lucidez {
      * dura 20 s, então sair e voltar no meio só tira a proteção (não dá vantagem). Limpo quando ele sai.
      */
     private static final Map<UUID, Long> PROTEGIDO_ATE = new HashMap<>();
+    public static final ResourceLocation ID_LENTIDAO =
+            ResourceLocation.fromNamespaceAndPath(OdMod.MODID, IdsDados.MODIFICADOR_LENTIDAO);
 
     private Lucidez() {}
 
@@ -66,6 +75,28 @@ public final class Lucidez {
         p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, RegrasLucidez.SURTO_TICKS, 3, false, false, true));
         Momentos.enviar(p, TipoMomento.SURTO, DadosJogador.marcaElemento(p), Elemento.NENHUM, 0);
         DadosJogador.definirLucidez(p, RegrasLucidez.aposSurto(DadosJogador.lucidezMax(p)));
+    }
+
+    /**
+     * Lentidão leve da Lucidez Baixa com pouca luz (RegrasLucidez.lentidao). Chamada na checagem de 2 s do Vigia,
+     * quando a faixa muda, ao entrar e ao renascer: nunca por tick, e só lê a luz de um bloco.
+     * Modificador temporário (não salva; se o mod sair, não sobra nada no jogador).
+     */
+    public static void atualizarLentidao(ServerPlayer p) {
+        AttributeInstance vel = p.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (vel == null) return;
+        double valor = 0;
+        if (!p.isCreative() && !p.isSpectator()) {
+            int luz = p.serverLevel().getMaxLocalRawBrightness(BlockPos.containing(p.getEyePosition()));
+            valor = RegrasLucidez.lentidao(FaixaLucidez.de(DadosJogador.lucidez(p), DadosJogador.lucidezMax(p)), luz);
+        }
+        AttributeModifier atual = vel.getModifier(ID_LENTIDAO);
+        if (atual != null && atual.amount() == valor) return;
+        vel.removeModifier(ID_LENTIDAO);
+        if (valor != 0) {
+            vel.addTransientModifier(new AttributeModifier(ID_LENTIDAO, valor,
+                    AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+        }
     }
 
     static void esquecer(UUID jogador) {
