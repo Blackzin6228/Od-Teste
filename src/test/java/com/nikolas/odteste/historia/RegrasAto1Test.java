@@ -111,5 +111,25 @@ class RegrasAto1Test {
         for (String id : IdsHistoria.LUGARES) assertTrue(ids.contains("`" + id + "`"), "falta lugar " + id + " em docs/ids.md");
         assertTrue(ids.contains("`" + IdsHistoria.CHAVE_PECA + "`"));
         assertTrue(ids.contains("`" + com.nikolas.odteste.dados.IdsDados.ARQUIVO_HISTORIA + "`"));
+        assertTrue(ids.contains("`odteste:" + IdsHistoria.MODIFICADOR_ALDEAO_PARADO + "`"));
+    }
+
+    @Test
+    void chavesDoArquivoSalvoEstaoNoDocumento() throws Exception {
+        String ids = Files.readString(Path.of("docs/ids.md"));
+        for (List<String> l : List.of(IdsHistoria.CHAVES_VILA, IdsHistoria.CHAVES_COLOCACAO, IdsHistoria.CHAVES_BACKUP)) {
+            for (String k : l) assertTrue(ids.contains("`" + k + "`"), "falta a chave " + k + " em docs/ids.md");
+        }
+    }
+
+    @Test
+    void chavesDaVilaSaoAsQueOCodigoUsa() throws Exception {
+        // Se alguém renomear uma chave no código, a lista (e o docs/ids.md) deixam de bater: o teste avisa.
+        String codigo = Files.readString(Path.of("src/main/java/com/nikolas/odteste/historia/VilaMarcada.java"));
+        for (String k : IdsHistoria.CHAVES_VILA) assertTrue(codigo.contains("\"" + k + "\""), "VilaMarcada não usa " + k);
+        String backup = Files.readString(Path.of("src/main/java/com/nikolas/odteste/estruturas/Backup.java"));
+        for (String k : IdsHistoria.CHAVES_BACKUP) assertTrue(backup.contains("\"" + k + "\""), "Backup não usa " + k);
+        String col = Files.readString(Path.of("src/main/java/com/nikolas/odteste/estruturas/Colocacao.java"));
+        for (String k : IdsHistoria.CHAVES_COLOCACAO) assertTrue(col.contains("\"" + k + "\""), "Colocacao não usa " + k);
     }
 }
