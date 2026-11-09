@@ -23,5 +23,19 @@ public final class IdsHistoria {
     /** Chave do custom_data que marca um item vanilla como peça de história ({"odteste_peca": "odteste:..."}). */
     public static final String CHAVE_PECA = "odteste_peca";
 
+    /**
+     * Modificador de velocidade dos aldeões parados olhando o sino ({@code odteste:aldeao_parado}).
+     * Temporário: o jogo nunca salva no disco, então o aldeão nunca fica preso se o mod sair do pack.
+     */
+    public static final String MODIFICADOR_ALDEAO_PARADO = "aldeao_parado";
+
+    /** Chaves dentro de cada vila salva (VilaMarcada). Não mudam: o mundo já tem vilas salvas com elas. */
+    public static final List<String> CHAVES_VILA = List.of("grupo", "dim", "sino", "nota", "bau", "placa",
+            "estandarte", "cama", "aldeao", "blocos", "congelados", "resolvido", "marcos",
+            "apoio_placa", "apoio_placa_bloco", "apoio_estandarte", "apoio_estandarte_bloco");
+    /** Chaves de cada estrutura colocada (Colocacao) e do backup de blocos (Backup). */
+    public static final List<String> CHAVES_COLOCACAO = List.of("id", "template", "dim", "canto", "backup");
+    public static final List<String> CHAVES_BACKUP = List.of("paleta", "pos", "original", "colocado");
+
     private IdsHistoria() {}
 }

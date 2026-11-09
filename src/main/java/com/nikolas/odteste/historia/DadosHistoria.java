@@ -1,8 +1,11 @@
 package com.nikolas.odteste.historia;
 
+import com.nikolas.odteste.OdMod;
 import com.nikolas.odteste.dados.IdsDados;
 import com.nikolas.odteste.estruturas.Colocacao;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
@@ -36,6 +39,8 @@ public final class DadosHistoria extends SavedData {
     public final Map<String, Colocacao> colocacoes = new LinkedHashMap<>();
     /** Aldeões que o desfazer não achou carregados: voltam ao normal quando o chunk carregar. */
     public final Map<UUID, Integer> descongelarDepois = new LinkedHashMap<>();
+    /** Vilas do arquivo que não deu para ler (sem sino): não rodam, mas voltam iguais para o arquivo. */
+    final List<CompoundTag> vilasIgnoradas = new ArrayList<>();
     private int proximaColocacao = 1;
 
     public static DadosHistoria de(MinecraftServer servidor) {
@@ -74,6 +79,7 @@ public final class DadosHistoria extends SavedData {
 
         ListTag lv = new ListTag();
         for (VilaMarcada v : vilas.values()) lv.add(v.salvar());
+        for (CompoundTag cv : vilasIgnoradas) lv.add(cv.copy());
         t.put("vilas", lv);
 
         ListTag lc = new ListTag();
@@ -113,7 +119,14 @@ public final class DadosHistoria extends SavedData {
 
         ListTag lv = t.getList("vilas", Tag.TAG_COMPOUND);
         for (int i = 0; i < lv.size(); i++) {
-            VilaMarcada v = VilaMarcada.carregar(lv.getCompound(i));
+            CompoundTag cv = lv.getCompound(i);
+            VilaMarcada v = VilaMarcada.carregar(cv);
+            if (v == null) {
+                // Sem sino: o evento fica parado (não toca nada), mas a vila crua é salva de volta igual.
+                OdMod.LOGGER.warn("odteste_historia: vila do grupo '{}' sem posição do sino; evento ignorado", cv.getString("grupo"));
+                d.vilasIgnoradas.add(cv.copy());
+                continue;
+            }
             if (!v.grupo.isEmpty()) d.vilas.put(v.grupo, v);
         }
 

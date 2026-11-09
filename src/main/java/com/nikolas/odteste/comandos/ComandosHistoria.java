@@ -43,7 +43,8 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
  * Comandos da história, todos só de admin (permissão 2):
  *
  * /odteste grupo criar|adicionar|tirar|apagar|ver
- * /odteste evento primeiro_sinal <grupo> [ponto] · desfazer <grupo> · ver <grupo> · ancorar <lugar> <ponto> · desancorar <lugar>
+ * /odteste evento primeiro_sinal <grupo> [ponto] · desfazer <grupo> · retrancar <grupo> (só o Enigma 1) · ver <grupo>
+ *   · ancorar <lugar> <ponto> · desancorar <lugar>
  * /odteste estrutura prever|colocar <template> <ponto> [rotação] · desfazer <id> · lista
  * /odteste elemento <jogador> [elemento] · revelar <jogador> (ComandosElemento)
  *
@@ -199,6 +200,10 @@ public final class ComandosHistoria {
                     PrimeiroSinal.Resposta r = PrimeiroSinal.desfazer(c.getSource().getServer(), StringArgumentType.getString(c, GRUPO));
                     return responder(c, r.ok(), r.mensagem());
                 })))
+                .then(Commands.literal("retrancar").then(argGrupo().executes(c -> {
+                    PrimeiroSinal.Resposta r = PrimeiroSinal.retrancar(c.getSource().getServer(), StringArgumentType.getString(c, GRUPO));
+                    return responder(c, r.ok(), r.mensagem());
+                })))
                 .then(Commands.literal("ver").then(argGrupo().executes(ComandosHistoria::verGrupo)))
                 .then(Commands.literal("ancorar").then(argLugar()
                         .then(Commands.argument(PONTO, BlockPosArgument.blockPos()).executes(ComandosHistoria::ancorar))))
@@ -283,13 +288,41 @@ public final class ComandosHistoria {
         BlockPos p = BlockPosArgument.getBlockPos(c, PONTO);
         Optional<StructureTemplate> t = Estruturas.template(nivel, id);
         if (t.isEmpty()) return erro(c, "odteste.estrutura.erro.template", id.toString());
+        if (Estruturas.grandeDemais(t.get(), r)) return erro(c, "odteste.estrutura.erro.grande", Estruturas.VOLUME_MAXIMO);
         Espaco.Caixa caixa = Estruturas.caixa(t.get(), p, r);
         Espaco.Resultado res = Estruturas.checar(nivel, t.get(), p, r);
-        PREVIAS.put(c.getSource().getTextName(), chavePrevia(id, p, r));
-        PREVIAS_QUANDO.put(c.getSource().getTextName(), System.currentTimeMillis());
         if (c.getSource().getEntity() instanceof ServerPlayer admin) contorno(nivel, admin, caixa, res);
-        if (res.cabe()) return ok(c, "odteste.estrutura.prever.cabe", id.toString(), caixa.volume());
-        return erro(c, "odteste.estrutura.prever.nao_cabe", id.toString(), res.x(), res.y(), res.z(), motivo(res.motivo()));
+        if (res.cabe()) {
+            // Só prévia que cabe libera o colocar.
+            PREVIAS.put(c.getSource().getTextName(), chavePrevia(id, p, r));
+            PREVIAS_QUANDO.put(c.getSource().getTextName(), System.currentTimeMillis());
+            return ok(c, "odteste.estrutura.prever.cabe", id.toString(), caixa.volume());
+        }
+        erro(c, "odteste.estrutura.prever.nao_cabe", id.toString(), res.x(), res.y(), res.z(), motivo(res.motivo()));
+        sugerir(c, nivel, t.get(), id, p, r);
+        return 0;
+    }
+
+    /** Não coube: mostra um ponto perto que cabe, para o admin conferir com prever. Nunca coloca sozinho. */
+    private static void sugerir(CommandContext<CommandSourceStack> c, ServerLevel nivel, StructureTemplate t,
+                                ResourceLocation id, BlockPos p, Rotation r) {
+        Optional<BlockPos> s = Estruturas.sugerir(nivel, t, p, r);
+        if (s.isEmpty()) {
+            c.getSource().sendFailure(Component.translatable("odteste.estrutura.sem_sugestao", Estruturas.RAIO_BUSCA));
+            return;
+        }
+        BlockPos o = s.get();
+        c.getSource().sendFailure(Component.translatable("odteste.estrutura.sugestao", o.getX(), o.getY(), o.getZ(),
+                id.toString(), o.getX(), o.getY(), o.getZ(), textoRotacao(r)));
+    }
+
+    private static String textoRotacao(Rotation r) {
+        return switch (r) {
+            case CLOCKWISE_90 -> "90";
+            case CLOCKWISE_180 -> "180";
+            case COUNTERCLOCKWISE_90 -> "270";
+            default -> "0";
+        };
     }
 
     private static Component motivo(Espaco.Tipo t) {
@@ -340,11 +373,14 @@ public final class ComandosHistoria {
         }
         Optional<StructureTemplate> t = Estruturas.template(nivel, id);
         if (t.isEmpty()) return erro(c, "odteste.estrutura.erro.template", id.toString());
-        Estruturas.Tentativa tent = Estruturas.colocar(nivel, t.get(), p, r, true);
+        Estruturas.Tentativa tent = Estruturas.colocar(nivel, t.get(), p, r);
         if (!tent.ok()) {
             if ("grande".equals(tent.erro())) return erro(c, "odteste.estrutura.erro.grande", Estruturas.VOLUME_MAXIMO);
+            PREVIAS.remove(quem);
             Espaco.Resultado res = tent.checagem();
-            return erro(c, "odteste.estrutura.erro.sem_lugar", id.toString(), res.x(), res.y(), res.z(), motivo(res.motivo()));
+            erro(c, "odteste.estrutura.erro.sem_lugar", id.toString(), res.x(), res.y(), res.z(), motivo(res.motivo()));
+            sugerir(c, nivel, t.get(), id, p, r);
+            return 0;
         }
         PREVIAS.remove(quem);
         DadosHistoria d = dados(c);
@@ -352,8 +388,7 @@ public final class ComandosHistoria {
         d.colocacoes.put(idColocacao, new Colocacao(idColocacao, id.toString(), nivel.dimension(), tent.ponto(), tent.backup().get()));
         d.setDirty();
         BlockPos o = tent.ponto();
-        return ok(c, tent.mudouDeLugar() ? "odteste.estrutura.colocada_outro_lugar" : "odteste.estrutura.colocada",
-                id.toString(), o.getX(), o.getY(), o.getZ(), idColocacao);
+        return ok(c, "odteste.estrutura.colocada", id.toString(), o.getX(), o.getY(), o.getZ(), idColocacao);
     }
 
     private static int desfazerEstrutura(CommandContext<CommandSourceStack> c) {
@@ -375,10 +410,11 @@ public final class ComandosHistoria {
             BlockPos p = faltando.get(0);
             return erro(c, "odteste.evento.erro.descarregado", p.getX(), p.getY(), p.getZ());
         }
-        int mantidos = b.restaurar(nivel);
+        Backup.Restauracao rest = b.restaurar(nivel, PrimeiroSinal::ehPeca);
         d.colocacoes.remove(id);
         d.setDirty();
-        return ok(c, "odteste.estrutura.desfeita", id, mantidos);
+        return responder(c, true, PrimeiroSinal.comItensSoltos(
+                Component.translatable("odteste.estrutura.desfeita", id, rest.mantidos()), rest.itensSoltos(), rest.ondeSoltou()));
     }
 
     private static int listarEstruturas(CommandContext<CommandSourceStack> c) {
