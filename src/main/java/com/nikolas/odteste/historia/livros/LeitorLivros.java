@@ -22,6 +22,11 @@ import java.util.function.Consumer;
  * </pre>
  *
  * {@code exposicao_minima} aceita número (0 a 100) ou nome de degrau (ver {@link RegrasLivros#limiar}).
+ * Atenção: {@code "marcado"} (sem chaves) em {@code exposicao_minima} é o <b>degrau</b> de Exposição;
+ * {@code {marcado}} (com chaves) dentro de {@code texto} é o <b>marcador</b> trocado pelo nome de quem tem mais
+ * Exposição no grupo. Mesma palavra, coisas diferentes.
+ * O limite de {@value #MAX_PAGINA} letras por página é aplicado na hora de montar, depois de trocar os marcadores
+ * ({@link RegrasLivros#montar(Livro, int, java.util.Map, int)}); aqui só avisa no log se o arquivo já passa dele.
  * Só usa Gson (sem Minecraft), para dar para testar.
  */
 public final class LeitorLivros {
@@ -57,7 +62,9 @@ public final class LeitorLivros {
         List<Livro.Pagina> paginas = new ArrayList<>();
         for (int i = 0; i < ps.size(); i++) {
             try {
-                paginas.add(cortar(pagina(ps.get(i)), "livro " + id + ", página " + (i + 1), aviso));
+                Livro.Pagina p = pagina(ps.get(i));
+                avisarSeGrande(p, "livro " + id + ", página " + (i + 1), aviso);
+                paginas.add(p);
             } catch (RuntimeException e) {
                 throw new IllegalArgumentException("página " + (i + 1) + ": " + e.getMessage(), e);
             }
@@ -79,36 +86,20 @@ public final class LeitorLivros {
     }
 
     /**
-     * Corta a página no limite do livro vanilla: primeiro o texto, depois os trechos escondidos na ordem
-     * (cada trecho conta mais 2 letras, a linha em branco antes dele). O que não cabe some, com aviso.
+     * Avisa se a página, com tudo visível (texto + trechos escondidos + 2 letras de linha em branco entre eles),
+     * já passa do limite no arquivo. Não corta: o corte é feito ao montar, depois de trocar os marcadores.
      */
-    static Livro.Pagina cortar(Livro.Pagina p, String onde, Consumer<String> aviso) {
-        int sobra = MAX_PAGINA;
-        String texto = p.texto();
-        boolean cortou = false;
-        if (texto.length() > sobra) {
-            texto = texto.substring(0, sobra);
-            cortou = true;
-        }
-        sobra -= texto.length();
-        List<Livro.Trecho> escondidos = new ArrayList<>();
+    static boolean avisarSeGrande(Livro.Pagina p, String onde, Consumer<String> aviso) {
+        int total = p.texto().length();
+        int pedacos = p.texto().isEmpty() ? 0 : 1;
         for (Livro.Trecho t : p.escondidos()) {
-            int cabe = sobra - (texto.isEmpty() && escondidos.isEmpty() ? 0 : 2);
-            if (cabe <= 0) {
-                cortou = true;
-                continue;
-            }
-            String tt = t.texto();
-            if (tt.length() > cabe) {
-                tt = tt.substring(0, cabe);
-                cortou = true;
-            }
-            escondidos.add(new Livro.Trecho(tt, t.exposicaoMinima()));
-            sobra = cabe - tt.length();
+            if (t.texto().isEmpty()) continue;
+            total += t.texto().length() + (pedacos > 0 ? 2 : 0);
+            pedacos++;
         }
-        if (!cortou) return p;
-        aviso.accept(onde + ": passou de " + MAX_PAGINA + " letras, o fim foi cortado");
-        return new Livro.Pagina(texto, p.exposicaoMinima(), escondidos);
+        if (total <= MAX_PAGINA) return false;
+        aviso.accept(onde + ": passa de " + MAX_PAGINA + " letras, o fim vai ser cortado no livro");
+        return true;
     }
 
     private static int limiar(JsonObject o) {

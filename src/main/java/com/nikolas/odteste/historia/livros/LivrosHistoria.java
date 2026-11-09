@@ -19,6 +19,12 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
+import net.minecraft.network.protocol.game.ClientboundOpenBookPacket;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.inventory.LecternMenu;
+import net.neoforged.neoforge.event.entity.player.PlayerContainerEvent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -42,8 +48,10 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
  * {@code custom_data {"odteste:livro": "<id>"}}. O texto vem de {@code data/odteste/odteste_livros/<id>.json}
  * (a Lore troca o texto sem mexer em código; um datapack também pode trocar).
  *
- * <p>O livro é <b>montado de novo toda vez que alguém abre</b> (na mão ou no atril), com a Exposição e o grupo de
- * quem lê. Assim o mesmo livro, passado de mão em mão, mostra coisas diferentes. Só no servidor.
+ * <p>O item guarda sempre a <b>versão neutra</b> (só o que todo mundo lê, sem nome de ninguém). Toda vez que alguém
+ * abre (na mão ou no atril), o mod monta a versão de quem lê, com a Exposição e o grupo dele, e manda <b>só para a
+ * tela dele</b>. Assim o mesmo livro, passado de mão em mão, mostra coisas diferentes e não vaza o que outro viu.
+ * Só no servidor. Limite: um mod que abra o livro por outro caminho mostra a versão neutra.
  *
  * <p>Marcadores: {jogador} quem lê · {grupo} os nomes do grupo de quem lê · {marcado} (e {anfitriao}, nome antigo)
  * quem tem mais Exposição entre os do grupo que estão online.
@@ -78,13 +86,21 @@ public final class LivrosHistoria {
         return id.isEmpty() ? Optional.empty() : Optional.of(id);
     }
 
-    /** Um livro novo, já montado para quem vai receber. Vazio se o id não existe. */
+    /**
+     * Valor dos marcadores na versão neutra (a que fica guardada no item). Não é o nome de ninguém: assim o livro
+     * passado de mão em mão não carrega o nome nem o grupo de quem leu antes.
+     */
+    private static final String NINGUEM = "alguém";
+    private static final Map<String, String> MARCADORES_NEUTROS =
+            Map.of("jogador", NINGUEM, "grupo", NINGUEM, "marcado", NINGUEM, "anfitriao", NINGUEM);
+
+    /** Um livro novo, com a versão neutra. Quem abre vê a versão dele (montada só para a tela). Vazio se o id não existe. */
     public static Optional<ItemStack> criar(String id, ServerPlayer leitor) {
         Livro l = livros.get(id);
         if (l == null) return Optional.empty();
         ItemStack item = new ItemStack(Items.WRITTEN_BOOK);
         CustomData.update(DataComponents.CUSTOM_DATA, item, t -> t.putString(CHAVE, id));
-        montar(item, l, leitor);
+        montarNeutro(item, l);
         return Optional.of(item);
     }
 
@@ -97,13 +113,21 @@ public final class LivrosHistoria {
     }
 
     private static void montar(ItemStack item, Livro l, ServerPlayer leitor) {
-        Map<String, String> marcadores = marcadores(leitor);
+        escrever(item, l, DadosJogador.exposicao(leitor), marcadores(leitor));
+    }
+
+    /** A versão que fica guardada no item: só o que todo mundo lê (Exposição 0), sem nome de ninguém. */
+    private static void montarNeutro(ItemStack item, Livro l) {
+        escrever(item, l, 0, MARCADORES_NEUTROS);
+    }
+
+    private static void escrever(ItemStack item, Livro l, int exposicao, Map<String, String> marcadores) {
         List<Filterable<Component>> paginas = new ArrayList<>();
-        for (List<RegrasLivros.Pedaco> pedacos : RegrasLivros.montar(l, DadosJogador.exposicao(leitor))) {
+        for (List<RegrasLivros.Pedaco> pedacos : RegrasLivros.montar(l, exposicao, marcadores, LeitorLivros.MAX_PAGINA)) {
             MutableComponent pagina = Component.empty();
             for (int i = 0; i < pedacos.size(); i++) {
                 RegrasLivros.Pedaco p = pedacos.get(i);
-                String texto = (i == 0 ? "" : "\n\n") + RegrasLivros.substituir(p.texto(), marcadores);
+                String texto = (i == 0 ? "" : "\n\n") + p.texto();
                 MutableComponent c = Component.literal(texto);
                 if (p.escondido()) c.withStyle(ChatFormatting.DARK_RED, ChatFormatting.ITALIC);
                 pagina.append(c);
@@ -137,37 +161,69 @@ public final class LivrosHistoria {
         return m;
     }
 
-    /** Monta o livro e dispara o gancho de primeira leitura. */
-    private static void abrir(ServerPlayer p, ItemStack item) {
-        Optional<String> id = idDe(item);
-        if (id.isEmpty() || !montar(item, p)) return;
-        if (LivrosLidos.de(p.server).marcar(p.getUUID(), id.get())) {
-            NeoForge.EVENT_BUS.post(new LivroAbertoPrimeiraVez(p, id.get()));
+    /** Dispara o gancho de primeira leitura (uma vez por jogador e livro). */
+    private static void marcarLido(ServerPlayer p, String id) {
+        if (LivrosLidos.de(p.server).marcar(p.getUUID(), id)) {
+            NeoForge.EVENT_BUS.post(new LivroAbertoPrimeiraVez(p, id));
         }
     }
 
     // ------------------------------------------------------------------ eventos
 
-    /** Na mão: o evento vem antes do vanilla abrir o livro, então quem lê já vê a versão dele. */
+    /**
+     * Na mão: o mod abre o livro no lugar do vanilla. Põe a versão de quem lê no item, manda para o cliente
+     * dele, abre a tela e volta o item para a versão neutra. A tela do livro guarda as páginas que recebeu ao
+     * abrir, então a volta (que chega no tick seguinte) não muda o que está na tela. Os outros jogadores não
+     * recebem a versão de quem lê: o item já está neutro de novo antes da troca de equipamento ser enviada.
+     */
     @SubscribeEvent
     public static void usarItem(PlayerInteractEvent.RightClickItem e) {
         // O clique dispara uma vez por mão. Conta a principal; a outra mão só se a principal não tem livro
-        // (aí o vanilla abre o da outra mão). Assim nunca monta dois livros no mesmo clique.
+        // (aí seria o livro da outra mão que abre). Assim nunca abre dois livros no mesmo clique.
         if (!(e.getEntity() instanceof ServerPlayer p)) return;
-        if (e.getHand() == InteractionHand.MAIN_HAND || !p.getMainHandItem().is(Items.WRITTEN_BOOK)) {
-            abrir(p, e.getItemStack());
-        }
+        if (e.getHand() != InteractionHand.MAIN_HAND && p.getMainHandItem().is(Items.WRITTEN_BOOK)) return;
+        ItemStack item = e.getItemStack();
+        Optional<String> id = idDe(item);
+        Livro l = id.map(livros::get).orElse(null);
+        if (l == null) return; // livro desconhecido: o vanilla abre o que estiver salvo
+        montar(item, l, p);
+        p.containerMenu.broadcastChanges(); // o cliente recebe a versão dele ANTES do pedido de abrir
+        p.connection.send(new ClientboundOpenBookPacket(e.getHand()));
+        p.awardStat(Stats.ITEM_USED.get(Items.WRITTEN_BOOK));
+        montarNeutro(item, l);
+        e.setCanceled(true);
+        e.setCancellationResult(InteractionResult.SUCCESS);
+        marcarLido(p, id.get());
     }
 
-    /** No atril: monta o livro do atril para quem vai ler (quem lê por último define o que está lá). */
+    /** No atril: antes de abrir, o livro guardado no atril vira a versão neutra (quem tirar o livro leva essa). */
     @SubscribeEvent
     public static void usarBloco(PlayerInteractEvent.RightClickBlock e) {
-        if (e.getHand() != InteractionHand.MAIN_HAND || !(e.getEntity() instanceof ServerPlayer p)) return;
+        if (e.getHand() != InteractionHand.MAIN_HAND || !(e.getEntity() instanceof ServerPlayer)) return;
         if (!(e.getLevel().getBlockEntity(e.getPos()) instanceof LecternBlockEntity atril) || !atril.hasBook()) return;
         ItemStack livro = atril.getBook();
-        if (idDe(livro).isEmpty()) return;
-        abrir(p, livro);
+        Livro l = idDe(livro).map(livros::get).orElse(null);
+        if (l == null) return;
+        montarNeutro(livro, l);
         atril.setChanged();
+    }
+
+    /**
+     * Atril aberto: manda só para a tela de quem abriu uma cópia com a versão dele. O livro do atril continua
+     * neutro no servidor, então dois jogadores lendo o mesmo atril veem cada um a sua versão. O servidor acha
+     * que o cliente tem a neutra e não reenvia nada enquanto o livro não muda.
+     */
+    @SubscribeEvent
+    public static void abrirAtril(PlayerContainerEvent.Open e) {
+        if (!(e.getEntity() instanceof ServerPlayer p) || !(e.getContainer() instanceof LecternMenu menu)) return;
+        ItemStack livro = menu.getBook();
+        Optional<String> id = idDe(livro);
+        Livro l = id.map(livros::get).orElse(null);
+        if (l == null) return;
+        ItemStack copia = livro.copy();
+        montar(copia, l, p);
+        p.connection.send(new ClientboundContainerSetSlotPacket(menu.containerId, menu.incrementStateId(), 0, copia));
+        marcarLido(p, id.get());
     }
 
     @SubscribeEvent

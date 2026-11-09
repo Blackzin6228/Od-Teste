@@ -74,6 +74,29 @@ class RegrasLivrosTest {
     }
 
     @Test
+    void cortaDepoisDeTrocarOsMarcadores() {
+        // O arquivo cabe (10 letras), mas o nome do grupo estoura o limite: o corte vale para o texto já trocado.
+        Livro l = new Livro("x", "T", "A", 0, List.of(
+                new Livro.Pagina("oi {grupo}", 0, List.of(new Livro.Trecho("fim", 0)))));
+        var p = RegrasLivros.montar(l, 0, Map.of("grupo", "A".repeat(20)), 15);
+        assertEquals(List.of(new RegrasLivros.Pedaco("oi " + "A".repeat(12), false)), p.get(0), "o trecho que não cabe some");
+        // Linha em branco (2 letras) entre os pedaços entra na conta.
+        var q = RegrasLivros.montar(l, 0, Map.of("grupo", "Bia"), 10);
+        assertEquals(List.of(new RegrasLivros.Pedaco("oi Bia", false), new RegrasLivros.Pedaco("fi", true)), q.get(0));
+        assertEquals(List.of(new RegrasLivros.Pedaco("oi Bia", false), new RegrasLivros.Pedaco("fim", true)),
+                RegrasLivros.montar(l, 0, Map.of("grupo", "Bia"), 1024).get(0), "sem corte quando cabe");
+    }
+
+    @Test
+    void leitorSoAvisaSemCortar() {
+        Livro.Pagina grande = new Livro.Pagina("a".repeat(LeitorLivros.MAX_PAGINA), 0, List.of(new Livro.Trecho("b", 0)));
+        List<String> avisos = new java.util.ArrayList<>();
+        assertTrue(LeitorLivros.avisarSeGrande(grande, "p", avisos::add));
+        assertEquals(1, avisos.size());
+        assertTrue(!LeitorLivros.avisarSeGrande(new Livro.Pagina("curta", 0, List.of()), "p", avisos::add));
+    }
+
+    @Test
     void juntarNomes() {
         assertEquals("", RegrasLivros.juntarNomes(List.of()));
         assertEquals("Ana", RegrasLivros.juntarNomes(List.of("Ana")));

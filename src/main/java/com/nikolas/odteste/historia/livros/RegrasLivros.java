@@ -55,6 +55,37 @@ public final class RegrasLivros {
     }
 
     /**
+     * Monta, troca os marcadores e só DEPOIS corta cada página em {@code max} letras (um nome comprido no lugar
+     * de {grupo} pode passar do limite mesmo com o arquivo dentro dele).
+     */
+    public static List<List<Pedaco>> montar(Livro livro, int exposicao, Map<String, String> marcadores, int max) {
+        List<List<Pedaco>> paginas = new ArrayList<>();
+        for (List<Pedaco> pedacos : montar(livro, exposicao)) {
+            List<Pedaco> trocados = new ArrayList<>(pedacos.size());
+            for (Pedaco p : pedacos) trocados.add(new Pedaco(substituir(p.texto(), marcadores), p.escondido()));
+            paginas.add(cortar(trocados, max));
+        }
+        return paginas;
+    }
+
+    /**
+     * Corta a página em {@code max} letras, contando as 2 letras da linha em branco entre um pedaço e outro
+     * (é assim que a página é escrita no livro). O que não cabe some, na ordem.
+     */
+    public static List<Pedaco> cortar(List<Pedaco> pedacos, int max) {
+        List<Pedaco> saida = new ArrayList<>(pedacos.size());
+        int sobra = max;
+        for (Pedaco p : pedacos) {
+            int cabe = sobra - (saida.isEmpty() ? 0 : 2);
+            if (cabe <= 0) break;
+            String t = p.texto().length() > cabe ? p.texto().substring(0, cabe) : p.texto();
+            saida.add(new Pedaco(t, p.escondido()));
+            sobra = cabe - t.length();
+        }
+        return saida;
+    }
+
+    /**
      * Troca {chave} pelo valor do mapa, numa passada só (o valor trocado nunca é trocado de novo).
      * Marcador desconhecido fica como está, para quem revisa perceber.
      */
