@@ -17,7 +17,7 @@ public final class IdsVilaCalada {
     public static final String ARQUIVO = "odteste_vila_calada";
 
     /** Chaves dentro do arquivo. */
-    public static final List<String> CHAVES = List.of("ligado", "colocacao", "ancora_auto", "vistas");
+    public static final List<String> CHAVES = List.of("ligado", "colocacao", "ancora_auto", "ancora_auto_dim", "vistas");
 
     /**
      * Modificador de velocidade dos aldeões virados para a Vila Calada ({@code odteste:aldeao_virado}).
@@ -25,8 +25,8 @@ public final class IdsVilaCalada {
      */
     public static final String MODIFICADOR_ALDEAO_VIRADO = "aldeao_virado";
 
-    /** Começo do nome do template que conta como Vila Calada ({@code odteste:vila_calada}, {@code vila_calada_decor}...). */
-    public static final String TEMPLATE = "vila_calada";
+    /** Template da Vila Calada que ancora sozinho ao terminar de ser colocado (nome exato). */
+    public static final String TEMPLATE = "odteste:vila_calada";
 
     private IdsVilaCalada() {}
 }

@@ -55,13 +55,26 @@ class RegrasVilaCaladaTest {
     }
 
     @Test
-    void reconheceOTemplateDaVila() {
+    void soOTemplatePrincipalAncoraSozinho() {
         assertTrue(RegrasVilaCalada.templateDaVila("odteste:vila_calada"));
-        assertTrue(RegrasVilaCalada.templateDaVila("odteste:estruturas/vila_calada_decor"));
         assertTrue(RegrasVilaCalada.templateDaVila("ODTESTE:VILA_CALADA"));
+        assertFalse(RegrasVilaCalada.templateDaVila("odteste:vila_calada_decor"), "variação não ancora sozinha");
+        assertFalse(RegrasVilaCalada.templateDaVila("odteste:estruturas/vila_calada"));
+        assertFalse(RegrasVilaCalada.templateDaVila("outro:vila_calada"));
         assertFalse(RegrasVilaCalada.templateDaVila("odteste:frigorifico"));
-        assertFalse(RegrasVilaCalada.templateDaVila("odteste:nao_vila_calada"));
         assertFalse(RegrasVilaCalada.templateDaVila(null));
+    }
+
+    @Test
+    void todoTextoSalvoEstaEmIdsMd() throws Exception {
+        String ids = Files.readString(Path.of("docs/ids.md"));
+        assertTrue(ids.contains("`" + IdsVilaCalada.LUGAR_VILA_CALADA + "`"), "falta o lugar vila_calada em docs/ids.md");
+        assertTrue(ids.contains("`" + IdsVilaCalada.MARCO_CHEGOU + "`"), "falta o marco vila_calada em docs/ids.md");
+        assertTrue(ids.contains("`" + IdsVilaCalada.ARQUIVO + "`"), "falta o arquivo odteste_vila_calada em docs/ids.md");
+        assertTrue(ids.contains("`odteste:" + IdsVilaCalada.MODIFICADOR_ALDEAO_VIRADO + "`"),
+                "falta odteste:aldeao_virado em docs/ids.md");
+        assertTrue(ids.contains("`" + IdsVilaCalada.TEMPLATE + "`"), "falta o template odteste:vila_calada em docs/ids.md");
+        for (String k : IdsVilaCalada.CHAVES) assertTrue(ids.contains("`" + k + "`"), "falta a chave " + k + " em docs/ids.md");
     }
 
     @Test

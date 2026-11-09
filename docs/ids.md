@@ -40,11 +40,14 @@ Modid: `odteste` (definitivo, decisão de 2026-11-08) · Lançado no servidor: *
 | `odteste:mapa_rasgado_esquerda` | peça de história (item vanilla `minecraft:paper` com custom_data `{odteste_peca: "odteste:mapa_rasgado_esquerda"}`) | 2026-11-08 | metade esquerda do Mapa Rasgado (Enigma 1). Provisório: vira mapa de verdade no Enigma 2 |
 | `odteste_peca` | chave do custom_data dos itens de história | 2026-11-08 | o mod reconhece as peças por ela; o valor é o ID da peça (linhas acima) |
 | `odteste:aldeao_parado` | modificador de atributo (velocidade de movimento, −100%) | 2026-11-09 | temporário (não fica salvo); só nos aldeões parados olhando o sino do Primeiro Sinal, com jogador perto |
+| `odteste:aldeao_virado` | modificador de atributo (velocidade de movimento, −100%) | 2026-11-09 | temporário (não fica salvo); aldeões parados 15 s olhando para a Vila Calada (pista 2) |
+| `odteste_vila_calada` | dado do mundo (`SavedData`, arquivo `data/odteste_vila_calada.dat` do overworld) | 2026-11-09 | pistas da Vila Calada. Chaves dentro do arquivo também não mudam: `ligado`, `colocacao`, `ancora_auto`, `ancora_auto_dim`, `vistas` |
+| `odteste:vila_calada` | nome do template de estrutura (`data/odteste/structure/vila_calada.nbt`, quando entrar) | 2026-11-09 | o único template que ancora a Vila Calada sozinho ao terminar de ser colocado. Renomear quebra a âncora automática |
 | `estruturas.blocos_por_tick` | chave de config do servidor (`serverconfig/odteste-server.toml` do mundo, seção `[estruturas]`; inteiro, padrão 8192, mínimo 256, máximo 65536) | 2026-11-09 | blocos por tick ao conferir, colocar e desfazer estrutura grande em partes. Mudar no meio só vale para a próxima colocação (cada uma guarda o `limite` com que começou) |
 
 História (Ato 1, parte A). Ficam salvos dentro de `odteste_historia`, então também não mudam:
-- **Marcos do grupo:** `primeiro_sinal` (Cena 1 solta para o grupo), `enigma_sino` (FERRO escrito na placa, baú aberto).
-- **Lugares que o admin ancora:** `vila_do_sino` (onde procurar a vila da Cena 1).
+- **Marcos do grupo:** `primeiro_sinal` (Cena 1 solta para o grupo), `enigma_sino` (FERRO escrito na placa, baú aberto), `vila_calada` (desde 2026-11-09: o grupo chegou à Vila Calada; as pistas param).
+- **Lugares que o admin ancora:** `vila_do_sino` (onde procurar a vila da Cena 1), `vila_calada` (desde 2026-11-09: centro da Vila Calada; também ancorado sozinho quando o template principal termina de ser colocado).
 - **Nomes de grupo:** quem escolhe é o admin (`/odteste grupo criar <nome>`). Renomear um grupo perde o progresso dele.
 - Os eventos do comando (`/odteste evento primeiro_sinal`) e os ids de colocação (`e1`, `e2`...) não são IDs de conteúdo:
   o evento não fica salvo pelo nome, e o id de colocação só serve para o `desfazer`.

@@ -104,11 +104,11 @@ public final class RegrasVilaCalada {
         return new double[] {dx / n, dz / n};
     }
 
-    /** O template colocado é a Vila Calada? ({@code odteste:vila_calada}, {@code x:estruturas/vila_calada_decor}...) */
+    /**
+     * O template colocado é a Vila Calada principal? Só o nome exato ({@code odteste:vila_calada}): variações
+     * (decoração, testes) não ancoram sozinhas. Para elas, o admin ancora à mão.
+     */
     public static boolean templateDaVila(String template) {
-        if (template == null) return false;
-        String t = template.toLowerCase(Locale.ROOT);
-        int i = Math.max(t.lastIndexOf(':'), t.lastIndexOf('/'));
-        return t.substring(i + 1).startsWith(IdsVilaCalada.TEMPLATE);
+        return template != null && template.trim().toLowerCase(Locale.ROOT).equals(IdsVilaCalada.TEMPLATE);
     }
 }

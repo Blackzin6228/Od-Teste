@@ -2,6 +2,8 @@ package com.nikolas.odteste.historia.vilacalada;
 
 import com.nikolas.odteste.OdMod;
 import com.nikolas.odteste.estruturas.Colocacao;
+import com.nikolas.odteste.estruturas.Espaco;
+import com.nikolas.odteste.estruturas.Estruturas;
 import com.nikolas.odteste.historia.DadosHistoria;
 import com.nikolas.odteste.historia.Grupos;
 import com.nikolas.odteste.historia.IdsHistoria;
@@ -42,8 +44,6 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
@@ -68,8 +68,9 @@ import org.joml.Vector3f;
  * Valem para grupos que já tiveram o Primeiro Sinal e ainda não chegaram. Quem chega (a {@link RegrasVilaCalada#RAIO_CHEGADA}
  * do ponto) dá o marco {@code vila_calada} ao grupo: as pistas de longe param; o sino segue tocando só na vila.
  *
- * O ponto vem da âncora {@code vila_calada}: gravada sozinha quando uma estrutura {@code vila_calada*} termina de
- * ser colocada (lendo as colocações salvas a cada 5 s; não mexe em estruturas/), ou à mão pelo admin.
+ * O ponto vem da âncora {@code vila_calada}: gravada sozinha quando a estrutura {@code odteste:vila_calada} termina
+ * de ser colocada e ainda não há âncora (lendo as colocações salvas a cada 5 s; não mexe em estruturas/), ou à mão
+ * pelo admin.
  *
  * Sem lag: tudo roda uma vez por segundo, só para membros online de grupos (teto {@link RegrasVilaCalada#MAX_JOGADORES});
  * a busca de aldeões é uma caixa pequena em volta do jogador, só quando a olhada começa.
@@ -179,8 +180,9 @@ public final class PistasVilaCalada {
     // ------------------------------------------------------------------ âncora pela colocação da estrutura
 
     /**
-     * Lê as colocações salvas: estrutura {@code vila_calada*} pronta e ainda não vista ancora a vila no centro dela
-     * (altura do chão da estrutura). Se a estrutura que ancorou for desfeita e a âncora ainda for a dela, a âncora sai.
+     * Lê as colocações salvas: a estrutura {@code odteste:vila_calada} pronta, ainda não vista, ancora a vila no centro
+     * dela (altura do chão da estrutura), só se não houver âncora. Se a estrutura que ancorou for desfeita e a âncora
+     * ainda for a dela (mesmo ponto e dimensão), a âncora sai.
      */
     private static void conferirColocacoes(MinecraftServer s, DadosHistoria dh, DadosVilaCalada dv) {
         if (!dv.colocacao.isEmpty()) {
@@ -188,13 +190,15 @@ public final class PistasVilaCalada {
             boolean saiu = col == null || (col.partes() != null && col.partes().fase == Colocacao.Fase.DESFAZENDO);
             if (saiu) {
                 GlobalPos a = dh.ancoras.get(IdsVilaCalada.LUGAR_VILA_CALADA);
-                if (a != null && dv.ancoraAuto != null && a.pos().asLong() == dv.ancoraAuto) {
+                if (a != null && dv.ancoraAuto != null && a.pos().asLong() == dv.ancoraAuto
+                        && a.dimension().location().toString().equals(dv.ancoraAutoDim)) {
                     dh.ancoras.remove(IdsVilaCalada.LUGAR_VILA_CALADA);
                     dh.setDirty();
                     OdMod.LOGGER.info("Vila Calada: a estrutura {} foi desfeita; âncora tirada (pistas param)", dv.colocacao);
                 }
                 dv.colocacao = "";
                 dv.ancoraAuto = null;
+                dv.ancoraAutoDim = "";
                 dv.setDirty();
             }
         }
@@ -203,10 +207,17 @@ public final class PistasVilaCalada {
             if (col.partes() != null && col.partes().fase != Colocacao.Fase.PRONTA) continue;
             ServerLevel nl = s.getLevel(col.dimensao());
             if (nl == null) continue;
-            BlockPos centro = centro(nl, col);
             dv.vistas.add(col.id());
+            dv.setDirty();
+            // Já tem âncora (o admin escolheu, ou outra vila): não troca sozinho. O admin muda com ancorar.
+            if (dh.ancoras.containsKey(IdsVilaCalada.LUGAR_VILA_CALADA)) {
+                OdMod.LOGGER.info("Vila Calada: estrutura {} pronta, mas já havia âncora; nada mudou", col.id());
+                continue;
+            }
+            BlockPos centro = centro(nl, col);
             dv.colocacao = col.id();
             dv.ancoraAuto = centro.asLong();
+            dv.ancoraAutoDim = col.dimensao().location().toString();
             dv.setDirty();
             dh.ancoras.put(IdsVilaCalada.LUGAR_VILA_CALADA, GlobalPos.of(col.dimensao(), centro));
             dh.setDirty();
@@ -221,14 +232,17 @@ public final class PistasVilaCalada {
         }
     }
 
-    /** Centro da caixa da estrutura, na altura do canto. Template sumiu: o próprio canto. */
+    /**
+     * Centro da caixa da estrutura (a mesma conta do colocar, {@link Estruturas#caixa}), na altura do canto.
+     * Template sumiu: o próprio canto. A estrutura pequena não guarda a rotação na colocação: conta sem rotação.
+     */
     private static BlockPos centro(ServerLevel nivel, Colocacao col) {
         ResourceLocation rl = ResourceLocation.tryParse(col.template());
-        Optional<StructureTemplate> t = rl == null ? Optional.empty() : nivel.getStructureManager().get(rl);
+        Optional<StructureTemplate> t = rl == null ? Optional.empty() : Estruturas.template(nivel, rl);
         if (t.isEmpty()) return col.canto();
         Rotation r = col.partes() == null ? Rotation.NONE : col.partes().rotacao;
-        BoundingBox b = t.get().getBoundingBox(new StructurePlaceSettings().setRotation(r), col.canto());
-        return new BlockPos((b.minX() + b.maxX()) / 2, col.canto().getY(), (b.minZ() + b.maxZ()) / 2);
+        Espaco.Caixa b = Estruturas.caixa(t.get(), col.canto(), r);
+        return new BlockPos((b.x0() + b.x1()) / 2, col.canto().getY(), (b.z0() + b.z1()) / 2);
     }
 
     // ------------------------------------------------------------------ 1. sino rachado ao longe
@@ -307,10 +321,20 @@ public final class PistasVilaCalada {
         st.olhadaAte = agora + RegrasVilaCalada.OLHADA_DURA;
     }
 
-    /** Aldeão livre: acordado, sem troca aberta, sem dano agora, sem ser do Primeiro Sinal nem de outro jogador. */
+    /**
+     * Aldeão livre: acordado, sem troca aberta, sem dano agora, sem monstro perto, sem ser do Primeiro Sinal nem
+     * de outro jogador. Aldeão sem IA ou com nome próprio fica de fora: o giro do corpo fica salvo nele, e esses
+     * costumam ser de decoração ou de loja de jogador.
+     */
     private static boolean podeVirar(Villager a) {
-        return a.isAlive() && !a.isSleeping() && a.getTradingPlayer() == null && !a.isPassenger() && a.hurtTime == 0
+        return a.isAlive() && !a.isNoAi() && !a.hasCustomName() && !emPerigo(a)
                 && !VIRADOS_IDS.contains(a.getUUID()) && !temModificador(a, MODIFICADOR_PARADO);
+    }
+
+    /** Dormindo, trocando, apanhando, montado ou com monstro perto: não pode ficar parado. */
+    private static boolean emPerigo(Villager a) {
+        return a.isSleeping() || a.getTradingPlayer() != null || a.isPassenger() || a.hurtTime > 0
+                || a.getBrain().hasMemoryValue(MemoryModuleType.NEAREST_HOSTILE);
     }
 
     private static boolean temModificador(Villager a, ResourceLocation id) {
@@ -345,13 +369,12 @@ public final class PistasVilaCalada {
         a.getLookControl().setLookAt(alvo.x, alvo.y, alvo.z);
     }
 
-    /** Uma vez por segundo: segue olhando; quem dormiu, foi trocar, apanhou ou virou do Primeiro Sinal sai. */
+    /** Uma vez por segundo: segue olhando; quem dormiu, foi trocar, apanhou, viu monstro ou virou do Primeiro Sinal sai. */
     private static void manter(Estado st, BlockPos ancora) {
         Iterator<Villager> it = st.virados.iterator();
         while (it.hasNext()) {
             Villager a = it.next();
-            if (a.isRemoved() || !a.isAlive() || a.isSleeping() || a.getTradingPlayer() != null || a.hurtTime > 0
-                    || temModificador(a, MODIFICADOR_PARADO)) {
+            if (a.isRemoved() || !a.isAlive() || emPerigo(a) || temModificador(a, MODIFICADOR_PARADO)) {
                 soltar(a);
                 it.remove();
                 continue;

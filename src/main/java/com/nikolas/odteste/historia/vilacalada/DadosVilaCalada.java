@@ -25,6 +25,8 @@ public final class DadosVilaCalada extends SavedData {
     public String colocacao = "";
     /** O ponto que a colocação ancorou. Se o admin mudou a âncora, o desfazer da estrutura não mexe nela. */
     public Long ancoraAuto;
+    /** Dimensão desse ponto (posição igual em outra dimensão não é a mesma âncora). */
+    public String ancoraAutoDim = "";
     /** Colocações da vila já vistas: cada uma ancora uma vez só (o admin pode mudar a âncora depois). */
     public final Set<String> vistas = new LinkedHashSet<>();
 
@@ -37,6 +39,7 @@ public final class DadosVilaCalada extends SavedData {
         t.putBoolean("ligado", ligado);
         t.putString("colocacao", colocacao);
         if (ancoraAuto != null) t.putLong("ancora_auto", ancoraAuto);
+        t.putString("ancora_auto_dim", ancoraAutoDim);
         ListTag l = new ListTag();
         for (String v : vistas) l.add(StringTag.valueOf(v));
         t.put("vistas", l);
@@ -48,6 +51,7 @@ public final class DadosVilaCalada extends SavedData {
         d.ligado = !t.contains("ligado") || t.getBoolean("ligado");
         d.colocacao = t.getString("colocacao");
         if (t.contains("ancora_auto", Tag.TAG_LONG)) d.ancoraAuto = t.getLong("ancora_auto");
+        d.ancoraAutoDim = t.getString("ancora_auto_dim");
         ListTag l = t.getList("vistas", Tag.TAG_STRING);
         for (int i = 0; i < l.size(); i++) d.vistas.add(l.getString(i));
         return d;
