@@ -1,0 +1,56 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.sanguessuga_mae",
+        "texture_width": 256,
+        "texture_height": 256,
+        "visible_bounds_width": 4,
+        "visible_bounds_height": 3,
+        "visible_bounds_offset": [0, 1, 0]
+      },
+      "bones": [
+        { "name": "raiz", "pivot": [0, 0, 0] },
+        {
+          "name": "corpo", "parent": "raiz", "pivot": [0, 14, 0],
+          "cubes": [
+            { "origin": [-15, 10, -15], "size": [30, 18, 30], "uv": [0, 0] },
+            { "origin": [-12, 27, -12], "size": [24, 3, 24], "uv": [0, 60] }
+          ]
+        },
+        {
+          "name": "boca", "parent": "corpo", "pivot": [0, 14, -15],
+          "cubes": [
+            { "origin": [-6, 11, -17], "size": [12, 8, 2], "uv": [128, 0] },
+            { "origin": [-4, 13, -18], "size": [8, 4, 1], "uv": [128, 20] }
+          ]
+        },
+        {
+          "name": "perna_1", "parent": "raiz", "pivot": [16, 16, -16],
+          "cubes": [ { "origin": [15, 0, -17], "size": [2, 16, 2], "uv": [160, 0] } ]
+        },
+        {
+          "name": "perna_2", "parent": "raiz", "pivot": [-16, 16, -16],
+          "cubes": [ { "origin": [-17, 0, -17], "size": [2, 16, 2], "uv": [170, 0] } ]
+        },
+        {
+          "name": "perna_3", "parent": "raiz", "pivot": [16, 16, 16],
+          "cubes": [ { "origin": [15, 0, 15], "size": [2, 16, 2], "uv": [180, 0] } ]
+        },
+        {
+          "name": "perna_4", "parent": "raiz", "pivot": [-16, 16, 16],
+          "cubes": [ { "origin": [-17, 0, 15], "size": [2, 16, 2], "uv": [190, 0] } ]
+        },
+        {
+          "name": "filhotes", "parent": "corpo", "pivot": [0, 30, 0],
+          "cubes": [
+            { "origin": [-8, 30, -4], "size": [5, 3, 7], "uv": [128, 40] },
+            { "origin": [2, 30, 2], "size": [5, 3, 6], "uv": [160, 40] },
+            { "origin": [-3, 30, 8], "size": [4, 3, 5], "uv": [192, 40] }
+          ]
+        }
+      ]
+    }
+  ]
+}

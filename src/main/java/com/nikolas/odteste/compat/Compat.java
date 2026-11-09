@@ -20,6 +20,11 @@ public final class Compat {
         MEKANISM("mekanism"),
         CREATE("create"),
         CURIOS("curios"),
+        /** Lista de itens e receitas. O JEI e o EMI acham o nosso plugin sozinhos (compat/jei, compat/emi). */
+        JEI("jei"),
+        EMI("emi"),
+        /** Claims de chunk: estrutura e marca da história nunca entram em chunk com dono. */
+        FTB_CHUNKS("ftbchunks"),
         /** Animação do corpo do jogador. Só cliente: usado em cliente/ via compat/playeranimator/. */
         PLAYER_ANIMATOR("playeranimator");
 
@@ -37,8 +42,8 @@ public final class Compat {
     private Compat() {}
 
     public static void iniciar(IEventBus barramento) {
-        // Cada integração entra aqui quando tiver conteúdo, sempre atrás do if:
-        // if (Integracao.IRONS.ligada()) com.nikolas.odteste.compat.irons.IronsCompat.iniciar(barramento);
+        // Cada integração entra aqui quando tiver conteúdo, sempre atrás do if (a classe compat só é lida se o mod existir).
+        if (Integracao.OCCULTISM.ligada()) com.nikolas.odteste.compat.occultism.OccultismCompat.iniciar(barramento);
     }
 
     public static List<String> ligadas() {

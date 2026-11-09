@@ -67,7 +67,80 @@ public final class DadosJogador {
                     .copyOnDeath()
                     .build());
 
+    /**
+     * Último uso de cada Artefato Paranormal: id do item → tempo do mundo. Não vai para o cliente.
+     * Salvo para a recarga não zerar ao sair e voltar. Só guarda usos recentes (ver RegrasArtefato.limpar).
+     */
+    public static final Supplier<AttachmentType<Map<String, Long>>> ARTEFATO_RECARGA = Registro.DADOS.register(
+            IdsDados.ARTEFATO_RECARGA,
+            () -> AttachmentType.<Map<String, Long>>builder(() -> Map.of())
+                    .serialize(Codec.unboundedMap(Codec.STRING, Codec.LONG))
+                    .copyOnDeath()
+                    .build());
+
+    /**
+     * Noite (dia do relógio) em que a última criatura de Sangue nasceu sozinha perto do jogador. Não vai para o
+     * cliente. Salvo para sair e voltar não liberar outra na mesma noite.
+     */
+    public static final Supplier<AttachmentType<Long>> CRIATURA_NOITE = Registro.DADOS.register(
+            IdsDados.CRIATURA_NOITE,
+            () -> AttachmentType.builder(() -> -1L)
+                    .serialize(Codec.LONG)
+                    .copyOnDeath()
+                    .build());
+
+    /**
+     * Elemento do jogador, definido pelo admin. **Nunca vai para o cliente** (nem do dono): antes de revelado,
+     * o jogador não pode ver o elemento em lugar nenhum. Texto desconhecido vira nenhum.
+     */
+    public static final Supplier<AttachmentType<Elemento>> ELEMENTO = Registro.DADOS.register(
+            IdsDados.ELEMENTO,
+            () -> AttachmentType.builder(() -> Elemento.NENHUM)
+                    .serialize(Codec.STRING.xmap(Elemento::deIdOuNenhum, Elemento::id))
+                    .copyOnDeath()
+                    .build());
+    /** A história já revelou o elemento? Nunca vai para o cliente. */
+    public static final Supplier<AttachmentType<Boolean>> ELEMENTO_REVELADO = Registro.DADOS.register(
+            IdsDados.ELEMENTO_REVELADO,
+            () -> AttachmentType.builder(() -> false)
+                    .serialize(Codec.BOOL)
+                    .copyOnDeath()
+                    .build());
+
     private DadosJogador() {}
+
+    /** Elemento do jogador (nenhum se o admin não definiu). Use sistemas.ElementoJogador para mudar. */
+    public static Elemento elemento(Player p) {
+        return p.getData(ELEMENTO);
+    }
+
+    public static boolean elementoRevelado(Player p) {
+        return elemento(p) != Elemento.NENHUM && p.getData(ELEMENTO_REVELADO);
+    }
+
+    /** Grava sem avisar ninguém (o cliente nunca recebe). Quem chama é ElementoJogador. */
+    public static void gravarElemento(Player p, Elemento e, boolean revelado) {
+        Elemento v = e == null ? Elemento.NENHUM : e;
+        p.setData(ELEMENTO, v);
+        p.setData(ELEMENTO_REVELADO, v != Elemento.NENHUM && revelado);
+    }
+
+    public static long criaturaNoite(Player p) {
+        return p.getData(CRIATURA_NOITE);
+    }
+
+    public static void definirCriaturaNoite(Player p, long noite) {
+        p.setData(CRIATURA_NOITE, noite);
+    }
+
+    /** Usos recentes de artefatos (id do item → tempo do mundo). */
+    public static Map<String, Long> usosArtefato(Player p) {
+        return p.getData(ARTEFATO_RECARGA);
+    }
+
+    public static void definirUsosArtefato(Player p, Map<String, Long> usos) {
+        p.setData(ARTEFATO_RECARGA, Map.copyOf(usos));
+    }
 
     /** Força o carregamento da classe, para os registros entrarem antes do evento de registro. */
     public static void iniciar() {}

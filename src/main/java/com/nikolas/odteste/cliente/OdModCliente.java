@@ -47,6 +47,8 @@ public final class OdModCliente {
             }
         });
 
+        ConteudoCliente.iniciar(barramento);
+
         NeoForge.EVENT_BUS.addListener((ClientTickEvent.Post e) -> {
             EfeitosLucidez.aoTick();
             if (ANIMADOR) AnimacaoJogador.aoTick();
