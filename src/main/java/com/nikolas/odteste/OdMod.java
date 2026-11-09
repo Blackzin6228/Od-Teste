@@ -2,6 +2,8 @@ package com.nikolas.odteste;
 
 import com.mojang.logging.LogUtils;
 import com.nikolas.odteste.comandos.ComandosAdmin;
+import com.nikolas.odteste.comandos.ComandosHistoria;
+import com.nikolas.odteste.historia.PrimeiroSinal;
 import com.nikolas.odteste.compat.Compat;
 import com.nikolas.odteste.dados.DadosJogador;
 import com.nikolas.odteste.rede.Rede;
@@ -27,7 +29,9 @@ public final class OdMod {
         Registro.registrar(barramento);
         Rede.iniciar(barramento);
         ComandosAdmin.iniciar();
+        ComandosHistoria.iniciar();
         Vigia.iniciar();
+        PrimeiroSinal.iniciar();
         Compat.iniciar(barramento);
         LOGGER.info("{} carregado. Integrações ligadas: {}", MODID, Compat.ligadas());
     }

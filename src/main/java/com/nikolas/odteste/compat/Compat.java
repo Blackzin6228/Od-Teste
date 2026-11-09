@@ -20,6 +20,8 @@ public final class Compat {
         MEKANISM("mekanism"),
         CREATE("create"),
         CURIOS("curios"),
+        /** Claims de chunk: estrutura e marca da história nunca entram em chunk com dono. */
+        FTB_CHUNKS("ftbchunks"),
         /** Animação do corpo do jogador. Só cliente: usado em cliente/ via compat/playeranimator/. */
         PLAYER_ANIMATOR("playeranimator");
 
