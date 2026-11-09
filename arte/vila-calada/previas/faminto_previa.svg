@@ -1,0 +1,230 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="500" viewBox="0 0 960 500" shape-rendering="crispEdges" font-family="sans-serif">
+  <!-- Prévia do Faminto (Sangue). Desenho próprio, vistas ortográficas na escala do modelo: 1 pixel do Minecraft = 10 px. -->
+  <rect width="960" height="500" fill="#0f0e12"/>
+  <text x="20" y="32" font-size="20" fill="#d8d0bc">Faminto (Sangue) - prévia v1 - modelo faminto.bbmodel</text>
+
+  <!-- ===================== FRENTE ===================== -->
+  <g transform="translate(20,50)">
+    <rect width="300" height="360" fill="#17161c"/>
+    <rect x="0" y="340" width="300" height="20" fill="#1d1b22"/>
+    <ellipse cx="150" cy="341" rx="85" ry="6" fill="#0b0a0e"/>
+    <!-- pernas -->
+    <rect x="115" y="220" width="30" height="120" fill="#3a2f29"/>
+    <rect x="115" y="255" width="30" height="75" fill="#978a76"/>
+    <rect x="128" y="255" width="3" height="75" fill="#7f7364"/>
+    <rect x="115" y="330" width="30" height="10" fill="#5c5246"/>
+    <rect x="155" y="220" width="30" height="120" fill="#3a2f29"/>
+    <rect x="155" y="255" width="30" height="75" fill="#978a76"/>
+    <rect x="168" y="255" width="3" height="75" fill="#7f7364"/>
+    <rect x="155" y="330" width="30" height="10" fill="#5c5246"/>
+    <!-- corpo curvado: topo (inclinado para a frente) e frente -->
+    <rect x="110" y="101" width="80" height="30" fill="#4a3c33"/>
+    <rect x="110" y="101" width="80" height="4" fill="#57473c"/>
+    <rect x="110" y="131" width="80" height="104" fill="#3a2f29"/>
+    <rect x="118" y="131" width="2" height="104" fill="#2f2621"/>
+    <rect x="180" y="131" width="2" height="104" fill="#2f2621"/>
+    <!-- rasgo no manto: costelas -->
+    <rect x="128" y="146" width="44" height="48" fill="#17120f"/>
+    <rect x="130" y="148" width="40" height="44" fill="#978a76"/>
+    <rect x="130" y="157" width="40" height="4" fill="#5c5246"/>
+    <rect x="130" y="170" width="40" height="4" fill="#5c5246"/>
+    <rect x="130" y="183" width="40" height="4" fill="#5c5246"/>
+    <rect x="148" y="148" width="4" height="44" fill="#a3967f"/>
+    <!-- barra rasgada -->
+    <rect x="110" y="225" width="10" height="10" fill="#17120f"/>
+    <rect x="134" y="228" width="12" height="7" fill="#17120f"/>
+    <rect x="166" y="223" width="8" height="12" fill="#17120f"/>
+    <!-- braços longos -->
+    <rect x="80" y="120" width="30" height="40" fill="#3a2f29"/>
+    <rect x="80" y="160" width="30" height="110" fill="#8c806d"/>
+    <rect x="90" y="158" width="10" height="6" fill="#3a2f29"/>
+    <rect x="89" y="166" width="2" height="100" fill="#7f7364"/>
+    <rect x="82" y="203" width="26" height="8" fill="#a3967f"/>
+    <rect x="190" y="120" width="30" height="40" fill="#3a2f29"/>
+    <rect x="190" y="160" width="30" height="110" fill="#8c806d"/>
+    <rect x="200" y="158" width="10" height="6" fill="#3a2f29"/>
+    <rect x="209" y="166" width="2" height="100" fill="#7f7364"/>
+    <rect x="192" y="203" width="26" height="8" fill="#a3967f"/>
+    <!-- mãos de dedos longos -->
+    <rect x="80" y="270" width="30" height="60" fill="#978a76"/>
+    <rect x="80" y="270" width="30" height="6" fill="#a3967f"/>
+    <rect x="89" y="285" width="2" height="45" fill="#3d362f"/>
+    <rect x="99" y="285" width="2" height="45" fill="#3d362f"/>
+    <rect x="80" y="325" width="30" height="5" fill="#6b5a3a"/>
+    <rect x="190" y="270" width="30" height="60" fill="#978a76"/>
+    <rect x="190" y="270" width="30" height="6" fill="#a3967f"/>
+    <rect x="199" y="285" width="2" height="45" fill="#3d362f"/>
+    <rect x="209" y="285" width="2" height="45" fill="#3d362f"/>
+    <rect x="190" y="325" width="30" height="5" fill="#6b5a3a"/>
+    <!-- pescoço esticado -->
+    <rect x="135" y="80" width="30" height="50" fill="#8c806d"/>
+    <rect x="141" y="80" width="3" height="50" fill="#a3967f"/>
+    <rect x="156" y="80" width="3" height="50" fill="#a3967f"/>
+    <!-- boca aberta demais (o único vermelho da peça) -->
+    <rect x="120" y="110" width="60" height="20" fill="#380808"/>
+    <rect x="126" y="120" width="48" height="10" fill="#6e1010"/>
+    <!-- mandíbula caída -->
+    <rect x="115" y="130" width="70" height="26" fill="#978a76"/>
+    <rect x="115" y="150" width="70" height="6" fill="#6e6355"/>
+    <rect x="120" y="128" width="60" height="3" fill="#9a2620"/>
+    <rect x="122" y="124" width="6" height="6" fill="#cbc2a2"/>
+    <rect x="134" y="125" width="6" height="5" fill="#cbc2a2"/>
+    <rect x="152" y="124" width="6" height="6" fill="#cbc2a2"/>
+    <rect x="164" y="125" width="6" height="5" fill="#cbc2a2"/>
+    <rect x="173" y="124" width="5" height="6" fill="#cbc2a2"/>
+    <!-- cabeça: sem olhos, só as órbitas fundas -->
+    <rect x="110" y="30" width="80" height="70" fill="#978a76"/>
+    <rect x="110" y="30" width="80" height="8" fill="#a3967f"/>
+    <rect x="120" y="30" width="20" height="9" fill="#7f7364"/>
+    <rect x="162" y="32" width="10" height="7" fill="#7f7364"/>
+    <rect x="114" y="45" width="72" height="4" fill="#b3a691"/>
+    <rect x="120" y="50" width="20" height="20" fill="#120e0c"/>
+    <rect x="160" y="50" width="20" height="20" fill="#120e0c"/>
+    <rect x="127" y="70" width="2" height="20" fill="#7f7364"/>
+    <rect x="171" y="70" width="2" height="20" fill="#7f7364"/>
+    <rect x="111" y="78" width="12" height="14" fill="#6e6355"/>
+    <rect x="177" y="78" width="12" height="14" fill="#6e6355"/>
+    <!-- dentes de cima, faltando um -->
+    <rect x="120" y="100" width="60" height="10" fill="#cbc2a2"/>
+    <rect x="129" y="100" width="2" height="10" fill="#3d362f"/>
+    <rect x="139" y="100" width="12" height="10" fill="#380808"/>
+    <rect x="159" y="100" width="2" height="10" fill="#3d362f"/>
+    <rect x="169" y="100" width="2" height="10" fill="#3d362f"/>
+    <rect x="120" y="110" width="7" height="4" fill="#cbc2a2"/>
+    <rect x="173" y="110" width="7" height="4" fill="#cbc2a2"/>
+    <!-- nariz murcho -->
+    <rect x="140" y="50" width="20" height="30" fill="#8c806d"/>
+    <rect x="140" y="50" width="6" height="30" fill="#a3967f"/>
+    <rect x="143" y="75" width="5" height="5" fill="#3d362f"/>
+    <rect x="152" y="75" width="5" height="5" fill="#3d362f"/>
+    <text x="10" y="22" font-size="15" fill="#c9c2b0">Frente</text>
+  </g>
+
+  <!-- ===================== LADO (direito) ===================== -->
+  <g transform="translate(330,50)">
+    <rect width="300" height="360" fill="#17161c"/>
+    <rect x="0" y="340" width="300" height="20" fill="#1d1b22"/>
+    <ellipse cx="135" cy="341" rx="100" ry="6" fill="#0b0a0e"/>
+    <!-- perna -->
+    <rect x="85" y="220" width="30" height="120" fill="#2f2621"/>
+    <rect x="85" y="255" width="30" height="75" fill="#7f7364"/>
+    <rect x="85" y="330" width="36" height="10" fill="#5c5246"/>
+    <!-- corpo inclinado 30 graus para a frente -->
+    <g transform="rotate(30,100,220)">
+      <rect x="70" y="100" width="60" height="120" fill="#2f2621"/>
+      <rect x="70" y="100" width="60" height="4" fill="#4a3c33"/>
+      <rect x="88" y="100" width="2" height="120" fill="#261e1a"/>
+      <rect x="103" y="128" width="19" height="44" fill="#17120f"/>
+      <rect x="105" y="130" width="15" height="40" fill="#7f7364"/>
+      <rect x="105" y="138" width="15" height="3" fill="#5c5246"/>
+      <rect x="105" y="150" width="15" height="3" fill="#5c5246"/>
+      <rect x="105" y="162" width="15" height="3" fill="#5c5246"/>
+      <rect x="70" y="212" width="12" height="8" fill="#17120f"/>
+      <rect x="100" y="210" width="10" height="10" fill="#17120f"/>
+    </g>
+    <!-- pescoço -->
+    <rect x="150" y="80" width="40" height="50" fill="#7f7364"/>
+    <rect x="150" y="96" width="40" height="3" fill="#6e6355"/>
+    <!-- fundo da boca -->
+    <rect x="160" y="100" width="60" height="30" fill="#380808"/>
+    <!-- cabeça -->
+    <rect x="150" y="30" width="80" height="70" fill="#7f7364"/>
+    <rect x="150" y="30" width="80" height="8" fill="#8c806d"/>
+    <rect x="160" y="40" width="2" height="55" fill="#6e6355"/>
+    <rect x="180" y="40" width="2" height="55" fill="#6e6355"/>
+    <rect x="204" y="48" width="16" height="16" fill="#6e6355"/>
+    <rect x="198" y="70" width="32" height="6" fill="#978a76"/>
+    <!-- dentes e nariz -->
+    <rect x="220" y="100" width="10" height="10" fill="#cbc2a2"/>
+    <rect x="224" y="110" width="6" height="4" fill="#cbc2a2"/>
+    <rect x="230" y="50" width="10" height="30" fill="#7f7364"/>
+    <rect x="236" y="74" width="4" height="6" fill="#5c5246"/>
+    <!-- mandíbula caída, 30 graus -->
+    <g transform="rotate(30,160,100)">
+      <rect x="160" y="100" width="60" height="30" fill="#7f7364"/>
+      <rect x="160" y="100" width="60" height="4" fill="#9a2620"/>
+      <rect x="206" y="95" width="6" height="5" fill="#cbc2a2"/>
+      <rect x="214" y="95" width="5" height="5" fill="#cbc2a2"/>
+      <rect x="160" y="124" width="60" height="6" fill="#5c5246"/>
+    </g>
+    <!-- braço e mão -->
+    <rect x="140" y="120" width="30" height="40" fill="#2f2621"/>
+    <rect x="140" y="160" width="30" height="110" fill="#7f7364"/>
+    <rect x="150" y="158" width="12" height="6" fill="#2f2621"/>
+    <rect x="154" y="166" width="2" height="100" fill="#6e6355"/>
+    <rect x="140" y="203" width="30" height="8" fill="#8c806d"/>
+    <rect x="145" y="270" width="20" height="60" fill="#7f7364"/>
+    <rect x="145" y="270" width="20" height="6" fill="#8c806d"/>
+    <rect x="154" y="285" width="2" height="45" fill="#3d362f"/>
+    <rect x="145" y="325" width="20" height="5" fill="#6b5a3a"/>
+    <text x="10" y="22" font-size="15" fill="#c9c2b0">Lado (olha para a direita)</text>
+  </g>
+
+  <!-- ===================== COSTAS ===================== -->
+  <g transform="translate(640,50)">
+    <rect width="300" height="360" fill="#17161c"/>
+    <rect x="0" y="340" width="300" height="20" fill="#1d1b22"/>
+    <ellipse cx="150" cy="341" rx="85" ry="6" fill="#0b0a0e"/>
+    <!-- cabeça (atrás da corcunda) -->
+    <rect x="110" y="30" width="80" height="70" fill="#8c806d"/>
+    <rect x="110" y="30" width="80" height="10" fill="#978a76"/>
+    <rect x="125" y="40" width="16" height="10" fill="#7f7364"/>
+    <rect x="165" y="55" width="12" height="12" fill="#7f7364"/>
+    <rect x="110" y="88" width="80" height="3" fill="#6e6355"/>
+    <rect x="135" y="80" width="30" height="25" fill="#8c806d"/>
+    <!-- pernas -->
+    <rect x="115" y="220" width="30" height="120" fill="#352b25"/>
+    <rect x="115" y="255" width="30" height="75" fill="#8c806d"/>
+    <rect x="115" y="330" width="30" height="10" fill="#5c5246"/>
+    <rect x="155" y="220" width="30" height="120" fill="#352b25"/>
+    <rect x="155" y="255" width="30" height="75" fill="#8c806d"/>
+    <rect x="155" y="330" width="30" height="10" fill="#5c5246"/>
+    <!-- corcunda: baixo do manto e costas -->
+    <rect x="110" y="205" width="80" height="30" fill="#1e1815"/>
+    <rect x="110" y="229" width="14" height="6" fill="#17120f"/>
+    <rect x="150" y="231" width="20" height="4" fill="#17120f"/>
+    <rect x="110" y="101" width="80" height="104" fill="#352b25"/>
+    <rect x="110" y="101" width="80" height="4" fill="#4a3c33"/>
+    <rect x="120" y="101" width="2" height="104" fill="#261e1a"/>
+    <rect x="178" y="101" width="2" height="104" fill="#261e1a"/>
+    <!-- rasgo nas costas: a espinha aparece -->
+    <rect x="138" y="110" width="24" height="88" fill="#17120f"/>
+    <rect x="140" y="112" width="20" height="84" fill="#8c806d"/>
+    <rect x="140" y="112" width="2" height="84" fill="#5c5246"/>
+    <rect x="158" y="112" width="2" height="84" fill="#5c5246"/>
+    <rect x="146" y="116" width="8" height="6" fill="#b3a691"/>
+    <rect x="146" y="129" width="8" height="6" fill="#b3a691"/>
+    <rect x="146" y="142" width="8" height="6" fill="#b3a691"/>
+    <rect x="146" y="155" width="8" height="6" fill="#b3a691"/>
+    <rect x="146" y="168" width="8" height="6" fill="#b3a691"/>
+    <rect x="146" y="181" width="8" height="6" fill="#b3a691"/>
+    <!-- braços e mãos -->
+    <rect x="80" y="120" width="30" height="40" fill="#352b25"/>
+    <rect x="80" y="160" width="30" height="110" fill="#8c806d"/>
+    <rect x="84" y="200" width="22" height="10" fill="#a3967f"/>
+    <rect x="80" y="270" width="30" height="60" fill="#8c806d"/>
+    <rect x="89" y="285" width="2" height="45" fill="#3d362f"/>
+    <rect x="99" y="285" width="2" height="45" fill="#3d362f"/>
+    <rect x="190" y="120" width="30" height="40" fill="#352b25"/>
+    <rect x="190" y="160" width="30" height="110" fill="#8c806d"/>
+    <rect x="194" y="200" width="22" height="10" fill="#a3967f"/>
+    <rect x="190" y="270" width="30" height="60" fill="#8c806d"/>
+    <rect x="199" y="285" width="2" height="45" fill="#3d362f"/>
+    <rect x="209" y="285" width="2" height="45" fill="#3d362f"/>
+    <text x="10" y="22" font-size="15" fill="#c9c2b0">Costas</text>
+  </g>
+
+  <!-- ===================== PALETA ===================== -->
+  <g transform="translate(20,428)" font-size="13" fill="#c9c2b0">
+    <text x="0" y="14">Paleta:</text>
+    <rect x="60" y="2" width="16" height="16" fill="#b3a691"/><rect x="78" y="2" width="16" height="16" fill="#978a76"/><rect x="96" y="2" width="16" height="16" fill="#7f7364"/><rect x="114" y="2" width="16" height="16" fill="#5c5246"/>
+    <text x="136" y="14">pele esticada</text>
+    <rect x="240" y="2" width="16" height="16" fill="#4a3c33"/><rect x="258" y="2" width="16" height="16" fill="#3a2f29"/><rect x="276" y="2" width="16" height="16" fill="#1e1815"/>
+    <text x="298" y="14">manto queimado</text>
+    <rect x="420" y="2" width="16" height="16" fill="#cbc2a2"/>
+    <text x="442" y="14">dentes</text>
+    <rect x="500" y="2" width="16" height="16" fill="#9a2620"/><rect x="518" y="2" width="16" height="16" fill="#6e1010"/><rect x="536" y="2" width="16" height="16" fill="#380808"/>
+    <text x="558" y="14">acento: o vermelho só na boca</text>
+    <text x="0" y="44">Aldeão curvado, sem olhos (o Sangue come os olhos primeiro), boca aberta demais, mãos quase no chão. Altura: 31 px (quase 2 blocos).</text>
+  </g>
+</svg>

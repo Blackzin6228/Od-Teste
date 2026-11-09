@@ -1,0 +1,218 @@
+{
+  "estrutura": "vila_calada",
+  "tamanho": [
+    100,
+    27,
+    100
+  ],
+  "origem": "canto noroeste de baixo (x leste, y cima, z sul); a camada y 0 assenta em cima do terreno",
+  "pistas": [
+    {
+      "pos": [
+        62,
+        18,
+        31
+      ],
+      "tipo": "atril",
+      "nota": "LIVRO DO SINEIRO: atril no alto do campanário, ao pé do sino. Abrir = o sino toca uma vez, fraco."
+    },
+    {
+      "pos": [
+        61,
+        18,
+        31
+      ],
+      "tipo": "martelo",
+      "nota": "Martelo do ferreiro ao lado do atril (item do mod ou moldura; o schematic não guarda item)."
+    },
+    {
+      "pos": [
+        60,
+        19,
+        32
+      ],
+      "tipo": "sino",
+      "nota": "Sino rachado, torto na viga quebrada. Toca de noite (som do mod)."
+    },
+    {
+      "pos": [
+        60,
+        19,
+        34
+      ],
+      "tipo": "vao",
+      "nota": "Vão quebrado do campanário (sul do arquivo): girar a vila ao colocar para ele apontar a vila comum."
+    },
+    {
+      "pos": [
+        49,
+        4,
+        21
+      ],
+      "tipo": "vela",
+      "nota": "A ÚNICA VELA ACESA da vila, na mesa da capela: refúgio (Lucidez volta; Famintos não entram)."
+    },
+    {
+      "pos": [
+        49,
+        3,
+        22
+      ],
+      "tipo": "cadeira",
+      "nota": "A cadeira a mais, virada para a porta."
+    },
+    {
+      "pos": [
+        49,
+        0,
+        53
+      ],
+      "tipo": "bau",
+      "nota": "Nicho no fundo do poço (descida pela escada): baú de mantimentos (pão, maçã)."
+    },
+    {
+      "pos": [
+        49,
+        1,
+        53
+      ],
+      "tipo": "cruz",
+      "nota": "Cruz de Ferro riscada na pedra, em cima do nicho (bloco cinzelado; desenho nosso pendente)."
+    },
+    {
+      "pos": [
+        47,
+        3,
+        58
+      ],
+      "tipo": "placa",
+      "nota": "Placa na beira do poço: \"Aqui ele ouvia.\" (texto posto pelo mod/admin)."
+    },
+    {
+      "pos": [
+        29,
+        2,
+        60
+      ],
+      "tipo": "botoes",
+      "nota": "Casa da Moça do Terço: botões de pedra no peitoril (z 60 a 65, do mais velho ao mais novo). O vazio da ponta é z 66."
+    },
+    {
+      "pos": [
+        74,
+        1,
+        47
+      ],
+      "tipo": "bigorna",
+      "nota": "Casa do ferreiro: bigorna rachada, forja apagada. Falta o martelo (está no campanário)."
+    },
+    {
+      "pos": [
+        85,
+        1,
+        79
+      ],
+      "tipo": "cama",
+      "nota": "Casa do Compadre: a única cama limpa, de lençol branco. Travesseiro marcado com {marcado} para Exposição alta."
+    },
+    {
+      "pos": [
+        81,
+        1,
+        76
+      ],
+      "tipo": "mesa",
+      "nota": "Casa do Compadre: mesa comprida posta para muita gente, pratos vazios."
+    },
+    {
+      "pos": [
+        84,
+        1,
+        30
+      ],
+      "tipo": "cama",
+      "nota": "Cama manchada (lençol vermelho), mancha e arrasto até a porta oeste."
+    },
+    {
+      "pos": [
+        51,
+        3,
+        8
+      ],
+      "tipo": "lapide",
+      "nota": "Cemitério: a lápide com o risco da Cruz de Ferro (bloco cinzelado). Covas abertas, nenhum corpo."
+    },
+    {
+      "pos": [
+        7,
+        2,
+        14
+      ],
+      "tipo": "estandarte",
+      "nota": "Curral: estandartes vermelhos lisos (trocar pelo da Cruz de Ferro quando desenhado). Cheiro de ferro mais forte aqui."
+    },
+    {
+      "pos": [
+        43,
+        1,
+        49
+      ],
+      "tipo": "poca",
+      "nota": "Praça: poça que pulsa (partícula rala; parado nela perde Lucidez). Outras: (56, 1, 62) e (41, 1, 60)."
+    },
+    {
+      "pos": [
+        20,
+        1,
+        18
+      ],
+      "tipo": "poca",
+      "nota": "Curral: valas com vermelho (poças que pulsam)."
+    },
+    {
+      "pos": [
+        40,
+        1,
+        94
+      ],
+      "tipo": "espantalho",
+      "nota": "Campo queimado da entrada: espantalho de cabeça para baixo. Pegadas de cinza na estrada, todas para dentro."
+    },
+    {
+      "pos": [
+        14,
+        1,
+        48
+      ],
+      "tipo": "faminto",
+      "nota": "Lugar de Faminto parado, de frente para a parede (dia)."
+    },
+    {
+      "pos": [
+        84,
+        1,
+        16
+      ],
+      "tipo": "faminto",
+      "nota": "Lugar de Faminto parado, de frente para a parede (dia)."
+    },
+    {
+      "pos": [
+        28,
+        1,
+        77
+      ],
+      "tipo": "faminto",
+      "nota": "Lugar de Faminto parado, de frente para a parede (dia)."
+    },
+    {
+      "pos": [
+        73,
+        1,
+        30
+      ],
+      "tipo": "faminto",
+      "nota": "Lugar de Faminto parado (casa queimada)."
+    }
+  ]
+}

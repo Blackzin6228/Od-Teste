@@ -17,8 +17,9 @@ de desfazer: tudo sai com `/odteste evento desfazer` e os textos e números muda
    para quem está a até 96 blocos; longe, ele sai de um ponto perto do jogador na direção do sino, para ser ouvido de
    longe sem passar do volume 0,7. Os aldeões não "ouvem" o sino de verdade (o sino só balança na tela).
 6. **Lucidez:** ouvir a sequência inteira a até 12 blocos tira 4 de Lucidez, no máximo uma vez a cada 5 minutos.
-7. **Estrutura por comando:** `/odteste estrutura prever` antes de `colocar` (vale 5 min); se não cabe, procura outro
-   ponto até 32 blocos; no máximo 16.384 blocos; desfazer só devolve o original onde ainda está o bloco que pusemos.
+7. **Estrutura por comando:** `/odteste estrutura prever` antes de `colocar` (vale 5 min); se não cabe, **não coloca**:
+   mostra um ponto sugerido até 32 blocos e o admin confere com um `prever` lá (correção de 2026-11-09, revisão do
+   PR #22); no máximo 16.384 blocos; desfazer só devolve o original onde ainda está o bloco que pusemos.
 8. **Claims do FTB Chunks:** se o mod estiver no pack, chunk com dono barra tudo. Se a leitura do claim falhar,
    conta como protegido (na dúvida, não coloca).
 

@@ -85,11 +85,19 @@ public final class RegrasAto1 {
     }
 
     /**
-     * A placa diz a palavra? Junta as linhas (frente e verso), tira acento, espaço e pontuação, ignora
+     * Um lado da placa diz a palavra? Junta as linhas desse lado, tira acento, espaço e pontuação, ignora
      * maiúscula. "ferro", "F E R R O" e "Ferro." valem; "FERROS" não.
      */
     public static boolean placaCerta(List<String> linhas, String palavra) {
         return juntar(linhas).equals(Morse.limpar(palavra).replace(" ", ""));
+    }
+
+    /**
+     * A placa diz a palavra na frente <b>ou</b> no verso? Cada lado vale sozinho: quem clica pelo lado do baú
+     * escreve no verso, e o outro lado pode ter qualquer coisa.
+     */
+    public static boolean placaCerta(List<String> frente, List<String> verso, String palavra) {
+        return placaCerta(frente, palavra) || placaCerta(verso, palavra);
     }
 
     /** O que está escrito na placa, só letras e números, em maiúsculas. Vazio se a placa está em branco. */
