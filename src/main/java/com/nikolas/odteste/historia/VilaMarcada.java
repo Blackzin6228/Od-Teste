@@ -85,12 +85,17 @@ public final class VilaMarcada {
         return t;
     }
 
+    /**
+     * @return a vila, ou null se o arquivo não tem a posição do sino (sem ela, o evento tocaria sino e pararia
+     *         aldeões perto de 0,0). Quem chama guarda a vila crua para não perder o aldeão nem o backup.
+     */
     public static VilaMarcada carregar(CompoundTag t) {
         ResourceLocation dim = ResourceLocation.tryParse(t.getString("dim"));
         BlockPos sino = pos(t, "sino");
+        if (sino == null) return null;
         VilaMarcada v = new VilaMarcada(t.getString("grupo"),
                 ResourceKey.create(Registries.DIMENSION, dim == null ? Level.OVERWORLD.location() : dim),
-                sino == null ? BlockPos.ZERO : sino, Backup.carregar(t.getCompound("blocos")));
+                sino, Backup.carregar(t.getCompound("blocos")));
         v.nota = pos(t, "nota");
         v.bau = pos(t, "bau");
         v.placa = pos(t, "placa");
