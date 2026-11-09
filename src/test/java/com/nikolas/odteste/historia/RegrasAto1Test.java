@@ -62,6 +62,18 @@ class RegrasAto1Test {
     }
 
     @Test
+    void placaValeNaFrenteOuNoVerso() {
+        List<String> vazio = List.of("", "", "", "");
+        assertTrue(RegrasAto1.placaCerta(List.of("ferro", "", "", ""), vazio, "FERRO"), "só na frente");
+        assertTrue(RegrasAto1.placaCerta(vazio, List.of("", "FERRO", "", ""), "FERRO"), "só no verso");
+        assertTrue(RegrasAto1.placaCerta(List.of("oi", "", "", ""), List.of("ferro", "", "", ""), "FERRO"),
+                "verso certo vale mesmo com a frente rabiscada");
+        assertFalse(RegrasAto1.placaCerta(List.of("FER", "", "", ""), List.of("RO", "", "", ""), "FERRO"),
+                "metade em cada lado não vale");
+        assertFalse(RegrasAto1.placaCerta(vazio, vazio, "FERRO"));
+    }
+
+    @Test
     void lucidezSoCaiOuvindoTudoDePertoEComEspera() {
         long espera = RegrasAto1.ESPERA_PERDA_TICKS;
         assertFalse(RegrasAto1.perdeLucidez(false, 1000, -1), "de longe não tira");

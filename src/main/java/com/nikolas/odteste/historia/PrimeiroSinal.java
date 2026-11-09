@@ -689,10 +689,16 @@ public final class PrimeiroSinal {
 
     private static void lerPlaca(MinecraftServer s, ServerLevel nivel, VilaMarcada v, DadosHistoria d) {
         if (!(nivel.getBlockEntity(v.placa) instanceof SignBlockEntity placa)) return;
-        List<String> linhas = new ArrayList<>(4);
-        for (int i = 0; i < 4; i++) linhas.add(placa.getFrontText().getMessage(i, false).getString());
-        String escrito = RegrasAto1.juntar(linhas);
-        if (RegrasAto1.placaCerta(linhas, RegrasAto1.PALAVRA)) {
+        List<String> frente = new ArrayList<>(4);
+        List<String> verso = new ArrayList<>(4);
+        for (int i = 0; i < 4; i++) {
+            frente.add(placa.getFrontText().getMessage(i, false).getString());
+            verso.add(placa.getBackText().getMessage(i, false).getString());
+        }
+        String f = RegrasAto1.juntar(frente);
+        String b = RegrasAto1.juntar(verso);
+        String escrito = f.isEmpty() && b.isEmpty() ? "" : f + "|" + b;
+        if (RegrasAto1.placaCerta(frente, verso, RegrasAto1.PALAVRA)) {
             resolver(s, nivel, v, d);
         } else if (!escrito.isEmpty() && !escrito.equals(ULTIMA_PLACA.get(v.grupo))) {
             // Palavra errada: o baú só range, trancado.
