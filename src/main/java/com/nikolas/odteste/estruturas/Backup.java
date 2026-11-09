@@ -2,6 +2,7 @@ package com.nikolas.odteste.estruturas;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -12,9 +13,15 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Clearable;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 /**
  * O que estava no mundo antes de a história pôr blocos: posição, bloco original e bloco que pusemos.
@@ -54,13 +61,70 @@ public final class Backup {
         colocados.add(indice(colocado));
     }
 
+    /** Esquece as anotações de uma posição (o bloco voltou ao que era sem o desfazer). */
+    void esquecer(BlockPos p) {
+        long l = p.asLong();
+        for (int i = posicoes.size() - 1; i >= 0; i--) {
+            if (posicoes.get(i) == l) {
+                posicoes.remove(i);
+                originais.remove(i);
+                colocados.remove(i);
+            }
+        }
+    }
+
+    /** A outra metade de um bloco de duas metades (planta alta, porta), ou null se o bloco não tem metade. */
+    public static BlockPos outraMetade(BlockPos p, BlockState st) {
+        if (!st.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)) return null;
+        return st.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? p.above() : p.below();
+    }
+
     /**
-     * Devolve os blocos originais, do último colocado para o primeiro (placa e estandarte saem antes do apoio).
-     * Esvazia baú nosso antes de tirar (para não espalhar item no chão).
-     * @return quantos blocos ficaram como estão porque um jogador já tinha mexido
+     * Se em {@code p} há metade de um bloco de duas metades, tira a outra metade sem soltar item e anota no backup:
+     * no desfazer as duas voltam inteiras. Chame antes de trocar {@code p}.
+     * @return onde estava a outra metade, ou null se não havia
      */
-    public int restaurar(ServerLevel nivel) {
+    public BlockPos tirarOutraMetade(ServerLevel nivel, BlockPos p, BlockState st) {
+        BlockPos outra = outraMetade(p, st);
+        if (outra == null) return null;
+        BlockState so = nivel.getBlockState(outra);
+        if (!so.is(st.getBlock()) || !so.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)
+                || so.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == st.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF)) {
+            return null;
+        }
+        BlockState ar = Blocks.AIR.defaultBlockState();
+        nivel.setBlock(outra, ar, SEM_VIZINHOS);
+        anotar(outra, so, ar);
+        return outra;
+    }
+
+    /** Põe um bloco e anota. Planta de duas metades no lugar sai inteira (e volta inteira no desfazer). */
+    public void colocar(ServerLevel nivel, BlockPos p, BlockState novo) {
+        BlockState antes = nivel.getBlockState(p);
+        tirarOutraMetade(nivel, p, antes);
+        nivel.setBlock(p, novo, Block.UPDATE_ALL);
+        anotar(p, antes, nivel.getBlockState(p));
+    }
+
+    /** Troca o bloco avisando os jogadores, mas sem os vizinhos reagirem (planta e placa não caem no meio). */
+    static final int SEM_VIZINHOS = Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE;
+
+    /**
+     * Como foi o desfazer: blocos mantidos porque um jogador mexeu, e itens de jogador que estavam nos nossos baús
+     * e foram soltos no chão (onde: a primeira posição, ou null).
+     */
+    public record Restauracao(int mantidos, int itensSoltos, BlockPos ondeSoltou) {}
+
+    /**
+     * Devolve os blocos originais, do último colocado para o primeiro. Os vizinhos só reagem no fim, com tudo
+     * no lugar: placa, estandarte e planta de duas metades não caem no meio do caminho.
+     * Baú nosso: o que for peça de história ({@code descartar}) sai; o resto é de jogador e cai no chão.
+     */
+    public Restauracao restaurar(ServerLevel nivel, Predicate<ItemStack> descartar) {
         int mantidos = 0;
+        int soltos = 0;
+        BlockPos onde = null;
+        List<BlockPos> trocados = new ArrayList<>();
         for (int i = posicoes.size() - 1; i >= 0; i--) {
             BlockPos p = BlockPos.of(posicoes.get(i));
             BlockState agora = nivel.getBlockState(p);
@@ -70,10 +134,37 @@ public final class Backup {
                 continue;
             }
             BlockEntity be = nivel.getBlockEntity(p);
+            if (be instanceof Container c) {
+                int n = soltarItens(nivel, p, c, descartar);
+                if (n > 0 && onde == null) onde = p;
+                soltos += n;
+            }
             if (be != null) Clearable.tryClear(be);
-            nivel.setBlock(p, paleta.get(originais.get(i)), Block.UPDATE_ALL);
+            nivel.setBlock(p, paleta.get(originais.get(i)), SEM_VIZINHOS);
+            trocados.add(p);
         }
-        return mantidos;
+        for (BlockPos p : trocados) {
+            BlockState st = nivel.getBlockState(p);
+            st.updateNeighbourShapes(nivel, p, Block.UPDATE_ALL);
+            nivel.blockUpdated(p, st.getBlock());
+        }
+        return new Restauracao(mantidos, soltos, onde);
+    }
+
+    /**
+     * Esvazia um baú: o que {@code descartar} aceita some, o resto cai no chão em cima do baú.
+     * @return quantas pilhas caíram
+     */
+    public static int soltarItens(ServerLevel nivel, BlockPos p, Container c, Predicate<ItemStack> descartar) {
+        int soltos = 0;
+        for (int s = 0; s < c.getContainerSize(); s++) {
+            ItemStack it = c.removeItemNoUpdate(s);
+            if (it.isEmpty() || descartar.test(it)) continue;
+            Containers.dropItemStack(nivel, p.getX() + 0.5, p.getY() + 1.0, p.getZ() + 0.5, it);
+            soltos++;
+        }
+        c.setChanged();
+        return soltos;
     }
 
     public CompoundTag salvar() {

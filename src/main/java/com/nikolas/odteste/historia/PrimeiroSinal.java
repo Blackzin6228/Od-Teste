@@ -11,10 +11,12 @@ import com.nikolas.odteste.sistemas.Lucidez;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -28,8 +30,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.protocol.game.ClientboundBlockEventPacket;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,17 +41,24 @@ import net.minecraft.server.network.Filterable;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.HoneycombItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
@@ -67,16 +78,21 @@ import net.minecraft.world.level.block.entity.BannerPatterns;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
+import net.minecraft.world.level.block.entity.SignText;
+import net.minecraft.world.level.block.piston.PistonStructureResolver;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RotationSegment;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.ExplosionEvent;
+import net.neoforged.neoforge.event.level.PistonEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
@@ -110,6 +126,15 @@ public final class PrimeiroSinal {
     private static final Map<UUID, Long> ULTIMA_PERDA = new HashMap<>();
     private static final Map<String, String> ULTIMA_PLACA = new HashMap<>();
     private static final Map<UUID, Integer> ULTIMA_FRASE = new HashMap<>();
+    /**
+     * Aldeões parados olhando o sino, por grupo. Só memória: o freio é um modificador temporário de velocidade
+     * (o jogo não salva) e o dano é barrado por evento. Nada disso vai para o disco, então chunk descarregado,
+     * salvamento automático, crash ou o mod sair do pack nunca deixam aldeão travado.
+     */
+    private static final Map<String, List<Villager>> PARADOS = new HashMap<>();
+    private static final Set<UUID> PARADOS_IDS = new HashSet<>();
+    static final ResourceLocation MODIFICADOR_PARADO =
+            ResourceLocation.fromNamespaceAndPath(OdMod.MODID, IdsHistoria.MODIFICADOR_ALDEAO_PARADO);
     private static DadosHistoria cache;
 
     private PrimeiroSinal() {}
@@ -120,7 +145,10 @@ public final class PrimeiroSinal {
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoClicarBloco);
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoQuebrar);
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoExplodir);
+        NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoPistao);
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoEntrarNoMundo);
+        NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoSairDoMundo);
+        NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoLevarDano);
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedInEvent e) -> {
             if (e.getEntity() instanceof ServerPlayer p) {
                 DadosHistoria d = dados(p.server);
@@ -133,13 +161,14 @@ public final class PrimeiroSinal {
             }
         });
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> ULTIMA_FRASE.remove(e.getEntity().getUUID()));
-        // Ao desligar, os aldeões parados voltam ao normal antes de salvar: se um dia o mod sair do pack,
-        // nenhum aldeão fica preso sem IA no mundo.
+        // Ao desligar, os aldeões parados voltam ao normal (o freio já não é salvo; isto é capricho) e os que a
+        // versão antiga deixou com NoAI também voltam antes de salvar.
         NeoForge.EVENT_BUS.addListener((ServerStoppingEvent e) -> {
-            if (cache == null) return;
-            for (VilaMarcada v : cache.vilas.values()) {
+            for (String g : new ArrayList<>(PARADOS.keySet())) liberar(g);
+            DadosHistoria d = dados(e.getServer());
+            for (VilaMarcada v : d.vilas.values()) {
                 ServerLevel nivel = e.getServer().getLevel(v.dimensao);
-                if (nivel != null && !v.congelados.isEmpty()) descongelar(nivel, v, cache);
+                if (nivel != null && !v.congelados.isEmpty()) devolverAntigos(nivel, v, d);
             }
         });
         NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> {
@@ -147,6 +176,8 @@ public final class PrimeiroSinal {
             ULTIMA_PERDA.clear();
             ULTIMA_PLACA.clear();
             ULTIMA_FRASE.clear();
+            PARADOS.clear();
+            PARADOS_IDS.clear();
             cache = null;
         });
     }
@@ -222,6 +253,8 @@ public final class PrimeiroSinal {
                 .setValue(StandingSignBlock.ROTATION, RotationSegment.convertToSegment(frente)));
         v.bau = bau;
         v.placa = placa;
+        v.apoioPlaca = placa.below();
+        v.apoioPlacaBloco = semDados(nivel.getBlockState(v.apoioPlaca));
 
         // Estandarte numa parede, de preferência dentro de uma casa (opcional: sem parede livre, segue sem ele).
         Optional<BlockPos[]> parede = acharParede(mundo, sino);
@@ -232,6 +265,8 @@ public final class PrimeiroSinal {
             colocar(nivel, blocos, pf[0], st);
             pintarEstandarte(nivel, pf[0]);
             v.estandarte = pf[0];
+            v.apoioEstandarte = pf[0].relative(f.getOpposite());
+            v.apoioEstandarteBloco = semDados(nivel.getBlockState(v.apoioEstandarte));
         }
 
         // Um aldeão some. A cama dele fica (e mancha).
@@ -388,9 +423,89 @@ public final class PrimeiroSinal {
     }
 
     private static void colocar(ServerLevel nivel, Backup b, BlockPos p, BlockState st) {
-        BlockState antes = nivel.getBlockState(p);
-        nivel.setBlock(p, st, Block.UPDATE_ALL);
-        b.anotar(p, antes, nivel.getBlockState(p));
+        b.colocar(nivel, p, st);
+    }
+
+    /** Bloco de apoio que dá para repor igual: sem dados (baú, máquina) e não ar. Senão, null. */
+    private static BlockState semDados(BlockState s) {
+        return s.isAir() || s.hasBlockEntity() || !s.getFluidState().isEmpty() ? null : s;
+    }
+
+    // ------------------------------------------------------------------ proteção do enigma
+
+    /**
+     * Se uma peça do enigma sumiu (apoio quebrado por algo que não é jogador, máquina de outro mod, água...),
+     * põe de volta no mesmo lugar. Só ocupa lugar livre (ar ou planta, sem claim): nunca quebra o que alguém pôs.
+     * O apoio que sumiu volta como o bloco da vila que era. Roda uma vez por segundo, só com jogador perto e
+     * enquanto o enigma não foi resolvido: poucas leituras de bloco.
+     */
+    private static void recolocar(ServerLevel nivel, VilaMarcada v, DadosHistoria d) {
+        MundoReal mundo = new MundoReal(nivel);
+        lembrarApoios(nivel, mundo, v, d);
+        if (v.nota != null) repor(nivel, mundo, v, v.nota, Blocks.NOTE_BLOCK.defaultBlockState(), null, null);
+        if (v.bau == null) return;
+        Direction frente = direcaoPara(v.bau, v.sino);
+        repor(nivel, mundo, v, v.bau, Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, frente), null, null);
+        if (v.placa != null) {
+            repor(nivel, mundo, v, v.placa, Blocks.OAK_SIGN.defaultBlockState()
+                    .setValue(StandingSignBlock.ROTATION, RotationSegment.convertToSegment(frente)),
+                    v.apoioDaPlaca(), v.apoioPlacaBloco);
+        }
+        if (v.estandarte != null && v.apoioEstandarte != null) {
+            Direction f = null;
+            for (Direction h : Direction.Plane.HORIZONTAL) {
+                if (v.apoioEstandarte.relative(h).equals(v.estandarte)) f = h;
+            }
+            if (f != null) {
+                BlockState st = Blocks.BLACK_WALL_BANNER.defaultBlockState().setValue(WallBannerBlock.FACING, f);
+                if (repor(nivel, mundo, v, v.estandarte, st, v.apoioEstandarte, v.apoioEstandarteBloco)) {
+                    pintarEstandarte(nivel, v.estandarte);
+                }
+            }
+        }
+    }
+
+    /** Mundo da versão antiga: anota os apoios na primeira vez que o mod os vê no lugar. */
+    private static void lembrarApoios(ServerLevel nivel, MundoReal mundo, VilaMarcada v, DadosHistoria d) {
+        if (v.placa != null && v.apoioPlaca == null) {
+            v.apoioPlaca = v.placa.below();
+            d.setDirty();
+        }
+        if (v.apoioPlaca != null && v.apoioPlacaBloco == null && mundo.carregado(v.apoioPlaca.getX(), v.apoioPlaca.getZ())
+                && mundo.firme(v.apoioPlaca)) {
+            v.apoioPlacaBloco = semDados(nivel.getBlockState(v.apoioPlaca));
+            if (v.apoioPlacaBloco != null) d.setDirty();
+        }
+        if (v.estandarte != null && v.apoioEstandarte == null && mundo.carregado(v.estandarte.getX(), v.estandarte.getZ())) {
+            BlockState b = nivel.getBlockState(v.estandarte);
+            if (b.getBlock() instanceof WallBannerBlock) {
+                v.apoioEstandarte = v.estandarte.relative(b.getValue(WallBannerBlock.FACING).getOpposite());
+                d.setDirty();
+            }
+        }
+        if (v.apoioEstandarte != null && v.apoioEstandarteBloco == null
+                && mundo.carregado(v.apoioEstandarte.getX(), v.apoioEstandarte.getZ())) {
+            v.apoioEstandarteBloco = semDados(nivel.getBlockState(v.apoioEstandarte));
+            if (v.apoioEstandarteBloco != null) d.setDirty();
+        }
+    }
+
+    /** Põe {@code nosso} em {@code p} se ele sumiu e o lugar está livre (e o apoio, se faltar). @return se pôs */
+    private static boolean repor(ServerLevel nivel, MundoReal mundo, VilaMarcada v, BlockPos p, BlockState nosso,
+                                 BlockPos apoio, BlockState blocoApoio) {
+        if (!mundo.carregado(p.getX(), p.getZ())) return false;
+        BlockState agora = nivel.getBlockState(p);
+        if (agora.is(nosso.getBlock()) || !mundo.tipo(p).livre) return false;
+        if (apoio != null && !nosso.canSurvive(nivel, p)) {
+            if (blocoApoio == null || !mundo.tipo(apoio).livre) return false;
+            nivel.setBlock(apoio, blocoApoio, Block.UPDATE_ALL);
+        }
+        if (!nosso.canSurvive(nivel, p)) return false;
+        v.blocos.tirarOutraMetade(nivel, p, agora);
+        nivel.setBlock(p, nosso, Block.UPDATE_ALL);
+        OdMod.LOGGER.info("Primeiro Sinal: {} do grupo {} tinha sumido e voltou em {}",
+                BuiltInRegistries.BLOCK.getKey(nosso.getBlock()), v.grupo, p.toShortString());
+        return true;
     }
 
     /** Símbolo provisório (cruz vermelha com centro preto) até o Modelador desenhar a Cruz de Ferro. */
@@ -448,13 +563,33 @@ public final class PrimeiroSinal {
         List<BlockPos> conferir = new ArrayList<>(v.blocos.posicoes());
         conferir.add(v.sino);
         if (v.cama != null) conferir.add(v.cama);
+        BlockPos ondeAldeao = v.aldeao == null ? null : posicaoSalva(v.aldeao);
+        if (ondeAldeao != null) conferir.add(ondeAldeao);
         for (BlockPos p : conferir) {
             if (!nivel.hasChunk(p.getX() >> 4, p.getZ() >> 4)) {
                 return Resposta.erro("odteste.evento.erro.descarregado", p.getX(), p.getY(), p.getZ());
             }
         }
 
-        int mantidos = v.blocos.restaurar(nivel);
+        // O aldeão volta primeiro. Se não voltar, nada muda: a vila e o aldeão salvo ficam para tentar de novo.
+        boolean voltou = false;
+        if (v.aldeao != null) {
+            Entity e = EntityType.loadEntityRecursive(v.aldeao.copy(), nivel, x -> x);
+            if (e != null) {
+                if (nivel.getEntity(e.getUUID()) != null) e.setUUID(UUID.randomUUID());
+                voltou = nivel.addFreshEntity(e);
+            }
+            if (!voltou) {
+                OdMod.LOGGER.warn("Primeiro Sinal: o aldeão do grupo {} não voltou no desfazer; a vila fica marcada", v.grupo);
+                BlockPos p = ondeAldeao == null ? v.sino : ondeAldeao;
+                return Resposta.erro("odteste.evento.erro.aldeao_nao_voltou", v.grupo, p.getX(), p.getY(), p.getZ());
+            }
+        }
+
+        Backup.Restauracao rest = v.blocos.restaurar(nivel, PrimeiroSinal::ehPeca);
+        int mantidos = rest.mantidos();
+        liberar(v.grupo);
+        // Aldeões que a versão antiga deixou com NoAI salvo: voltam agora ou quando o chunk carregar.
         for (Map.Entry<UUID, Integer> e : v.congelados.entrySet()) {
             if (nivel.getEntity(e.getKey()) instanceof Villager a) {
                 devolver(a, e.getValue());
@@ -462,21 +597,78 @@ public final class PrimeiroSinal {
                 d.descongelarDepois.put(e.getKey(), e.getValue());
             }
         }
-        boolean voltou = false;
-        if (v.aldeao != null) {
-            Entity e = EntityType.loadEntityRecursive(v.aldeao, nivel, x -> x);
-            if (e != null) {
-                if (nivel.getEntity(e.getUUID()) != null) e.setUUID(UUID.randomUUID());
-                voltou = nivel.addFreshEntity(e);
-            }
-        }
         for (String m : v.marcosDados) d.grupos.desmarcar(v.grupo, m);
         d.vilas.remove(v.grupo);
         OUVINTES.remove(v.grupo);
         ULTIMA_PLACA.remove(v.grupo);
         d.setDirty();
-        return new Resposta(true, Component.translatable("odteste.evento.desfazer.ok", v.grupo, mantidos,
-                Component.translatable(v.aldeao == null ? "odteste.evento.nao" : voltou ? "odteste.evento.sim" : "odteste.evento.falhou")));
+        MutableComponent msg = Component.translatable("odteste.evento.desfazer.ok", v.grupo, mantidos,
+                Component.translatable(v.aldeao == null ? "odteste.evento.nao" : voltou ? "odteste.evento.sim" : "odteste.evento.falhou"));
+        return new Resposta(true, comItensSoltos(msg, rest.itensSoltos(), rest.ondeSoltou()));
+    }
+
+    /** Junta à resposta do admin o aviso de itens de jogador soltos no chão (se houve). */
+    public static MutableComponent comItensSoltos(MutableComponent msg, int soltos, BlockPos onde) {
+        if (soltos <= 0 || onde == null) return msg;
+        return msg.append(" ").append(Component.translatable("odteste.historia.itens_soltos",
+                soltos, onde.getX(), onde.getY(), onde.getZ()));
+    }
+
+    /** Item é peça de história nossa (livro, mapa)? O desfazer tira essas do baú; o resto é do jogador. */
+    public static boolean ehPeca(ItemStack it) {
+        CustomData cd = it.get(DataComponents.CUSTOM_DATA);
+        return cd != null && cd.contains(IdsHistoria.CHAVE_PECA);
+    }
+
+    /**
+     * Tranca de novo só o Enigma 1 (play test, ou grupo que precisa refazer): placa em branco dos dois lados,
+     * baú trancado e sem as peças de história, e o marco {@code enigma_sino} sai (se foi este evento que deu).
+     * O resto do Primeiro Sinal (sino, aldeões, aldeão sumido) continua. Itens de jogador no baú caem no chão.
+     * Funciona também com o enigma ainda trancado (placa encerada ou rabiscada).
+     */
+    public static Resposta retrancar(MinecraftServer s, String nomeGrupo) {
+        DadosHistoria d = dados(s);
+        VilaMarcada v = Grupos.normalizar(nomeGrupo).map(d.vilas::get).orElse(null);
+        if (v == null) return Resposta.erro("odteste.evento.erro.nada_para_desfazer", nomeGrupo);
+        // Também com o enigma ainda trancado: limpa a placa e tira a cera (placa travada por favo de mel).
+        ServerLevel nivel = s.getLevel(v.dimensao);
+        if (nivel == null) return Resposta.erro("odteste.evento.erro.dimensao");
+        for (BlockPos p : new BlockPos[] {v.bau, v.placa}) {
+            if (p != null && !nivel.hasChunk(p.getX() >> 4, p.getZ() >> 4)) {
+                return Resposta.erro("odteste.evento.erro.descarregado", p.getX(), p.getY(), p.getZ());
+            }
+        }
+        int[] pecas = {0};
+        int soltos = 0;
+        if (v.bau != null && nivel.getBlockEntity(v.bau) instanceof ChestBlockEntity bau) {
+            soltos = Backup.soltarItens(nivel, v.bau, bau, it -> {
+                if (!ehPeca(it)) return false;
+                pecas[0]++;
+                return true;
+            });
+        }
+        if (v.placa != null && nivel.getBlockEntity(v.placa) instanceof SignBlockEntity placa) {
+            placa.setText(new SignText(), true);
+            placa.setText(new SignText(), false);
+            placa.setWaxed(false);
+            placa.setChanged();
+            BlockState st = nivel.getBlockState(v.placa);
+            nivel.sendBlockUpdated(v.placa, st, st, Block.UPDATE_ALL);
+        }
+        v.resolvido = false;
+        if (v.marcosDados.remove(IdsHistoria.MARCO_ENIGMA_SINO)) d.grupos.desmarcar(v.grupo, IdsHistoria.MARCO_ENIGMA_SINO);
+        ULTIMA_PLACA.remove(v.grupo);
+        d.setDirty();
+        OdMod.LOGGER.info("Enigma do sino trancado de novo para o grupo {}", v.grupo);
+        return new Resposta(true, comItensSoltos(Component.translatable("odteste.evento.retrancado", v.grupo, pecas[0]),
+                soltos, v.bau));
+    }
+
+    /** Onde o aldeão estava quando sumiu (chave "Pos" do jogo), ou null se o arquivo não tem. */
+    private static BlockPos posicaoSalva(CompoundTag aldeao) {
+        net.minecraft.nbt.ListTag pos = aldeao.getList("Pos", net.minecraft.nbt.Tag.TAG_DOUBLE);
+        if (pos.size() != 3) return null;
+        return BlockPos.containing(pos.getDouble(0), pos.getDouble(1), pos.getDouble(2));
     }
 
     private static void devolver(Villager a, int como) {
@@ -497,6 +689,7 @@ public final class PrimeiroSinal {
             if (!nivel.hasChunk(v.sino.getX() >> 4, v.sino.getZ() >> 4)) {
                 // Vila longe de todo mundo: ninguém ouve, nada roda.
                 OUVINTES.remove(v.grupo);
+                liberar(v.grupo);
                 continue;
             }
             if (segundo) porSegundo(s, nivel, v, d);
@@ -528,9 +721,14 @@ public final class PrimeiroSinal {
         }
         ouvintes.keySet().retainAll(presentes);
 
-        if (alguemPertoDosAldeoes) congelar(nivel, v, d);
-        else if (!v.congelados.isEmpty()) descongelar(nivel, v, d);
+        if (alguemPertoDosAldeoes) {
+            congelar(nivel, v, d);
+        } else {
+            liberar(v.grupo);
+            if (!v.congelados.isEmpty()) devolverAntigos(nivel, v, d);
+        }
 
+        if (!v.resolvido && !presentes.isEmpty()) recolocar(nivel, v, d);
         if (alguemPertoDaCama && nivel.hasChunk(v.cama.getX() >> 4, v.cama.getZ() >> 4)) manchar(nivel, v.cama);
         if (alguemPertoDaPlaca && !v.resolvido) lerPlaca(s, nivel, v, d);
     }
@@ -643,26 +841,70 @@ public final class PrimeiroSinal {
         nivel.sendParticles(SANGUE, cama.getX() + 0.5, cama.getY() + 0.6, cama.getZ() + 0.5, 3, 0.3, 0.02, 0.3, 0);
     }
 
-    /** Aldeões perto do sino param e olham para ele. Guardamos como estavam para devolver igual. */
+    /**
+     * Aldeões perto do sino param e olham para ele (até {@link RegrasAto1#MAX_ALDEOES}). O freio é um modificador
+     * temporário de velocidade e o olhar é uma memória que o jogo não salva: nada fica no disco.
+     */
     private static void congelar(ServerLevel nivel, VilaMarcada v, DadosHistoria d) {
+        List<Villager> parados = PARADOS.computeIfAbsent(v.grupo, k -> new ArrayList<>());
+        Iterator<Villager> it = parados.iterator();
+        while (it.hasNext()) {
+            Villager a = it.next();
+            if (a.isRemoved() || !a.isAlive()) {
+                PARADOS_IDS.remove(a.getUUID());
+                it.remove();
+            }
+        }
         List<Villager> aldeoes = nivel.getEntitiesOfClass(Villager.class,
                 new AABB(v.sino).inflate(RegrasAto1.RAIO_ALDEOES), Villager::isAlive);
-        int n = 0;
         for (Villager a : aldeoes) {
-            if (n++ >= RegrasAto1.MAX_ALDEOES) break;
-            if (v.congelados.containsKey(a.getUUID())) continue;
-            int como = (a.isNoAi() ? VilaMarcada.ERA_SEM_IA : 0) | (a.isInvulnerable() ? VilaMarcada.ERA_INVULNERAVEL : 0);
-            v.congelados.put(a.getUUID(), como);
-            a.getNavigation().stop();
-            a.setNoAi(true);
-            // Parado não foge: sem isso, a vila perderia aldeões para os zumbis por nossa causa.
-            a.setInvulnerable(true);
-            olharPara(a, Vec3.atCenterOf(v.sino));
-            d.setDirty();
+            // Parado pela versão antiga (NoAI salvo): volta ao normal antes.
+            Integer antigo = v.congelados.remove(a.getUUID());
+            if (antigo != null) {
+                devolver(a, antigo);
+                d.setDirty();
+            }
+            if (PARADOS_IDS.contains(a.getUUID()) || parados.size() >= RegrasAto1.MAX_ALDEOES) continue;
+            parar(a, v.sino);
+            parados.add(a);
+            PARADOS_IDS.add(a.getUUID());
+        }
+        Vec3 alvo = Vec3.atCenterOf(v.sino);
+        for (Villager a : parados) {
+            a.getBrain().setMemory(MemoryModuleType.LOOK_TARGET, new BlockPosTracker(v.sino));
+            a.getLookControl().setLookAt(alvo.x, alvo.y, alvo.z);
         }
     }
 
-    private static void descongelar(ServerLevel nivel, VilaMarcada v, DadosHistoria d) {
+    private static void parar(Villager a, BlockPos sino) {
+        AttributeInstance vel = a.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (vel != null && !vel.hasModifier(MODIFICADOR_PARADO)) {
+            vel.addTransientModifier(new AttributeModifier(MODIFICADOR_PARADO, -1.0,
+                    AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+        }
+        a.getNavigation().stop();
+        a.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
+        olharPara(a, Vec3.atCenterOf(sino));
+    }
+
+    private static void soltar(Villager a) {
+        AttributeInstance vel = a.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (vel != null) vel.removeModifier(MODIFICADOR_PARADO);
+        a.getBrain().eraseMemory(MemoryModuleType.LOOK_TARGET);
+    }
+
+    /** Solta todos os aldeões parados do grupo (ninguém perto, chunk descarregado, desfazer). */
+    private static void liberar(String grupo) {
+        List<Villager> l = PARADOS.remove(grupo);
+        if (l == null) return;
+        for (Villager a : l) {
+            PARADOS_IDS.remove(a.getUUID());
+            if (!a.isRemoved()) soltar(a);
+        }
+    }
+
+    /** Aldeões que a versão antiga (até o PR #22) deixou com NoAI/invulnerável salvo: voltam como eram. */
+    private static void devolverAntigos(ServerLevel nivel, VilaMarcada v, DadosHistoria d) {
         Iterator<Map.Entry<UUID, Integer>> it = v.congelados.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<UUID, Integer> e = it.next();
@@ -689,10 +931,23 @@ public final class PrimeiroSinal {
 
     private static void lerPlaca(MinecraftServer s, ServerLevel nivel, VilaMarcada v, DadosHistoria d) {
         if (!(nivel.getBlockEntity(v.placa) instanceof SignBlockEntity placa)) return;
-        List<String> linhas = new ArrayList<>(4);
-        for (int i = 0; i < 4; i++) linhas.add(placa.getFrontText().getMessage(i, false).getString());
-        String escrito = RegrasAto1.juntar(linhas);
-        if (RegrasAto1.placaCerta(linhas, RegrasAto1.PALAVRA)) {
+        if (placa.isWaxed()) {
+            // Cera que entrou por outro caminho (item de outro mod, placa antiga): sai, senão ninguém escreve mais.
+            placa.setWaxed(false);
+            placa.setChanged();
+            BlockState st = nivel.getBlockState(v.placa);
+            nivel.sendBlockUpdated(v.placa, st, st, Block.UPDATE_CLIENTS);
+        }
+        List<String> frente = new ArrayList<>(4);
+        List<String> verso = new ArrayList<>(4);
+        for (int i = 0; i < 4; i++) {
+            frente.add(placa.getFrontText().getMessage(i, false).getString());
+            verso.add(placa.getBackText().getMessage(i, false).getString());
+        }
+        String f = RegrasAto1.juntar(frente);
+        String b = RegrasAto1.juntar(verso);
+        String escrito = f.isEmpty() && b.isEmpty() ? "" : f + "|" + b;
+        if (RegrasAto1.placaCerta(frente, verso, RegrasAto1.PALAVRA)) {
             resolver(s, nivel, v, d);
         } else if (!escrito.isEmpty() && !escrito.equals(ULTIMA_PLACA.get(v.grupo))) {
             // Palavra errada: o baú só range, trancado.
@@ -705,8 +960,8 @@ public final class PrimeiroSinal {
         v.resolvido = true;
         if (d.grupos.marcar(v.grupo, IdsHistoria.MARCO_ENIGMA_SINO)) v.marcosDados.add(IdsHistoria.MARCO_ENIGMA_SINO);
         if (nivel.getBlockEntity(v.bau) instanceof ChestBlockEntity bau) {
-            bau.setItem(11, livroDoCarniceiro());
-            bau.setItem(15, metadeEsquerdaDoMapa());
+            porPeca(nivel, v.bau, bau, ESPACO_LIVRO, livroDoCarniceiro());
+            porPeca(nivel, v.bau, bau, ESPACO_MAPA, metadeEsquerdaDoMapa());
             bau.setChanged();
         }
         nivel.playSound(null, v.bau, SoundEvents.IRON_TRAPDOOR_OPEN, SoundSource.BLOCKS, 0.6f, 0.5f);
@@ -719,6 +974,35 @@ public final class PrimeiroSinal {
             if (p.hasPermissions(2)) p.sendSystemMessage(aviso);
         }
         OdMod.LOGGER.info("Enigma do sino resolvido pelo grupo {}", v.grupo);
+    }
+
+    /** Espaços do baú onde as peças entram (11 e 15: meio das pontas da fileira do meio). */
+    private static final int ESPACO_LIVRO = 11;
+    private static final int ESPACO_MAPA = 15;
+
+    /**
+     * Põe a peça no espaço dela sem apagar nada. Funil ou cano de outro mod pode ter posto item no baú trancado:
+     * esse item vai para um espaço livre ou, se o baú estiver cheio, cai no chão em cima do baú.
+     */
+    private static void porPeca(ServerLevel nivel, BlockPos onde, ChestBlockEntity bau, int espaco, ItemStack peca) {
+        ItemStack antes = bau.getItem(espaco);
+        if (!antes.isEmpty()) {
+            int livre = -1;
+            for (int i = 0; i < bau.getContainerSize(); i++) {
+                if (i != ESPACO_LIVRO && i != ESPACO_MAPA && bau.getItem(i).isEmpty()) {
+                    livre = i;
+                    break;
+                }
+            }
+            ItemStack tirado = bau.removeItemNoUpdate(espaco);
+            if (livre >= 0) {
+                bau.setItem(livre, tirado);
+            } else {
+                Containers.dropItemStack(nivel, onde.getX() + 0.5, onde.getY() + 1.0, onde.getZ() + 0.5, tirado);
+                OdMod.LOGGER.info("Primeiro Sinal: baú cheio em {}; um item que estava lá caiu no chão", onde);
+            }
+        }
+        bau.setItem(espaco, peca);
     }
 
     private static void peca(ItemStack item, String id) {
@@ -753,27 +1037,55 @@ public final class PrimeiroSinal {
 
     // ------------------------------------------------------------------ eventos do jogo
 
+    /** A vila de quem este bloco é peça (ou apoio de peça). Null se não é de nenhuma. */
     private static VilaMarcada vilaDoBloco(Level nivel, BlockPos p) {
-        if (cache == null) return null;
-        for (VilaMarcada v : cache.vilas.values()) {
-            if (v.dimensao != nivel.dimension()) continue;
-            if (p.equals(v.nota) || p.equals(v.bau) || p.equals(v.placa) || p.equals(v.estandarte)) return v;
+        MinecraftServer s = nivel.getServer();
+        if (s == null) return null;
+        for (VilaMarcada v : dados(s).vilas.values()) {
+            if (v.dimensao == nivel.dimension() && v.protege(p)) return v;
         }
         return null;
     }
 
-    private static VilaMarcada vilaDoAldeao(UUID u) {
-        if (cache == null) return null;
-        for (VilaMarcada v : cache.vilas.values()) {
-            if (v.congelados.containsKey(u)) return v;
+    /** Raio em volta do sino onde um pistão pode mexer em peça nossa (as peças ficam a até ~25 blocos). */
+    private static final int RAIO_PISTAO = 48;
+
+    /** Pistão não empurra nem puxa peça do enigma nem o apoio dela. Longe de toda vila, sai na hora. */
+    private static void aoPistao(PistonEvent.Pre e) {
+        if (!(e.getLevel() instanceof Level nivel) || nivel.isClientSide()) return;
+        MinecraftServer s = nivel.getServer();
+        if (s == null) return;
+        DadosHistoria d = dados(s);
+        if (d.vilas.isEmpty()) return;
+        BlockPos pistao = e.getPos();
+        boolean perto = false;
+        for (VilaMarcada v : d.vilas.values()) {
+            if (v.dimensao == nivel.dimension() && v.sino.distSqr(pistao) <= (double) RAIO_PISTAO * RAIO_PISTAO) {
+                perto = true;
+                break;
+            }
         }
-        return null;
+        if (!perto) return;
+        PistonStructureResolver r = e.getStructureHelper();
+        if (r == null || !r.resolve()) return;
+        for (BlockPos p : r.getToPush()) {
+            if (vilaDoBloco(nivel, p) != null) {
+                e.setCanceled(true);
+                return;
+            }
+        }
+        for (BlockPos p : r.getToDestroy()) {
+            if (vilaDoBloco(nivel, p) != null) {
+                e.setCanceled(true);
+                return;
+            }
+        }
     }
 
     /** Aldeão parado não troca: a troca vira uma frase curta. */
     private static void aoInteragirComAldeao(PlayerInteractEvent.EntityInteract e) {
         if (e.getLevel().isClientSide() || !(e.getTarget() instanceof Villager a)) return;
-        if (vilaDoAldeao(a.getUUID()) == null) return;
+        if (!PARADOS_IDS.contains(a.getUUID())) return;
         e.setCancellationResult(InteractionResult.SUCCESS);
         e.setCanceled(true);
         if (e.getHand() != InteractionHand.MAIN_HAND || !(e.getEntity() instanceof ServerPlayer p)) return;
@@ -783,11 +1095,18 @@ public final class PrimeiroSinal {
                 .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
     }
 
-    /** Baú trancado até a placa dizer a palavra. */
+    /** Baú trancado até a placa dizer a palavra. A placa não aceita cera enquanto o enigma está trancado. */
     private static void aoClicarBloco(PlayerInteractEvent.RightClickBlock e) {
         if (e.getLevel().isClientSide()) return;
         VilaMarcada v = vilaDoBloco(e.getLevel(), e.getPos());
-        if (v == null || v.resolvido || !e.getPos().equals(v.bau)) return;
+        if (v == null || v.resolvido) return;
+        if (e.getPos().equals(v.placa) && e.getItemStack().getItem() instanceof HoneycombItem) {
+            // Placa encerada não aceita texto e é protegida: travaria o enigma para sempre.
+            e.setCancellationResult(InteractionResult.FAIL);
+            e.setCanceled(true);
+            return;
+        }
+        if (!e.getPos().equals(v.bau)) return;
         e.setCancellationResult(InteractionResult.SUCCESS);
         e.setCanceled(true);
         if (e.getHand() != InteractionHand.MAIN_HAND || !(e.getEntity() instanceof ServerPlayer p)) return;
@@ -798,31 +1117,60 @@ public final class PrimeiroSinal {
                 .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
     }
 
-    /** Os blocos que pusemos na vila não quebram (o admin tira com o desfazer). */
+    /**
+     * Os blocos que pusemos na vila e os que seguram a placa e o estandarte não quebram enquanto o evento existir
+     * (o admin tira tudo com o desfazer).
+     */
     private static void aoQuebrar(BlockEvent.BreakEvent e) {
         if (!(e.getLevel() instanceof Level nivel) || nivel.isClientSide()) return;
         if (vilaDoBloco(nivel, e.getPos()) != null) e.setCanceled(true);
     }
 
     private static void aoExplodir(ExplosionEvent.Detonate e) {
-        if (e.getLevel().isClientSide() || cache == null || cache.vilas.isEmpty()) return;
+        if (e.getLevel().isClientSide()) return;
+        MinecraftServer s = e.getLevel().getServer();
+        if (s == null || dados(s).vilas.isEmpty()) return;
         e.getAffectedBlocks().removeIf(p -> vilaDoBloco(e.getLevel(), p) != null);
     }
 
-    /** Aldeão que ficou parado com o chunk descarregado volta ao normal quando o chunk carrega. */
+    /**
+     * Aldeão que a versão antiga deixou parado (NoAI salvo no disco) volta ao normal quando carrega.
+     * Usa {@link #dados}, não o cache: quando o servidor liga, os chunks do spawn carregam antes do primeiro tick.
+     */
     private static void aoEntrarNoMundo(EntityJoinLevelEvent e) {
-        if (e.getLevel().isClientSide() || !(e.getEntity() instanceof Villager a) || cache == null) return;
-        Integer como = cache.descongelarDepois.remove(a.getUUID());
+        if (!(e.getEntity() instanceof Villager a) || e.getLevel().isClientSide()) return;
+        MinecraftServer s = e.getLevel().getServer();
+        if (s == null) return;
+        DadosHistoria d = dados(s);
+        Integer como = d.descongelarDepois.remove(a.getUUID());
         if (como != null) {
             devolver(a, como);
-            cache.setDirty();
+            d.setDirty();
             return;
         }
-        VilaMarcada v = vilaDoAldeao(a.getUUID());
-        if (v != null) {
-            // Voltou do disco ainda parado: devolve; se tiver jogador perto, o próximo segundo para de novo.
-            devolver(a, v.congelados.remove(a.getUUID()));
-            cache.setDirty();
+        for (VilaMarcada v : d.vilas.values()) {
+            Integer c = v.congelados.remove(a.getUUID());
+            if (c != null) {
+                // Se tiver jogador perto, o próximo segundo para de novo (agora sem nada salvo).
+                devolver(a, c);
+                d.setDirty();
+                return;
+            }
         }
+    }
+
+    /** Aldeão parado que sai do mundo (chunk descarregou, morreu, trocou de dimensão) sai da lista e do freio. */
+    private static void aoSairDoMundo(EntityLeaveLevelEvent e) {
+        if (!(e.getEntity() instanceof Villager a) || e.getLevel().isClientSide()) return;
+        if (!PARADOS_IDS.remove(a.getUUID())) return;
+        soltar(a);
+        for (List<Villager> l : PARADOS.values()) l.removeIf(x -> x == a);
+    }
+
+    /** Parado não foge: sem isso, a vila perderia aldeões para os zumbis por nossa causa. /kill ainda funciona. */
+    private static void aoLevarDano(LivingIncomingDamageEvent e) {
+        if (!(e.getEntity() instanceof Villager a) || !PARADOS_IDS.contains(a.getUUID())) return;
+        if (e.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY)) return;
+        e.setCanceled(true);
     }
 }

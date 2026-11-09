@@ -135,6 +135,50 @@ class EspacoTest {
         assertTrue(Espaco.procurar(5, 5, 3, 3, 3, 8, 2, 100, m, m).isEmpty());
     }
 
+    /** Tudo ar (como em cima de uma ravina funda): a caixa sempre "cabe", mas nunca tem chão. Conta as leituras. */
+    private static final class SemChao implements Espaco.Mundo, Espaco.Chao {
+        long lidos;
+
+        @Override
+        public Espaco.Tipo tipo(int x, int y, int z) {
+            lidos++;
+            return Espaco.Tipo.AR;
+        }
+
+        @Override
+        public int y(int x, int z) {
+            return 64;
+        }
+    }
+
+    @Test
+    void semChaoNemLeACaixa() {
+        SemChao m = new SemChao();
+        // Caixa grande (16.384 blocos, piso 32x32): sem chão, para depois de ~30% do piso, sem ler a caixa.
+        Espaco.Caixa c = Espaco.Caixa.deTamanho(0, 64, 0, 32, 16, 32);
+        assertFalse(Espaco.checarComChao(c, m).cabe());
+        assertTrue(m.lidos <= 32 * 32 * 0.3 + 2, "leu " + m.lidos);
+    }
+
+    @Test
+    void buscaRespeitaOOrcamentoDeLeituras() {
+        SemChao m = new SemChao();
+        long orcamento = 5_000;
+        assertTrue(Espaco.procurar(0, 0, 32, 16, 32, 32, 3, 400, orcamento, m, m).isEmpty());
+        // Pode passar no máximo uma checagem (chão + caixa) além do orçamento.
+        assertTrue(m.lidos <= orcamento + 32 * 32 + 32 * 16 * 32, "leu " + m.lidos);
+    }
+
+    @Test
+    void caixaSabeOQueTemDentro() {
+        Espaco.Caixa c = Espaco.Caixa.deTamanho(0, 0, 0, 2, 3, 4);
+        assertTrue(c.contem(1, 2, 3));
+        assertFalse(c.contem(1, 3, 3), "a metade de cima de uma planta logo acima fica fora");
+        assertEquals(2, c.largura());
+        assertEquals(3, c.altura());
+        assertEquals(4, c.fundo());
+    }
+
     @Test
     void candidatosDoMaisPertoParaOMaisLongeComLimite() {
         List<int[]> c = Espaco.candidatos(10, 10, 9, 4, 1000);

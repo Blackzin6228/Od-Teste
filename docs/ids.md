@@ -42,6 +42,7 @@ Modid: `odteste` (definitivo, decisão de 2026-11-08) · Lançado no servidor: *
 | `odteste:livro` | chave do custom_data dos livros de história (item vanilla `minecraft:written_book` com `{"odteste:livro": "<id>"}`) | 2026-11-09 | fica gravado no item e nunca muda; o valor é o id do livro (nome do arquivo em `data/odteste/odteste_livros/`). O texto é remontado a cada leitura |
 | `sineiro` | id de livro de história (`data/odteste/odteste_livros/sineiro.json`) | 2026-11-09 | Livro do Sineiro (Ato 1). Fica gravado no item: renomear o arquivo quebra os livros que já existem. Texto provisório |
 | `odteste_livros_lidos` | dado do mundo (`SavedData`, arquivo `data/odteste_livros_lidos.dat` do overworld) | 2026-11-09 | quem já abriu cada livro (uuid → lista de ids), para o gancho `LivroAbertoPrimeiraVez` disparar uma vez só |
+| `odteste:aldeao_parado` | modificador de atributo (velocidade de movimento, −100%) | 2026-11-09 | temporário (não fica salvo); só nos aldeões parados olhando o sino do Primeiro Sinal, com jogador perto |
 
 História (Ato 1, parte A). Ficam salvos dentro de `odteste_historia`, então também não mudam:
 - **Marcos do grupo:** `primeiro_sinal` (Cena 1 solta para o grupo), `enigma_sino` (FERRO escrito na placa, baú aberto).
@@ -49,8 +50,20 @@ História (Ato 1, parte A). Ficam salvos dentro de `odteste_historia`, então ta
 - **Nomes de grupo:** quem escolhe é o admin (`/odteste grupo criar <nome>`). Renomear um grupo perde o progresso dele.
 - Os eventos do comando (`/odteste evento primeiro_sinal`) e os ids de colocação (`e1`, `e2`...) não são IDs de conteúdo:
   o evento não fica salvo pelo nome, e o id de colocação só serve para o `desfazer`.
-- Aldeões parados olhando o sino ficam com `NoAI` e invulneráveis **só enquanto há jogador perto**; o estado antigo
-  deles fica salvo para voltar igual (desfazer, chunk recarregado ou ninguém perto).
+- **Chaves dentro de `odteste_historia`** (também não mudam; o mundo já tem arquivos com elas):
+  - topo: `grupos`, `ancoras`, `vilas`, `colocacoes`, `descongelar`, `proxima_colocacao`; em cada grupo `nome`,
+    `membros`, `marcos`; em cada âncora `dim`, `pos`.
+  - cada vila (`vilas`): `grupo`, `dim`, `sino`, `nota`, `bau`, `placa`, `estandarte`, `cama`, `aldeao`, `blocos`,
+    `congelados`, `resolvido`, `marcos`, e desde 2026-11-09 `apoio_placa`, `apoio_placa_bloco`, `apoio_estandarte`,
+    `apoio_estandarte_bloco` (blocos da vila que seguram a placa e o estandarte; mundos antigos ganham na primeira
+    vez que o mod vê o bloco). Vila sem `sino` é ignorada (não roda), mas fica no arquivo igual.
+  - cada colocação (`colocacoes`): `id`, `template`, `dim`, `canto`, `backup`.
+  - cada backup de blocos (`blocos` da vila e `backup` da colocação): `paleta`, `pos`, `original`, `colocado`.
+- Aldeões parados olhando o sino (desde 2026-11-09): **nada fica salvo**. O freio é o modificador temporário
+  `odteste:aldeao_parado` (o jogo não grava no disco), o olhar é uma memória que o jogo não grava e o dano é barrado
+  por evento. Chunk descarregado, crash ou o mod sair do pack nunca deixam aldeão travado.
+  `congelados` (na vila) e `descongelar` (no topo) só servem para mundos da versão antiga, que parava com `NoAI` e
+  invulnerável salvos: cada aldeão desses volta ao normal quando carrega, e as listas esvaziam sozinhas.
 
 Alucinações (só no cliente, **nada registrado nem salvo**): o vulto e a criatura falsa usam os modelos vanilla
 `minecraft:enderman` e `minecraft:zombie` como molde provisório, **desenhados por evento de render e nunca
