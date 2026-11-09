@@ -10,6 +10,7 @@ Cada mesa atualiza a sua parte ao terminar uma etapa. Legenda: ⬜ não começou
 ## Lore
 🟦 Artefatos Paranormais revisados com a regra de tom sério (08/11/2026): 5 objetos trocados, 4 ajustados, 2 opções de nome cada, esperando a escolha do Nikolas (`lore/artefatos-paranormais.md`)
 🟦 Horror de Exposição e Lucidez (08/11/2026): tabelas por faixa, frases dos comandos, acessibilidade e lang (`docs/horror.md`), esperando o ok do Nikolas
+🟦 Vila Calada (09/11/2026): objetivo do Ato 1 (vila destruída com o Livro do Sineiro e a primeira pista de como voltar), três pistas para o grupo achar a vila, ficha da estrutura (`lore/fichas-estruturas.md`, `lore/livro-do-sineiro.md`, `docs/decisoes/2026-11-09-vila-destruida.md`), esperando o ok do Nikolas
 ⬜ Propostas de elementos (2 ou 3) · ⬜ escolha do Nikolas · ⬜ papel de cada mod (revisar `docs/integracoes.md`) · ⬜ primeiro arco
 
 ## Dev
