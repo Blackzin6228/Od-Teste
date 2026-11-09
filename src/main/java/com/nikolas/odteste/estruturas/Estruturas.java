@@ -1,5 +1,6 @@
 package com.nikolas.odteste.estruturas;
 
+import com.nikolas.odteste.OdMod;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +37,9 @@ public final class Estruturas {
      * custa pouco; mesmo no pior caso a busca para aqui (algumas dezenas de milissegundos).
      */
     public static final long ORCAMENTO_LEITURAS = 200_000;
+
+    /** {@link Tentativa#erro} quando deu erro no meio: colocou parte, e o que entrou está no backup. */
+    public static final String ERRO_INTERNO = "interno";
 
     /** Resultado de uma tentativa: onde (ou onde está o bloqueio) e a colocação, se deu certo. */
     public record Tentativa(boolean ok, BlockPos ponto, Espaco.Resultado checagem, Optional<Backup> backup, String erro) {}
@@ -151,7 +155,14 @@ public final class Estruturas {
         Espaco.Resultado r = Espaco.checarComChao(c, mundo);
         if (!r.cabe()) return new Tentativa(false, ponto, r, Optional.empty(), "nao_cabe");
         Backup b = new Backup();
-        colocarParte(nivel, t, ponto, rotacao, c, b, false);
+        try {
+            colocarParte(nivel, t, ponto, rotacao, c, b, false);
+        } catch (RuntimeException ex) {
+            // O que entrou antes do erro já está no backup: devolve mesmo assim, para a colocação ficar salva
+            // e o admin poder desfazer. erro = "interno" avisa quem chamou.
+            OdMod.LOGGER.error("Estrutura em {} parou com erro no meio", ponto, ex);
+            return new Tentativa(true, ponto, r, Optional.of(b), ERRO_INTERNO);
+        }
         return new Tentativa(true, ponto, r, Optional.of(b), "");
     }
 
@@ -197,23 +208,28 @@ public final class Estruturas {
             ajustes.setBoundingBox(new BoundingBox(c.x0(), c.y0(), c.z0(), c.x1(), c.y1(), c.z1()));
             ajustes.setKnownShape(true);
         }
-        t.placeInWorld(nivel, ponto, ponto, ajustes, nivel.getRandom(), 2);
-        i = 0;
-        for (int y = c.y0(); y <= c.y1(); y++)
-            for (int x = c.x0(); x <= c.x1(); x++)
-                for (int z = c.z0(); z <= c.z1(); z++) {
-                    BlockState depois = nivel.getBlockState(m.set(x, y, z));
-                    if (depois != antes[i]) b.anotar(m.immutable(), antes[i], depois);
-                    i++;
-                }
+        try {
+            t.placeInWorld(nivel, ponto, ponto, ajustes, nivel.getRandom(), 2);
+        } finally {
+            // Mesmo se der erro no meio (bloco de outro mod quebrado, por exemplo): tudo que já mudou entra no
+            // backup, senão ficaria no mundo sem como desfazer. O erro segue para quem chamou (pausa e avisa).
+            i = 0;
+            for (int y = c.y0(); y <= c.y1(); y++)
+                for (int x = c.x0(); x <= c.x1(); x++)
+                    for (int z = c.z0(); z <= c.z1(); z++) {
+                        BlockState depois = nivel.getBlockState(m.set(x, y, z));
+                        if (depois != antes[i]) b.anotar(m.immutable(), antes[i], depois);
+                        i++;
+                    }
 
-        // Se o template não mexeu na metade de dentro (ex.: structure void ali), a de fora volta e sai do backup.
-        for (int k = 0; k < foraTirada.size(); k++) {
-            BlockPos dentro = dentroDoPar.get(k);
-            BlockState agora = nivel.getBlockState(dentro);
-            if (agora.is(estadoFora.get(k).getBlock())) {
-                nivel.setBlock(foraTirada.get(k), estadoFora.get(k), Backup.SEM_VIZINHOS);
-                b.esquecer(foraTirada.get(k));
+            // Se o template não mexeu na metade de dentro (ex.: structure void ali), a de fora volta e sai do backup.
+            for (int k = 0; k < foraTirada.size(); k++) {
+                BlockPos dentro = dentroDoPar.get(k);
+                BlockState agora = nivel.getBlockState(dentro);
+                if (agora.is(estadoFora.get(k).getBlock())) {
+                    nivel.setBlock(foraTirada.get(k), estadoFora.get(k), Backup.SEM_VIZINHOS);
+                    b.esquecer(foraTirada.get(k));
+                }
             }
         }
     }
