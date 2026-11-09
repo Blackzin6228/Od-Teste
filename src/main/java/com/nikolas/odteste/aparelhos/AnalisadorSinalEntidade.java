@@ -1,5 +1,7 @@
 package com.nikolas.odteste.aparelhos;
 
+import com.nikolas.odteste.sinais.FontesFixas;
+import com.nikolas.odteste.sinais.RegrasSinal;
 import com.nikolas.odteste.sinais.Sinal;
 import com.nikolas.odteste.sinais.Sinais;
 import java.util.List;
@@ -23,6 +25,8 @@ import net.minecraft.world.level.block.state.BlockState;
  * - Guarda a energia (chave NBT {@code energia}, ver docs/ids.md).
  * - A cada 2 s, só com jogador a até 16 blocos: gasta 20 FE/t e procura sinal a até 8 blocos (luz do bloco).
  * - Ao ser usado: decifra o sinal em volta, ou o do item na mão, e mostra o texto e a segunda camada.
+ * - Sem nada perto, mas com fonte fixa a até 160 blocos: diz de que lado vem e a força (sem número), e de
+ *   tempos em tempos solta um chiado baixo sozinho.
  */
 public class AnalisadorSinalEntidade extends BlockEntity {
     private static final String CHAVE_ENERGIA = "energia";
@@ -57,6 +61,12 @@ public class AnalisadorSinalEntidade extends BlockEntity {
             sinal = !Sinais.perto(servidor, pos, RegrasAnalisador.RAIO_SINAL).isEmpty();
         }
 
+        if (ligado && !sinal
+                && Math.floorMod(nivel.getGameTime() / RegrasAnalisador.INTERVALO,
+                        RegrasAnalisador.CHECAGENS_POR_CHIADO) == 0) {
+            chiadoDeLonge(servidor, pos);
+        }
+
         boolean eraSinal = estado.getValue(AnalisadorSinalBloco.SINAL);
         if (sinal && !eraSinal) {
             nivel.playSound(null, pos, SoundEvents.SCULK_CLICKING, SoundSource.BLOCKS, 0.6f, 0.5f);
@@ -65,6 +75,16 @@ public class AnalisadorSinalEntidade extends BlockEntity {
             nivel.setBlock(pos, estado.setValue(AnalisadorSinalBloco.LIGADO, ligado)
                     .setValue(AnalisadorSinalBloco.SINAL, sinal), 3);
         }
+    }
+
+    /** Fonte fixa longe: chiado baixinho, mais alto quanto mais perto. Sem texto. */
+    private static void chiadoDeLonge(ServerLevel nivel, BlockPos pos) {
+        Sinais.fonteFixaMaisProxima(nivel, pos, RegrasAnalisador.ALCANCE_LONGE).ifPresent(f -> {
+            RegrasSinal.Intensidade forca = RegrasSinal.intensidade(
+                    Math.sqrt(f.pos().distSqr(pos)), RegrasAnalisador.ALCANCE_LONGE);
+            float volume = RegrasSinal.volume(forca);
+            if (volume > 0) nivel.playSound(null, pos, SoundEvents.SCULK_CLICKING, SoundSource.BLOCKS, volume, 0.4f);
+        });
     }
 
     // ---------- leitura ----------
@@ -87,6 +107,7 @@ public class AnalisadorSinalEntidade extends BlockEntity {
                 ? List.of(doItem.get())
                 : Sinais.perto(nivel, worldPosition, RegrasAnalisador.RAIO_SINAL);
 
+        if (sinais.isEmpty() && doItem.isEmpty() && apontarDeLonge(nivel, jogador)) return;
         if (sinais.isEmpty()) {
             jogador.displayClientMessage(Component.translatable("odteste.analisador.estatica")
                     .withStyle(ChatFormatting.GRAY), true);
@@ -111,6 +132,34 @@ public class AnalisadorSinalEntidade extends BlockEntity {
                         .withStyle(ChatFormatting.DARK_RED, ChatFormatting.ITALIC)));
             });
         }
+    }
+
+    /**
+     * Nada para decifrar perto, mas uma fonte fixa ao alcance: diz de que lado vem (em relação a para onde o
+     * jogador olha) e a força, sem número. {@code true} se achou.
+     */
+    private boolean apontarDeLonge(ServerLevel nivel, Player jogador) {
+        Optional<FontesFixas.Fonte> longe =
+                Sinais.fonteFixaMaisProxima(nivel, worldPosition, RegrasAnalisador.ALCANCE_LONGE);
+        if (longe.isEmpty()) return false;
+        BlockPos alvo = longe.get().pos();
+        RegrasSinal.Intensidade forca = RegrasSinal.intensidade(
+                Math.sqrt(alvo.distSqr(worldPosition)), RegrasAnalisador.ALCANCE_LONGE);
+        if (forca == RegrasSinal.Intensidade.NENHUMA) return false;
+        RegrasSinal.Direcao lado = RegrasSinal.direcao(jogador.getYRot(),
+                alvo.getX() + 0.5 - jogador.getX(), alvo.getZ() + 0.5 - jogador.getZ());
+
+        bateria.gastar(RegrasAnalisador.CUSTO_DIRECAO);
+        float tom = switch (forca) {
+            case FORTE -> 1.0f;
+            case MEDIA -> 0.7f;
+            default -> 0.5f;
+        };
+        nivel.playSound(null, worldPosition, SoundEvents.SCULK_CLICKING, SoundSource.BLOCKS,
+                0.3f + RegrasSinal.volume(forca), tom);
+        jogador.displayClientMessage(Component.translatable(forca.chave(), Component.translatable(lado.chave()))
+                .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
+        return true;
     }
 
     // ---------- salvar ----------

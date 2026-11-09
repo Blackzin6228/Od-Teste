@@ -20,9 +20,52 @@ public final class IdsDados {
     /** Freio de repetição da Exposição (fonte → início da janela e vezes). Salvo para relogar não zerar. */
     public static final String EXPOSICAO_REPETICAO = "exposicao_repeticao";
 
+    /** Último uso de cada Artefato Paranormal (id do item → tempo do mundo). Recarga que sobrevive a relogar. */
+    public static final String ARTEFATO_RECARGA = "artefato_recarga";
+    /** Noite (dia do relógio) em que a última criatura de Sangue nasceu sozinha perto do jogador. */
+    public static final String CRIATURA_NOITE = "criatura_noite";
+
+    /** Elemento do jogador, definido pelo admin (nenhum = sem elemento). Nunca vai para o cliente. */
+    public static final String ELEMENTO = "elemento";
+    /** Se a história já revelou o elemento ao jogador. Nunca vai para o cliente. */
+    public static final String ELEMENTO_REVELADO = "elemento_revelado";
+
     public static final List<String> TODOS = List.of(
             EXPOSICAO, LUCIDEZ, LUCIDEZ_MAX, MARCA_ELEMENTO, MARCA_ESTAGIO, TRANSCENDER_NIVEL,
-            EXPOSICAO_RESTO, CONTATO_ELEMENTO, EXPOSICAO_REPETICAO);
+            EXPOSICAO_RESTO, CONTATO_ELEMENTO, EXPOSICAO_REPETICAO, ARTEFATO_RECARGA, CRIATURA_NOITE,
+            ELEMENTO, ELEMENTO_REVELADO);
+
+    // ---------- Play test de Sangue, parte 2: conteúdo ----------
+
+    /** Espada de Sangue (sem receita). */
+    public static final String ITEM_RUBRA = "rubra";
+    /** Artefatos Paranormais de Sangue (sem receita). */
+    public static final String ITEM_AGULHA = "agulha_de_cerzir_carne";
+    public static final String ITEM_DEDAL = "dedal_dentado";
+    public static final String ITEM_SINO = "sino_de_matadouro";
+    /** Matéria paranormal de Sangue, bruta (cai das criaturas). */
+    public static final String ITEM_MATERIA_SANGUE = "materia_sangue_bruta";
+    public static final List<String> ITENS = List.of(ITEM_RUBRA, ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO, ITEM_MATERIA_SANGUE);
+
+    /** Criaturas de Sangue (GeckoLib). Mesmo nome no modificador de bioma e na tabela de drop. */
+    public static final String CRIATURA_RETALHADO = "retalhado";
+    public static final String CRIATURA_SANGUESSUGA = "sanguessuga_mae";
+    public static final List<String> CRIATURAS = List.of(CRIATURA_RETALHADO, CRIATURA_SANGUESSUGA);
+
+    /** Efeito "Sangramento" e o tipo de dano com o mesmo nome (data/odteste/damage_type/). */
+    public static final String SANGRAMENTO = "sangramento";
+    /** Aba do modo criativo. */
+    public static final String ABA = "principal";
+    /** Modificador de vida máxima do Dedal Dentado (−1 coração até dormir; fica salvo no jogador). */
+    public static final String MODIFICADOR_DEDAL = "dedal_coracao";
+    /** Ritual do Occultism (fábrica de ritual); a receita é odteste:ritual/chamado_de_sangue. */
+    public static final String RITUAL_CHAMADO = "chamado_de_sangue";
+    /** Etiqueta (scoreboard tag) da criatura que veio de spawner: não solta matéria. Fica salva na criatura. */
+    public static final String ETIQUETA_SEM_MATERIA = "odteste_sem_materia";
+    /** Chave salva na criatura: jogadores que já a viram (Exposição e Lucidez só uma vez por jogador). */
+    public static final String CHAVE_SENTIRAM = "odteste_sentiram";
+    /** Plugin do JEI que esconde os itens e o ritual sem receita. */
+    public static final String PLUGIN_JEI = "esconder_jei";
 
     /** Canal de rede que manda os dados para o cliente do próprio jogador. */
     public static final String PACOTE_SINCRONIZAR = "sincronizar_jogador";
@@ -51,12 +94,24 @@ public final class IdsDados {
     /** Modificador de velocidade da Lucidez baixa (temporário: não fica salvo no jogador). */
     public static final String MODIFICADOR_LENTIDAO = "lucidez_lentidao";
 
+    /** Tag de bloco: o que a história pode ocupar além do ar (data/odteste/tags/block/substituivel.json). */
+    public static final String TAG_SUBSTITUIVEL = "substituivel";
+    /** Peças de história (item vanilla com custom_data {odteste_peca: "odteste:..."}). */
+    public static final String PECA_LIVRO_CARNICEIRO_1 = "livro_carniceiro_1";
+    public static final String PECA_MAPA_ESQUERDA = "mapa_rasgado_esquerda";
+    /** Arquivo de dados do mundo com grupos, progresso e eventos (data/odteste_historia.dat). Sem "odteste:". */
+    public static final String ARQUIVO_HISTORIA = "odteste_historia";
+
     /** Todos os IDs que não são dado salvo, mas também precisam estar em docs/ids.md. */
     public static final List<String> OUTROS = List.of(
             PACOTE_SINCRONIZAR, PACOTE_MOMENTO, MODIFICADOR_SANGUE, MODIFICADOR_LENTIDAO, CAMADA_TELA,
             ANIM_MARCA_APARECE, ANIM_MARCA_SOBE, ANIM_SURTO, CAMADA_ANIMACAO,
             PACOTE_MARCA_VISIVEL, TAG_PARANORMAL, TAG_COMIDA_QUENTE, TEXTURA_MARCA_SANGUE + "_1", TEXTURA_MARCA_SANGUE + "_2",
-            TEXTURA_MARCA_SANGUE + "_3", TEXTURA_MARCA_SANGUE + "_4");
+            TEXTURA_MARCA_SANGUE + "_3", TEXTURA_MARCA_SANGUE + "_4",
+            ITEM_RUBRA, ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO, ITEM_MATERIA_SANGUE,
+            CRIATURA_RETALHADO, CRIATURA_SANGUESSUGA, SANGRAMENTO, ABA, MODIFICADOR_DEDAL, RITUAL_CHAMADO,
+            "ritual/" + RITUAL_CHAMADO, PLUGIN_JEI,
+            TAG_SUBSTITUIVEL, PECA_LIVRO_CARNICEIRO_1, PECA_MAPA_ESQUERDA);
 
     private IdsDados() {}
 }

@@ -41,14 +41,19 @@ public final class Reacoes {
         if (depois != Elemento.SANGUE) MarcaSangue.limpar(p);
     }
 
-    /** A Marca aparece ou troca sozinha, pelo contato (o jogador nunca escolhe). */
+    /**
+     * A Marca aparece ou troca sozinha, pelo contato (o jogador nunca escolhe). Com elemento definido pelo admin,
+     * só no elemento dele e só depois de revelado (RegrasMarca).
+     */
     public static void conferirMarca(ServerPlayer p) {
         Elemento atual = DadosJogador.marcaElemento(p);
+        Elemento doJogador = DadosJogador.elemento(p);
+        boolean revelado = DadosJogador.elementoRevelado(p);
         if (atual == Elemento.NENHUM) {
-            RegrasMarca.marcaQueAparece(DadosJogador.exposicao(p), DadosJogador.contato(p))
+            RegrasMarca.marcaQueAparece(DadosJogador.exposicao(p), DadosJogador.contato(p), doJogador, revelado)
                     .ifPresent(e -> DadosJogador.definirMarca(p, e, 1));
         } else {
-            RegrasMarca.trocaSozinha(atual, DadosJogador.marcaEstagio(p), DadosJogador.contato(p))
+            RegrasMarca.trocaSozinha(atual, DadosJogador.marcaEstagio(p), DadosJogador.contato(p), doJogador, revelado)
                     .ifPresent(e -> DadosJogador.definirMarca(p, e, 1));
         }
     }

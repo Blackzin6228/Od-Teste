@@ -19,6 +19,12 @@ public final class RegrasAnalisador {
     public static final int CUSTO_LEITURA = 20_000;
     /** Até onde ouve um sinal, em blocos. */
     public static final int RAIO_SINAL = 8;
+    /** Até onde capta uma fonte fixa (só a direção e a força, sem decifrar). */
+    public static final int ALCANCE_LONGE = 160;
+    /** Gasto de cada leitura de longe (apontar a direção). */
+    public static final int CUSTO_DIRECAO = 5_000;
+    /** O chiado de longe toca sozinho a cada tantas checagens (3 = a cada 6 s). */
+    public static final int CHECAGENS_POR_CHIADO = 3;
     /** Só trabalha com jogador a até essa distância. */
     public static final int RAIO_JOGADOR = 16;
     /** Espera entre duas leituras do mesmo aparelho (ticks), contra clique repetido. */

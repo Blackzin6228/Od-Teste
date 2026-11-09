@@ -3,8 +3,13 @@ package com.nikolas.odteste;
 import com.mojang.logging.LogUtils;
 import com.nikolas.odteste.aparelhos.Aparelhos;
 import com.nikolas.odteste.comandos.ComandosAdmin;
+import com.nikolas.odteste.comandos.ComandosHistoria;
+import com.nikolas.odteste.historia.PrimeiroSinal;
 import com.nikolas.odteste.compat.Compat;
+import com.nikolas.odteste.criaturas.Criaturas;
 import com.nikolas.odteste.dados.DadosJogador;
+import com.nikolas.odteste.efeitos.Sangramento;
+import com.nikolas.odteste.itens.Itens;
 import com.nikolas.odteste.rede.Rede;
 import com.nikolas.odteste.registro.Registro;
 import com.nikolas.odteste.sistemas.Vigia;
@@ -25,11 +30,16 @@ public final class OdMod {
 
     public OdMod(IEventBus barramento, ModContainer container) {
         DadosJogador.iniciar();
+        Sangramento.iniciar();
+        Itens.iniciar();
+        Criaturas.iniciar(barramento);
         Aparelhos.iniciar(barramento);
         Registro.registrar(barramento);
         Rede.iniciar(barramento);
         ComandosAdmin.iniciar();
+        ComandosHistoria.iniciar();
         Vigia.iniciar();
+        PrimeiroSinal.iniciar();
         Compat.iniciar(barramento);
         LOGGER.info("{} carregado. Integrações ligadas: {}", MODID, Compat.ligadas());
     }

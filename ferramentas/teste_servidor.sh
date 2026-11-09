@@ -91,4 +91,12 @@ if ! grep -q "$MODID carregado" console.log logs/latest.log 2>/dev/null; then
   echo "O servidor ligou, mas o mod $MODID não avisou que carregou."; exit 1
 fi
 grep -h "$MODID carregado" logs/latest.log | tail -1
+# Erro de dado (receita, drop, spawn) não crasha, só fica no log: mostra os que citam o mod, para ninguém deixar passar.
+erros="$(grep -h -i -E "error|exception|failed|couldn't|unknown" logs/latest.log | grep -i "$MODID" | cut -c1-400 | head -40 || true)"
+if [[ -n "$erros" ]]; then
+  echo "--- avisos de erro que citam $MODID (não reprovam o teste, mas precisam ser vistos) ---"
+  echo "$erros"
+else
+  echo "Nenhum erro no log citando $MODID."
+fi
 echo "Servidor ligou com o pack inteiro + $MODID, sem crash."

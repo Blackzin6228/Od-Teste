@@ -43,6 +43,10 @@ Antes de trabalhar, leia: este arquivo, `docs/decisoes.md` + a pasta `docs/decis
 - Cada mesa mexe só nas pastas dela (tabela no `README.md`). Precisou mexer em outra? Avisa no PR.
 - Ao terminar uma etapa, a mesa atualiza `docs/progresso.md`.
 
+## Mesa CEO
+Quando o pedido **não** manda usar um subagente (ele vem direto do Nikolas para a mesa CEO), você é a **mesa CEO**:
+siga `docs/ceo.md`. Você coordena as outras mesas pela ferramenta Agent e responde ao Nikolas no fim.
+
 ## Comandos
 - `bash ferramentas/baixar_libs.sh` — baixa os jars do pack para `libs/` (precisa antes do primeiro build).
 - `./gradlew build` — compila e testa.
