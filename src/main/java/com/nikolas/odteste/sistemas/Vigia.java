@@ -61,6 +61,13 @@ public final class Vigia {
         NeoForge.EVENT_BUS.addListener(Vigia::aoTomarDano);
         NeoForge.EVENT_BUS.addListener(Vigia::aoComer);
         NeoForge.EVENT_BUS.addListener(Vigia::aoAmanhecer);
+        // A lentidão da Lucidez é temporária (não salva): refeita ao entrar e ao renascer, uma vez.
+        NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedInEvent e) -> {
+            if (e.getEntity() instanceof ServerPlayer p) Lucidez.atualizarLentidao(p);
+        });
+        NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerRespawnEvent e) -> {
+            if (e.getEntity() instanceof ServerPlayer p) Lucidez.atualizarLentidao(p);
+        });
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> {
             ESTADOS.remove(e.getEntity().getUUID());
             Lucidez.esquecer(e.getEntity().getUUID());
@@ -78,6 +85,8 @@ public final class Vigia {
         if (!p.isAlive()) return;
 
         MarcaSangue.checar(p);
+        // Lentidão leve só com Lucidez Baixa e pouca luz: a luz muda sem a faixa mudar, então confere aqui.
+        Lucidez.atualizarLentidao(p);
         if (p.isCreative() || p.isSpectator()) return;
 
         Estado s = estado(p);

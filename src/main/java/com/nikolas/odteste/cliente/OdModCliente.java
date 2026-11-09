@@ -52,7 +52,12 @@ public final class OdModCliente {
             if (ANIMADOR) AnimacaoJogador.aoTick();
         });
         NeoForge.EVENT_BUS.addListener(Tela::aoCalcularCamera);
-        NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut e) -> Tela.limpar());
+        NeoForge.EVENT_BUS.addListener(Tela::aoCalcularFov);
+        NeoForge.EVENT_BUS.addListener(Tela::aoDesenharMao);
+        // Vulto e criatura falsa: desenhados aqui, nunca entram no mundo (minimapa e radar não veem).
+        NeoForge.EVENT_BUS.addListener(Alucinacoes::desenhar);
+        NeoForge.EVENT_BUS.addListener(EfeitosLucidez::aoMover);
+        NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut e) -> EfeitosLucidez.limpar());
 
         Momento.definirReceptor(MomentosCliente::receber);
         if (ANIMADOR) AnimacaoJogador.iniciar();

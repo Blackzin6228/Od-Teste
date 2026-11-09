@@ -165,6 +165,7 @@ public final class DadosJogador {
         p.setData(LUCIDEZ_MAX, max);
         p.setData(LUCIDEZ, Limites.lucidez(p.getData(LUCIDEZ), max));
         sincronizar(p);
+        if (p instanceof ServerPlayer sp) com.nikolas.odteste.sistemas.Lucidez.atualizarLentidao(sp);
     }
 
     public static void definirMarca(Player p, Elemento elemento, int estagio) {

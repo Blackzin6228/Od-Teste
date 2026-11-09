@@ -42,6 +42,12 @@ public final class ConfigCliente {
         }
     }
 
+    /** "Suave": porta só com som, vulto e criatura somem em 1 s, tela e corpo pela metade (docs/horror.md 1.4/2.4). */
+    public static boolean suave() {
+        float t = tremor();
+        return t > 0 && t < 1;
+    }
+
     /** "Desligado": só vinheta escura e som (sem escurecer a tela inteira, sem bordas coloridas, sem tremor). */
     public static boolean soVinhetaESom() {
         return tremor() <= 0;

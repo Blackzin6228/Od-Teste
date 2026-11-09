@@ -2,6 +2,10 @@ modLoader="javafml"
 loaderVersion="${loader_version_range}"
 license="${mod_license}"
 
+# Só abre a visibilidade de um método do cliente (previsão de bloco), usado pela porta falsa.
+[[accessTransformers]]
+file="META-INF/accesstransformer.cfg"
+
 [[mods]]
 modId="${mod_id}"
 version="${mod_version}"
