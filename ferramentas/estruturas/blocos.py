@@ -73,6 +73,26 @@ BLOCOS = {
     "dead_bush": ((106, 78, 40), "planta"),
     "coarse_dirt": ((118, 84, 58), "terra"),
     "dirt_path": ((146, 120, 66), "terra"),
+    # vila destruída: chão, ruína, fogo e água
+    "grass_block": ((96, 132, 58), "musgo"),
+    "dirt": ((126, 90, 62), "terra"),
+    "farmland": ((92, 62, 40), "terra"),
+    "wheat": ((178, 150, 62), "planta"),
+    "soul_soil": ((76, 58, 46), "terra"),
+    "water": ((46, 78, 150), "agua"),
+    "cobblestone_stairs": ((122, 122, 122), "pedra"),
+    "cobblestone_slab": ((122, 122, 122), "pedra"),
+    "cobblestone_wall": ((122, 122, 122), "pedra"),
+    "mossy_cobblestone_wall": ((104, 118, 88), "pedra_musgo"),
+    "coal_block": ((22, 22, 24), "pedra"),
+    "blackstone": ((44, 38, 44), "pedra"),
+    "smooth_basalt": ((72, 72, 78), "liso"),
+    "dark_oak_log": ((60, 46, 30), "casca"),
+    "dark_oak_fence": ((66, 43, 20), "tabuas"),
+    "dark_oak_trapdoor": ((62, 40, 18), "tabuas"),
+    "gray_carpet": ((62, 68, 71), "la"),
+    "light_gray_carpet": ((132, 132, 126), "la"),
+    "red_wall_banner": ((150, 30, 28), "la"),
     # sangue (o acento vermelho): pó de redstone sem energia, deitado no chão
     "redstone_wire": ((112, 8, 6), "sangue"),
     "air": ((0, 0, 0), "nada"),
@@ -119,6 +139,14 @@ _FAMILIAS = [
                                       "north": {"none", "side", "up"}, "south": {"none", "side", "up"},
                                       "east": {"none", "side", "up"}, "west": {"none", "side", "up"}}),
     (lambda n: n == "composter", {"level": {str(i) for i in range(9)}}),
+    (lambda n: n.endswith("_wall") and n != "red_wall_banner",
+     {"up": _BOOL, "north": {"none", "low", "tall"}, "south": {"none", "low", "tall"},
+      "east": {"none", "low", "tall"}, "west": {"none", "low", "tall"}, "waterlogged": _BOOL}),
+    (lambda n: n == "red_wall_banner", {"facing": _DIR4}),
+    (lambda n: n == "grass_block", {"snowy": _BOOL}),
+    (lambda n: n == "farmland", {"moisture": {str(i) for i in range(8)}}),
+    (lambda n: n == "wheat", {"age": {str(i) for i in range(8)}}),
+    (lambda n: n == "water", {"level": {str(i) for i in range(16)}}),
 ]
 
 
@@ -165,6 +193,23 @@ def formas(nome, p):
         return [(base, n), (degrau, n)]
     if n.endswith("_carpet"):
         return [((0, 0, 0, 1, 1 / 16, 1), n)]
+    if n in ("dirt_path", "farmland"):
+        # 15/16 de altura: o topo não é "cheio" (pó de redstone não fica em cima no jogo)
+        return [((0, 0, 0, 1, .9375, 1), n)]
+    if n == "wheat":
+        return [((.125, 0, .125, .875, .25 + .09 * int(p.get("age", "7")), .875), n)]
+    if n == "red_wall_banner":
+        return [({"north": (.0625, .0, .875, .9375, .875, 1), "south": (.0625, .0, 0, .9375, .875, .125),
+                  "east": (0, .0, .0625, .125, .875, .9375), "west": (.875, .0, .0625, 1, .875, .9375)}
+                 [p.get("facing", "south")], n)]
+    if n.endswith("_wall"):
+        caixas = [((.25, 0, .25, .75, 1, .75), n)] if _verdade(p, "up") else []
+        braco = {"north": (.3125, 0, 0, .6875, .875, .5), "south": (.3125, 0, .5, .6875, .875, 1),
+                 "east": (.5, 0, .3125, 1, .875, .6875), "west": (0, 0, .3125, .5, .875, .6875)}
+        for d, cx in braco.items():
+            if p.get(d, "none") != "none":
+                caixas.append((cx, n))
+        return caixas or [((.25, 0, .25, .75, 1, .75), n)]
     if n == "redstone_wire":
         return [((.1, 0, .1, .9, .04, .9), n)]
     if n in ("glass_pane", "iron_bars"):
@@ -241,7 +286,7 @@ def formas(nome, p):
     return [(CHEIA, n)]
 
 
-TRANSPARENTES = {"vidro", "teia", "planta", "folha", "grade", "escada", "nada"}
+TRANSPARENTES = {"vidro", "teia", "planta", "folha", "grade", "escada", "nada", "agua"}
 
 
 def material(nome):

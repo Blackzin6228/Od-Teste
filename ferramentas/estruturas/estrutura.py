@@ -73,7 +73,8 @@ class Mistura:
 
 class Estrutura:
     def __init__(self, nome, tamanho, semente=1):
-        self.nome = nome
+        # "titulo" e não "nome": um atributo self.nome esconderia o método nome(x, y, z)
+        self.titulo = nome
         self.tam = tuple(tamanho)
         self.blocos = {}  # (x,y,z) -> (nome completo, tupla ordenada de (prop, valor))
         self.semente = semente
@@ -120,7 +121,7 @@ class Estrutura:
 
     def por(self, x, y, z, bloco, **props):
         if not self.dentro(x, y, z):
-            raise ValueError(f"{self.nome}: posição fora da estrutura {(x, y, z)} (tamanho {self.tam})")
+            raise ValueError(f"{self.titulo}: posição fora da estrutura {(x, y, z)} (tamanho {self.tam})")
         self.blocos[(x, y, z)] = self._resolver(bloco, props)
 
     def ar(self, x, y, z):

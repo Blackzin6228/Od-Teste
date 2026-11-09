@@ -11,6 +11,10 @@ bash ferramentas/estruturas/gerar.sh capela_fazenda  # só uma
 python3 -I ferramentas/estruturas/validar.py arte/estruturas/capela_fazenda.nbt   # só confere um arquivo
 python3 -I ferramentas/estruturas/testar.py          # testes
 ```
+Estrutura grande (vila): `bash ferramentas/gerar_vila.sh` gera o `.nbt`, roda os testes e faz as prévias por parte
+(`previa_partes.py`, saída em `arte/previas/estruturas/<nome>/`: vista de cima inteira + frente/costas/lado/cima/corte de
+cada parte listada em `PARTES` no modelo).
+
 Saída: `arte/estruturas/<nome>.nbt`, `arte/estruturas/<nome>.pistas.json` e as prévias em `arte/previas/estruturas/`.
 A mesma semente gera sempre o mesmo arquivo (o diff no git só muda quando a estrutura muda).
 

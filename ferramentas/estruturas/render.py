@@ -194,6 +194,8 @@ def textura(padrao, cor, tu, tv, hb, face):
         f = 0.75 if tu % 5 == 0 or tv % 5 == 0 else 0.95
     elif padrao == "liso":
         f = 0.94 + (rnd(tu, tv) - 0.5) * 0.08
+    elif padrao == "agua":
+        f, alfa = 0.85 + rnd(tu // 3, tv // 2) * 0.25, 0.78
     elif padrao == "luz":
         return (r, g, b, 1.0, True)
     if sobre:
