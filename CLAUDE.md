@@ -6,7 +6,8 @@ referência técnica (como ele resolveu GeckoLib, Curios, Iron's, publicação n
 Antes de trabalhar, leia: este arquivo, `docs/decisoes.md` + a pasta `docs/decisoes/`, `docs/progresso.md` e o arquivo da sua mesa em `.claude/agents/`.
 
 ## Projeto
-- NeoForge **1.21.1** (21.1.262), Java 21. Modid provisório **`odteste`** (vem do `gradle.properties`).
+- NeoForge **1.21.1** (21.1.262), Java 21. Modid **`odteste`**, definitivo (vem do `gradle.properties`). O nome que o jogador vê pode mudar.
+- O mod **já está no mundo definitivo** do servidor (ATM10). Tudo que muda precisa funcionar num mundo que já existe.
 - Modpack: **Conguitos ATM10** (repositório privado `Blackzin6228/Conguitos-ATM10`, publicado em `conguitos-atm10-pack.vercel.app`). ATM10 8.5 + extras, ~530 mods. O teste de servidor usa **esse** pack. (A compilação ainda usa os jars do Conguitos-smp antigo: mesmas versões das APIs.)
 - Dono: **Nikolas** (GitHub `Blackzin6228`). Meta: projeto grande, para um servidor futuro que gere renda.
 
@@ -22,8 +23,8 @@ Antes de trabalhar, leia: este arquivo, `docs/decisoes.md` + a pasta `docs/decis
 4. **Integração sem dependência dura.** Só NeoForge e GeckoLib são obrigatórios. Todo código que toca outro mod
    fica em `compat/<mod>/` e só carrega se `Compat.Integracao.X.ligada()`. Se um mod sair do pack, o nosso abre igual.
 5. **Nunca remover mods do pack.** **WATERMeDIA e o plugin do YouTube nunca vão para o servidor.**
-6. **IDs são para sempre.** Todo item, bloco, criatura e dado salvo entra em `docs/ids.md`. Depois do primeiro
-   lançamento no servidor, um ID só muda com conversão (remap) aprovada.
+6. **IDs são para sempre.** Todo item, bloco, criatura, dado salvo e config entra em `docs/ids.md`. O servidor já
+   está no ar: um ID só muda com conversão (remap) aprovada. O modid `odteste` nunca muda.
 7. **Nada vai para o servidor sem backup e sem o Nikolas pedir.**
 8. **Nunca colocar senha, token ou endereço do servidor em arquivo do repositório.** Segredos só em *Secrets*,
    e quem cola é o Nikolas.
@@ -31,6 +32,8 @@ Antes de trabalhar, leia: este arquivo, `docs/decisoes.md` + a pasta `docs/decis
    depende de venda, marcar no PR para o Nikolas avaliar.
 10. **Arte própria.** Modelos, texturas e símbolos feitos por nós (ou por IA a partir de referência aprovada).
     Nada baixado de terceiros sem licença registrada em `arte/LICENCAS.md`.
+11. **Estruturas sem geração de mundo.** O terreno já existe. Estrutura da história entra por evento ou comando
+    de admin, sem destruir construção de jogador (plano em `docs/sistemas.md`).
 
 ## Como as mesas trabalham juntas
 - Cada mesa (agente) trabalha num **branch próprio** (`mesa-dev/...`, `mesa-modelador/...`) e abre **Pull Request** para o `main`.
