@@ -1,0 +1,146 @@
+{
+  "estrutura": "vila_destruida",
+  "tamanho": [
+    72,
+    30,
+    64
+  ],
+  "origem": "canto noroeste de baixo (x leste, y cima, z sul)",
+  "pistas": [
+    {
+      "pos": [
+        51,
+        5,
+        42
+      ],
+      "tipo": "atril",
+      "nota": "LUGAR DO LIVRO: atril no meio do círculo que não queimou. Livro principal (Lore/Dev)."
+    },
+    {
+      "pos": [
+        49,
+        1,
+        42
+      ],
+      "tipo": "bau",
+      "nota": "Porão da Casa do Livro (alçapão em x 55, z 46): baú para página/recado."
+    },
+    {
+      "pos": [
+        40,
+        1,
+        35
+      ],
+      "tipo": "bau",
+      "nota": "Fundo do poço, debaixo d'água: baú (pista para quem desce pela corrente)."
+    },
+    {
+      "pos": [
+        31,
+        8,
+        26
+      ],
+      "tipo": "sino",
+      "nota": "Sino da vila no pórtico da praça: toca sozinho (Ato 1, cena 1 e enigma 1)."
+    },
+    {
+      "pos": [
+        28,
+        21,
+        17
+      ],
+      "tipo": "sino",
+      "nota": "Sino da torre da igreja: pode tocar ao contrário (Ato 5)."
+    },
+    {
+      "pos": [
+        37,
+        9,
+        3
+      ],
+      "tipo": "estandarte",
+      "nota": "Estandarte vermelho liso atrás do altar: trocar pelo símbolo nosso (Cruz de Ferro) quando desenhado."
+    },
+    {
+      "pos": [
+        37,
+        6,
+        3
+      ],
+      "tipo": "altar",
+      "nota": "Altar com poça; o arrasto vai pelo corredor, pela praça, até o poço."
+    },
+    {
+      "pos": [
+        41,
+        6,
+        3
+      ],
+      "tipo": "atril",
+      "nota": "Atril do presbitério (vazio): segundo lugar possível para um livro."
+    },
+    {
+      "pos": [
+        5,
+        5,
+        18
+      ],
+      "tipo": "cama",
+      "nota": "Casa do aldeão que sumiu: cama com mancha e rastro até a porta."
+    },
+    {
+      "pos": [
+        60,
+        5,
+        42
+      ],
+      "tipo": "bau",
+      "nota": "Ferraria: baú ao lado da forja (o baú trancado do enigma 1, se a Lore quiser)."
+    },
+    {
+      "pos": [
+        62,
+        6,
+        44
+      ],
+      "tipo": "correntes",
+      "nota": "Fundo da ferraria: viga com correntes e mancha embaixo."
+    },
+    {
+      "pos": [
+        24,
+        5,
+        56
+      ],
+      "tipo": "curral",
+      "nota": "Curral vazio: mancha e arrasto saindo pela porteira."
+    },
+    {
+      "pos": [
+        3,
+        5,
+        10
+      ],
+      "tipo": "bau",
+      "nota": "Casa grande do noroeste: baú no quarto (diário)."
+    },
+    {
+      "pos": [
+        53,
+        5,
+        3
+      ],
+      "tipo": "bau",
+      "nota": "Casa grande do nordeste: baú (recado)."
+    },
+    {
+      "pos": [
+        13,
+        5,
+        57
+      ],
+      "tipo": "bau",
+      "nota": "Casa desabada do sudoeste: baú."
+    }
+  ]
+}
