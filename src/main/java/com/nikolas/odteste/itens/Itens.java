@@ -1,7 +1,9 @@
 package com.nikolas.odteste.itens;
 
+import com.nikolas.odteste.blocos.capela.BlocosCapela;
 import com.nikolas.odteste.dados.IdsDados;
 import com.nikolas.odteste.registro.Registro;
+import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -50,7 +52,10 @@ public final class Itens {
 
     /** Itens sem receita: fora da aba do criativo e escondidos no JEI/EMI (compat/jei, compat/emi). */
     public static List<Item> escondidos() {
-        return List.of(RUBRA.get(), AGULHA.get(), DEDAL.get(), SINO.get(), MATERIA_SANGUE.get());
+        List<Item> todos = new ArrayList<>(
+                List.of(RUBRA.get(), AGULHA.get(), DEDAL.get(), SINO.get(), MATERIA_SANGUE.get()));
+        todos.addAll(BlocosCapela.escondidos());
+        return todos;
     }
 
     /** Força o carregamento da classe (registros) e liga os eventos dos artefatos. */

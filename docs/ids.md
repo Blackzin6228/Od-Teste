@@ -52,6 +52,8 @@ Modid: `odteste` (definitivo, decisão de 2026-11-08) · Lançado no servidor: *
 | `odteste_vila_calada` | dado do mundo (`SavedData`, arquivo `data/odteste_vila_calada.dat` do overworld) | 2026-11-09 | pistas da Vila Calada. Chaves dentro do arquivo também não mudam: `ligado`, `colocacao`, `ancora_auto`, `ancora_auto_dim`, `vistas` |
 | `odteste:vila_calada` | nome do template de estrutura (`data/odteste/structure/vila_calada.nbt`, quando entrar) | 2026-11-09 | o único template que ancora a Vila Calada sozinho ao terminar de ser colocado. Renomear quebra a âncora automática |
 | `estruturas.blocos_por_tick` | chave de config do servidor (`serverconfig/odteste-server.toml` do mundo, seção `[estruturas]`; inteiro, padrão 4096, mínimo 256, máximo 65536) | 2026-11-09 | blocos por tick ao conferir, colocar e desfazer estrutura grande em partes. Mudar no meio só vale para a próxima colocação (cada uma guarda o `limite` com que começou) |
+| `odteste:vela_da_capela` | bloco + item do bloco + tipo de bloco com dados (block entity) | 2026-11-09 | vela da capela da Vila Calada: devolve Lucidez a quem está perto. Inquebrável no sobrevivência, sem drop, item escondido. O nome fica gravado no chunk |
+| `odteste:poca_de_sangue` | bloco + item do bloco | 2026-11-09 | poça fina sem colisão: quem fica nela perde Lucidez. Nome genérico para servir a outros lugares. Inquebrável no sobrevivência, sem drop, item escondido |
 
 História (Ato 1, parte A). Ficam salvos dentro de `odteste_historia`, então também não mudam:
 - **Marcos do grupo:** `primeiro_sinal` (Cena 1 solta para o grupo), `enigma_sino` (FERRO escrito na placa, baú aberto), `vila_calada` (desde 2026-11-09: o grupo chegou à Vila Calada; as pistas param).

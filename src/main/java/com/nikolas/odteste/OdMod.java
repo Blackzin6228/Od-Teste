@@ -2,6 +2,7 @@ package com.nikolas.odteste;
 
 import com.mojang.logging.LogUtils;
 import com.nikolas.odteste.aparelhos.Aparelhos;
+import com.nikolas.odteste.blocos.capela.BlocosCapela;
 import com.nikolas.odteste.comandos.ComandosAdmin;
 import com.nikolas.odteste.comandos.ComandosHistoria;
 import com.nikolas.odteste.historia.PrimeiroSinal;
@@ -33,6 +34,7 @@ public final class OdMod {
         DadosJogador.iniciar();
         Sangramento.iniciar();
         Itens.iniciar();
+        BlocosCapela.iniciar();
         Criaturas.iniciar(barramento);
         Aparelhos.iniciar(barramento);
         Registro.registrar(barramento);
