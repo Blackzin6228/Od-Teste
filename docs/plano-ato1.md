@@ -153,25 +153,6 @@ Regras de antes continuam: `docs/progresso.md`, `docs/ids.md` e os `lang` só a 
 `OdMod.java` e `Itens.java` estão no #39: ninguém mais mexe neles nesta rodada (no máximo uma linha de registro, resolvida no merge).
 Esperando o Nikolas: Faminto (1.6, 1.7) e o atril, Vila Calada final (1.4), sino ambiente à noite.
 
-## Quarta rodada (lançada em 09/11)
-Entraram no main: **#43** (plano), **#45** (textos da Vila Calada, 1.13 em documento), **#46** (prévias de som e do estandarte).
-Na revisão: **#39**, **#44**, **#47**, **#48**. Cada mesa dona corrige o que o Revisor pedir, no próprio branch.
-Decisões novas: `decisoes/2026-11-09-sino-ambiente-vila-calada.md` e `decisoes/2026-11-09-analisador-chiado-800fe.md`.
-
-| Tarefa | Mesa | Branch | Arquivos dela (ninguém mais mexe) |
-|---|---|---|---|
-| Sino ambiente pela decisão nova (raro, só vanilla, tom 0,5 a 0,7, para quando o grupo chega) | Dev | `mesa-dev/sino-ambiente` | `historia/vilacalada/PistasVilaCalada.java`, `RegrasVilaCalada.java` e o teste dela |
-| 1.9 Mapa de cartógrafo que se desenha (mapa vanilla, sem ID novo) | Dev 2 | `mesa-dev/mapa-cartografo` | pacote novo `historia/mapa/` |
-| Ganchos de tech e magia do Ato 1 (roteiro, "Ganchos para tech e magia"): plano por mod, só documento | Integrador | `mesa-integrador/ganchos-ato1` | `docs/ganchos-ato1.md` (novo) |
-| Prévia do Moinho Parado (primeiro dos cinco lugares), **só prévia** | Modelador | `mesa-modelador/moinho-parado` | `arte/moinho-parado/` |
-| Textos de jogo do Moinho Parado e do Diário do Açougueiro (em documento) | Lore | `mesa-lore/textos-moinho-acougueiro` | `lore/textos-moinho-acougueiro.md` (novo) |
-| Revisão de #39, #44, #47, #48 e de cada PR de código desta rodada | Revisor | (só lê) | nenhum |
-
-Regras de antes continuam: `docs/progresso.md`, `docs/ids.md` e os `lang` só a CEO; `OdMod.java` e `Itens.java` no máximo
-uma linha de registro. `sinais/` e `aparelhos/` ficam com o Integrador só para corrigir #44 e #47.
-Cada mesa salva aos poucos (commit e push a cada parte pronta) e abre o PR como rascunho logo no primeiro commit.
-**2.3 (mochila) parada:** lanterna e rádio são do roteiro antigo; volta só se o Nikolas quiser no roteiro novo.
-
 ## Próximo passo
-Ok das prévias → Faminto e Vila Calada final. Depois, 1.14 (teste de ponta a ponta).
+Ok das prévias → Faminto e Vila Calada final. Depois, 1.14 (teste de ponta a ponta) e 2.3 (mochila, Dev 2).
 Reescrever as Fases 3 a 5 com os lugares do roteiro novo (#40). Lore antes de código, código antes de revisão.
