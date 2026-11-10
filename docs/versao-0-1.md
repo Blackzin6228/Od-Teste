@@ -51,6 +51,7 @@ Todos os comandos pedem permissão de admin (nível 2). Nos exemplos, troque `gr
 
 **No jogo**
 1. Crie o grupo: `/odteste grupo criar grupo1 Fulano Ciclano`. O nome do grupo usa só minúsculas, números e `_`.
+   Opcional: defina o elemento escondido de cada um com `/odteste elemento <jogador> <sangue|conhecimento|morte|energia>`.
 2. Escolha uma vila comum com sino, longe de construções de jogador. Opcional: `/odteste evento ancorar vila_do_sino <x y z>`
    perto do sino.
 3. Solte o evento: `/odteste evento primeiro_sinal grupo1 [x y z do sino]`.
@@ -59,6 +60,8 @@ Todos os comandos pedem permissão de admin (nível 2). Nos exemplos, troque `gr
    - `/odteste estrutura prever odteste:vila_calada <x y z> [0|90|180|270]` mostra o contorno.
    - Em até 5 minutos, `/odteste estrutura colocar odteste:vila_calada <x y z> [giro]`. A estrutura entra aos poucos.
    - O mod grava a âncora sozinho. Confira com `/odteste vila_calada ver`.
+   - **Sem a estrutura** (se a prévia não for aprovada): marque um lugar à mão com `/odteste vila_calada ancorar <x y z>`.
+     Sem âncora não há pistas, nem sinal no Analisador, nem o aviso "não seguiu o sino".
 6. Ponha o livro no atril, porque a estrutura vem com o atril vazio. Use `/odteste livro dar sineiro <seu nome>` e coloque o
    livro no atril da vila.
 7. Opcional: a capela da Vila Calada tem velas e poças. Coloque-as com
@@ -77,6 +80,15 @@ Todos os comandos pedem permissão de admin (nível 2). Nos exemplos, troque `gr
 - Para ver e ajustar valores (só no teste):
   - `/exposicao ver|definir <jogador> <0-100>`, `/lucidez ver|definir <jogador> <0-100>`, `/marca ver <jogador>`;
   - `/odteste elemento <jogador> <elemento>` define o elemento escondido; `/odteste elemento revelar <jogador>` revela.
+
+**Pegadinhas**
+- O Primeiro Sinal só acha sino em chunk carregado e sem dono (FTB Chunks). `desfazer` e `retrancar` também precisam do
+  chunk carregado: fique perto ao usar.
+- O sino rachado só toca de noite. De dia, use `/odteste vila_calada tocar`.
+- Em criativo, o Morse não tira Lucidez e a vela não devolve Lucidez: teste em sobrevivência.
+- Aldeões com nome, dormindo ou trocando ficam de fora das pistas.
+- Renomear um grupo perde o progresso dele: apague e crie de novo só no teste.
+- Os avisos de enigma vão para todos que têm permissão de admin.
 
 ## 3. Roteiro de teste para o grupo
 Faça no servidor de teste com o pack inteiro, com 2 a 4 jogadores e 1 admin. Anote **o que aconteceu, o horário e um print**
