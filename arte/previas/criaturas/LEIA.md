@@ -1,4 +1,4 @@
-# Criaturas de Sangue: prévia em qualidade final (Retalhado e Sanguessuga-Mãe)
+# Criaturas de Sangue: prévia em qualidade final (Retalhado, Sanguessuga-Mãe e Magarefe)
 
 Status: **só prévia, para o Nikolas aprovar.** Nada disto está no jogo: o jogo continua com o modelo provisório
 em `src/main/resources/assets/odteste/`. Nenhum ID mudou (`odteste:retalhado`, `odteste:sanguessuga_mae`).
@@ -45,10 +45,21 @@ Para renderizar qualquer outro modelo GeckoLib: `bash ferramentas/render_geckoli
   `dano`, `morrer` (pernas abrem e cedem, a cesta tomba, as larvas fogem), e a presença **`chocar`**: abaixa até o chão,
   três pulsos pesados, as larvas rodam e uma desce até a boca.
 
+## Magarefe (29 cubos, 13 ossos, ~3,8 blocos de altura; ainda não existe no jogo, sem ID)
+- Gente esticada, não um bruto: alto e magro, ombros largos caídos, **cabeça num saco de estopa** amarrado com corda,
+  sem rosto, caída para a frente. Camisa escura, **avental de couro** do peito à canela com o **sangue escorrido** (o acento),
+  braços nus com cortes antigos, botas pesadas. **Cutelo de cabo** na mão direita, arrastando perto do chão; mão esquerda
+  de dedos compridos; **Sino de Matadouro** pendurado no cinto (o item do mod) e um cabo de osso na faca do cinto.
+- Animações: `parado` (respira, a cabeça pende de um lado para o outro, o cutelo bate na perna), `andar` (1,8 s, devagar),
+  `ataque` (ergue o cutelo com as duas mãos por 0,6 s e desce de uma vez), `dano` (quase não sente), `morrer` (guardada para
+  depois do Ato 1), e a presença **`escutar`**: para, ergue o saco e vira a cabeça escutando, depois limpa o cutelo no avental.
+- Sem folha de comparação porque não há provisório.
+
 ## Para o Nikolas decidir
-1. Aprovar o visual das duas (ou dizer o que muda), antes de integrar.
+1. Aprovar o visual das três (ou dizer o que muda), antes de integrar.
 2. **Resolução**: ficou na densidade padrão (16 px por bloco), em folhas de 128x128. Se preferir 32x, o gerador troca com um número.
 3. **Hitbox**: o Retalhado tem ombros de ~2,1 blocos (hitbox atual 1,5) e a Sanguessuga ~3,2 blocos com as pernas
    (hitbox 2,6 x 1,9). Sugestão para o Dev: 1,9 x 3,0 e 3,0 x 2,0.
-4. Nomes das animações novas (`ataque`, `mordida`, `dano`, `morrer`, `afiar`, `chocar`) para o Dev ligar no código.
-5. Magarefe e Faminto ficam para a próxima rodada (o Faminto já tem prévia em `arte/vila-calada/`).
+4. Nomes das animações novas (`ataque`, `mordida`, `dano`, `morrer`, `afiar`, `chocar`, `escutar`) para o Dev ligar no código.
+5. O Faminto fica para a próxima rodada (já tem prévia própria em `arte/vila-calada/`, esperando aprovação).
+6. Magarefe: o ID (`odteste:magarefe`) só entra em `docs/ids.md` quando o Dev criar a criatura.

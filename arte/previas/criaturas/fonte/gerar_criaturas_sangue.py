@@ -790,8 +790,12 @@ def main():
         feitos["retalhado"] = gerar("retalhado", montar_retalhado, anims_retalhado, (3, 3.2, 1.5))
     if alvo in ("sanguessuga_mae", "todas"):
         feitos["sanguessuga_mae"] = gerar("sanguessuga_mae", montar_sanguessuga, anims_sanguessuga, (4, 2.5, 1))
-    if len(feitos) == 2:
-        folhas = [rg.ler_png(PREVIAS / n / "comparacao.png") for n in feitos]
+    if alvo in ("magarefe", "todas"):
+        import magarefe
+        feitos["magarefe"] = gerar("magarefe", magarefe.montar, magarefe.anims, (3, 4, 1.8))
+    folhas = [rg.ler_png(PREVIAS / n / "comparacao.png") for n in ("retalhado", "sanguessuga_mae")
+              if (PREVIAS / n / "comparacao.png").exists()]
+    if len(folhas) == 2:
         rg.salvar_png(PREVIAS / "comparacao_sangue.png", rg.juntar_vertical(folhas, espaco=16))
     print("pronto:", PREVIAS)
 
