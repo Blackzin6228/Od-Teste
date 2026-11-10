@@ -54,9 +54,13 @@ public class AnalisadorSinalEntidade extends BlockEntity {
         // Ninguém perto: desliga (sem luz nem sinal), não gasta e não procura.
         boolean ligado = alguemPerto && RegrasAnalisador.ficaLigado(be.bateria.getEnergyStored());
         boolean sinal = false;
+        boolean clica = false;
         if (ligado) {
             be.bateria.gastar(RegrasAnalisador.GASTO_CHECAGEM);
-            sinal = !Sinais.perto(servidor, pos, RegrasAnalisador.RAIO_SINAL).isEmpty();
+            List<Sinal> achados = Sinais.perto(servidor, pos, RegrasAnalisador.RAIO_SINAL);
+            sinal = !achados.isEmpty();
+            // A Vila Calada só acende a luz: som dela sozinho espera decisão do Nikolas.
+            clica = Sinais.temSinalComSom(achados);
         }
 
         if (ligado && !sinal
@@ -66,7 +70,7 @@ public class AnalisadorSinalEntidade extends BlockEntity {
         }
 
         boolean eraSinal = estado.getValue(AnalisadorSinalBloco.SINAL);
-        if (sinal && !eraSinal) {
+        if (sinal && !eraSinal && clica) {
             nivel.playSound(null, pos, SoundEvents.SCULK_CLICKING, SoundSource.BLOCKS, 0.6f, 0.5f);
         }
         if (estado.getValue(AnalisadorSinalBloco.LIGADO) != ligado || eraSinal != sinal) {
@@ -75,9 +79,9 @@ public class AnalisadorSinalEntidade extends BlockEntity {
         }
     }
 
-    /** Fonte fixa longe: chiado baixinho, mais alto quanto mais perto. Sem texto. */
+    /** Fonte fixa salva longe: chiado baixinho, mais alto quanto mais perto. Sem texto. A Vila Calada fica de fora. */
     private static void chiadoDeLonge(ServerLevel nivel, BlockPos pos) {
-        Sinais.fonteFixaMaisProxima(nivel, pos, RegrasAnalisador.ALCANCE_LONGE).ifPresent(f -> {
+        Sinais.fonteFixaSalvaMaisProxima(nivel, pos, RegrasAnalisador.ALCANCE_LONGE).ifPresent(f -> {
             RegrasSinal.Intensidade forca = RegrasSinal.intensidade(
                     Math.sqrt(f.pos().distSqr(pos)), RegrasAnalisador.ALCANCE_LONGE);
             float volume = RegrasSinal.volume(forca);
