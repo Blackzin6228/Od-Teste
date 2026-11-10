@@ -152,6 +152,24 @@ class RegrasGatilhosTest {
     }
 
     @Test
+    void grupoAntigoSemMarcoNuncaAvisa_eSoltoDepoisContaDali() {
+        java.util.Map<String, EstadoGrupo> estados = new java.util.LinkedHashMap<>();
+        RegrasGatilhos.primeiraCriacao(estados, List.of("antigo"));
+        EstadoGrupo st = estados.get("antigo");
+        // Muitas noites sem o marco: nada conta, nada avisa (limite 3).
+        for (int d = 0; d < 10; d++) {
+            assertEquals(Acao.NADA, RegrasGatilhos.passo(st, m(d * 24_000L + NOITE, false), novo()));
+        }
+        assertEquals(0, st.noites, "sem o Primeiro Sinal, as noites não contam");
+        // O admin solta o evento depois: não avisa na hora, as noites começam dali.
+        long base = 10 * 24_000L;
+        assertEquals(Acao.NADA, RegrasGatilhos.passo(st, m(base + NOITE, false), teve(true, true)));
+        assertEquals(1, st.noites);
+        assertEquals(Acao.NADA, RegrasGatilhos.passo(st, m(base + 24_000 + NOITE, false), teve(true, true)));
+        assertEquals(Acao.AVISAR_ADMIN, RegrasGatilhos.passo(st, m(base + 48_000 + NOITE, false), teve(true, true)));
+    }
+
+    @Test
     void automaticoVemDesligadoPorPadrao() {
         assertFalse(ConfigGatilhos.PADRAO_AUTOMATICO, "neblina = chuva ainda não foi aprovada");
     }

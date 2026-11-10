@@ -104,8 +104,9 @@ public final class RegrasGatilhos {
             return Acao.SOLTAR_PRIMEIRO_SINAL;
         }
 
-        // Já teve o evento: acompanha se o grupo segue o sino.
-        if (!m.avisoLigado() || st.avisado || st.livroLido || g.chegou() || !g.temVilaCalada()) return Acao.NADA;
+        // Já teve o evento: acompanha se o grupo segue o sino. Só conta com o marco (ou a vila) de verdade: grupo
+        // antigo marcado "já teve" na primeira criação não recebeu o sinal; se o admin soltar depois, conta dali.
+        if (!g.teveEvento() || !m.avisoLigado() || st.avisado || st.livroLido || g.chegou() || !g.temVilaCalada()) return Acao.NADA;
         if (noite && g.alguemOnline() && st.ultimaNoite != dia) {
             st.ultimaNoite = dia;
             st.noites++;
