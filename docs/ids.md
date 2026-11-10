@@ -34,18 +34,30 @@ Modid: `odteste` (definitivo, decisão de 2026-11-08) · Lançado no servidor: *
 | `odteste:exposicao_repeticao` | dado do jogador (mapa `fonte/elemento` → [início da janela em tempo do mundo, vezes]) | 08/11/2026 | freio de repetição da Exposição; salvo para relogar não zerar; só guarda janelas abertas (10 min); sobrevive à morte; não vai para o cliente |
 | `efeitos_fortes` | chave de config do cliente (`config/odteste-client.toml`: `LIGADO`, `SUAVE`, `DESLIGADO`) | 08/11/2026 | fica no PC do jogador; renomear perde a escolha de quem usa suave/desligado. Desde 08/11 também desliga as alucinações que se veem (vulto, criatura, porta), a tela lavada, o balanço e a mão tremendo; SUAVE: porta só com som, vulto e criatura somem em 1 s, tela e corpo pela metade |
 | `odteste:lucidez_lentidao` | modificador de atributo (velocidade de movimento) | 08/11/2026 | temporário (não fica salvo); só Lucidez Quebrando (e surto) **com luz 7 ou menos**: −8% (`docs/horror.md` 2.3); conferido na checagem de 2 s do Vigia, na troca de faixa, ao entrar e ao renascer |
+| `odteste:analisador_sinal` | bloco **e** item do bloco | 2026-11-08 | Analisador de Sinal (aparelho FE, mesa Integrador). Modelo provisório |
+| `odteste:analisador_sinal` | tipo de block entity | 2026-11-08 | guarda a energia; aceita FE de qualquer lado (capacidade de energia do NeoForge), não entrega |
+| `energia` | chave NBT dentro do block entity `odteste:analisador_sinal` (inteiro 0–100.000) | 2026-11-08 | valor fora da faixa é corrigido ao carregar. Quebrar o bloco perde a energia (não vai no item) |
+| `facing`, `ligado`, `sinal` | propriedades do estado do bloco `odteste:analisador_sinal` (`facing`: north/east/south/west; `ligado`, `sinal`: true/false) | 2026-11-08 | ficam salvas no mundo com o bloco: renomear exige remap |
+| `odteste:compat/mekanism/analisador_sinal`, `odteste:compat/create/analisador_sinal`, `odteste:reserva/analisador_sinal` | receitas | 2026-11-08 | Mekanism e Create só com o mod no pack; a reserva vanilla (mais cara) só sem nenhum dos dois. Livro de receitas guarda o ID: mudar só com aviso |
 | `odteste_historia` | dado do mundo (`SavedData`, arquivo `data/odteste_historia.dat` do overworld) | 2026-11-08 | grupos (membros e marcos), pontos ancorados, vilas marcadas (com backup dos blocos e o aldeão que sumiu), estruturas colocadas por comando e aldeões que ainda vão voltar ao normal. Chaves dentro do arquivo também não mudam: `grupos`, `ancoras`, `vilas`, `colocacoes`, `descongelar`, `proxima_colocacao` |
 | `odteste:substituivel` | tag de bloco (`data/odteste/tags/block/substituivel.json`, `"replace": false`) | 2026-11-08 | o que a história pode ocupar além do ar: grama curta e alta, samambaia, arbusto morto, neve fina. Tudo o resto conta como possível construção de jogador |
 | `odteste:livro_carniceiro_1` | peça de história (item vanilla `minecraft:written_book` com custom_data `{odteste_peca: "odteste:livro_carniceiro_1"}`) | 2026-11-08 | Livro do Carniceiro, página 1 (Enigma 1). Texto provisório |
 | `odteste:mapa_rasgado_esquerda` | peça de história (item vanilla `minecraft:paper` com custom_data `{odteste_peca: "odteste:mapa_rasgado_esquerda"}`) | 2026-11-08 | metade esquerda do Mapa Rasgado (Enigma 1). Provisório: vira mapa de verdade no Enigma 2 |
 | `odteste_peca` | chave do custom_data dos itens de história | 2026-11-08 | o mod reconhece as peças por ela; o valor é o ID da peça (linhas acima) |
+| `odteste:livro` | chave do custom_data dos livros de história (item vanilla `minecraft:written_book` com `{"odteste:livro": "<id>"}`) | 2026-11-09 | fica gravado no item e nunca muda; o valor é o id do livro (nome do arquivo em `data/odteste/odteste_livros/`). O texto é remontado a cada leitura |
+| `sineiro` | id de livro de história (`data/odteste/odteste_livros/sineiro.json`) | 2026-11-09 | Livro do Sineiro (Ato 1). Fica gravado no item: renomear o arquivo quebra os livros que já existem. Texto provisório |
+| `odteste_livros_lidos` | dado do mundo (`SavedData`, arquivo `data/odteste_livros_lidos.dat` do overworld) | 2026-11-09 | quem já abriu cada livro (uuid → lista de ids), para o gancho `LivroAbertoPrimeiraVez` disparar uma vez só |
 | `odteste:aldeao_parado` | modificador de atributo (velocidade de movimento, −100%) | 2026-11-09 | temporário (não fica salvo); só nos aldeões parados olhando o sino do Primeiro Sinal, com jogador perto |
+| `odteste:aldeao_virado` | modificador de atributo (velocidade de movimento, −100%) | 2026-11-09 | temporário (não fica salvo); aldeões parados 15 s olhando para a Vila Calada (pista 2) |
+| `odteste_vila_calada` | dado do mundo (`SavedData`, arquivo `data/odteste_vila_calada.dat` do overworld) | 2026-11-09 | pistas da Vila Calada. Chaves dentro do arquivo também não mudam: `ligado`, `colocacao`, `ancora_auto`, `ancora_auto_dim`, `vistas` |
+| `odteste:vila_calada` | nome do template de estrutura (`data/odteste/structure/vila_calada.nbt`, quando entrar) | 2026-11-09 | o único template que ancora a Vila Calada sozinho ao terminar de ser colocado. Renomear quebra a âncora automática |
+| `estruturas.blocos_por_tick` | chave de config do servidor (`serverconfig/odteste-server.toml` do mundo, seção `[estruturas]`; inteiro, padrão 4096, mínimo 256, máximo 65536) | 2026-11-09 | blocos por tick ao conferir, colocar e desfazer estrutura grande em partes. Mudar no meio só vale para a próxima colocação (cada uma guarda o `limite` com que começou) |
 | `odteste:vela_da_capela` | bloco + item do bloco + tipo de bloco com dados (block entity) | 2026-11-09 | vela da capela da Vila Calada: devolve Lucidez a quem está perto. Inquebrável no sobrevivência, sem drop, item escondido. O nome fica gravado no chunk |
 | `odteste:poca_de_sangue` | bloco + item do bloco | 2026-11-09 | poça fina sem colisão: quem fica nela perde Lucidez. Nome genérico para servir a outros lugares. Inquebrável no sobrevivência, sem drop, item escondido |
 
 História (Ato 1, parte A). Ficam salvos dentro de `odteste_historia`, então também não mudam:
-- **Marcos do grupo:** `primeiro_sinal` (Cena 1 solta para o grupo), `enigma_sino` (FERRO escrito na placa, baú aberto).
-- **Lugares que o admin ancora:** `vila_do_sino` (onde procurar a vila da Cena 1).
+- **Marcos do grupo:** `primeiro_sinal` (Cena 1 solta para o grupo), `enigma_sino` (FERRO escrito na placa, baú aberto), `vila_calada` (desde 2026-11-09: o grupo chegou à Vila Calada; as pistas param).
+- **Lugares que o admin ancora:** `vila_do_sino` (onde procurar a vila da Cena 1), `vila_calada` (desde 2026-11-09: centro da Vila Calada; também ancorado sozinho quando o template principal termina de ser colocado).
 - **Nomes de grupo:** quem escolhe é o admin (`/odteste grupo criar <nome>`). Renomear um grupo perde o progresso dele.
 - Os eventos do comando (`/odteste evento primeiro_sinal`) e os ids de colocação (`e1`, `e2`...) não são IDs de conteúdo:
   o evento não fica salvo pelo nome, e o id de colocação só serve para o `desfazer`.
@@ -56,7 +68,14 @@ História (Ato 1, parte A). Ficam salvos dentro de `odteste_historia`, então ta
     `congelados`, `resolvido`, `marcos`, e desde 2026-11-09 `apoio_placa`, `apoio_placa_bloco`, `apoio_estandarte`,
     `apoio_estandarte_bloco` (blocos da vila que seguram a placa e o estandarte; mundos antigos ganham na primeira
     vez que o mod vê o bloco). Vila sem `sino` é ignorada (não roda), mas fica no arquivo igual.
-  - cada colocação (`colocacoes`): `id`, `template`, `dim`, `canto`, `backup`.
+  - cada colocação (`colocacoes`): `id`, `template`, `dim`, `canto`, `backup`, e desde 2026-11-09 `partes` (só em
+    estrutura grande, colocada em partes; colocação sem `partes` é a pequena, de uma vez, e continua igual).
+    Dentro de `partes`: `rotacao` (`none`, `clockwise_90`, `clockwise_180`, `counterclockwise_90`), `limite` (blocos
+    por fatia usados quando começou), `total` (fatias), `fatia` (próxima fatia), `fase`, `admin` (UUID de quem pediu,
+    pode faltar), e só enquanto desfaz `vizinhos` (posições já devolvidas que ainda ajustam os vizinhos) e
+    `vizinhos_feitos`. Valores de `fase`: `conferindo`, `colocando`, `pausada`, `pronta`, `desfazendo` (valor
+    desconhecido vira `pausada`: para e espera o admin). O backup de uma estrutura pronta fica no arquivo até o
+    `desfazer` (a Vila Calada são centenas de milhares de posições).
   - cada backup de blocos (`blocos` da vila e `backup` da colocação): `paleta`, `pos`, `original`, `colocado`.
 - Aldeões parados olhando o sino (desde 2026-11-09): **nada fica salvo**. O freio é o modificador temporário
   `odteste:aldeao_parado` (o jogo não grava no disco), o olhar é uma memória que o jogo não grava e o dano é barrado
@@ -104,6 +123,18 @@ Fontes de Exposição (usadas no comando `/exposicao contato` e no freio de repe
 Abalos de Lucidez (comando `/lucidez abalar`, **não** ficam salvos): `batalha_reliquia`, `aparicao`, `mob_sangue`.
 
 Os textos de elemento (`nenhum`, `sangue`…) também são IDs: ficam salvos no jogador.
+
+Sinais do Analisador (`sinais/Sinal`): o `id` do sinal (ex.: `sino_vila`) **não é salvo**; serve para log e para achar
+os textos `odteste.sinal.<id>.decifrado` e `odteste.sinal.<id>.camada`. Os pontos marcados com `SinaisNoMundo.marcar`
+ficam só em memória (quem marca guarda no próprio dado salvo e marca de novo ao ligar).
+
+Fontes de sinal fixas (`sinais/FontesFixas`, mesa Integrador, 2026-11-09): **dado do mundo** `odteste_sinais`
+(`SavedData`, arquivo `data/odteste_sinais.dat` do overworld). Mundo que já existe começa sem o arquivo (vazio).
+Chaves dentro do arquivo não mudam: `fontes` (lista), e em cada uma `id`, `dim`, `pos` (long), `tipo`, `camada`.
+O `id` da fonte (ex.: `sino_vila_calada`) é escolhido por quem registra (`Sinais.registrarFonteFixa` ou
+`/odteste sinal fonte adicionar`) e fica salvo: renomear perde a fonte. O `tipo` escolhe os textos
+`odteste.sinal.<tipo>.*` (ex.: `sino_vila`). No máximo 256 fontes. Textos novos (não salvos):
+`odteste.analisador.longe.<fraca|media|forte>`, `odteste.analisador.direcao.<frente|frente_direita|direita|tras_direita|tras|tras_esquerda|esquerda|frente_esquerda>`, `odteste.sinal.fonte.*` (admin).
 
 Marcadores de texto dos eventos (não ficam salvos, mas os textos da Lore usam): `escolhido_sangue`,
 `escolhido_conhecimento`, `escolhido_morte`, `escolhido_energia` (nome de quem é daquele elemento no grupo;

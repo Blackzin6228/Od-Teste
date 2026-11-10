@@ -10,6 +10,7 @@ Cada mesa atualiza a sua parte ao terminar uma etapa. Legenda: ⬜ não começou
 ## Lore
 🟦 Artefatos Paranormais revisados com a regra de tom sério (08/11/2026): 5 objetos trocados, 4 ajustados, 2 opções de nome cada, esperando a escolha do Nikolas (`lore/artefatos-paranormais.md`)
 🟦 Horror de Exposição e Lucidez (08/11/2026): tabelas por faixa, frases dos comandos, acessibilidade e lang (`docs/horror.md`), esperando o ok do Nikolas
+🟦 Vila Calada (09/11/2026): objetivo do Ato 1 (vila destruída com o Livro do Sineiro e a primeira pista de como voltar), três pistas para o grupo achar a vila, ficha da estrutura (`lore/fichas-estruturas.md`, `lore/livro-do-sineiro.md`, `docs/decisoes/2026-11-09-vila-destruida.md`); roteiro do Ato 1 já ajustado (`lore/roteiro.md`: Cena 1B, Cena 1 vindo da vila, ponte pág. 13 no Enigma 1, passo zero no fio da descoberta), esperando o ok do Nikolas
 ⬜ Propostas de elementos (2 ou 3) · ⬜ escolha do Nikolas · ⬜ papel de cada mod (revisar `docs/integracoes.md`) · ⬜ primeiro arco
 
 ## Dev
@@ -20,9 +21,12 @@ Cada mesa atualiza a sua parte ao terminar uma etapa. Legenda: ⬜ não começou
 
 ## Modelador
 🟦 Biblioteca de referência (`docs/referencias.md`: técnica e licença de 18 mods do 1.21) e régua de qualidade por tipo de peça, para todas as mesas antes do PR (`docs/regua-de-qualidade.md`), 2026-11-08 · ⬜ Guia de estilo visual aprovado · ⬜ primeiro item (prévia) · ⬜ primeira armadura · ⬜ primeira criatura
+🟦 Vila Destruída (Ato 1, Sangue), schematic 72x30x64 + prévias em `arte/previas/estruturas/vila_destruida/`, esperando o ok do Nikolas (não integrada ao mod)
+⬜ Guia de estilo visual aprovado · ⬜ primeiro item (prévia) · ⬜ primeira armadura · ⬜ primeira criatura
+🟨 Ferramenta de estruturas (08/11/2026): `ferramentas/estruturas/` monta estruturas por código (paredes com variação, telhado, piso, mobília, luz, desgaste, sangue), exporta `.nbt` vanilla 1.21.1 (Create/`/place template`), valida e gera prévia PNG (4 lados, cortes e plantas por andar). Protótipo `capela_fazenda` (25x15x20, Sangue) escrito; **falta rodar `bash ferramentas/estruturas/gerar.sh`** para gerar o `.nbt` e as prévias (a mesa não teve permissão de rodar Python) · ⬜ prévia aprovada pelo Nikolas · ⬜ teste colando no mundo
 
 ## Integrador
-🟦 Plano de progressão e crafts (`docs/progressao.md`, armaduras acima da MekaSuit) · 🟦 Troca de voz com controle do jogador e do admin (`docs/voz.md`) · 🟦 Magias por elemento (`docs/magias.md`) · ⬜ Escola nova no Iron's (1 magia de teste) · ⬜ ritual no Occultism · ⬜ ponte com Malum · 🟦 ramo tech (máquinas = misto, decidido 08/11): processamento nas máquinas do pack (mods conferidos), 3 aparelhos nossos com ficha para o Modelador, eventos de Energia e pistas por fita (`docs/tech-paranormal.md`; receitas JSON ainda não escritas)
+🟦 Plano de progressão e crafts (`docs/progressao.md`, armaduras acima da MekaSuit) · 🟦 Troca de voz com controle do jogador e do admin (`docs/voz.md`) · 🟦 Magias por elemento (`docs/magias.md`) · ⬜ Escola nova no Iron's (1 magia de teste) · ⬜ ritual no Occultism · ⬜ ponte com Malum · 🟦 ramo tech (máquinas = misto, decidido 08/11): processamento nas máquinas do pack (mods conferidos), 3 aparelhos nossos com ficha para o Modelador, eventos de Energia e pistas por fita (`docs/tech-paranormal.md`; receitas JSON ainda não escritas) · 🟦 **Analisador de Sinal** (2026-11-08, primeiro aparelho nosso): bloco `odteste:analisador_sinal` com bateria FE (aceita cabo de qualquer mod), gasta 20 FE/t só com jogador perto, acende quando há sinal a até 8 blocos e, ao ser usado (vazio ou com item marcado), mostra o texto decifrado e a segunda camada; receitas Mekanism/Create (só com o mod) e reserva vanilla mais cara; interface `sinais/` para a Dev ligar o sino marcado e os livros; modelo **provisório** (caixa com texturas vanilla de referência) até o Modelador
 
 ## Revisor
 ⬜ Checklist de revisão em uso nos PRs

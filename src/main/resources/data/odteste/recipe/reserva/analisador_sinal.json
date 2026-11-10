@@ -1,0 +1,29 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:or",
+        "values": [
+          { "type": "neoforge:mod_loaded", "modid": "mekanism" },
+          { "type": "neoforge:mod_loaded", "modid": "create" }
+        ]
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "BRB",
+    "SNS",
+    "BGB"
+  ],
+  "key": {
+    "B": { "item": "minecraft:copper_block" },
+    "R": { "item": "minecraft:lightning_rod" },
+    "S": { "item": "minecraft:redstone_block" },
+    "N": { "item": "minecraft:note_block" },
+    "G": { "item": "minecraft:tinted_glass" }
+  },
+  "result": { "id": "odteste:analisador_sinal", "count": 1 }
+}

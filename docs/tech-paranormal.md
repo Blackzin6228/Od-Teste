@@ -8,7 +8,12 @@
 >    Acabamento **nível Mekanism**: modelo detalhado, animação e **som vanilla** (fichas na seção 4).
 >
 > Ainda é proposta: números, receitas, eventos e nomes (provisórios; a mesa Lore dá o nome final).
-> **Nenhum código, receita ou ID existe ainda.** IDs só entram em `docs/ids.md` depois de aprovados.
+>
+> **2026-11-08: primeiro aparelho no código, o Analisador de Sinal** (`odteste:analisador_sinal`, pedido pelo
+> `lore/roteiro.md`, enigmas 1 e 4). Faz a parte "ouvir e decifrar" do Rádio da seção 4.1, sem fita (o roteiro tirou
+> fita e toca-fitas do universo). Bateria 100.000 FE, 20 FE/t só com jogador perto, 20.000 FE por leitura, sinal a até
+> 8 blocos. A Matéria estável ainda não existe, então a receita usa peças do Mekanism/Create por enquanto.
+> Código em `aparelhos/` (bloco) e `sinais/` (interface para o conteúdo emitir sinal).
 
 ## 1. Ideia em uma frase
 Quem joga tech no ATM10 é **o técnico do Gabinete**: usa a fábrica que já tem para tratar a matéria que o grupo traz e

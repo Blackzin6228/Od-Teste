@@ -45,6 +45,12 @@ Contenção). Detalhe em `docs/tech-paranormal.md`. Nada pronto ainda (nenhum JS
 
 Tipos de receita e modids exatos: **conferir nos jars do ATM10** antes de escrever o JSON.
 
+### Pronto (no código)
+| O quê | Mods | Onde | Estado |
+|---|---|---|---|
+| Receita do **Analisador de Sinal** | Mekanism (circuito básico + ósmio), Create (tubo de elétrons + latão), reserva vanilla mais cara (blocos de cobre e de redstone, vidro escurecido) só se **nenhum** dos dois estiver no pack | `data/odteste/recipe/compat/mekanism/`, `.../compat/create/`, `.../reserva/` (só dados, `neoforge:mod_loaded`; aparece no JEI/EMI) | 🟦 PR aberto (2026-11-08) |
+| Energia do Analisador | qualquer mod com cabo FE (Mekanism, Powah, Create Crafts & Additions, Flux...) | capacidade `EnergyStorage.BLOCK` do NeoForge (`aparelhos/`), sem código de outro mod | 🟦 PR aberto (2026-11-08) |
+
 ## Chefes (itens para Corações e item final)
 Cataclysm, Twilight Forest, Mowzie's Mobs e chefes do Iron's. Mapa por elemento em `docs/progressao.md` (seção 5.2). **Conferir drops.**
 

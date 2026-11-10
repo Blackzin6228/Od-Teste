@@ -7,6 +7,8 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.nikolas.odteste.estruturas.Backup;
 import com.nikolas.odteste.estruturas.Colocacao;
+import com.nikolas.odteste.estruturas.ConfigEstruturas;
+import com.nikolas.odteste.estruturas.EmPartes;
 import com.nikolas.odteste.estruturas.Espaco;
 import com.nikolas.odteste.estruturas.Estruturas;
 import com.nikolas.odteste.historia.DadosHistoria;
@@ -45,7 +47,8 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
  * /odteste grupo criar|adicionar|tirar|apagar|ver
  * /odteste evento primeiro_sinal <grupo> [ponto] · desfazer <grupo> · retrancar <grupo> (só o Enigma 1) · ver <grupo>
  *   · ancorar <lugar> <ponto> · desancorar <lugar>
- * /odteste estrutura prever|colocar <template> <ponto> [rotação] · desfazer <id> · lista
+ * /odteste estrutura prever|colocar <template> <ponto> [rotação] · desfazer <id> · continuar <id> · lista
+ *   (estrutura grande vai em partes, uma fatia por tick: estruturas/EmPartes)
  * /odteste elemento <jogador> [elemento] · revelar <jogador> (ComandosElemento)
  *
  * Para o admin, número aparece (coordenadas, contagens). Para o jogador, nunca.
@@ -67,6 +70,23 @@ public final class ComandosHistoria {
 
     public static void iniciar() {
         NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent e) -> registrar(e.getDispatcher()));
+        ConfigEstruturas.registrar();
+        EmPartes.iniciar(new EmPartes.Acesso() {
+            @Override
+            public Map<String, Colocacao> colocacoes(net.minecraft.server.MinecraftServer s) {
+                return DadosHistoria.de(s).colocacoes;
+            }
+
+            @Override
+            public void sujo(net.minecraft.server.MinecraftServer s) {
+                DadosHistoria.de(s).setDirty();
+            }
+
+            @Override
+            public boolean ehPeca(net.minecraft.world.item.ItemStack it) {
+                return PrimeiroSinal.ehPeca(it);
+            }
+        });
     }
 
     static void registrar(CommandDispatcher<CommandSourceStack> d) {
@@ -74,7 +94,9 @@ public final class ComandosHistoria {
                 .then(grupo())
                 .then(evento())
                 .then(estrutura())
-                .then(ComandosElemento.elemento()));
+                .then(ComandosLivros.livro())
+                .then(ComandosElemento.elemento())
+                .then(ComandosSinais.sinal()));
     }
 
     private static DadosHistoria dados(CommandContext<CommandSourceStack> c) {
@@ -255,6 +277,12 @@ public final class ComandosHistoria {
                         .suggests((c, b) -> SharedSuggestionProvider.suggest(
                                 DadosHistoria.de(c.getSource().getServer()).colocacoes.keySet(), b))
                         .executes(ComandosHistoria::desfazerEstrutura)))
+                .then(Commands.literal("continuar").then(Commands.argument("id", StringArgumentType.word())
+                        .suggests((c, b) -> SharedSuggestionProvider.suggest(
+                                DadosHistoria.de(c.getSource().getServer()).colocacoes.values().stream()
+                                        .filter(col -> col.partes() != null && col.partes().fase == Colocacao.Fase.PAUSADA)
+                                        .map(Colocacao::id), b))
+                        .executes(ComandosHistoria::continuarEstrutura)))
                 .then(Commands.literal("lista").executes(ComandosHistoria::listarEstruturas));
     }
 
@@ -288,15 +316,25 @@ public final class ComandosHistoria {
         BlockPos p = BlockPosArgument.getBlockPos(c, PONTO);
         Optional<StructureTemplate> t = Estruturas.template(nivel, id);
         if (t.isEmpty()) return erro(c, "odteste.estrutura.erro.template", id.toString());
-        if (Estruturas.grandeDemais(t.get(), r)) return erro(c, "odteste.estrutura.erro.grande", Estruturas.VOLUME_MAXIMO);
+        if (Estruturas.grandeDemaisAtePartes(t.get(), r)) {
+            return erro(c, "odteste.estrutura.erro.grande", Estruturas.VOLUME_MAXIMO_PARTES);
+        }
         Espaco.Caixa caixa = Estruturas.caixa(t.get(), p, r);
-        Espaco.Resultado res = Estruturas.checar(nivel, t.get(), p, r);
+        boolean grande = Estruturas.grandeDemais(t.get(), r);
+        // Grande: aqui só o chão (uma camada). O resto da caixa é conferido em partes no colocar, antes de pôr nada.
+        Espaco.Resultado res = grande ? Estruturas.checarChao(nivel, t.get(), p, r) : Estruturas.checar(nivel, t.get(), p, r);
         if (c.getSource().getEntity() instanceof ServerPlayer admin) contorno(nivel, admin, caixa, res);
         if (res.cabe()) {
             // Só prévia que cabe libera o colocar.
             PREVIAS.put(c.getSource().getTextName(), chavePrevia(id, p, r));
             PREVIAS_QUANDO.put(c.getSource().getTextName(), System.currentTimeMillis());
-            return ok(c, "odteste.estrutura.prever.cabe", id.toString(), caixa.volume());
+            int ret = ok(c, "odteste.estrutura.prever.cabe", id.toString(), caixa.volume());
+            if (grande) {
+                int n = EmPartes.fatiasPrevistas(caixa);
+                c.getSource().sendSuccess(() -> Component.translatable("odteste.estrutura.prever.grande", n,
+                        Math.max(1, 2 * n / 20)).withStyle(ChatFormatting.GRAY), false);
+            }
+            return ret;
         }
         erro(c, "odteste.estrutura.prever.nao_cabe", id.toString(), res.x(), res.y(), res.z(), motivo(res.motivo()));
         sugerir(c, nivel, t.get(), id, p, r);
@@ -373,6 +411,7 @@ public final class ComandosHistoria {
         }
         Optional<StructureTemplate> t = Estruturas.template(nivel, id);
         if (t.isEmpty()) return erro(c, "odteste.estrutura.erro.template", id.toString());
+        if (Estruturas.grandeDemais(t.get(), r)) return colocarEmPartes(c, nivel, t.get(), id, p, r, quem);
         Estruturas.Tentativa tent = Estruturas.colocar(nivel, t.get(), p, r);
         if (!tent.ok()) {
             if ("grande".equals(tent.erro())) return erro(c, "odteste.estrutura.erro.grande", Estruturas.VOLUME_MAXIMO);
@@ -387,8 +426,46 @@ public final class ComandosHistoria {
         String idColocacao = d.novoIdColocacao();
         d.colocacoes.put(idColocacao, new Colocacao(idColocacao, id.toString(), nivel.dimension(), tent.ponto(), tent.backup().get()));
         d.setDirty();
+        if (Estruturas.ERRO_INTERNO.equals(tent.erro())) {
+            // Deu erro no meio: o que entrou está no backup e a colocação ficou salva para desfazer.
+            return erro(c, "odteste.estrutura.erro.interno", id.toString(), idColocacao);
+        }
         BlockPos o = tent.ponto();
         return ok(c, "odteste.estrutura.colocada", id.toString(), o.getX(), o.getY(), o.getZ(), idColocacao);
+    }
+
+    /**
+     * Estrutura grande: confere o chão de novo (o mundo pode ter mudado desde o prever) e começa. Primeiro o
+     * espaço da caixa é conferido em partes, sem pôr nada; depois cada fatia confere o próprio espaço e entra.
+     */
+    private static int colocarEmPartes(CommandContext<CommandSourceStack> c, ServerLevel nivel, StructureTemplate t,
+                                       ResourceLocation id, BlockPos p, Rotation r, String quem) {
+        if (Estruturas.grandeDemaisAtePartes(t, r)) return erro(c, "odteste.estrutura.erro.grande", Estruturas.VOLUME_MAXIMO_PARTES);
+        PREVIAS.remove(quem);
+        Espaco.Resultado res = Estruturas.checarChao(nivel, t, p, r);
+        if (!res.cabe()) {
+            erro(c, "odteste.estrutura.erro.sem_lugar", id.toString(), res.x(), res.y(), res.z(), motivo(res.motivo()));
+            sugerir(c, nivel, t, id, p, r);
+            return 0;
+        }
+        DadosHistoria d = dados(c);
+        String idColocacao = d.novoIdColocacao();
+        java.util.UUID admin = c.getSource().getEntity() instanceof ServerPlayer j ? j.getUUID() : null;
+        Colocacao col = EmPartes.comecar(nivel, t, idColocacao, id, p, r, admin);
+        d.colocacoes.put(idColocacao, col);
+        d.setDirty();
+        return ok(c, "odteste.estrutura.partes.comecou", id.toString(), col.partes().total, idColocacao, idColocacao);
+    }
+
+    private static int continuarEstrutura(CommandContext<CommandSourceStack> c) {
+        String id = StringArgumentType.getString(c, "id");
+        DadosHistoria d = dados(c);
+        Colocacao col = d.colocacoes.get(id);
+        if (col == null) return erro(c, "odteste.estrutura.erro.id", id);
+        java.util.UUID admin = c.getSource().getEntity() instanceof ServerPlayer j ? j.getUUID() : null;
+        if (!EmPartes.continuar(col, admin)) return erro(c, "odteste.estrutura.partes.nao_pausada", id);
+        d.setDirty();
+        return ok(c, "odteste.estrutura.partes.continua", id);
     }
 
     private static int desfazerEstrutura(CommandContext<CommandSourceStack> c) {
@@ -396,6 +473,12 @@ public final class ComandosHistoria {
         DadosHistoria d = dados(c);
         Colocacao col = d.colocacoes.get(id);
         if (col == null) return erro(c, "odteste.estrutura.erro.id", id);
+        if (col.partes() != null) {
+            java.util.UUID admin = c.getSource().getEntity() instanceof ServerPlayer j ? j.getUUID() : null;
+            if (!EmPartes.desfazer(col, admin)) return erro(c, "odteste.estrutura.partes.ja_desfazendo", id);
+            d.setDirty();
+            return ok(c, "odteste.estrutura.partes.desfazendo_inicio", id, col.backup().tamanho());
+        }
         ServerLevel nivel = c.getSource().getServer().getLevel(col.dimensao());
         if (nivel == null) return erro(c, "odteste.evento.erro.dimensao");
         Backup b = col.backup();
@@ -422,7 +505,9 @@ public final class ComandosHistoria {
         if (d.colocacoes.isEmpty()) return ok(c, "odteste.estrutura.nenhuma");
         for (Colocacao col : d.colocacoes.values()) {
             c.getSource().sendSuccess(() -> Component.literal(col.id() + ": " + col.template() + " @ "
-                    + col.canto().toShortString() + " (" + col.dimensao().location() + ")").withStyle(ChatFormatting.GRAY), false);
+                    + col.canto().toShortString() + " (" + col.dimensao().location() + ")")
+                    .append(EmPartes.andamento(col))
+                    .withStyle(ChatFormatting.GRAY), false);
         }
         return d.colocacoes.size();
     }

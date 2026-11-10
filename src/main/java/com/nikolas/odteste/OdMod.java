@@ -1,10 +1,12 @@
 package com.nikolas.odteste;
 
 import com.mojang.logging.LogUtils;
+import com.nikolas.odteste.aparelhos.Aparelhos;
 import com.nikolas.odteste.blocos.capela.BlocosCapela;
 import com.nikolas.odteste.comandos.ComandosAdmin;
 import com.nikolas.odteste.comandos.ComandosHistoria;
 import com.nikolas.odteste.historia.PrimeiroSinal;
+import com.nikolas.odteste.historia.vilacalada.PistasVilaCalada;
 import com.nikolas.odteste.compat.Compat;
 import com.nikolas.odteste.criaturas.Criaturas;
 import com.nikolas.odteste.dados.DadosJogador;
@@ -34,12 +36,14 @@ public final class OdMod {
         Itens.iniciar();
         BlocosCapela.iniciar();
         Criaturas.iniciar(barramento);
+        Aparelhos.iniciar(barramento);
         Registro.registrar(barramento);
         Rede.iniciar(barramento);
         ComandosAdmin.iniciar();
         ComandosHistoria.iniciar();
         Vigia.iniciar();
         PrimeiroSinal.iniciar();
+        PistasVilaCalada.iniciar();
         Compat.iniciar(barramento);
         LOGGER.info("{} carregado. Integrações ligadas: {}", MODID, Compat.ligadas());
     }
