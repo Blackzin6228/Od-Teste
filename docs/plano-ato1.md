@@ -153,6 +153,20 @@ Regras de antes continuam: `docs/progresso.md`, `docs/ids.md` e os `lang` só a 
 `OdMod.java` e `Itens.java` estão no #39: ninguém mais mexe neles nesta rodada (no máximo uma linha de registro, resolvida no merge).
 Esperando o Nikolas: Faminto (1.6, 1.7) e o atril, Vila Calada final (1.4), sino ambiente à noite.
 
-## Próximo passo
-Ok das prévias → Faminto e Vila Calada final. Depois, 1.14 (teste de ponta a ponta) e 2.3 (mochila, Dev 2).
-Reescrever as Fases 3 a 5 com os lugares do roteiro novo (#40). Lore antes de código, código antes de revisão.
+## Versão 0.1 fechada (10/11) — o resto vira versão 0.2
+Decisão: `decisoes/2026-11-10-versao-0-1.md`. Guia de jogo e teste: `docs/versao-0-1.md`.
+**A 0.1 é** o main + #39, #44, #47 e #48. Nenhuma rodada nova até o grupo jogar a 0.1.
+
+A quarta rodada chegou a abrir branches locais e **parou**. Ficam como estão (nem apagar, nem continuar):
+
+| Branch | O que era | Estado em 10/11 |
+|---|---|---|
+| `mesa-dev/sino-ambiente` | sino ambiente da Vila Calada (decisão de 09/11) | começado, sem commit (3 arquivos mexidos no worktree) |
+| `mesa-dev/mapa-cartografo` | 1.9 mapa que se desenha | vazio |
+| `mesa-integrador/ganchos-ato1` | ganchos de tech e magia do Ato 1 | vazio |
+| `mesa-modelador/moinho-parado` | prévia do Moinho Parado | vazio |
+| `mesa-lore/textos-moinho-acougueiro` | textos do Moinho e do Diário do Açougueiro | vazio |
+
+**Versão 0.2** (só depois da 0.1 jogada): os cinco lugares do Ato 1, Evento do Diabo, Kit do Mestre, sino ambiente,
+mapa de cartógrafo, ganchos de tech e magia, Vila Calada final (1.4), Faminto (1.6, 1.7), sons próprios (1.12),
+estandarte definitivo (2.4), mochila (2.3, só se o Nikolas quiser no roteiro novo). Fases 3 a 5 reescritas com o roteiro novo (#40).
