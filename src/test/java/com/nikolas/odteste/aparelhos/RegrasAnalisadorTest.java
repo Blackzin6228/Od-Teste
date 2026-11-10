@@ -55,6 +55,16 @@ class RegrasAnalisadorTest {
     }
 
     @Test
+    void leituraDeLongeExigeSoOProprioCusto() {
+        int energia = RegrasAnalisador.CUSTO_DIRECAO;
+        assertTrue(RegrasAnalisador.CUSTO_DIRECAO < RegrasAnalisador.CUSTO_LEITURA, "apontar é mais barato que decifrar");
+        assertTrue(RegrasAnalisador.podeApontar(energia), "com 5.000 FE já aponta, sem exigir os 20.000 de decifrar");
+        assertFalse(RegrasAnalisador.podeLer(energia));
+        assertFalse(RegrasAnalisador.podeApontar(RegrasAnalisador.CUSTO_DIRECAO - 1));
+        assertTrue(RegrasAnalisador.podePagar(0, -10), "custo negativo conta como zero");
+    }
+
+    @Test
     void gastarNuncaFicaNegativo() {
         assertEquals(0, RegrasAnalisador.gastar(10, 50));
         assertEquals(40, RegrasAnalisador.gastar(50, 10));
