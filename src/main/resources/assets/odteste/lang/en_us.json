@@ -119,6 +119,9 @@
   "odteste.ato1.mapa_esquerda.nome": "Torn Map (left half)",
   "odteste.ato1.mapa_esquerda.descricao": "A cartographer's map, cut in half.",
   "odteste.ato1.admin.enigma_sino": "%s solved the Village Bell. The chest opened.",
+  "odteste.gatilhos.admin.nao_seguiu_sino": "%1$s did not follow the bell (%2$s night(s) idle).",
+  "odteste.gatilhos.admin.primeiro_sinal_soltou": "The First Signal started on its own for %s (foggy night).",
+  "odteste.gatilhos.admin.primeiro_sinal_falhou": "The First Signal could not start on its own for %s: %s It will try again on the next foggy night (this warning is not repeated).",
 
   "odteste.evento.sim": "yes",
   "odteste.evento.nao": "no",

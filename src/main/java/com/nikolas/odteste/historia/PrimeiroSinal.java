@@ -6,6 +6,7 @@ import com.nikolas.odteste.dados.IdsDados;
 import com.nikolas.odteste.estruturas.Backup;
 import com.nikolas.odteste.estruturas.Espaco;
 import com.nikolas.odteste.estruturas.MundoReal;
+import com.nikolas.odteste.historia.gatilhos.Gatilhos;
 import com.nikolas.odteste.sistemas.Degrau;
 import com.nikolas.odteste.sistemas.Lucidez;
 import java.util.ArrayList;
@@ -140,6 +141,8 @@ public final class PrimeiroSinal {
     private PrimeiroSinal() {}
 
     public static void iniciar() {
+        // Soltar sozinho na noite de neblina e o aviso "não seguiu o sino" (pacote gatilhos).
+        Gatilhos.iniciar();
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoTick);
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoInteragirComAldeao);
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoClicarBloco);

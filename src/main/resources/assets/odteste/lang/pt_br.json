@@ -119,6 +119,9 @@
   "odteste.ato1.mapa_esquerda.nome": "Mapa Rasgado (metade esquerda)",
   "odteste.ato1.mapa_esquerda.descricao": "Um mapa de cartógrafo cortado ao meio.",
   "odteste.ato1.admin.enigma_sino": "%s resolveu o Sino da Vila. O baú abriu.",
+  "odteste.gatilhos.admin.nao_seguiu_sino": "%1$s não seguiu o sino (%2$s noite(s) parado).",
+  "odteste.gatilhos.admin.primeiro_sinal_soltou": "O Primeiro Sinal soltou sozinho para %s (noite de neblina).",
+  "odteste.gatilhos.admin.primeiro_sinal_falhou": "O Primeiro Sinal não soltou sozinho para %s: %s Tenta de novo na próxima noite de neblina (este aviso não se repete).",
 
   "odteste.evento.sim": "sim",
   "odteste.evento.nao": "não",
