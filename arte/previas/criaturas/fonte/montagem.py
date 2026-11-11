@@ -15,8 +15,13 @@ def cor(h):
     return (int(h[1:3], 16), int(h[3:5], 16), int(h[5:7], 16), 255)
 
 
+# Deslocamento global de semente: 0 = variante A da textura; outro valor = variante B (mesmo modelo, outros retalhos).
+DESLOCAMENTO_SEMENTE = 0
+
+
 def hash01(x, y, s=0):
     """Número fixo em [0,1) para (x, y, semente). Não é aleatório: o mesmo pixel dá sempre o mesmo tom."""
+    s = s + DESLOCAMENTO_SEMENTE
     h = (x * 374761393 + y * 668265263 + s * 982451653) & 0xFFFFFFFF
     h = ((h ^ (h >> 13)) * 1274126177) & 0xFFFFFFFF
     h = (h ^ (h >> 16)) & 0x7FFFFFFF
@@ -31,17 +36,23 @@ def tom(paleta, i):
     return cor(paleta[clamp(i, 0, len(paleta) - 1)])
 
 
-def sombreado(paleta, face, fx, fy, fw, fh, semente=0, borda=True, grad=True, base=1, pintas=(0.10, 0.94)):
-    """Tom base com luz de cima (topo mais claro), borda direita/baixo mais escura e pintas fixas.
-    Garante pelo menos 3 tons por material (régua de qualidade)."""
+def sombreado(paleta, face, fx, fy, fw, fh, semente=0, borda=True, grad=True, base=1, pintas=(0.07, 0.96),
+              manchas=0.22, oclusao=True):
+    """Tom base com luz de cima (topo mais claro), borda direita/baixo mais escura, manchas largas (3x3 px) e
+    poucas pintas soltas. Oclusão: as 2 linhas de baixo das faces altas escurecem (a peça "assenta" no que está
+    embaixo). Garante pelo menos 3 tons por material (régua de qualidade), sem virar chuvisco."""
     i = base
     if grad and fh >= 4:
         i += 0 if fy < fh * 0.3 else (0 if fy < fh * 0.65 else 1)
         if fy < max(1, fh * 0.15):
             i -= 1
+    if oclusao and fh >= 7 and fy >= fh - 2 and face not in ("up", "down"):
+        i += 1
     if face == "up":
         i -= 1
     elif face == "down":
+        i += 1
+    if manchas and hash01(fx // 3, fy // 3, semente * 31 + FACE_INDICE[face]) < manchas:
         i += 1
     r = hash01(fx, fy, semente * 7 + FACE_INDICE[face])
     if r < pintas[0]:
@@ -52,6 +63,58 @@ def sombreado(paleta, face, fx, fy, fw, fh, semente=0, borda=True, grad=True, ba
         if fx == fw - 1 or fy == fh - 1:
             i += 1
     return tom(paleta, i)
+
+
+CORTE = "#1f1012"
+SANGUE_SECO = "#3A0306"
+
+
+def patchwork(familias, semente, maximo=3, seco=0.14, fio="#15100f"):
+    """Pele em retalhos IRREGULARES: cada face é dividida em 2 ou 3 regiões (vizinho mais perto de sementes fixas);
+    cada região vem de outra "pessoa" (outra família de tons); a costura só existe na fronteira entre regiões
+    (corte escuro + fio cruzando a cada 3 px) e o sangue seco fica junto da costura. Nada de grade de cruzes."""
+    cache = {}
+
+    def sementes(face, fw, fh):
+        chave = (face, fw, fh)
+        if chave not in cache:
+            k = max(2, min(maximo, (fw * fh) // 36 + 1))
+            base = semente * 13 + FACE_INDICE[face]
+            cache[chave] = [(hash01(i, 1, base) * (fw - 1), hash01(i, 2, base) * (fh - 1), hash01(i, 3, base) * 2.0)
+                            for i in range(k)]
+        return cache[chave]
+
+    def regiao(face, fx, fy, fw, fh):
+        melhor, qual = 1e9, 0
+        for i, (sx, sy, peso) in enumerate(sementes(face, fw, fh)):
+            d = abs(fx - sx) + abs(fy - sy) * 1.2 + peso
+            if d < melhor:
+                melhor, qual = d, i
+        return qual
+
+    def eh_costura(face, fx, fy, fw, fh):
+        r = regiao(face, fx, fy, fw, fh)
+        if fx + 1 < fw and regiao(face, fx + 1, fy, fw, fh) != r:
+            return True
+        return fy + 1 < fh and regiao(face, fx, fy + 1, fw, fh) != r
+
+    def p(face, fx, fy, fw, fh):
+        if fw < 4 or fh < 4:
+            return sombreado(familias[semente % len(familias)], face, fx, fy, fw, fh, semente)
+        r = regiao(face, fx, fy, fw, fh)
+        fam = familias[(r + semente) % len(familias)]
+        if eh_costura(face, fx, fy, fw, fh):
+            return cor(CORTE) if (fx + fy) % 3 != 1 else cor(fio)
+        # fio cruzando a costura: só de um lado (direita/baixo), a cada 3 px; sangue seco raro, grudado nela
+        perto = any(0 <= fx + dx < fw and 0 <= fy + dy < fh and eh_costura(face, fx + dx, fy + dy, fw, fh)
+                    for dx, dy in ((-1, 0), (0, -1)))
+        if perto:
+            if (fx + fy) % 3 == 1:
+                return cor(fio)
+            if hash01(fx, fy, semente * 5 + 2) < seco:
+                return cor(SANGUE_SECO)
+        return sombreado(fam, face, fx, fy, fw, fh, semente + r * 3, base=1)
+    return p
 
 
 FACE_INDICE = {"north": 0, "south": 1, "east": 2, "west": 3, "up": 4, "down": 5}
