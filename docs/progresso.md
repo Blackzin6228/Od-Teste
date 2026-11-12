@@ -28,6 +28,8 @@ Cada mesa atualiza a sua parte ao terminar uma etapa. Legenda: ⬜ não começou
 ## Integrador
 🟦 Plano de progressão e crafts (`docs/progressao.md`, armaduras acima da MekaSuit) · 🟦 Troca de voz com controle do jogador e do admin (`docs/voz.md`) · 🟦 Magias por elemento (`docs/magias.md`) · ⬜ Escola nova no Iron's (1 magia de teste) · ⬜ ritual no Occultism · ⬜ ponte com Malum · 🟦 ramo tech (máquinas = misto, decidido 08/11): processamento nas máquinas do pack (mods conferidos), 3 aparelhos nossos com ficha para o Modelador, eventos de Energia e pistas por fita (`docs/tech-paranormal.md`; receitas JSON ainda não escritas) · 🟦 **Analisador de Sinal** (2026-11-08, primeiro aparelho nosso): bloco `odteste:analisador_sinal` com bateria FE (aceita cabo de qualquer mod), gasta 20 FE/t só com jogador perto, acende quando há sinal a até 8 blocos e, ao ser usado (vazio ou com item marcado), mostra o texto decifrado e a segunda camada; receitas Mekanism/Create (só com o mod) e reserva vanilla mais cara; interface `sinais/` para a Dev ligar o sino marcado e os livros; modelo **provisório** (caixa com texturas vanilla de referência) até o Modelador. 2026-11-09: cada leitura exige só o próprio custo (apontar de longe = 5.000 FE, decifrar = 20.000 FE; antes pedia 20.000 para tudo)
 
+🟦 **Estudo de balanceamento tech x paranormal** (2026-11-12, para a 0.2, só documento): o que no ATM10 anula o horror (Mega Torch, MekaSuit, Allthemodium, Draconic, Just Dire Things, fazendas, teleporte, luz), armaduras e armas contra a MekaSuit com números do pack, rendimento e bloqueios da matéria, eventos de Energia longe de reatores, 10 decisões (`docs/estudo/balanceamento-tech.md`)
+
 ## Revisor
 ⬜ Checklist de revisão em uso nos PRs
 

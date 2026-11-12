@@ -221,3 +221,131 @@ Mesmo com os limites de spawn, um grupo pode acampar numa área escura. Para iss
 | Sem semente, abelha, árvore ou modelo de dados | Mystical Agriculture, Productive Bees, Productive Trees, Hostile Neural Networks | não criar; teste automático falha se aparecer | **novo** teste |
 | Receita nunca devolve mais que entra | qualquer máquina | teste automático lendo os JSON de `data/odteste/recipe/` | **novo** teste |
 | Tempo pelo relógio do mundo | Time in a Bottle, Varinha do Tempo | `gameTime` nos blocos nossos | **novo**, mesa Dev |
+
+---
+
+## 4. Eventos de Energia na base
+
+Base: `docs/tech-paranormal.md` seção 5 (três eventos, chance, limites). Aqui entra o que o ATM10 muda.
+
+### 4.1 O perigo que o plano ainda não cobre: reatores
+- **Reator do Draconic:** o campo de contenção vive da energia que entra pelo portão de fluxo. Se um evento nosso
+  **segurar a saída de uma bateria** que alimenta esse portão, o reator pode **explodir** e destruir uma área enorme.
+- **Reator de fissão do Mekanism:** derretimento **ligado** no pack (`generators.toml`: `enabled = true`, raio 8). Bomba
+  ou máquina de refrigeração sem energia leva ao derretimento.
+- **Extreme Reactors**, **turbinas** e **Powah** (reator): mesma lógica, menos grave **(a confirmar)**.
+
+A regra 6 de `docs/tech-paranormal.md` (ataque reversível) **não basta**: o dano não seria nosso, seria do reator.
+**Proposta:** o evento só mexe em blocos de uma **lista permitida** (os nossos aparelhos e, numa fase depois,
+baterias puras como Cubo de Energia do Mekanism, Célula do Powah) e **nunca** num raio de **32 blocos** de qualquer
+bloco da tag `odteste:nao_tocar_energia` (núcleo e injetor do reator Draconic, controlador de fissão e de fusão do
+Mekanism, controlador do Extreme Reactors, etc. **(a confirmar IDs)**).
+
+### 4.2 Escala do ATM10
+Base de fim de jogo no ATM10 tem **bilhões** de FE guardados e cabos de **Flux Networks** sem fio. O teto de
+**2 M FE** do "Fome da Linha" é invisível nesse tamanho. Ou seja: drenar não assusta quem tem reator; só
+**desligar coisas que ele vê** assusta.
+
+### 4.3 Intensidade (proposta para a 0.2 e depois)
+
+| Nível | Nome | O que desliga | Por quanto tempo | Fase |
+|---|---|---|---|---|
+| 1 | **Casa Ocupada** | nada: sons fora do ritmo, Rádio fala o nome, vultos, abalo pequeno de Lucidez, 1 Desligado que não quebra bloco | 3 a 5 min | **0.2** |
+| 2 | **Apagão** | **nossos aparelhos** (Analisador, Rádio, Antena) e **luzes piscando só na tela** | 60 a 120 s | **0.2** |
+| 3 | **Fome da Linha** | até **8 baterias da lista permitida**, a até 32 blocos: a energia **sai e fica guardada no evento** (até 25% de cada) | até 5 min; volta sozinha em 10 min | **depois da 0.2**, com a lista do 4.1 testada |
+| — | Mexer em AE2/Refined Storage (rede cai) | **não fazer** | — | fica de fora: quebra autocraft de horas e não volta igual |
+
+**Nunca desliga:** reatores e o que está perto deles (4.1), Câmara de Contenção ocupada, geradores, bombas, e nada em
+**Compact Machines** (sala de bolso "sem sinal").
+
+### 4.4 Frequência (ajuste da proposta de `docs/tech-paranormal.md` 5.1)
+- Fica: sorteio a cada **10 min** por jogador online e não AFK, **Exposição 0 nunca é alvo**, chance base 2%, teto 15%.
+- Muda: o bônus "base com mais de 10 M FE" (+2%) vira **"base com mais de 1 bilhão de FE"** (no ATM10 10 M é começo de jogo).
+- Fica: **1 evento por base a cada 40 min**, **6 por hora no servidor**, aviso de **30 s** com a Antena.
+- **Novo:** nível 3 só com **Exposição Alta** de alguém do grupo da base. Nível 1 e 2 a partir de Média.
+- **Novo:** o admin pode **forçar** e **desligar** por comando (já previsto) e o evento é registrado no log com a lista
+  de blocos tocados (para devolver na mão, se algo falhar).
+
+### 4.5 Garantias (o que o Revisor deve testar)
+1. Nenhum bloco quebra, troca ou anda. Nenhum item some.
+2. Toda energia guardada volta, inclusive depois de reiniciar o servidor (`SavedData`).
+3. Nenhum bloco da tag `odteste:nao_tocar_energia` num raio de 32 é tocado (teste com reator Draconic montado no
+   servidor de teste).
+4. Nada roda em chunk sem jogador online perto, mesmo carregado pelo FTB Chunks.
+5. Custo: até 64 blocos olhados, 1 vez por segundo durante o evento (como em `docs/tech-paranormal.md` 5.4).
+
+---
+
+## 5. Decisões para o Nikolas (com recomendação)
+
+1. **Mega Torch:** spawn natural continua bloqueado, mas evento e aparição passam por cima (spawn `EVENT`). A partir de
+   Exposição Alta, a tocha não protege o próprio dono. *Recomendo: sim.*
+2. **Teleporte:** bloquear `/home`, Waystones e afins **só** dentro das nossas dimensões e durante perseguição.
+   *Recomendo: sim.*
+3. **Voo:** liberado no mundo, falha dentro das dimensões e eventos. *Recomendo: sim.*
+4. **Luz e Lucidez:** luz forte segura a Lucidez mas não sobe acima de Inquieto sozinha. *Recomendo: sim.*
+5. **Armadura A4/A5 (2.4):** absorção de dano que ignora armadura cai de 35/60% para **15/25%**, e entra **50/70% contra
+   dano paranormal**; Reserva 400/800 pontos com recarga pela Lucidez. *Recomendo: aprovar e trocar a tabela 6.3.*
+6. **Armas:** teto de **20** de dano contra mob comum (abaixo da Meka-Tool, 24); **×2 contra criatura nossa**.
+   *Recomendo: sim.*
+7. **Criaturas resistem a dano comum** (comum 0%, rara 30%, chefe 60%) para o técnico precisar do mago. *Recomendo: sim,
+   com ajuste no playtest.*
+8. **Matéria:** Sanguessuga dá **1 garantida**; "cansaço do elemento" (metade depois de 8 por dia de jogo, um quarto
+   depois de 16). *Recomendo: sim.*
+9. **Eventos de Energia na 0.2:** só **Casa Ocupada** e **Apagão** dos nossos aparelhos. Dreno de baterias de outros mods
+   fica para depois, com a lista permitida e a zona de 32 blocos longe de reatores. *Recomendo: sim.*
+10. **Pedir ao Publicador** (mexe no config do pack, não no mod): pôr nossas criaturas no `entityDenyList` do Waystones.
+    Não mexer na lista da Mega Torch (ela continua agindo no spawn natural). *Recomendo: sim.*
+
+### O que vira tarefa se aprovado
+- **Dev:** etiqueta positiva de matéria, condição de loot `odteste:jogador_de_verdade`, tipo de dano paranormal,
+  efeitos de horror próprios (sem cura), tempo por `gameTime`, bloqueio de teleporte nas dimensões, lista permitida e
+  zona longe de reatores nos eventos.
+- **Integrador:** tags (`c:capturing_not_supported`, `c:teleporting_not_supported`, tags de bloqueio de cada mod),
+  data map `mekanism:mekasuit_absorption` para o dano paranormal, testes automáticos (receita 1:1, sem tag de minério,
+  sem modelo do HNN).
+- **Lore:** frases do "cansaço do elemento", da tocha que não protege mais e do "algo segura você aqui".
+
+---
+
+## 6. A confirmar (ler no jar do ATM10 8.5 antes de virar código ou dado)
+- Teto de armadura do **AttributeFix** no config padrão.
+- Armadura e resistência do **Draconic** (peças Wyvern/Dracônica/Caótica) e como os módulos de dano somam.
+- Dano das espadas de **Allthemodium/Vibranium/Unobtainium**.
+- Recuo da MekaSuit; como a energia da MekaSuit se divide entre as peças; se a redução de poção dela respeita efeito sem cura.
+- Nome e raio do bloco anti-spawn do **Nature's Aura**; módulo Pacífico do **RFTools Utility** no 1.21; módulo e dano
+  da Matriz de Interdição do **MFFS**.
+- Tags de bloqueio: triturador e ferramenta de prender do **Industrial Foregoing**, Paradoxo/polimorfia/"sem IA" do
+  **Just Dire Things**, **Drygmy** do Ars Nouveau, "não acelerável" do **Time in a Bottle** e da Varinha do Tempo.
+- Quais mods respeitam `c:capturing_not_supported` e `c:teleporting_not_supported`.
+- Se o **Ender IO** 1.21 tem spawner com energia e se o **Draconic** 1.21 tem spawner estabilizado.
+- Se o **Drygmy** monta o loot com jogador falso (passa no `killed_by_player`).
+- Se o **Sodium Extra** desliga a neblina; itens de visão noturna e voo de **Artifacts**, **Relics**, **Enigmatic Legacy+**.
+- IDs dos controladores de reator (Draconic, Mekanism fissão e fusão, Extreme Reactors, Powah) para a tag
+  `odteste:nao_tocar_energia`.
+- Se o **Enhanced Celestials** deixa ligar spawn extra à lua de sangue por dado.
+
+## 7. Fontes
+- Lista de mods e configs do pack: repositório privado `Blackzin6228/Conguitos-ATM10` — `pack/mods/`,
+  `pack/config/Mekanism/gear.toml`, `pack/config/Mekanism/startup.toml`, `pack/config/Mekanism/generators.toml`,
+  `pack/kubejs/server_scripts/mods/Mekanism/Rebalance/rebalance.md`, `pack/defaultconfigs/incontrol/spawn.json`,
+  `pack/config/justdirethings-server.toml`, `pack/config/industrialforegoing/machine-agriculture-husbandry.toml`,
+  `pack/config/ironjetpacks/jetpacks/unobtainium.json`, `pack/config/waystones-common.toml` (lidos em 12/11/2026).
+- Torchmaster (código, branch 1.21.1): https://github.com/Xalcon/TorchMaster —
+  `neoforge/.../TorchmasterNeoforgeConfig.java` (raio 64, Feral Flare 16), `common/.../events/TorchmasterEventHandler.java`
+  (tipos de spawn que passam), `common/.../compat/VanillaCompat.java` (bloqueia o que não é amigável).
+- Allthemodium (código): https://github.com/AllTheMods/Allthemodium — `registry/ArmorRegistries.java`,
+  `events/ArmorEvents.java`, `items/toolitems/armor/Allthemodium_Helmet.java`.
+- Draconic Evolution (código, branch 1.21): https://github.com/Draconic-Inc/Draconic-Evolution — `init/DEModules.java`,
+  `init/EquipCfg.java`.
+- Mekanism: comentários do próprio `gear.toml` (data map `mekanism:mekasuit_absorption`); página
+  https://www.curseforge.com/minecraft/mc-mods/mekanism.
+- Mods citados sem número lido (descrição geral, **a confirmar** no jar): Mob Grinding Utils
+  (https://www.curseforge.com/minecraft/mc-mods/mob-grinding-utils), Industrial Foregoing
+  (https://www.curseforge.com/minecraft/mc-mods/industrial-foregoing), Just Dire Things
+  (https://www.curseforge.com/minecraft/mc-mods/just-dire-things), MFFS, Nature's Aura, RFTools Utility, Ars Nouveau,
+  Hostile Neural Networks, Ender IO, Time in a Bottle, AttributeFix, Sodium Extra (páginas no CurseForge/Modrinth).
+- Conta da armadura do vanilla: `CombatRules.getDamageAfterAbsorb` (Minecraft 1.21) e
+  https://minecraft.wiki/w/Armor#Damage_protection.
+- Reator Draconic que explode sem energia no campo: https://www.curseforge.com/minecraft/mc-mods/draconic-evolution
+  (descrição do reator) **(a confirmar o comportamento exato no 1.21)**.
