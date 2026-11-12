@@ -39,6 +39,7 @@ public final class Rede {
         evento.registrar(VERSAO)
                 .playToClient(SincronizarJogador.TIPO, SincronizarJogador.CODEC, SincronizarJogador::receber)
                 .playToClient(Momento.TIPO, Momento.CODEC, Momento::receber)
-                .playToClient(MarcaVisivel.TIPO, MarcaVisivel.CODEC, MarcaVisivel::receber);
+                .playToClient(MarcaVisivel.TIPO, MarcaVisivel.CODEC, MarcaVisivel::receber)
+                .playToClient(TocarCena.TIPO, TocarCena.CODEC, TocarCena::receber);
     }
 }
