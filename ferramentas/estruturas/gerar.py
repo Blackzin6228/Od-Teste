@@ -74,7 +74,9 @@ def _salvar(quadro, pasta, arquivo):
 
 def main(args):
     previa = "--sem-previa" not in args
-    nomes = [a for a in args if not a.startswith("--")] or list(MODELOS)
+    # sem nome: todas, menos as que têm gerador próprio (GERAR_COM_TODAS = False, ex.: vila_calada_150)
+    nomes = ([a for a in args if not a.startswith("--")]
+             or [n for n, mod in MODELOS.items() if getattr(mod, "GERAR_COM_TODAS", True)])
     desconhecidos = [n for n in nomes if n not in MODELOS]
     if desconhecidos:
         print(f"estrutura desconhecida: {', '.join(desconhecidos)}. Existem: {', '.join(MODELOS)}")

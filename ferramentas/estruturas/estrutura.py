@@ -80,6 +80,9 @@ class Estrutura:
         self.semente = semente
         self.rng = random.Random(semente)
         self.pistas = []  # lugares para a Lore/Dev colocarem livro, recado, evento
+        self.dados = {}  # (x,y,z) -> NBT do bloco (block entity), gravado no campo "nbt" da estrutura
+        self.marcadores = []  # blocos de estrutura em modo DATA: onde o mod põe recompensa
+        self.travado = None  # caixa (x0, z0, x1, z1) que não pode mais mudar (ex.: o centro pronto da vila)
 
     # ---- leitura ---------------------------------------------------------
     def dentro(self, x, y, z):
@@ -119,17 +122,50 @@ class Estrutura:
             nome, p = bloco, dict(props)
         return nome_completo(nome), tuple(sorted((k, _texto(v)) for k, v in p.items()))
 
-    def por(self, x, y, z, bloco, **props):
+    def _conferir(self, x, y, z):
         if not self.dentro(x, y, z):
             raise ValueError(f"{self.titulo}: posição fora da estrutura {(x, y, z)} (tamanho {self.tam})")
+        if self.travado:
+            x0, z0, x1, z1 = self.travado
+            if x0 <= x <= x1 and z0 <= z <= z1:
+                raise ValueError(f"{self.titulo}: {(x, y, z)} está na área travada {self.travado}")
+
+    def por(self, x, y, z, bloco, **props):
+        self._conferir(x, y, z)
         self.blocos[(x, y, z)] = self._resolver(bloco, props)
+        self.dados.pop((x, y, z), None)
 
     def ar(self, x, y, z):
         self.por(x, y, z, "air")
 
     def tirar(self, x, y, z):
         """Some do arquivo (o terreno do mundo fica)."""
+        self._conferir(x, y, z)
         self.blocos.pop((x, y, z), None)
+        self.dados.pop((x, y, z), None)
+
+    def com_dados(self, x, y, z, nbt):
+        """Guarda o NBT do bloco que já está em (x, y, z) (block entity: baú, placa, bloco de estrutura)."""
+        if (x, y, z) not in self.blocos:
+            raise ValueError(f"{self.titulo}: dados sem bloco em {(x, y, z)}")
+        self.dados[(x, y, z)] = nbt
+
+    def marcador(self, x, y, z, nome, nota=""):
+        """Bloco de estrutura em modo DATA com metadata = nome: o mod acha o ponto e põe a recompensa.
+
+        Convenção: o marcador fica UM BLOCO ACIMA do baú (ou da jukebox) de verdade. O baú já existe no
+        arquivo (vazio); o mod lê os marcadores do template e enche o bloco de baixo. Ao colocar, o mod
+        ignora o bloco de estrutura em si (ele não aparece no mundo).
+        """
+        self.por(x, y, z, "structure_block", mode="data")
+        self.com_dados(x, y, z, {
+            "id": "minecraft:structure_block", "mode": "DATA", "metadata": nome, "name": "", "author": "odteste",
+            "posX": N.Int(0), "posY": N.Int(0), "posZ": N.Int(0),
+            "sizeX": N.Int(0), "sizeY": N.Int(0), "sizeZ": N.Int(0),
+            "rotation": "NONE", "mirror": "NONE", "ignoreEntities": N.Byte(1), "powered": N.Byte(0),
+            "showair": N.Byte(0), "showboundingbox": N.Byte(0), "integrity": N.Float(1.0), "seed": N.Long(0),
+        })
+        self.marcadores.append({"pos": [x, y, z], "metadata": nome, "alvo": [x, y - 1, z], "nota": nota})
 
     def encher(self, x0, y0, z0, x1, y1, z1, bloco, so_vazio=False, **props):
         for x in range(min(x0, x1), max(x0, x1) + 1):
@@ -172,7 +208,10 @@ class Estrutura:
                 if props:
                     estado["Properties"] = {k: v for k, v in props}
                 paleta.append(estado)
-            lista.append({"pos": N.Lista(N.INT, [N.Int(c) for c in pos]), "state": N.Int(indice[chave])})
+            item = {"pos": N.Lista(N.INT, [N.Int(c) for c in pos]), "state": N.Int(indice[chave])}
+            if pos in self.dados:
+                item["nbt"] = self.dados[pos]
+            lista.append(item)
         return {
             "size": N.Lista(N.INT, [N.Int(c) for c in self.tam]),
             "entities": N.Lista(N.END),

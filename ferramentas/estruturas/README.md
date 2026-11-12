@@ -19,6 +19,17 @@ Vila Calada (100 x 100, destino do Ato 1): `bash ferramentas/gerar_vila_calada.s
 `arte/vila-calada-100/vila_calada.nbt` + pistas e as prévias (vista de cima, dois ângulos e as partes de perto).
 A camada y 0 dela **assenta em cima do terreno** (nada abaixo, nada cavado): serve para a colocação em partes do mod.
 
+Vila Calada 150 x 150 (decisão de 12/11/2026: centro de 100 intacto + arredores): `bash ferramentas/gerar_vila_calada_150.sh`
+roda os testes e gera em `arte/vila-calada-150/` o `.nbt` inteiro, as 4 faixas de arredores em `partes/` (o inteiro passa do
+limite de colocação do mod), `vila_calada_150.partes.json`, `vila_calada_150.pistas.json` (pistas + **marcadores de
+recompensa**) e as prévias. Opções: `--sem-previa`, `--so-geral`, `--so-partes`, `--sem-teste`. O modelo
+(`modelos/vila_calada_150.py`) **trava** a área do centro: escrever nela levanta erro, e um teste confere bloco a bloco.
+
+**Marcadores de recompensa:** `Estrutura.marcador(x, y, z, nome)` põe um `structure_block` em modo DATA com
+`metadata = nome` **um bloco acima** do baú/jukebox de verdade (campo `nbt` do bloco no arquivo). O mod ignora o bloco de
+estrutura ao colocar e lê a metadata do template para encher o alvo. `Estrutura.com_dados(x, y, z, nbt)` grava NBT em
+qualquer bloco com dados.
+
 Saída: `arte/estruturas/<nome>.nbt`, `arte/estruturas/<nome>.pistas.json` e as prévias em `arte/previas/estruturas/`.
 A mesma semente gera sempre o mesmo arquivo (o diff no git só muda quando a estrutura muda).
 
@@ -59,11 +70,14 @@ Natureza e desgaste: `cobweb`, `vine`, `moss_carpet`, `short_grass`, `fern`, `de
 Sangue: `redstone_wire` (pó de redstone apagado, sem ligação).
 Vila Calada: `light` (luz invisível, só contra monstro comum), `bone_block`, `stone_button`, `spruce_sign`,
 `damaged_anvil`, `carved_pumpkin`, `white_carpet`, `red_bed`, `mud`, `red_stained_glass_pane`.
+Arredores (150): `structure_block` (só modo `data`, marcador), `jukebox`, `spruce_fence_gate`, `spruce_wall_sign`,
+`spruce_leaves`, `andesite`, `podzol`, `rooted_dirt`, `moss_block`, `pumpkin`, `brown_mushroom`, `wither_rose`, `white_wool`.
 Para usar um bloco novo: acrescente em `BLOCOS` (e as propriedades em `_FAMILIAS`, se tiver).
 
 ## Limites conhecidos
 - A prévia **não usa as texturas do jogo**: cores e padrões feitos por código. Mostra forma, volume, cor e
   distribuição de blocos; não é um print. Conferir no jogo antes de aprovar de vez.
-- Baús, barris e atril saem **vazios** (sem NBT de bloco). Os lugares das pistas estão no `.pistas.json` para a Lore/Dev.
+- Baús, barris e atril saem **vazios**. Os lugares das pistas estão no `.pistas.json` para a Lore/Dev; os pontos de
+  recompensa, nos marcadores DATA (acima).
 - Pó de redstone como sangue: se alguém colocar uma tocha de redstone perto, ele acende. Não conduz nada sozinho.
 - Rotação de escada/porta na prévia é aproximada (porta aberta, alçapão).

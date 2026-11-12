@@ -1,0 +1,95 @@
+{
+  "estrutura": "vila_calada_150",
+  "tamanho": [
+    150,
+    27,
+    150
+  ],
+  "origem": "canto noroeste de baixo (x leste, y cima, z sul); a camada y 0 assenta em cima do terreno",
+  "como_montar": "colocar cada peça com a origem dela somada ao canto da vila inteira; todas assentam na mesma altura (y 0 = chão)",
+  "partes": [
+    {
+      "peca": "centro",
+      "arquivo": "arte/vila-calada-100/vila_calada.nbt",
+      "origem": [
+        25,
+        0,
+        25
+      ],
+      "tamanho": [
+        100,
+        27,
+        100
+      ],
+      "nota": "a vila de 100, sem mudar nada"
+    },
+    {
+      "peca": "norte",
+      "arquivo": "arte/vila-calada-150/partes/vila_calada_arredores_norte.nbt",
+      "origem": [
+        0,
+        0,
+        0
+      ],
+      "tamanho": [
+        150,
+        12,
+        25
+      ],
+      "marcadores": [
+        "bau_cova"
+      ]
+    },
+    {
+      "peca": "sul",
+      "arquivo": "arte/vila-calada-150/partes/vila_calada_arredores_sul.nbt",
+      "origem": [
+        0,
+        0,
+        125
+      ],
+      "tamanho": [
+        150,
+        6,
+        25
+      ],
+      "marcadores": [
+        "bau_carroca",
+        "disco_carroca",
+        "bau_espantalho"
+      ]
+    },
+    {
+      "peca": "oeste",
+      "arquivo": "arte/vila-calada-150/partes/vila_calada_arredores_oeste.nbt",
+      "origem": [
+        0,
+        0,
+        25
+      ],
+      "tamanho": [
+        25,
+        11,
+        100
+      ],
+      "marcadores": []
+    },
+    {
+      "peca": "leste",
+      "arquivo": "arte/vila-calada-150/partes/vila_calada_arredores_leste.nbt",
+      "origem": [
+        125,
+        0,
+        25
+      ],
+      "tamanho": [
+        25,
+        7,
+        100
+      ],
+      "marcadores": [
+        "bau_poco_fora"
+      ]
+    }
+  ]
+}
