@@ -12,9 +12,12 @@ public final class RegrasVilaCalada {
     public static final long NOITE_INICIO = 13_000;
     public static final long NOITE_FIM = 23_000;
 
-    /** Intervalo entre dois toques para o mesmo jogador: longo, o silêncio entre eles é a parte que assusta. */
-    public static final int TOQUE_MIN = 900;
-    public static final int TOQUE_MAX = 1_800;
+    /**
+     * Intervalo entre dois toques para o mesmo grupo: 2 a 4 minutos, então 2 a 4 toques por noite (decisão de
+     * 09/11: raro, nunca spam). O silêncio entre eles é a parte que assusta.
+     */
+    public static final int TOQUE_MIN = 2_400;
+    public static final int TOQUE_MAX = 4_800;
     /** Primeiro toque da noite: um pouco depois de escurecer. */
     public static final int PRIMEIRO_TOQUE_MIN = 100;
     public static final int PRIMEIRO_TOQUE_MAX = 600;
@@ -37,8 +40,6 @@ public final class RegrasVilaCalada {
 
     /** Chegou à vila (horizontal). */
     public static final double RAIO_CHEGADA = 40;
-    /** Depois de chegar, o sino só toca para quem está na vila ou em volta. */
-    public static final double RAIO_VILA = 128;
 
     /** Aldeões virados: de quanto em quanto tempo acontece, quanto dura, quantos e de que distância. */
     public static final int OLHADA_MIN = 2_400;
@@ -91,10 +92,10 @@ public final class RegrasVilaCalada {
 
     /**
      * O jogador ouve o sino agora?
-     * @param chegou o grupo já chegou à vila (aí só quem está em volta dela ouve)
+     * @param chegou o grupo já chegou à vila: o sino de longe para de vez (decisão de 09/11)
      */
     public static boolean ouve(double distancia, boolean chegou) {
-        return distancia <= (chegou ? RAIO_VILA : ALCANCE_SINO);
+        return !chegou && distancia <= ALCANCE_SINO;
     }
 
     /** Direção horizontal unitária {x, z} de (dx, dz). Em cima do ponto: {0, 0}. */
