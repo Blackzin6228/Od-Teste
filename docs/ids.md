@@ -95,6 +95,9 @@ adicionados ao mundo do cliente** (minimapa, radar e Jade não veem). A porta fa
 cliente, dentro da "previsão de bloco" do jogo, que guarda o estado real e devolve ele no fim. A lentidão sutil com
 o vulto perto (Exposição Crítica, −5%) é só no movimento do cliente, sem atributo nem ID. Os nomes das alucinações
 (`RegrasHorror.Alucinacao`) não são salvos e podem mudar.
+O **Pendurado** da Vila Calada (2026-11-12) segue a mesma regra: aldeão vanilla (`minecraft:villager`) e corrente
+(`minecraft:chain`) desenhados escuros por evento de render, nunca no mundo. Névoa, cinza e sons do clima da vila
+também não registram nada (sons e partículas vanilla).
 
 Chaves de texto (não são IDs salvos), da Lore (`docs/horror.md` seção 4): `odteste.horror.exposicao.<faixa>.<1-3>`
 (`comum`, `baixa`, `media`, `alta`, `critica`), `odteste.horror.lucidez.<faixa>.<1-3>` (`firme`, `alta`, `media`,
