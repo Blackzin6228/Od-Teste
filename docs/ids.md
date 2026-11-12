@@ -59,6 +59,7 @@ Modid: `odteste` (definitivo, decisão de 2026-11-08) · Lançado no servidor: *
 | `estruturas.blocos_por_tick` | chave de config do servidor (`serverconfig/odteste-server.toml` do mundo, seção `[estruturas]`; inteiro, padrão 4096, mínimo 256, máximo 65536) | 2026-11-09 | blocos por tick ao conferir, colocar e desfazer estrutura grande em partes. Mudar no meio só vale para a próxima colocação (cada uma guarda o `limite` com que começou) |
 | `odteste:vela_da_capela` | bloco + item do bloco + tipo de bloco com dados (block entity) | 2026-11-09 | vela da capela da Vila Calada: devolve Lucidez a quem está perto. Inquebrável no sobrevivência, sem drop, item escondido. O nome fica gravado no chunk |
 | `odteste:poca_de_sangue` | bloco + item do bloco | 2026-11-09 | poça fina sem colisão: quem fica nela perde Lucidez. Nome genérico para servir a outros lugares. Inquebrável no sobrevivência, sem drop, item escondido |
+| `odteste:clima_vila` | pacote de rede (servidor → só o próprio jogador) | 2026-11-12 | clima da Vila Calada: "está dentro do muro" e "vê o Pendurado" (dois sim/não), mandado só quando muda; o ponto da vila não vai para o cliente. Versão da rede subiu para 3. Nada salvo |
 
 História (Ato 1, parte A). Ficam salvos dentro de `odteste_historia`, então também não mudam:
 - **Marcos do grupo:** `primeiro_sinal` (Cena 1 solta para o grupo), `enigma_sino` (FERRO escrito na placa, baú aberto), `vila_calada` (desde 2026-11-09: o grupo chegou à Vila Calada; as pistas param).
