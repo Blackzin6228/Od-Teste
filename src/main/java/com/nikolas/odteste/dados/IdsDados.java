@@ -46,6 +46,15 @@ public final class IdsDados {
     /** Matéria paranormal de Sangue, bruta (cai das criaturas). */
     public static final String ITEM_MATERIA_SANGUE = "materia_sangue_bruta";
     public static final List<String> ITENS = List.of(ITEM_RUBRA, ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO, ITEM_MATERIA_SANGUE);
+    /** Artefatos de Sangue, do mais comum ao mais raro (mesma ordem de RegrasAchados.PESOS). */
+    public static final List<String> ARTEFATOS = List.of(ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO);
+
+    /** Chave NBT que marca, no template de uma estrutura, o baú que ganha recompensa de enigma. */
+    public static final String RECOMPENSA_CHAVE = "odteste_recompensa";
+    /** Valor da marca: baú com um artefato de Sangue (tabela abaixo). */
+    public static final String RECOMPENSA_ARTEFATO_SANGUE = "artefato_sangue";
+    /** Tabela de loot (data/odteste/loot_table/chests/) aplicada ao baú marcado quando a estrutura é colocada. */
+    public static final String LOOT_RECOMPENSA_ARTEFATO_SANGUE = "chests/recompensa_artefato_sangue";
 
     /** Criaturas de Sangue (GeckoLib). Mesmo nome no modificador de bioma e na tabela de drop. */
     public static final String CRIATURA_RETALHADO = "retalhado";
@@ -111,7 +120,8 @@ public final class IdsDados {
             ITEM_RUBRA, ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO, ITEM_MATERIA_SANGUE,
             CRIATURA_RETALHADO, CRIATURA_SANGUESSUGA, SANGRAMENTO, ABA, MODIFICADOR_DEDAL, RITUAL_CHAMADO,
             "ritual/" + RITUAL_CHAMADO, PLUGIN_JEI,
-            TAG_SUBSTITUIVEL, PECA_LIVRO_CARNICEIRO_1, PECA_MAPA_ESQUERDA);
+            TAG_SUBSTITUIVEL, PECA_LIVRO_CARNICEIRO_1, PECA_MAPA_ESQUERDA,
+            RECOMPENSA_CHAVE, RECOMPENSA_ARTEFATO_SANGUE, LOOT_RECOMPENSA_ARTEFATO_SANGUE);
 
     private IdsDados() {}
 }
