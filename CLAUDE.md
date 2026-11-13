@@ -9,7 +9,7 @@ Para lore e história: leia **`lore/mapa.md` primeiro** e abra só o arquivo de 
 ## Projeto
 - NeoForge **1.21.1** (21.1.262), Java 21. Modid **`odteste`**, definitivo (vem do `gradle.properties`). O nome que o jogador vê pode mudar.
 - O mod **já está no mundo definitivo** do servidor (ATM10). Tudo que muda precisa funcionar num mundo que já existe.
-- Modpack: **Conguitos ATM10** (repositório privado `Blackzin6228/Conguitos-ATM10`, publicado em `conguitos-atm10-pack.vercel.app`). ATM10 8.5 + extras, ~530 mods. O teste de servidor usa **esse** pack. (A compilação ainda usa os jars do Conguitos-smp antigo: mesmas versões das APIs.)
+- Modpack: **Conguitos ATM10** (repositório privado `Blackzin6228/Conguitos-ATM10`, publicado em `conguitos-atm10.nikolascampos1915.workers.dev`). ATM10 8.5 + extras, ~530 mods. O teste de servidor usa **esse** pack. (A compilação ainda usa os jars do Conguitos-smp antigo: mesmas versões das APIs.)
 - Dono: **Nikolas** (GitHub `Blackzin6228`). Meta: projeto grande, para um servidor futuro que gere renda.
 
 ## Regras que não mudam

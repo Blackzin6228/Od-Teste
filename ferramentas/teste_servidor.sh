@@ -7,7 +7,7 @@ set -euo pipefail
 JAR="$(realpath "$1")"
 PASTA="$(realpath -m "${2:-servidor-teste}")"
 NEO="${NEO_VERSION:-21.1.262}"
-PACK_URL="${PACK_URL:-https://conguitos-atm10-pack.vercel.app/pack.toml}"
+PACK_URL="${PACK_URL:-https://conguitos-atm10.nikolascampos1915.workers.dev/pack.toml}"
 BOOT_URL="https://github.com/packwiz/packwiz-installer-bootstrap/releases/latest/download/packwiz-installer-bootstrap.jar"
 PACK_REPO="${PACK_REPO:-https://raw.githubusercontent.com/Blackzin6228/Conguitos-smp/main}"
 LIMITE_SEG="${LIMITE_SEG:-1500}"    # 25 minutos para ligar (ATM10 é grande)
