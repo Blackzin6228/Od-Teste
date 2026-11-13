@@ -2,6 +2,7 @@ package com.nikolas.odteste.criaturas;
 
 import com.nikolas.odteste.efeitos.Sangramento;
 import java.util.EnumSet;
+import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -9,6 +10,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -27,8 +29,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
 
 /**
@@ -41,6 +41,13 @@ public final class SanguessugaMae extends CriaturaDeSangue {
     private static final RawAnimation PARADO = RawAnimation.begin().thenLoop("animation.sanguessuga_mae.parado");
     private static final RawAnimation ANDAR = RawAnimation.begin().thenLoop("animation.sanguessuga_mae.andar");
     private static final RawAnimation LANCAR = RawAnimation.begin().thenPlay("animation.sanguessuga_mae.lancar");
+    private static final RawAnimation MORDIDA = RawAnimation.begin().thenPlay("animation.sanguessuga_mae.mordida");
+    private static final RawAnimation CHOCAR = RawAnimation.begin().thenPlay("animation.sanguessuga_mae.chocar");
+    private static final RawAnimation DANO = RawAnimation.begin().thenPlay("animation.sanguessuga_mae.dano");
+    private static final RawAnimation MORRER = RawAnimation.begin().thenPlayAndHold("animation.sanguessuga_mae.morrer");
+    /** Durações das animações (sanguessuga_mae.animation.json): morrer 2,8 s, chocar 4,4 s. */
+    private static final int TICKS_MORRER = 56;
+    private static final int TICKS_CHOCAR = 88;
 
     public SanguessugaMae(EntityType<? extends Monster> tipo, Level level) {
         super(tipo, level);
@@ -75,11 +82,31 @@ public final class SanguessugaMae extends CriaturaDeSangue {
     }
 
     @Override
+    protected int ticksMorrendo() {
+        return TICKS_MORRER;
+    }
+
+    @Override
+    protected String presenca() {
+        return "chocar";
+    }
+
+    @Override
+    protected int ticksPresenca() {
+        return TICKS_CHOCAR;
+    }
+
+    @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controles) {
-        controles.add(new AnimationController<>(this, "corpo", 5,
-                estado -> estado.setAndContinue(estado.isMoving() ? ANDAR : PARADO)));
-        controles.add(new AnimationController<>(this, "acao", 2, estado -> PlayState.STOP)
-                .triggerableAnim("lancar", LANCAR));
+        registrarControles(controles, PARADO, ANDAR, DANO, MORRER,
+                Map.of("lancar", LANCAR, "mordida", MORDIDA, "chocar", CHOCAR));
+    }
+
+    /** Golpe comum (corpo a corpo): a mordida. A Chuva de Filhotes não passa por aqui (dano direto). */
+    @Override
+    public boolean doHurtTarget(Entity alvo) {
+        if (!level().isClientSide) triggerAnim(CONTROLE_ACAO, "mordida");
+        return super.doHurtTarget(alvo);
     }
 
     @Override
@@ -140,7 +167,7 @@ public final class SanguessugaMae extends CriaturaDeSangue {
         @Override
         public void start() {
             ticks = 0;
-            dono.triggerAnim("acao", "lancar");
+            dono.triggerAnim(CONTROLE_ACAO, "lancar");
             dono.playSound(SoundEvents.SLIME_JUMP, 0.8f, 0.5f);
         }
 
