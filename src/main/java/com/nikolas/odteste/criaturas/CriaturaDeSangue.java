@@ -208,6 +208,15 @@ public abstract class CriaturaDeSangue extends Monster implements GeoEntity {
         super.die(fonte);
     }
 
+    /**
+     * Jogador que o loot usa no {@code killed_by_player}: o último que bateu, se o golpe ainda vale (5 s).
+     * Pode ser um FakePlayer (máquina). O cansaço do elemento conta para ele, mesmo em morte indireta.
+     */
+    @Nullable
+    public Player jogadorDoDrop() {
+        return RegrasCansaco.jogadorDoDrop(lastHurtByPlayer, lastHurtByPlayerTime);
+    }
+
     /** Drop raro de artefato (no máximo 1 por criatura; só jogador de verdade; só onde a matéria também cairia). */
     @Override
     protected void dropCustomDeathLoot(ServerLevel nivel, DamageSource fonte, boolean recente) {

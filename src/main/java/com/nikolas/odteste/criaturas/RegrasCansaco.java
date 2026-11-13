@@ -37,6 +37,28 @@ public final class RegrasCansaco {
         return sorteio < chanceEmQuartos(brutasHoje);
     }
 
+    /** O que fazer com a matéria bruta do drop. */
+    public enum Destino {
+        /** Jogador de verdade: passa pelo sorteio do dia e soma no cansaço dele. */
+        CONTA,
+        /** Máquina (FakePlayer) ou ninguém: a matéria bruta sai do drop. */
+        TIRA
+    }
+
+    /**
+     * Quem leva o crédito do drop: o mesmo jogador que o loot usa no {@code killed_by_player} (o último que bateu,
+     * enquanto o golpe ainda vale, {@code lastHurtByPlayerTime > 0}). Não é quem deu o golpe final: se a criatura
+     * morre de fogo, sangramento, lava ou queda depois do golpe, a matéria cai e o cansaço é de quem bateu.
+     */
+    public static <J> J jogadorDoDrop(J ultimoQueBateu, int tempoDoGolpe) {
+        return tempoDoGolpe > 0 ? ultimoQueBateu : null;
+    }
+
+    /** Matéria só para jogador de verdade (decisão de 13/11/2026). */
+    public static Destino destino(boolean temJogador, boolean jogadorFalso) {
+        return temJogador && !jogadorFalso ? Destino.CONTA : Destino.TIRA;
+    }
+
     /** Frase a mostrar quando o contador passa de um limiar: 0 nenhuma, 1 primeira, 2 segunda. */
     public static int aviso(int antes, int depois) {
         if (antes < LIMIAR_2 && depois >= LIMIAR_2) return 2;

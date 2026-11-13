@@ -181,9 +181,9 @@
     "semantic_hash": "13e788d82e3419d6b5c6985a96886b48"
   },
   "src/main/java/com/nikolas/odteste/criaturas/CriaturaDeSangue.java": {
-    "mtime": 1794586439.093557,
-    "seen": 1794586616.4148955,
-    "ast_hash": "4358f9368b82ba0d1739f5c53a0b5368",
+    "mtime": 1794590938.6362739,
+    "seen": 1794590983.2769608,
+    "ast_hash": "e971717c3af6b9862c433b7b6a784fb6",
     "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/criaturas/Criaturas.java": {
@@ -1319,15 +1319,15 @@
     "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/criaturas/CansacoDoElemento.java": {
-    "mtime": 1794586504.1847215,
-    "seen": 1794586616.4148943,
-    "ast_hash": "a5d7b130dc0c5b44143474c9f210ba04",
+    "mtime": 1794590951.9562726,
+    "seen": 1794590983.2769585,
+    "ast_hash": "754c5dfe5eda48e16b0bd496e71ffac9",
     "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/criaturas/RegrasCansaco.java": {
-    "mtime": 1794586522.3007197,
-    "seen": 1794586616.4148977,
-    "ast_hash": "1f959b4e5aa40735667c8863f70541b3",
+    "mtime": 1794590935.7242742,
+    "seen": 1794590983.2769632,
+    "ast_hash": "a3fa689ddc97ceeb63bfa61d8f134acf",
     "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/estruturas/ConfigEstruturas.java": {
@@ -1709,9 +1709,9 @@
     "semantic_hash": ""
   },
   "src/test/java/com/nikolas/odteste/criaturas/RegrasMateriaTest.java": {
-    "mtime": 1794586536.3927183,
-    "seen": 1794586616.4150493,
-    "ast_hash": "aad307b5408be0194424f5bfc5b66620",
+    "mtime": 1794590972.4242709,
+    "seen": 1794590983.27715,
+    "ast_hash": "6c9f95fd47f8a68cc8bf505cb4608953",
     "semantic_hash": ""
   },
   "src/test/java/com/nikolas/odteste/estruturas/FatiasTest.java": {
@@ -2195,9 +2195,9 @@
     "semantic_hash": ""
   },
   "docs/progresso.md": {
-    "mtime": 1794586574.8527148,
-    "seen": 1794586616.4151342,
-    "ast_hash": "37ce63a88eb693964923894ebb628e61",
+    "mtime": 1794590976.0682704,
+    "seen": 1794590983.277295,
+    "ast_hash": "19aeddaf8caf80e127a46397ef999ad6",
     "semantic_hash": ""
   },
   "docs/referencia-mascaras.md": {

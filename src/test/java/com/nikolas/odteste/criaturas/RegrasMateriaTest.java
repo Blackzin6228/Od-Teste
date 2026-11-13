@@ -2,6 +2,7 @@ package com.nikolas.odteste.criaturas;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.nikolas.odteste.sistemas.EventoEnergia;
@@ -64,8 +65,46 @@ class RegrasMateriaTest {
                 "a Sanguessuga-Mãe dá 1 garantida + 0 a 1");
         // O teto da Pilhagem continua (Apotheosis).
         assertTrue(t.replaceAll("\\s", "").contains("\"limit\":2"));
-        // Só jogador (o FakePlayer é barrado no código).
+        // Só com jogador no killed_by_player. O FakePlayer passa nessa condição: quem tira a matéria dele é o
+        // CansacoDoElemento (testes maquinaNaoLevaMateria e morteIndiretaContaParaQuemBateu).
         assertTrue(t.contains("minecraft:killed_by_player"));
+    }
+
+    @Test
+    void maquinaNaoLevaMateria() {
+        // Jogador de verdade: passa pelo cansaço.
+        assertEquals(RegrasCansaco.Destino.CONTA, RegrasCansaco.destino(true, false));
+        // FakePlayer (máquina, Create, Mekanism...): a matéria sai do drop inteira, sem sorteio e sem contar.
+        assertEquals(RegrasCansaco.Destino.TIRA, RegrasCansaco.destino(true, true));
+        // Ninguém bateu (ou o golpe já expirou): também sai.
+        assertEquals(RegrasCansaco.Destino.TIRA, RegrasCansaco.destino(false, false));
+        assertEquals(RegrasCansaco.Destino.TIRA, RegrasCansaco.destino(false, true));
+    }
+
+    @Test
+    void morteIndiretaContaParaQuemBateu() {
+        // Ana bate e a criatura morre queimando/sangrando/caindo 3 s depois (o golpe vale 100 ticks; faltam 40):
+        // o crédito é da Ana, igual ao killed_by_player do loot, mesmo sem ela no golpe final.
+        assertEquals("ana", RegrasCansaco.jogadorDoDrop("ana", 40));
+        assertEquals(RegrasCansaco.Destino.CONTA, RegrasCansaco.destino(RegrasCansaco.jogadorDoDrop("ana", 40) != null, false));
+        // Máquina bate e a criatura morre na lava: o último que bateu é o FakePlayer, então a matéria sai.
+        assertEquals(RegrasCansaco.Destino.TIRA, RegrasCansaco.destino(RegrasCansaco.jogadorDoDrop("maquina", 40) != null, true));
+        // Golpe velho (passou dos 5 s): o loot também não vê jogador; nada conta e a matéria sai.
+        assertNull(RegrasCansaco.jogadorDoDrop("ana", 0));
+        assertNull(RegrasCansaco.jogadorDoDrop(null, 100));
+    }
+
+    @Test
+    void cansacoUsaOMesmoJogadorDoLoot() throws Exception {
+        String c = Files.readString(Path.of("src/main/java/com/nikolas/odteste/criaturas/CansacoDoElemento.java"));
+        // Não pode achar o jogador pelo golpe final (fogo, queda e sangramento não têm jogador na fonte).
+        assertFalse(c.contains("getSource().getEntity()"), "o cansaço não pode olhar só o golpe final");
+        assertTrue(c.contains("jogadorDoDrop()"));
+        // FakePlayer cai no TIRA, que remove a matéria bruta (o furo antigo era só dar return).
+        assertTrue(c.contains("removeIf(solto -> ehMateriaBruta"));
+        String criatura = Files.readString(Path.of("src/main/java/com/nikolas/odteste/criaturas/CriaturaDeSangue.java"));
+        assertTrue(criatura.contains("jogadorDoDrop(lastHurtByPlayer, lastHurtByPlayerTime)"),
+                "o crédito precisa vir do mesmo campo que o killed_by_player do loot usa");
     }
 
     @Test
