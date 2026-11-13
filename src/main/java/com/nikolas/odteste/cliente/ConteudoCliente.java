@@ -1,15 +1,21 @@
 package com.nikolas.odteste.cliente;
 
+import com.nikolas.odteste.OdMod;
 import com.nikolas.odteste.criaturas.Criaturas;
+import com.nikolas.odteste.criaturas.Retalhado;
+import com.nikolas.odteste.criaturas.SanguessugaMae;
 import com.nikolas.odteste.efeitos.Sangramento;
 import com.nikolas.odteste.itens.Itens;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientMobEffectExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
 
 /**
  * Cliente do conteúdo de Sangue: desenho das criaturas, cor provisória dos itens e o sangramento sem ícone
@@ -27,10 +33,16 @@ final class ConteudoCliente {
 
     static void iniciar(IEventBus barramento) {
         barramento.addListener((EntityRenderersEvent.RegisterRenderers e) -> {
-            e.registerEntityRenderer(Criaturas.RETALHADO.get(),
-                    ctx -> new GeoEntityRenderer<>(ctx, new ModeloCriatura<>("retalhado", ModeloCriatura.RETALHADO)));
-            e.registerEntityRenderer(Criaturas.SANGUESSUGA.get(),
-                    ctx -> new GeoEntityRenderer<>(ctx, new ModeloCriatura<>("sanguessuga_mae", ModeloCriatura.SANGUESSUGA)));
+            // Modelos 5.2 (aprovados em 13/11/2026): geo, animação e textura em assets/odteste/{geo,animations,textures}/entity/.
+            // O Retalhado tem glowmask (retalhado_glowmask.png): só o que está pintado nela brilha no escuro.
+            e.registerEntityRenderer(Criaturas.RETALHADO.get(), ctx -> {
+                GeoEntityRenderer<Retalhado> r = new GeoEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(
+                        ResourceLocation.fromNamespaceAndPath(OdMod.MODID, "retalhado")));
+                r.addRenderLayer(new AutoGlowingGeoLayer<>(r));
+                return r;
+            });
+            e.registerEntityRenderer(Criaturas.SANGUESSUGA.get(), ctx -> new GeoEntityRenderer<SanguessugaMae>(ctx,
+                    new DefaultedEntityGeoModel<>(ResourceLocation.fromNamespaceAndPath(OdMod.MODID, "sanguessuga_mae"))));
         });
 
         barramento.addListener((RegisterColorHandlersEvent.Item e) -> {

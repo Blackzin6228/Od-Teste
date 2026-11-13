@@ -1,5 +1,6 @@
 package com.nikolas.odteste.achados;
 
+import com.nikolas.odteste.compat.Compat;
 import com.nikolas.odteste.OdMod;
 import com.nikolas.odteste.dados.IdsDados;
 import com.nikolas.odteste.itens.Itens;
@@ -32,6 +33,12 @@ public final class Achados {
         return List.of(Itens.AGULHA.get(), Itens.DEDAL.get(), Itens.SINO.get());
     }
 
+    /** Artefato no slot do Curios também conta como "já tem" (só se o Curios estiver no pack). */
+    private static boolean equipadoNoCurios(ServerPlayer jogador, Item item) {
+        return Compat.Integracao.CURIOS.ligada()
+                && com.nikolas.odteste.compat.curios.CuriosCompat.equipado(jogador, item);
+    }
+
     /**
      * Sorteia o drop raro de uma criatura de Sangue derrotada por um jogador de verdade. Chamado uma vez por
      * criatura (então no máximo 1 artefato por criatura). Só servidor.
@@ -42,7 +49,7 @@ public final class Achados {
         boolean algum = false;
         for (int i = 0; i < tem.length; i++) {
             Item item = todos.get(i);
-            tem[i] = jogador.getInventory().contains(s -> s.is(item));
+            tem[i] = jogador.getInventory().contains(s -> s.is(item)) || equipadoNoCurios(jogador, item);
             algum |= tem[i];
         }
         var sorte = criatura.level().getRandom();

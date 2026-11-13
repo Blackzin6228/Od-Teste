@@ -4,6 +4,7 @@ import com.nikolas.odteste.criaturas.Criaturas;
 import com.nikolas.odteste.criaturas.CriaturaDeSangue;
 import com.nikolas.odteste.criaturas.RegrasCriaturas;
 import com.nikolas.odteste.historia.DadosHistoria;
+import com.nikolas.odteste.historia.vilacalada.DadosVilaCalada;
 import com.nikolas.odteste.historia.vilacalada.IdsVilaCalada;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
@@ -30,7 +31,8 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 /**
  * Ronda: de noite, em volta da âncora da Vila Calada, as criaturas de Sangue aparecem com mais chance que no resto
  * do mundo. Continua raro: olha só a cada 30 s, no máximo 4 jogadores por vez, 6% de chance cada, no máximo 2
- * criaturas vivas em volta da âncora e 1 por chunk. Sem âncora (vila ainda não colocada), não faz nada.
+ * criaturas vivas em volta da âncora e 1 por chunk. Sem âncora (vila ainda não colocada) ou com a Vila Calada
+ * desligada pelo admin, não faz nada.
  */
 public final class Ronda {
     private static final TagKey<Biome> SEM_MONSTROS =
@@ -48,6 +50,8 @@ public final class Ronda {
         if (nivel.getGameTime() % RegrasAchados.INTERVALO_TICKS != 0) return;
         if (!RegrasAchados.ehNoite(nivel.getDayTime()) || nivel.getDifficulty() == Difficulty.PEACEFUL) return;
         if (nivel.players().isEmpty()) return;
+        // "/odteste vila_calada desligar" também para a Ronda.
+        if (!DadosVilaCalada.de(servidor).ligado) return;
         GlobalPos ancora = DadosHistoria.de(servidor).ancoras.get(IdsVilaCalada.LUGAR_VILA_CALADA);
         if (ancora == null || ancora.dimension() != Level.OVERWORLD) return;
 
