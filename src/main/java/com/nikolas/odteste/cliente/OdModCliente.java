@@ -49,6 +49,8 @@ public final class OdModCliente {
         });
 
         ConteudoCliente.iniciar(barramento);
+        // Cenas de câmera (a chegada à Vila Calada; depois, outras).
+        CenaCliente.iniciar(barramento);
 
         NeoForge.EVENT_BUS.addListener((ClientTickEvent.Post e) -> {
             EfeitosLucidez.aoTick();

@@ -159,6 +159,14 @@
   "odteste.vila_calada.reabriu": "Grupo %s volta a receber as pistas da Vila Calada.",
   "odteste.vila_calada.ancorada_pela_estrutura": "Vila Calada ancorada pela estrutura %s em %s %s %s. Para mudar: /odteste vila_calada ancorar <ponto>.",
 
+  "odteste.cena.pular": "Segure %s para pular",
+  "odteste.cena.entrada_vila_calada.1": "Vila Calada.",
+  "odteste.cena.entrada_vila_calada.2": "O sino ainda toca.",
+  "odteste.cena.cmd.tocou": "Cena %s tocada para %s jogador(es).",
+  "odteste.cena.cmd.sem_lugar": "%s jogador(es) longe do lugar da cena (sem âncora ou em outra dimensão): tocou onde cada um está, olhando para a frente.",
+  "odteste.cena.cmd.esqueceu": "Cena %s esquecida por %s jogador(es): toca de novo no gatilho.",
+  "odteste.cena.cmd.desconhecida": "Cena desconhecida: %s.",
+
   "odteste.grupo.erro.nome": "Nome inválido: %s (letras minúsculas, números e _, até 24).",
   "odteste.grupo.erro.existe": "O grupo %s já existe.",
   "odteste.grupo.erro.tem_evento": "O grupo %s tem evento ativo. Desfaça antes de apagar.",

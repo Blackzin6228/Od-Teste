@@ -38,6 +38,8 @@ final class ClimaVilaCliente {
     /** 0 = dia, 1 = noite (suave, ~10 s). */
     private static float noite;
     private static long tick;
+    /** Depois de uma cena, sons e Pendurado esperam pelo menos isto (ticks). */
+    private static final int DEPOIS_DA_CENA = 100;
     private static long proximoSom = -1;
     private static long proximoPendurado = -1;
 
@@ -81,7 +83,8 @@ final class ClimaVilaCliente {
         noite = RegrasClimaVila.aproximar(noite, deNoite ? 1f : 0f, 1f / 200f);
 
         float f = forca();
-        if (f <= 0f && Pendurado.presente()) Pendurado.limpar(); // trocou para DESLIGADO: some na hora
+        // Trocou para DESLIGADO, ou começou uma cena: some na hora.
+        if ((f <= 0f || CenaCliente.tocando()) && Pendurado.presente()) Pendurado.limpar();
         Pendurado.aoTick(p);
 
         int aCada = f >= 1f ? RegrasClimaVila.CINZA_A_CADA : RegrasClimaVila.CINZA_A_CADA * 2;
@@ -91,6 +94,11 @@ final class ClimaVilaCliente {
 
     /** Uma vez por segundo, dentro da vila: sons e Pendurado. */
     private static void segundo(LocalPlayer p, float f) {
+        if (CenaCliente.tocando()) { // a cena tem os sons dela: o clima espera e volta uns segundos depois
+            if (proximoSom >= 0) proximoSom = Math.max(proximoSom, tick + DEPOIS_DA_CENA);
+            if (proximoPendurado >= 0) proximoPendurado = Math.max(proximoPendurado, tick + DEPOIS_DA_CENA);
+            return;
+        }
         RandomSource r = p.getRandom();
         if (proximoSom < 0) {
             proximoSom = tick + RegrasClimaVila.primeiroSom(r.nextDouble());

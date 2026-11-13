@@ -8,8 +8,10 @@ import com.nikolas.odteste.blocos.capela.BlocosCapela;
 import com.nikolas.odteste.comandos.ComandosAdmin;
 import com.nikolas.odteste.comandos.ComandosHistoria;
 import com.nikolas.odteste.historia.PrimeiroSinal;
+import com.nikolas.odteste.historia.vilacalada.CenaEntradaVila;
 import com.nikolas.odteste.historia.vilacalada.ClimaVilaCalada;
 import com.nikolas.odteste.historia.vilacalada.PistasVilaCalada;
+import com.nikolas.odteste.cenas.Cenas;
 import com.nikolas.odteste.compat.Compat;
 import com.nikolas.odteste.criaturas.Criaturas;
 import com.nikolas.odteste.dados.DadosJogador;
@@ -35,6 +37,7 @@ public final class OdMod {
 
     public OdMod(IEventBus barramento, ModContainer container) {
         DadosJogador.iniciar();
+        Cenas.iniciar();
         Sangramento.iniciar();
         Itens.iniciar();
         BlocosCapela.iniciar();
@@ -47,6 +50,7 @@ public final class OdMod {
         Vigia.iniciar();
         PrimeiroSinal.iniciar();
         PistasVilaCalada.iniciar();
+        CenaEntradaVila.iniciar();
         ClimaVilaCalada.iniciar();
         ComandosArtefato.iniciar();
         Ronda.iniciar();
