@@ -32,9 +32,21 @@ Objeto comum que **ficou "errado"** depois de tocar no paranormal. Sombrio, com 
 
 | # | Nome | Objeto | O que faz | Custo | Onde se acha | Raridade |
 |---|---|---|---|---|---|---|
-| 1 | **Agulha de Cerzir Carne** | Agulha de crochê enrolada em linha vermelha, que nunca acaba | Fecha feridas: regenera cerca de 4 corações em 10 s e para o sangramento | Exposição +10; a cada uso, +1 de progresso da Marca de Sangue | Baú de casa abandonada (estrutura) e Ventre | Comum |
-| 2 | **Dedal Dentado** | Dedal de costura, ferro escuro, com dentes por dentro | Por 20 s, quem te bate sangra (parte do dano volta nele) | Lucidez -5; perde 1 coração máximo até dormir | Acampamento de quem veio antes (pista de dossiê) | Incomum |
-| 3 | **Sino de Matadouro** | Sino de latão de açougue, badalo preto de sangue seco, que toca sem vento | Toque em área: aliados ganham Fúria (Força) e Velocidade por 15 s | Custa 3 corações de quem toca; Exposição +25 | Cai do *Coração Aberto* (chefe do Ventre) | Rara |
+| 1 | **Agulha de Cerzir Carne** | Agulha de crochê enrolada em linha vermelha, que nunca acaba | Fecha feridas: regenera cerca de 4 corações em 10 s e para o sangramento | Exposição +10; a cada uso, +1 de progresso da Marca de Sangue | Recompensa de enigma nas nossas estruturas (Ato 1: ver abaixo) | Comum |
+| 2 | **Dedal Dentado** | Dedal de costura, ferro escuro, com dentes por dentro | Por 20 s, quem te bate sangra (parte do dano volta nele) | Lucidez -5; perde 1 coração máximo até dormir | Recompensa de enigma nas nossas estruturas (Ato 1: ver abaixo) | Incomum |
+| 3 | **Sino de Matadouro** | Sino de latão de açougue, badalo preto de sangue seco, que toca sem vento | Toque em área: aliados ganham Fúria (Força) e Velocidade por 15 s | Custa 3 corações de quem toca; Exposição +25 | Evento ao vivo (Ato 1: ver abaixo) ou, raro, drop de criatura de Sangue derrotada | Rara |
+
+### Onde se acham no Ato 1 (propostas, decisão de 12/11/2026)
+Regra: só por enigma nas nossas estruturas, raro drop de criatura de Sangue, ou evento ao vivo. **Nunca** baú comum do ATM10, loja ou receita
+(`docs/decisoes/2026-11-12-artefatos-so-por-merito.md`). Locais abaixo seguem `lore/roteiro.md`; o Nikolas confirma ou troca.
+
+| Artefato | Onde | Como o jogador o encontra |
+|---|---|---|
+| **Agulha de Cerzir Carne** | Câmara fria do Matadouro do Nono Marco (Enigma 3, os quatro ganchos) | Depois de acertar a ordem das alavancas, a agulha está presa por uma linha vermelha na capa do Livro-Caixa, que o jogador só nota ao abrir o livro. |
+| **Dedal Dentado** | Baú trancado do quarto da porta de cerejeira, na Estalagem do Décimo Segundo Marco (Enigma 5) | Quem abre o baú com a palavra do vídeo do Quadro de Vigia vê o dedal sobre o Terço da Moça, com uma etiqueta de matrícula amarrada. |
+| **Sino de Matadouro** | Evento ao vivo do Diabo (admin solta); alternativa: drop raro de criatura de Sangue derrotada, a partir do Ato 2, já que o Magarefe não morre no Ato 1 | O sino aparece no chão da capela da Fazenda, a cada jogador que acendeu uma vela, e toca uma vez sozinho quando alguém o pega. |
+
+Notas: o Magarefe e o Pendurado **não** dão artefato no Ato 1. Para `{ilegivel}` as entregas valem igual (ele não é protegido nem proibido).
 
 ## CONHECIMENTO
 

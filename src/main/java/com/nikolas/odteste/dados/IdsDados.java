@@ -46,6 +46,15 @@ public final class IdsDados {
     /** Matéria paranormal de Sangue, bruta (cai das criaturas). */
     public static final String ITEM_MATERIA_SANGUE = "materia_sangue_bruta";
     public static final List<String> ITENS = List.of(ITEM_RUBRA, ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO, ITEM_MATERIA_SANGUE);
+    /** Artefatos de Sangue, do mais comum ao mais raro (mesma ordem de RegrasAchados.PESOS). */
+    public static final List<String> ARTEFATOS = List.of(ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO);
+
+    /** Chave NBT que marca, no template de uma estrutura, o baú que ganha recompensa de enigma. */
+    public static final String RECOMPENSA_CHAVE = "odteste_recompensa";
+    /** Valor da marca: baú com um artefato de Sangue (tabela abaixo). */
+    public static final String RECOMPENSA_ARTEFATO_SANGUE = "artefato_sangue";
+    /** Tabela de loot (data/odteste/loot_table/chests/) aplicada ao baú marcado quando a estrutura é colocada. */
+    public static final String LOOT_RECOMPENSA_ARTEFATO_SANGUE = "chests/recompensa_artefato_sangue";
 
     /** Criaturas de Sangue (GeckoLib). Mesmo nome no modificador de bioma e na tabela de drop. */
     public static final String CRIATURA_RETALHADO = "retalhado";
@@ -89,8 +98,8 @@ public final class IdsDados {
     public static final String TAG_PARANORMAL = "paranormal";
     /** Tag de item: comida quente que devolve Lucidez (data/odteste/tags/item/comida_quente.json). */
     public static final String TAG_COMIDA_QUENTE = "comida_quente";
-    /** Textura (gerada no cliente) das veias da Marca de Sangue; uma por estágio: marca_sangue_1 a _4. */
-    public static final String TEXTURA_MARCA_SANGUE = "marca_sangue";
+    /** Pasta das texturas da Marca de Sangue v2 (estagio_N[_brilho][_alex].png). Só cliente, não é dado salvo. */
+    public static final String TEXTURA_MARCA_SANGUE = "textures/entity/marca_sangue";
     /** Modificador de velocidade da Lucidez baixa (temporário: não fica salvo no jogador). */
     public static final String MODIFICADOR_LENTIDAO = "lucidez_lentidao";
 
@@ -106,8 +115,7 @@ public final class IdsDados {
     public static final List<String> OUTROS = List.of(
             PACOTE_SINCRONIZAR, PACOTE_MOMENTO, MODIFICADOR_SANGUE, MODIFICADOR_LENTIDAO, CAMADA_TELA,
             ANIM_MARCA_APARECE, ANIM_MARCA_SOBE, ANIM_SURTO, CAMADA_ANIMACAO,
-            PACOTE_MARCA_VISIVEL, TAG_PARANORMAL, TAG_COMIDA_QUENTE, TEXTURA_MARCA_SANGUE + "_1", TEXTURA_MARCA_SANGUE + "_2",
-            TEXTURA_MARCA_SANGUE + "_3", TEXTURA_MARCA_SANGUE + "_4",
+            PACOTE_MARCA_VISIVEL, TAG_PARANORMAL, TAG_COMIDA_QUENTE, TEXTURA_MARCA_SANGUE,
             ITEM_RUBRA, ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO, ITEM_MATERIA_SANGUE,
             CRIATURA_RETALHADO, CRIATURA_SANGUESSUGA, SANGRAMENTO, ABA, MODIFICADOR_DEDAL, RITUAL_CHAMADO,
             "ritual/" + RITUAL_CHAMADO, PLUGIN_JEI,

@@ -27,10 +27,11 @@ Modid: `odteste` (definitivo, decisão de 2026-11-08) · Lançado no servidor: *
 | `odteste:marca_visivel` | pacote de rede (servidor → quem vê o jogador e ele mesmo) | 08/11/2026 | só elemento e estágio da Marca, para desenhar no corpo |
 | `odteste:paranormal` | tag de tipo de dano (`data/odteste/tags/damage_type/`), tag de criatura (`.../entity_type/`) **e** tag de item (`.../item/`, desde 08/11/2026) | 08/11/2026 | dano paranormal pesa mais na Lucidez; item paranormal faz a mão tremer (Exposição Média+, parado); hoje vazias |
 | `odteste:comida_quente` | tag de item (`data/odteste/tags/item/comida_quente.json`, `"replace": false`) | 08/11/2026 | comer devolve Lucidez; hoje os 4 ensopados, a batata assada e as 5 carnes cozidas vanilla; outros mods somam por datapack/compat |
-| `odteste:marca_sangue_1` | textura gerada no cliente (veias, estágio 1) | 08/11/2026 | provisória, desenhada em código (`PadraoVeias`) |
+| `odteste:marca_sangue_1` | textura gerada no cliente (veias, estágio 1) | 08/11/2026 | **aposentada em 13/11/2026** (trocada pela v2 abaixo); era só do cliente, nunca foi salva no mundo |
 | `odteste:marca_sangue_2` | textura gerada no cliente (estágio 2) | 08/11/2026 | idem |
 | `odteste:marca_sangue_3` | textura gerada no cliente (estágio 3) | 08/11/2026 | idem |
 | `odteste:marca_sangue_4` | textura gerada no cliente (estágio 4) | 08/11/2026 | idem |
+| `odteste:textures/entity/marca_sangue` | pasta de texturas da Marca de Sangue v2 (`estagio_N.png`, `estagio_N_alex.png`, `estagio_N_brilho.png`, `estagio_N_brilho_alex.png`, N = 1 a 4) | 13/11/2026 | 64x64 no molde da skin; o `_brilho` é emissivo e pulsa; fonte em `arte/marca-sangue/v2/` |
 | `odteste:exposicao_repeticao` | dado do jogador (mapa `fonte/elemento` → [início da janela em tempo do mundo, vezes]) | 08/11/2026 | freio de repetição da Exposição; salvo para relogar não zerar; só guarda janelas abertas (10 min); sobrevive à morte; não vai para o cliente |
 | `efeitos_fortes` | chave de config do cliente (`config/odteste-client.toml`: `LIGADO`, `SUAVE`, `DESLIGADO`) | 08/11/2026 | fica no PC do jogador; renomear perde a escolha de quem usa suave/desligado. Desde 08/11 também desliga as alucinações que se veem (vulto, criatura, porta), a tela lavada, o balanço e a mão tremendo; SUAVE: porta só com som, vulto e criatura somem em 1 s, tela e corpo pela metade |
 | `odteste:lucidez_lentidao` | modificador de atributo (velocidade de movimento) | 08/11/2026 | temporário (não fica salvo); só Lucidez Quebrando (e surto) **com luz 7 ou menos**: −8% (`docs/horror.md` 2.3); conferido na checagem de 2 s do Vigia, na troca de faixa, ao entrar e ao renascer |
@@ -59,6 +60,12 @@ Modid: `odteste` (definitivo, decisão de 2026-11-08) · Lançado no servidor: *
 | `estruturas.blocos_por_tick` | chave de config do servidor (`serverconfig/odteste-server.toml` do mundo, seção `[estruturas]`; inteiro, padrão 4096, mínimo 256, máximo 65536) | 2026-11-09 | blocos por tick ao conferir, colocar e desfazer estrutura grande em partes. Mudar no meio só vale para a próxima colocação (cada uma guarda o `limite` com que começou) |
 | `odteste:vela_da_capela` | bloco + item do bloco + tipo de bloco com dados (block entity) | 2026-11-09 | vela da capela da Vila Calada: devolve Lucidez a quem está perto. Inquebrável no sobrevivência, sem drop, item escondido. O nome fica gravado no chunk |
 | `odteste:poca_de_sangue` | bloco + item do bloco | 2026-11-09 | poça fina sem colisão: quem fica nela perde Lucidez. Nome genérico para servir a outros lugares. Inquebrável no sobrevivência, sem drop, item escondido |
+| `odteste:cenas_vistas` | dado do jogador (lista de ids de cena, até 64) | 2026-11-12 | cenas que o jogador já viu (a cena do gatilho só toca uma vez). Sobrevive à morte; não vai para o cliente; id vazio ou repetido é ignorado ao ler. `/odteste cena esquecer` tira |
+| `entrada_vila_calada` | id de cena (`cenas/CenasConhecidas`) | 2026-11-12 | chegada à Vila Calada. Fica salvo em `odteste:cenas_vistas`: renomear faz todo mundo ver de novo. Chaves de texto `odteste.cena.entrada_vila_calada.1` e `.2` |
+| `odteste:tocar_cena` | pacote de rede (servidor → só o próprio jogador) | 2026-11-12 | "toque a cena X com esta âncora" (id, x, y, z, giro). Cena que o cliente não conhece é ignorada |
+| `odteste:cena` | camada da HUD (cliente) | 2026-11-12 | preto, legenda e aviso de pular das cenas; enquanto a câmera é da cena, as outras camadas somem |
+| `odteste:clima_vila` | pacote de rede (servidor → só o próprio jogador) | 2026-11-12 | clima da Vila Calada: "está dentro do muro" e "vê o Pendurado" (dois sim/não), mandado só quando muda; o ponto da vila não vai para o cliente. Versão da rede subiu para 3. Nada salvo |
+| `odteste_mestre` | tag vanilla do jogador (`/tag <nome> add odteste_mestre`) | 2026-11-13 | quem tem a tag nunca é escolhido para ver o Pendurado. Salva pelo próprio jogo nas tags do jogador |
 
 História (Ato 1, parte A). Ficam salvos dentro de `odteste_historia`, então também não mudam:
 - **Marcos do grupo:** `primeiro_sinal` (Cena 1 solta para o grupo), `enigma_sino` (FERRO escrito na placa, baú aberto), `vila_calada` (desde 2026-11-09: o grupo chegou à Vila Calada; as pistas param).
@@ -94,6 +101,9 @@ adicionados ao mundo do cliente** (minimapa, radar e Jade não veem). A porta fa
 cliente, dentro da "previsão de bloco" do jogo, que guarda o estado real e devolve ele no fim. A lentidão sutil com
 o vulto perto (Exposição Crítica, −5%) é só no movimento do cliente, sem atributo nem ID. Os nomes das alucinações
 (`RegrasHorror.Alucinacao`) não são salvos e podem mudar.
+O **Pendurado** da Vila Calada (2026-11-12) segue a mesma regra: aldeão vanilla (`minecraft:villager`) e corrente
+(`minecraft:chain`) desenhados escuros por evento de render, nunca no mundo. Névoa, cinza e sons do clima da vila
+também não registram nada (sons e partículas vanilla).
 
 Chaves de texto (não são IDs salvos), da Lore (`docs/horror.md` seção 4): `odteste.horror.exposicao.<faixa>.<1-3>`
 (`comum`, `baixa`, `media`, `alta`, `critica`), `odteste.horror.lucidez.<faixa>.<1-3>` (`firme`, `alta`, `media`,
@@ -105,14 +115,15 @@ seguidas), e `odteste.horror.sussurro.nome`, `.nome.2`, `.voz` (nome sussurrado 
 | `odteste:dedal_dentado` | item (Artefato Paranormal de Sangue, incomum) | 2026-11-08 | sem receita |
 | `odteste:sino_de_matadouro` | item (Artefato Paranormal de Sangue, raro) | 2026-11-08 | sem receita |
 | `odteste:materia_sangue_bruta` | item (matéria paranormal de Sangue, bruta) | 2026-11-08 | cai do Retalhado e da Sanguessuga-Mãe; nome no jogo provisório ("Sangue Coalhado") |
-| `odteste:retalhado` | criatura (GeckoLib) **e** modificador de bioma (`data/odteste/neoforge/biome_modifier/`) **e** tabela de drop (`odteste:entities/retalhado`) | 2026-11-08 | modelo provisório; nome "(?)" ainda proposta da Lore |
-| `odteste:sanguessuga_mae` | criatura (GeckoLib) **e** modificador de bioma **e** tabela de drop (`odteste:entities/sanguessuga_mae`) | 2026-11-08 | modelo provisório; nome "(?)" ainda proposta da Lore |
+| `odteste:retalhado` | criatura (GeckoLib) **e** modificador de bioma (`data/odteste/neoforge/biome_modifier/`) **e** tabela de drop (`odteste:entities/retalhado`) | 2026-11-08 | modelo 5.2 desde 13/11/2026; nome "(?)" ainda proposta da Lore |
+| `odteste:sanguessuga_mae` | criatura (GeckoLib) **e** modificador de bioma **e** tabela de drop (`odteste:entities/sanguessuga_mae`) | 2026-11-08 | modelo 5.2 desde 13/11/2026; nome "(?)" ainda proposta da Lore |
 | `odteste:sangramento` | efeito **e** tipo de dano (`data/odteste/damage_type/`) | 2026-11-08 | dano está nas tags `odteste:paranormal` e `minecraft:bypasses_armor`; o efeito não mostra ícone nem tempo |
 | `odteste:principal` | aba do modo criativo | 2026-11-08 | hoje vazia (o jogo esconde): itens sem receita ficam fora do criativo e do JEI/EMI; admin usa `/give` |
 | `odteste:dedal_coracao` | modificador de atributo (vida máxima, −2) | 2026-11-08 | **fica salvo** no jogador até ele dormir a noite toda |
 | `odteste:chamado_de_sangue` | fábrica de ritual do Occultism (`occultism:ritual_factories`) | 2026-11-08 | só existe com o Occultism no pack |
 | `odteste:ritual/chamado_de_sangue` | receita de ritual do Occultism | 2026-11-08 | condição `neoforge:mod_loaded` occultism; chaves de texto `ritual.odteste.chamado_de_sangue.*` |
-| `odteste:textures/entity/retalhado.png`, `odteste:textures/entity/sanguessuga_mae.png` | texturas geradas no cliente | 2026-11-08 | provisórias (código em `cliente/ModeloCriatura`); o Modelador troca por PNG no mesmo caminho |
+| `odteste:textures/entity/retalhado.png`, `odteste:textures/entity/sanguessuga_mae.png` | texturas das criaturas (PNG) | 2026-11-08 | desde 13/11/2026 são os PNG da 5.2 (Retalhado 160x160 + `retalhado_glowmask.png`, Sanguessuga-Mãe 160x128); geo e animações 5.2 no mesmo nome; desde 13/11/2026 também a **variante B** (`retalhado_b.png` + `retalhado_b_glowmask.png`, `sanguessuga_mae_b.png`), escolhida no cliente pelo UUID da criatura (**nenhum dado salvo novo**) |
+| `odteste:geo/entity/magarefe.geo.json`, `odteste:animations/entity/magarefe.animation.json`, `odteste:textures/entity/magarefe.png` | modelo 5.2 do Magarefe (só arquivos) | 2026-11-13 | **sem criatura registrada** (o Magarefe ainda não tem ID); fica pronto para quando tiver |
 | `odteste_sem_materia` | etiqueta de criatura (scoreboard tag, salva na criatura) | 2026-11-08 | criatura de spawner: não solta matéria |
 | `odteste:criatura_noite` | dado do jogador (número da noite = dia do relógio; −1 = nunca) | 2026-11-08 | noite em que a última criatura de Sangue nasceu sozinha perto dele (limite de 1 por jogador Tocado por noite); sobrevive à morte; não vai para o cliente |
 | `odteste:elemento` | dado do jogador (texto: `nenhum`, `sangue`, `conhecimento`, `morte`, `energia`) | 2026-11-08 | elemento definido pelo admin (`/odteste elemento`); sobrevive à morte; texto desconhecido vira `nenhum`; **nunca vai para o cliente** (nem do dono) |
@@ -120,6 +131,14 @@ seguidas), e `odteste.horror.sussurro.nome`, `.nome.2`, `.voz` (nome sussurrado 
 | `odteste_sentiram` | chave salva na criatura de Sangue (lista de UUIDs, até 32) | 2026-11-08 | jogadores que já viram esta criatura (Exposição e Lucidez só uma vez); sobrevive a reinício |
 | `odteste:esconder_jei` | plugin do JEI (`compat/jei`) | 2026-11-08 | esconde itens sem receita e as receitas `odteste:` (ritual do Occultism); não é salvo. O EMI usa `compat/emi` (sem ID) |
 | `efeitos_fortes` | chave de config do cliente (`config/odteste-client.toml`: `LIGADO`, `SUAVE`, `DESLIGADO`) | 08/11/2026 | fica no PC do jogador; renomear perde a escolha de quem usa suave/desligado |
+
+Artefatos achados e ronda (2026-11-12, `docs/decisoes/2026-11-12-artefatos-e-ronda.md`):
+| ID | Tipo | Desde | Observação |
+|---|---|---|---|
+| `odteste_recompensa` | chave NBT no template de estrutura (baú, baú armadilhado ou barril) | 2026-11-12 | marca o baú que ganha recompensa de enigma ao colocar a estrutura; só se o baú estiver vazio |
+| `artefato_sangue` | valor da marca `odteste_recompensa` | 2026-11-12 | baú com um artefato de Sangue |
+| `chests/recompensa_artefato_sangue` | tabela de loot (`data/odteste/loot_table/chests/`, sequência `odteste:chests/recompensa_artefato_sangue`) | 2026-11-12 | única tabela com artefatos; nunca entra em tabela do vanilla ou de outro mod |
+| `/odteste artefato dar <jogador> <artefato>` | comando de admin (permissão 2) | 2026-11-12 | evento do admin; `<artefato>` é um dos três ids de item |
 
 Fontes de Exposição (usadas no comando `/exposicao contato` e no freio de repetição). Ficam salvas dentro de
 `odteste:exposicao_repeticao` como `fonte/elemento` (ex.: `criatura_vista/sangue`), então também não mudam:

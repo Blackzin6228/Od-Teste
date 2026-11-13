@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        { "type": "minecraft:item", "name": "odteste:agulha_de_cerzir_carne", "weight": 6 },
+        { "type": "minecraft:item", "name": "odteste:dedal_dentado", "weight": 3 },
+        { "type": "minecraft:item", "name": "odteste:sino_de_matadouro", "weight": 1 }
+      ]
+    }
+  ],
+  "random_sequence": "odteste:chests/recompensa_artefato_sangue"
+}
