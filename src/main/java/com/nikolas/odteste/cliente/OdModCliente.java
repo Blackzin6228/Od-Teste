@@ -72,6 +72,8 @@ public final class OdModCliente {
         NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut e) -> EfeitosLucidez.limpar());
 
         Momento.definirReceptor(MomentosCliente::receber);
+        // Magias (Talho Rubro): partículas, sons, manchas no chão e tela, por fase.
+        MagiaCliente.iniciar();
         if (ANIMADOR) AnimacaoJogador.iniciar();
         OdMod.LOGGER.info("{}: efeitos do cliente ligados (Player Animator: {}).", OdMod.MODID, ANIMADOR);
     }

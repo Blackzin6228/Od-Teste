@@ -17,7 +17,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
  */
 public final class Rede {
     /** Versão do protocolo. Mudou o formato de algum pacote? Suba o número. */
-    private static final String VERSAO = "3";
+    private static final String VERSAO = "4";
 
     private Rede() {}
 
@@ -41,6 +41,7 @@ public final class Rede {
                 .playToClient(Momento.TIPO, Momento.CODEC, Momento::receber)
                 .playToClient(MarcaVisivel.TIPO, MarcaVisivel.CODEC, MarcaVisivel::receber)
                 .playToClient(TocarCena.TIPO, TocarCena.CODEC, TocarCena::receber)
-                .playToClient(ClimaVila.TIPO, ClimaVila.CODEC, ClimaVila::receber);
+                .playToClient(ClimaVila.TIPO, ClimaVila.CODEC, ClimaVila::receber)
+                .playToClient(FaseMagia.TIPO, FaseMagia.CODEC, FaseMagia::receber);
     }
 }

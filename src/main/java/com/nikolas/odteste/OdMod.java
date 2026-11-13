@@ -17,6 +17,7 @@ import com.nikolas.odteste.criaturas.Criaturas;
 import com.nikolas.odteste.dados.DadosJogador;
 import com.nikolas.odteste.efeitos.Sangramento;
 import com.nikolas.odteste.itens.Itens;
+import com.nikolas.odteste.magias.Magias;
 import com.nikolas.odteste.rede.Rede;
 import com.nikolas.odteste.registro.Registro;
 import com.nikolas.odteste.sistemas.Vigia;
@@ -54,6 +55,7 @@ public final class OdMod {
         ClimaVilaCalada.iniciar();
         ComandosArtefato.iniciar();
         Ronda.iniciar();
+        Magias.iniciar();
         Compat.iniciar(barramento);
         LOGGER.info("{} carregado. Integrações ligadas: {}", MODID, Compat.ligadas());
     }
