@@ -38,10 +38,20 @@ class RegrasVilaCaladaTest {
     }
 
     @Test
-    void depoisDeChegarSoOuveNaVila() {
+    void depoisDeChegarOSinoPara() {
         assertTrue(RegrasVilaCalada.ouve(1_000, false));
+        assertFalse(RegrasVilaCalada.ouve(RegrasVilaCalada.ALCANCE_SINO + 1, false));
         assertFalse(RegrasVilaCalada.ouve(1_000, true));
-        assertTrue(RegrasVilaCalada.ouve(50, true));
+        assertFalse(RegrasVilaCalada.ouve(10, true), "nem dentro da vila: parou de vez");
+    }
+
+    @Test
+    void sinoERaro() {
+        // 2 a 4 minutos entre toques: no máximo uns 4 por noite (noite = 10.000 ticks).
+        assertTrue(RegrasVilaCalada.TOQUE_MIN >= 2_400);
+        int noite = (int) (RegrasVilaCalada.NOITE_FIM - RegrasVilaCalada.NOITE_INICIO);
+        assertTrue(noite / RegrasVilaCalada.TOQUE_MIN <= 4);
+        assertTrue(RegrasVilaCalada.TOM_GRAVE >= 0.5f && RegrasVilaCalada.TOM_RACHA <= 0.7f);
     }
 
     @Test

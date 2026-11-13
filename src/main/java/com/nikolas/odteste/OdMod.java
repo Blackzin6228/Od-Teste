@@ -8,6 +8,7 @@ import com.nikolas.odteste.blocos.capela.BlocosCapela;
 import com.nikolas.odteste.comandos.ComandosAdmin;
 import com.nikolas.odteste.comandos.ComandosHistoria;
 import com.nikolas.odteste.historia.PrimeiroSinal;
+import com.nikolas.odteste.historia.vilacalada.ClimaVilaCalada;
 import com.nikolas.odteste.historia.vilacalada.PistasVilaCalada;
 import com.nikolas.odteste.compat.Compat;
 import com.nikolas.odteste.criaturas.Criaturas;
@@ -46,6 +47,7 @@ public final class OdMod {
         Vigia.iniciar();
         PrimeiroSinal.iniciar();
         PistasVilaCalada.iniciar();
+        ClimaVilaCalada.iniciar();
         ComandosArtefato.iniciar();
         Ronda.iniciar();
         Compat.iniciar(barramento);
