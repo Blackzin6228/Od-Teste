@@ -28,6 +28,12 @@ public final class RegrasLucidez {
     public static final double DESCANSO_PARADO = 0.5;
     /** Luz forte e outro jogador perto: +1 a cada 10 s (5 checagens). */
     public static final int GRUPO_INTERVALO = 5;
+    /**
+     * Luz forte sozinha (sem grupo): +1 a cada 20 s (10 checagens), mas só até o teto de Inquieto
+     * ({@link #TETO_LUZ_PERCENTO}). Para subir mais: dormir, grupo e comida quente (decisão de 13/11/2026).
+     */
+    public static final int LUZ_INTERVALO = 10;
+    public static final int TETO_LUZ_PERCENTO = 70;
     /** Comer comida quente na luz forte, com o grupo perto. */
     public static final int GANHO_COMIDA_QUENTE = 8;
 
@@ -61,6 +67,15 @@ public final class RegrasLucidez {
     public static boolean recuperaDescansando(int checagensSemDano, int checagensParado) {
         return checagensSemDano >= DESCANSO_SEM_DANO
                 && checagensParado > 0 && checagensParado % DESCANSO_INTERVALO == 0;
+    }
+
+    /**
+     * A luz sozinha ainda devolve +1? Só se, depois do ganho, ficar em até 70% da máxima: assim ela nunca passa
+     * de Inquieto (Firme é acima de 70%, ver FaixaLucidez), com qualquer máxima. Conta em inteiros.
+     */
+    public static boolean luzDevolve(int lucidez, int maxima) {
+        int max = Math.max(1, maxima);
+        return (lucidez + 1L) * 100L <= max * (long) TETO_LUZ_PERCENTO;
     }
 
     /**

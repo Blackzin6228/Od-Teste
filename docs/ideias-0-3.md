@@ -56,3 +56,10 @@ Regras de estilo:
 Só entra depois dessa compatibilidade testada e da prévia aprovada. Pastas: código em `compat/cpm/` só se `Compat.Integracao.CPM.ligada()`.
 
 Decisão registrada: `docs/decisoes/2026-11-12-modelos-de-jogador-cpm.md`.
+
+## Ideia futura: melhorar a arma com ritual (13/11/2026)
+
+Ideia do Nikolas, guardada para quando as armas personalizadas estiverem prontas (não é tarefa ainda).
+Uma arma pode ser **melhorada** por um ritual (sobe um nível) ou **amaldiçoada** (sobe mais, com um preço ou efeito ruim),
+com um teto de níveis. Inspiração só na mecânica, vista num mod de fã; nada de código, arte, nome ou números de lá.
+O custo e os rituais são nossos, ligados aos elementos e à matéria paranormal (e ao balanceamento tech).

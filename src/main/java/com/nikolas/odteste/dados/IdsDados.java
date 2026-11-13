@@ -111,8 +111,20 @@ public final class IdsDados {
     /** Arquivo de dados do mundo com grupos, progresso e eventos (data/odteste_historia.dat). Sem "odteste:". */
     public static final String ARQUIVO_HISTORIA = "odteste_historia";
 
+    // ---------- Balanceamento tech (13/11/2026) ----------
+
+    /** Tipo de dano paranormal (data/odteste/damage_type/paranormal.json): golpe de criatura nossa. */
+    public static final String DANO_PARANORMAL = "paranormal";
+    /** Tag de item: arma paranormal (teto 20; x2 contra criatura nossa). */
+    public static final String TAG_ARMA_PARANORMAL = "arma_paranormal";
+    /** Tag de tipo de dano: magia de outros mods (passa por cima da resistência das criaturas nossas). */
+    public static final String TAG_MAGIA = "magia";
+    /** Modificador do voo criativo (NeoForge) nas nossas dimensões e na perseguição (temporário). */
+    public static final String MODIFICADOR_VOO = "contencao_voo";
+
     /** Todos os IDs que não são dado salvo, mas também precisam estar em docs/ids.md. */
     public static final List<String> OUTROS = List.of(
+            DANO_PARANORMAL, TAG_ARMA_PARANORMAL, TAG_MAGIA, MODIFICADOR_VOO,
             PACOTE_SINCRONIZAR, PACOTE_MOMENTO, MODIFICADOR_SANGUE, MODIFICADOR_LENTIDAO, CAMADA_TELA,
             ANIM_MARCA_APARECE, ANIM_MARCA_SOBE, ANIM_SURTO, CAMADA_ANIMACAO,
             PACOTE_MARCA_VISIVEL, TAG_PARANORMAL, TAG_COMIDA_QUENTE, TEXTURA_MARCA_SANGUE,
