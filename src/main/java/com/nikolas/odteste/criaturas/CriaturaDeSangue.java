@@ -8,6 +8,7 @@ import com.nikolas.odteste.sistemas.Exposicao;
 import com.nikolas.odteste.sistemas.Fonte;
 import com.nikolas.odteste.sistemas.Lucidez;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import net.minecraft.nbt.CompoundTag;
@@ -22,6 +23,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.monster.Monster;
@@ -32,6 +34,10 @@ import net.neoforged.neoforge.common.util.FakePlayer;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 /**
@@ -41,6 +47,10 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * - matéria de Sangue só cai se quem matou foi um jogador de verdade (não FakePlayer de máquina) e se ela
  *   não veio de spawner.
  * Sem lag: a "vista" olha só o jogador mais perto, a cada 2 s, na própria criatura.
+ *
+ * Animações (GeckoLib, decisão de 13/11/2026), em quatro controles, do mais fraco ao mais forte (o de baixo manda
+ * nos ossos que anima): {@code corpo} (parado/andar), {@code reacao} (dano), {@code acao} (golpe, especial e
+ * presença) e {@code morte}. O servidor só dispara a animação no momento do evento (nada por tick).
  */
 public abstract class CriaturaDeSangue extends Monster implements GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -49,6 +59,14 @@ public abstract class CriaturaDeSangue extends Monster implements GeoEntity {
     /** Teto da lista salva: mais que isso, os mais antigos saem (nunca cresce sem limite). */
     private static final int MAX_SENTIRAM = 32;
     private boolean semMateria;
+    /** Até quando (tickCount) a animação de presença está tocando; só na memória, não é salvo. */
+    private int presencaAte;
+
+    static final String CONTROLE_CORPO = "corpo";
+    static final String CONTROLE_REACAO = "reacao";
+    static final String CONTROLE_ACAO = "acao";
+    static final String CONTROLE_MORTE = "morte";
+    static final String ANIM_DANO = "dano";
 
     protected CriaturaDeSangue(EntityType<? extends Monster> tipo, Level level) {
         super(tipo, level);
@@ -56,6 +74,32 @@ public abstract class CriaturaDeSangue extends Monster implements GeoEntity {
 
     /** Peso da criatura nos sistemas (1 = normal). */
     protected abstract float intensidade();
+
+    /** Quanto tempo o corpo fica no chão antes de sumir (ticks): o tamanho da animação {@code morrer}. */
+    protected abstract int ticksMorrendo();
+
+    /** Nome da animação de presença (disparável no controle {@code acao}) e quanto ela dura em ticks. */
+    protected abstract String presenca();
+
+    protected abstract int ticksPresenca();
+
+    /** Os quatro controles na ordem certa. {@code acoes}: nome → animação disparável no controle {@code acao}. */
+    protected final void registrarControles(AnimatableManager.ControllerRegistrar controles,
+                                            RawAnimation parado, RawAnimation andar, RawAnimation dano,
+                                            RawAnimation morrer, Map<String, RawAnimation> acoes) {
+        controles.add(new AnimationController<>(this, CONTROLE_CORPO, 5, estado -> {
+            if (isDeadOrDying()) return PlayState.STOP;
+            return estado.setAndContinue(estado.isMoving() ? andar : parado);
+        }));
+        controles.add(new AnimationController<>(this, CONTROLE_REACAO, 1, estado -> PlayState.STOP)
+                .triggerableAnim(ANIM_DANO, dano));
+        AnimationController<CriaturaDeSangue> acao = new AnimationController<>(this, CONTROLE_ACAO, 2, estado -> PlayState.STOP);
+        acoes.forEach(acao::triggerableAnim);
+        controles.add(acao);
+        // Por último: na morte ela manda em todos os ossos, mesmo se um golpe ainda estava tocando.
+        controles.add(new AnimationController<>(this, CONTROLE_MORTE, 0,
+                estado -> isDeadOrDying() ? estado.setAndContinue(morrer) : PlayState.STOP));
+    }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
@@ -66,6 +110,39 @@ public abstract class CriaturaDeSangue extends Monster implements GeoEntity {
     protected void customServerAiStep() {
         super.customServerAiStep();
         if ((tickCount + getId()) % 40 == 0) sentirJogador();
+        // Começou a andar no meio da presença: corta (senão as pernas ficam paradas andando).
+        if (presencaAte > tickCount && getNavigation().isInProgress()) pararPresenca();
+    }
+
+    /** Presença: às vezes, quando o som ambiente toca e ela está parada e sem alvo. Só no servidor. */
+    @Override
+    public void playAmbientSound() {
+        super.playAmbientSound();
+        if (level().isClientSide || !isAlive() || getTarget() != null || getNavigation().isInProgress()) return;
+        if (random.nextInt(3) != 0) return;
+        presencaAte = tickCount + ticksPresenca();
+        triggerAnim(CONTROLE_ACAO, presenca());
+    }
+
+    @Override
+    public void setTarget(@Nullable LivingEntity alvo) {
+        super.setTarget(alvo);
+        if (alvo != null && presencaAte > tickCount && !level().isClientSide) pararPresenca();
+    }
+
+    private void pararPresenca() {
+        presencaAte = 0;
+        stopTriggeredAnim(CONTROLE_ACAO, presenca());
+    }
+
+    /** Igual ao vanilla, só que o corpo fica o tempo da animação {@code morrer} (vanilla: 1 s). */
+    @Override
+    protected void tickDeath() {
+        ++deathTime;
+        if (deathTime >= ticksMorrendo() && !level().isClientSide() && !isRemoved()) {
+            level().broadcastEntityEvent(this, (byte) 60);
+            remove(Entity.RemovalReason.KILLED);
+        }
     }
 
     private void sentirJogador() {
@@ -105,6 +182,7 @@ public abstract class CriaturaDeSangue extends Monster implements GeoEntity {
     @Override
     public boolean hurt(DamageSource fonte, float quanto) {
         boolean doeu = super.hurt(fonte, quanto);
+        if (doeu && isAlive() && !level().isClientSide) triggerAnim(CONTROLE_REACAO, ANIM_DANO);
         if (doeu && fonte.getEntity() instanceof ServerPlayer p && !(p instanceof FakePlayer)) {
             Exposicao.contato(p, Fonte.CRIATURA_LUTA, Elemento.SANGUE, intensidade());
         }
