@@ -22,7 +22,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 /**
  * Clima da Vila Calada, lado do servidor: uma vez por segundo, diz a cada jogador se ele está dentro do muro e se é
- * ele quem vê o Pendurado (o de maior Exposição do grupo, entre os online). Manda só quando muda. Tudo o que se vê e
+ * ele quem vê o Pendurado (o de maior Exposição do grupo, entre quem está dentro da vila). Manda só quando muda. Tudo o que se vê e
  * ouve é feito no cliente ({@code cliente/ClimaVilaCliente}). Nada salvo: some ao reiniciar e volta no segundo seguinte.
  *
  * Vale para quem está lá, de qualquer grupo (ou sem grupo). Desliga junto com as pistas
@@ -35,6 +35,8 @@ public final class ClimaVilaCalada {
 
     private static final Enviado NADA = new Enviado(false, false);
     private static final Map<UUID, Enviado> ENVIADO = new HashMap<>();
+    /** Tag vanilla do mestre: nunca vê o Pendurado. Quem testa sem a tag vê normal. */
+    public static final String TAG_MESTRE = "odteste_mestre";
 
     private ClimaVilaCalada() {}
 
@@ -53,12 +55,20 @@ public final class ClimaVilaCalada {
         DadosVilaCalada dv = PistasVilaCalada.dados(s);
         GlobalPos ancora = dh.ancoras.get(IdsVilaCalada.LUGAR_VILA_CALADA);
         ServerLevel nivel = ancora == null || !dv.ligado ? null : s.getLevel(ancora.dimension());
-        Set<UUID> veemPendurado = nivel == null ? Set.of() : maisExpostos(s, dh);
-
+        Set<UUID> dentroDaVila = new HashSet<>();
         int n = 0;
         for (ServerPlayer p : s.getPlayerList().getPlayers()) {
             if (n++ >= RegrasClimaVila.MAX_JOGADORES) break;
-            boolean dentro = nivel != null && p.level() == nivel && !p.isSpectator() && dentro(p, ancora.pos());
+            if (nivel != null && p.level() == nivel && !p.isSpectator() && dentro(p, ancora.pos())) {
+                dentroDaVila.add(p.getUUID());
+            }
+        }
+        Set<UUID> veemPendurado = dentroDaVila.isEmpty() ? Set.of() : maisExpostos(s, dh, dentroDaVila);
+
+        n = 0;
+        for (ServerPlayer p : s.getPlayerList().getPlayers()) {
+            if (n++ >= RegrasClimaVila.MAX_JOGADORES) break;
+            boolean dentro = dentroDaVila.contains(p.getUUID());
             Enviado agora = dentro ? new Enviado(true, veemPendurado.contains(p.getUUID())) : NADA;
             Enviado antes = ENVIADO.getOrDefault(p.getUUID(), NADA);
             if (agora.equals(antes)) continue;
@@ -73,14 +83,18 @@ public final class ClimaVilaCalada {
                 p.getZ() - (ancora.getZ() + 0.5));
     }
 
-    /** O membro online de maior Exposição de cada grupo. */
-    private static Set<UUID> maisExpostos(MinecraftServer s, DadosHistoria dh) {
+    /**
+     * O membro de maior Exposição de cada grupo, só entre quem está dentro da vila (decisão de 13/11/2026).
+     * Quem tem a tag {@link #TAG_MESTRE} (o mestre, {@code /tag <nome> add odteste_mestre}) nunca é escolhido.
+     */
+    private static Set<UUID> maisExpostos(MinecraftServer s, DadosHistoria dh, Set<UUID> dentroDaVila) {
         Set<UUID> r = new HashSet<>();
         for (Grupos.Grupo g : dh.grupos.todos()) {
             Map<UUID, Integer> exp = new HashMap<>();
             for (UUID u : g.membros().keySet()) {
+                if (!dentroDaVila.contains(u)) continue;
                 ServerPlayer p = s.getPlayerList().getPlayer(u);
-                if (p != null && !p.isSpectator()) exp.put(u, DadosJogador.exposicao(p));
+                if (p != null && !p.getTags().contains(TAG_MESTRE)) exp.put(u, DadosJogador.exposicao(p));
             }
             UUID melhor = RegrasClimaVila.maisExposto(exp);
             if (melhor != null) r.add(melhor);
