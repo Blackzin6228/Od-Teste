@@ -132,6 +132,16 @@ seguidas), e `odteste.horror.sussurro.nome`, `.nome.2`, `.voz` (nome sussurrado 
 | `odteste:esconder_jei` | plugin do JEI (`compat/jei`) | 2026-11-08 | esconde itens sem receita e as receitas `odteste:` (ritual do Occultism); não é salvo. O EMI usa `compat/emi` (sem ID) |
 | `efeitos_fortes` | chave de config do cliente (`config/odteste-client.toml`: `LIGADO`, `SUAVE`, `DESLIGADO`) | 08/11/2026 | fica no PC do jogador; renomear perde a escolha de quem usa suave/desligado |
 
+Balanceamento tech (2026-11-13, `docs/decisoes/2026-11-13-balanceamento-tech.md`, mesa Integrador). Não registram
+nada novo no jogo: só põem IDs nossos em tags e data maps de outros mods (sempre `"replace": false`). Sem o mod no
+pack, o arquivo é ignorado. Tirar uma criatura ou bloco daqui reabre a brecha: só com aviso.
+| ID | Tipo | Desde | Observação |
+|---|---|---|---|
+| `odteste:paranormal` | tipo de dano (**referência**: quem cria é a mesa Dev) | 2026-11-13 | usado no data map `mekanism:mekasuit_absorption` com `absorption` 0,5 (a MekaSuit segura metade, igual à nossa A4; decisão `2026-11-13-balanceamento-ajustes`). Até o tipo existir, o servidor só avisa no log que o ID não existe |
+| `c:capturing_not_supported`, `c:teleporting_not_supported` | tags de criatura (NeoForge) | 2026-11-13 | Retalhado e Sanguessuga-Mãe |
+| `industrialforegoing:mob_imprisonment_tool_blacklist`, `mob_duplicator_blacklist`, `mob_crusher_blacklist`; `justdirethings:paradox_deny`, `paradox_absorb_deny`, `polymorphic_target_deny`, `no_ai_deny`, `creature_catcher_deny`; `ars_nouveau:drygmy_blacklist`; `enderio:spawner_blacklist` | tags de criatura de outros mods | 2026-11-13 | idem. Toda criatura nova nossa entra em todas (o `BalanceamentoTechTest` cobra pela lista `IdsDados.CRIATURAS`) |
+| `tiab:un_acceleratable`, `justdirethings:tick_speed_deny`, `industrialforegoingsouls:cant_accelerate` | tags de bloco de outros mods | 2026-11-13 | Analisador, vela e poça. Todo bloco novo nosso entra (o teste cobra pelos arquivos de `blockstates/`) |
+
 Artefatos achados e ronda (2026-11-12, `docs/decisoes/2026-11-12-artefatos-e-ronda.md`):
 | ID | Tipo | Desde | Observação |
 |---|---|---|---|
