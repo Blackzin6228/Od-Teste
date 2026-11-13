@@ -51,8 +51,10 @@ public final class Paranormal {
 
     /** Golpe direto (corpo a corpo) dado com uma arma paranormal na mão. */
     public static boolean golpeDeArma(DamageSource fonte) {
-        if (fonte == null || fonte.isIndirect()) return false;
-        return fonte.getEntity() instanceof LivingEntity quem && quem.getMainHandItem().is(ARMA);
+        if (fonte == null) return false;
+        // Direto: quem causou é quem bateu (flecha, magia e afins não contam).
+        return fonte.getEntity() instanceof LivingEntity quem && fonte.getDirectEntity() == quem
+                && quem.getMainHandItem().is(ARMA);
     }
 
     /** Fonte de dano paranormal; com {@code causador}, a morte conta para ele. */
