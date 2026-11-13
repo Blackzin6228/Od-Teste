@@ -1,6 +1,7 @@
 package com.nikolas.odteste.criaturas;
 
 import com.nikolas.odteste.efeitos.Sangramento;
+import com.nikolas.odteste.sistemas.RegrasCombate;
 import java.util.EnumSet;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
@@ -67,6 +68,12 @@ public final class SanguessugaMae extends CriaturaDeSangue {
     @Override
     protected float intensidade() {
         return 1.5f;
+    }
+
+    /** Rara: resiste a 30% do dano comum (pede arma paranormal, magia do elemento ou grupo). */
+    @Override
+    public RegrasCombate.Raridade raridade() {
+        return RegrasCombate.Raridade.RARA;
     }
 
     @Override

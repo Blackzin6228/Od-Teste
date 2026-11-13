@@ -7,6 +7,8 @@ import com.nikolas.odteste.sistemas.Abalo;
 import com.nikolas.odteste.sistemas.Exposicao;
 import com.nikolas.odteste.sistemas.Fonte;
 import com.nikolas.odteste.sistemas.Lucidez;
+import com.nikolas.odteste.sistemas.Paranormal;
+import com.nikolas.odteste.sistemas.RegrasCombate;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -19,6 +21,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -26,7 +29,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -189,11 +194,34 @@ public abstract class CriaturaDeSangue extends Monster implements GeoEntity {
         return doeu;
     }
 
+    /**
+     * Golpe corpo a corpo igual ao do vanilla ({@code Mob.doHurtTarget}), só que com o tipo de dano
+     * {@code odteste:paranormal} (passa pela armadura normal; a MekaSuit e o traje nosso tratam à parte).
+     */
     @Override
     public boolean doHurtTarget(Entity alvo) {
-        boolean acertou = super.doHurtTarget(alvo);
+        float dano = (float) getAttributeValue(Attributes.ATTACK_DAMAGE);
+        DamageSource fonte = Paranormal.fonte(level(), this);
+        if (level() instanceof ServerLevel nivel) {
+            dano = EnchantmentHelper.modifyDamage(nivel, getWeaponItem(), alvo, fonte, dano);
+        }
+        boolean acertou = alvo.hurt(fonte, dano);
+        if (acertou) {
+            float recuo = getKnockback(alvo, fonte);
+            if (recuo > 0 && alvo instanceof LivingEntity vivo) {
+                vivo.knockback(recuo * 0.5, Mth.sin(getYRot() * Mth.DEG_TO_RAD), -Mth.cos(getYRot() * Mth.DEG_TO_RAD));
+                setDeltaMovement(getDeltaMovement().multiply(0.6, 1.0, 0.6));
+            }
+            if (level() instanceof ServerLevel nivel) EnchantmentHelper.doPostAttackEffects(nivel, alvo, fonte);
+            setLastHurtMob(alvo);
+        }
         if (acertou && alvo instanceof ServerPlayer p) Exposicao.contato(p, Fonte.CRIATURA_LUTA, Elemento.SANGUE, intensidade());
         return acertou;
+    }
+
+    /** Quanto resiste a dano comum (RegrasCombate): comum 0%, rara 30%, chefe 60%. */
+    public RegrasCombate.Raridade raridade() {
+        return RegrasCombate.Raridade.COMUM;
     }
 
     @Override

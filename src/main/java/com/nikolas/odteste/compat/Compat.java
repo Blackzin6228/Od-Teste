@@ -43,8 +43,7 @@ public final class Compat {
 
     public static void iniciar(IEventBus barramento) {
         // Cada integração entra aqui quando tiver conteúdo, sempre atrás do if (a classe compat só é lida se o mod existir).
-        if (Integracao.OCCULTISM.ligada()) com.nikolas.odteste.compat.occultism.OccultismCompat.iniciar(barramento);
-    }
+        if (Integracao.OCCULTISM.ligada()) com.nikolas.odteste.compat.occultism.OccultismCompat.iniciar(barramento);    }
 
     public static List<String> ligadas() {
         List<String> lista = new ArrayList<>();

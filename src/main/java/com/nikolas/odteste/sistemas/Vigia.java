@@ -46,6 +46,7 @@ public final class Vigia {
     /** Contadores de cada jogador. Só memória; some quando ele sai. */
     private static final class Estado {
         int grupoSeguido;
+        int luzSeguida;
         int semDano;
         int parado;
         int restoDano;
@@ -100,11 +101,31 @@ public final class Vigia {
         if (RegrasLucidez.recuperaDescansando(s.semDano, s.parado)) Lucidez.recuperar(p, 1);
 
         // 2) Luz forte e outro jogador perto: o grupo acalma.
-        if (emGrupoNaLuz(p)) {
+        boolean luzForte = luzForte(p);
+        boolean grupo = luzForte && grupoPerto(p);
+        if (grupo) {
             if (++s.grupoSeguido % RegrasLucidez.GRUPO_INTERVALO == 0) Lucidez.recuperar(p, 1);
         } else {
             s.grupoSeguido = 0;
         }
+        // 3) Luz forte sozinha: segura a Lucidez, mas nunca passa de Inquieto (Mega Torch e lâmpada não curam tudo).
+        if (luzForte && !grupo) {
+            if (++s.luzSeguida % RegrasLucidez.LUZ_INTERVALO == 0
+                    && RegrasLucidez.luzDevolve(DadosJogador.lucidez(p), DadosJogador.lucidezMax(p))) {
+                Lucidez.recuperar(p, 1);
+            }
+        } else {
+            s.luzSeguida = 0;
+        }
+    }
+
+    private static boolean luzForte(ServerPlayer p) {
+        return p.serverLevel().getMaxLocalRawBrightness(BlockPos.containing(p.getEyePosition())) >= LUZ_FORTE;
+    }
+
+    private static boolean grupoPerto(ServerPlayer p) {
+        return p.serverLevel().getNearestPlayer(p.getX(), p.getY(), p.getZ(), GRUPO_RAIO,
+                o -> o != p && !o.isSpectator()) != null;
     }
 
     /** Tomar dano abala: pouco se for comum, mais se for paranormal. Só servidor. */
@@ -124,10 +145,7 @@ public final class Vigia {
      * só roda se a luz já for forte.
      */
     private static boolean emGrupoNaLuz(ServerPlayer p) {
-        ServerLevel nivel = p.serverLevel();
-        int luz = nivel.getMaxLocalRawBrightness(BlockPos.containing(p.getEyePosition()));
-        return luz >= LUZ_FORTE && nivel.getNearestPlayer(p.getX(), p.getY(), p.getZ(), GRUPO_RAIO,
-                o -> o != p && !o.isSpectator()) != null;
+        return luzForte(p) && grupoPerto(p);
     }
 
     /** Comer algo da tag {@link #COMIDA_QUENTE}, na luz forte e com o grupo perto, devolve um pouco de Lucidez. */

@@ -20,6 +20,8 @@ import com.nikolas.odteste.efeitos.Sangramento;
 import com.nikolas.odteste.itens.Itens;
 import com.nikolas.odteste.rede.Rede;
 import com.nikolas.odteste.registro.Registro;
+import com.nikolas.odteste.sistemas.Combate;
+import com.nikolas.odteste.sistemas.Contencao;
 import com.nikolas.odteste.sistemas.Vigia;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -50,6 +52,8 @@ public final class OdMod {
         ComandosAdmin.iniciar();
         ComandosHistoria.iniciar();
         Vigia.iniciar();
+        Combate.iniciar();
+        Contencao.iniciar();
         PrimeiroSinal.iniciar();
         PistasVilaCalada.iniciar();
         CenaEntradaVila.iniciar();
