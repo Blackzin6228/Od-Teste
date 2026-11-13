@@ -38,8 +38,13 @@ final class MagiaTalhoRubro extends AbstractSpell {
             // Básico se aprende por pergaminho no loot das NOSSAS estruturas e criaturas (docs/magias.md seção 5):
             // nada de forja de pergaminho nem do loot aleatório do Iron's.
             .setAllowCrafting(false)
-            .setAllowLooting(false)
             .build();
+
+    /** Fora do loot aleatório do Iron's (baús de masmorra etc.). O pergaminho vai entrar por loot nosso. */
+    @Override
+    public boolean allowLooting() {
+        return false;
+    }
 
     MagiaTalhoRubro() {
         this.manaCostPerLevel = RegrasTalhoRubro.MANA_POR_NIVEL;
