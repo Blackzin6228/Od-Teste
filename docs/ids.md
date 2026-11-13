@@ -25,7 +25,7 @@ Modid: `odteste` (definitivo, decisão de 2026-11-08) · Lançado no servidor: *
 | `odteste:marca_sobe` | animação do jogador (provisória, no código) | 08/11/2026 | usada também na troca de elemento |
 | `odteste:surto` | animação do jogador (provisória, no código) | 08/11/2026 | |
 | `odteste:marca_visivel` | pacote de rede (servidor → quem vê o jogador e ele mesmo) | 08/11/2026 | só elemento e estágio da Marca, para desenhar no corpo |
-| `odteste:paranormal` | tag de tipo de dano (`data/odteste/tags/damage_type/`), tag de criatura (`.../entity_type/`) **e** tag de item (`.../item/`, desde 08/11/2026) | 08/11/2026 | dano paranormal pesa mais na Lucidez; item paranormal faz a mão tremer (Exposição Média+, parado); hoje vazias |
+| `odteste:paranormal` | tag de tipo de dano (`data/odteste/tags/damage_type/`), tag de criatura (`.../entity_type/`) **e** tag de item (`.../item/`, desde 08/11/2026); desde 13/11/2026 também **tipo de dano** (`data/odteste/damage_type/paranormal.json`) | 08/11/2026 | dano paranormal pesa mais na Lucidez; item paranormal faz a mão tremer (Exposição Média+, parado). O tipo de dano é o golpe corpo a corpo das criaturas nossas (passa pela armadura normal; está na tag; não está em `bypasses_armor`); chaves de texto `death.attack.odteste.paranormal`, `.player`, `.item` |
 | `odteste:comida_quente` | tag de item (`data/odteste/tags/item/comida_quente.json`, `"replace": false`) | 08/11/2026 | comer devolve Lucidez; hoje os 4 ensopados, a batata assada e as 5 carnes cozidas vanilla; outros mods somam por datapack/compat |
 | `odteste:marca_sangue_1` | textura gerada no cliente (veias, estágio 1) | 08/11/2026 | **aposentada em 13/11/2026** (trocada pela v2 abaixo); era só do cliente, nunca foi salva no mundo |
 | `odteste:marca_sangue_2` | textura gerada no cliente (estágio 2) | 08/11/2026 | idem |
@@ -147,6 +147,17 @@ Artefatos achados e ronda (2026-11-12, `docs/decisoes/2026-11-12-artefatos-e-ron
 | `artefato_sangue` | valor da marca `odteste_recompensa` | 2026-11-12 | baú com um artefato de Sangue |
 | `chests/recompensa_artefato_sangue` | tabela de loot (`data/odteste/loot_table/chests/`, sequência `odteste:chests/recompensa_artefato_sangue`) | 2026-11-12 | única tabela com artefatos; nunca entra em tabela do vanilla ou de outro mod |
 | `/odteste artefato dar <jogador> <artefato>` | comando de admin (permissão 2) | 2026-11-12 | evento do admin; `<artefato>` é um dos três ids de item |
+
+Balanceamento tech: combate e proteção (2026-11-13, `docs/decisoes/2026-11-13-balanceamento-tech.md`):
+| ID | Tipo | Desde | Observação |
+|---|---|---|---|
+| `odteste:arma_paranormal` | tag de item (`data/odteste/tags/item/arma_paranormal.json`, `"replace": false`) | 2026-11-13 | golpe com teto de 20; contra criatura nossa conta como paranormal (x2). Hoje só a Rubra |
+| `odteste:magia` | tag de tipo de dano (`data/odteste/tags/damage_type/magia.json`, `"replace": false`) | 2026-11-13 | magia de outros mods passa por cima da resistência das criaturas nossas (0/30/60%). Só entradas opcionais: tags de escola do Iron's e os danos do Ars Nouveau. Fora de propósito: `neoforge:is_magic` (traz espinhos, veneno, wither e poção) |
+| `odteste:contencao_voo` | modificador de atributo (`neoforge:creative_flight`, −1000) | 2026-11-13 | temporário (não fica salvo); só nas dimensões `odteste:` e durante perseguição, tira o voo dado por outros mods |
+| `/odteste perseguicao comecar <jogadores> <segundos>`, `/odteste perseguicao parar <jogadores>` | comando de admin (permissão 2) | 2026-11-13 | perseguição de 1 s a 30 min: teleporte e voo falham ("Algo segura você aqui"). Só em memória: reiniciar solta |
+
+Nada novo é salvo por esta parte. Dimensão nossa = qualquer dimensão com namespace `odteste` (nenhuma existe ainda).
+Chaves de texto (não salvas): `odteste.contencao.preso`, `odteste.comando.perseguicao.*`.
 
 Fontes de Exposição (usadas no comando `/exposicao contato` e no freio de repetição). Ficam salvas dentro de
 `odteste:exposicao_repeticao` como `fonte/elemento` (ex.: `criatura_vista/sangue`), então também não mudam:
