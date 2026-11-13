@@ -4,6 +4,7 @@ Mod **novo, do zero**. Não é continuação do Máscaras Relíquia: o repositó
 referência técnica (como ele resolveu GeckoLib, Curios, Iron's, publicação no pack). Nada de lore, nome ou visual vem de lá.
 
 Antes de trabalhar, leia: este arquivo, `docs/decisoes.md` + a pasta `docs/decisoes/`, `docs/progresso.md` e o arquivo da sua mesa em `.claude/agents/`.
+Para lore e história: leia **`lore/mapa.md` primeiro** e abra só o arquivo de detalhe que precisar (economia de token).
 
 ## Projeto
 - NeoForge **1.21.1** (21.1.262), Java 21. Modid **`odteste`**, definitivo (vem do `gradle.properties`). O nome que o jogador vê pode mudar.
