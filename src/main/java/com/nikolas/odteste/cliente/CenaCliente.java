@@ -13,6 +13,9 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.PauseScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.Input;
 import net.minecraft.client.player.LocalPlayer;
@@ -33,6 +36,7 @@ import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
 import net.neoforged.neoforge.client.event.RenderHandEvent;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
+import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.client.event.ViewportEvent;
 import net.neoforged.neoforge.common.NeoForge;
 
@@ -44,6 +48,9 @@ import net.neoforged.neoforge.common.NeoForge;
  * calcular a dele. Movimento, pulo, ataque e uso ficam travados; o olhar volta ao de antes no fim.</li>
  * <li>Mão, mira, chat e toda a HUD somem; fica só a camada da cena (preto, legenda, aviso de pular).</li>
  * <li>Sons vanilla sem origem, cada um uma vez; param juntos quando a cena manda (ou no fim).</li>
+ * <li>Inventário, chat e outras telas do próprio jogador não abrem (o menu de pausa abre).</li>
+ * <li>"Efeitos fortes de tela": LIGADO = cena inteira; SUAVE = sem balanço de câmera; DESLIGADO = a câmera não anda,
+ * tela preta só com o texto e os sons ({@link RegrasCena.Modo}).</li>
  * <li>Segurar pulo por 1 s corta para o fim. Morrer, trocar de mundo/dimensão, sair do servidor ou tomar dano
  * devolvem tudo na hora (dano: escurece rápido e volta).</li>
  * </ul>
@@ -60,6 +67,7 @@ public final class CenaCliente {
     private static int proximoSom;
     private static final List<SoundInstance> TOCANDO = new ArrayList<>();
     private static boolean sonsCortados;
+    private static RegrasCena.Modo modo = RegrasCena.Modo.COMPLETO;
 
     private static LocalPlayer jogador;
     private static ClientLevel nivel;
@@ -81,11 +89,12 @@ public final class CenaCliente {
         NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, CenaCliente::aoCalcularFov);
         NeoForge.EVENT_BUS.addListener(CenaCliente::aoDesenharCamada);
         NeoForge.EVENT_BUS.addListener((RenderHandEvent e) -> {
-            if (cameraLigada) e.setCanceled(true);
+            if (naTela()) e.setCanceled(true);
         });
         NeoForge.EVENT_BUS.addListener((RenderHighlightEvent.Block e) -> {
-            if (cameraLigada) e.setCanceled(true);
+            if (naTela()) e.setCanceled(true);
         });
+        NeoForge.EVENT_BUS.addListener(CenaCliente::aoAbrirTela);
         NeoForge.EVENT_BUS.addListener(CenaCliente::aoMover);
         NeoForge.EVENT_BUS.addListener((InputEvent.InteractionKeyMappingTriggered e) -> {
             if (travado()) {
@@ -103,7 +112,23 @@ public final class CenaCliente {
     }
 
     private static boolean travado() {
-        return cena != null && (cameraLigada || tick < 0);
+        return cena != null && (quadro.camera() || cameraLigada || tick < 0);
+    }
+
+    /** A cena manda na tela agora (câmera da cena, ou o preto do modo só texto): mão, mira e HUD somem. */
+    private static boolean naTela() {
+        return cena != null && (cameraLigada || quadro.camera());
+    }
+
+    /** Tela que a cena deixa abrir: menu de pausa, e telas que o servidor abriu (baú etc.: fechar daria erro). */
+    private static boolean telaPermitida(Screen tela) {
+        return tela == null || tela instanceof PauseScreen
+                || (tela instanceof AbstractContainerScreen<?> cont && cont.getMenu().containerId != 0);
+    }
+
+    private static void aoAbrirTela(ScreenEvent.Opening e) {
+        if (!travado()) return;
+        if (!telaPermitida(e.getNewScreen())) e.setCanceled(true);
     }
 
     // ------------------------------------------------------------------ começo e fim
@@ -129,9 +154,16 @@ public final class CenaCliente {
         sonsCortados = false;
         jogador = mc.player;
         nivel = mc.level;
+        modo = RegrasCena.Modo.de(ConfigCliente.tremor());
+        // Fecha a tela do próprio jogador (inventário, chat); baú aberto fecha do jeito certo, avisando o servidor.
+        if (mc.screen instanceof AbstractContainerScreen<?>) {
+            jogador.closeContainer();
+        } else if (!telaPermitida(mc.screen)) {
+            mc.setScreen(null);
+        }
         giroAntes = jogador.getYRot();
         inclinacaoAntes = jogador.getXRot();
-        quadro = RegrasCena.quadro(cena, tick, pulouEm);
+        quadro = RegrasCena.quadro(cena, tick, pulouEm, modo);
     }
 
     /** Devolve tudo como estava. Pode ser chamado a qualquer hora (sem cena, não faz nada). */
@@ -201,17 +233,15 @@ public final class CenaCliente {
         }
         if (Double.isNaN(pulouEm)) tocarSons(mc);
 
-        quadro = RegrasCena.quadro(cena, tick, pulouEm);
+        quadro = RegrasCena.quadro(cena, tick, pulouEm, modo);
         if (quadro.acabou()) {
             encerrar();
             return;
         }
-        if (quadro.camera() && !cameraLigada) ligarCamera();
-        if (!quadro.camera() && cameraLigada) {
-            desligarCamera();
-            pararSons();
-        }
-        if (cameraLigada) segurarOlhar(jogador); // o corpo fica parado, olhando para onde olhava
+        if (quadro.camera() && !cameraLigada && modo.moveCamera()) ligarCamera();
+        if (!quadro.camera() && tick >= 0 && !TOCANDO.isEmpty()) pararSons(); // a cena saiu da tela: sons param
+        if (!quadro.camera() && cameraLigada) desligarCamera();
+        if (naTela()) segurarOlhar(jogador); // o corpo fica parado, olhando para onde olhava
     }
 
     private static void tocarSons(Minecraft mc) {
@@ -244,7 +274,7 @@ public final class CenaCliente {
     private static void aoCalcularCamera(ViewportEvent.ComputeCameraAngles e) {
         if (!cameraLigada || cena == null) return;
         double t = tick + (Minecraft.getInstance().isPaused() ? 0 : e.getPartialTick());
-        RegrasCena.Pose pose = RegrasCena.pose(cena, t);
+        RegrasCena.Pose pose = RegrasCena.pose(cena, t, modo.balanca());
         double[] cam = RegrasCena.paraMundo(ax, ay, az, giro, pose.camera());
         double[] alvo = RegrasCena.paraMundo(ax, ay, az, giro, pose.alvo());
         float[] olhar = RegrasCena.olhar(alvo[0] - cam[0], alvo[1] - cam[1], alvo[2] - cam[2]);
@@ -257,7 +287,7 @@ public final class CenaCliente {
     private static void aoCalcularFov(ViewportEvent.ComputeFov e) {
         if (!cameraLigada || cena == null || !e.usedConfiguredFov()) return;
         double t = tick + (Minecraft.getInstance().isPaused() ? 0 : e.getPartialTick());
-        float zoom = RegrasCena.pose(cena, t).zoom();
+        float zoom = RegrasCena.pose(cena, t, modo.balanca()).zoom();
         // Sempre do campo de visão escolhido pelo jogador (sem o efeito de correr ou de poção).
         double base = Minecraft.getInstance().options.fov().get();
         e.setFOV(Math.max(10, base - zoom));
@@ -281,7 +311,7 @@ public final class CenaCliente {
 
     /** Esconde toda a HUD (a do jogo e a dos outros mods) enquanto a câmera é da cena; só a nossa camada fica. */
     private static void aoDesenharCamada(RenderGuiLayerEvent.Pre e) {
-        if (cena == null || !cameraLigada) return;
+        if (!naTela()) return;
         if (e.getName().getNamespace().equals(OdMod.MODID) && e.getName().getPath().equals(IdsCena.CAMADA)) return;
         e.setCanceled(true);
     }
@@ -290,7 +320,7 @@ public final class CenaCliente {
         if (cena == null) return;
         Minecraft mc = Minecraft.getInstance();
         double t = tick + (mc.isPaused() ? 0 : delta.getGameTimeDeltaPartialTick(false));
-        RegrasCena.Quadro q = RegrasCena.quadro(cena, t, pulouEm);
+        RegrasCena.Quadro q = RegrasCena.quadro(cena, t, pulouEm, modo);
         int w = g.guiWidth();
         int h = g.guiHeight();
         int preto = Math.round(Math.max(0f, Math.min(1f, q.preto())) * 255f);

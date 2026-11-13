@@ -57,8 +57,9 @@ import org.joml.Vector3f;
  * Ato 1: as três pistas que levam o grupo da vila comum até a Vila Calada (lore/fichas-estruturas.md). Só servidor.
  *
  * <ol>
- * <li><b>Sino rachado ao longe:</b> de noite, de tempo em tempo, cada membro ouve um toque grave e desafinado vindo
- * sempre da direção da vila, mais alto quanto mais perto. Som só para ele (pacote direto): nada muda no mundo.</li>
+ * <li><b>Sino rachado ao longe:</b> de noite, raro (2 a 4 min), o grupo inteiro ouve o mesmo toque grave e desafinado,
+ * cada um vindo da direção da vila, mais alto quanto mais perto. Som só para os membros (pacote direto): nada muda
+ * no mundo.</li>
  * <li><b>Aldeões virados:</b> de tempo em tempo (e quando o sino toca), os aldeões em volta de um membro param uns
  * segundos, todos de frente para a vila. O freio é um modificador temporário (o jogo não salva) e o olhar é uma
  * memória que o jogo não salva: nenhum aldeão fica preso.</li>
@@ -66,7 +67,7 @@ import org.joml.Vector3f;
  * rastro curto da cama na direção da vila. Partícula só para quem está perto; nenhum bloco muda.</li>
  * </ol>
  * Valem para grupos que já tiveram o Primeiro Sinal e ainda não chegaram. Quem chega (a {@link RegrasVilaCalada#RAIO_CHEGADA}
- * do ponto) dá o marco {@code vila_calada} ao grupo: as pistas de longe param; o sino segue tocando só na vila.
+ * do ponto) dá o marco {@code vila_calada} ao grupo: as pistas param, inclusive o sino (decisão de 09/11).
  *
  * O ponto vem da âncora {@code vila_calada}: gravada sozinha quando a estrutura {@code odteste:vila_calada} termina
  * de ser colocada e ainda não há âncora (lendo as colocações salvas a cada 5 s; não mexe em estruturas/), ou à mão
@@ -78,13 +79,14 @@ import org.joml.Vector3f;
 public final class PistasVilaCalada {
     /** Só memória, por jogador. */
     private static final class Estado {
-        long proximoToque = -1;
         long proximaOlhada = -1;
         long olhadaAte;
         final List<Villager> virados = new ArrayList<>();
     }
 
     private static final Map<UUID, Estado> ESTADOS = new HashMap<>();
+    /** Próximo toque do sino de cada grupo (tempo do mundo). Só memória: o grupo inteiro ouve o mesmo toque junto. */
+    private static final Map<String, Long> TOQUE_GRUPO = new HashMap<>();
     private static final Set<UUID> VIRADOS_IDS = new HashSet<>();
     static final ResourceLocation MODIFICADOR_VIRADO =
             ResourceLocation.fromNamespaceAndPath(OdMod.MODID, IdsVilaCalada.MODIFICADOR_ALDEAO_VIRADO);
@@ -107,6 +109,7 @@ public final class PistasVilaCalada {
         NeoForge.EVENT_BUS.addListener((ServerStoppingEvent e) -> soltarTodos());
         NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> {
             ESTADOS.clear();
+            TOQUE_GRUPO.clear();
             VIRADOS_IDS.clear();
             cache = null;
         });
@@ -130,6 +133,7 @@ public final class PistasVilaCalada {
         ServerLevel nivel = ancora == null ? null : s.getLevel(ancora.dimension());
         if (!dv.ligado || nivel == null) {
             if (!ESTADOS.isEmpty()) soltarTodos();
+            TOQUE_GRUPO.clear();
             return;
         }
         long agora = nivel.getGameTime();
@@ -137,6 +141,8 @@ public final class PistasVilaCalada {
         int n = 0;
         for (Grupos.Grupo g : dh.grupos.todos()) {
             if (!g.tem(IdsHistoria.MARCO_PRIMEIRO_SINAL)) continue;
+            // O relógio do grupo só anda com alguém dele online aqui (decide no primeiro membro achado).
+            Boolean toca = null;
             for (UUID u : g.membros().keySet()) {
                 if (n >= RegrasVilaCalada.MAX_JOGADORES) break;
                 ServerPlayer p = s.getPlayerList().getPlayer(u);
@@ -151,7 +157,12 @@ public final class PistasVilaCalada {
                     chegou = true;
                     OdMod.LOGGER.info("Vila Calada: o grupo {} chegou ({})", g.nome(), p.getGameProfile().getName());
                 }
-                sino(nivel, p, st, ancora.pos(), dist, chegou, agora);
+                if (toca == null) toca = toqueDoGrupo(nivel, g.nome(), chegou, agora);
+                if (toca && RegrasVilaCalada.ouve(dist, chegou)) {
+                    tocar(nivel, p, ancora.pos());
+                    // Os aldeões acordados em volta viram para o som.
+                    if (st.virados.isEmpty()) olhada(nivel, p, st, ancora.pos(), agora);
+                }
                 if (chegou) {
                     soltar(st);
                 } else {
@@ -247,21 +258,23 @@ public final class PistasVilaCalada {
 
     // ------------------------------------------------------------------ 1. sino rachado ao longe
 
-    private static void sino(ServerLevel nivel, ServerPlayer p, Estado st, BlockPos ancora, double dist, boolean chegou, long agora) {
-        if (nivel.dimensionType().hasFixedTime() || !RegrasVilaCalada.noite(nivel.getDayTime())) {
-            st.proximoToque = -1; // a próxima noite começa do zero
-            return;
+    /**
+     * O sino toca agora para este grupo? Um relógio por grupo: todos os membros ouvem o mesmo toque, cada um da
+     * sua direção. Só de noite, e nunca depois que o grupo chegou (decisão de 09/11).
+     */
+    private static boolean toqueDoGrupo(ServerLevel nivel, String grupo, boolean chegou, long agora) {
+        if (chegou || nivel.dimensionType().hasFixedTime() || !RegrasVilaCalada.noite(nivel.getDayTime())) {
+            TOQUE_GRUPO.remove(grupo); // a próxima noite começa do zero
+            return false;
         }
-        if (!RegrasVilaCalada.ouve(dist, chegou)) return;
-        if (st.proximoToque < 0) {
-            st.proximoToque = agora + RegrasVilaCalada.primeiroToque(nivel.getRandom().nextDouble());
-            return;
+        Long proximo = TOQUE_GRUPO.get(grupo);
+        if (proximo == null) {
+            TOQUE_GRUPO.put(grupo, agora + RegrasVilaCalada.primeiroToque(nivel.getRandom().nextDouble()));
+            return false;
         }
-        if (agora < st.proximoToque) return;
-        st.proximoToque = agora + RegrasVilaCalada.proximoToque(nivel.getRandom().nextDouble());
-        tocar(nivel, p, ancora);
-        // Os aldeões acordados em volta viram para o som.
-        if (!chegou && st.virados.isEmpty()) olhada(nivel, p, st, ancora, agora);
+        if (agora < proximo) return false;
+        TOQUE_GRUPO.put(grupo, agora + RegrasVilaCalada.proximoToque(nivel.getRandom().nextDouble()));
+        return true;
     }
 
     /** Um toque do sino rachado só para este jogador (também usado pelo comando de teste do admin). */

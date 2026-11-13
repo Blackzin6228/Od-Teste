@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": ["Bash(git *)", "Bash(gh *)", "Bash(./gradlew *)", "Bash(bash ferramentas/*)",
+              "WebSearch", "WebFetch", "Edit", "Write"],
+    "deny": ["Bash(git push --force*)", "Bash(git push -f*)", "Bash(git push origin main*)",
+             "Bash(git reset --hard*)", "Bash(rm -rf*)", "Read(**/.env*)"]
+  }
+}

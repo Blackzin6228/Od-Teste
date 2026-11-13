@@ -3,13 +3,9 @@ package com.nikolas.odteste.historia.vilacalada;
 /**
  * Números da cena de entrada da Vila Calada (Java puro, testado em RegrasCenaVilaTest).
  *
- * "Dentro do muro" usa a mesma conta do clima da vila (PR #53, {@code RegrasClimaVila.dentro}): um círculo de 48
- * blocos em volta do centro ancorado. Quando o clima entrar no main, os dois passam a usar uma conta só.
+ * "Dentro do muro" é a conta do clima da vila ({@link RegrasClimaVila#dentro}): uma conta só para os dois.
  */
 public final class RegrasCenaVila {
-    public static final double RAIO_MURO = 48;
-    public static final double ACIMA = 48;
-    public static final double ABAIXO = 16;
     /**
      * Do centro da vila até o portão (blocos). No modelo da vila o muro vai de z 3 a 88 e o centro fica em z 50:
      * o portão sul fica 38 blocos ao sul do centro, antes de girar a estrutura.
@@ -20,9 +16,12 @@ public final class RegrasCenaVila {
 
     private RegrasCenaVila() {}
 
-    /** Está dentro do muro? (dx, dy, dz) = jogador menos o ponto da vila. */
-    public static boolean dentro(double dx, double dy, double dz) {
-        return dx * dx + dz * dz <= RAIO_MURO * RAIO_MURO && dy <= ACIMA && dy >= -ABAIXO;
+    /**
+     * A cena só começa com o jogador parado no chão: sem montaria/barco, sem élitro. Com o movimento travado, quem
+     * está caindo, voando ou montado seguiria sem controle. Se não pode, o servidor tenta de novo no segundo seguinte.
+     */
+    public static boolean podeComecar(boolean noChao, boolean emVeiculo, boolean planando) {
+        return noChao && !emVeiculo && !planando;
     }
 
     /**

@@ -1,5 +1,7 @@
 {
   "itemGroup.odteste": "Od Teste",
+  "odteste.comando.erro.artefato": "Artefato desconhecido: %s",
+  "odteste.comando.artefato.dar": "Artefato %s entregue a %s",
   "block.odteste.vela_da_capela": "Vela da Capela",
   "block.odteste.poca_de_sangue": "Poça de Sangue",
   "odteste.elemento.nenhum": "Nenhum",

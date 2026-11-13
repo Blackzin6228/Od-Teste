@@ -18,7 +18,8 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 /**
- * Cena de entrada da Vila Calada, lado do servidor: na primeira vez que cada jogador entra no muro, manda o pacote
+ * Cena de entrada da Vila Calada, lado do servidor: na primeira vez que cada jogador entra no muro (com os pés no
+ * chão, sem montaria e sem élitro), manda o pacote
  * da cena e marca "já viu" ({@code odteste:cenas_vistas}). Morrer, sair e voltar não repetem. O admin repete com
  * {@code /odteste cena tocar <jogador> entrada_vila_calada}.
  *
@@ -49,8 +50,10 @@ public final class CenaEntradaVila {
             if (n++ >= RegrasCenaVila.MAX_JOGADORES) break;
             if (p.level() != nivel || p.isSpectator() || p.isDeadOrDying()) continue;
             if (Cenas.viu(p, IdsCena.ENTRADA_VILA_CALADA)) continue;
+            // Caindo, nadando, montado ou de élitro: espera; tenta de novo no segundo seguinte.
+            if (!RegrasCenaVila.podeComecar(p.onGround(), p.isPassenger(), p.isFallFlying())) continue;
             BlockPos c = centro.pos();
-            if (!RegrasCenaVila.dentro(p.getX() - (c.getX() + 0.5), p.getY() - c.getY(), p.getZ() - (c.getZ() + 0.5))) {
+            if (!RegrasClimaVila.dentro(p.getX() - (c.getX() + 0.5), p.getY() - c.getY(), p.getZ() - (c.getZ() + 0.5))) {
                 continue;
             }
             ancora(p).ifPresent(a -> Cenas.tocar(p, IdsCena.ENTRADA_VILA_CALADA, a));

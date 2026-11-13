@@ -24,6 +24,33 @@ public final class RegrasCena {
 
     private RegrasCena() {}
 
+    /**
+     * Como a cena toca, pela opção "efeitos fortes de tela" do jogador (docs/decisoes/2026-11-13-cena-entrada-leve.md).
+     * Pular segurando o pulo vale nos três.
+     */
+    public enum Modo {
+        /** LIGADO: a cena inteira. */
+        COMPLETO,
+        /** SUAVE: igual, mas a câmera não balança (sem o "passo"). */
+        SEM_BALANCO,
+        /** DESLIGADO: a câmera não anda; tela preta só com o texto e os sons. */
+        SO_TEXTO;
+
+        /** Da força do efeitos_fortes (1 = LIGADO, entre 0 e 1 = SUAVE, 0 = DESLIGADO). */
+        public static Modo de(float forca) {
+            if (forca <= 0f) return SO_TEXTO;
+            return forca < 1f ? SEM_BALANCO : COMPLETO;
+        }
+
+        public boolean balanca() {
+            return this == COMPLETO;
+        }
+
+        public boolean moveCamera() {
+            return this != SO_TEXTO;
+        }
+    }
+
     /** Onde a câmera está e para onde olha, em coordenadas locais. */
     public record Pose(Cena.Local camera, Cena.Local alvo, float zoom) {}
 
@@ -65,11 +92,16 @@ public final class RegrasCena {
 
     /** Pose da câmera no tick {@code t} (pode ter fração: o cliente pede a cada quadro desenhado). */
     public static Pose pose(Cena c, double t) {
+        return pose(c, t, true);
+    }
+
+    /** Igual a {@link #pose(Cena, double)}; com {@code balanca = false} o "passo" da câmera some (modo SUAVE). */
+    public static Pose pose(Cena c, double t, boolean balanca) {
         Cena.Plano p = plano(c, t);
         double dur = Math.max(1, p.fimPlano() - p.inicio());
         double f = suave((t - p.inicio()) / dur);
         Cena.Local cam = misturar(p.de(), p.ate(), f);
-        if (p.balanco() > 0) {
+        if (balanca && p.balanco() > 0) {
             double fase = (t - p.inicio()) * 2 * Math.PI / PASSO;
             cam = cam.mais(Math.sin(fase / 2) * p.balanco() * 0.5, Math.abs(Math.sin(fase)) * p.balanco(), 0);
         }
@@ -132,6 +164,20 @@ public final class RegrasCena {
      * @param pulouEm tick em que o jogador pulou ({@link #SEM_PULO} = não pulou)
      */
     public static Quadro quadro(Cena c, double t, double pulouEm) {
+        return quadro(c, t, pulouEm, Modo.COMPLETO);
+    }
+
+    /**
+     * Igual a {@link #quadro(Cena, double, double)}; no modo {@link Modo#SO_TEXTO} a tela fica toda preta enquanto
+     * seria a câmera da cena (o cliente não liga a câmera): sobra só o texto e os sons. Entrada e saída iguais.
+     */
+    public static Quadro quadro(Cena c, double t, double pulouEm, Modo modo) {
+        Quadro q = quadroCompleto(c, t, pulouEm);
+        if (modo == Modo.SO_TEXTO && q.camera()) return new Quadro(true, 1f, q.acabou());
+        return q;
+    }
+
+    private static Quadro quadroCompleto(Cena c, double t, double pulouEm) {
         if (!Double.isNaN(pulouEm) && t >= pulouEm) {
             boolean comCamera = pulouEm >= 0 && pulouEm < c.fim();
             float base = pulouEm < 0 ? (float) limitar(1 + pulouEm / ENTRADA) : comCamera ? preto(c, pulouEm) : 1f;

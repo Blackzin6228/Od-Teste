@@ -1,12 +1,15 @@
 package com.nikolas.odteste;
 
 import com.mojang.logging.LogUtils;
+import com.nikolas.odteste.achados.ComandosArtefato;
+import com.nikolas.odteste.achados.Ronda;
 import com.nikolas.odteste.aparelhos.Aparelhos;
 import com.nikolas.odteste.blocos.capela.BlocosCapela;
 import com.nikolas.odteste.comandos.ComandosAdmin;
 import com.nikolas.odteste.comandos.ComandosHistoria;
 import com.nikolas.odteste.historia.PrimeiroSinal;
 import com.nikolas.odteste.historia.vilacalada.CenaEntradaVila;
+import com.nikolas.odteste.historia.vilacalada.ClimaVilaCalada;
 import com.nikolas.odteste.historia.vilacalada.PistasVilaCalada;
 import com.nikolas.odteste.cenas.Cenas;
 import com.nikolas.odteste.compat.Compat;
@@ -48,6 +51,9 @@ public final class OdMod {
         PrimeiroSinal.iniciar();
         PistasVilaCalada.iniciar();
         CenaEntradaVila.iniciar();
+        ClimaVilaCalada.iniciar();
+        ComandosArtefato.iniciar();
+        Ronda.iniciar();
         Compat.iniciar(barramento);
         LOGGER.info("{} carregado. Integrações ligadas: {}", MODID, Compat.ligadas());
     }

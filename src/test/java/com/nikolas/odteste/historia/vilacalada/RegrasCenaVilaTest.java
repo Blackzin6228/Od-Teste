@@ -6,19 +6,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.nikolas.odteste.cenas.Cena;
 import com.nikolas.odteste.cenas.RegrasCena;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 
 class RegrasCenaVilaTest {
 
     @Test
-    void dentroDoMuro() {
-        assertTrue(RegrasCenaVila.dentro(0, 0, 0));
-        assertTrue(RegrasCenaVila.dentro(30, 2, -30));
-        assertFalse(RegrasCenaVila.dentro(40, 0, 40)); // canto de fora do círculo
-        assertFalse(RegrasCenaVila.dentro(0, 60, 0)); // voando bem alto
-        assertFalse(RegrasCenaVila.dentro(0, -20, 0)); // caverna funda embaixo
+    void dentroDoMuroEhAContaDoClima() {
+        assertTrue(RegrasClimaVila.dentro(0, 0, 0));
+        assertFalse(RegrasClimaVila.dentro(0, 60, 0)); // voando bem alto
+    }
+
+    @Test
+    void soComecaNoChao() {
+        assertTrue(RegrasCenaVila.podeComecar(true, false, false));
+        assertFalse(RegrasCenaVila.podeComecar(false, false, false)); // caindo ou nadando
+        assertFalse(RegrasCenaVila.podeComecar(true, true, false)); // montado ou de barco
+        assertFalse(RegrasCenaVila.podeComecar(false, false, true)); // de élitro
     }
 
     @Test
@@ -49,14 +52,5 @@ class RegrasCenaVilaTest {
         // A frente local (+z) aponta do portão para o centro.
         double[] f = RegrasCena.paraMundo(0, 0, 0, giro, new Cena.Local(0, 0, RegrasCenaVila.PORTAO_DO_CENTRO));
         assertEquals(-RegrasCenaVila.PORTAO_DO_CENTRO, f[2], 1e-6);
-    }
-
-    @Test
-    void mesmaContaDoClima() throws Exception {
-        // Se o clima (PR #53) já estiver no main, o muro precisa ser o mesmo nos dois.
-        Path clima = Path.of("src/main/java/com/nikolas/odteste/historia/vilacalada/RegrasClimaVila.java");
-        if (!Files.exists(clima)) return;
-        String s = Files.readString(clima);
-        assertTrue(s.contains("RAIO_MURO = " + (int) RegrasCenaVila.RAIO_MURO), "raio do muro diferente do clima");
     }
 }

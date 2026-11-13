@@ -197,4 +197,44 @@ class RegrasCenaTest {
         assertEquals(esperado.length, obtido.length);
         for (int i = 0; i < esperado.length; i++) assertEquals(esperado[i], obtido[i], 1e-6, "posição " + i);
     }
+
+    @Test
+    void modoPelaForcaDosEfeitos() {
+        assertEquals(RegrasCena.Modo.COMPLETO, RegrasCena.Modo.de(1f));
+        assertEquals(RegrasCena.Modo.SEM_BALANCO, RegrasCena.Modo.de(0.5f));
+        assertEquals(RegrasCena.Modo.SO_TEXTO, RegrasCena.Modo.de(0f));
+    }
+
+    @Test
+    void suaveNaoBalanca() {
+        Cena c = CenasConhecidas.ENTRADA_VILA_CALADA;
+        // Plano 2 balança; sem balanço, a câmera fica na reta entre os pontos.
+        boolean diferente = false;
+        for (int t = 60; t < 140; t += 3) {
+            Cena.Local com = RegrasCena.pose(c, t, true).camera();
+            Cena.Local sem = RegrasCena.pose(c, t, false).camera();
+            if (Math.abs(com.y() - sem.y()) > 1e-6) diferente = true;
+        }
+        assertTrue(diferente, "o plano 2 devia balançar no modo completo");
+        // Fora do plano que balança, os dois são iguais.
+        assertEquals(RegrasCena.pose(c, 170, true).camera(), RegrasCena.pose(c, 170, false).camera());
+    }
+
+    @Test
+    void desligadoEhSoPretoComTexto() {
+        Cena c = CenasConhecidas.ENTRADA_VILA_CALADA;
+        for (int t = 0; t < c.fim(); t += 7) {
+            RegrasCena.Quadro q = RegrasCena.quadro(c, t, RegrasCena.SEM_PULO, RegrasCena.Modo.SO_TEXTO);
+            assertTrue(q.camera());
+            assertEquals(1f, q.preto(), 1e-6);
+        }
+        // Escurece igual no começo e some igual no fim.
+        assertEquals(RegrasCena.quadro(c, -5, RegrasCena.SEM_PULO).preto(),
+                RegrasCena.quadro(c, -5, RegrasCena.SEM_PULO, RegrasCena.Modo.SO_TEXTO).preto(), 1e-6);
+        assertTrue(RegrasCena.quadro(c, c.fim() + c.saida(), RegrasCena.SEM_PULO, RegrasCena.Modo.SO_TEXTO).acabou());
+        // Pular continua valendo: escurece e devolve o jogador.
+        RegrasCena.Quadro pulou = RegrasCena.quadro(c, 100 + RegrasCena.ESCURECER_PULO + c.saida(), 100,
+                RegrasCena.Modo.SO_TEXTO);
+        assertTrue(pulou.acabou());
+    }
 }
