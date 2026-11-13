@@ -70,12 +70,12 @@ public final class RegrasLucidez {
     }
 
     /**
-     * A luz sozinha ainda devolve? Só abaixo de 70% da máxima: assim ela nunca passa de Inquieto
-     * (Firme é acima de 70%, ver FaixaLucidez). Conta em inteiros, igual a FaixaLucidez.
+     * A luz sozinha ainda devolve +1? Só se, depois do ganho, ficar em até 70% da máxima: assim ela nunca passa
+     * de Inquieto (Firme é acima de 70%, ver FaixaLucidez), com qualquer máxima. Conta em inteiros.
      */
     public static boolean luzDevolve(int lucidez, int maxima) {
         int max = Math.max(1, maxima);
-        return lucidez * 100L < max * (long) TETO_LUZ_PERCENTO;
+        return (lucidez + 1L) * 100L <= max * (long) TETO_LUZ_PERCENTO;
     }
 
     /**

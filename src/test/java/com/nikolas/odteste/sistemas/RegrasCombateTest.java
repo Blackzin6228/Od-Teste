@@ -66,6 +66,7 @@ class RegrasCombateTest {
         for (int max = 10; max <= 100; max++) {
             int l = 0;
             while (RegrasLucidez.luzDevolve(l, max)) l++;
+            assertTrue(FaixaLucidez.de(l, max) == FaixaLucidez.INQUIETO || l == 0, "luz parou fora de Inquieto com máxima " + max);
             assertTrue(FaixaLucidez.de(l, max) != FaixaLucidez.FIRME, "luz passou de Inquieto com máxima " + max);
         }
     }
