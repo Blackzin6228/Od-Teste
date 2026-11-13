@@ -137,7 +137,7 @@ nada novo no jogo: só põem IDs nossos em tags e data maps de outros mods (semp
 pack, o arquivo é ignorado. Tirar uma criatura ou bloco daqui reabre a brecha: só com aviso.
 | ID | Tipo | Desde | Observação |
 |---|---|---|---|
-| `odteste:paranormal` | tipo de dano (**referência**: quem cria é a mesa Dev) | 2026-11-13 | usado no data map `mekanism:mekasuit_absorption` com `absorption` 0 (a MekaSuit não segura). Até o tipo existir, o servidor só avisa no log que o ID não existe |
+| `odteste:paranormal` | tipo de dano (**referência**: quem cria é a mesa Dev) | 2026-11-13 | usado no data map `mekanism:mekasuit_absorption` com `absorption` 0,5 (a MekaSuit segura metade, igual à nossa A4; decisão `2026-11-13-balanceamento-ajustes`). Até o tipo existir, o servidor só avisa no log que o ID não existe |
 | `c:capturing_not_supported`, `c:teleporting_not_supported` | tags de criatura (NeoForge) | 2026-11-13 | Retalhado e Sanguessuga-Mãe |
 | `industrialforegoing:mob_imprisonment_tool_blacklist`, `mob_duplicator_blacklist`, `mob_crusher_blacklist`; `justdirethings:paradox_deny`, `paradox_absorb_deny`, `polymorphic_target_deny`, `no_ai_deny`, `creature_catcher_deny`; `ars_nouveau:drygmy_blacklist`; `enderio:spawner_blacklist` | tags de criatura de outros mods | 2026-11-13 | idem. Toda criatura nova nossa entra em todas (o `BalanceamentoTechTest` cobra pela lista `IdsDados.CRIATURAS`) |
 | `tiab:un_acceleratable`, `justdirethings:tick_speed_deny`, `industrialforegoingsouls:cant_accelerate` | tags de bloco de outros mods | 2026-11-13 | Analisador, vela e poça. Todo bloco novo nosso entra (o teste cobra pelos arquivos de `blockstates/`) |

@@ -87,16 +87,19 @@ class BalanceamentoTechTest {
 
     // ---------- MekaSuit x dano paranormal ----------
 
-    /** A MekaSuit não segura o dano paranormal (estudo 2.3 e 2.4): fica abaixo da A4 (50%). */
+    /**
+     * MekaSuit contra dano paranormal: absorve 0,5 (resposta do Nikolas de 13/11/2026,
+     * docs/decisoes/2026-11-13-balanceamento-ajustes.md). Igual à nossa A4, abaixo da A5 (70%).
+     */
     @Test
-    void mekaSuitAbsorveMenosQueNossaArmaduraContraDanoParanormal() throws IOException {
+    void mekaSuitAbsorveMetadeDoDanoParanormal() throws IOException {
         String arquivo = "mekanism/data_maps/damage_type/mekasuit_absorption.json";
         Map<String, Object> mapa = lerObjeto(DATA.resolve(arquivo));
         assertNaoApaga(mapa, arquivo);
         Map<String, Object> valores = objeto(mapa.get("values"));
         assertTrue(valores.containsKey("odteste:paranormal"), "falta o dano odteste:paranormal no data map");
         double absorcao = ((Number) objeto(valores.get("odteste:paranormal")).get("absorption")).doubleValue();
-        assertTrue(absorcao >= 0 && absorcao < 0.5, "MekaSuit contra dano paranormal tem de ficar abaixo de 0.5 (A4)");
+        assertEquals(0.5, absorcao, 1e-9, "MekaSuit contra dano paranormal absorve 0,5 (decisão de 13/11/2026)");
     }
 
     // ---------- Receitas 1:1 ----------
