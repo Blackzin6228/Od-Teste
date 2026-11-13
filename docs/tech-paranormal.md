@@ -48,7 +48,7 @@ então o Triturador de Mobs do Industrial Foregoing e afins não geram drop noss
 | **Matéria tratada** (passo 2) | estável com o tratamento do elemento | Câmara de Contenção; entrada da Essência (D3) |
 
 ### 3.0 Mods de máquina no pack (conferido em 2026-11-08)
-Fonte: `index.toml` do pack Conguitos ATM10 publicado (`conguitos-atm10-pack.vercel.app`). Os jars em `libs/` ainda
+Fonte: `index.toml` do pack Conguitos ATM10 publicado (`conguitos-atm10.nikolascampos1915.workers.dev`). Os jars em `libs/` ainda
 são do Conguitos-smp antigo (só Mekanism 10.7.19 e Create 6.0.10). **Não consegui abrir os jars** nesta sessão, então
 **o tipo de receita e o formato do JSON de todos os mods abaixo ainda precisam ser lidos no jar do ATM10** antes de
 virar arquivo.
