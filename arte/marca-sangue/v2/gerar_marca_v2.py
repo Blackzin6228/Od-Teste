@@ -152,6 +152,41 @@ def folha_ferida(skins, v2):
     salvar_png(os.path.join(DIR_PREVIA, "ferida_de_perto.png"), folha)
 
 
+def folha_comparacao_hd(skins, v2, hd):
+    """Mesma arte em 64x64 (igual a skin) e em 128x128 (dobro de detalhe), lado a lado, para o Nikolas escolher."""
+    esc = 8
+    jan16 = (-9, -1, 5, 13)
+    jan_fer = (-9, 4, -3, 13)
+    linhas = [(2, "clara", False), (3, "clara", False), (4, "clara", False), (4, "escura", False), (4, "clara", True)]
+    cols = [("64x64\ncorpo", v2, None, esc), ("128x128\ncorpo", hd, None, esc),
+            ("64x64\nde perto 16x", v2, jan16, 16), ("128x128\nde perto 16x", hd, jan16, 16),
+            ("64x64\nferida 40x", v2, jan_fer, 40), ("128x128\nferida 40x", hd, jan_fer, 40)]
+    larg = [20 * esc, 20 * esc, 14 * 16, 14 * 16, 6 * 40, 6 * 40]
+    M = 150
+    gap = 14
+    xs = [M]
+    for w in larg[:-1]:
+        xs.append(xs[-1] + w + gap)
+    W = xs[-1] + larg[-1] + 20
+    ch = 34 * esc + gap
+    y0 = 100
+    H = y0 + ch * len(linhas)
+    folha = nova(W, H, FUNDO)
+    texto(folha, 16, 12, "Marca de Sangue v2 - mesma arte em 64x64 e em 128x128 (decisao de resolucao pendente)", BRANCO, 3)
+    for x, (nome, _, _, _) in zip(xs, cols):
+        texto(folha, x, 50, nome, CINZA, 2)
+    for i, (s, tom, alex) in enumerate(linhas):
+        y = y0 + i * ch
+        texto(folha, 14, y + ch // 2 - 24, f"estagio {s}\n" + nome_combo(tom, alex), (210, 210, 210), 2)
+        for x, (nome, fonte, jan, e) in zip(xs, cols):
+            if jan is None:
+                img = render(alex, skins[(tom, alex)], fonte[(s, alex)], 0, esc=e)
+            else:
+                img = render(alex, skins[(tom, alex)], fonte[(s, alex)], 0, esc=e, janela=jan)
+            colar(folha, img, x, y)
+    salvar_png(os.path.join(DIR_PREVIA, "comparacao_64_vs_128.png"), folha)
+
+
 def folha_geral(skins, v2, bri):
     esc = 6
     cw, ch = 20 * esc, 34 * esc
@@ -208,10 +243,12 @@ def main():
     os.makedirs(DIR_PREVIA, exist_ok=True)
     so_texturas = "--so-texturas" in sys.argv
     skins = skins_teste()
-    v2, bri, v1 = {}, {}, {}
+    v2, bri, v1, hd, hd_bri = {}, {}, {}, {}, {}
+    os.makedirs(os.path.join(DIR_V2, "hd"), exist_ok=True)
     for alex in (False, True):
         suf = "_alex" if alex else ""
         m = Molde(alex)
+        m_hd = Molde(alex, F=2)
         v2[(0, alex)] = VAZIO
         for s in range(1, 5):
             tex, b = m.gerar(s)
@@ -219,12 +256,18 @@ def main():
             bri[(s, alex)] = b
             salvar_png(os.path.join(DIR_V2, f"estagio_{s}{suf}.png"), tex)
             salvar_png(os.path.join(DIR_V2, f"estagio_{s}_brilho{suf}.png"), b)
+            tex, b = m_hd.gerar(s)
+            hd[(s, alex)] = tex
+            hd_bri[(s, alex)] = b
+            salvar_png(os.path.join(DIR_V2, "hd", f"estagio_{s}{suf}.png"), tex)
+            salvar_png(os.path.join(DIR_V2, "hd", f"estagio_{s}_brilho{suf}.png"), b)
             v1[(s, alex)] = carregar_v1(s, alex)
         guia = grade_faces(xadrez(v2[(4, alex)], 8), 8, alex)
         salvar_png(os.path.join(DIR_PREVIA, f"molde_guia_estagio_4_{'alex' if alex else 'steve'}.png"), guia)
     print("texturas ok:", DIR_V2)
     if so_texturas:
         return
+    folha_comparacao_hd(skins, v2, hd)
     for s in range(1, 5):
         folha_antes_depois(s, skins, v1, v2, bri)
         print("previa estagio", s)

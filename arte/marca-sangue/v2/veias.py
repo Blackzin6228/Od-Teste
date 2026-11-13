@@ -75,19 +75,22 @@ def amostrar(pts, passo=0.08):
 
 # ---------------------------------------------------------------- tela (uma faixa do molde)
 class Tela:
-    def __init__(self, W, H, volta):
-        self.W, self.H, self.volta = W, H, volta
-        self.rgb = np.zeros((H, W, 3))
-        self.a = np.zeros((H, W))
-        self.grgb = np.zeros((H, W, 3))
-        self.ga = np.zeros((H, W))
-        yy, xx = np.mgrid[0:H, 0:W]
-        self.cx, self.cy = xx + 0.5, yy + 0.5
+    """Uma faixa do molde. W e H sao em texels da skin (64x64); F subdivide cada texel (F=2 -> textura 128x128).
+    Todas as medidas (raios, distancias) continuam em texels da skin, entao o desenho e o mesmo nas duas resolucoes."""
+
+    def __init__(self, W, H, volta, F=1):
+        self.W, self.H, self.volta, self.F = W, H, volta, F
+        self.rgb = np.zeros((H * F, W * F, 3))
+        self.a = np.zeros((H * F, W * F))
+        self.grgb = np.zeros((H * F, W * F, 3))
+        self.ga = np.zeros((H * F, W * F))
+        yy, xx = np.mgrid[0:H * F, 0:W * F]
+        self.cx, self.cy = (xx + 0.5) / F, (yy + 0.5) / F
 
     def over(self, cor, alfa, brilho=False):
         cor = np.asarray(cor, float) / 255  # cores sempre em 0..255 (paleta ou mix da paleta)
         if cor.ndim == 1:
-            cor = np.broadcast_to(cor, (self.H, self.W, 3))
+            cor = np.broadcast_to(cor, self.rgb.shape)
         alfa = np.clip(np.asarray(alfa, float), 0, 1)
         drgb, da = (self.grgb, self.ga) if brilho else (self.rgb, self.a)
         oa = alfa + da * (1 - alfa)
@@ -125,10 +128,12 @@ class Tela:
         return sdf, r[i], np.stack([nx, ny], -1), s[i]
 
     def para_uv(self, tex, brilho, u0, v0):
-        tex[v0:v0 + self.H, u0:u0 + self.W, :3] = np.round(self.rgb * 255)
-        tex[v0:v0 + self.H, u0:u0 + self.W, 3] = np.round(self.a * 255)
-        brilho[v0:v0 + self.H, u0:u0 + self.W, :3] = np.round(self.grgb * 255)
-        brilho[v0:v0 + self.H, u0:u0 + self.W, 3] = np.round(self.ga * 255)
+        F = self.F
+        ys, xs = slice(v0 * F, (v0 + self.H) * F), slice(u0 * F, (u0 + self.W) * F)
+        tex[ys, xs, :3] = np.round(self.rgb * 255)
+        tex[ys, xs, 3] = np.round(self.a * 255)
+        brilho[ys, xs, :3] = np.round(self.grgb * 255)
+        brilho[ys, xs, 3] = np.round(self.ga * 255)
 
 
 # ---------------------------------------------------------------- pinceis
@@ -361,17 +366,18 @@ OLHO_DIR = ((9, 12), (10, 12))  # branco e pupila do olho direito no molde (skin
 
 # ---------------------------------------------------------------- montagem
 class Molde:
-    def __init__(self, alex):
+    def __init__(self, alex, F=1):
         self.alex = alex
+        self.F = F
         self.telas = {}
         self.origem = {}
         for parte in ("cabeca", "tronco", "braco_dir", "braco_esq", "perna_dir", "perna_esq"):
             u0, v0, W, H, _ = faixa(parte, alex)
-            self.telas[parte] = Tela(W, H, True)
+            self.telas[parte] = Tela(W, H, True, F)
             self.origem[parte] = (u0, v0)
         for parte in ("tronco", "braco_dir", "braco_esq"):
             u0, v0, W, H = topo(parte, alex)
-            self.telas[parte + "_topo"] = Tela(W, H, False)
+            self.telas[parte + "_topo"] = Tela(W, H, False, F)
             self.origem[parte + "_topo"] = (u0, v0)
 
     def xy(self, parte, p):
@@ -386,9 +392,14 @@ class Molde:
         return [self.xy(parte, p) for p in lista]
 
     def gerar(self, estagio):
-        tex = np.zeros((64, 64, 4), np.uint8)
-        bri = np.zeros((64, 64, 4), np.uint8)
+        tex = np.zeros((64 * self.F, 64 * self.F, 4), np.uint8)
+        bri = np.zeros((64 * self.F, 64 * self.F, 4), np.uint8)
         s = estagio
+        for t in self.telas.values():
+            t.rgb[...] = 0
+            t.a[...] = 0
+            t.grgb[...] = 0
+            t.ga[...] = 0
         ativas = [v for v in VEIAS if v["desde"] <= s]
 
         def raio(v):
@@ -454,15 +465,15 @@ class Molde:
             a = {3: (0.35, 0.0), 4: (0.6, 0.25)}[s]
             for (u, v), alfa in zip(OLHO_DIR, a):
                 if alfa > 0:
-                    _tingir(tex, u, v, VIVO, alfa)
+                    _tingir(tex, u, v, VIVO, alfa, self.F)
         tex[tex[..., 3] < 4] = 0
         bri[bri[..., 3] < 4] = 0
         return tex, bri
 
 
-def _tingir(tex, u, v, cor, alfa):
-    atual = tex[v, u].astype(float) / 255
-    oa = alfa + atual[3] * (1 - alfa)
-    rgb = (np.asarray(cor) / 255 * alfa + atual[:3] * atual[3] * (1 - alfa)) / max(oa, 1e-6)
-    tex[v, u, :3] = np.round(rgb * 255)
-    tex[v, u, 3] = round(oa * 255)
+def _tingir(tex, u, v, cor, alfa, F=1):
+    bloco = tex[v * F:(v + 1) * F, u * F:(u + 1) * F].astype(float) / 255
+    oa = alfa + bloco[..., 3] * (1 - alfa)
+    rgb = (np.asarray(cor) / 255 * alfa + bloco[..., :3] * (bloco[..., 3] * (1 - alfa))[..., None]) / np.maximum(oa, 1e-6)[..., None]
+    tex[v * F:(v + 1) * F, u * F:(u + 1) * F, :3] = np.round(rgb * 255)
+    tex[v * F:(v + 1) * F, u * F:(u + 1) * F, 3] = np.round(oa * 255)

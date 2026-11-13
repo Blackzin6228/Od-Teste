@@ -21,6 +21,7 @@ Só precisa de `python3` e `numpy`. PNG e GIF são escritos pelo próprio script
 |---|---|
 | `estagio_N.png` / `estagio_N_alex.png` | a Marca do estágio N (1 a 4), molde 64x64 da skin, camada de baixo. Steve (braço 4 px) e Alex (braço 3 px) |
 | `estagio_N_brilho*.png` | **só o que brilha no escuro**: interior das rachaduras, carne viva da ferida e o coração. Para a camada emissiva (pulso = animação da Dev) |
+| `hd/` | a **mesma arte em 128x128** (mesmo molde, dobro de detalhe). Comparação em `arte/previas/marca-sangue-v2/comparacao_64_vs_128.png`. Só uma das duas vai para o jogo, conforme o Nikolas decidir |
 | `gerar_marca_v2.py` | principal: gera texturas, prévias e GIF |
 | `veias.py` | o desenho: lista de veias/rachaduras/gotas por estágio e os pincéis (campo de distância) |
 | `corpo.py` | corpo do jogador com o UV do Minecraft, skins de teste e render por raio |
@@ -48,9 +49,9 @@ guia do molde com as faces e `brilho_pulsando.gif`).
 
 ## Limites e pendências
 
-- **Resolução 64x64** (igual à skin): costura é fio de 1 px e no antebraço de 3-4 px tudo fica apertado. Se o
-  Nikolas quiser mais detalhe, dá para gerar a mesma arte em 128x128 (o modelo aceita), mas é decisão de
-  resolução pendente em `docs/decisoes.md`.
+- **Resolução**: em 64x64 (igual à skin) a costura é fio de 1 px e no antebraço de 3-4 px tudo fica apertado;
+  em 128x128 (`hd/`) costura, coração e rachaduras leem melhor, mas a Marca fica mais fina que a skin em volta
+  (mistura de resolução). É a decisão pendente em `docs/decisoes.md`: o Nikolas escolhe vendo a comparação.
 - Olho injetado assume olho no lugar do Steve/Alex padrão (pixels 9-10, 12 do molde). Em skins diferentes, o
   tom vermelho cai em outro ponto do rosto: é opcional e pode ser desligado.
 - Só a camada de baixo da skin. A camada de cima (jaqueta, chapéu) fica livre.

@@ -188,8 +188,14 @@ def render(alex, skin, marca=None, yaw=0.0, pitch=0.0, esc=8, janela=(-10, -9, 1
             s = (q @ AB) / (AB @ AB)
             t = (q @ AC) / (AC @ AC)
             umin, vmin, umax, vmax = f["uv"]
-            u = np.clip(np.floor(umin + s * (umax - umin)).astype(int), min(umin, umax), max(umin, umax) - 1)
-            v = np.clip(np.floor(vmin + t * (vmax - vmin)).astype(int), min(vmin, vmax), max(vmin, vmax) - 1)
+            uf, vf = umin + s * (umax - umin), vmin + t * (vmax - vmin)
+            u = np.clip(np.floor(uf).astype(int), min(umin, umax), max(umin, umax) - 1)
+            v = np.clip(np.floor(vf).astype(int), min(vmin, vmax), max(vmin, vmax) - 1)
+            # a marca pode ter mais resolucao que a skin (128x128 = fator 2), mesmo molde
+            fonte_f = marca if marca is not None else brilho
+            F = (fonte_f.shape[0] // 64) if fonte_f is not None else 1
+            uF = np.clip(np.floor(uf * F).astype(int), min(umin, umax) * F, max(umin, umax) * F - 1)
+            vF = np.clip(np.floor(vf * F).astype(int), min(vmin, vmax) * F, max(vmin, vmax) * F - 1)
             cor = skin_f[v, u]
             n_cam = R @ f["normal"]
             lam = max(0.0, -float(n_cam @ luz))
@@ -198,12 +204,12 @@ def render(alex, skin, marca=None, yaw=0.0, pitch=0.0, esc=8, janela=(-10, -9, 1
                 sombra *= 0.2
             c = cor[:, :3].copy()
             if marca_f is not None:
-                mc = marca_f[v, u]
+                mc = marca_f[vF, uF]
                 a = mc[:, 3:4]
                 c = c * (1 - a) + mc[:, :3] * a
             c = c * sombra
             if brilho_f is not None:
-                g = brilho_f[v, u]
+                g = brilho_f[vF, uF]
                 ga = g[:, 3:4] * pulso
                 c = c * (1 - ga) + g[:, :3] * ga
             idx = np.nonzero(m)[0]
