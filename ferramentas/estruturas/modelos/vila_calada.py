@@ -933,8 +933,11 @@ def _vidro(c):
     return c.endswith("glass_pane") or c == "iron_bars"
 
 
-def conectar(e):
+def conectar(e, filtro=None):
+    """filtro(x, y, z) -> False pula a posição (a vila de 150 só liga os arredores; o centro fica como está)."""
     for (x, y, z), (nome, props) in list(e.blocos.items()):
+        if filtro and not filtro(x, y, z):
+            continue
         curto = nome.split(":")[1]
         p = dict(props)
         if curto.endswith("_fence") or _vidro(curto):
