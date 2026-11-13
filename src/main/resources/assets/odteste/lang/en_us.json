@@ -1,5 +1,7 @@
 {
   "itemGroup.odteste": "Od Teste",
+  "odteste.comando.erro.artefato": "Unknown artifact: %s",
+  "odteste.comando.artefato.dar": "Artifact %s given to %s",
   "block.odteste.vela_da_capela": "Chapel Candle",
   "block.odteste.poca_de_sangue": "Blood Pool",
   "odteste.elemento.nenhum": "None",

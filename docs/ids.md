@@ -121,6 +121,14 @@ seguidas), e `odteste.horror.sussurro.nome`, `.nome.2`, `.voz` (nome sussurrado 
 | `odteste:esconder_jei` | plugin do JEI (`compat/jei`) | 2026-11-08 | esconde itens sem receita e as receitas `odteste:` (ritual do Occultism); não é salvo. O EMI usa `compat/emi` (sem ID) |
 | `efeitos_fortes` | chave de config do cliente (`config/odteste-client.toml`: `LIGADO`, `SUAVE`, `DESLIGADO`) | 08/11/2026 | fica no PC do jogador; renomear perde a escolha de quem usa suave/desligado |
 
+Artefatos achados e ronda (2026-11-12, `docs/decisoes/2026-11-12-artefatos-e-ronda.md`):
+| ID | Tipo | Desde | Observação |
+|---|---|---|---|
+| `odteste_recompensa` | chave NBT no template de estrutura (baú, baú armadilhado ou barril) | 2026-11-12 | marca o baú que ganha recompensa de enigma ao colocar a estrutura; só se o baú estiver vazio |
+| `artefato_sangue` | valor da marca `odteste_recompensa` | 2026-11-12 | baú com um artefato de Sangue |
+| `chests/recompensa_artefato_sangue` | tabela de loot (`data/odteste/loot_table/chests/`, sequência `odteste:chests/recompensa_artefato_sangue`) | 2026-11-12 | única tabela com artefatos; nunca entra em tabela do vanilla ou de outro mod |
+| `/odteste artefato dar <jogador> <artefato>` | comando de admin (permissão 2) | 2026-11-12 | evento do admin; `<artefato>` é um dos três ids de item |
+
 Fontes de Exposição (usadas no comando `/exposicao contato` e no freio de repetição). Ficam salvas dentro de
 `odteste:exposicao_repeticao` como `fonte/elemento` (ex.: `criatura_vista/sangue`), então também não mudam:
 `criatura_vista`, `criatura_luta`, `criatura_morta`, `reliquia_pegar`, `reliquia_usar`, `ritual`, `dimensao`, `aparicao`.
