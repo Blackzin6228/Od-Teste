@@ -34,7 +34,19 @@ public final class RegrasCriaturas {
     /** Luz em que os filhotes da Sanguessuga-Mãe morrem. */
     public static final int LUZ_FORTE = 12;
 
+    /**
+     * Exposição Alta (Fundo): a partir daqui a Mega Torch não protege mais o jogador. Só a regra: a ligação com o
+     * Torchmaster está pendente (docs/progresso.md), porque ele barra no PositionCheck e não dá para desfazer só a
+     * parte dele sem passar por cima de bloqueios de outros mods.
+     */
+    public static final int EXPOSICAO_TOCHA = 60;
+
     private RegrasCriaturas() {}
+
+    /** A Mega Torch ainda protege quem tem esta Exposição? */
+    public static boolean tochaProtege(int exposicao) {
+        return exposicao < EXPOSICAO_TOCHA;
+    }
 
     /**
      * @param tempoDoMundo ticks de jogo desde que o mundo foi criado
