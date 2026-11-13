@@ -34,7 +34,15 @@ public final class RegrasCriaturas {
     /** Luz em que os filhotes da Sanguessuga-Mãe morrem. */
     public static final int LUZ_FORTE = 12;
 
+    /** Exposição Alta (Fundo): a partir daqui a Mega Torch não protege mais o jogador (compat/torchmaster). */
+    public static final int EXPOSICAO_TOCHA = 60;
+
     private RegrasCriaturas() {}
+
+    /** A Mega Torch ainda protege quem tem esta Exposição? */
+    public static boolean tochaProtege(int exposicao) {
+        return exposicao < EXPOSICAO_TOCHA;
+    }
 
     /**
      * @param tempoDoMundo ticks de jogo desde que o mundo foi criado

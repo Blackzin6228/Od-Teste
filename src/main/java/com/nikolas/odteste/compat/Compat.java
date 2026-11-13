@@ -26,7 +26,9 @@ public final class Compat {
         /** Claims de chunk: estrutura e marca da história nunca entram em chunk com dono. */
         FTB_CHUNKS("ftbchunks"),
         /** Animação do corpo do jogador. Só cliente: usado em cliente/ via compat/playeranimator/. */
-        PLAYER_ANIMATOR("playeranimator");
+        PLAYER_ANIMATOR("playeranimator"),
+        /** Mega Torch: não protege quem tem Exposição Alta (compat/torchmaster, sem tocar em classe dele). */
+        TORCHMASTER("torchmaster");
 
         public final String modid;
 
@@ -44,6 +46,7 @@ public final class Compat {
     public static void iniciar(IEventBus barramento) {
         // Cada integração entra aqui quando tiver conteúdo, sempre atrás do if (a classe compat só é lida se o mod existir).
         if (Integracao.OCCULTISM.ligada()) com.nikolas.odteste.compat.occultism.OccultismCompat.iniciar(barramento);
+        if (Integracao.TORCHMASTER.ligada()) com.nikolas.odteste.compat.torchmaster.TochaNaoProtege.iniciar();
     }
 
     public static List<String> ligadas() {

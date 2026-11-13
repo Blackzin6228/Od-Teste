@@ -1,824 +1,3805 @@
 {
   ".claude/settings.json": {
-    "mtime": 1794573275.524844,
-    "seen": 1794573303.810557,
+    "mtime": 1794585581.74481,
+    "seen": 1794586358.0589519,
     "ast_hash": "d8d730328832b341ead8ed8a0f5a9abe",
     "semantic_hash": "d8d730328832b341ead8ed8a0f5a9abe",
     "ast_empty": true
   },
   ".github/workflows/compilar.yml": {
-    "mtime": 1794190467.8488925,
-    "seen": 1794573303.8105624,
-    "ast_hash": "b958f4898ec25a75712cddcee331e16c",
-    "semantic_hash": "b958f4898ec25a75712cddcee331e16c"
+    "mtime": 1794585581.7548683,
+    "seen": 1794586358.0589585,
+    "ast_hash": "b860a7b60a0ebc6aec88717dd5d2a96d",
+    "semantic_hash": ""
   },
   "build.gradle": {
-    "mtime": 1794190467.8488925,
-    "seen": 1794573303.8106093,
+    "mtime": 1794585582.1834261,
+    "seen": 1794586358.0589938,
     "ast_hash": "34912507ac6b6b7b6496b5b2babc37d8",
     "semantic_hash": "34912507ac6b6b7b6496b5b2babc37d8"
   },
   "ferramentas/baixar_libs.sh": {
-    "mtime": 1794102834.304547,
-    "seen": 1794573303.810634,
+    "mtime": 1794585582.2048101,
+    "seen": 1794586358.0589955,
     "ast_hash": "08bf16d4cbf69869a0d544570b93ca0c",
     "semantic_hash": "08bf16d4cbf69869a0d544570b93ca0c"
   },
   "ferramentas/teste_servidor.sh": {
-    "mtime": 1794230997.8471074,
-    "seen": 1794573303.810657,
+    "mtime": 1794585582.21681,
+    "seen": 1794586358.0590255,
     "ast_hash": "299a45162ce9d926569ebb62e90316d4",
     "semantic_hash": "299a45162ce9d926569ebb62e90316d4"
   },
   "gradlew": {
-    "mtime": 1794102834.3060763,
-    "seen": 1794573303.8106787,
+    "mtime": 1794585582.2220366,
+    "seen": 1794586358.059027,
     "ast_hash": "794669d78aef1dd5c7d889ef618b311a",
     "semantic_hash": "794669d78aef1dd5c7d889ef618b311a"
   },
   "settings.gradle": {
-    "mtime": 1794102834.3060763,
-    "seen": 1794573303.8106978,
+    "mtime": 1794585582.233207,
+    "seen": 1794586358.0590286,
     "ast_hash": "be15986623098056098374b0d42d2a60",
     "semantic_hash": "be15986623098056098374b0d42d2a60"
   },
   "src/main/java/com/nikolas/odteste/OdMod.java": {
-    "mtime": 1794230997.8471074,
-    "seen": 1794573303.8107162,
-    "ast_hash": "840e148d781d20f9ed605d4b227be073",
-    "semantic_hash": "840e148d781d20f9ed605d4b227be073"
+    "mtime": 1794586269.0007446,
+    "seen": 1794586358.05903,
+    "ast_hash": "17d28c7ea818c4bb6f360fac3f6df2c3",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/cliente/Alucinacoes.java": {
-    "mtime": 1794190467.8530636,
-    "seen": 1794573303.8107505,
+    "mtime": 1794585582.2479117,
+    "seen": 1794586358.0590506,
     "ast_hash": "b329243f987904f4af3473a2304b2d77",
     "semantic_hash": "b329243f987904f4af3473a2304b2d77"
   },
   "src/main/java/com/nikolas/odteste/cliente/CamadaMarca.java": {
-    "mtime": 1794190467.8530636,
-    "seen": 1794573303.8107882,
-    "ast_hash": "fcdc513c4e3501c8e7c7bf029d69d58c",
-    "semantic_hash": "fcdc513c4e3501c8e7c7bf029d69d58c"
+    "mtime": 1794585582.24973,
+    "seen": 1794586358.0590518,
+    "ast_hash": "e976b8d8c0c039d66897051611367766",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/cliente/ConfigCliente.java": {
-    "mtime": 1794190467.8530636,
-    "seen": 1794573303.8108468,
+    "mtime": 1794585582.24973,
+    "seen": 1794586358.0590549,
     "ast_hash": "ea5ca308ef199e494d731f6c942a760e",
     "semantic_hash": "ea5ca308ef199e494d731f6c942a760e"
   },
   "src/main/java/com/nikolas/odteste/cliente/ConteudoCliente.java": {
-    "mtime": 1794230997.8471074,
-    "seen": 1794573303.8108864,
-    "ast_hash": "da23f3e62fa2dd4cbccda98f01e39005",
-    "semantic_hash": "da23f3e62fa2dd4cbccda98f01e39005"
+    "mtime": 1794585582.24973,
+    "seen": 1794586358.059056,
+    "ast_hash": "15b0089c2a7152074cef6716d4c3fc37",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/cliente/EfeitosLucidez.java": {
-    "mtime": 1794190467.8530636,
-    "seen": 1794573303.8109238,
-    "ast_hash": "881b331e3a979b6662e444e9afc85a54",
-    "semantic_hash": "881b331e3a979b6662e444e9afc85a54"
+    "mtime": 1794585582.24973,
+    "seen": 1794586358.0590572,
+    "ast_hash": "fb52eb30282117a34f2d89b6c9c3ac4f",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/cliente/ModeloCriatura.java": {
-    "mtime": 1794230997.8471074,
-    "seen": 1794573303.81096,
-    "ast_hash": "2143c4390b1f96ba06fe132fd9032e49",
-    "semantic_hash": "2143c4390b1f96ba06fe132fd9032e49"
+    "mtime": 1794585582.24973,
+    "seen": 1794586358.0590582,
+    "ast_hash": "c7a888f3d60d41fcf8e3e26fd79af6bb",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/cliente/MomentosCliente.java": {
-    "mtime": 1794190467.8530636,
-    "seen": 1794573303.8109953,
+    "mtime": 1794585582.24973,
+    "seen": 1794586358.0590594,
     "ast_hash": "42bb133ceb9d8d065b4e4766d8b5f6f3",
     "semantic_hash": "42bb133ceb9d8d065b4e4766d8b5f6f3"
   },
   "src/main/java/com/nikolas/odteste/cliente/OdModCliente.java": {
-    "mtime": 1794230997.8471074,
-    "seen": 1794573303.8110304,
-    "ast_hash": "cf9073544e869f325339c08890db3643",
-    "semantic_hash": "cf9073544e869f325339c08890db3643"
+    "mtime": 1794585582.24973,
+    "seen": 1794586358.0590606,
+    "ast_hash": "986ed16e3580e3f6203080c4d64a8493",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/cliente/Sons.java": {
-    "mtime": 1794190467.8530636,
-    "seen": 1794573303.8110662,
+    "mtime": 1794585582.24973,
+    "seen": 1794586358.059063,
     "ast_hash": "4255c8d732ffe68fb4115df092e9b085",
     "semantic_hash": "4255c8d732ffe68fb4115df092e9b085"
   },
   "src/main/java/com/nikolas/odteste/cliente/Tela.java": {
-    "mtime": 1794190467.8530636,
-    "seen": 1794573303.8111017,
+    "mtime": 1794585582.24973,
+    "seen": 1794586358.0590641,
     "ast_hash": "865856f59103712441b07533d58a88c6",
     "semantic_hash": "865856f59103712441b07533d58a88c6"
   },
   "src/main/java/com/nikolas/odteste/cliente/package-info.java": {
-    "mtime": 1794102834.3088796,
-    "seen": 1794573303.811137,
+    "mtime": 1794585582.24973,
+    "seen": 1794586358.059065,
     "ast_hash": "d4ad5b4172280a25e0f4804b722bbb86",
     "semantic_hash": "d4ad5b4172280a25e0f4804b722bbb86"
   },
   "src/main/java/com/nikolas/odteste/comandos/ComandosAdmin.java": {
-    "mtime": 1794190467.8530636,
-    "seen": 1794573303.811172,
+    "mtime": 1794585582.24973,
+    "seen": 1794586358.059066,
     "ast_hash": "d59866c8892b93a9e2660030edd7f988",
     "semantic_hash": "d59866c8892b93a9e2660030edd7f988"
   },
   "src/main/java/com/nikolas/odteste/comandos/ComandosElemento.java": {
-    "mtime": 1794230997.8471074,
-    "seen": 1794573303.8112078,
+    "mtime": 1794585582.2529073,
+    "seen": 1794586358.0590668,
     "ast_hash": "def121a211e3b075adaad67862200693",
     "semantic_hash": "def121a211e3b075adaad67862200693"
   },
   "src/main/java/com/nikolas/odteste/comandos/ComandosHistoria.java": {
-    "mtime": 1794230997.8471074,
-    "seen": 1794573303.8112433,
-    "ast_hash": "381702191322eb8f99bb90cab7966664",
-    "semantic_hash": "381702191322eb8f99bb90cab7966664"
+    "mtime": 1794585582.2529073,
+    "seen": 1794586358.059068,
+    "ast_hash": "6d540855ff81f801b27b09efdc6ec05b",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/comandos/package-info.java": {
-    "mtime": 1794102834.3088796,
-    "seen": 1794573303.8112783,
+    "mtime": 1794585582.2529073,
+    "seen": 1794586358.0590703,
     "ast_hash": "9fd29aab90413b1078a14addca5275b2",
     "semantic_hash": "9fd29aab90413b1078a14addca5275b2"
   },
   "src/main/java/com/nikolas/odteste/compat/Compat.java": {
-    "mtime": 1794230997.8471074,
-    "seen": 1794573303.8113134,
-    "ast_hash": "57932ca285ac0e9c7a2f26df8fc8a741",
-    "semantic_hash": "57932ca285ac0e9c7a2f26df8fc8a741"
+    "mtime": 1794586234.624748,
+    "seen": 1794586358.0590713,
+    "ast_hash": "14775a27346eb24955f5e2340ff9c795",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/compat/emi/EsconderNoEmi.java": {
-    "mtime": 1794230997.8471074,
-    "seen": 1794573303.811349,
+    "mtime": 1794585582.2552156,
+    "seen": 1794586358.059073,
     "ast_hash": "3edecafafe9ffc28c829ec51eae74f28",
     "semantic_hash": "3edecafafe9ffc28c829ec51eae74f28"
   },
   "src/main/java/com/nikolas/odteste/compat/ftbchunks/ClaimsFtbChunks.java": {
-    "mtime": 1794230997.8511074,
-    "seen": 1794573303.8113873,
+    "mtime": 1794585582.2552156,
+    "seen": 1794586358.0590742,
     "ast_hash": "51bf1afdadc2f9c93bf45138e4a9d511",
     "semantic_hash": "51bf1afdadc2f9c93bf45138e4a9d511"
   },
   "src/main/java/com/nikolas/odteste/compat/jei/EsconderNoJei.java": {
-    "mtime": 1794230997.8511074,
-    "seen": 1794573303.8114257,
+    "mtime": 1794585582.2552156,
+    "seen": 1794586358.059075,
     "ast_hash": "7e4f53da0203e72afd1857a15a44291d",
     "semantic_hash": "7e4f53da0203e72afd1857a15a44291d"
   },
   "src/main/java/com/nikolas/odteste/compat/occultism/OccultismCompat.java": {
-    "mtime": 1794230997.8511074,
-    "seen": 1794573303.8114638,
+    "mtime": 1794585582.2552156,
+    "seen": 1794586358.059076,
     "ast_hash": "9f7db3806b69f6f002aa2017a1471798",
     "semantic_hash": "9f7db3806b69f6f002aa2017a1471798"
   },
   "src/main/java/com/nikolas/odteste/compat/occultism/RitualChamadoDeSangue.java": {
-    "mtime": 1794230997.8526394,
-    "seen": 1794573303.811502,
+    "mtime": 1794585582.2579343,
+    "seen": 1794586358.059077,
     "ast_hash": "83e559542523b89587c65414509ed748",
     "semantic_hash": "83e559542523b89587c65414509ed748"
   },
   "src/main/java/com/nikolas/odteste/compat/playeranimator/AnimacaoJogador.java": {
-    "mtime": 1794190467.8530636,
-    "seen": 1794573303.811541,
+    "mtime": 1794585582.2579343,
+    "seen": 1794586358.0590782,
     "ast_hash": "13e788d82e3419d6b5c6985a96886b48",
     "semantic_hash": "13e788d82e3419d6b5c6985a96886b48"
   },
   "src/main/java/com/nikolas/odteste/criaturas/CriaturaDeSangue.java": {
-    "mtime": 1794230997.8526394,
-    "seen": 1794573303.8115795,
-    "ast_hash": "7f1e5a6e2ac634f9a3ac4f97811fcc4f",
-    "semantic_hash": "7f1e5a6e2ac634f9a3ac4f97811fcc4f"
+    "mtime": 1794586098.0207613,
+    "seen": 1794586358.0590801,
+    "ast_hash": "5e4b46372d57a7586d1b5f0b3f861110",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/criaturas/Criaturas.java": {
-    "mtime": 1794230997.8526394,
-    "seen": 1794573303.811615,
-    "ast_hash": "243e93311547412620927cbab826c206",
-    "semantic_hash": "243e93311547412620927cbab826c206"
+    "mtime": 1794585582.2593071,
+    "seen": 1794586358.059081,
+    "ast_hash": "8f20abde2216c39492c3ed2c85496680",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/criaturas/RegrasCriaturas.java": {
-    "mtime": 1794230997.8526394,
-    "seen": 1794573303.81165,
-    "ast_hash": "971be0121a05a3091177dfc80ca95418",
-    "semantic_hash": "971be0121a05a3091177dfc80ca95418"
+    "mtime": 1794586230.6807485,
+    "seen": 1794586358.0590823,
+    "ast_hash": "ff7455e19edb1d188176a1bbfc9baaa1",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/criaturas/Retalhado.java": {
-    "mtime": 1794230997.8526394,
-    "seen": 1794573303.811685,
-    "ast_hash": "f152806dd103b4f172d8218aa28354a8",
-    "semantic_hash": "f152806dd103b4f172d8218aa28354a8"
+    "mtime": 1794585582.2593071,
+    "seen": 1794586358.0590832,
+    "ast_hash": "ebb0626febec75aa460a93b42b757403",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/criaturas/SanguessugaMae.java": {
-    "mtime": 1794230997.8526394,
-    "seen": 1794573303.8117197,
-    "ast_hash": "7e59847991d4a05bc8ce80bc75bd3fcf",
-    "semantic_hash": "7e59847991d4a05bc8ce80bc75bd3fcf"
+    "mtime": 1794586104.6647608,
+    "seen": 1794586358.0590842,
+    "ast_hash": "0144b3679615794bc3671a6cd0aa4dd7",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/criaturas/package-info.java": {
-    "mtime": 1794102834.3088796,
-    "seen": 1794573303.8117545,
+    "mtime": 1794585582.2593071,
+    "seen": 1794586358.0590854,
     "ast_hash": "8bb8235bc45c7094d056bf591fb1b74e",
     "semantic_hash": "8bb8235bc45c7094d056bf591fb1b74e"
   },
   "src/main/java/com/nikolas/odteste/dados/DadosJogador.java": {
-    "mtime": 1794230997.8526394,
-    "seen": 1794573303.8117895,
+    "mtime": 1794585582.2593071,
+    "seen": 1794586358.0590863,
     "ast_hash": "f9f3b946b04a3d9c2ff419416e595083",
     "semantic_hash": "f9f3b946b04a3d9c2ff419416e595083"
   },
   "src/main/java/com/nikolas/odteste/dados/IdsDados.java": {
-    "mtime": 1794230997.8526394,
-    "seen": 1794573303.8118246,
-    "ast_hash": "a76e593dfd91f6742ccf63aad9eb51ba",
-    "semantic_hash": "a76e593dfd91f6742ccf63aad9eb51ba"
+    "mtime": 1794586066.1487644,
+    "seen": 1794586358.0590873,
+    "ast_hash": "a0bded412dd366f6f97895b3ffc8bd8b",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/dados/Limites.java": {
-    "mtime": 1794190467.8530636,
-    "seen": 1794573303.8118594,
+    "mtime": 1794585582.2605784,
+    "seen": 1794586358.0590885,
     "ast_hash": "4ce7c69e5c9e5839a9f195d06063319c",
     "semantic_hash": "4ce7c69e5c9e5839a9f195d06063319c"
   },
   "src/main/java/com/nikolas/odteste/dados/package-info.java": {
-    "mtime": 1794102834.3088796,
-    "seen": 1794573303.8118944,
+    "mtime": 1794585582.2605784,
+    "seen": 1794586358.0590892,
     "ast_hash": "d0da8e0e88dd34e5db0fa3a996e2fad8",
     "semantic_hash": "d0da8e0e88dd34e5db0fa3a996e2fad8"
   },
   "src/main/java/com/nikolas/odteste/efeitos/RegrasSangramento.java": {
-    "mtime": 1794230997.8526394,
-    "seen": 1794573303.811929,
+    "mtime": 1794585582.2605784,
+    "seen": 1794586358.05909,
     "ast_hash": "c00ff4e90511e259e85b2f7ea980df8e",
     "semantic_hash": "c00ff4e90511e259e85b2f7ea980df8e"
   },
   "src/main/java/com/nikolas/odteste/efeitos/Sangramento.java": {
-    "mtime": 1794230997.853535,
-    "seen": 1794573303.8119638,
+    "mtime": 1794585582.2616057,
+    "seen": 1794586358.0590906,
     "ast_hash": "69b1ce05eb4b002d0f37a0ab444a60bd",
     "semantic_hash": "69b1ce05eb4b002d0f37a0ab444a60bd"
   },
   "src/main/java/com/nikolas/odteste/elementos/Elemento.java": {
-    "mtime": 1794190467.8530636,
-    "seen": 1794573303.8119984,
+    "mtime": 1794585582.2616057,
+    "seen": 1794586358.0590918,
     "ast_hash": "07b228117b88d5dddcfe067e6bee0e3f",
     "semantic_hash": "07b228117b88d5dddcfe067e6bee0e3f"
   },
   "src/main/java/com/nikolas/odteste/elementos/RegrasElemento.java": {
-    "mtime": 1794230997.853535,
-    "seen": 1794573303.8120537,
+    "mtime": 1794585582.2626023,
+    "seen": 1794586358.0590925,
     "ast_hash": "b2dc292369ded7c23c4494a8b679ccd3",
     "semantic_hash": "b2dc292369ded7c23c4494a8b679ccd3"
   },
   "src/main/java/com/nikolas/odteste/elementos/package-info.java": {
-    "mtime": 1794102834.3088796,
-    "seen": 1794573303.812094,
+    "mtime": 1794585582.2626023,
+    "seen": 1794586358.0590935,
     "ast_hash": "bd39ade658a26e1fca3cd894f8b3d2f1",
     "semantic_hash": "bd39ade658a26e1fca3cd894f8b3d2f1"
   },
   "src/main/java/com/nikolas/odteste/estruturas/Backup.java": {
-    "mtime": 1794230997.853535,
-    "seen": 1794573303.812131,
-    "ast_hash": "b6c6fd2532ab7c09d0b0bda7c291cd8d",
-    "semantic_hash": "b6c6fd2532ab7c09d0b0bda7c291cd8d"
+    "mtime": 1794585582.2626023,
+    "seen": 1794586358.0590944,
+    "ast_hash": "a7406b3498621e622fa1335484f8f1f2",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/estruturas/Colocacao.java": {
-    "mtime": 1794230997.8540335,
-    "seen": 1794573303.8121672,
-    "ast_hash": "ba479bafee5a295a7e6aae1cefff6a70",
-    "semantic_hash": "ba479bafee5a295a7e6aae1cefff6a70"
+    "mtime": 1794585582.2636626,
+    "seen": 1794586358.0590954,
+    "ast_hash": "b34afaff15757d2a080ca43f9c4acc5b",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/estruturas/Espaco.java": {
-    "mtime": 1794230997.8540335,
-    "seen": 1794573303.8122168,
-    "ast_hash": "03d7fe5ff83eec1d41f1f71d013ecc58",
-    "semantic_hash": "03d7fe5ff83eec1d41f1f71d013ecc58"
+    "mtime": 1794585582.2636626,
+    "seen": 1794586358.0590978,
+    "ast_hash": "c686801888aa29603e6cf9f1b19bcd98",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/estruturas/Estruturas.java": {
-    "mtime": 1794230997.8540335,
-    "seen": 1794573303.8123534,
-    "ast_hash": "f165285de69f299520994495aa2e5509",
-    "semantic_hash": "f165285de69f299520994495aa2e5509"
+    "mtime": 1794585582.2636626,
+    "seen": 1794586358.059099,
+    "ast_hash": "c6bcb729a9f3679617c76c0d07f52ddb",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/estruturas/MundoReal.java": {
-    "mtime": 1794230997.8540335,
-    "seen": 1794573303.8123984,
+    "mtime": 1794585582.2636626,
+    "seen": 1794586358.0591006,
     "ast_hash": "3f1be920dbf1c602e43de2f01370588f",
     "semantic_hash": "3f1be920dbf1c602e43de2f01370588f"
   },
   "src/main/java/com/nikolas/odteste/estruturas/Protecao.java": {
-    "mtime": 1794230997.8540335,
-    "seen": 1794573303.8124366,
+    "mtime": 1794585582.2636626,
+    "seen": 1794586358.0591016,
     "ast_hash": "9737dd8718c4f8250b0fb7a965084ad4",
     "semantic_hash": "9737dd8718c4f8250b0fb7a965084ad4"
   },
   "src/main/java/com/nikolas/odteste/estruturas/package-info.java": {
-    "mtime": 1794230997.8540335,
-    "seen": 1794573303.8124723,
+    "mtime": 1794585582.2636626,
+    "seen": 1794586358.0591025,
     "ast_hash": "4968b775e15145c8cceb30512bddac95",
     "semantic_hash": "4968b775e15145c8cceb30512bddac95"
   },
   "src/main/java/com/nikolas/odteste/historia/DadosHistoria.java": {
-    "mtime": 1794230997.8540335,
-    "seen": 1794573303.8125079,
-    "ast_hash": "a59e2f2a3f32c7e41cb6465fa88a45a3",
-    "semantic_hash": "a59e2f2a3f32c7e41cb6465fa88a45a3"
+    "mtime": 1794585582.2636626,
+    "seen": 1794586358.0591035,
+    "ast_hash": "2409df87057001af019d9b6f4429fb54",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/historia/Grupos.java": {
-    "mtime": 1794230997.8547013,
-    "seen": 1794573303.8125432,
+    "mtime": 1794585582.267405,
+    "seen": 1794586358.0591047,
     "ast_hash": "fd16b6e8c4a21148544378fefa30d5f1",
     "semantic_hash": "fd16b6e8c4a21148544378fefa30d5f1"
   },
   "src/main/java/com/nikolas/odteste/historia/IdsHistoria.java": {
-    "mtime": 1794230997.8547013,
-    "seen": 1794573303.812579,
-    "ast_hash": "f3be75a7bfd97e181d4e03ad2bc1e3f2",
-    "semantic_hash": "f3be75a7bfd97e181d4e03ad2bc1e3f2"
+    "mtime": 1794585582.267405,
+    "seen": 1794586358.0591056,
+    "ast_hash": "2b375a020db1eedb1f7d40d95c96f464",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/historia/Morse.java": {
-    "mtime": 1794230997.8547013,
-    "seen": 1794573303.812614,
+    "mtime": 1794585582.267405,
+    "seen": 1794586358.0591066,
     "ast_hash": "0b2ef94598023873e8100ca487f06c44",
     "semantic_hash": "0b2ef94598023873e8100ca487f06c44"
   },
   "src/main/java/com/nikolas/odteste/historia/PrimeiroSinal.java": {
-    "mtime": 1794230997.8547013,
-    "seen": 1794573303.8126488,
-    "ast_hash": "1e99ab147019b9957c99df37b6f58aed",
-    "semantic_hash": "1e99ab147019b9957c99df37b6f58aed"
+    "mtime": 1794585582.267405,
+    "seen": 1794586358.0591075,
+    "ast_hash": "d7f2010dc0eabd4ab6472271a39b555b",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/historia/RegrasAto1.java": {
-    "mtime": 1794230997.8547013,
-    "seen": 1794573303.812684,
-    "ast_hash": "b88dbe3733b242ee14d11293502a3d79",
-    "semantic_hash": "b88dbe3733b242ee14d11293502a3d79"
+    "mtime": 1794585582.267405,
+    "seen": 1794586358.0591085,
+    "ast_hash": "9b857453993d06d2910721c09fc10c9c",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/historia/VilaMarcada.java": {
-    "mtime": 1794230997.8547013,
-    "seen": 1794573303.8127198,
-    "ast_hash": "0c8a743d4723bd69b75fd641292a7327",
-    "semantic_hash": "0c8a743d4723bd69b75fd641292a7327"
+    "mtime": 1794585582.267405,
+    "seen": 1794586358.0591094,
+    "ast_hash": "42453e60b2eb81ed951d4cd8a9625c17",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/historia/package-info.java": {
-    "mtime": 1794230997.8547013,
-    "seen": 1794573303.8127549,
+    "mtime": 1794585582.2723694,
+    "seen": 1794586358.0591207,
     "ast_hash": "9ecbe889efad2bb0b55fa33eb24a470b",
     "semantic_hash": "9ecbe889efad2bb0b55fa33eb24a470b"
   },
   "src/main/java/com/nikolas/odteste/itens/AgulhaDeCerzir.java": {
-    "mtime": 1794230997.8547013,
-    "seen": 1794573303.81279,
+    "mtime": 1794585582.2746558,
+    "seen": 1794586358.0591292,
     "ast_hash": "e51b8d59f5995023dafc1057b183151d",
     "semantic_hash": "e51b8d59f5995023dafc1057b183151d"
   },
   "src/main/java/com/nikolas/odteste/itens/Artefato.java": {
-    "mtime": 1794230997.8547013,
-    "seen": 1794573303.8128252,
+    "mtime": 1794585582.2773209,
+    "seen": 1794586358.0591304,
     "ast_hash": "68d0521b2bd145d9f55bf803dfbcde02",
     "semantic_hash": "68d0521b2bd145d9f55bf803dfbcde02"
   },
   "src/main/java/com/nikolas/odteste/itens/DedalDentado.java": {
-    "mtime": 1794230997.8547013,
-    "seen": 1794573303.8128595,
+    "mtime": 1794585582.2773209,
+    "seen": 1794586358.0591314,
     "ast_hash": "25b3bd59ffa87fbbfec9bfab51f9f477",
     "semantic_hash": "25b3bd59ffa87fbbfec9bfab51f9f477"
   },
   "src/main/java/com/nikolas/odteste/itens/Itens.java": {
-    "mtime": 1794230997.8547013,
-    "seen": 1794573303.812894,
-    "ast_hash": "cdd194bdbcb3e7034f0f7d46f6d37fee",
-    "semantic_hash": "cdd194bdbcb3e7034f0f7d46f6d37fee"
+    "mtime": 1794585582.2773209,
+    "seen": 1794586358.0591323,
+    "ast_hash": "3b0e408874d1ec5078cb5ffe956d0bbc",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/itens/RegrasArtefato.java": {
-    "mtime": 1794230997.8547013,
-    "seen": 1794573303.8129294,
+    "mtime": 1794585582.2773209,
+    "seen": 1794586358.0591345,
     "ast_hash": "e8ab2950a4bbfe82bc1d93e21281e842",
     "semantic_hash": "e8ab2950a4bbfe82bc1d93e21281e842"
   },
   "src/main/java/com/nikolas/odteste/itens/Rubra.java": {
-    "mtime": 1794230997.8547013,
-    "seen": 1794573303.8129642,
+    "mtime": 1794585582.2773209,
+    "seen": 1794586358.0591352,
     "ast_hash": "e5835a69047c84bebcaf8ca468583ba0",
     "semantic_hash": "e5835a69047c84bebcaf8ca468583ba0"
   },
   "src/main/java/com/nikolas/odteste/itens/SinoDeMatadouro.java": {
-    "mtime": 1794230997.8547013,
-    "seen": 1794573303.8129988,
+    "mtime": 1794585582.2773209,
+    "seen": 1794586358.0591362,
     "ast_hash": "e27806311ddedce578980463ea0a6dae",
     "semantic_hash": "e27806311ddedce578980463ea0a6dae"
   },
   "src/main/java/com/nikolas/odteste/itens/package-info.java": {
-    "mtime": 1794102834.3088796,
-    "seen": 1794573303.8130343,
+    "mtime": 1794585582.2773209,
+    "seen": 1794586358.059137,
     "ast_hash": "758a65cfba268077c3fc5c5bebab6c23",
     "semantic_hash": "758a65cfba268077c3fc5c5bebab6c23"
   },
   "src/main/java/com/nikolas/odteste/magias/package-info.java": {
-    "mtime": 1794102834.3107736,
-    "seen": 1794573303.8130693,
+    "mtime": 1794585582.2773209,
+    "seen": 1794586358.059138,
     "ast_hash": "8ee8fcde1f1e8b944e4323ed5c43857a",
     "semantic_hash": "8ee8fcde1f1e8b944e4323ed5c43857a"
   },
-  "src/main/java/com/nikolas/odteste/marcas/PadraoVeias.java": {
-    "mtime": 1794190467.8530636,
-    "seen": 1794573303.8131044,
-    "ast_hash": "97b3c170244faaaf213a72c6815b6e31",
-    "semantic_hash": "97b3c170244faaaf213a72c6815b6e31"
-  },
   "src/main/java/com/nikolas/odteste/marcas/package-info.java": {
-    "mtime": 1794102834.3107736,
-    "seen": 1794573303.8131394,
+    "mtime": 1794585582.2773209,
+    "seen": 1794586358.0591388,
     "ast_hash": "099c7f2449bf7797969ea5f4eed35187",
     "semantic_hash": "099c7f2449bf7797969ea5f4eed35187"
   },
   "src/main/java/com/nikolas/odteste/rede/MarcaVisivel.java": {
-    "mtime": 1794190467.8530636,
-    "seen": 1794573303.8131738,
+    "mtime": 1794585582.2814174,
+    "seen": 1794586358.0591407,
     "ast_hash": "83f4b3533bb0da450a9cd458760c616a",
     "semantic_hash": "83f4b3533bb0da450a9cd458760c616a"
   },
   "src/main/java/com/nikolas/odteste/rede/Momento.java": {
-    "mtime": 1794190467.8530636,
-    "seen": 1794573303.8132083,
+    "mtime": 1794585582.2814174,
+    "seen": 1794586358.0591416,
     "ast_hash": "f3844c113b8a7dc351e75256e4ee4952",
     "semantic_hash": "f3844c113b8a7dc351e75256e4ee4952"
   },
   "src/main/java/com/nikolas/odteste/rede/Rede.java": {
-    "mtime": 1794190467.8568923,
-    "seen": 1794573303.8132432,
-    "ast_hash": "1028495a3be82ebdf722ebacb9dc0c83",
-    "semantic_hash": "1028495a3be82ebdf722ebacb9dc0c83"
+    "mtime": 1794585582.2814174,
+    "seen": 1794586358.0591426,
+    "ast_hash": "ef0435e9b575a31277a358103a06ca4a",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/rede/SincronizarJogador.java": {
-    "mtime": 1794190467.8568923,
-    "seen": 1794573303.8132777,
+    "mtime": 1794585582.2814174,
+    "seen": 1794586358.0591438,
     "ast_hash": "6827dc066927909d2a250d492e3671db",
     "semantic_hash": "6827dc066927909d2a250d492e3671db"
   },
   "src/main/java/com/nikolas/odteste/rede/package-info.java": {
-    "mtime": 1794102834.3107736,
-    "seen": 1794573303.8133125,
+    "mtime": 1794585582.2814174,
+    "seen": 1794586358.0591457,
     "ast_hash": "1a695f06888663e888211c1648ac4c89",
     "semantic_hash": "1a695f06888663e888211c1648ac4c89"
   },
   "src/main/java/com/nikolas/odteste/registro/Registro.java": {
-    "mtime": 1794230997.8551073,
-    "seen": 1794573303.813347,
+    "mtime": 1794585582.2814174,
+    "seen": 1794586358.0591466,
     "ast_hash": "930af89e448febb554494f7ebe45addc",
     "semantic_hash": "930af89e448febb554494f7ebe45addc"
   },
   "src/main/java/com/nikolas/odteste/rituais/package-info.java": {
-    "mtime": 1794102834.3107736,
-    "seen": 1794573303.813382,
+    "mtime": 1794585582.2814174,
+    "seen": 1794586358.0591476,
     "ast_hash": "e3ab216519b51aaba98a10958d0701cc",
     "semantic_hash": "e3ab216519b51aaba98a10958d0701cc"
   },
   "src/main/java/com/nikolas/odteste/sistemas/Abalo.java": {
-    "mtime": 1794190467.8568923,
-    "seen": 1794573303.8134174,
+    "mtime": 1794585582.2847326,
+    "seen": 1794586358.0591562,
     "ast_hash": "8a52f3b2ee666f0bc7f6b60a7923a7a3",
     "semantic_hash": "8a52f3b2ee666f0bc7f6b60a7923a7a3"
   },
   "src/main/java/com/nikolas/odteste/sistemas/Degrau.java": {
-    "mtime": 1794190467.8576972,
-    "seen": 1794573303.8134537,
+    "mtime": 1794585582.2880604,
+    "seen": 1794586358.0591588,
     "ast_hash": "e159a8ceb9538185380f4e8f38ac7a1d",
     "semantic_hash": "e159a8ceb9538185380f4e8f38ac7a1d"
   },
   "src/main/java/com/nikolas/odteste/sistemas/ElementoJogador.java": {
-    "mtime": 1794230997.8551073,
-    "seen": 1794573303.8134887,
+    "mtime": 1794585582.2880604,
+    "seen": 1794586358.0591598,
     "ast_hash": "5fba029bb45a2d3594d3ca4eefeb34ab",
     "semantic_hash": "5fba029bb45a2d3594d3ca4eefeb34ab"
   },
   "src/main/java/com/nikolas/odteste/sistemas/Exposicao.java": {
-    "mtime": 1794230997.8551073,
-    "seen": 1794573303.8135238,
+    "mtime": 1794585582.2880604,
+    "seen": 1794586358.059161,
     "ast_hash": "73714e71dc7eb533b89a9475b398e501",
     "semantic_hash": "73714e71dc7eb533b89a9475b398e501"
   },
   "src/main/java/com/nikolas/odteste/sistemas/FaixaLucidez.java": {
-    "mtime": 1794190467.8576972,
-    "seen": 1794573303.8135583,
+    "mtime": 1794585582.2880604,
+    "seen": 1794586358.059162,
     "ast_hash": "0a427525b365103ea70d6fc5756eaf95",
     "semantic_hash": "0a427525b365103ea70d6fc5756eaf95"
   },
   "src/main/java/com/nikolas/odteste/sistemas/Fonte.java": {
-    "mtime": 1794190467.8576972,
-    "seen": 1794573303.8135931,
+    "mtime": 1794585582.2880604,
+    "seen": 1794586358.0591626,
     "ast_hash": "9ee702aea2627ecaaf3dea392b2d7e10",
     "semantic_hash": "9ee702aea2627ecaaf3dea392b2d7e10"
   },
   "src/main/java/com/nikolas/odteste/sistemas/FrasesFaixa.java": {
-    "mtime": 1794190467.8576972,
-    "seen": 1794573303.813628,
+    "mtime": 1794585582.2880604,
+    "seen": 1794586358.0591633,
     "ast_hash": "8c6c99bfcba73c9c41388a238b046d26",
     "semantic_hash": "8c6c99bfcba73c9c41388a238b046d26"
   },
   "src/main/java/com/nikolas/odteste/sistemas/Lucidez.java": {
-    "mtime": 1794190467.8576972,
-    "seen": 1794573303.8136625,
+    "mtime": 1794585582.2880604,
+    "seen": 1794586358.0591645,
     "ast_hash": "5eca0ab26ba444aae09c3446e60b0a8b",
     "semantic_hash": "5eca0ab26ba444aae09c3446e60b0a8b"
   },
   "src/main/java/com/nikolas/odteste/sistemas/MarcaSangue.java": {
-    "mtime": 1794190467.8576972,
-    "seen": 1794573303.8136988,
+    "mtime": 1794585582.2880604,
+    "seen": 1794586358.0591655,
     "ast_hash": "19c2da893a2eeaf28016156e0e33804b",
     "semantic_hash": "19c2da893a2eeaf28016156e0e33804b"
   },
   "src/main/java/com/nikolas/odteste/sistemas/Momentos.java": {
-    "mtime": 1794190467.8576972,
-    "seen": 1794573303.8137348,
+    "mtime": 1794585582.2880604,
+    "seen": 1794586358.0591664,
     "ast_hash": "441baec0830d4ac4facefe14c5321d45",
     "semantic_hash": "441baec0830d4ac4facefe14c5321d45"
   },
   "src/main/java/com/nikolas/odteste/sistemas/Paranormal.java": {
-    "mtime": 1794190467.8576972,
-    "seen": 1794573303.8137696,
-    "ast_hash": "ecfb74778b681b9176822618ac48a511",
-    "semantic_hash": "ecfb74778b681b9176822618ac48a511"
+    "mtime": 1794586057.2047646,
+    "seen": 1794586358.0591671,
+    "ast_hash": "6aa4c9ec6f0be200d2c1320630ded31f",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/sistemas/Reacoes.java": {
-    "mtime": 1794230997.8551073,
-    "seen": 1794573303.8138041,
+    "mtime": 1794585582.2880604,
+    "seen": 1794586358.0591686,
     "ast_hash": "793069701d8194176484ee4bfb376628",
     "semantic_hash": "793069701d8194176484ee4bfb376628"
   },
   "src/main/java/com/nikolas/odteste/sistemas/RegrasExposicao.java": {
-    "mtime": 1794190467.8576972,
-    "seen": 1794573303.813839,
+    "mtime": 1794585582.2880604,
+    "seen": 1794586358.0591714,
     "ast_hash": "6d622e8444cdc4e1b70f494ecd3a01f0",
     "semantic_hash": "6d622e8444cdc4e1b70f494ecd3a01f0"
   },
   "src/main/java/com/nikolas/odteste/sistemas/RegrasHorror.java": {
-    "mtime": 1794190467.8576972,
-    "seen": 1794573303.813874,
+    "mtime": 1794585582.28881,
+    "seen": 1794586358.0591724,
     "ast_hash": "36047e7e055ba1a5038f7061ec73d9e9",
     "semantic_hash": "36047e7e055ba1a5038f7061ec73d9e9"
   },
   "src/main/java/com/nikolas/odteste/sistemas/RegrasLucidez.java": {
-    "mtime": 1794190467.8576972,
-    "seen": 1794573303.8139088,
-    "ast_hash": "f035be4e531b01503a216c3172197576",
-    "semantic_hash": "f035be4e531b01503a216c3172197576"
+    "mtime": 1794586248.0327466,
+    "seen": 1794586358.059173,
+    "ast_hash": "b3c5a961202fd92fb6bc623b0560b376",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/sistemas/RegrasMarca.java": {
-    "mtime": 1794230997.8551073,
-    "seen": 1794573303.8139434,
+    "mtime": 1794585582.28881,
+    "seen": 1794586358.059174,
     "ast_hash": "42b0d9e0295f0731e92ed572ad966703",
     "semantic_hash": "42b0d9e0295f0731e92ed572ad966703"
   },
   "src/main/java/com/nikolas/odteste/sistemas/RegrasSangue.java": {
-    "mtime": 1794190467.8576972,
-    "seen": 1794573303.813978,
+    "mtime": 1794585582.28881,
+    "seen": 1794586358.0591753,
     "ast_hash": "d665ddee3efca7da67f06c7bcb6a3eff",
     "semantic_hash": "d665ddee3efca7da67f06c7bcb6a3eff"
   },
   "src/main/java/com/nikolas/odteste/sistemas/TipoMomento.java": {
-    "mtime": 1794190467.8576972,
-    "seen": 1794573303.8140128,
+    "mtime": 1794585582.28881,
+    "seen": 1794586358.0591762,
     "ast_hash": "57e1bca35ced5f92cb1e00536a2d338d",
     "semantic_hash": "57e1bca35ced5f92cb1e00536a2d338d"
   },
   "src/main/java/com/nikolas/odteste/sistemas/Vigia.java": {
-    "mtime": 1794190467.8576972,
-    "seen": 1794573303.8140652,
-    "ast_hash": "7fbb6db0b80a1c008770557ca6a532d1",
-    "semantic_hash": "7fbb6db0b80a1c008770557ca6a532d1"
+    "mtime": 1794586262.7967453,
+    "seen": 1794586358.059177,
+    "ast_hash": "530f37cdec5c3393210ef4930b09d8d6",
+    "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/sistemas/package-info.java": {
-    "mtime": 1794190467.8576972,
-    "seen": 1794573303.8141046,
+    "mtime": 1794585582.28881,
+    "seen": 1794586358.0591779,
     "ast_hash": "9172aff0ffe08e221cd3f883fc0c7cf4",
     "semantic_hash": "9172aff0ffe08e221cd3f883fc0c7cf4"
   },
   "src/main/resources/assets/odteste/animations/entity/retalhado.animation.json": {
-    "mtime": 1794230997.8566036,
-    "seen": 1794573303.8141413,
-    "ast_hash": "672c72745111187c3f23c9de79fd91fb",
-    "semantic_hash": "672c72745111187c3f23c9de79fd91fb",
-    "ast_empty": true
+    "mtime": 1794585582.2969766,
+    "seen": 1794586358.05918,
+    "ast_hash": "acf6106acd8af84d3d7f95948e9d9c34",
+    "semantic_hash": ""
   },
   "src/main/resources/assets/odteste/animations/entity/sanguessuga_mae.animation.json": {
-    "mtime": 1794230997.8566904,
-    "seen": 1794573303.814143,
-    "ast_hash": "52bd1937b191727c783252b56f9b9665",
-    "semantic_hash": "52bd1937b191727c783252b56f9b9665",
-    "ast_empty": true
+    "mtime": 1794585582.2969766,
+    "seen": 1794586358.0591815,
+    "ast_hash": "38f68bb6ec663d2d49f1249775417d31",
+    "semantic_hash": ""
   },
   "src/main/resources/assets/odteste/geo/entity/retalhado.geo.json": {
-    "mtime": 1794230997.8573475,
-    "seen": 1794573303.8141444,
-    "ast_hash": "d8851e23f351204c1b409b6cec2a7cd0",
-    "semantic_hash": "d8851e23f351204c1b409b6cec2a7cd0",
-    "ast_empty": true
+    "mtime": 1794585582.2994814,
+    "seen": 1794586358.0591865,
+    "ast_hash": "7ad539cdc8dc8526c471c9b51645f4f3",
+    "semantic_hash": ""
   },
   "src/main/resources/assets/odteste/geo/entity/sanguessuga_mae.geo.json": {
-    "mtime": 1794230997.8574166,
-    "seen": 1794573303.8141456,
-    "ast_hash": "e1c9fcbea588edbe9a15caad6590dfd2",
-    "semantic_hash": "e1c9fcbea588edbe9a15caad6590dfd2",
-    "ast_empty": true
+    "mtime": 1794585582.2994814,
+    "seen": 1794586358.0591872,
+    "ast_hash": "3c66dce8524040a899e04833751ccf19",
+    "semantic_hash": ""
   },
   "src/main/resources/assets/odteste/lang/en_us.json": {
-    "mtime": 1794230997.8574166,
-    "seen": 1794573303.8141465,
-    "ast_hash": "4358b4018d1028ae213754b744b851b0",
-    "semantic_hash": "4358b4018d1028ae213754b744b851b0",
-    "ast_empty": true
+    "mtime": 1794586216.6367497,
+    "seen": 1794586358.0591881,
+    "ast_hash": "7d36af8ac7b114acb9a2a577133bf4fe",
+    "semantic_hash": ""
   },
   "src/main/resources/assets/odteste/lang/pt_br.json": {
-    "mtime": 1794230997.8574166,
-    "seen": 1794573303.8141475,
-    "ast_hash": "774c7f17ca8f0e9f14e9934d41585869",
-    "semantic_hash": "774c7f17ca8f0e9f14e9934d41585869",
-    "ast_empty": true
+    "mtime": 1794586214.90875,
+    "seen": 1794586358.0591893,
+    "ast_hash": "d4c8a2520639d61cb0eb7bfe7324363e",
+    "semantic_hash": ""
   },
   "src/main/resources/assets/odteste/models/item/agulha_de_cerzir_carne.json": {
-    "mtime": 1794230997.8582861,
-    "seen": 1794573303.8141484,
+    "mtime": 1794585582.3013678,
+    "seen": 1794586358.0591943,
     "ast_hash": "56dd83730f83db1e0e15ca297265b7a6",
     "semantic_hash": "56dd83730f83db1e0e15ca297265b7a6",
     "ast_empty": true
   },
   "src/main/resources/assets/odteste/models/item/dedal_dentado.json": {
-    "mtime": 1794230997.8583534,
-    "seen": 1794573303.8141496,
+    "mtime": 1794585582.3035135,
+    "seen": 1794586358.0591965,
     "ast_hash": "d18d829c18652dd17bdcb1e9ea6b6029",
     "semantic_hash": "d18d829c18652dd17bdcb1e9ea6b6029",
     "ast_empty": true
   },
   "src/main/resources/assets/odteste/models/item/materia_sangue_bruta.json": {
-    "mtime": 1794230997.8583534,
-    "seen": 1794573303.8141503,
+    "mtime": 1794585582.3035135,
+    "seen": 1794586358.059198,
     "ast_hash": "09576c8b13bd2c41d7a1acb080e21e14",
     "semantic_hash": "09576c8b13bd2c41d7a1acb080e21e14",
     "ast_empty": true
   },
   "src/main/resources/assets/odteste/models/item/rubra.json": {
-    "mtime": 1794230997.8583534,
-    "seen": 1794573303.8141515,
+    "mtime": 1794585582.3035135,
+    "seen": 1794586358.0592,
     "ast_hash": "5ebe0667dd5e7ff3d211b4fb575b1c4a",
     "semantic_hash": "5ebe0667dd5e7ff3d211b4fb575b1c4a",
     "ast_empty": true
   },
   "src/main/resources/assets/odteste/models/item/sino_de_matadouro.json": {
-    "mtime": 1794230997.8583534,
-    "seen": 1794573303.8141522,
+    "mtime": 1794585582.3035135,
+    "seen": 1794586358.059201,
     "ast_hash": "91e6900aca3329524dcc2e471b377ce0",
     "semantic_hash": "91e6900aca3329524dcc2e471b377ce0",
     "ast_empty": true
   },
   "src/main/resources/data/minecraft/tags/damage_type/bypasses_armor.json": {
-    "mtime": 1794230997.859111,
-    "seen": 1794573303.8141532,
+    "mtime": 1794585582.3097343,
+    "seen": 1794586358.0592058,
     "ast_hash": "77b6b09efc24b551cd0bdd42ca63e228",
     "semantic_hash": "77b6b09efc24b551cd0bdd42ca63e228",
     "ast_empty": true
   },
   "src/main/resources/data/odteste/damage_type/sangramento.json": {
-    "mtime": 1794230997.859111,
-    "seen": 1794573303.8141541,
+    "mtime": 1794585582.3114681,
+    "seen": 1794586358.0592077,
     "ast_hash": "e7fabe2d03f8faac3545e5ed6662515a",
     "semantic_hash": "e7fabe2d03f8faac3545e5ed6662515a",
     "ast_empty": true
   },
   "src/main/resources/data/odteste/loot_table/entities/retalhado.json": {
-    "mtime": 1794230997.86074,
-    "seen": 1794573303.814155,
+    "mtime": 1794585582.312501,
+    "seen": 1794586358.0592105,
     "ast_hash": "0c5c32cba48df677d06d3028544aa4fa",
     "semantic_hash": "0c5c32cba48df677d06d3028544aa4fa",
     "ast_empty": true
   },
   "src/main/resources/data/odteste/loot_table/entities/sanguessuga_mae.json": {
-    "mtime": 1794230997.8608253,
-    "seen": 1794573303.8141558,
+    "mtime": 1794585582.314248,
+    "seen": 1794586358.0592117,
     "ast_hash": "a7e11cfca87f18ac9dda6ec140aee82c",
     "semantic_hash": "a7e11cfca87f18ac9dda6ec140aee82c",
     "ast_empty": true
   },
   "src/main/resources/data/odteste/neoforge/biome_modifier/retalhado.json": {
-    "mtime": 1794230997.861525,
-    "seen": 1794573303.8141568,
+    "mtime": 1794585582.3154817,
+    "seen": 1794586358.0592127,
     "ast_hash": "1cc2f26853e0e54b933b8537a883ffaa",
     "semantic_hash": "1cc2f26853e0e54b933b8537a883ffaa",
     "ast_empty": true
   },
   "src/main/resources/data/odteste/neoforge/biome_modifier/sanguessuga_mae.json": {
-    "mtime": 1794230997.8615987,
-    "seen": 1794573303.8141577,
+    "mtime": 1794585582.3159049,
+    "seen": 1794586358.059214,
     "ast_hash": "e8854a39a82106d5afe8bd8d305c31df",
     "semantic_hash": "e8854a39a82106d5afe8bd8d305c31df",
     "ast_empty": true
   },
   "src/main/resources/data/odteste/recipe/ritual/chamado_de_sangue.json": {
-    "mtime": 1794230997.8622518,
-    "seen": 1794573303.814159,
+    "mtime": 1794585582.3178782,
+    "seen": 1794586358.0592184,
     "ast_hash": "479ead24898ae0978ea761313a90f1f4",
     "semantic_hash": "479ead24898ae0978ea761313a90f1f4",
     "ast_empty": true
   },
   "src/main/resources/data/odteste/tags/block/substituivel.json": {
-    "mtime": 1794230997.8622518,
-    "seen": 1794573303.8141599,
+    "mtime": 1794585582.3216634,
+    "seen": 1794586358.0592196,
     "ast_hash": "f89a8214d5e59212073c79cf71198e8c",
     "semantic_hash": "f89a8214d5e59212073c79cf71198e8c",
     "ast_empty": true
   },
   "src/main/resources/data/odteste/tags/damage_type/paranormal.json": {
-    "mtime": 1794230997.8622518,
-    "seen": 1794573303.8141608,
-    "ast_hash": "77b6b09efc24b551cd0bdd42ca63e228",
-    "semantic_hash": "77b6b09efc24b551cd0bdd42ca63e228",
-    "ast_empty": true
+    "mtime": 1794586112.3647602,
+    "seen": 1794586358.0592206,
+    "ast_hash": "33c234f4e96c81b9bdd2e1d98a01434f",
+    "semantic_hash": ""
   },
   "src/main/resources/data/odteste/tags/entity_type/paranormal.json": {
-    "mtime": 1794230997.8622518,
-    "seen": 1794573303.814162,
+    "mtime": 1794585582.3216634,
+    "seen": 1794586358.0592215,
     "ast_hash": "c294575d3549a8b666d93cadd503bcd9",
     "semantic_hash": "c294575d3549a8b666d93cadd503bcd9",
     "ast_empty": true
   },
   "src/main/resources/data/odteste/tags/item/comida_quente.json": {
-    "mtime": 1794190467.8608925,
-    "seen": 1794573303.8141627,
+    "mtime": 1794585582.3216634,
+    "seen": 1794586358.0592237,
     "ast_hash": "f5aece62fd4356b8906b31f216c46d33",
     "semantic_hash": "f5aece62fd4356b8906b31f216c46d33",
     "ast_empty": true
   },
   "src/main/resources/data/odteste/tags/item/paranormal.json": {
-    "mtime": 1794190467.8615465,
-    "seen": 1794573303.8141637,
+    "mtime": 1794585582.3238153,
+    "seen": 1794586358.0592246,
     "ast_hash": "dd1dc24969161cd40de63f95d29a673e",
     "semantic_hash": "dd1dc24969161cd40de63f95d29a673e",
     "ast_empty": true
   },
   "src/test/java/com/nikolas/odteste/ConsistenciaTest.java": {
-    "mtime": 1794102834.316317,
-    "seen": 1794573303.8141646,
-    "ast_hash": "e98f587945939239a36f06cd142b7746",
-    "semantic_hash": "e98f587945939239a36f06cd142b7746"
+    "mtime": 1794585582.3263836,
+    "seen": 1794586358.0592256,
+    "ast_hash": "17982c3c4bf481cda82dbb60ba511213",
+    "semantic_hash": ""
   },
   "src/test/java/com/nikolas/odteste/RegrasConteudoTest.java": {
-    "mtime": 1794230997.8622518,
-    "seen": 1794573303.8142004,
-    "ast_hash": "221ebccb9885239a32fe7ba2f5504dd8",
-    "semantic_hash": "221ebccb9885239a32fe7ba2f5504dd8"
+    "mtime": 1794585582.3271942,
+    "seen": 1794586358.0592265,
+    "ast_hash": "061f260f375fb5e059b7e68f3711eb1c",
+    "semantic_hash": ""
   },
   "src/test/java/com/nikolas/odteste/dados/LimitesTest.java": {
-    "mtime": 1794190467.8615465,
-    "seen": 1794573303.8142335,
+    "mtime": 1794585582.3297608,
+    "seen": 1794586358.059232,
     "ast_hash": "93ce15407547e4fddae26325800e2416",
     "semantic_hash": "93ce15407547e4fddae26325800e2416"
   },
   "src/test/java/com/nikolas/odteste/elementos/ElementoTest.java": {
-    "mtime": 1794190467.8615465,
-    "seen": 1794573303.8142688,
+    "mtime": 1794585582.3297608,
+    "seen": 1794586358.0592327,
     "ast_hash": "e7b0e58185426082bef01603edaf53a4",
     "semantic_hash": "e7b0e58185426082bef01603edaf53a4"
   },
   "src/test/java/com/nikolas/odteste/elementos/RegrasElementoTest.java": {
-    "mtime": 1794230997.8622518,
-    "seen": 1794573303.8143044,
+    "mtime": 1794585582.3318665,
+    "seen": 1794586358.059234,
     "ast_hash": "a660e1c30ef1034551cfd1c1fcd27590",
     "semantic_hash": "a660e1c30ef1034551cfd1c1fcd27590"
   },
   "src/test/java/com/nikolas/odteste/estruturas/EspacoTest.java": {
-    "mtime": 1794230997.8622518,
-    "seen": 1794573303.8143392,
-    "ast_hash": "268e498dd3c5bc33074e3819fc99ac2e",
-    "semantic_hash": "268e498dd3c5bc33074e3819fc99ac2e"
+    "mtime": 1794585582.3318665,
+    "seen": 1794586358.0592349,
+    "ast_hash": "9677fb72ca54576f5c7044163c72a523",
+    "semantic_hash": ""
   },
   "src/test/java/com/nikolas/odteste/historia/GruposTest.java": {
-    "mtime": 1794230997.8631074,
-    "seen": 1794573303.8143747,
+    "mtime": 1794585582.3328867,
+    "seen": 1794586358.0592365,
     "ast_hash": "bd4851f15bc7b196129d84aab6195943",
     "semantic_hash": "bd4851f15bc7b196129d84aab6195943"
   },
   "src/test/java/com/nikolas/odteste/historia/MorseTest.java": {
-    "mtime": 1794230997.8637476,
-    "seen": 1794573303.81441,
+    "mtime": 1794585582.3338718,
+    "seen": 1794586358.0592377,
     "ast_hash": "6f354a4e8da26c3a0015c352527344e3",
     "semantic_hash": "6f354a4e8da26c3a0015c352527344e3"
   },
   "src/test/java/com/nikolas/odteste/historia/RegrasAto1Test.java": {
-    "mtime": 1794230997.8637476,
-    "seen": 1794573303.8144448,
-    "ast_hash": "72f3c814dbe98f2afdadd626bc1ee137",
-    "semantic_hash": "72f3c814dbe98f2afdadd626bc1ee137"
-  },
-  "src/test/java/com/nikolas/odteste/marcas/PadraoVeiasTest.java": {
-    "mtime": 1794190467.8615465,
-    "seen": 1794573303.8144796,
-    "ast_hash": "3651101adebc6a0031a73802d2cf6814",
-    "semantic_hash": "3651101adebc6a0031a73802d2cf6814"
+    "mtime": 1794585582.3338718,
+    "seen": 1794586358.059239,
+    "ast_hash": "b6e6c4c7092052f3d44ac53b5f417b0b",
+    "semantic_hash": ""
   },
   "src/test/java/com/nikolas/odteste/sistemas/RegrasHorrorTest.java": {
-    "mtime": 1794190467.8615465,
-    "seen": 1794573303.8145146,
+    "mtime": 1794585582.337595,
+    "seen": 1794586358.0592468,
     "ast_hash": "60e6d326e9245796c48824c58a3c1aaa",
     "semantic_hash": "60e6d326e9245796c48824c58a3c1aaa"
   },
   "src/test/java/com/nikolas/odteste/sistemas/RegrasTest.java": {
-    "mtime": 1794190467.8633454,
-    "seen": 1794573303.81455,
+    "mtime": 1794585582.3386211,
+    "seen": 1794586358.059248,
     "ast_hash": "1e5d0498611b8a3a53baffa3066f39db",
     "semantic_hash": "1e5d0498611b8a3a53baffa3066f39db"
+  },
+  "arte/estruturas/vila_destruida.pistas.json": {
+    "mtime": 1794585581.8488102,
+    "seen": 1794586358.0589612,
+    "ast_hash": "7722276bd3a510a6d5a2a8fd14fde5ed",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/gerar_marca.py": {
+    "mtime": 1794585581.90081,
+    "seen": 1794586358.0589633,
+    "ast_hash": "e68d81d01af883261fab96709adaa410",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/imagem_simples.py": {
+    "mtime": 1794585581.90081,
+    "seen": 1794586358.0589652,
+    "ast_hash": "85a440e580c09290966a1efcab8d3158",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/checar_ambiente.py": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.0589666,
+    "ast_hash": "a9484408518be881da51f00c40682f65",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/corpo.py": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.0589676,
+    "ast_hash": "c970ed6d8bd3aa70c1be980c7328b646",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/gerar_marca_v2.py": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.0589685,
+    "ast_hash": "71becc8c63e1ce88e66da3a5e1d7d244",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/imagem_np.py": {
+    "mtime": 1794585581.91681,
+    "seen": 1794586358.0589693,
+    "ast_hash": "45e0ad505f000a8cf8c9ca9c9e5eecb9",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/veias.py": {
+    "mtime": 1794585581.91681,
+    "seen": 1794586358.0589705,
+    "ast_hash": "ef0c9ea84e15bc5a630f61d076a3bc51",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/comparacao/v5_1/magarefe/magarefe.animation.json": {
+    "mtime": 1794585581.9302356,
+    "seen": 1794586358.0589714,
+    "ast_hash": "29cbd80144c1b4ec8f489b0e91793385",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/comparacao/v5_1/magarefe/magarefe.geo.json": {
+    "mtime": 1794585581.9306664,
+    "seen": 1794586358.0589724,
+    "ast_hash": "6676a2d735b73386a4d530af015883fc",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/comparacao/v5_1/retalhado/retalhado.animation.json": {
+    "mtime": 1794585581.9306664,
+    "seen": 1794586358.0589736,
+    "ast_hash": "204de328bea5b7d126596fce600791d0",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/comparacao/v5_1/retalhado/retalhado.geo.json": {
+    "mtime": 1794585581.9321868,
+    "seen": 1794586358.0589745,
+    "ast_hash": "346f060aa25108c6919b5d91e8a4f5c5",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/comparacao/v5_1/sanguessuga_mae/sanguessuga_mae.animation.json": {
+    "mtime": 1794585581.9321868,
+    "seen": 1794586358.0589755,
+    "ast_hash": "450b5551cb67adc08f7130738a181c95",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/comparacao/v5_1/sanguessuga_mae/sanguessuga_mae.geo.json": {
+    "mtime": 1794585581.9340265,
+    "seen": 1794586358.0589764,
+    "ast_hash": "a0f5ea5e74266b2b4d1b3dca43736da3",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/fonte/comparacao.py": {
+    "mtime": 1794585581.9360447,
+    "seen": 1794586358.0589774,
+    "ast_hash": "17d388dd123075709cab94f2b509fa7c",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/fonte/gerar_criaturas_sangue.py": {
+    "mtime": 1794585581.9360447,
+    "seen": 1794586358.0589783,
+    "ast_hash": "37070603951bccde905ee3cdf005e8f9",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/fonte/magarefe.py": {
+    "mtime": 1794585581.9360447,
+    "seen": 1794586358.0589793,
+    "ast_hash": "2f2b91392a6b2164e759cef989851c24",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/fonte/montagem.py": {
+    "mtime": 1794585581.9360447,
+    "seen": 1794586358.05898,
+    "ast_hash": "4c3fc8569c708632b443d5de394708a3",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/fonte/retalhado.py": {
+    "mtime": 1794585581.9360447,
+    "seen": 1794586358.0589812,
+    "ast_hash": "7be5b206eeaaee1f118229f9052b485c",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/fonte/sanguessuga_mae.py": {
+    "mtime": 1794585581.9360447,
+    "seen": 1794586358.0589821,
+    "ast_hash": "02b3086ffbf656eafcc83c71f5901ad6",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/magarefe.animation.json": {
+    "mtime": 1794585581.9408102,
+    "seen": 1794586358.0589828,
+    "ast_hash": "29bdbc0bda70d9ba18803e49066eb41d",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/magarefe.geo.json": {
+    "mtime": 1794585581.9408102,
+    "seen": 1794586358.0589836,
+    "ast_hash": "453229258f4b2da6ef2da565f0bfda0a",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/retalhado.animation.json": {
+    "mtime": 1794585581.95281,
+    "seen": 1794586358.0589848,
+    "ast_hash": "acf6106acd8af84d3d7f95948e9d9c34",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/retalhado.geo.json": {
+    "mtime": 1794585581.95281,
+    "seen": 1794586358.0589857,
+    "ast_hash": "7ad539cdc8dc8526c471c9b51645f4f3",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/sanguessuga_mae.animation.json": {
+    "mtime": 1794585581.9648101,
+    "seen": 1794586358.0589864,
+    "ast_hash": "38f68bb6ec663d2d49f1249775417d31",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/sanguessuga_mae.geo.json": {
+    "mtime": 1794585581.9648101,
+    "seen": 1794586358.0589879,
+    "ast_hash": "3c66dce8524040a899e04833751ccf19",
+    "semantic_hash": ""
+  },
+  "arte/sons/gerar_sons.py": {
+    "mtime": 1794585582.0774767,
+    "seen": 1794586358.0589886,
+    "ast_hash": "f38096708d76ea5209224872876de3a7",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/vila_calada.pistas.json": {
+    "mtime": 1794585582.08881,
+    "seen": 1794586358.0589898,
+    "ast_hash": "b7df361b3293cbeb9418c6403f53905e",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/vila_calada_150.partes.json": {
+    "mtime": 1794585582.17281,
+    "seen": 1794586358.0589905,
+    "ast_hash": "c4e9db3dcf3f047d136b9449de7203e5",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/vila_calada_150.pistas.json": {
+    "mtime": 1794585582.17681,
+    "seen": 1794586358.0589917,
+    "ast_hash": "9355524dfdadad6a8965c0a6ec439e9a",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada/fonte/gerar_png.py": {
+    "mtime": 1794585582.181065,
+    "seen": 1794586358.0589924,
+    "ast_hash": "7e7ff4d75bb0647e2c4fba72df1bb51e",
+    "semantic_hash": ""
+  },
+  "ferramentas/comparar_criaturas_sangue.sh": {
+    "mtime": 1794585582.2112868,
+    "seen": 1794586358.0589964,
+    "ast_hash": "a0da2d6d90229c77274856f562faab75",
+    "semantic_hash": ""
+  },
+  "ferramentas/criaturas_sangue.sh": {
+    "mtime": 1794585582.2112868,
+    "seen": 1794586358.0589974,
+    "ast_hash": "dc25d12d176437c28c24e62fdca98c57",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/blocos.py": {
+    "mtime": 1794585582.2125366,
+    "seen": 1794586358.0589983,
+    "ast_hash": "b1b5d7c3d307695d1b81134855ff11a5",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/estrutura.py": {
+    "mtime": 1794585582.2125366,
+    "seen": 1794586358.0589993,
+    "ast_hash": "1708391b29054ba7fa1c378b01c60077",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/gerar.py": {
+    "mtime": 1794585582.2125366,
+    "seen": 1794586358.059,
+    "ast_hash": "a9d54253401d9e538d01f96556c5a69a",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/gerar.sh": {
+    "mtime": 1794585582.2125366,
+    "seen": 1794586358.059001,
+    "ast_hash": "89cb710136a0905ec785654b6bf06506",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/modelos/__init__.py": {
+    "mtime": 1794585582.2125366,
+    "seen": 1794586358.059002,
+    "ast_hash": "9043010d39cce6064e1df7bcbca0a2ad",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/modelos/capela_fazenda.py": {
+    "mtime": 1794585582.2143645,
+    "seen": 1794586358.0590026,
+    "ast_hash": "35f1b1c01ca8b60930fe8650ffdb9126",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/modelos/vila_calada.py": {
+    "mtime": 1794585582.2143645,
+    "seen": 1794586358.0590034,
+    "ast_hash": "ba36ad707c604a98721b480feaf8574d",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/modelos/vila_calada_150.py": {
+    "mtime": 1794585582.2143645,
+    "seen": 1794586358.0590086,
+    "ast_hash": "319aa53c25d332cc86c2be86bb7476af",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/modelos/vila_destruida.py": {
+    "mtime": 1794585582.2143645,
+    "seen": 1794586358.0590096,
+    "ast_hash": "1f5e986cebc60af27ce938bbb6ad98f6",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/modulos.py": {
+    "mtime": 1794585582.2143645,
+    "seen": 1794586358.0590103,
+    "ast_hash": "b5ba838f48bf5364a1b34a7196b8807e",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/nbt_io.py": {
+    "mtime": 1794585582.2143645,
+    "seen": 1794586358.0590112,
+    "ast_hash": "782c28f6cf72161010468498c0f4204e",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/previa.sh": {
+    "mtime": 1794585582.2143645,
+    "seen": 1794586358.0590122,
+    "ast_hash": "2078625550e27f8c10c26dd628a62366",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/previa_partes.py": {
+    "mtime": 1794585582.2143645,
+    "seen": 1794586358.0590131,
+    "ast_hash": "5d8add13deb75e70f08970570c3decd8",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/previa_vila_calada.py": {
+    "mtime": 1794585582.2143645,
+    "seen": 1794586358.059014,
+    "ast_hash": "b3135249b09ebd611b311cc12512c5ad",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/previa_vila_calada_150.py": {
+    "mtime": 1794585582.2143645,
+    "seen": 1794586358.0590148,
+    "ast_hash": "d8f3ba48ab172c228d3ff9003a227409",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/render.py": {
+    "mtime": 1794585582.2143645,
+    "seen": 1794586358.0590158,
+    "ast_hash": "8cf45ca65e759f9b8b19a7a4aa8be0d8",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/testar.py": {
+    "mtime": 1794585582.2143645,
+    "seen": 1794586358.0590167,
+    "ast_hash": "53960a69fdfc3746ff1b92f3b6821228",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/validar.py": {
+    "mtime": 1794585582.2143645,
+    "seen": 1794586358.0590174,
+    "ast_hash": "c01d12f117899c6a18566e60f1db851e",
+    "semantic_hash": ""
+  },
+  "ferramentas/gerar_vila.sh": {
+    "mtime": 1794585582.2143645,
+    "seen": 1794586358.0590186,
+    "ast_hash": "3bd0de2f2caaa435bb524c6a93c4b6c0",
+    "semantic_hash": ""
+  },
+  "ferramentas/gerar_vila_calada.sh": {
+    "mtime": 1794585582.2143645,
+    "seen": 1794586358.0590193,
+    "ast_hash": "4556f616aa90094b0b1ea9b2a0beadbc",
+    "semantic_hash": ""
+  },
+  "ferramentas/gerar_vila_calada_150.sh": {
+    "mtime": 1794585582.2143645,
+    "seen": 1794586358.0590203,
+    "ast_hash": "88b827e7fed662eba91aa12cc5e2cc9c",
+    "semantic_hash": ""
+  },
+  "ferramentas/marca_sangue.sh": {
+    "mtime": 1794585582.2143645,
+    "seen": 1794586358.0590212,
+    "ast_hash": "6f888b157d16467f5189b91bd129c003",
+    "semantic_hash": ""
+  },
+  "ferramentas/marca_sangue_v2.sh": {
+    "mtime": 1794585582.21681,
+    "seen": 1794586358.0590222,
+    "ast_hash": "b99877981fdc29774fe1da04ad41fb35",
+    "semantic_hash": ""
+  },
+  "ferramentas/render_geckolib.py": {
+    "mtime": 1794585582.21681,
+    "seen": 1794586358.059023,
+    "ast_hash": "83ef882d4717668cb5adf7225e685af5",
+    "semantic_hash": ""
+  },
+  "ferramentas/render_geckolib.sh": {
+    "mtime": 1794585582.21681,
+    "seen": 1794586358.0590239,
+    "ast_hash": "df3ae71aaec82b5c026af4d69d00fdce",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/achados/Achados.java": {
+    "mtime": 1794585582.2417686,
+    "seen": 1794586358.0590308,
+    "ast_hash": "f7ae725d65a39715d632b293bf84e1d5",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/achados/ComandosArtefato.java": {
+    "mtime": 1794585582.2418466,
+    "seen": 1794586358.059032,
+    "ast_hash": "b3e9ef6349f2b3bf30a4d99a774a77fe",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/achados/RegrasAchados.java": {
+    "mtime": 1794585582.2418466,
+    "seen": 1794586358.059033,
+    "ast_hash": "a4cf5973e1fdf450b50a114529943516",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/achados/Ronda.java": {
+    "mtime": 1794585582.2418466,
+    "seen": 1794586358.0590339,
+    "ast_hash": "b72afeaee1b2fce51971925fc2944520",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/aparelhos/AnalisadorSinalBloco.java": {
+    "mtime": 1794585582.2418466,
+    "seen": 1794586358.0590346,
+    "ast_hash": "1278bf254c75dd9d537775ac8ca1d25a",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/aparelhos/AnalisadorSinalEntidade.java": {
+    "mtime": 1794585582.2432022,
+    "seen": 1794586358.0590355,
+    "ast_hash": "084c5ff87064dd13640aafa34fe30a77",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/aparelhos/Aparelhos.java": {
+    "mtime": 1794585582.2432022,
+    "seen": 1794586358.0590367,
+    "ast_hash": "cdbbbaf360a97b2a18c6fe127f9d144e",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/aparelhos/BateriaAparelho.java": {
+    "mtime": 1794585582.2432022,
+    "seen": 1794586358.0590374,
+    "ast_hash": "43ef1fa1da188f6a2b1972f370bab6a3",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/aparelhos/RegrasAnalisador.java": {
+    "mtime": 1794585582.2432022,
+    "seen": 1794586358.0590384,
+    "ast_hash": "b5d4ea5178670298d24644702947f0a7",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/blocos/capela/BlocosCapela.java": {
+    "mtime": 1794585582.2451115,
+    "seen": 1794586358.059039,
+    "ast_hash": "e9790cc495b71b1dbab174506688e771",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/blocos/capela/BlocosCapelaIds.java": {
+    "mtime": 1794585582.24544,
+    "seen": 1794586358.0590403,
+    "ast_hash": "c980f16d60547df616762a8cf83e948c",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/blocos/capela/Freio.java": {
+    "mtime": 1794585582.24544,
+    "seen": 1794586358.059041,
+    "ast_hash": "239d179529d1f9e531078d1e90cecf2e",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/blocos/capela/PocaDeSangue.java": {
+    "mtime": 1794585582.24544,
+    "seen": 1794586358.059042,
+    "ast_hash": "6aabac92c773e3c58a6e7213377ec46f",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/blocos/capela/RegrasCapela.java": {
+    "mtime": 1794585582.24544,
+    "seen": 1794586358.0590432,
+    "ast_hash": "4a93b43b5efbd53b4d3c1df437c1c77e",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/blocos/capela/VelaDaCapela.java": {
+    "mtime": 1794585582.24544,
+    "seen": 1794586358.0590441,
+    "ast_hash": "4d481853a4972c0524974564695c71b1",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/blocos/capela/VelaDaCapelaDados.java": {
+    "mtime": 1794585582.24544,
+    "seen": 1794586358.0590448,
+    "ast_hash": "c9fb911d02ef908587c95fd5071069b2",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/cenas/Cena.java": {
+    "mtime": 1794585582.24544,
+    "seen": 1794586358.0590456,
+    "ast_hash": "2718f1e49b736b50ac339094c34f306e",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/cenas/Cenas.java": {
+    "mtime": 1794585582.2479117,
+    "seen": 1794586358.0590467,
+    "ast_hash": "eaa4cd4e2f54b4e2b81afd8454d2b0f3",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/cenas/CenasConhecidas.java": {
+    "mtime": 1794585582.2479117,
+    "seen": 1794586358.0590477,
+    "ast_hash": "e7506043c091a833733799840e898413",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/cenas/IdsCena.java": {
+    "mtime": 1794585582.2479117,
+    "seen": 1794586358.0590484,
+    "ast_hash": "fac63ccd7764c0afdd5434335173543f",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/cenas/RegrasCena.java": {
+    "mtime": 1794585582.2479117,
+    "seen": 1794586358.0590491,
+    "ast_hash": "c09a7b6525b8b3cf5d14b3701e7123eb",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/cliente/CenaCliente.java": {
+    "mtime": 1794585582.24973,
+    "seen": 1794586358.0590527,
+    "ast_hash": "9dcf157626b06953763c120658146e2f",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/cliente/ClimaVilaCliente.java": {
+    "mtime": 1794585582.24973,
+    "seen": 1794586358.059054,
+    "ast_hash": "94be56d5b516fa397a73c313cdfac948",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/cliente/Pendurado.java": {
+    "mtime": 1794585582.24973,
+    "seen": 1794586358.0590613,
+    "ast_hash": "4790af7d31458b8e26463719d56898a3",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/cliente/SomVento.java": {
+    "mtime": 1794585582.24973,
+    "seen": 1794586358.0590622,
+    "ast_hash": "903c56fad87598591de0317d73ef37e5",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/comandos/ComandosLivros.java": {
+    "mtime": 1794585582.2529073,
+    "seen": 1794586358.0590687,
+    "ast_hash": "099e3001e9ac97d06f7ecf05c0fac74d",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/comandos/ComandosSinais.java": {
+    "mtime": 1794585582.2529073,
+    "seen": 1794586358.0590694,
+    "ast_hash": "1abe6c8b12ff02e0cc432fb40acf76d5",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/compat/curios/CuriosCompat.java": {
+    "mtime": 1794585582.2552156,
+    "seen": 1794586358.0590723,
+    "ast_hash": "1309f7ef143c34224cd85ab85f07ee22",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/compat/torchmaster/TochaNaoProtege.java": {
+    "mtime": 1794586228.1767488,
+    "seen": 1794586358.059079,
+    "ast_hash": "83ae18725e0a7a9aefa0a2aa7a322fb3",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/estruturas/ConfigEstruturas.java": {
+    "mtime": 1794585582.2636626,
+    "seen": 1794586358.059096,
+    "ast_hash": "75574ce9949b51e571a3dbebbcfff481",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/estruturas/EmPartes.java": {
+    "mtime": 1794585582.2636626,
+    "seen": 1794586358.059097,
+    "ast_hash": "19d41c3eaf1a24cabcac70c61c1fafab",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/estruturas/Fatias.java": {
+    "mtime": 1794585582.2636626,
+    "seen": 1794586358.0590997,
+    "ast_hash": "7b90c521ef7bd31bb0ce8cf0983ea81d",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/gatilhos/ConfigGatilhos.java": {
+    "mtime": 1794585582.267405,
+    "seen": 1794586358.0591104,
+    "ast_hash": "4c4a5ac5a746d9b5b3f15a7e76fb4bd4",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/gatilhos/DadosGatilhos.java": {
+    "mtime": 1794585582.2701993,
+    "seen": 1794586358.059111,
+    "ast_hash": "cc464bce0bc875e3d97b82686d42c732",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/gatilhos/EstadoGrupo.java": {
+    "mtime": 1794585582.2701993,
+    "seen": 1794586358.0591123,
+    "ast_hash": "686d13412d615537405c63bed0615f14",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/gatilhos/Gatilhos.java": {
+    "mtime": 1794585582.2701993,
+    "seen": 1794586358.059113,
+    "ast_hash": "2697bb58d6d3163f7152312282f5f35f",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/gatilhos/IdsGatilhos.java": {
+    "mtime": 1794585582.2701993,
+    "seen": 1794586358.0591137,
+    "ast_hash": "28f62fe7c380967528d29bc4e0ed8cc4",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/gatilhos/RegrasGatilhos.java": {
+    "mtime": 1794585582.2701993,
+    "seen": 1794586358.0591147,
+    "ast_hash": "4e50d2425242102c77cf887961098110",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/livros/LeitorLivros.java": {
+    "mtime": 1794585582.2701993,
+    "seen": 1794586358.0591154,
+    "ast_hash": "85b0acb4b2ce794f546a5526fdb9edeb",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/livros/Livro.java": {
+    "mtime": 1794585582.2723694,
+    "seen": 1794586358.0591164,
+    "ast_hash": "3497cacec051b411bf5f7e10555250e6",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/livros/LivroAbertoPrimeiraVez.java": {
+    "mtime": 1794585582.2723694,
+    "seen": 1794586358.0591173,
+    "ast_hash": "23fa47a827b5190cb722a19927154f41",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/livros/LivrosHistoria.java": {
+    "mtime": 1794585582.2723694,
+    "seen": 1794586358.059118,
+    "ast_hash": "ac07ef10a554427739fd2b059a9bcdb2",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/livros/LivrosLidos.java": {
+    "mtime": 1794585582.2723694,
+    "seen": 1794586358.059119,
+    "ast_hash": "5c1bad7b38d1d16773bd18374b96e4c9",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/livros/RegrasLivros.java": {
+    "mtime": 1794585582.2723694,
+    "seen": 1794586358.05912,
+    "ast_hash": "2123f98dc011fef789aca1a780219b3a",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/vilacalada/CenaEntradaVila.java": {
+    "mtime": 1794585582.2723694,
+    "seen": 1794586358.0591216,
+    "ast_hash": "a332ab6c11c4b25177ff0d8857a8f9ab",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/vilacalada/ClimaVilaCalada.java": {
+    "mtime": 1794585582.2746558,
+    "seen": 1794586358.0591223,
+    "ast_hash": "fe13b913e8cfdece8813c5cced2e09e1",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/vilacalada/ComandosVilaCalada.java": {
+    "mtime": 1794585582.2746558,
+    "seen": 1794586358.0591235,
+    "ast_hash": "ce669c8f9e6194579c6ca7bfbccfa5ef",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/vilacalada/DadosVilaCalada.java": {
+    "mtime": 1794585582.2746558,
+    "seen": 1794586358.0591242,
+    "ast_hash": "71ca0d1268fe1575cc83723f846f3622",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/vilacalada/IdsVilaCalada.java": {
+    "mtime": 1794585582.2746558,
+    "seen": 1794586358.059125,
+    "ast_hash": "690fefdb2e435518a7197313205091d0",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/vilacalada/PistasVilaCalada.java": {
+    "mtime": 1794585582.2746558,
+    "seen": 1794586358.0591257,
+    "ast_hash": "1e920a55c70424b56d6a40130c02624e",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/vilacalada/RegrasCenaVila.java": {
+    "mtime": 1794585582.2746558,
+    "seen": 1794586358.0591266,
+    "ast_hash": "f0ef1a5d4c239c8d9e711df138256693",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/vilacalada/RegrasClimaVila.java": {
+    "mtime": 1794585582.2746558,
+    "seen": 1794586358.0591276,
+    "ast_hash": "a5b91162bc8d245fe0bebe95b3bf311f",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/historia/vilacalada/RegrasVilaCalada.java": {
+    "mtime": 1794585582.2746558,
+    "seen": 1794586358.0591283,
+    "ast_hash": "df50cec410f05102485e52cb14cc3ef3",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/itens/PecaDeTraje.java": {
+    "mtime": 1794586036.0087676,
+    "seen": 1794586358.0591333,
+    "ast_hash": "8987f68e4c445a64580a7b996ff2f235",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/rede/ClimaVila.java": {
+    "mtime": 1794585582.2773209,
+    "seen": 1794586358.0591395,
+    "ast_hash": "7b7c98d3673d45539ee6fdc034c09185",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/rede/TocarCena.java": {
+    "mtime": 1794585582.2814174,
+    "seen": 1794586358.0591447,
+    "ast_hash": "470ac9c56d6b7e2407f00c3d8deea970",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/sinais/FonteDeSinal.java": {
+    "mtime": 1794585582.2814174,
+    "seen": 1794586358.0591486,
+    "ast_hash": "636d63d8f7134e07c829fd8e8aa318ec",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/sinais/FonteVilaCalada.java": {
+    "mtime": 1794585582.2847326,
+    "seen": 1794586358.0591493,
+    "ast_hash": "12fec34c0bccd18c89a0eba0c12ab920",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/sinais/FontesFixas.java": {
+    "mtime": 1794585582.2847326,
+    "seen": 1794586358.0591502,
+    "ast_hash": "503f7dc5bedef52a5e2ee1e7413a3bd0",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/sinais/LeitorDeItem.java": {
+    "mtime": 1794585582.2847326,
+    "seen": 1794586358.0591512,
+    "ast_hash": "f8cca5191f375db6692838b1d593670c",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/sinais/RegrasFonteVila.java": {
+    "mtime": 1794585582.2847326,
+    "seen": 1794586358.059152,
+    "ast_hash": "92df2f90e0c32c2362bf57e45dbe9073",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/sinais/RegrasSinal.java": {
+    "mtime": 1794585582.2847326,
+    "seen": 1794586358.0591528,
+    "ast_hash": "97e6e1ee883430cfb05cabe5a3fc6d32",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/sinais/Sinais.java": {
+    "mtime": 1794585582.2847326,
+    "seen": 1794586358.0591536,
+    "ast_hash": "56af3852d9459b491c68152116c31926",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/sinais/SinaisNoMundo.java": {
+    "mtime": 1794585582.2847326,
+    "seen": 1794586358.0591545,
+    "ast_hash": "b3d3b98b136ba7b46107d6e8bfb931f4",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/sinais/Sinal.java": {
+    "mtime": 1794585582.2847326,
+    "seen": 1794586358.0591552,
+    "ast_hash": "187c70a3406cc47ca78234a59a9e182c",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/sistemas/Combate.java": {
+    "mtime": 1794586082.9207628,
+    "seen": 1794586358.059157,
+    "ast_hash": "0437d62d55fcc3e0134edbe360955fb2",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/sistemas/Contencao.java": {
+    "mtime": 1794586207.2967508,
+    "seen": 1794586358.059158,
+    "ast_hash": "10c49c3213537b8d6313540c7e5657a2",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/sistemas/RegrasCombate.java": {
+    "mtime": 1794586031.271355,
+    "seen": 1794586358.0591695,
+    "ast_hash": "828ad8c0fccd07e0523ef3417a8bfa66",
+    "semantic_hash": ""
+  },
+  "src/main/java/com/nikolas/odteste/sistemas/RegrasContencao.java": {
+    "mtime": 1794586168.5767548,
+    "seen": 1794586358.0591702,
+    "ast_hash": "14537819b8a908b566736cfcf21a2890",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/animations/entity/magarefe.animation.json": {
+    "mtime": 1794585582.2968352,
+    "seen": 1794586358.059179,
+    "ast_hash": "29bdbc0bda70d9ba18803e49066eb41d",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/blockstates/analisador_sinal.json": {
+    "mtime": 1794585582.2969766,
+    "seen": 1794586358.0591826,
+    "ast_hash": "4faf1d97daf87b5488169720c1ab0235",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/blockstates/poca_de_sangue.json": {
+    "mtime": 1794585582.2979987,
+    "seen": 1794586358.0591836,
+    "ast_hash": "c6515725f4b3743e45c478805a50ea79",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/blockstates/vela_da_capela.json": {
+    "mtime": 1794585582.2979987,
+    "seen": 1794586358.0591843,
+    "ast_hash": "609fd36fd8d4e8d9e24dee55c10d54a1",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/geo/entity/magarefe.geo.json": {
+    "mtime": 1794585582.299364,
+    "seen": 1794586358.0591855,
+    "ast_hash": "453229258f4b2da6ef2da565f0bfda0a",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/models/block/analisador_sinal.json": {
+    "mtime": 1794585582.3009946,
+    "seen": 1794586358.05919,
+    "ast_hash": "866651f65bdadab0c2fa13415116f17d",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/models/block/analisador_sinal_espera.json": {
+    "mtime": 1794585582.3013678,
+    "seen": 1794586358.0591908,
+    "ast_hash": "ab41c0fa519b6682d0819ffad1cd439a",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/models/block/analisador_sinal_sinal.json": {
+    "mtime": 1794585582.3013678,
+    "seen": 1794586358.0591917,
+    "ast_hash": "2134edbbc3a2e2ef5541a9aacf2698a6",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/models/block/poca_de_sangue.json": {
+    "mtime": 1794585582.3013678,
+    "seen": 1794586358.0591927,
+    "ast_hash": "c95ae74c107be08cb59597664c928a65",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/models/block/vela_da_capela.json": {
+    "mtime": 1794585582.3013678,
+    "seen": 1794586358.0591934,
+    "ast_hash": "a04adec26c6357fcf5736379a6ab4342",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/models/item/analisador_sinal.json": {
+    "mtime": 1794585582.3035135,
+    "seen": 1794586358.0591958,
+    "ast_hash": "6d50f862902f540eaca66fc3e32042cd",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/models/item/poca_de_sangue.json": {
+    "mtime": 1794585582.3035135,
+    "seen": 1794586358.059199,
+    "ast_hash": "9d631c12024b2240f7368c4d4b472594",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/models/item/vela_da_capela.json": {
+    "mtime": 1794585582.3035135,
+    "seen": 1794586358.059202,
+    "ast_hash": "ad71b065492163a58adebedd632ed753",
+    "semantic_hash": ""
+  },
+  "src/main/resources/data/minecraft/tags/block/dragon_immune.json": {
+    "mtime": 1794585582.3090565,
+    "seen": 1794586358.0592031,
+    "ast_hash": "c9cc60f9c04f47bf969eaf7805dfbce6",
+    "semantic_hash": ""
+  },
+  "src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json": {
+    "mtime": 1794585582.3097343,
+    "seen": 1794586358.0592039,
+    "ast_hash": "d331afa58be5552f9b8bf445cc9c2bc3",
+    "semantic_hash": ""
+  },
+  "src/main/resources/data/minecraft/tags/block/wither_immune.json": {
+    "mtime": 1794585582.3097343,
+    "seen": 1794586358.0592046,
+    "ast_hash": "c9cc60f9c04f47bf969eaf7805dfbce6",
+    "semantic_hash": ""
+  },
+  "src/main/resources/data/odteste/damage_type/paranormal.json": {
+    "mtime": 1794586111.3167603,
+    "seen": 1794586358.0592067,
+    "ast_hash": "2918ee2f8dc1e96847903521b153d082",
+    "semantic_hash": ""
+  },
+  "src/main/resources/data/odteste/loot_table/blocks/analisador_sinal.json": {
+    "mtime": 1794585582.312501,
+    "seen": 1794586358.0592086,
+    "ast_hash": "f932cf2b5e212be13f557a40c1a68563",
+    "semantic_hash": ""
+  },
+  "src/main/resources/data/odteste/loot_table/chests/recompensa_artefato_sangue.json": {
+    "mtime": 1794585582.312501,
+    "seen": 1794586358.0592098,
+    "ast_hash": "e2684bbd83cac7b58df7549d99b1545a",
+    "semantic_hash": ""
+  },
+  "src/main/resources/data/odteste/odteste_livros/sineiro.json": {
+    "mtime": 1794585582.3159049,
+    "seen": 1794586358.0592148,
+    "ast_hash": "2f54c28f23cb5e8beb560f718fdcad8b",
+    "semantic_hash": ""
+  },
+  "src/main/resources/data/odteste/recipe/compat/create/analisador_sinal.json": {
+    "mtime": 1794585582.3178782,
+    "seen": 1794586358.0592158,
+    "ast_hash": "6913ddbd6d869491359ba103e74d6e33",
+    "semantic_hash": ""
+  },
+  "src/main/resources/data/odteste/recipe/compat/mekanism/analisador_sinal.json": {
+    "mtime": 1794585582.3178782,
+    "seen": 1794586358.0592167,
+    "ast_hash": "df21c22af1e9d613545331b86f774167",
+    "semantic_hash": ""
+  },
+  "src/main/resources/data/odteste/recipe/reserva/analisador_sinal.json": {
+    "mtime": 1794585582.3178782,
+    "seen": 1794586358.0592175,
+    "ast_hash": "3fa8e14c753dffbead1002b189d32385",
+    "semantic_hash": ""
+  },
+  "src/main/resources/data/odteste/tags/item/arma_paranormal.json": {
+    "mtime": 1794586113.30476,
+    "seen": 1794586358.0592225,
+    "ast_hash": "32e7f670b3dceaf5b1751102a6ded1d2",
+    "semantic_hash": ""
+  },
+  "src/test/java/com/nikolas/odteste/achados/RegrasAchadosTest.java": {
+    "mtime": 1794585582.3271942,
+    "seen": 1794586358.0592275,
+    "ast_hash": "4d660c45223a65416727dea76b67182c",
+    "semantic_hash": ""
+  },
+  "src/test/java/com/nikolas/odteste/aparelhos/DadosAnalisadorTest.java": {
+    "mtime": 1794585582.3271942,
+    "seen": 1794586358.0592284,
+    "ast_hash": "8aa972a24d9f07a40ae91356de942b02",
+    "semantic_hash": ""
+  },
+  "src/test/java/com/nikolas/odteste/aparelhos/RegrasAnalisadorTest.java": {
+    "mtime": 1794585582.3288176,
+    "seen": 1794586358.0592291,
+    "ast_hash": "cad8240c35496abcfd446adcbbedc22e",
+    "semantic_hash": ""
+  },
+  "src/test/java/com/nikolas/odteste/blocos/capela/RegrasCapelaTest.java": {
+    "mtime": 1794585582.3297608,
+    "seen": 1794586358.0592299,
+    "ast_hash": "a830cdd2661cf2bb164cdca18a4ce2c9",
+    "semantic_hash": ""
+  },
+  "src/test/java/com/nikolas/odteste/cenas/RegrasCenaTest.java": {
+    "mtime": 1794585582.3297608,
+    "seen": 1794586358.059231,
+    "ast_hash": "c91dc39369701a4cdbaadfdec7a166d8",
+    "semantic_hash": ""
+  },
+  "src/test/java/com/nikolas/odteste/estruturas/FatiasTest.java": {
+    "mtime": 1794585582.3328867,
+    "seen": 1794586358.0592356,
+    "ast_hash": "1357059db16900e8d35b26162e2518e1",
+    "semantic_hash": ""
+  },
+  "src/test/java/com/nikolas/odteste/historia/gatilhos/RegrasGatilhosTest.java": {
+    "mtime": 1794585582.3338718,
+    "seen": 1794586358.0592399,
+    "ast_hash": "abf72475e7ce4d1769fb5ba80429f517",
+    "semantic_hash": ""
+  },
+  "src/test/java/com/nikolas/odteste/historia/livros/RegrasLivrosTest.java": {
+    "mtime": 1794585582.3338718,
+    "seen": 1794586358.0592408,
+    "ast_hash": "ceeebd2afdf048b52549602020845e5a",
+    "semantic_hash": ""
+  },
+  "src/test/java/com/nikolas/odteste/historia/vilacalada/RegrasCenaVilaTest.java": {
+    "mtime": 1794585582.3338718,
+    "seen": 1794586358.0592415,
+    "ast_hash": "9e7e36b2ca60a9399ad3f472ec44a8c8",
+    "semantic_hash": ""
+  },
+  "src/test/java/com/nikolas/odteste/historia/vilacalada/RegrasClimaVilaTest.java": {
+    "mtime": 1794585582.336278,
+    "seen": 1794586358.0592422,
+    "ast_hash": "144913d92ffbf892307bab80d44316cc",
+    "semantic_hash": ""
+  },
+  "src/test/java/com/nikolas/odteste/historia/vilacalada/RegrasVilaCaladaTest.java": {
+    "mtime": 1794585582.336278,
+    "seen": 1794586358.059243,
+    "ast_hash": "ad640d664ad20ab3d1eead802f357e7d",
+    "semantic_hash": ""
+  },
+  "src/test/java/com/nikolas/odteste/sinais/RegrasFonteVilaTest.java": {
+    "mtime": 1794585582.336278,
+    "seen": 1794586358.0592437,
+    "ast_hash": "8f1fefafd4fd2b69a09d3cb17ed4087d",
+    "semantic_hash": ""
+  },
+  "src/test/java/com/nikolas/odteste/sinais/RegrasSinalTest.java": {
+    "mtime": 1794585582.337595,
+    "seen": 1794586358.0592449,
+    "ast_hash": "22b4fcbba7f43bade741a9ea6bb83964",
+    "semantic_hash": ""
+  },
+  "src/test/java/com/nikolas/odteste/sistemas/RegrasCombateTest.java": {
+    "mtime": 1794586293.2847424,
+    "seen": 1794586358.0592456,
+    "ast_hash": "36ae10b84128fa025bc638188e564022",
+    "semantic_hash": ""
+  },
+  ".claude/agents/dev.md": {
+    "mtime": 1794585581.725361,
+    "seen": 1794586358.0592487,
+    "ast_hash": "0e91372c328159098990dd37ecf128c3",
+    "semantic_hash": ""
+  },
+  ".claude/agents/integrador.md": {
+    "mtime": 1794585581.7308192,
+    "seen": 1794586358.0592494,
+    "ast_hash": "a74f3a18de023346e3d70973519d3b1c",
+    "semantic_hash": ""
+  },
+  ".claude/agents/lore.md": {
+    "mtime": 1794585581.73281,
+    "seen": 1794586358.0592504,
+    "ast_hash": "272ac7e4661f33630e10c7b85963d5e1",
+    "semantic_hash": ""
+  },
+  ".claude/agents/modelador.md": {
+    "mtime": 1794585581.7368102,
+    "seen": 1794586358.0592513,
+    "ast_hash": "80726b66ebb3571ef92aab34d58a16d6",
+    "semantic_hash": ""
+  },
+  ".claude/agents/publicador.md": {
+    "mtime": 1794585581.7368102,
+    "seen": 1794586358.059252,
+    "ast_hash": "dce5752752721ac83b0401fc32188452",
+    "semantic_hash": ""
+  },
+  ".claude/agents/revisor.md": {
+    "mtime": 1794585581.7368102,
+    "seen": 1794586358.0592527,
+    "ast_hash": "7c7b573739cb5b5dcaac6dc36521bfbe",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1794585581.7548683,
+    "seen": 1794586358.0592537,
+    "ast_hash": "480db9ddae7b29c75e271151197394b3",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1794585581.7548683,
+    "seen": 1794586358.0592546,
+    "ast_hash": "e219ced9ea7a84a8d57f14019ab3e75b",
+    "semantic_hash": ""
+  },
+  "arte/LICENCAS.md": {
+    "mtime": 1794585581.7608101,
+    "seen": 1794586358.0592554,
+    "ast_hash": "d50822f8cbf8c6d9b7b22a4b509b1b67",
+    "semantic_hash": ""
+  },
+  "arte/estandarte/LEIA.md": {
+    "mtime": 1794585581.82081,
+    "seen": 1794586358.059256,
+    "ast_hash": "d386156fc802eed8f9c5a6e07cf138dc",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/LEIA.md": {
+    "mtime": 1794585581.9048102,
+    "seen": 1794586358.059257,
+    "ast_hash": "460175b7d6a27edc33b28090d40264e6",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/LEIA.md": {
+    "mtime": 1794585581.9234061,
+    "seen": 1794586358.0592577,
+    "ast_hash": "a852ee316c02e080ea0b8a4ae57b7a45",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/comparacao/LEIA.md": {
+    "mtime": 1794585581.924232,
+    "seen": 1794586358.0592587,
+    "ast_hash": "ead21257e39b8fcc964b1b13ba50c52c",
+    "semantic_hash": ""
+  },
+  "arte/sons/LEIA.md": {
+    "mtime": 1794585582.074141,
+    "seen": 1794586358.0592594,
+    "ast_hash": "4575c3c8d6fee55bfa9b92b769e4545d",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/LEIAME.md": {
+    "mtime": 1794585582.12081,
+    "seen": 1794586358.0592604,
+    "ast_hash": "2845dc526f79eeb9002643c042491d47",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada/LEIAME.md": {
+    "mtime": 1794585582.17681,
+    "seen": 1794586358.059261,
+    "ast_hash": "8033a0bcf11b15d7ddf51d2dee0e4fba",
+    "semantic_hash": ""
+  },
+  "docs/animacoes.md": {
+    "mtime": 1794585582.1834261,
+    "seen": 1794586358.059262,
+    "ast_hash": "8dd76e7b2b3954f9a39ea5802caee11f",
+    "semantic_hash": ""
+  },
+  "docs/ceo.md": {
+    "mtime": 1794585582.1849399,
+    "seen": 1794586358.0592628,
+    "ast_hash": "faed4b8fc7eeb2070cf7ed0e3a6235ea",
+    "semantic_hash": ""
+  },
+  "docs/decisoes.md": {
+    "mtime": 1794585582.1849399,
+    "seen": 1794586358.0592637,
+    "ast_hash": "d136a7b3e46fbce5881ae76292a0b4c9",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-08-cores-dos-elementos.md": {
+    "mtime": 1794585582.1849399,
+    "seen": 1794586358.0592644,
+    "ast_hash": "40e3fd36f737175b4c3109fd6963d95c",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-08-elemento-do-jogador.md": {
+    "mtime": 1794585582.1865075,
+    "seen": 1794586358.0592654,
+    "ast_hash": "10399dc337210ce5a8c3e8ddc944e0f5",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-08-estruturas-schematic.md": {
+    "mtime": 1794585582.1865075,
+    "seen": 1794586358.0592663,
+    "ast_hash": "4797e0ff0094babb30231881638575fa",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-08-eventos-ato1.md": {
+    "mtime": 1794585582.1865075,
+    "seen": 1794586358.059267,
+    "ast_hash": "f30532e4fe4cef4f8c3ff15913d66dc2",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-08-historia.md": {
+    "mtime": 1794585582.1865075,
+    "seen": 1794586358.059268,
+    "ast_hash": "b53e998f015bec006855535d192f0d4f",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-08-maquinas-misto.md": {
+    "mtime": 1794585582.1865075,
+    "seen": 1794586358.059269,
+    "ast_hash": "947c382616f143bf441a732cfca989b4",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-08-producao-estruturas-e-enigmas-fora.md": {
+    "mtime": 1794585582.1865075,
+    "seen": 1794586358.05927,
+    "ast_hash": "3ab9df52847f77a43177cb741ec06b1e",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-08-roteiro-minecraft.md": {
+    "mtime": 1794585582.1865075,
+    "seen": 1794586358.0592709,
+    "ast_hash": "be627c6ec50d1c9732088cc07705d489",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-08-sangue-artefatos.md": {
+    "mtime": 1794585582.1865075,
+    "seen": 1794586358.0592716,
+    "ast_hash": "b958bcffc64e56096fd351b145f4afe4",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-08-sangue-criaturas.md": {
+    "mtime": 1794585582.1865075,
+    "seen": 1794586358.0592725,
+    "ast_hash": "61e6765bdd81d8b9d0191bd3a7990ddc",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-08-sangue-ritual.md": {
+    "mtime": 1794585582.1865075,
+    "seen": 1794586358.0592732,
+    "ast_hash": "b1930ffb54b0eb436081826098ef8b09",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-08-sangue-rubra.md": {
+    "mtime": 1794585582.1865075,
+    "seen": 1794586358.0592742,
+    "ast_hash": "ad887fddec1a199b4cb8efaf4e2b767b",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-09-analisador-chiado-800fe.md": {
+    "mtime": 1794585582.1865075,
+    "seen": 1794586358.059275,
+    "ast_hash": "cf5405844fbae4ff3b332f36d2c18614",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-09-ato1-bem-minecraft.md": {
+    "mtime": 1794585582.1865075,
+    "seen": 1794586358.0592759,
+    "ast_hash": "33cebb2df65b2c1c237e0110c2bf8fa6",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-09-nomes-acougueiro-magarefe.md": {
+    "mtime": 1794585582.18881,
+    "seen": 1794586358.0592766,
+    "ast_hash": "af4ddb408bea494a6b88b0fd2b224419",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-09-previas-pendentes.md": {
+    "mtime": 1794585582.18881,
+    "seen": 1794586358.0592773,
+    "ast_hash": "25e08ab27e3967c09fd15ba78a3dcfba",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-09-quem-constroi-estruturas.md": {
+    "mtime": 1794585582.18881,
+    "seen": 1794586358.059278,
+    "ast_hash": "59af5747152d32cdc942be1e09643971",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-09-regras-capela-pacto-queda.md": {
+    "mtime": 1794585582.18881,
+    "seen": 1794586358.0592792,
+    "ast_hash": "86978c802c62347b53526068aac034e5",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-09-segunda-palavra-morse.md": {
+    "mtime": 1794585582.18881,
+    "seen": 1794586358.05928,
+    "ast_hash": "22ab87d7ca633c22dbd2862d563c75e2",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-09-sino-ambiente-vila-calada.md": {
+    "mtime": 1794585582.18881,
+    "seen": 1794586358.0592806,
+    "ast_hash": "e70268b9e448f435ef209eb28e40da48",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-09-site-enigmas-fora.md": {
+    "mtime": 1794585582.18881,
+    "seen": 1794586358.0592816,
+    "ast_hash": "edfd7a096fd5085248d27cebb5eaa77c",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-09-vila-calada-destino-ato1.md": {
+    "mtime": 1794585582.18881,
+    "seen": 1794586358.0592825,
+    "ast_hash": "cf953577ece8fa653450cc5f2e803676",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-09-vila-calada.md": {
+    "mtime": 1794585582.18881,
+    "seen": 1794586358.0592833,
+    "ast_hash": "4407d8623dfcf5b1df37bdb70734cadd",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-09-vila-como-abertura.md": {
+    "mtime": 1794585582.18881,
+    "seen": 1794586358.0592842,
+    "ast_hash": "8ceb6796cb83cd2efb8a099c9f8db785",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-09-vila-destruida.md": {
+    "mtime": 1794585582.19281,
+    "seen": 1794586358.059285,
+    "ast_hash": "0c65b31a568b3517c5bca99b9b525611",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-10-versao-0-1.md": {
+    "mtime": 1794585582.19281,
+    "seen": 1794586358.0592859,
+    "ast_hash": "6343ec0d19b28acf08411b0b2fbc35e9",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-12-armas-so-se-precisar.md": {
+    "mtime": 1794585582.19281,
+    "seen": 1794586358.0592868,
+    "ast_hash": "88d20a7735b5b6a0e9bdb1cc9e868dec",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-12-artefatos-e-ronda.md": {
+    "mtime": 1794585582.19281,
+    "seen": 1794586358.0592897,
+    "ast_hash": "1e0e1c6757cb297f03d98e02c00f5706",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-12-artefatos-so-por-merito.md": {
+    "mtime": 1794585582.19281,
+    "seen": 1794586358.0592906,
+    "ast_hash": "65fcb5cefc7d5d008da9d595ab342936",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-12-modelos-de-jogador-cpm.md": {
+    "mtime": 1794585582.19281,
+    "seen": 1794586358.0592914,
+    "ast_hash": "f4b1e1d91633994de4e91cf6d4a2c49f",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-12-revisao-fable-maxima-qualidade.md": {
+    "mtime": 1794585582.19281,
+    "seen": 1794586358.0592923,
+    "ast_hash": "237a453303cc6e1136008b72f90e43b5",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-12-vila-calada-150x150.md": {
+    "mtime": 1794585582.19281,
+    "seen": 1794586358.0592933,
+    "ast_hash": "2712e963bf13d122a505d34914912269",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-12-vila-calada-clima-prioridade.md": {
+    "mtime": 1794585582.19281,
+    "seen": 1794586358.0592942,
+    "ast_hash": "11d490d2258d8ed071bf6f0c09792bc9",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-13-balanceamento-tech.md": {
+    "mtime": 1794585582.19281,
+    "seen": 1794586358.059295,
+    "ast_hash": "4f71bab2a3eb55fd5e552377b2fc4f48",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-13-cena-entrada-leve.md": {
+    "mtime": 1794585582.19281,
+    "seen": 1794586358.059296,
+    "ast_hash": "1e37673eb8088bb8f9bc3977c378e86f",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-13-criaturas-hitbox-e-extras.md": {
+    "mtime": 1794585582.19281,
+    "seen": 1794586358.0592968,
+    "ast_hash": "af1da75792adceddbdea5bc8964fa712",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-13-pendurado.md": {
+    "mtime": 1794585582.19281,
+    "seen": 1794586358.0592976,
+    "ast_hash": "d507eec61cb1e79c4cf0556510a0e630",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-13-previas-0-2-aprovadas.md": {
+    "mtime": 1794585582.19281,
+    "seen": 1794586358.0592983,
+    "ast_hash": "2b0126f52b6262cff13c2ec2d0693f8f",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/LEIA.md": {
+    "mtime": 1794585582.19681,
+    "seen": 1794586358.0592992,
+    "ast_hash": "6f4d84bb37dff5f36bf852ce0ccac6dd",
+    "semantic_hash": ""
+  },
+  "docs/estilo-do-genero.md": {
+    "mtime": 1794585582.19681,
+    "seen": 1794586358.0593002,
+    "ast_hash": "cadd831b050e6efa2e2ee936198c5f9b",
+    "semantic_hash": ""
+  },
+  "docs/estudo/audiovisual-horror.md": {
+    "mtime": 1794585582.19681,
+    "seen": 1794586358.059301,
+    "ast_hash": "0fd07825001e4b3b01e4df5e04a7cf01",
+    "semantic_hash": ""
+  },
+  "docs/estudo/aventura-rpg.md": {
+    "mtime": 1794585582.2018619,
+    "seen": 1794586358.0593016,
+    "ast_hash": "2ac6ad75b8b93d1832cd04d6bcd11978",
+    "semantic_hash": ""
+  },
+  "docs/estudo/balanceamento-tech.md": {
+    "mtime": 1794585582.2018619,
+    "seen": 1794586358.0593023,
+    "ast_hash": "19346d9966db576dd34076d417ffac5e",
+    "semantic_hash": ""
+  },
+  "docs/estudo/design-e-desenvolvimento.md": {
+    "mtime": 1794585582.2018619,
+    "seen": 1794586358.0593035,
+    "ast_hash": "f8364f0a96578575371d7d09b7cc2bc4",
+    "semantic_hash": ""
+  },
+  "docs/estudo/genero-ordem-paranormal.md": {
+    "mtime": 1794585582.2018619,
+    "seen": 1794586358.0593042,
+    "ast_hash": "a7b97973ddc45bf15ed11872f8e4a8fb",
+    "semantic_hash": ""
+  },
+  "docs/horror.md": {
+    "mtime": 1794585582.2018619,
+    "seen": 1794586358.0593052,
+    "ast_hash": "989b8c83254626f819b9b3bddc94de3d",
+    "semantic_hash": ""
+  },
+  "docs/ideias-0-3.md": {
+    "mtime": 1794585582.2018619,
+    "seen": 1794586358.0593061,
+    "ast_hash": "f189028621b68432cd1f7d79856ed989",
+    "semantic_hash": ""
+  },
+  "docs/ids.md": {
+    "mtime": 1794586313.0567403,
+    "seen": 1794586358.059307,
+    "ast_hash": "d0b9c4e1d082fde34c87e9418a41a909",
+    "semantic_hash": ""
+  },
+  "docs/integracoes.md": {
+    "mtime": 1794585582.2018619,
+    "seen": 1794586358.0593078,
+    "ast_hash": "919a2296694861e3ccfd0a7f1dc7b851",
+    "semantic_hash": ""
+  },
+  "docs/kit-do-mestre.md": {
+    "mtime": 1794585582.2018619,
+    "seen": 1794586358.0593088,
+    "ast_hash": "d3a82e97b7172484e44924eaefd6d703",
+    "semantic_hash": ""
+  },
+  "docs/magias.md": {
+    "mtime": 1794585582.2018619,
+    "seen": 1794586358.0593095,
+    "ast_hash": "460850db764f13e32a91aa97b3025d64",
+    "semantic_hash": ""
+  },
+  "docs/plano-ato1.md": {
+    "mtime": 1794585582.2018619,
+    "seen": 1794586358.0593104,
+    "ast_hash": "5c72fd61d68f85ad06091d01ecdea988",
+    "semantic_hash": ""
+  },
+  "docs/progressao.md": {
+    "mtime": 1794585582.2018619,
+    "seen": 1794586358.0593112,
+    "ast_hash": "37a6c99c268f0c508818a5c3431c19f2",
+    "semantic_hash": ""
+  },
+  "docs/progresso.md": {
+    "mtime": 1794586324.2407389,
+    "seen": 1794586358.059312,
+    "ast_hash": "100cd22b4e00f5c959e6bdf23cacc855",
+    "semantic_hash": ""
+  },
+  "docs/referencia-mascaras.md": {
+    "mtime": 1794585582.2048101,
+    "seen": 1794586358.0593128,
+    "ast_hash": "fcee97fd466607065619717b017b802b",
+    "semantic_hash": ""
+  },
+  "docs/referencias.md": {
+    "mtime": 1794585582.2048101,
+    "seen": 1794586358.059314,
+    "ast_hash": "1a643e722165f52f0043bb68fa492771",
+    "semantic_hash": ""
+  },
+  "docs/regua-de-qualidade.md": {
+    "mtime": 1794585582.2048101,
+    "seen": 1794586358.0593147,
+    "ast_hash": "e85a316ab3686310d27f310775c23eb7",
+    "semantic_hash": ""
+  },
+  "docs/sistemas.md": {
+    "mtime": 1794585582.2048101,
+    "seen": 1794586358.0593157,
+    "ast_hash": "547e9070f9a40d5700023b228ff08a4f",
+    "semantic_hash": ""
+  },
+  "docs/tech-paranormal.md": {
+    "mtime": 1794585582.2048101,
+    "seen": 1794586358.0593164,
+    "ast_hash": "3ac631452376e7ef3f958a0d234818f4",
+    "semantic_hash": ""
+  },
+  "docs/versao-0-1.md": {
+    "mtime": 1794585582.2048101,
+    "seen": 1794586358.0593176,
+    "ast_hash": "8a57d14a4b5c974b266beaf765b97de3",
+    "semantic_hash": ""
+  },
+  "docs/voz.md": {
+    "mtime": 1794585582.2048101,
+    "seen": 1794586358.0593183,
+    "ast_hash": "0db179c333f9267e7c696acc84425729",
+    "semantic_hash": ""
+  },
+  "ferramentas/estruturas/README.md": {
+    "mtime": 1794585582.2112868,
+    "seen": 1794586358.0593193,
+    "ast_hash": "cf4d8f0b25b0d9c4cef086849855bf75",
+    "semantic_hash": ""
+  },
+  "lore/LEIA.md": {
+    "mtime": 1794585582.22881,
+    "seen": 1794586358.05932,
+    "ast_hash": "3de622f8a884c6a5c0d5e8af93525943",
+    "semantic_hash": ""
+  },
+  "lore/artefatos-paranormais.md": {
+    "mtime": 1794585582.233207,
+    "seen": 1794586358.0593212,
+    "ast_hash": "82d20f4966d0a1dd6df5a0e35407f829",
+    "semantic_hash": ""
+  },
+  "lore/canon.md": {
+    "mtime": 1794585582.233207,
+    "seen": 1794586358.0593219,
+    "ast_hash": "b97ee9032790d7f0f8ee02a0048772d5",
+    "semantic_hash": ""
+  },
+  "lore/cenas/entrada-vila-calada.md": {
+    "mtime": 1794585582.233207,
+    "seen": 1794586358.0593228,
+    "ast_hash": "706cd1a88aaed8f6698106e5861cbbd9",
+    "semantic_hash": ""
+  },
+  "lore/criaturas.md": {
+    "mtime": 1794585582.233207,
+    "seen": 1794586358.0593238,
+    "ast_hash": "9ae7c232c6e90ed39715634581825e39",
+    "semantic_hash": ""
+  },
+  "lore/dimensoes.md": {
+    "mtime": 1794585582.233207,
+    "seen": 1794586358.0593247,
+    "ast_hash": "d1c13fc7033d021d854c4e819f77e699",
+    "semantic_hash": ""
+  },
+  "lore/elementos-no-jogo.md": {
+    "mtime": 1794585582.233207,
+    "seen": 1794586358.0593257,
+    "ast_hash": "7a123969db61fafeaf6bd57f69584499",
+    "semantic_hash": ""
+  },
+  "lore/enigmas-fora.md": {
+    "mtime": 1794585582.233207,
+    "seen": 1794586358.0593264,
+    "ast_hash": "717944f4600ef206e5bd545e52767537",
+    "semantic_hash": ""
+  },
+  "lore/entidades.md": {
+    "mtime": 1794585582.233207,
+    "seen": 1794586358.0593276,
+    "ast_hash": "754cdaabab41a38ceaaf9d4d48f449aa",
+    "semantic_hash": ""
+  },
+  "lore/fichas-estruturas.md": {
+    "mtime": 1794585582.233207,
+    "seen": 1794586358.0593283,
+    "ast_hash": "883532ca16f3ae7cd10fc0be50414e2f",
+    "semantic_hash": ""
+  },
+  "lore/livro-do-sineiro.md": {
+    "mtime": 1794585582.233207,
+    "seen": 1794586358.059329,
+    "ast_hash": "2f73d721f7ad1198ba5f0749ece3de7d",
+    "semantic_hash": ""
+  },
+  "lore/mapa.md": {
+    "mtime": 1794585582.233207,
+    "seen": 1794586358.0593297,
+    "ast_hash": "9456346b8cea5fda27308939525f528a",
+    "semantic_hash": ""
+  },
+  "lore/premissa.md": {
+    "mtime": 1794585582.233207,
+    "seen": 1794586358.0593305,
+    "ast_hash": "389d14b22fccd5cdfea64e8d35dbff92",
+    "semantic_hash": ""
+  },
+  "lore/propostas-elementos.md": {
+    "mtime": 1794585582.233207,
+    "seen": 1794586358.0593317,
+    "ast_hash": "5d6fd85f41a59283f33978cd253f252e",
+    "semantic_hash": ""
+  },
+  "lore/reliquias-e-espadas.md": {
+    "mtime": 1794585582.233207,
+    "seen": 1794586358.0593324,
+    "ast_hash": "2f37ee2fbc1984e24480a6c7ac72db57",
+    "semantic_hash": ""
+  },
+  "lore/roteiro.md": {
+    "mtime": 1794585582.233207,
+    "seen": 1794586358.0593333,
+    "ast_hash": "9bdfed20a34c0cd69a41302e70e37209",
+    "semantic_hash": ""
+  },
+  "lore/textos-vila-calada.md": {
+    "mtime": 1794585582.233207,
+    "seen": 1794586358.059334,
+    "ast_hash": "eb0af53ee7b3915cc82151b5aac577a9",
+    "semantic_hash": ""
+  },
+  "arte/estandarte/estandarte_opcao_a.svg": {
+    "mtime": 1794585581.8328102,
+    "seen": 1794586358.059335,
+    "ast_hash": "0509ea307114ec2aca9a31c613cd7159",
+    "semantic_hash": ""
+  },
+  "arte/estandarte/estandarte_opcao_b.svg": {
+    "mtime": 1794585581.83681,
+    "seen": 1794586358.0593357,
+    "ast_hash": "68b741495691dfdd8558695b9d015da9",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/estagio_1.png": {
+    "mtime": 1794585581.86081,
+    "seen": 1794586358.0593367,
+    "ast_hash": "b968286aa9dfd997e67bcf1527e35959",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/estagio_1_alex.png": {
+    "mtime": 1794585581.86481,
+    "seen": 1794586358.0593374,
+    "ast_hash": "4afeca3a3f9625e5eb25ef3bf00fc130",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/estagio_2.png": {
+    "mtime": 1794585581.8728101,
+    "seen": 1794586358.0593383,
+    "ast_hash": "a6302fbc18b408aea6184781f3c7f2f0",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/estagio_2_alex.png": {
+    "mtime": 1794585581.87681,
+    "seen": 1794586358.059339,
+    "ast_hash": "6bab96c728c1fe6aaba169a77fefeb93",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/estagio_3.png": {
+    "mtime": 1794585581.8848102,
+    "seen": 1794586358.05934,
+    "ast_hash": "77865da0ffadc41dcf11e8d1a0a6c187",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/estagio_3_alex.png": {
+    "mtime": 1794585581.8888102,
+    "seen": 1794586358.0593407,
+    "ast_hash": "ff1227a40b5ed90f369e362882542a02",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/estagio_4.png": {
+    "mtime": 1794585581.89681,
+    "seen": 1794586358.0593417,
+    "ast_hash": "4fc897bbd842090c9e2c42e0eb4ef5d2",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/estagio_4_alex.png": {
+    "mtime": 1794585581.89681,
+    "seen": 1794586358.0593426,
+    "ast_hash": "88830d4623c63a40c4649a6f4e0c6b3b",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/estagio_4_brilho.png": {
+    "mtime": 1794585581.90081,
+    "seen": 1794586358.0593433,
+    "ast_hash": "6d077f52b63b5b2ca27104357604c5cf",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/estagio_4_brilho_alex.png": {
+    "mtime": 1794585581.90081,
+    "seen": 1794586358.059344,
+    "ast_hash": "1da01075125326e44d748956e5a7cd97",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/skins-teste/clara_alex.png": {
+    "mtime": 1794585581.9048102,
+    "seen": 1794586358.059345,
+    "ast_hash": "1af4a2c2faf0f610482240ac14e58d17",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/skins-teste/clara_steve.png": {
+    "mtime": 1794585581.9048102,
+    "seen": 1794586358.0593457,
+    "ast_hash": "c1bc19a2c1a9532208c1be612c151662",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/skins-teste/escura_alex.png": {
+    "mtime": 1794585581.9048102,
+    "seen": 1794586358.0593467,
+    "ast_hash": "46fc1cf6b57c06d52af3b58a8c2d57ff",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/skins-teste/escura_steve.png": {
+    "mtime": 1794585581.9048102,
+    "seen": 1794586358.0593474,
+    "ast_hash": "8247829967126868d4f1a0f69cdaddff",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/estagio_1.png": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.0593486,
+    "ast_hash": "90f7c01a89d2f1c6b2a7c39689adbdbb",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/estagio_1_alex.png": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.0593493,
+    "ast_hash": "66326b549b4793b250efbdde5182fab0",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/estagio_1_brilho.png": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.05935,
+    "ast_hash": "8d672ea6d7c712c84ef3f4399d387207",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/estagio_1_brilho_alex.png": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.059351,
+    "ast_hash": "8d672ea6d7c712c84ef3f4399d387207",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/estagio_2.png": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.059352,
+    "ast_hash": "8c62e460e052d630cc76ca68f6741d77",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/estagio_2_alex.png": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.0593526,
+    "ast_hash": "5755732b69b67f7e3e47a7aebe51c4c1",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/estagio_2_brilho.png": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.0593534,
+    "ast_hash": "c52ec440742e0e34b3a9c9c6f5095499",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/estagio_2_brilho_alex.png": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.059354,
+    "ast_hash": "4b73b4fef72b94adb6938fd0def740a8",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/estagio_3.png": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.059355,
+    "ast_hash": "c93c55eec2fdaea6945e715aecd17e95",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/estagio_3_alex.png": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.059356,
+    "ast_hash": "6f025aaf5d185a9321ae46a0a17e9542",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/estagio_3_brilho.png": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.0593567,
+    "ast_hash": "feb8f374801f529b5957a2530d14fb6f",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/estagio_3_brilho_alex.png": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.0593574,
+    "ast_hash": "3f6ead21d62bf8dec3826c205b910aca",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/estagio_4.png": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.0593581,
+    "ast_hash": "385d446fae9d837d4c35352996c81bd2",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/estagio_4_alex.png": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.0593593,
+    "ast_hash": "385e1406698a263760d56baa562c04cd",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/estagio_4_brilho.png": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.05936,
+    "ast_hash": "c70386595d9f8b89a76ef7bb7c1589ca",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/estagio_4_brilho_alex.png": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.0593607,
+    "ast_hash": "ab770e1dc6a72db029ab9eedf5e2cf73",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/hd/estagio_1.png": {
+    "mtime": 1794585581.911462,
+    "seen": 1794586358.0593615,
+    "ast_hash": "8b2c549157c1f8185baa960bbd5c4208",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/hd/estagio_1_alex.png": {
+    "mtime": 1794585581.9157753,
+    "seen": 1794586358.0593624,
+    "ast_hash": "43a43e4ac63902ad58a5058614618a10",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/hd/estagio_1_brilho.png": {
+    "mtime": 1794585581.9157753,
+    "seen": 1794586358.0593631,
+    "ast_hash": "87a98ffb79433825485eb2c535724362",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/hd/estagio_1_brilho_alex.png": {
+    "mtime": 1794585581.9157753,
+    "seen": 1794586358.059364,
+    "ast_hash": "87a98ffb79433825485eb2c535724362",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/hd/estagio_2.png": {
+    "mtime": 1794585581.9157753,
+    "seen": 1794586358.0593648,
+    "ast_hash": "f0e5ba911e9c1457bb61b921c36e9e0c",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/hd/estagio_2_alex.png": {
+    "mtime": 1794585581.9157753,
+    "seen": 1794586358.0593657,
+    "ast_hash": "b271e2a1003998e3eac6b6726cad3670",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/hd/estagio_2_brilho.png": {
+    "mtime": 1794585581.9157753,
+    "seen": 1794586358.0593665,
+    "ast_hash": "d4fd01d473a0448086330ff584edacaf",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/hd/estagio_2_brilho_alex.png": {
+    "mtime": 1794585581.9157753,
+    "seen": 1794586358.0593672,
+    "ast_hash": "db1d09ff91ebfafc18a20e4829ecabe5",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/hd/estagio_3.png": {
+    "mtime": 1794585581.9157753,
+    "seen": 1794586358.059368,
+    "ast_hash": "15ea73f42b32514420180865dd96ad13",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/hd/estagio_3_alex.png": {
+    "mtime": 1794585581.9157753,
+    "seen": 1794586358.0593688,
+    "ast_hash": "dfa3f51cdfccd62b741070d3082a4b48",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/hd/estagio_3_brilho.png": {
+    "mtime": 1794585581.9157753,
+    "seen": 1794586358.0593698,
+    "ast_hash": "810a054c66538811bf35565a750026e7",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/hd/estagio_3_brilho_alex.png": {
+    "mtime": 1794585581.9157753,
+    "seen": 1794586358.0593705,
+    "ast_hash": "10db8036c1a68065f6da4d8ca6e82b27",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/hd/estagio_4.png": {
+    "mtime": 1794585581.91681,
+    "seen": 1794586358.0593712,
+    "ast_hash": "6a0c6e83f0b7887be49d870542c52e21",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/hd/estagio_4_alex.png": {
+    "mtime": 1794585581.91681,
+    "seen": 1794586358.0593722,
+    "ast_hash": "d77b02a776acb8d903d299551af5407d",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/hd/estagio_4_brilho.png": {
+    "mtime": 1794585581.91681,
+    "seen": 1794586358.0593731,
+    "ast_hash": "cbd9dd6e92124541a5c455963c3b8bde",
+    "semantic_hash": ""
+  },
+  "arte/marca-sangue/v2/hd/estagio_4_brilho_alex.png": {
+    "mtime": 1794585581.91681,
+    "seen": 1794586358.0593739,
+    "ast_hash": "7abdf9bc77e387279a51984164a5ba85",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/comparacao/folha_sangue.png": {
+    "mtime": 1794585581.924671,
+    "seen": 1794586358.0593748,
+    "ast_hash": "9cab41e42356cb60ae63ca37aa54658c",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/comparacao/magarefe.png": {
+    "mtime": 1794585581.924671,
+    "seen": 1794586358.0593755,
+    "ast_hash": "5371be2fd924f80a7c3be22cb560a717",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/comparacao/retalhado.png": {
+    "mtime": 1794585581.9248102,
+    "seen": 1794586358.0593765,
+    "ast_hash": "da2a7c37af89f92b002a680383440bef",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/comparacao/sanguessuga_mae.png": {
+    "mtime": 1794585581.9248102,
+    "seen": 1794586358.0593774,
+    "ast_hash": "9e36eaaa21635829b603b08942ecaf8e",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/comparacao/v5_1/magarefe/magarefe.png": {
+    "mtime": 1794585581.9306664,
+    "seen": 1794586358.0593781,
+    "ast_hash": "341d13f3d3238d3d3acfae4a8cf6c099",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/comparacao/v5_1/retalhado/retalhado.png": {
+    "mtime": 1794585581.9321868,
+    "seen": 1794586358.0593789,
+    "ast_hash": "551660873ac4df71a9955908a8de4e65",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/comparacao/v5_1/retalhado/retalhado_glowmask.png": {
+    "mtime": 1794585581.9321868,
+    "seen": 1794586358.0593798,
+    "ast_hash": "84c1f19640119d4429b054e135c9567c",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/comparacao/v5_1/sanguessuga_mae/sanguessuga_mae.png": {
+    "mtime": 1794585581.9340265,
+    "seen": 1794586358.0593805,
+    "ast_hash": "61eb2be3305146c3f2d762dfec01fd95",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/comparacao_sangue.png": {
+    "mtime": 1794585581.9340265,
+    "seen": 1794586358.0593815,
+    "ast_hash": "b9df9f85f36d3474e55e61468faa6cfc",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/3_4.png": {
+    "mtime": 1794585581.9360447,
+    "seen": 1794586358.0593822,
+    "ast_hash": "8a5beba6dc137ee69b36e0b3a2b2147c",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/anim_andar.png": {
+    "mtime": 1794585581.9395196,
+    "seen": 1794586358.0593832,
+    "ast_hash": "816e7c12d1ce23cb676f4b2526a6b272",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/anim_ataque.png": {
+    "mtime": 1794585581.9395196,
+    "seen": 1794586358.0593839,
+    "ast_hash": "9d3ad84fa9de092066999ff4a1e6492b",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/anim_dano.png": {
+    "mtime": 1794585581.9395196,
+    "seen": 1794586358.0593848,
+    "ast_hash": "4b63345343e7c062f1f20cfb39eb7489",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/anim_escutar.png": {
+    "mtime": 1794585581.9395196,
+    "seen": 1794586358.0593855,
+    "ast_hash": "36bc525f8c7d150a4e80d615b6fa2810",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/anim_morrer.png": {
+    "mtime": 1794585581.9395196,
+    "seen": 1794586358.0593863,
+    "ast_hash": "cd84856422e32c1281f704e3e78ed876",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/anim_parado.png": {
+    "mtime": 1794585581.9408102,
+    "seen": 1794586358.0593872,
+    "ast_hash": "70f974a1d71894dfbf4e22c2d973120c",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/costas.png": {
+    "mtime": 1794585581.9408102,
+    "seen": 1794586358.059388,
+    "ast_hash": "b0fc0d2cfac7a76fa0073c8903fa5cc6",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/frente.png": {
+    "mtime": 1794585581.9408102,
+    "seen": 1794586358.0593889,
+    "ast_hash": "59bf03ca6ac09ac181b019ab9de0b584",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/lado_direito.png": {
+    "mtime": 1794585581.9408102,
+    "seen": 1794586358.0593896,
+    "ast_hash": "3a444e0c3482e7522405ffc4031f23a5",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/magarefe.png": {
+    "mtime": 1794585581.9408102,
+    "seen": 1794586358.0593905,
+    "ast_hash": "eeef0b676b69835f8b081798eaf76d12",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/magarefe_b.png": {
+    "mtime": 1794585581.9408102,
+    "seen": 1794586358.0593913,
+    "ast_hash": "9566c763eba06928d0a135b4644f5cf6",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/silhueta.png": {
+    "mtime": 1794585581.9408102,
+    "seen": 1794586358.059392,
+    "ast_hash": "6e634eb0399624857b0e0030cd112c60",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/textura_ampliada.png": {
+    "mtime": 1794585581.9408102,
+    "seen": 1794586358.059393,
+    "ast_hash": "c569d0836accdb9280708978106f4a91",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/variantes.png": {
+    "mtime": 1794585581.9408102,
+    "seen": 1794586358.059394,
+    "ast_hash": "54ec405eb5d38d3b11788976f95d07d4",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/magarefe/vistas.png": {
+    "mtime": 1794585581.9448102,
+    "seen": 1794586358.0593946,
+    "ast_hash": "a04e0e14ccb5ddfad165842b3015d942",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/3_4.png": {
+    "mtime": 1794585581.9448102,
+    "seen": 1794586358.0593956,
+    "ast_hash": "219273373aa140b1b5e711ae0deae484",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/anim_afiar.png": {
+    "mtime": 1794585581.9489639,
+    "seen": 1794586358.0593963,
+    "ast_hash": "c199e08c5bee4855079bbf11b7918528",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/anim_andar.png": {
+    "mtime": 1794585581.9489639,
+    "seen": 1794586358.0593972,
+    "ast_hash": "cfb4019c9121760537a652a75fcd9b7b",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/anim_ataque.png": {
+    "mtime": 1794585581.9489639,
+    "seen": 1794586358.059398,
+    "ast_hash": "e03bfc169cf67a531a407b899818a634",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/anim_dano.png": {
+    "mtime": 1794585581.9489639,
+    "seen": 1794586358.0593987,
+    "ast_hash": "de37d3f7f5fe2190f7cabd56f33889e6",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/anim_investida.png": {
+    "mtime": 1794585581.9489639,
+    "seen": 1794586358.0593994,
+    "ast_hash": "bcc3ce809d63ea6b87f8be1464cabfbb",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/anim_morrer.png": {
+    "mtime": 1794585581.95281,
+    "seen": 1794586358.0594006,
+    "ast_hash": "e6fdfb79e7073c4e00c0ab8855993108",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/anim_parado.png": {
+    "mtime": 1794585581.95281,
+    "seen": 1794586358.0594015,
+    "ast_hash": "fe4ffe6fcdfcf6a2b22dc43a9df852d1",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/comparacao.png": {
+    "mtime": 1794585581.95281,
+    "seen": 1794586358.0594022,
+    "ast_hash": "9da96c1917ecb608e65e67c47fa6aa5c",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/costas.png": {
+    "mtime": 1794585581.95281,
+    "seen": 1794586358.059403,
+    "ast_hash": "411f884ed8ba6339b5752a47644cff9a",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/frente.png": {
+    "mtime": 1794585581.95281,
+    "seen": 1794586358.0594041,
+    "ast_hash": "ceddc080ad13005e1d280a9d83acfd82",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/lado_direito.png": {
+    "mtime": 1794585581.95281,
+    "seen": 1794586358.0594049,
+    "ast_hash": "bb6c63dbec978ff8837545cf25d0c11f",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/retalhado.png": {
+    "mtime": 1794585581.95281,
+    "seen": 1794586358.0594056,
+    "ast_hash": "3c7c69515e05b97361da5bc9e823f8dd",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/retalhado_b.png": {
+    "mtime": 1794585581.95281,
+    "seen": 1794586358.0594063,
+    "ast_hash": "11a2f4dbfa9b8ebb618ef31a0e11c254",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/retalhado_glowmask.png": {
+    "mtime": 1794585581.95281,
+    "seen": 1794586358.0594075,
+    "ast_hash": "0e8fb27439b35c60b12bdff1728aff5c",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/silhueta.png": {
+    "mtime": 1794585581.95281,
+    "seen": 1794586358.0594082,
+    "ast_hash": "07750939b1bba6a7281c137b8391a14c",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/textura_ampliada.png": {
+    "mtime": 1794585581.95681,
+    "seen": 1794586358.059409,
+    "ast_hash": "998371c00386ca0e30d94a16d0afd7a2",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/variantes.png": {
+    "mtime": 1794585581.95681,
+    "seen": 1794586358.0594099,
+    "ast_hash": "4c26c4cb5f811760246c63fe6743d3a6",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/retalhado/vistas.png": {
+    "mtime": 1794585581.95681,
+    "seen": 1794586358.0594106,
+    "ast_hash": "77941384ea56cfdd06a63811f55eae30",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/3_4.png": {
+    "mtime": 1794585581.95681,
+    "seen": 1794586358.0594115,
+    "ast_hash": "5e6b555fef45cc89cf49b85993b053e4",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/anim_andar.png": {
+    "mtime": 1794585581.9626863,
+    "seen": 1794586358.0594122,
+    "ast_hash": "d289027230fe562a9f47e66d43cfa955",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/anim_chocar.png": {
+    "mtime": 1794585581.9626863,
+    "seen": 1794586358.059413,
+    "ast_hash": "df82b4406c1332de9625aea89a8d7370",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/anim_dano.png": {
+    "mtime": 1794585581.9626863,
+    "seen": 1794586358.059414,
+    "ast_hash": "cca4573a0ae574161abdd539b561398c",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/anim_lancar.png": {
+    "mtime": 1794585581.9626863,
+    "seen": 1794586358.0594149,
+    "ast_hash": "f97221ae9e26f40feddc8f834b2466d4",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/anim_mordida.png": {
+    "mtime": 1794585581.9626863,
+    "seen": 1794586358.0594158,
+    "ast_hash": "ab8efb6c188191d19137d7191976ca95",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/anim_morrer.png": {
+    "mtime": 1794585581.9648101,
+    "seen": 1794586358.0594165,
+    "ast_hash": "45143dd702420e280b062db859cf6599",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/anim_parado.png": {
+    "mtime": 1794585581.9648101,
+    "seen": 1794586358.0594172,
+    "ast_hash": "1bd58e7966d035915b08d0f0777bc2da",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/comparacao.png": {
+    "mtime": 1794585581.9648101,
+    "seen": 1794586358.0594182,
+    "ast_hash": "c74efd1af9bf6c6234705ec3ecd02c92",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/costas.png": {
+    "mtime": 1794585581.9648101,
+    "seen": 1794586358.059419,
+    "ast_hash": "c6adfb85ef9393c4e92867b9875d9ea6",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/frente.png": {
+    "mtime": 1794585581.9648101,
+    "seen": 1794586358.0594196,
+    "ast_hash": "2e7c170890192c93635de54bd84e189d",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/lado_direito.png": {
+    "mtime": 1794585581.9648101,
+    "seen": 1794586358.0594206,
+    "ast_hash": "93eb67b48ee9ff92d18eef6bdc2a5f14",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/sanguessuga_mae.png": {
+    "mtime": 1794585581.9648101,
+    "seen": 1794586358.0594215,
+    "ast_hash": "1de41171ef23181a22bca6c1903daa41",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/sanguessuga_mae_b.png": {
+    "mtime": 1794585581.9648101,
+    "seen": 1794586358.0594225,
+    "ast_hash": "9f50413fa04f7d9bcefb9908dc00f00b",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/silhueta.png": {
+    "mtime": 1794585581.9648101,
+    "seen": 1794586358.0594232,
+    "ast_hash": "03488af7662e8c1958ef6a8169c24930",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/textura_ampliada.png": {
+    "mtime": 1794585581.9648101,
+    "seen": 1794586358.0594242,
+    "ast_hash": "68c4b50171185b26005eb8747b930297",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/variantes.png": {
+    "mtime": 1794585581.96881,
+    "seen": 1794586358.059425,
+    "ast_hash": "c7fa07dd29cf657a76f55202b77c47c2",
+    "semantic_hash": ""
+  },
+  "arte/previas/criaturas/sanguessuga_mae/vistas.png": {
+    "mtime": 1794585581.96881,
+    "seen": 1794586358.059426,
+    "ast_hash": "62a796ab7f94e2de85cb263c1b308aac",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/00_vista_de_cima.png": {
+    "mtime": 1794585581.9738083,
+    "seen": 1794586358.0594268,
+    "ast_hash": "55206baed8c21f7ef511b178def1122e",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/01_iso_sudeste.png": {
+    "mtime": 1794585581.9776416,
+    "seen": 1794586358.0594275,
+    "ast_hash": "cdee2a5e13a5afe9eaa84b79f9536572",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/02_iso_noroeste.png": {
+    "mtime": 1794585581.9808102,
+    "seen": 1794586358.0594287,
+    "ast_hash": "097c0153c33b1b3b1d8134278438b9ab",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/casas_nordeste_corte_interior.png": {
+    "mtime": 1794585581.98481,
+    "seen": 1794586358.0594296,
+    "ast_hash": "cc1dab59500555db24a1273b91b432ad",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/casas_nordeste_costas_norte.png": {
+    "mtime": 1794585581.98481,
+    "seen": 1794586358.0594304,
+    "ast_hash": "4d3243ec08413a6239cec04ef82b0009",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/casas_nordeste_de_cima.png": {
+    "mtime": 1794585581.98481,
+    "seen": 1794586358.0594313,
+    "ast_hash": "566649b899b75dee549cde637decf758",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/casas_nordeste_frente_sul.png": {
+    "mtime": 1794585581.98881,
+    "seen": 1794586358.0594323,
+    "ast_hash": "c839c8ca41d23244ef9a65eb054325d5",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/casas_nordeste_lado_oeste.png": {
+    "mtime": 1794585581.99281,
+    "seen": 1794586358.059433,
+    "ast_hash": "af3d6fd1e5d27f64919d7dd64f107aa6",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/casas_oeste_corte_interior.png": {
+    "mtime": 1794585581.99281,
+    "seen": 1794586358.0594337,
+    "ast_hash": "e4c09f7d3bf813428aa6870157df0864",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/casas_oeste_costas_norte.png": {
+    "mtime": 1794585581.9968102,
+    "seen": 1794586358.0594347,
+    "ast_hash": "debd1ff69a029e21f9a56c5c3d7cbe83",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/casas_oeste_de_cima.png": {
+    "mtime": 1794585581.9968102,
+    "seen": 1794586358.0594356,
+    "ast_hash": "b1e200d4b537b8a56d2be40167781da1",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/casas_oeste_frente_sul.png": {
+    "mtime": 1794585581.9968102,
+    "seen": 1794586358.0594363,
+    "ast_hash": "0520937bbfc8d7d2df7d66cf5a6a172d",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/casas_oeste_lado_oeste.png": {
+    "mtime": 1794585582.0008101,
+    "seen": 1794586358.0594373,
+    "ast_hash": "f8a6b6b7a409953d3c16109a7eb03f79",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/casas_sudoeste_corte_interior.png": {
+    "mtime": 1794585582.00481,
+    "seen": 1794586358.059438,
+    "ast_hash": "e123653dcd23877768e2ccded2e5bebb",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/casas_sudoeste_costas_norte.png": {
+    "mtime": 1794585582.00481,
+    "seen": 1794586358.059439,
+    "ast_hash": "a7491f7a1f231aa276dfef68a4375f61",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/casas_sudoeste_de_cima.png": {
+    "mtime": 1794585582.00481,
+    "seen": 1794586358.05944,
+    "ast_hash": "7d70650b165ea8b491a74943bafe3d55",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/casas_sudoeste_frente_sul.png": {
+    "mtime": 1794585582.00881,
+    "seen": 1794586358.0594406,
+    "ast_hash": "db6cb904b192946f42d69eeb76d8522f",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/casas_sudoeste_lado_oeste.png": {
+    "mtime": 1794585582.01281,
+    "seen": 1794586358.0594413,
+    "ast_hash": "2d9429665cef22e534a4820416b43eb2",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/ferraria_e_roca_corte_interior.png": {
+    "mtime": 1794585582.01281,
+    "seen": 1794586358.0594423,
+    "ast_hash": "1b71d9aa4ec5b2ab897720b569f61847",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/ferraria_e_roca_costas_norte.png": {
+    "mtime": 1794585582.0168102,
+    "seen": 1794586358.0594432,
+    "ast_hash": "1418c287595f4f6c5f743ac5b0610ab2",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/ferraria_e_roca_de_cima.png": {
+    "mtime": 1794585582.0168102,
+    "seen": 1794586358.059444,
+    "ast_hash": "c33a728d049d8162a4f83187ecd52e45",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/ferraria_e_roca_frente_sul.png": {
+    "mtime": 1794585582.0208101,
+    "seen": 1794586358.059445,
+    "ast_hash": "9db367f29d164890ef2942f60e155b4d",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/ferraria_e_roca_lado_oeste.png": {
+    "mtime": 1794585582.0208101,
+    "seen": 1794586358.0594459,
+    "ast_hash": "1913faa0a30076c0ae37ae4c9fd8f0a5",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/igreja_corte_interior.png": {
+    "mtime": 1794585582.02481,
+    "seen": 1794586358.0594466,
+    "ast_hash": "d5628c8b9fc3b07e970a5fad02941248",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/igreja_costas_norte.png": {
+    "mtime": 1794585582.02481,
+    "seen": 1794586358.0594475,
+    "ast_hash": "f22422d30c10689b7289113cdb474708",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/igreja_de_cima.png": {
+    "mtime": 1794585582.02881,
+    "seen": 1794586358.0594482,
+    "ast_hash": "38140f6d4b0f7c9a41cbf2972a189260",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/igreja_frente_sul.png": {
+    "mtime": 1794585582.02881,
+    "seen": 1794586358.0594492,
+    "ast_hash": "b03bb3ab0300b9f8c8550c6ebfec8245",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/igreja_lado_oeste.png": {
+    "mtime": 1794585582.03281,
+    "seen": 1794586358.0594501,
+    "ast_hash": "2b52e5e1623358abb9043282d571c727",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/lugar_do_livro_corte_interior.png": {
+    "mtime": 1794585582.03281,
+    "seen": 1794586358.0594509,
+    "ast_hash": "aaf303e43d4db9582bf9d969ca4302a5",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/lugar_do_livro_costas_norte.png": {
+    "mtime": 1794585582.03281,
+    "seen": 1794586358.0594516,
+    "ast_hash": "b64f8034d1e54f3ef219c687cec24e51",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/lugar_do_livro_de_cima.png": {
+    "mtime": 1794585582.03281,
+    "seen": 1794586358.0594525,
+    "ast_hash": "1dbff294ef3bc39044a5425d276f5e4a",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/lugar_do_livro_frente_sul.png": {
+    "mtime": 1794585582.0368102,
+    "seen": 1794586358.0594535,
+    "ast_hash": "5bcc7847952405b6f9d4e3fa3ff66c59",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/lugar_do_livro_lado_oeste.png": {
+    "mtime": 1794585582.0368102,
+    "seen": 1794586358.0594542,
+    "ast_hash": "922716ac878220921680aa59997d12ca",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/poco_corte_interior.png": {
+    "mtime": 1794585582.0368102,
+    "seen": 1794586358.059455,
+    "ast_hash": "e03468a3dc8f9d9d073fcefe9c568cf6",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/poco_costas_norte.png": {
+    "mtime": 1794585582.0368102,
+    "seen": 1794586358.0594556,
+    "ast_hash": "24801a4f929058826e79d81157170c8a",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/poco_de_cima.png": {
+    "mtime": 1794585582.0368102,
+    "seen": 1794586358.0594566,
+    "ast_hash": "100992550e980da439e8bed4658fdaa1",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/poco_frente_sul.png": {
+    "mtime": 1794585582.0368102,
+    "seen": 1794586358.0594575,
+    "ast_hash": "22e290952da7a00520cd62ee7570c510",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/poco_lado_oeste.png": {
+    "mtime": 1794585582.04081,
+    "seen": 1794586358.0594583,
+    "ast_hash": "3137aba32f6f8c77fd03dce3315949b3",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/praca_poco_corte_interior.png": {
+    "mtime": 1794585582.04081,
+    "seen": 1794586358.059459,
+    "ast_hash": "d5d0c6cc4e61495fc1bc0d2db9842fca",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/praca_poco_costas_norte.png": {
+    "mtime": 1794585582.04081,
+    "seen": 1794586358.05946,
+    "ast_hash": "be9b58262f42f468023db76afd067769",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/praca_poco_de_cima.png": {
+    "mtime": 1794585582.04081,
+    "seen": 1794586358.0594609,
+    "ast_hash": "f3ecb0bc52e65d8c77980d10a406b2ca",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/praca_poco_frente_sul.png": {
+    "mtime": 1794585582.04481,
+    "seen": 1794586358.0594616,
+    "ast_hash": "e91f01d4f54dc0d470a5653dac4ca38f",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/praca_poco_lado_oeste.png": {
+    "mtime": 1794585582.04481,
+    "seen": 1794586358.0594625,
+    "ast_hash": "9c21886d4f413554425b924999a63a4d",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/rua_principal_corte_interior.png": {
+    "mtime": 1794585582.04481,
+    "seen": 1794586358.0594635,
+    "ast_hash": "6c0f2a7e5dc41abfeff2949c0ed8cc8e",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/rua_principal_costas_norte.png": {
+    "mtime": 1794585582.04881,
+    "seen": 1794586358.0594645,
+    "ast_hash": "21cce44509d7b2a0e2ae2c062658de28",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/rua_principal_de_cima.png": {
+    "mtime": 1794585582.0528102,
+    "seen": 1794586358.0594654,
+    "ast_hash": "7143a38ef7077e81dcae8ebfe85634f4",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/rua_principal_frente_sul.png": {
+    "mtime": 1794585582.0568101,
+    "seen": 1794586358.0594661,
+    "ast_hash": "062f9c69f76ca1563768ce35f7ca218f",
+    "semantic_hash": ""
+  },
+  "arte/previas/estruturas/vila_destruida/rua_principal_lado_oeste.png": {
+    "mtime": 1794585582.0568101,
+    "seen": 1794586358.0594673,
+    "ast_hash": "ce933373b199d259e088f0260b26a01e",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue-v2/antes_depois_estagio_1.png": {
+    "mtime": 1794585582.06081,
+    "seen": 1794586358.059468,
+    "ast_hash": "3e88d3fd9d27d3bafe5cbfc47be8b1e1",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue-v2/antes_depois_estagio_2.png": {
+    "mtime": 1794585582.0651643,
+    "seen": 1794586358.0594687,
+    "ast_hash": "bc520a51164c84e13a7d15d7e54ce029",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue-v2/antes_depois_estagio_3.png": {
+    "mtime": 1794585582.0651643,
+    "seen": 1794586358.05947,
+    "ast_hash": "3715f48ee714f452e9ff09e8be6f0a9b",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue-v2/antes_depois_estagio_4.png": {
+    "mtime": 1794585582.0651643,
+    "seen": 1794586358.0594707,
+    "ast_hash": "3dab209c416782264a1443a3cc10cbac",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue-v2/brilho_pulsando.gif": {
+    "mtime": 1794585582.0651643,
+    "seen": 1794586358.0594714,
+    "ast_hash": "a80cea44cb4002e293cb1fd9c20ea727",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue-v2/comparacao_64_vs_128.png": {
+    "mtime": 1794585582.0651643,
+    "seen": 1794586358.059472,
+    "ast_hash": "5365885c43b736ba3cb1abb6462ccba3",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue-v2/ferida_de_perto.png": {
+    "mtime": 1794585582.0651643,
+    "seen": 1794586358.0594728,
+    "ast_hash": "3204f1e261daeca9d2b97388d65cbfc4",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue-v2/folha_estagios_v2.png": {
+    "mtime": 1794585582.0651643,
+    "seen": 1794586358.059474,
+    "ast_hash": "c08128287a09deaf24327b8fb109fc9e",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue-v2/molde_guia_estagio_4_alex.png": {
+    "mtime": 1794585582.0651643,
+    "seen": 1794586358.0594747,
+    "ast_hash": "ce735c4276fa8fb653c8a9b1a84731b4",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue-v2/molde_guia_estagio_4_steve.png": {
+    "mtime": 1794585582.0651643,
+    "seen": 1794586358.0594754,
+    "ast_hash": "755849bb67362e7cf988e832da5fb3c6",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue-v2/zoom_estagio_1.png": {
+    "mtime": 1794585582.0651643,
+    "seen": 1794586358.0594761,
+    "ast_hash": "7e12502de83454ae71c682db28523975",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue-v2/zoom_estagio_2.png": {
+    "mtime": 1794585582.06881,
+    "seen": 1794586358.0594773,
+    "ast_hash": "0633d3790c4276491568f674986eea91",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue-v2/zoom_estagio_3.png": {
+    "mtime": 1794585582.06881,
+    "seen": 1794586358.059478,
+    "ast_hash": "1a718620d9f6b34d5c2c71e9a3add108",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue-v2/zoom_estagio_4.png": {
+    "mtime": 1794585582.06881,
+    "seen": 1794586358.0594788,
+    "ast_hash": "f6854a1a7cb63d1be82e07e500ef47c4",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue/estagio_1.png": {
+    "mtime": 1794585582.06881,
+    "seen": 1794586358.0594795,
+    "ast_hash": "66d27416b203a0e1d6a63e7b1bd9a87c",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue/estagio_2.png": {
+    "mtime": 1794585582.074141,
+    "seen": 1794586358.0594804,
+    "ast_hash": "dd5df0babbbfabbd5eada614772c6e6f",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue/estagio_3.png": {
+    "mtime": 1794585582.074141,
+    "seen": 1794586358.0594811,
+    "ast_hash": "432bd0fcc08142feccbd7f919e47cb4e",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue/estagio_4.png": {
+    "mtime": 1794585582.074141,
+    "seen": 1794586358.059482,
+    "ast_hash": "3a5accd054b0fd9396f9215c53781aa8",
+    "semantic_hash": ""
+  },
+  "arte/previas/marca-sangue/folha_estagios.png": {
+    "mtime": 1794585582.074141,
+    "seen": 1794586358.0594828,
+    "ast_hash": "04001e46ae5882c1fee6bb4a6589c5d3",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/00_vista_de_cima.png": {
+    "mtime": 1794585582.0774767,
+    "seen": 1794586358.0594838,
+    "ast_hash": "ff31cb0d376be1d792b43317d7a2dc5d",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/01_iso_sudeste.png": {
+    "mtime": 1794585582.0800824,
+    "seen": 1794586358.0594847,
+    "ast_hash": "3a3bb202b24c3544fa4102e465f7eaf9",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/02_iso_noroeste.png": {
+    "mtime": 1794585582.08081,
+    "seen": 1794586358.0594854,
+    "ast_hash": "a382f1b3a0fc0d02f223615b14350b80",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/capela_campanario_noroeste.png": {
+    "mtime": 1794585582.08081,
+    "seen": 1794586358.0594862,
+    "ast_hash": "9ae04e0dbdaeb560d6a5df57e8a6c69f",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/capela_campanario_sudeste.png": {
+    "mtime": 1794585582.08481,
+    "seen": 1794586358.0594869,
+    "ast_hash": "4fe2246f74804766a695132253140f4f",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/capela_corte_interior.png": {
+    "mtime": 1794585582.08481,
+    "seen": 1794586358.0594878,
+    "ast_hash": "4de2fd76ac29ca56a231a4ccc55686de",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/casa_cama_manchada_noroeste.png": {
+    "mtime": 1794585582.08481,
+    "seen": 1794586358.0594888,
+    "ast_hash": "26fabe1c74c53c4a46423f21f91384ce",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/casa_cama_manchada_sudeste.png": {
+    "mtime": 1794585582.08481,
+    "seen": 1794586358.0594895,
+    "ast_hash": "69f5ddc78083ab4588dc28e2ca9ede28",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/casa_compadre_noroeste.png": {
+    "mtime": 1794585582.08481,
+    "seen": 1794586358.0594902,
+    "ast_hash": "9ee27b188e6fb7d7ad99b532193e2076",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/casa_compadre_sudeste.png": {
+    "mtime": 1794585582.08481,
+    "seen": 1794586358.0594912,
+    "ast_hash": "d8e1f998250f50c779fa50f4f08591d3",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/casa_ferreiro_noroeste.png": {
+    "mtime": 1794585582.08481,
+    "seen": 1794586358.059492,
+    "ast_hash": "f90a5784067add08c887753fd7e65eae",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/casa_ferreiro_sudeste.png": {
+    "mtime": 1794585582.08481,
+    "seen": 1794586358.0594928,
+    "ast_hash": "687e9329319a9488d84525afd6fd80b0",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/casa_moca_terco_noroeste.png": {
+    "mtime": 1794585582.08481,
+    "seen": 1794586358.0594935,
+    "ast_hash": "7b60c2d5bedd8a4912c84f6713ad7b32",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/casa_moca_terco_sudeste.png": {
+    "mtime": 1794585582.08481,
+    "seen": 1794586358.0594947,
+    "ast_hash": "8f4acb3af9bb86e768cfaed8e5e2a02a",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/curral_noroeste.png": {
+    "mtime": 1794585582.08481,
+    "seen": 1794586358.0594954,
+    "ast_hash": "20802861da3a33780014eb2e3052ae16",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/curral_sudeste.png": {
+    "mtime": 1794585582.08481,
+    "seen": 1794586358.0594964,
+    "ast_hash": "998f59f7473cbee0883e823f2dbdadf8",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/entrada_sul_noroeste.png": {
+    "mtime": 1794585582.08481,
+    "seen": 1794586358.059497,
+    "ast_hash": "48186c96cc865da7250901d26b6a2afb",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/entrada_sul_sudeste.png": {
+    "mtime": 1794585582.08881,
+    "seen": 1794586358.0594983,
+    "ast_hash": "7ac05bb99a9d0bdecbd107f6d0a65299",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/poco_praca_noroeste.png": {
+    "mtime": 1794585582.08881,
+    "seen": 1794586358.059499,
+    "ast_hash": "e135f77d8b534459023298718b374782",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-100/poco_praca_sudeste.png": {
+    "mtime": 1794585582.08881,
+    "seen": 1794586358.0594997,
+    "ast_hash": "d064ad172f3e43049203910cf3fb1e76",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/00_vista_de_cima.png": {
+    "mtime": 1794585582.09681,
+    "seen": 1794586358.0595007,
+    "ast_hash": "c85793b39c99a140636929abce355571",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/01_iso_sudeste.png": {
+    "mtime": 1794585582.1088102,
+    "seen": 1794586358.0595016,
+    "ast_hash": "0e2bc66cb1ea5c06a934a371301df0c3",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/02_iso_noroeste.png": {
+    "mtime": 1794585582.12081,
+    "seen": 1794586358.0595024,
+    "ast_hash": "ba4d0cdd5a4ddd5c1dee87bc7de2b50f",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/campo_espantalho_noroeste.png": {
+    "mtime": 1794585582.12481,
+    "seen": 1794586358.0595033,
+    "ast_hash": "4262707e6716c0a004427c96c14c232f",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/campo_espantalho_sudeste.png": {
+    "mtime": 1794585582.12481,
+    "seen": 1794586358.059504,
+    "ast_hash": "dca9bc895481a5a3a3f53ea88860cffe",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/cemiterio_noroeste.png": {
+    "mtime": 1794585582.13281,
+    "seen": 1794586358.059505,
+    "ast_hash": "befc2d98848d7b470425cf0a0a95d8e8",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/cemiterio_sudeste.png": {
+    "mtime": 1794585582.13681,
+    "seen": 1794586358.0595057,
+    "ast_hash": "f24a341cbe1792a30fdabf3d3fa7b0ae",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/estrada_carroca_noroeste.png": {
+    "mtime": 1794585582.14081,
+    "seen": 1794586358.0595067,
+    "ast_hash": "37b8341d20f328fa93e4cd45c6b7122f",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/estrada_carroca_sudeste.png": {
+    "mtime": 1794585582.14081,
+    "seen": 1794586358.0595074,
+    "ast_hash": "f2d9016ab96da7e148e8f0b14af416fd",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/pasto_leste_noroeste.png": {
+    "mtime": 1794585582.1491709,
+    "seen": 1794586358.0595083,
+    "ast_hash": "ce29bdcd0e47a46e48b1ce4f010f2b61",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/pasto_leste_sudeste.png": {
+    "mtime": 1794585582.1491709,
+    "seen": 1794586358.0595093,
+    "ast_hash": "889439c9a57f31b2d25ee772c1c759b4",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/poco_fora_noroeste.png": {
+    "mtime": 1794585582.15281,
+    "seen": 1794586358.05951,
+    "ast_hash": "0b181f2a2219bdc70c74238c3ae35f93",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/poco_fora_sudeste.png": {
+    "mtime": 1794585582.15681,
+    "seen": 1794586358.0595107,
+    "ast_hash": "12aa31ffc855346907298b2e1337aff2",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/trilha_floresta_noroeste.png": {
+    "mtime": 1794585582.1648102,
+    "seen": 1794586358.0595117,
+    "ast_hash": "f604d51e7122de78071d79e6cd17cf6c",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada-150/trilha_floresta_sudeste.png": {
+    "mtime": 1794585582.17281,
+    "seen": 1794586358.0595124,
+    "ast_hash": "62d4d415f91a4b8fec380559a74aa943",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada/previas/atril_previa.svg": {
+    "mtime": 1794585582.181065,
+    "seen": 1794586358.059513,
+    "ast_hash": "606ddd6d1167d528da99788a2bacc883",
+    "semantic_hash": ""
+  },
+  "arte/vila-calada/previas/faminto_previa.svg": {
+    "mtime": 1794585582.1834261,
+    "seen": 1794586358.059514,
+    "ast_hash": "8637694f1da289b67a6142ff49ee97b0",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/magarefe.png": {
+    "mtime": 1794585582.3063362,
+    "seen": 1794586358.0595148,
+    "ast_hash": "eeef0b676b69835f8b081798eaf76d12",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/marca_sangue/estagio_1.png": {
+    "mtime": 1794585582.306727,
+    "seen": 1794586358.0595157,
+    "ast_hash": "90f7c01a89d2f1c6b2a7c39689adbdbb",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/marca_sangue/estagio_1_alex.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.0595164,
+    "ast_hash": "66326b549b4793b250efbdde5182fab0",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/marca_sangue/estagio_1_brilho.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.0595171,
+    "ast_hash": "8d672ea6d7c712c84ef3f4399d387207",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/marca_sangue/estagio_1_brilho_alex.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.059518,
+    "ast_hash": "8d672ea6d7c712c84ef3f4399d387207",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/marca_sangue/estagio_2.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.0595193,
+    "ast_hash": "8c62e460e052d630cc76ca68f6741d77",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/marca_sangue/estagio_2_alex.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.0595202,
+    "ast_hash": "5755732b69b67f7e3e47a7aebe51c4c1",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/marca_sangue/estagio_2_brilho.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.059521,
+    "ast_hash": "c52ec440742e0e34b3a9c9c6f5095499",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/marca_sangue/estagio_2_brilho_alex.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.0595217,
+    "ast_hash": "4b73b4fef72b94adb6938fd0def740a8",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/marca_sangue/estagio_3.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.0595226,
+    "ast_hash": "c93c55eec2fdaea6945e715aecd17e95",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/marca_sangue/estagio_3_alex.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.0595233,
+    "ast_hash": "6f025aaf5d185a9321ae46a0a17e9542",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/marca_sangue/estagio_3_brilho.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.0595243,
+    "ast_hash": "feb8f374801f529b5957a2530d14fb6f",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/marca_sangue/estagio_3_brilho_alex.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.059525,
+    "ast_hash": "3f6ead21d62bf8dec3826c205b910aca",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/marca_sangue/estagio_4.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.059526,
+    "ast_hash": "385d446fae9d837d4c35352996c81bd2",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/marca_sangue/estagio_4_alex.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.0595267,
+    "ast_hash": "385e1406698a263760d56baa562c04cd",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/marca_sangue/estagio_4_brilho.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.0595276,
+    "ast_hash": "c70386595d9f8b89a76ef7bb7c1589ca",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/marca_sangue/estagio_4_brilho_alex.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.0595284,
+    "ast_hash": "ab770e1dc6a72db029ab9eedf5e2cf73",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/retalhado.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.0595293,
+    "ast_hash": "3c7c69515e05b97361da5bc9e823f8dd",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/retalhado_b.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.0595303,
+    "ast_hash": "11a2f4dbfa9b8ebb618ef31a0e11c254",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/retalhado_b_glowmask.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.059531,
+    "ast_hash": "0e8fb27439b35c60b12bdff1728aff5c",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/retalhado_glowmask.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.0595317,
+    "ast_hash": "0e8fb27439b35c60b12bdff1728aff5c",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/sanguessuga_mae.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.0595326,
+    "ast_hash": "1de41171ef23181a22bca6c1903daa41",
+    "semantic_hash": ""
+  },
+  "src/main/resources/assets/odteste/textures/entity/sanguessuga_mae_b.png": {
+    "mtime": 1794585582.306794,
+    "seen": 1794586358.0595336,
+    "ast_hash": "9f50413fa04f7d9bcefb9908dc00f00b",
+    "semantic_hash": ""
   }
 }
