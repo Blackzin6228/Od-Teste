@@ -1,6 +1,7 @@
 package com.nikolas.odteste.dados;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.nikolas.odteste.elementos.Elemento;
 import com.nikolas.odteste.rede.MarcaVisivel;
 import com.nikolas.odteste.rede.SincronizarJogador;
@@ -107,7 +108,31 @@ public final class DadosJogador {
                     .copyOnDeath()
                     .build());
 
+    /** Cansaço do elemento: dia de jogo (gameTime / 24000) e matérias brutas ganhas nele. Não vai para o cliente. */
+    public record Cansaco(long dia, int brutas) {
+        public static final Cansaco NADA = new Cansaco(-1L, 0);
+        static final Codec<Cansaco> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.LONG.fieldOf("dia").forGetter(Cansaco::dia),
+                Codec.INT.fieldOf("brutas").forGetter(Cansaco::brutas)
+        ).apply(i, (dia, brutas) -> new Cansaco(dia, Math.max(0, brutas))));
+    }
+
+    public static final Supplier<AttachmentType<Cansaco>> CANSACO = Registro.DADOS.register(
+            IdsDados.CANSACO_ELEMENTO,
+            () -> AttachmentType.builder(() -> Cansaco.NADA)
+                    .serialize(Cansaco.CODEC)
+                    .copyOnDeath()
+                    .build());
+
     private DadosJogador() {}
+
+    public static Cansaco cansaco(Player p) {
+        return p.getData(CANSACO);
+    }
+
+    public static void definirCansaco(Player p, long dia, int brutas) {
+        p.setData(CANSACO, new Cansaco(dia, Math.max(0, brutas)));
+    }
 
     /** Elemento do jogador (nenhum se o admin não definiu). Use sistemas.ElementoJogador para mudar. */
     public static Elemento elemento(Player p) {

@@ -186,3 +186,11 @@ O `id` da fonte (ex.: `sino_vila_calada`) é escolhido por quem registra (`Sinai
 Marcadores de texto dos eventos (não ficam salvos, mas os textos da Lore usam): `escolhido_sangue`,
 `escolhido_conhecimento`, `escolhido_morte`, `escolhido_energia` (nome de quem é daquele elemento no grupo;
 `ElementoJogador.marcadores`).
+
+Balanceamento tech: matéria e eventos (2026-11-13, `docs/decisoes/2026-11-13-balanceamento-tech.md`):
+| ID | Tipo | Desde | Observação |
+|---|---|---|---|
+| `odteste:cansaco_elemento` | dado do jogador (objeto `{dia: long, brutas: int}`) | 2026-11-13 | cansaço do elemento: dia de jogo (`gameTime / 24000`) e matérias brutas ganhas nele; depois de 8 no dia a chance de cada unidade cai à metade, depois de 16 a um quarto; dia diferente conta como 0. Sobrevive à morte; não vai para o cliente; jogador antigo começa sem nada (`dia: -1`). Chaves dentro do dado também não mudam: `dia`, `brutas` |
+
+Chaves de texto (não salvas): `odteste.cansaco.1`, `odteste.cansaco.2`. Os eventos de Energia
+(`sistemas/EventoEnergia`: `CASA_OCUPADA`, `APAGAO`, `FOME_DA_LINHA`) não são salvos por nome.

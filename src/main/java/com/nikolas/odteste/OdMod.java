@@ -13,6 +13,7 @@ import com.nikolas.odteste.historia.vilacalada.ClimaVilaCalada;
 import com.nikolas.odteste.historia.vilacalada.PistasVilaCalada;
 import com.nikolas.odteste.cenas.Cenas;
 import com.nikolas.odteste.compat.Compat;
+import com.nikolas.odteste.criaturas.CansacoDoElemento;
 import com.nikolas.odteste.criaturas.Criaturas;
 import com.nikolas.odteste.dados.DadosJogador;
 import com.nikolas.odteste.efeitos.Sangramento;
@@ -44,6 +45,7 @@ public final class OdMod {
         Itens.iniciar();
         BlocosCapela.iniciar();
         Criaturas.iniciar(barramento);
+        CansacoDoElemento.iniciar();
         Aparelhos.iniciar(barramento);
         Registro.registrar(barramento);
         Rede.iniciar(barramento);

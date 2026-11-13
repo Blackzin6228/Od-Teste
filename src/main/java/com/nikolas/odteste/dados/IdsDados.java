@@ -30,10 +30,13 @@ public final class IdsDados {
     /** Se a história já revelou o elemento ao jogador. Nunca vai para o cliente. */
     public static final String ELEMENTO_REVELADO = "elemento_revelado";
 
+    /** Cansaço do elemento: dia de jogo e matérias brutas ganhas nele (metade depois de 8, um quarto depois de 16). */
+    public static final String CANSACO_ELEMENTO = "cansaco_elemento";
+
     public static final List<String> TODOS = List.of(
             EXPOSICAO, LUCIDEZ, LUCIDEZ_MAX, MARCA_ELEMENTO, MARCA_ESTAGIO, TRANSCENDER_NIVEL,
             EXPOSICAO_RESTO, CONTATO_ELEMENTO, EXPOSICAO_REPETICAO, ARTEFATO_RECARGA, CRIATURA_NOITE,
-            ELEMENTO, ELEMENTO_REVELADO);
+            ELEMENTO, ELEMENTO_REVELADO, CANSACO_ELEMENTO);
 
     // ---------- Play test de Sangue, parte 2: conteúdo ----------
 
