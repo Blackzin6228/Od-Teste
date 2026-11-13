@@ -24,8 +24,8 @@ import net.neoforged.neoforge.client.event.ViewportEvent;
  * <li><b>Sons:</b> vento, madeira rangendo, arrasto ao longe. Vanilla, tom 0,5-0,7, um a cada 25-70 s.</li>
  * <li><b>O Pendurado:</b> só para o jogador de maior Exposição do grupo ({@link Pendurado}), a cada 3-6 min.</li>
  * </ul>
- * {@code efeitos_fortes}: SUAVE = névoa e cinza pela metade, Pendurado some em 1 s. DESLIGADO = só os sons
- * (sem névoa, cinza nem Pendurado), igual às outras alucinações que se veem. Nenhum número na tela.
+ * {@code efeitos_fortes}: SUAVE = névoa e cinza pela metade, Pendurado some em 1 s. DESLIGADO = sons e névoa
+ * (no nível do SUAVE; sem cinza nem Pendurado), igual às outras alucinações que se veem. Nenhum número na tela.
  *
  * Sem lag: por tick, só contas simples e no máximo uma partícula; sons e Pendurado são decididos uma vez por segundo.
  */
@@ -150,9 +150,14 @@ final class ClimaVilaCliente {
         return fator * forca();
     }
 
+    /** A névoa não dá tontura: fica sempre, no mínimo como no SUAVE (decisão de 13/11/2026). */
+    private static float fatorNevoa() {
+        return fator * Math.max(forca(), 0.5f);
+    }
+
     /** Cor da névoa puxada para o vermelho do Sangue. Só no ar (debaixo d'água ou na lava, o jogo manda). */
     static void aoCorDaNevoa(ViewportEvent.ComputeFogColor e) {
-        float f = fatorVisivel();
+        float f = fatorNevoa();
         if (f <= 0.001f || e.getCamera().getFluidInCamera() != FogType.NONE) return;
         float m = RegrasClimaVila.mistura(f, noite);
         e.setRed(RegrasClimaVila.misturarCanal(e.getRed(), 16, m));
@@ -162,7 +167,7 @@ final class ClimaVilaCliente {
 
     /** A névoa chega mais perto. Nunca mais longe do que o jogo já ia pôr (cegueira, escuridão continuam valendo). */
     static void aoNevoa(ViewportEvent.RenderFog e) {
-        float f = fatorVisivel();
+        float f = fatorNevoa();
         if (f <= 0.001f || e.getType() != FogType.NONE) return;
         float normal = e.getFarPlaneDistance();
         float longe = RegrasClimaVila.alcance(normal, f, noite);
