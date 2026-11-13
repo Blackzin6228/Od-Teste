@@ -139,9 +139,9 @@
     "semantic_hash": "9fd29aab90413b1078a14addca5275b2"
   },
   "src/main/java/com/nikolas/odteste/compat/Compat.java": {
-    "mtime": 1794586234.624748,
-    "seen": 1794586358.0590713,
-    "ast_hash": "14775a27346eb24955f5e2340ff9c795",
+    "mtime": 1794590781.5962884,
+    "seen": 1794590863.1216226,
+    "ast_hash": "c902bc0bd7804ab355bb56ace825e25a",
     "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/compat/emi/EsconderNoEmi.java": {
@@ -193,9 +193,9 @@
     "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/criaturas/RegrasCriaturas.java": {
-    "mtime": 1794586230.6807485,
-    "seen": 1794586358.0590823,
-    "ast_hash": "ff7455e19edb1d188176a1bbfc9baaa1",
+    "mtime": 1794590793.224288,
+    "seen": 1794590863.1216347,
+    "ast_hash": "ba0d0640a41d1b62a0173193759ac55c",
     "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/criaturas/Retalhado.java": {
@@ -223,9 +223,9 @@
     "semantic_hash": "f9f3b946b04a3d9c2ff419416e595083"
   },
   "src/main/java/com/nikolas/odteste/dados/IdsDados.java": {
-    "mtime": 1794586066.1487644,
-    "seen": 1794586358.0590873,
-    "ast_hash": "a0bded412dd366f6f97895b3ffc8bd8b",
+    "mtime": 1794590750.7122922,
+    "seen": 1794590863.1216402,
+    "ast_hash": "1498b3512ea3d5a8936a1ad19d1d6eca",
     "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/dados/Limites.java": {
@@ -523,9 +523,9 @@
     "semantic_hash": "441baec0830d4ac4facefe14c5321d45"
   },
   "src/main/java/com/nikolas/odteste/sistemas/Paranormal.java": {
-    "mtime": 1794586057.2047646,
-    "seen": 1794586358.0591671,
-    "ast_hash": "6aa4c9ec6f0be200d2c1320630ded31f",
+    "mtime": 1794590743.040293,
+    "seen": 1794590863.1218073,
+    "ast_hash": "d7994cc8301df4b1ac9335a4ad734019",
     "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/sistemas/Reacoes.java": {
@@ -547,9 +547,9 @@
     "semantic_hash": "36047e7e055ba1a5038f7061ec73d9e9"
   },
   "src/main/java/com/nikolas/odteste/sistemas/RegrasLucidez.java": {
-    "mtime": 1794586248.0327466,
-    "seen": 1794586358.059173,
-    "ast_hash": "b3c5a961202fd92fb6bc623b0560b376",
+    "mtime": 1794586715.328702,
+    "seen": 1794590863.1218166,
+    "ast_hash": "16fe9e2ef0c1f1b08427291f6bf2c4a1",
     "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/sistemas/RegrasMarca.java": {
@@ -607,15 +607,15 @@
     "semantic_hash": ""
   },
   "src/main/resources/assets/odteste/lang/en_us.json": {
-    "mtime": 1794586216.6367497,
-    "seen": 1794586358.0591881,
-    "ast_hash": "7d36af8ac7b114acb9a2a577133bf4fe",
+    "mtime": 1794590795.5322876,
+    "seen": 1794590863.1218367,
+    "ast_hash": "59bb66d9a4bf75afed23d93126fa9a89",
     "semantic_hash": ""
   },
   "src/main/resources/assets/odteste/lang/pt_br.json": {
-    "mtime": 1794586214.90875,
-    "seen": 1794586358.0591893,
-    "ast_hash": "d4c8a2520639d61cb0eb7bfe7324363e",
+    "mtime": 1794590794.4242878,
+    "seen": 1794590863.1218379,
+    "ast_hash": "f6234271504ccd9d26bb2106a443bad5",
     "semantic_hash": ""
   },
   "src/main/resources/assets/odteste/models/item/agulha_de_cerzir_carne.json": {
@@ -1318,12 +1318,6 @@
     "ast_hash": "1309f7ef143c34224cd85ab85f07ee22",
     "semantic_hash": ""
   },
-  "src/main/java/com/nikolas/odteste/compat/torchmaster/TochaNaoProtege.java": {
-    "mtime": 1794586228.1767488,
-    "seen": 1794586358.059079,
-    "ast_hash": "83ae18725e0a7a9aefa0a2aa7a322fb3",
-    "semantic_hash": ""
-  },
   "src/main/java/com/nikolas/odteste/estruturas/ConfigEstruturas.java": {
     "mtime": 1794585582.2636626,
     "seen": 1794586358.059096,
@@ -1541,9 +1535,9 @@
     "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/sistemas/Combate.java": {
-    "mtime": 1794586082.9207628,
-    "seen": 1794586358.059157,
-    "ast_hash": "0437d62d55fcc3e0134edbe360955fb2",
+    "mtime": 1794590740.0802932,
+    "seen": 1794590863.1217918,
+    "ast_hash": "acf10af5d95c22e971332d8f39d42f06",
     "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/sistemas/Contencao.java": {
@@ -1553,15 +1547,15 @@
     "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/sistemas/RegrasCombate.java": {
-    "mtime": 1794586031.271355,
-    "seen": 1794586358.0591695,
-    "ast_hash": "828ad8c0fccd07e0523ef3417a8bfa66",
+    "mtime": 1794590729.6642945,
+    "seen": 1794590863.1218112,
+    "ast_hash": "d57ff8d7eaaf89b192c9db4b6d5c9511",
     "semantic_hash": ""
   },
   "src/main/java/com/nikolas/odteste/sistemas/RegrasContencao.java": {
-    "mtime": 1794586168.5767548,
-    "seen": 1794586358.0591702,
-    "ast_hash": "14537819b8a908b566736cfcf21a2890",
+    "mtime": 1794590830.1922836,
+    "seen": 1794590863.121812,
+    "ast_hash": "e95a9a32a7c7303776287c6b82b3c4a5",
     "semantic_hash": ""
   },
   "src/main/resources/assets/odteste/animations/entity/magarefe.animation.json": {
@@ -1787,9 +1781,9 @@
     "semantic_hash": ""
   },
   "src/test/java/com/nikolas/odteste/sistemas/RegrasCombateTest.java": {
-    "mtime": 1794586293.2847424,
-    "seen": 1794586358.0592456,
-    "ast_hash": "36ae10b84128fa025bc638188e564022",
+    "mtime": 1794590823.8522844,
+    "seen": 1794590863.1219335,
+    "ast_hash": "475c832ecee61e7cc9df2b613c3fd8d4",
     "semantic_hash": ""
   },
   ".claude/agents/dev.md": {
@@ -2189,9 +2183,9 @@
     "semantic_hash": ""
   },
   "docs/ids.md": {
-    "mtime": 1794586313.0567403,
-    "seen": 1794586358.059307,
-    "ast_hash": "d0b9c4e1d082fde34c87e9418a41a909",
+    "mtime": 1794590803.0562868,
+    "seen": 1794590863.1220195,
+    "ast_hash": "4e83d1d4e9776496f2169d70ac36e01a",
     "semantic_hash": ""
   },
   "docs/integracoes.md": {
@@ -2225,9 +2219,9 @@
     "semantic_hash": ""
   },
   "docs/progresso.md": {
-    "mtime": 1794586324.2407389,
-    "seen": 1794586358.059312,
-    "ast_hash": "100cd22b4e00f5c959e6bdf23cacc855",
+    "mtime": 1794590840.9482825,
+    "seen": 1794590863.1220264,
+    "ast_hash": "36b0853e90db4a42a692dca05a00e356",
     "semantic_hash": ""
   },
   "docs/referencia-mascaras.md": {
@@ -3800,6 +3794,18 @@
     "mtime": 1794585582.306794,
     "seen": 1794586358.0595336,
     "ast_hash": "9f50413fa04f7d9bcefb9908dc00f00b",
+    "semantic_hash": ""
+  },
+  "src/main/resources/data/odteste/tags/damage_type/magia.json": {
+    "mtime": 1794590776.204289,
+    "seen": 1794590863.1218972,
+    "ast_hash": "ee557260ed3d81b86f3ca96a387de2b9",
+    "semantic_hash": ""
+  },
+  "docs/decisoes/2026-11-13-balanceamento-ajustes.md": {
+    "mtime": 1794590847.4482818,
+    "seen": 1794590863.1220005,
+    "ast_hash": "71db3ac3a6244ebfbbcbc20f7ae100df",
     "semantic_hash": ""
   }
 }

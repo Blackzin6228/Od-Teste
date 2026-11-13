@@ -14,8 +14,9 @@ import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 /**
  * Balanceamento de combate (RegrasCombate), num lugar só, no começo do dano (antes da armadura):
  * 1) golpe de arma paranormal nunca passa de 20;
- * 2) criatura nossa: dano paranormal (tag, criatura nossa ou golpe de arma paranormal) x2; comum perde a resistência;
- * 3) jogador com traje A4/A5 completo segura parte do dano paranormal e do que ignora armadura.
+ * 2) criatura nossa: dano paranormal (tag, criatura nossa ou golpe de arma paranormal) x2; magia (tag
+ *    {@code odteste:magia}) entra inteira; comum perde a resistência;
+ * 3) jogador com traje A4/A5 completo segura parte do dano paranormal e do dano comum.
  * Nunca mexe em {@code /kill}, vazio e afins (tag {@code minecraft:bypasses_invulnerability}).
  * Sem lag: é só um evento de dano, com contas e duas checagens de tag.
  */
@@ -40,13 +41,12 @@ public final class Combate {
         if (arma) dano = RegrasCombate.golpeDeArma(dano);
 
         if (alvo instanceof CriaturaDeSangue criatura) {
-            dano = RegrasCombate.contraCriatura(dano, arma || Paranormal.dano(fonte), criatura.raridade());
+            dano = RegrasCombate.contraCriatura(dano, arma || Paranormal.dano(fonte), fonte.is(Paranormal.MAGIA),
+                    criatura.raridade());
         } else if (alvo instanceof Player p) {
             int grau = grauDoTraje(p);
             if (grau >= 4) {
-                int absorcao = RegrasCombate.absorcaoTraje(grau, Paranormal.dano(fonte),
-                        fonte.is(DamageTypeTags.BYPASSES_ARMOR));
-                dano = RegrasCombate.depoisDoTraje(dano, absorcao);
+                dano = RegrasCombate.depoisDoTraje(dano, RegrasCombate.absorcaoTraje(grau, Paranormal.dano(fonte)));
             }
         }
         if (dano != e.getAmount()) e.setAmount(dano);

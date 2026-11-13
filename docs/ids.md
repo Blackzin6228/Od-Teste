@@ -144,11 +144,12 @@ Balanceamento tech: combate e proteção (2026-11-13, `docs/decisoes/2026-11-13-
 | ID | Tipo | Desde | Observação |
 |---|---|---|---|
 | `odteste:arma_paranormal` | tag de item (`data/odteste/tags/item/arma_paranormal.json`, `"replace": false`) | 2026-11-13 | golpe com teto de 20; contra criatura nossa conta como paranormal (x2). Hoje só a Rubra |
+| `odteste:magia` | tag de tipo de dano (`data/odteste/tags/damage_type/magia.json`, `"replace": false`) | 2026-11-13 | magia de outros mods passa por cima da resistência das criaturas nossas (0/30/60%). Só entradas opcionais: tags de escola do Iron's e os danos do Ars Nouveau. Fora de propósito: `neoforge:is_magic` (traz espinhos, veneno, wither e poção) |
 | `odteste:contencao_voo` | modificador de atributo (`neoforge:creative_flight`, −1000) | 2026-11-13 | temporário (não fica salvo); só nas dimensões `odteste:` e durante perseguição, tira o voo dado por outros mods |
 | `/odteste perseguicao comecar <jogadores> <segundos>`, `/odteste perseguicao parar <jogadores>` | comando de admin (permissão 2) | 2026-11-13 | perseguição de 1 s a 30 min: teleporte e voo falham ("Algo segura você aqui"). Só em memória: reiniciar solta |
 
 Nada novo é salvo por esta parte. Dimensão nossa = qualquer dimensão com namespace `odteste` (nenhuma existe ainda).
-Chaves de texto (não salvas): `odteste.contencao.preso`, `odteste.contencao.tocha`, `odteste.comando.perseguicao.*`.
+Chaves de texto (não salvas): `odteste.contencao.preso`, `odteste.comando.perseguicao.*`.
 
 Fontes de Exposição (usadas no comando `/exposicao contato` e no freio de repetição). Ficam salvas dentro de
 `odteste:exposicao_repeticao` como `fonte/elemento` (ex.: `criatura_vista/sangue`), então também não mudam:

@@ -106,7 +106,6 @@
   "death.attack.odteste.paranormal.player": "%1$s foi levado pelo outro lado fugindo de %2$s",
   "death.attack.odteste.paranormal.item": "%1$s foi levado pelo outro lado. %2$s segurava %3$s",
   "odteste.contencao.preso": "Algo segura você aqui.",
-  "odteste.contencao.tocha": "A luz da tocha não alcança mais você.",
   "odteste.comando.perseguicao.comecar": "Perseguição ligada para %s jogador(es) por %s s: teleporte e voo falham.",
   "odteste.comando.perseguicao.parar": "Perseguição desligada para %s jogador(es).",
   "item.odteste.ritual.chamado_de_sangue": "Ritual: Chamado de Sangue",

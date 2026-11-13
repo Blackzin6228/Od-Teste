@@ -1,7 +1,6 @@
 {
   "3": "Busca de Espaço",
   "5": "Grupos de Jogadores",
-  "6": "Blocos e Pacotes de Mundo",
   "7": "Ouvinte do Primeiro Sinal",
   "8": "Workflow de Compilação CI",
   "10": "Faixas de Lucidez",
@@ -21,7 +20,6 @@
   "47": "Marca de Sangue",
   "49": "Testes de Regras de Elemento",
   "53": "Tipos de Momento",
-  "54": "Repetição de Eventos",
   "55": "Testes de Consistência",
   "56": "Script Gradle Wrapper",
   "58": "Script Baixar Libs",

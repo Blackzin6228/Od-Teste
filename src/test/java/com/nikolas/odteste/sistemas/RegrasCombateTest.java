@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 
-/** Balanceamento tech (decisão de 13/11/2026): armas, criaturas, traje, luz, tocha e "algo segura você aqui". */
+/** Balanceamento tech (decisões de 13/11/2026): armas, criaturas, magia, traje, luz, tocha e "algo segura você aqui". */
 class RegrasCombateTest {
 
     @Test
@@ -26,31 +26,53 @@ class RegrasCombateTest {
 
     @Test
     void criaturaNossa() {
-        // Paranormal dobra, em qualquer raridade.
-        assertEquals(20f, RegrasCombate.contraCriatura(10f, true, Raridade.CHEFE));
+        // Paranormal dobra, em qualquer raridade (mesmo se também for magia).
+        assertEquals(20f, RegrasCombate.contraCriatura(10f, true, false, Raridade.CHEFE));
+        assertEquals(20f, RegrasCombate.contraCriatura(10f, true, true, Raridade.CHEFE));
         // Comum perde a resistência: 0 / 30 / 60%.
-        assertEquals(10f, RegrasCombate.contraCriatura(10f, false, Raridade.COMUM), 1e-4);
-        assertEquals(7f, RegrasCombate.contraCriatura(10f, false, Raridade.RARA), 1e-4);
-        assertEquals(4f, RegrasCombate.contraCriatura(10f, false, Raridade.CHEFE), 1e-4);
-        assertEquals(10f, RegrasCombate.contraCriatura(10f, false, null), 1e-4);
-        assertEquals(0f, RegrasCombate.contraCriatura(Float.NaN, true, Raridade.RARA));
+        assertEquals(10f, RegrasCombate.contraCriatura(10f, false, false, Raridade.COMUM), 1e-4);
+        assertEquals(7f, RegrasCombate.contraCriatura(10f, false, false, Raridade.RARA), 1e-4);
+        assertEquals(4f, RegrasCombate.contraCriatura(10f, false, false, Raridade.CHEFE), 1e-4);
+        assertEquals(10f, RegrasCombate.contraCriatura(10f, false, false, null), 1e-4);
+        assertEquals(0f, RegrasCombate.contraCriatura(Float.NaN, true, false, Raridade.RARA));
         // Arma nossa no teto contra criatura nossa: 20 x 2 = 40.
-        assertEquals(40f, RegrasCombate.contraCriatura(RegrasCombate.golpeDeArma(30f), true, Raridade.COMUM));
+        assertEquals(40f, RegrasCombate.contraCriatura(RegrasCombate.golpeDeArma(30f), true, false, Raridade.COMUM));
+    }
+
+    @Test
+    void magiaPassaPorCimaDaResistencia() {
+        // Resposta do Nikolas (13/11/2026): o técnico precisa do mago. Magia entra inteira, sem o x2 do paranormal.
+        for (Raridade r : Raridade.values()) {
+            assertEquals(10f, RegrasCombate.contraCriatura(10f, false, true, r), 1e-4, "magia contra " + r);
+        }
+        assertEquals(0f, RegrasCombate.contraCriatura(-2f, false, true, Raridade.CHEFE));
+    }
+
+    @Test
+    void magiaNaTagSoComEntradasOpcionais() throws Exception {
+        String magia = Files.readString(Path.of("src/main/resources/data/odteste/tags/damage_type/magia.json"));
+        assertTrue(magia.matches("(?s).*\"replace\"\\s*:\\s*false.*"));
+        assertTrue(magia.contains("\"#irons_spellbooks:fire_magic\""));
+        assertTrue(magia.contains("\"ars_nouveau:spell\""));
+        // Toda entrada é de outro mod: precisa ser opcional, senão a tag quebra sem o mod no pack.
+        int entradas = magia.split("\"id\"", -1).length - 1;
+        int opcionais = magia.split("\"required\"\\s*:\\s*false", -1).length - 1;
+        assertEquals(entradas, opcionais, "toda entrada da tag magia precisa de \"required\": false");
+        // neoforge:is_magic traz espinhos, veneno, wither e poção de dano: não é magia de mod.
+        assertFalse(magia.contains("neoforge:is_magic"));
+        assertFalse(magia.contains("\"minecraft:"));
     }
 
     @Test
     void traje() {
         // Abaixo de A4, nada aqui (a armadura de pontos cuida).
-        assertEquals(0, RegrasCombate.absorcaoTraje(3, true, true));
-        assertEquals(0, RegrasCombate.absorcaoTraje(0, true, false));
-        // A4 e A5: paranormal 50/70, ignora armadura 15/25, comum 0 (fica com a armadura e a Reserva).
-        assertEquals(50, RegrasCombate.absorcaoTraje(4, true, false));
-        assertEquals(70, RegrasCombate.absorcaoTraje(5, true, false));
-        assertEquals(15, RegrasCombate.absorcaoTraje(4, false, true));
-        assertEquals(25, RegrasCombate.absorcaoTraje(5, false, true));
-        assertEquals(0, RegrasCombate.absorcaoTraje(5, false, false));
-        // Paranormal que também ignora armadura (sangramento): vale o paranormal.
-        assertEquals(70, RegrasCombate.absorcaoTraje(5, true, true));
+        assertEquals(0, RegrasCombate.absorcaoTraje(3, true));
+        assertEquals(0, RegrasCombate.absorcaoTraje(0, false));
+        // A4 e A5 (resposta do Nikolas de 13/11/2026): paranormal 50/70, comum 15/25.
+        assertEquals(50, RegrasCombate.absorcaoTraje(4, true));
+        assertEquals(70, RegrasCombate.absorcaoTraje(5, true));
+        assertEquals(15, RegrasCombate.absorcaoTraje(4, false));
+        assertEquals(25, RegrasCombate.absorcaoTraje(5, false));
         assertEquals(3f, RegrasCombate.depoisDoTraje(10f, 70), 1e-4);
         assertEquals(0f, RegrasCombate.depoisDoTraje(10f, 150), 1e-4);
         assertEquals(10f, RegrasCombate.depoisDoTraje(10f, -5), 1e-4);
@@ -73,6 +95,7 @@ class RegrasCombateTest {
 
     @Test
     void tochaSoProtegeAteExposicaoAlta() {
+        // Só a regra: a ligação com o Torchmaster está pendente (docs/progresso.md).
         assertTrue(RegrasCriaturas.tochaProtege(0));
         assertTrue(RegrasCriaturas.tochaProtege(59));
         assertFalse(RegrasCriaturas.tochaProtege(60));

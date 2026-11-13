@@ -3,7 +3,7 @@ package com.nikolas.odteste.sistemas;
 /**
  * "Algo segura você aqui" (decisão de 13/11/2026): dentro das nossas dimensões e durante uma perseguição,
  * teleporte (/home, Waystones, pérola e afins) e voo falham. No mundo normal, tudo liberado.
- * Java puro, testado em RegrasContencaoTest.
+ * Java puro, testado em RegrasCombateTest.
  */
 public final class RegrasContencao {
     /** Dimensão nossa = dimensão com o namespace do mod (nenhuma existe ainda; as que vierem entram sozinhas). */

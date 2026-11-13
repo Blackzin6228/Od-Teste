@@ -35,6 +35,13 @@ public final class Paranormal {
      */
     public static final TagKey<Item> ARMA = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath(OdMod.MODID, IdsDados.TAG_ARMA_PARANORMAL));
+    /**
+     * Dano de magia de outros mods (Iron's, Ars Nouveau e afins): passa por cima da resistência das criaturas nossas.
+     * Tag {@code odteste:magia}, só com entradas opcionais ({@code required: false}): sem o mod no pack, a entrada
+     * some sozinha e nenhuma classe de outro mod é tocada. Para outro mod de magia, basta acrescentar na tag.
+     */
+    public static final TagKey<DamageType> MAGIA = TagKey.create(Registries.DAMAGE_TYPE,
+            ResourceLocation.fromNamespaceAndPath(OdMod.MODID, IdsDados.TAG_MAGIA));
     /** Tipo de dano paranormal genérico (golpe de criatura nossa; depois, relíquias e eventos). Está na tag. */
     public static final ResourceKey<DamageType> TIPO = ResourceKey.create(Registries.DAMAGE_TYPE,
             ResourceLocation.fromNamespaceAndPath(OdMod.MODID, IdsDados.DANO_PARANORMAL));
