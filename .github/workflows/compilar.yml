@@ -1,9 +1,11 @@
 name: Compilar
 
-# Roda em todo push e em todo Pull Request.
+# Roda em todo Pull Request e quando algo entra no main (não roda duas vezes no mesmo PR).
 # Se não compilar ou um teste falhar, fica vermelho e o PR não entra no main.
+# O teste do servidor (8 min) só roda se o PR mexeu em código ou recursos do mod.
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -18,9 +20,25 @@ jobs:
   compilar:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    outputs:
+      codigo: ${{ steps.mudou.outputs.codigo }}
     steps:
       - name: Baixar o código
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: O PR mexeu em código?
+        id: mudou
+        run: |
+          if [ "${{ github.event_name }}" != "pull_request" ]; then echo "codigo=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          BASE=$(git merge-base "origin/${{ github.base_ref }}" HEAD)
+          if git diff --name-only "$BASE" HEAD | grep -qE '^(src/|build\.gradle|settings\.gradle|gradle\.properties|gradle/|ferramentas/teste_servidor\.sh|ferramentas/baixar_libs\.sh|\.github/)'; then
+            echo "codigo=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "codigo=false" >> "$GITHUB_OUTPUT"
+            echo "Só documentos/arte: o teste do servidor vai pular."
+          fi
 
       - name: Java 21
         uses: actions/setup-java@v4
@@ -53,6 +71,7 @@ jobs:
   servidor:
     name: Ligar servidor com o pack inteiro
     needs: compilar
+    if: needs.compilar.outputs.codigo == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
