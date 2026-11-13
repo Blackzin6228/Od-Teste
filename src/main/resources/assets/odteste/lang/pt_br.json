@@ -115,7 +115,6 @@
   "ritual.odteste.chamado_de_sangue.finished": "O círculo se fecha. Ele veio.",
   "ritual.odteste.chamado_de_sangue.interrupted": "O chamado se partiu.",
   "ritual.odteste.chamado_de_sangue.conditions": "O chamado não pega aqui.",
-
   "odteste.texto.lista": "%s e %s",
   "odteste.ato1.abertura": "%s. Vocês ouviram o sino e entraram. Foi antes. Vocês só esqueceram.",
   "odteste.ato1.troca.1": "Não é fome. É chamado.",
@@ -132,7 +131,6 @@
   "odteste.gatilhos.admin.nao_seguiu_sino": "%1$s não seguiu o sino (%2$s noite(s) parado).",
   "odteste.gatilhos.admin.primeiro_sinal_soltou": "O Primeiro Sinal soltou sozinho para %s (noite de neblina).",
   "odteste.gatilhos.admin.primeiro_sinal_falhou": "O Primeiro Sinal não soltou sozinho para %s: %s Tenta de novo na próxima noite de neblina (este aviso não se repete).",
-
   "odteste.evento.sim": "sim",
   "odteste.evento.nao": "não",
   "odteste.evento.falhou": "falhou (veja o log)",
@@ -152,7 +150,6 @@
   "odteste.evento.erro.aldeao_nao_voltou": "O aldeão do grupo %s não conseguiu voltar (perto de %s %s %s; veja o log). Nada foi desfeito: a vila e o aldeão salvo continuam. Libere o lugar e tente de novo.",
   "odteste.evento.retrancado": "Enigma 1 do grupo %s trancado de novo: placa em branco e sem cera, baú trancado e vazio. Peças de história tiradas do baú: %s.",
   "odteste.historia.itens_soltos": "%s pilha(s) de itens de jogador estavam nos nossos baús e foram soltas no chão (a primeira em %s %s %s).",
-
   "odteste.vila_calada.ver": "Pistas da Vila Calada: %s. Âncora: %s. Estrutura que ancorou: %s. Aldeões virados agora: %s.",
   "odteste.vila_calada.ligado": "ligadas",
   "odteste.vila_calada.desligado": "desligadas",
@@ -166,7 +163,6 @@
   "odteste.vila_calada.marcou_chegada": "Grupo %s marcado como chegou à Vila Calada (pistas de longe param).",
   "odteste.vila_calada.reabriu": "Grupo %s volta a receber as pistas da Vila Calada.",
   "odteste.vila_calada.ancorada_pela_estrutura": "Vila Calada ancorada pela estrutura %s em %s %s %s. Para mudar: /odteste vila_calada ancorar <ponto>.",
-
   "odteste.cena.pular": "Segure %s para pular",
   "odteste.cena.entrada_vila_calada.1": "Vila Calada.",
   "odteste.cena.entrada_vila_calada.2": "O sino ainda toca.",
@@ -174,7 +170,6 @@
   "odteste.cena.cmd.sem_lugar": "%s jogador(es) longe do lugar da cena (sem âncora ou em outra dimensão): tocou onde cada um está, olhando para a frente.",
   "odteste.cena.cmd.esqueceu": "Cena %s esquecida por %s jogador(es): toca de novo no gatilho.",
   "odteste.cena.cmd.desconhecida": "Cena desconhecida: %s.",
-
   "odteste.grupo.erro.nome": "Nome inválido: %s (letras minúsculas, números e _, até 24).",
   "odteste.grupo.erro.existe": "O grupo %s já existe.",
   "odteste.grupo.erro.tem_evento": "O grupo %s tem evento ativo. Desfaça antes de apagar.",
@@ -185,7 +180,6 @@
   "odteste.grupo.apagado": "Grupo %s apagado.",
   "odteste.grupo.nenhum": "Nenhum grupo.",
   "odteste.grupo.ver": "%s: membros %s · marcos %s · evento %s",
-
   "odteste.estrutura.erro.template": "Template não encontrado: %s (arquivo data/<mod>/structure/<id>.nbt).",
   "odteste.estrutura.prever.cabe": "%s cabe aqui (%s blocos). Agora pode usar colocar com o mesmo ponto.",
   "odteste.estrutura.prever.nao_cabe": "%s não cabe aqui: bloqueio em %s %s %s (%s). Nada vai ser colocado neste ponto.",
@@ -226,7 +220,6 @@
   "odteste.estrutura.partes.fase.conferindo": "conferindo",
   "odteste.estrutura.partes.fase.colocando": "colocando",
   "odteste.estrutura.partes.fase.pausada": "pausada",
-
   "odteste.espaco.ar": "falta chão firme embaixo",
   "odteste.espaco.substituivel": "planta substituível",
   "odteste.espaco.ocupado": "bloco ocupado (pode ser construção)",
@@ -235,7 +228,6 @@
   "odteste.espaco.protegido": "chunk com dono (claim)",
   "odteste.espaco.nao_carregado": "chunk não carregado",
   "odteste.espaco.fora_do_mundo": "fora da altura do mundo",
-
   "block.odteste.analisador_sinal": "Analisador de Sinal",
   "odteste.analisador.dica": "Ouve o que o ouvido não pega. Precisa de energia.",
   "odteste.analisador.sem_energia": "O ponteiro nem se mexe. Falta energia.",
@@ -246,7 +238,6 @@
   "odteste.sinal.sino_vila.camada": "NAO ENTREM PELA PORTA DA FRENTE",
   "odteste.sinal.vila_calada.decifrado": "VENHAM",
   "odteste.sinal.vila_calada.camada": "A CAMA JA ESTA FEITA",
-
   "odteste.analisador.longe.fraca": "Um chiado fraco, quase nada. Parece vir %s.",
   "odteste.analisador.longe.media": "O ruído fica mais claro. Vem %s.",
   "odteste.analisador.longe.forte": "O ponteiro puxa com força. Vem %s, e está perto.",
@@ -264,5 +255,17 @@
   "odteste.sinal.fonte.erro.cheio": "Limite de %s fontes de sinal. Remova alguma antes.",
   "odteste.sinal.fonte.erro.nao_existe": "Não existe a fonte de sinal %s.",
   "odteste.sinal.fonte.nenhuma": "Nenhuma fonte de sinal.",
-  "odteste.sinal.fonte.item": "%s: %s em %s %s %s (%s)"
+  "odteste.sinal.fonte.item": "%s: %s em %s %s %s (%s)",
+  "death.attack.odteste.magia_sangue": "%1$s foi aberto por um talho vermelho",
+  "death.attack.odteste.magia_sangue.player": "%1$s foi aberto por um talho vermelho de %2$s",
+  "school.odteste.sangue": "Sangue do Limiar",
+  "spell.odteste.talho_rubro": "Talho Rubro",
+  "spell.odteste.talho_rubro.guide": "Um corte em meia-lua à frente. Quem é pego sangra por um instante.",
+  "attribute.odteste.poder_sangue": "Poder do Sangue do Limiar",
+  "attribute.odteste.resistencia_sangue": "Resistência ao Sangue do Limiar",
+  "odteste.comando.magia.conjurou": "Magia %s conjurada.",
+  "odteste.comando.magia.desconhecida": "Magia desconhecida: %s",
+  "odteste.comando.magia.recarga": "%s ainda está recarregando.",
+  "odteste.comando.magia.sem_lucidez": "Lucidez baixa demais para %s.",
+  "odteste.comando.magia.ocupado": "%s já está sendo preparada."
 }

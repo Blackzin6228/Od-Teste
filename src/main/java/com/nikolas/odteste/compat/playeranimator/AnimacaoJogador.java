@@ -53,6 +53,10 @@ public final class AnimacaoJogador {
         return dado instanceof ModifierLayer<?> m ? (ModifierLayer<IAnimation>) m : null;
     }
 
+    /**
+     * Toca a animação {@code id}. Id sem animação montada não faz nada: é assim que as magias deixam o gancho
+     * (ex.: {@code talho_rubro}, chamado em cliente/MagiaCliente) até o Modelador entregar a animação.
+     */
     public static void tocar(AbstractClientPlayer p, String id) {
         KeyframeAnimation anim = animacoes.get(id);
         ModifierLayer<IAnimation> c = anim == null ? null : camada(p);
