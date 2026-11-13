@@ -2,7 +2,7 @@ modLoader="javafml"
 loaderVersion="${loader_version_range}"
 license="${mod_license}"
 
-# Só abre a visibilidade de um método do cliente (previsão de bloco), usado pela porta falsa.
+# Só abre a visibilidade de métodos do cliente: previsão de bloco (porta falsa) e posição da câmera (cenas).
 [[accessTransformers]]
 file="META-INF/accesstransformer.cfg"
 

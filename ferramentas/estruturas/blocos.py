@@ -106,6 +106,20 @@ BLOCOS = {
     "red_bed": ((150, 36, 32), "la"),
     "mud": ((58, 52, 56), "terra"),
     "red_stained_glass_pane": ((150, 40, 36), "vidro"),
+    # Vila Calada 150 x 150 (arredores)
+    "structure_block": ((0, 0, 0), "nada"),  # marcador DATA (o mod não coloca; só lê a metadata)
+    "jukebox": ((96, 64, 40), "barril"),
+    "spruce_fence_gate": ((114, 84, 48), "tabuas"),
+    "spruce_wall_sign": ((114, 84, 48), "tabuas"),
+    "spruce_leaves": ((46, 70, 44), "musgo"),
+    "andesite": ((136, 136, 136), "pedra"),
+    "podzol": ((88, 58, 30), "terra"),
+    "rooted_dirt": ((124, 88, 62), "terra"),
+    "moss_block": ((88, 108, 44), "musgo"),
+    "pumpkin": ((190, 112, 30), "liso"),
+    "brown_mushroom": ((150, 120, 90), "planta"),
+    "wither_rose": ((36, 34, 36), "planta"),
+    "white_wool": ((230, 230, 230), "la"),
     "air": ((0, 0, 0), "nada"),
 }
 
@@ -122,6 +136,12 @@ _BOOL = {"true", "false"}
 
 # Propriedades aceitas por família. Bloco fora daqui não pode ter propriedade.
 _FAMILIAS = [
+    (lambda n: n.endswith("_fence_gate"), {"facing": _DIR4, "in_wall": _BOOL, "open": _BOOL, "powered": _BOOL}),
+    (lambda n: n.endswith("_wall_sign"), {"facing": _DIR4, "waterlogged": _BOOL}),
+    (lambda n: n.endswith("_leaves"), {"persistent": _BOOL, "distance": {str(i) for i in range(1, 8)},
+                                       "waterlogged": _BOOL}),
+    (lambda n: n == "structure_block", {"mode": {"save", "load", "corner", "data"}}),
+    (lambda n: n == "jukebox", {"has_record": _BOOL}),
     (lambda n: n.endswith("_stairs"), {"facing": _DIR4, "half": {"top", "bottom"},
                                        "shape": {"straight", "inner_left", "inner_right", "outer_left", "outer_right"},
                                        "waterlogged": _BOOL}),
@@ -190,8 +210,19 @@ def _verdade(p, k):
 def formas(nome, p):
     """Lista de (caixa, material) do bloco. p é um dict de propriedades (texto)."""
     n = curto(nome)
-    if n in ("air", "light"):
+    if n in ("air", "light", "structure_block"):
         return []
+    if n.endswith("_wall_sign"):
+        return [({"north": (0, .25, .875, 1, .75, 1), "south": (0, .25, 0, 1, .75, .125),
+                  "east": (0, .25, 0, .125, .75, 1), "west": (.875, .25, 0, 1, .75, 1)}[p.get("facing", "north")], n)]
+    if n.endswith("_fence_gate"):
+        if _verdade(p, "open"):
+            return [((.375, 0, .375, .625, 1, .625), n)]
+        if p.get("facing") in ("east", "west"):
+            return [((.375, .375, 0, .625, 1, 1), n), ((.375, 0, 0, .625, 1, .125), n), ((.375, 0, .875, .625, 1, 1), n)]
+        return [((0, .375, .375, 1, 1, .625), n), ((0, 0, .375, .125, 1, .625), n), ((.875, 0, .375, 1, 1, .625), n)]
+    if n == "brown_mushroom":
+        return [((.3125, 0, .3125, .6875, .375, .6875), n)]
     if n == "stone_button":
         return [((.3125, 0, .375, .6875, .125, .625), n)]
     if n == "spruce_sign":
@@ -303,7 +334,7 @@ def formas(nome, p):
                  "east": (.9375, 0, 0, 1, 1, 1), "west": (0, 0, 0, .0625, 1, 1)}
         caixas = [(cx, n) for d, cx in lados.items() if _verdade(p, d)]
         return caixas or [((0, .9375, 0, 1, 1, 1), n)]
-    if n in ("short_grass", "fern", "dead_bush"):
+    if n in ("short_grass", "fern", "dead_bush", "wither_rose"):
         return [((.125, 0, .125, .875, .8125, .875), n)]
     return [(CHEIA, n)]
 

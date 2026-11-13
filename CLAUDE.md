@@ -4,6 +4,7 @@ Mod **novo, do zero**. Não é continuação do Máscaras Relíquia: o repositó
 referência técnica (como ele resolveu GeckoLib, Curios, Iron's, publicação no pack). Nada de lore, nome ou visual vem de lá.
 
 Antes de trabalhar, leia: este arquivo, `docs/decisoes.md` + a pasta `docs/decisoes/`, `docs/progresso.md` e o arquivo da sua mesa em `.claude/agents/`.
+Para lore e história: leia **`lore/mapa.md` primeiro** e abra só o arquivo de detalhe que precisar (economia de token).
 
 ## Projeto
 - NeoForge **1.21.1** (21.1.262), Java 21. Modid **`odteste`**, definitivo (vem do `gradle.properties`). O nome que o jogador vê pode mudar.
@@ -54,3 +55,15 @@ siga `docs/ceo.md`. Você coordena as outras mesas pela ferramenta Agent e respo
 
 ## Commits
 - Mensagens em português, curtas, dizendo o que mudou para quem joga.
+
+## graphify
+
+This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
+
+Rules:
+- When graphify-out/graph.json exists, run `graphify query "<question>"` before your first grep, search or source-file read for a codebase question, and put this rule in every subagent prompt that explores code. Read raw files only for lines the graph or an earlier read already located. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
+- If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
+- Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
+- After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).
+- Depois de mudar código Java, rode `graphify . --code-only` e `graphify cluster-only .` antes do commit (sem chave de API; os docs não entram no grafo).
+- A committed graphify-out/graph.json is rewritten whole on every build, so a large diff to it in a pull request is expected. Do not flag it as churn or suggest skipping the graph rebuild or its hooks.

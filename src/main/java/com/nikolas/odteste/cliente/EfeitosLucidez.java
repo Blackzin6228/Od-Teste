@@ -137,6 +137,13 @@ final class EfeitosLucidez {
             default -> 0f;
         };
 
+        // Cena tocando: nada de alucinação no meio (a que estava na tela some); depois da cena, espera um pouco.
+        if (CenaCliente.tocando()) {
+            if (Alucinacoes.ocupado()) Alucinacoes.limpar();
+            ativa = null;
+            AGENDA.adiar(agora);
+            return;
+        }
         // Trocou para DESLIGADO com algo na tela: some na hora.
         if (ConfigCliente.soVinhetaESom() && Alucinacoes.ocupado()) Alucinacoes.limpar();
         Alucinacoes.aoTick(p, agora);

@@ -210,6 +210,8 @@ public final class Estruturas {
         }
         try {
             t.placeInWorld(nivel, ponto, ponto, ajustes, nivel.getRandom(), 2);
+            // Baús marcados no template ganham a recompensa de enigma (tabela de loot nossa).
+            com.nikolas.odteste.achados.Achados.aplicarRecompensas(nivel, t, ponto, ajustes);
         } finally {
             // Mesmo se der erro no meio (bloco de outro mod quebrado, por exemplo): tudo que já mudou entra no
             // backup, senão ficaria no mundo sem como desfazer. O erro segue para quem chamou (pausa e avisa).

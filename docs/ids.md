@@ -59,6 +59,12 @@ Modid: `odteste` (definitivo, decisão de 2026-11-08) · Lançado no servidor: *
 | `estruturas.blocos_por_tick` | chave de config do servidor (`serverconfig/odteste-server.toml` do mundo, seção `[estruturas]`; inteiro, padrão 4096, mínimo 256, máximo 65536) | 2026-11-09 | blocos por tick ao conferir, colocar e desfazer estrutura grande em partes. Mudar no meio só vale para a próxima colocação (cada uma guarda o `limite` com que começou) |
 | `odteste:vela_da_capela` | bloco + item do bloco + tipo de bloco com dados (block entity) | 2026-11-09 | vela da capela da Vila Calada: devolve Lucidez a quem está perto. Inquebrável no sobrevivência, sem drop, item escondido. O nome fica gravado no chunk |
 | `odteste:poca_de_sangue` | bloco + item do bloco | 2026-11-09 | poça fina sem colisão: quem fica nela perde Lucidez. Nome genérico para servir a outros lugares. Inquebrável no sobrevivência, sem drop, item escondido |
+| `odteste:cenas_vistas` | dado do jogador (lista de ids de cena, até 64) | 2026-11-12 | cenas que o jogador já viu (a cena do gatilho só toca uma vez). Sobrevive à morte; não vai para o cliente; id vazio ou repetido é ignorado ao ler. `/odteste cena esquecer` tira |
+| `entrada_vila_calada` | id de cena (`cenas/CenasConhecidas`) | 2026-11-12 | chegada à Vila Calada. Fica salvo em `odteste:cenas_vistas`: renomear faz todo mundo ver de novo. Chaves de texto `odteste.cena.entrada_vila_calada.1` e `.2` |
+| `odteste:tocar_cena` | pacote de rede (servidor → só o próprio jogador) | 2026-11-12 | "toque a cena X com esta âncora" (id, x, y, z, giro). Cena que o cliente não conhece é ignorada |
+| `odteste:cena` | camada da HUD (cliente) | 2026-11-12 | preto, legenda e aviso de pular das cenas; enquanto a câmera é da cena, as outras camadas somem |
+| `odteste:clima_vila` | pacote de rede (servidor → só o próprio jogador) | 2026-11-12 | clima da Vila Calada: "está dentro do muro" e "vê o Pendurado" (dois sim/não), mandado só quando muda; o ponto da vila não vai para o cliente. Versão da rede subiu para 3. Nada salvo |
+| `odteste_mestre` | tag vanilla do jogador (`/tag <nome> add odteste_mestre`) | 2026-11-13 | quem tem a tag nunca é escolhido para ver o Pendurado. Salva pelo próprio jogo nas tags do jogador |
 
 História (Ato 1, parte A). Ficam salvos dentro de `odteste_historia`, então também não mudam:
 - **Marcos do grupo:** `primeiro_sinal` (Cena 1 solta para o grupo), `enigma_sino` (FERRO escrito na placa, baú aberto), `vila_calada` (desde 2026-11-09: o grupo chegou à Vila Calada; as pistas param).
@@ -94,6 +100,9 @@ adicionados ao mundo do cliente** (minimapa, radar e Jade não veem). A porta fa
 cliente, dentro da "previsão de bloco" do jogo, que guarda o estado real e devolve ele no fim. A lentidão sutil com
 o vulto perto (Exposição Crítica, −5%) é só no movimento do cliente, sem atributo nem ID. Os nomes das alucinações
 (`RegrasHorror.Alucinacao`) não são salvos e podem mudar.
+O **Pendurado** da Vila Calada (2026-11-12) segue a mesma regra: aldeão vanilla (`minecraft:villager`) e corrente
+(`minecraft:chain`) desenhados escuros por evento de render, nunca no mundo. Névoa, cinza e sons do clima da vila
+também não registram nada (sons e partículas vanilla).
 
 Chaves de texto (não são IDs salvos), da Lore (`docs/horror.md` seção 4): `odteste.horror.exposicao.<faixa>.<1-3>`
 (`comum`, `baixa`, `media`, `alta`, `critica`), `odteste.horror.lucidez.<faixa>.<1-3>` (`firme`, `alta`, `media`,
@@ -120,6 +129,14 @@ seguidas), e `odteste.horror.sussurro.nome`, `.nome.2`, `.voz` (nome sussurrado 
 | `odteste_sentiram` | chave salva na criatura de Sangue (lista de UUIDs, até 32) | 2026-11-08 | jogadores que já viram esta criatura (Exposição e Lucidez só uma vez); sobrevive a reinício |
 | `odteste:esconder_jei` | plugin do JEI (`compat/jei`) | 2026-11-08 | esconde itens sem receita e as receitas `odteste:` (ritual do Occultism); não é salvo. O EMI usa `compat/emi` (sem ID) |
 | `efeitos_fortes` | chave de config do cliente (`config/odteste-client.toml`: `LIGADO`, `SUAVE`, `DESLIGADO`) | 08/11/2026 | fica no PC do jogador; renomear perde a escolha de quem usa suave/desligado |
+
+Artefatos achados e ronda (2026-11-12, `docs/decisoes/2026-11-12-artefatos-e-ronda.md`):
+| ID | Tipo | Desde | Observação |
+|---|---|---|---|
+| `odteste_recompensa` | chave NBT no template de estrutura (baú, baú armadilhado ou barril) | 2026-11-12 | marca o baú que ganha recompensa de enigma ao colocar a estrutura; só se o baú estiver vazio |
+| `artefato_sangue` | valor da marca `odteste_recompensa` | 2026-11-12 | baú com um artefato de Sangue |
+| `chests/recompensa_artefato_sangue` | tabela de loot (`data/odteste/loot_table/chests/`, sequência `odteste:chests/recompensa_artefato_sangue`) | 2026-11-12 | única tabela com artefatos; nunca entra em tabela do vanilla ou de outro mod |
+| `/odteste artefato dar <jogador> <artefato>` | comando de admin (permissão 2) | 2026-11-12 | evento do admin; `<artefato>` é um dos três ids de item |
 
 Fontes de Exposição (usadas no comando `/exposicao contato` e no freio de repetição). Ficam salvas dentro de
 `odteste:exposicao_repeticao` como `fonte/elemento` (ex.: `criatura_vista/sangue`), então também não mudam:

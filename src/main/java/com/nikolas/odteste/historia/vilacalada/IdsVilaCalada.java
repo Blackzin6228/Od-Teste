@@ -28,5 +28,8 @@ public final class IdsVilaCalada {
     /** Template da Vila Calada que ancora sozinho ao terminar de ser colocado (nome exato). */
     public static final String TEMPLATE = "odteste:vila_calada";
 
+    /** Pacote servidor → cliente {@code odteste:clima_vila}: está dentro do muro? vê o Pendurado? Nada salvo. */
+    public static final String PACOTE_CLIMA = "clima_vila";
+
     private IdsVilaCalada() {}
 }

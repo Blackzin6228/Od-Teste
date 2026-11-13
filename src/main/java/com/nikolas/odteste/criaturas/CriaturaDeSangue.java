@@ -1,5 +1,6 @@
 package com.nikolas.odteste.criaturas;
 
+import com.nikolas.odteste.achados.Achados;
 import com.nikolas.odteste.dados.IdsDados;
 import com.nikolas.odteste.elementos.Elemento;
 import com.nikolas.odteste.sistemas.Abalo;
@@ -13,6 +14,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -126,6 +128,13 @@ public abstract class CriaturaDeSangue extends Monster implements GeoEntity {
             }
         }
         super.die(fonte);
+    }
+
+    /** Drop raro de artefato (no máximo 1 por criatura; só jogador de verdade; só onde a matéria também cairia). */
+    @Override
+    protected void dropCustomDeathLoot(ServerLevel nivel, DamageSource fonte, boolean recente) {
+        super.dropCustomDeathLoot(nivel, fonte, recente);
+        if (fonte.getEntity() instanceof ServerPlayer p && !(p instanceof FakePlayer)) Achados.sortearDrop(this, p);
     }
 
     @Override
