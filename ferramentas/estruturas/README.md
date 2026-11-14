@@ -25,6 +25,12 @@ limite de colocação do mod), `vila_calada_150.partes.json`, `vila_calada_150.p
 recompensa**) e as prévias. Opções: `--sem-previa`, `--so-geral`, `--so-partes`, `--sem-teste`. O modelo
 (`modelos/vila_calada_150.py`) **trava** a área do centro: escrever nela levanta erro, e um teste confere bloco a bloco.
 
+Vila Calada v2, "vila morta" (pedido de 14/11/2026): `python3 -I ferramentas/estruturas/previa_vila_calada_150_v2.py`
+gera em `arte/vila-calada-150-v2/` o `.nbt` inteiro, o centro e as 4 faixas em `partes/`, os json e as prévias. O modelo
+(`modelos/vila_calada_150_v2.py`) parte da v1 e só muda o resto: na capela e no campanário, só troca de material (teste
+compara a forma de cada bloco); pistas e marcadores não mudam. As comparações antes x depois usam `render3d.py`
+(perspectiva na altura de quem anda, dia nublado e noite com névoa carmesim; precisa de numpy, Pillow e moderngl).
+
 **Marcadores de recompensa:** `Estrutura.marcador(x, y, z, nome)` põe um `structure_block` em modo DATA com
 `metadata = nome` **um bloco acima** do baú/jukebox de verdade (campo `nbt` do bloco no arquivo). O mod ignora o bloco de
 estrutura ao colocar e lê a metadata do template para encher o alvo. `Estrutura.com_dados(x, y, z, nbt)` grava NBT em
@@ -72,6 +78,8 @@ Vila Calada: `light` (luz invisível, só contra monstro comum), `bone_block`, `
 `damaged_anvil`, `carved_pumpkin`, `white_carpet`, `red_bed`, `mud`, `red_stained_glass_pane`.
 Arredores (150): `structure_block` (só modo `data`, marcador), `jukebox`, `spruce_fence_gate`, `spruce_wall_sign`,
 `spruce_leaves`, `andesite`, `podzol`, `rooted_dirt`, `moss_block`, `pumpkin`, `brown_mushroom`, `wither_rose`, `white_wool`.
+Vila v2: `mangrove_planks`, `dark_oak_door`, `dark_oak_fence_gate`, `red_terracotta`, `terracotta`, `tuff`, `cobbled_deepslate`,
+`cobbled_deepslate_wall`, `skeleton_skull`.
 Para usar um bloco novo: acrescente em `BLOCOS` (e as propriedades em `_FAMILIAS`, se tiver).
 
 ## Limites conhecidos
