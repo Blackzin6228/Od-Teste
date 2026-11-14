@@ -115,7 +115,7 @@ final class CamadaHorrorCliente {
         // e o shader passa a lavar a cor de dia no lugar do véu cinza de reserva.
         FxCorHorror.usarFonte(new FonteHorror() {
             public float dia() { return forcaDia() * 0.55f; } // dia leve (14/11)
-            public float noite() { return forcaNoite() * 0.75f; } // noite menos escura (14/11)
+            public float noite() { return forcaNoite() * 0.55f; } // noite menos escura (14/11: estava preta)
             public float area() { return CamadaHorrorCliente.area().isEmpty() ? 0f : 1f; }
         });
         shaderCuidaDoDia = true;

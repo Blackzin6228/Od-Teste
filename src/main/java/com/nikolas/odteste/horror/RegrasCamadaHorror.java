@@ -25,15 +25,15 @@ public final class RegrasCamadaHorror {
     /** Força da camada de dia, dentro de uma área (a noite é 1). */
     public static final float FORCA_AREA_DIA = 0.35f;
     /** Quanto a luz cai onde só há luz do céu, com a camada inteira (0,6 = fica com 40%). */
-    public static final float ESCURO = 0.45f; // 14/11: noite escura demais no jogo; era 0,6
+    public static final float ESCURO = 0.32f; // 14/11: noite ficou preta no jogo; era 0,6
     /** Susto "luz" (a luz do jogador falha): continua forte mesmo com a noite mais clara. */
     public static final float ESCURO_SUSTO = 0.7f;
     /** Névoa da noite: até onde se enxerga, com a camada inteira (blocos). */
     public static final float NEVOA_NOITE = 88f; // era 72
     /** Cor da névoa e do céu de noite: quanto escurece (0,55 = fica com 45%). */
-    public static final float NEVOA_ESCURECE = 0.4f; // era 0,55
+    public static final float NEVOA_ESCURECE = 0.3f; // era 0,55
     /** Véu de reserva (sem a luz nossa): escuridão máxima da tela, onde não há luz de bloco. */
-    public static final float VEU_MAX = 0.45f;
+    public static final float VEU_MAX = 0.28f; // era 0,45 (14/11: preto demais)
 
     // ---------- camada de fundo (mundo inteiro, de dia também) ----------
     /** Luz do dia: quanto cai onde só há luz do céu, com o fundo inteiro (0,3 = fica com 70%; moderado). */
