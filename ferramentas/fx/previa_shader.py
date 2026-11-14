@@ -5,8 +5,7 @@ Carrega O MESMO .vsh/.fsh do mod (resolvendo #moj_import), monta uma cena sinté
 coerentes com InvProj/InvView (céu de fim de tarde, chão, colunas e árvores, câmera olhando um pouco para cima),
 roda o shader com os uniforms ao longo do tempo e salva quadros e um GIF.
 
-Uso:
-    python3 ferramentas/fx/previa_shader.py olho [--saida arte/previas/fx/olho] [--rodada r1]
+Módulo comum das prévias (previa_sangue.py, previa_cor_horror.py): não roda sozinho.
 
 Precisa de: moderngl (com EGL), numpy, Pillow. Sem janela: usa o contexto EGL (llvmpipe serve).
 """
@@ -283,122 +282,5 @@ class Efeito:
         return img.transpose(Image.FLIP_TOP_BOTTOM).convert("RGB")
 
 
-# ---------------------------------------------------------------- linha do tempo do Olho (igual ao OlhoNoCeu.java)
-
-ABRIR, FECHAR = 3.0, 2.0
-
-
-def curvas_olho(t, aberto):
-    """Fenda e Abertura (0..1) no tempo t, com o olho aberto por `aberto` segundos depois de abrir."""
-    if t < ABRIR:
-        return min(t / 1.2, 1.0), max(0.0, min((t - 1.0) / 2.0, 1.0))
-    s = t - ABRIR - aberto
-    if s < 0:
-        return 1.0, 1.0
-    return max(0.0, 1.0 - s / FECHAR), max(0.0, 1.0 - s / 1.2)
-
-
-def rodar_olho(saida, rodada):
-    ctx = moderngl.create_standalone_context(backend="egl", require=330)
-    cena = Cena(ctx, LARG, ALT)
-    fx = Efeito(ctx, "odfx_olho", LARG, ALT)
-    proj = perspectiva(FOV_Y, LARG / ALT, PERTO, LONGE)
-    view, frente = vista(0.0, 14.0)
-    cena.desenhar(proj, view)
-
-    olho_dir = dir_de(4.0, 36.0)            # alto no céu, um pouco à direita
-    olho_pos = olho_dir * 300.0             # fixo no mundo (relativo à câmera de partida)
-    aberto = 6.0
-    total = ABRIR + aberto + FECHAR
-    fps = 10
-    quadros = []
-    # Para onde ele olha: começa olhando para longe, acha o jogador (a câmera) em ~3,5 s,
-    # no meio desvia para o lado (como se o jogador tivesse corrido) e volta.
-    longe = np.array([-60.0, -40.0, -120.0], dtype=np.float32)
-    lado = np.array([45.0, -1.6, -25.0], dtype=np.float32)
-    jogador = np.array([0.0, 0.0, 0.0], dtype=np.float32)
-    olhar_pt = longe.copy()
-    dt = 1.0 / fps
-    chave = {}
-    n = int(total * fps) + 1
-    for i in range(n):
-        t = i * dt
-        if t < 3.5:
-            alvo = longe
-        elif 6.0 <= t < 8.0:
-            alvo = lado
-        else:
-            alvo = jogador
-        taxa = 3.2 if t >= 3.5 and t < 4.2 else 1.8
-        olhar_pt = olhar_pt + (alvo - olhar_pt) * (1.0 - math.exp(-dt * taxa))
-        olhar = normal(olhar_pt - olho_pos)
-        chao = olhar_pt.copy()
-        chao[1] = -1.62
-        fenda, abertura = curvas_olho(t, aberto)
-        img = fx.desenhar(cena, proj, view, {
-            "Tempo": t, "Fenda": fenda, "Abertura": abertura,
-            "OlhoDir": tuple(olho_dir), "Olhar": tuple(olhar), "Alvo": tuple(chao),
-        })
-        quadros.append(img)
-        for nome, tc in (("1_abrindo", 1.8), ("2_aberto_camera", 5.5), ("3_olhando_lado", 7.6), ("4_fechando", 10.0)):
-            if abs(t - tc) < dt / 2:
-                chave[nome] = img
-
-    os.makedirs(saida, exist_ok=True)
-    pref = (rodada + "_") if rodada else ""
-    for nome, img in chave.items():
-        img.save(os.path.join(saida, pref + nome + ".png"))
-    # Cena sem efeito, para comparar.
-    cena_img = fx.desenhar(cena, proj, view, {"Tempo": 0.0, "Fenda": 0.0, "Abertura": 0.0,
-                                              "OlhoDir": tuple(olho_dir), "Olhar": tuple(-olho_dir),
-                                              "Alvo": (0, -1.62, 0)})
-    cena_img.save(os.path.join(saida, pref + "0_sem_efeito.png"))
-    # Zoom no olho aberto.
-    if "2_aberto_camera" in chave:
-        z = chave["2_aberto_camera"]
-        w, h = z.size
-        z.crop((int(w * 0.30), 0, int(w * 0.70), int(h * 0.40))).resize((1280, 720), Image.LANCZOS).save(
-            os.path.join(saida, pref + "5_zoom_olho.png"))
-    pequenos = [q.resize((640, 360), Image.LANCZOS) for q in quadros]
-    pequenos[0].save(os.path.join(saida, pref + "olho.gif"), save_all=True, append_images=pequenos[1:],
-                     duration=int(1000 / fps), loop=0, optimize=True)
-    print("ok:", len(quadros), "quadros ->", saida)
-
-
-def folha(saida, rodadas, nome="comparacao_rodadas.png"):
-    """Folha lado a lado: uma linha por rodada (aberto olhando para a câmera e zoom)."""
-    linhas = []
-    for r in rodadas:
-        a = os.path.join(saida, r + "_2_aberto_camera.png")
-        z = os.path.join(saida, r + "_5_zoom_olho.png")
-        if not (os.path.exists(a) and os.path.exists(z)):
-            continue
-        linhas.append((r, Image.open(a).resize((640, 360)), Image.open(z).resize((640, 360))))
-    if not linhas:
-        return
-    img = Image.new("RGB", (640 + 640 + 30, len(linhas) * 390 + 10), (12, 12, 12))
-    d = ImageDraw.Draw(img)
-    for i, (r, a, z) in enumerate(linhas):
-        y = 10 + i * 390
-        img.paste(a, (10, y + 20))
-        img.paste(z, (660, y + 20))
-        d.text((12, y + 2), "rodada " + r, fill=(245, 220, 122))
-    img.save(os.path.join(saida, nome))
-    print("folha:", os.path.join(saida, nome))
-
-
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("efeito", choices=["olho", "folha"])
-    ap.add_argument("--saida", default=os.path.join(RAIZ, "arte", "previas", "fx", "olho"))
-    ap.add_argument("--rodada", default="")
-    ap.add_argument("--rodadas", default="")
-    a = ap.parse_args()
-    if a.efeito == "olho":
-        rodar_olho(a.saida, a.rodada)
-    else:
-        folha(a.saida, [r for r in a.rodadas.split(",") if r])
-
-
-if __name__ == "__main__":
-    sys.exit(main())
+# A prévia do Olho no céu (Conhecimento) fica guardada no branch mesa-dev/olho-guardado, junto com o shader.
+# Aqui ficam só as peças comuns (ler shader do mod, matrizes, Efeito) usadas pelas outras prévias.

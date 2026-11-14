@@ -73,6 +73,16 @@ final class FxTela {
     private static final Matrix4f VISTA = new Matrix4f();
     private static final Matrix4f PROJECAO = new Matrix4f();
     private static Vec3 camera = Vec3.ZERO;
+    // Reaproveitadas a cada quadro (nada de lixo por quadro).
+    private static final Matrix4f INV_PROJ = new Matrix4f();
+    private static final Matrix4f INV_VISTA = new Matrix4f();
+    private static final Matrix4f PROJ_VISTA = new Matrix4f();
+    private static final Matrix4f ORTO = new Matrix4f();
+    private static final Matrix4f PROJ_ANTES = new Matrix4f();
+    /** A cópia acabou de nascer ou mudar: confere uma vez se a cópia da profundidade deu certo. */
+    private static boolean conferirCopia = true;
+    /** A cópia da profundidade deu erro de GL (formato diferente): roda a versão sem profundidade. */
+    private static boolean copiaRuim;
     private static float parcial;
     /** Com pack: o AFTER_LEVEL deste quadro guardou matrizes e profundidade, falta desenhar na HUD. */
     private static boolean esperandoHud;
@@ -171,7 +181,8 @@ final class FxTela {
     }
 
     private static void desenharTodos(Minecraft mc, boolean comProfundidade, boolean copiarProfundidade) {
-        Quadro q = new Quadro(new Matrix4f(VISTA), new Matrix4f(PROJECAO), camera, parcial, comProfundidade);
+        // As matrizes só são lidas pelos efeitos (nada muda VISTA/PROJECAO até o próximo AFTER_LEVEL).
+        Quadro q = new Quadro(VISTA, PROJECAO, camera, parcial, comProfundidade && !copiaRuim);
         boolean primeira = true;
         for (Passe p : passes) {
             if (quebrado(p.shader()) || !p.ativo()) continue;
@@ -187,9 +198,16 @@ final class FxTela {
         if (copia == null) {
             copia = new TextureTarget(principal.width, principal.height, true, Minecraft.ON_OSX);
             copia.setFilterMode(GL11.GL_LINEAR);
+            conferirCopia = true;
         } else if (copia.width != principal.width || copia.height != principal.height) {
             copia.resize(principal.width, principal.height, Minecraft.ON_OSX);
             copia.setFilterMode(GL11.GL_LINEAR);
+            conferirCopia = true;
+        }
+        // Algum mod ligou o stencil na tela principal: a cópia precisa do mesmo formato de profundidade.
+        if (principal.isStencilEnabled() && !copia.isStencilEnabled()) {
+            copia.enableStencil();
+            conferirCopia = true;
         }
     }
 
@@ -203,10 +221,29 @@ final class FxTela {
                     GL11.GL_COLOR_BUFFER_BIT, GL11.GL_NEAREST);
         }
         if ((bits & GL11.GL_DEPTH_BUFFER_BIT) != 0) {
+            boolean conferir = conferirCopia;
+            if (conferir) limparErros();
             GL30.glBlitFramebuffer(0, 0, principal.width, principal.height, 0, 0, copia.width, copia.height,
                     GL11.GL_DEPTH_BUFFER_BIT, GL11.GL_NEAREST);
+            if (conferir) {
+                // Só na primeira cópia depois de criar/mudar a cópia (glGetError por quadro custa).
+                conferirCopia = false;
+                int erro = GL11.glGetError();
+                copiaRuim = erro != GL11.GL_NO_ERROR;
+                if (copiaRuim) {
+                    avisarUmaVez("copia_profundidade", new IllegalStateException(
+                            "cópia da profundidade falhou (erro GL 0x" + Integer.toHexString(erro)
+                                    + "); efeitos na versão sem profundidade"));
+                }
+            }
         }
         principal.bindWrite(false);
+    }
+
+    private static void limparErros() {
+        for (int i = 0; i < 16 && GL11.glGetError() != GL11.GL_NO_ERROR; i++) {
+            // descarta erros antigos de outros mods para não culpar a nossa cópia
+        }
     }
 
     /**
@@ -220,7 +257,6 @@ final class FxTela {
         RenderTarget principal = mc.getMainRenderTarget();
         GlStateManager._glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, copia.frameBufferId);
         boolean algumMeio = false;
-        boolean tudoVazio = true;
         int[][] pontos = {{copia.width / 2, copia.height / 5}, {copia.width / 4, copia.height / 3},
                 {copia.width * 3 / 4, copia.height / 3}};
         for (int[] pt : pontos) {
@@ -228,13 +264,12 @@ final class FxTela {
             GL11.glReadPixels(pt[0], pt[1], 1, 1, GL11.GL_DEPTH_COMPONENT, GL11.GL_FLOAT, AMOSTRA);
             float z = AMOSTRA[0];
             if (z > 0.0001f && z < 0.99999f) algumMeio = true;
-            if (z > 0.0001f && z < 0.99999f) tudoVazio = false;
         }
         principal.bindWrite(false);
         boolean olhandoParaBaixo = mc.player != null && mc.player.getXRot() > 25f;
         boolean antes = profundidadePack;
         if (algumMeio) profundidadePack = true;
-        else if (tudoVazio && olhandoParaBaixo) profundidadePack = false;
+        else if (olhandoParaBaixo) profundidadePack = false; // tudo 0 ou 1 olhando para o chão
         if (antes != profundidadePack) {
             OdMod.LOGGER.info("{}: shader pack {} a profundidade; efeitos de tela {}.", OdMod.MODID,
                     profundidadePack ? "deixa ler" : "não deixa ler",
@@ -252,8 +287,11 @@ final class FxTela {
         int w = principal.width;
         int h = principal.height;
         if (w <= 0 || h <= 0) return;
-        Matrix4f projecaoAntes = new Matrix4f(RenderSystem.getProjectionMatrix());
+        PROJ_ANTES.set(RenderSystem.getProjectionMatrix());
         VertexSorting ordemAntes = RenderSystem.getVertexSorting();
+        // Slot 0 e 1 voltam como estavam (o 1 é o "overlay" do vanilla: o piscar vermelho de dano).
+        int textura0 = RenderSystem.getShaderTexture(0);
+        int textura1 = RenderSystem.getShaderTexture(1);
         Matrix4fStack vista = RenderSystem.getModelViewStack();
         boolean empilhou = false;
         try {
@@ -262,7 +300,7 @@ final class FxTela {
             RenderSystem.depthMask(false);
             RenderSystem.disableBlend();
             RenderSystem.disableCull();
-            RenderSystem.setProjectionMatrix(new Matrix4f().setOrtho(0f, w, h, 0f, 1000f, 3000f),
+            RenderSystem.setProjectionMatrix(ORTO.setOrtho(0f, w, h, 0f, 1000f, 3000f),
                     VertexSorting.ORTHOGRAPHIC_Z);
             vista.pushMatrix();
             empilhou = true;
@@ -270,9 +308,9 @@ final class FxTela {
             vista.translate(0f, 0f, -2000f);
             RenderSystem.applyModelViewMatrix();
 
-            sh.safeGetUniform("InvProj").set(new Matrix4f(q.projecao()).invert());
-            sh.safeGetUniform("InvView").set(new Matrix4f(q.vista()).invert());
-            sh.safeGetUniform("ProjVista").set(new Matrix4f(q.projecao()).mul(q.vista()));
+            sh.safeGetUniform("InvProj").set(INV_PROJ.set(q.projecao()).invert());
+            sh.safeGetUniform("InvView").set(INV_VISTA.set(q.vista()).invert());
+            sh.safeGetUniform("ProjVista").set(PROJ_VISTA.set(q.projecao()).mul(q.vista()));
             sh.safeGetUniform("ScreenSize").set((float) w, (float) h);
             sh.safeGetUniform("ComProfundidade").set(q.comProfundidade() ? 1f : 0f);
             passe.uniforms(sh, q);
@@ -294,7 +332,9 @@ final class FxTela {
                 vista.popMatrix();
                 RenderSystem.applyModelViewMatrix();
             }
-            RenderSystem.setProjectionMatrix(projecaoAntes, ordemAntes);
+            RenderSystem.setProjectionMatrix(PROJ_ANTES, ordemAntes);
+            RenderSystem.setShaderTexture(0, textura0);
+            RenderSystem.setShaderTexture(1, textura1);
             RenderSystem.enableCull();
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
@@ -323,6 +363,8 @@ final class FxTela {
     /** Ao sair do mundo: solta a cópia da tela (volta a ser criada quando precisar). */
     static void limpar() {
         esperandoHud = false;
+        conferirCopia = true;
+        copiaRuim = false;
         if (copia != null) {
             RenderTarget c = copia;
             copia = null;

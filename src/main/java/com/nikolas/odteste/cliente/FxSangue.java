@@ -45,6 +45,9 @@ final class FxSangue {
     /** Relógio dos efeitos (ticks, só anda sem pausa). */
     private static long relogio;
 
+    /** Mundo do último tick: trocou (outra dimensão), os efeitos em curso param. */
+    private static ClientLevel nivelAntes;
+
     /** Teste pelo comando: efeito -> tick em que acaba. */
     private static final Map<String, Long> TESTE = new HashMap<>();
 
@@ -167,6 +170,8 @@ final class FxSangue {
             if (relogio != 0) limpar();
             return;
         }
+        if (nivelAntes != null && nivel != nivelAntes) trocouDeMundo();
+        nivelAntes = nivel;
         if (mc.isPaused()) return;
         relogio++;
         FxCorHorror.aoTick();
@@ -331,7 +336,17 @@ final class FxSangue {
         }
     }
 
+    /** Troca de dimensão: o sangue, o coração e os testes da vila não seguem o jogador para o Nether. */
+    private static void trocouDeMundo() {
+        TESTE.clear();
+        sangueInicio = testeCoracaoInicio = -1;
+        carmesim = marcado = perto = pertoAlvo = 0f;
+        criaturaPertoAntes = marcadoSom = false;
+        FxGravar.parar();
+    }
+
     static void limpar() {
+        nivelAntes = null;
         relogio = 0;
         TESTE.clear();
         carmesim = marcado = estagio = perto = pertoAlvo = 0f;
