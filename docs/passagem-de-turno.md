@@ -24,7 +24,13 @@ Leia isto ao abrir um chat novo. Atualize no fim de cada sessão grande.
 - O Dobre: PR #83 (`mesa-dev/dobre`, fea9d9b, Actions verde, não testado no jogo). Item `odteste:martelo_do_ferreiro` (textura provisória). Comandos de teste em `docs/kit-do-mestre.md`/PR. **Atenção:** #83 e #84 sobem a rede para versão 7 e mexem em `Rede.java`: ao juntar, resolver o conflito e subir para 8.
 - Próximo passo combinado: juntar #80 + #83 + #84 + FX numa versão de teste única, Nikolas testa no PC (vídeo/prints) antes de ir ao servidor.
 
+## Decidido 14/11 (21h)
+- Olho na lua: significado B+C, desenho 2 (`docs/decisoes/2026-11-14-lua-olho.md`).
+- Faminto B e Martelo V2 (`docs/decisoes/2026-11-14-modelos-dobre.md`).
+- Versão de teste única: PR #85 (`mesa-dev/teste-unico-2026-11-14`, rede versão 8, Actions verde). Falta: Revisor, desenho 2 no código, teste no PC do Nikolas.
+
 ## Pendente do Nikolas
-- Olho na lua: significado A/B/C (Lore sugere B+C) e nome ("Lua Injetada" / "A Lua que Olha").
+- Nome da lua na tela ("Lua Injetada" / "A Lua que Olha" / nenhum).
+- Resolução das texturas dos modelos: 16 ou 32 px.
 - Baús da v2, mapa da pista 3, livro levado (recomendado: só baú da cova; mapa comum com X; volta pelo `preparar`).
 - PRs #74–#77, #79, #80 ainda não juntados no `main` (o servidor usa o branch).
