@@ -25,19 +25,19 @@ public final class RegrasCamadaHorror {
     /** Força da camada de dia, dentro de uma área (a noite é 1). */
     public static final float FORCA_AREA_DIA = 0.35f;
     /** Quanto a luz cai onde só há luz do céu, com a camada inteira (0,6 = fica com 40%). */
-    public static final float ESCURO = 0.6f;
+    public static final float ESCURO = 0.45f; // 14/11: noite escura demais no jogo; era 0,6
     /** Névoa da noite: até onde se enxerga, com a camada inteira (blocos). */
-    public static final float NEVOA_NOITE = 72f;
+    public static final float NEVOA_NOITE = 88f; // era 72
     /** Cor da névoa e do céu de noite: quanto escurece (0,55 = fica com 45%). */
-    public static final float NEVOA_ESCURECE = 0.55f;
+    public static final float NEVOA_ESCURECE = 0.4f; // era 0,55
     /** Véu de reserva (sem a luz nossa): escuridão máxima da tela, onde não há luz de bloco. */
     public static final float VEU_MAX = 0.45f;
 
     // ---------- camada de fundo (mundo inteiro, de dia também) ----------
     /** Luz do dia: quanto cai onde só há luz do céu, com o fundo inteiro (0,3 = fica com 70%; moderado). */
-    public static final float ESCURO_DIA = 0.3f;
+    public static final float ESCURO_DIA = 0.12f; // 14/11: dia leve (o Nikolas); era 0,3
     /** Névoa de dia: até onde se enxerga, com o fundo inteiro (blocos). Mais perto que a do jogo, mais longe que a noite. */
-    public static final float NEVOA_DIA = 112f;
+    public static final float NEVOA_DIA = 200f; // 14/11: névoa de dia atrapalhava; era 112
     /** Névoa do céu com o fundo inteiro: o céu vira todo cor de névoa (fechado). */
     public static final float CEU_NEVOA = 2f;
     /** Quanto a cor da névoa/céu perde de cor (0,8 = quase cinza). */

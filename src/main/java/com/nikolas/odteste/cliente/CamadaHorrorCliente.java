@@ -114,8 +114,8 @@ final class CamadaHorrorCliente {
         // Junta com o shader cor_horror (PR #76): a força da cor do mundo vem desta camada,
         // e o shader passa a lavar a cor de dia no lugar do véu cinza de reserva.
         FxCorHorror.usarFonte(new FonteHorror() {
-            public float dia() { return forcaDia(); }
-            public float noite() { return forcaNoite(); }
+            public float dia() { return forcaDia() * 0.55f; } // dia leve (14/11)
+            public float noite() { return forcaNoite() * 0.75f; } // noite menos escura (14/11)
             public float area() { return CamadaHorrorCliente.area().isEmpty() ? 0f : 1f; }
         });
         shaderCuidaDoDia = true;
