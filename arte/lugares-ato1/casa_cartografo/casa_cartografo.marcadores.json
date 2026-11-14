@@ -1,0 +1,291 @@
+{
+  "estrutura": "casa_cartografo",
+  "titulo": "3. Casa do Cartógrafo",
+  "tamanho": [
+    26,
+    30,
+    22
+  ],
+  "y_chao": 0,
+  "origem": "canto noroeste de baixo (x leste, y cima, z sul)",
+  "colocar": "origem y = (y do bloco de cima do terreno) - 0",
+  "marcadores": [
+    {
+      "pos": [
+        13,
+        2,
+        12
+      ],
+      "metadata": "bau:cartografo_terco",
+      "alvo": [
+        13,
+        1,
+        12
+      ],
+      "nota": "Baú do salão: abre com a senha do Atlas (a mesma do vídeo). Guarda o Terço da Moça (gancho do Ato 2)."
+    },
+    {
+      "pos": [
+        4,
+        1,
+        10
+      ],
+      "metadata": "mapa:p01",
+      "alvo": [
+        4,
+        1,
+        9
+      ],
+      "nota": "Ponto possível da marca (alvo = bloco do mural atrás). A cada manhã o mod sorteia onde ficam as marcas; a última tem o nome de {marcado}."
+    },
+    {
+      "pos": [
+        5,
+        3,
+        10
+      ],
+      "metadata": "mapa:p02",
+      "alvo": [
+        5,
+        3,
+        9
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        6,
+        2,
+        10
+      ],
+      "metadata": "mapa:p03",
+      "alvo": [
+        6,
+        2,
+        9
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        6,
+        4,
+        10
+      ],
+      "metadata": "mapa:p04",
+      "alvo": [
+        6,
+        4,
+        9
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        7,
+        1,
+        10
+      ],
+      "metadata": "mapa:p05",
+      "alvo": [
+        7,
+        1,
+        9
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        8,
+        3,
+        10
+      ],
+      "metadata": "mapa:p06",
+      "alvo": [
+        8,
+        3,
+        9
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        9,
+        2,
+        10
+      ],
+      "metadata": "mapa:p07",
+      "alvo": [
+        9,
+        2,
+        9
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        9,
+        4,
+        10
+      ],
+      "metadata": "mapa:p08",
+      "alvo": [
+        9,
+        4,
+        9
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        11,
+        1,
+        10
+      ],
+      "metadata": "mapa:p09",
+      "alvo": [
+        11,
+        1,
+        9
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        11,
+        3,
+        10
+      ],
+      "metadata": "mapa:p10",
+      "alvo": [
+        11,
+        3,
+        9
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        12,
+        2,
+        10
+      ],
+      "metadata": "mapa:p11",
+      "alvo": [
+        12,
+        2,
+        9
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        12,
+        4,
+        10
+      ],
+      "metadata": "mapa:p12",
+      "alvo": [
+        12,
+        4,
+        9
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        10,
+        3,
+        10
+      ],
+      "metadata": "mapa:vila_calada",
+      "alvo": [
+        10,
+        3,
+        9
+      ],
+      "nota": "Marca fixa (já é red_terracotta no arquivo): a Vila Calada."
+    },
+    {
+      "pos": [
+        20,
+        20,
+        7
+      ],
+      "metadata": "evento:circulo_giz",
+      "alvo": [
+        20,
+        20,
+        7
+      ],
+      "nota": "Centro do círculo de giz do mirante: ritual em dupla ou mais, de noite; as cinzas formam a palavra."
+    },
+    {
+      "pos": [
+        19,
+        21,
+        4
+      ],
+      "metadata": "evento:luneta",
+      "alvo": [
+        19,
+        21,
+        4
+      ],
+      "nota": "Luneta na janela norte (vire a janela para o lado da Fazenda ao colocar). Depois do Atlas, mostra a Torre das Correntes na neblina."
+    },
+    {
+      "pos": [
+        7,
+        2,
+        13
+      ],
+      "metadata": "evento:mesa_cartografia",
+      "alvo": [
+        7,
+        2,
+        13
+      ],
+      "nota": "Mesa de cartografia com o mapa pela metade."
+    },
+    {
+      "pos": [
+        9,
+        3,
+        15
+      ],
+      "metadata": "evento:entrada",
+      "alvo": [
+        9,
+        3,
+        15
+      ],
+      "nota": "Porta da frente (sem tranca) e janela grande quebrada do salão."
+    },
+    {
+      "pos": [
+        21,
+        9,
+        4
+      ],
+      "metadata": "evento:pendurado_escada",
+      "alvo": [
+        21,
+        9,
+        4
+      ],
+      "nota": "Escada em caracol: o Pendurado aparece; quem fica sozinho aqui perde Lucidez devagar."
+    }
+  ],
+  "pistas": [
+    {
+      "pos": [
+        19,
+        9,
+        4
+      ],
+      "tipo": "escada",
+      "nota": "Meio da escada em caracol: onde o Pendurado aparece."
+    }
+  ]
+}

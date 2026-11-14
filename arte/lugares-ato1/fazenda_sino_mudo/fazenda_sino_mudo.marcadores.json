@@ -1,0 +1,403 @@
+{
+  "estrutura": "fazenda_sino_mudo",
+  "titulo": "5. Fazenda do Sino Mudo",
+  "tamanho": [
+    72,
+    24,
+    60
+  ],
+  "y_chao": 6,
+  "origem": "canto noroeste de baixo (x leste, y cima, z sul)",
+  "colocar": "origem y = (y do bloco de cima do terreno) - 6",
+  "marcadores": [
+    {
+      "pos": [
+        53,
+        2,
+        10
+      ],
+      "metadata": "bau:carta_selo",
+      "alvo": [
+        53,
+        1,
+        10
+      ],
+      "nota": "Carta com o selo de cera (Pista do Ato 2). Só aparece depois do Evento do Diabo."
+    },
+    {
+      "pos": [
+        27,
+        13,
+        35
+      ],
+      "metadata": "atril:diario_p4",
+      "alvo": [
+        27,
+        12,
+        35
+      ],
+      "nota": "Escritório do fazendeiro: Diário do Açougueiro p. 4 (o poema)."
+    },
+    {
+      "pos": [
+        26,
+        18,
+        37
+      ],
+      "metadata": "bau:sotao_terco_vazio",
+      "alvo": [
+        26,
+        17,
+        37
+      ],
+      "nota": "Baú vazio com a marca de um terço que alguém levou (o terço está na Casa do Cartógrafo)."
+    },
+    {
+      "pos": [
+        52,
+        9,
+        15
+      ],
+      "metadata": "lugar:01",
+      "alvo": [
+        52,
+        8,
+        15
+      ],
+      "nota": "Lugar na Mesa do Pacto: prato com o nome do jogador (item do mod), vela de altura diferente e cálice vazio. O mod usa um por jogador."
+    },
+    {
+      "pos": [
+        53,
+        9,
+        15
+      ],
+      "metadata": "lugar:02",
+      "alvo": [
+        53,
+        8,
+        15
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        52,
+        9,
+        16
+      ],
+      "metadata": "lugar:03",
+      "alvo": [
+        52,
+        8,
+        16
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        53,
+        9,
+        16
+      ],
+      "metadata": "lugar:04",
+      "alvo": [
+        53,
+        8,
+        16
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        52,
+        9,
+        17
+      ],
+      "metadata": "lugar:05",
+      "alvo": [
+        52,
+        8,
+        17
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        53,
+        9,
+        17
+      ],
+      "metadata": "lugar:06",
+      "alvo": [
+        53,
+        8,
+        17
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        52,
+        9,
+        18
+      ],
+      "metadata": "lugar:07",
+      "alvo": [
+        52,
+        8,
+        18
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        53,
+        9,
+        18
+      ],
+      "metadata": "lugar:08",
+      "alvo": [
+        53,
+        8,
+        18
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        52,
+        9,
+        19
+      ],
+      "metadata": "lugar:09",
+      "alvo": [
+        52,
+        8,
+        19
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        53,
+        9,
+        19
+      ],
+      "metadata": "lugar:10",
+      "alvo": [
+        53,
+        8,
+        19
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        52,
+        9,
+        20
+      ],
+      "metadata": "lugar:11",
+      "alvo": [
+        52,
+        8,
+        20
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        53,
+        9,
+        20
+      ],
+      "metadata": "lugar:12",
+      "alvo": [
+        53,
+        8,
+        20
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        52,
+        8,
+        23
+      ],
+      "metadata": "spawn:convidada",
+      "alvo": [
+        52,
+        8,
+        23
+      ],
+      "nota": "O lugar a mais, na cabeceira: a Convidada (susto do Ato 1)."
+    },
+    {
+      "pos": [
+        52,
+        11,
+        18
+      ],
+      "metadata": "evento:area_capela",
+      "alvo": [
+        52,
+        11,
+        18
+      ],
+      "nota": "Centro da capela: dentro, o chat de texto fica bloqueado (a voz continua). Velas fora de ordem apagam todas e tiram Lucidez do grupo."
+    },
+    {
+      "pos": [
+        53,
+        8,
+        28
+      ],
+      "metadata": "evento:portas_capela",
+      "alvo": [
+        53,
+        8,
+        28
+      ],
+      "nota": "Portas fechadas até o sino da Torre das Correntes ser calado. Antes disso, o sino do terreiro toca."
+    },
+    {
+      "pos": [
+        53,
+        10,
+        10
+      ],
+      "metadata": "evento:altar_aceite",
+      "alvo": [
+        53,
+        10,
+        10
+      ],
+      "nota": "Altar que gira e revela o Altar do Aceite (cálice de pedra com 'Chame.')."
+    },
+    {
+      "pos": [
+        31,
+        9,
+        26
+      ],
+      "metadata": "som:sino_terreiro",
+      "alvo": [
+        31,
+        9,
+        26
+      ],
+      "nota": "Sino do terreiro, no poste: toca sozinho até a capela abrir."
+    },
+    {
+      "pos": [
+        52,
+        20,
+        26
+      ],
+      "metadata": "som:sino_mudo",
+      "alvo": [
+        52,
+        20,
+        26
+      ],
+      "nota": "Sino da espadana da capela: mudo."
+    },
+    {
+      "pos": [
+        25,
+        18,
+        40
+      ],
+      "metadata": "evento:retrato_virado",
+      "alvo": [
+        25,
+        18,
+        40
+      ],
+      "nota": "Quarto fechado do sótão: o retrato virado (pintura nossa). Virado, mostra um velho sem olhos; atrás, um recado a carvão."
+    },
+    {
+      "pos": [
+        70,
+        8,
+        30
+      ],
+      "metadata": "spawn:aldeao_cerca_1",
+      "alvo": [
+        70,
+        8,
+        30
+      ],
+      "nota": "Aldeão de uma vila próxima, parado na cerca, olhando para a capela."
+    },
+    {
+      "pos": [
+        70,
+        8,
+        20
+      ],
+      "metadata": "spawn:aldeao_cerca_2",
+      "alvo": [
+        70,
+        8,
+        20
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        66,
+        8,
+        58
+      ],
+      "metadata": "spawn:aldeao_cerca_3",
+      "alvo": [
+        66,
+        8,
+        58
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        20,
+        8,
+        58
+      ],
+      "metadata": "spawn:aldeao_cerca_4",
+      "alvo": [
+        20,
+        8,
+        58
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        41,
+        8,
+        56
+      ],
+      "metadata": "evento:chegada",
+      "alvo": [
+        41,
+        8,
+        56
+      ],
+      "nota": "Portão da fazenda (aberto)."
+    }
+  ],
+  "pistas": [
+    {
+      "pos": [
+        52,
+        9,
+        9
+      ],
+      "tipo": "altar",
+      "nota": "Cálice de pedra do Altar do Aceite ('Chame.'). O altar gira (evento)."
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "estrutura": "moinho_parado",
+  "titulo": "1. Moinho Parado",
+  "tamanho": [
+    36,
+    26,
+    30
+  ],
+  "y_chao": 2,
+  "origem": "canto noroeste de baixo (x leste, y cima, z sul)",
+  "colocar": "origem y = (y do bloco de cima do terreno) - 2",
+  "marcadores": [
+    {
+      "pos": [
+        9,
+        4,
+        26
+      ],
+      "metadata": "bau:moleiro_diario",
+      "alvo": [
+        9,
+        3,
+        26
+      ],
+      "nota": "Ao pé da cama. Cadeado de letras (palavra do E1). Diário do Açougueiro p. 1 + metade esquerda do Mapa Rasgado; na tampa, a carvão, o endereço do Atlas."
+    },
+    {
+      "pos": [
+        18,
+        16,
+        12
+      ],
+      "metadata": "som:moinho_morse",
+      "alvo": [
+        18,
+        16,
+        12
+      ],
+      "nota": "Os 5 blocos de nota do último andar (x 16-20, y 14, z 11) tocam o Morse do E1. A roda trava no meio; inteira só numa vigília de noite toda."
+    },
+    {
+      "pos": [
+        19,
+        17,
+        14
+      ],
+      "metadata": "som:roda_rangendo",
+      "alvo": [
+        19,
+        17,
+        14
+      ],
+      "nota": "A roda de madeira do eixo das pás range sozinha."
+    },
+    {
+      "pos": [
+        7,
+        6,
+        23
+      ],
+      "metadata": "evento:cabecas_moleiro",
+      "alvo": [
+        7,
+        6,
+        23
+      ],
+      "nota": "Prateleira de cabeças viradas para a parede (x 9, z 21-24): o mod deixa uma por jogador e tira o resto."
+    },
+    {
+      "pos": [
+        18,
+        5,
+        13
+      ],
+      "metadata": "evento:cheiro",
+      "alvo": [
+        18,
+        5,
+        13
+      ],
+      "nota": "Centro do Cheiro (névoa avermelhada leve que cresce com o tempo). Correntes arrastando ao longe."
+    },
+    {
+      "pos": [
+        34,
+        4,
+        21
+      ],
+      "metadata": "evento:chegada",
+      "alvo": [
+        34,
+        4,
+        21
+      ],
+      "nota": "Pé da ponte, lado leste: o grupo chega por aqui."
+    }
+  ],
+  "pistas": [
+    {
+      "pos": [
+        16,
+        14,
+        11
+      ],
+      "tipo": "nota",
+      "nota": "Bloco de nota 1 de 5 (grave = traço)."
+    },
+    {
+      "pos": [
+        17,
+        14,
+        11
+      ],
+      "tipo": "nota",
+      "nota": "Bloco de nota 2 de 5 (agudo = ponto)."
+    },
+    {
+      "pos": [
+        18,
+        14,
+        11
+      ],
+      "tipo": "nota",
+      "nota": "Bloco de nota 3 de 5 (grave = traço)."
+    },
+    {
+      "pos": [
+        19,
+        14,
+        11
+      ],
+      "tipo": "nota",
+      "nota": "Bloco de nota 4 de 5 (agudo = ponto)."
+    },
+    {
+      "pos": [
+        20,
+        14,
+        11
+      ],
+      "tipo": "nota",
+      "nota": "Bloco de nota 5 de 5 (grave = traço)."
+    },
+    {
+      "pos": [
+        5,
+        6,
+        2
+      ],
+      "tipo": "estandarte",
+      "nota": "Cruz de Ferro rasgada (provisória: o desenho final é do Modelador)."
+    }
+  ]
+}

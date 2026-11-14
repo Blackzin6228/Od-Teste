@@ -25,6 +25,15 @@ limite de colocação do mod), `vila_calada_150.partes.json`, `vila_calada_150.p
 recompensa**) e as prévias. Opções: `--sem-previa`, `--so-geral`, `--so-partes`, `--sem-teste`. O modelo
 (`modelos/vila_calada_150.py`) **trava** a área do centro: escrever nela levanta erro, e um teste confere bloco a bloco.
 
+Lugares do Ato 1 (Moinho Parado, Casa do Açougueiro, Casa do Cartógrafo, Torre das Correntes, Fazenda do Sino Mudo;
+rodada de 14/11/2026): `python3 -I ferramentas/estruturas/gerar_lugares.py [nome...] [--sem-previa]` gera em
+`arte/lugares-ato1/<nome>/` o `.nbt`, o `.marcadores.json`, as prévias e `arte/lugares-ato1/README.md` (como colocar
+e a tabela de marcadores para a Dev). Confere cada marcador (nome único, um por bloco, alvo certo). Peças comuns em
+`lugares.py` (telhado em qualquer eixo e íngreme, chão morto, árvore seca, espantalho, placa com texto, estandarte,
+luz invisível fraca contra spawn). `Estrutura.y_chao` diz a camada do chão do mundo (abaixo dela, porão e cripta).
+Prévias desses lugares: `render_gl.py` (OpenGL sem tela via moderngl/EGL, precisa de numpy e Pillow): luz de céu e de
+bloco como no jogo, 4 lados, cortes, plantas com os marcadores, noite com névoa carmesim de perto e de longe.
+
 **Marcadores de recompensa:** `Estrutura.marcador(x, y, z, nome)` põe um `structure_block` em modo DATA com
 `metadata = nome` **um bloco acima** do baú/jukebox de verdade (campo `nbt` do bloco no arquivo). O mod ignora o bloco de
 estrutura ao colocar e lê a metadata do template para encher o alvo. `Estrutura.com_dados(x, y, z, nbt)` grava NBT em

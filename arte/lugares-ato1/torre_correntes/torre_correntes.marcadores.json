@@ -1,0 +1,191 @@
+{
+  "estrutura": "torre_correntes",
+  "titulo": "4. Torre das Correntes",
+  "tamanho": [
+    20,
+    48,
+    20
+  ],
+  "y_chao": 8,
+  "origem": "canto noroeste de baixo (x leste, y cima, z sul)",
+  "colocar": "origem y = (y do bloco de cima do terreno) - 8",
+  "marcadores": [
+    {
+      "pos": [
+        6,
+        2,
+        12
+      ],
+      "metadata": "disco:disco_riscado",
+      "alvo": [
+        6,
+        1,
+        12
+      ],
+      "nota": "Jukebox com o Disco Riscado (E6: a imagem escondida no som)."
+    },
+    {
+      "pos": [
+        12,
+        2,
+        12
+      ],
+      "metadata": "atril:caderno_vigia",
+      "alvo": [
+        12,
+        1,
+        12
+      ],
+      "nota": "Caderno do vigia: fala do barulho, sem explicar."
+    },
+    {
+      "pos": [
+        9,
+        36,
+        9
+      ],
+      "metadata": "som:sino_correntes",
+      "alvo": [
+        9,
+        36,
+        9
+      ],
+      "nota": "O sino de ferro sem badalo: correntes balançam e arrastam na pedra sem vento. Cala com a palavra de retorno."
+    },
+    {
+      "pos": [
+        7,
+        33,
+        9
+      ],
+      "metadata": "evento:cadeado_alcapao",
+      "alvo": [
+        7,
+        33,
+        9
+      ],
+      "nota": "Alçapão do teto do patamar (x 6, z 9): cadeado de letras, resposta do Atlas. Certo: correntes travam, o sino cala e as notas tocam o rumo da Fazenda."
+    },
+    {
+      "pos": [
+        9,
+        33,
+        7
+      ],
+      "metadata": "som:notas_rumo",
+      "alvo": [
+        9,
+        33,
+        7
+      ],
+      "nota": "Os 6 blocos de nota do patamar (x 7-12, z 6)."
+    },
+    {
+      "pos": [
+        9,
+        11,
+        9
+      ],
+      "metadata": "evento:queda",
+      "alvo": [
+        9,
+        11,
+        9
+      ],
+      "nota": "Fundo do vão: o feno amortece. Queda não mata (dano segurado pelo mod)."
+    },
+    {
+      "pos": [
+        9,
+        2,
+        9
+      ],
+      "metadata": "evento:porao_sozinho",
+      "alvo": [
+        9,
+        2,
+        9
+      ],
+      "nota": "Porão: quem desce sozinho perde Lucidez; em dupla, não."
+    },
+    {
+      "pos": [
+        9,
+        10,
+        19
+      ],
+      "metadata": "evento:portao",
+      "alvo": [
+        9,
+        10,
+        19
+      ],
+      "nota": "Portão aberto (sul). Escalar o muro tira Lucidez e sobe Exposição."
+    }
+  ],
+  "pistas": [
+    {
+      "pos": [
+        7,
+        32,
+        6
+      ],
+      "tipo": "nota",
+      "nota": "Bloco de nota 1 de 6: tocam o rumo da Fazenda em Morse."
+    },
+    {
+      "pos": [
+        8,
+        32,
+        6
+      ],
+      "tipo": "nota",
+      "nota": "Bloco de nota 2 de 6: tocam o rumo da Fazenda em Morse."
+    },
+    {
+      "pos": [
+        9,
+        32,
+        6
+      ],
+      "tipo": "nota",
+      "nota": "Bloco de nota 3 de 6: tocam o rumo da Fazenda em Morse."
+    },
+    {
+      "pos": [
+        10,
+        32,
+        6
+      ],
+      "tipo": "nota",
+      "nota": "Bloco de nota 4 de 6: tocam o rumo da Fazenda em Morse."
+    },
+    {
+      "pos": [
+        11,
+        32,
+        6
+      ],
+      "tipo": "nota",
+      "nota": "Bloco de nota 5 de 6: tocam o rumo da Fazenda em Morse."
+    },
+    {
+      "pos": [
+        12,
+        32,
+        6
+      ],
+      "tipo": "nota",
+      "nota": "Bloco de nota 6 de 6: tocam o rumo da Fazenda em Morse."
+    },
+    {
+      "pos": [
+        8,
+        11,
+        19
+      ],
+      "tipo": "estandarte",
+      "nota": "Cruz de Ferro no pilar do portão (provisória: desenho final do Modelador)."
+    }
+  ]
+}
