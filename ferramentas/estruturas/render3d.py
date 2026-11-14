@@ -24,9 +24,9 @@ VARIANTES = 4
 # clima: céu (horizonte, alto), névoa (cor, densidade), sol (direção, cor), ambiente (cor)
 CLIMAS = {
     "dia": {  # dia nublado (a ficha: "céu nublado e baixo"), sem névoa de horror
-        "ceu_h": (0.70, 0.72, 0.74), "ceu_a": (0.52, 0.57, 0.64),
-        "nevoa": (0.68, 0.70, 0.72), "densidade": 0.011,
-        "sol": (0.45, 0.80, 0.38), "sol_cor": (0.92, 0.90, 0.86), "amb": (0.50, 0.52, 0.56),
+        "ceu_h": (0.56, 0.57, 0.58), "ceu_a": (0.42, 0.43, 0.46),
+        "nevoa": (0.55, 0.56, 0.57), "densidade": 0.014,
+        "sol": (0.30, 0.85, 0.42), "sol_cor": (0.48, 0.47, 0.46), "amb": (0.56, 0.56, 0.58),
         "luzes": 0.0,
     },
     "noite": {

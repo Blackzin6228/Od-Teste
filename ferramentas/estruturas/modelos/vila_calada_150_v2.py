@@ -80,6 +80,7 @@ ENTULHO_TOPO = Mistura((("cobblestone_slab", LAJE), 4), (("dark_oak_slab", LAJE)
                        (("dark_oak_stairs", dict(DEGRAU, facing="west")), 1),
                        (("dark_oak_trapdoor", TAMPA), 2))
 
+SANGUE_SECO = Mistura(("red_nether_bricks", 3), ("red_terracotta", 1))  # sangue seco: vinho escuro, pouco tijolo claro
 TERRA = {"minecraft:grass_block", "minecraft:dirt", "minecraft:coarse_dirt", "minecraft:podzol", "minecraft:moss_block",
          "minecraft:rooted_dirt", "minecraft:mud", "minecraft:soul_soil", "minecraft:gravel", "minecraft:dirt_path",
          "minecraft:tuff", "minecraft:farmland"}
@@ -182,6 +183,10 @@ def construir(semente=SEMENTE):
     casas(o)
     ocupar(o, ruas)
     entrada(o)
+    escurecer(o, ruas)
+    lajes_do_poco(o)
+    sem_musgo(o)
+    enterrar_ossos(o)
     sangue(o)
     luzes(o)
     V.conectar(e, filtro=lambda x, y, z: not protegido(x, z))
@@ -698,6 +703,7 @@ def caixas_viradas(o, x, z):
 
 
 def ossos(o, x, z, n):
+    """Resto: osso afundado no chão (só o topo aparece), crânios e pano."""
     e = o.e
     for _ in range(n):
         px, pz = x + e.rng.randint(-2, 2), z + e.rng.randint(-2, 2)
@@ -705,9 +711,9 @@ def ossos(o, x, z, n):
         if not o.livre(px, y, pz):
             continue
         r = e.rng.random()
-        if r < 0.55:
-            o.por(px, y, pz, "bone_block", axis=e.rng.choice("xyz"))
-        elif r < 0.8:
+        if r < 0.45 and e.nome(px, y - 1, pz) in TERRA | {"minecraft:cobbled_deepslate", "minecraft:tuff"}:
+            o.por(px, y - 1, pz, "bone_block", axis=e.rng.choice("xz"))
+        elif r < 0.85:
             o.por(px, y, pz, "skeleton_skull", rotation=e.rng.randint(0, 15), powered=False)
         else:
             o.por(px, y, pz, "white_carpet")  # pano
@@ -758,7 +764,7 @@ def sangue(o):
         limiar = 1.0 - 0.42 * v ** 2.2
         if mancha > limiar:
             if mancha > limiar + 0.07 and e.cheio(x, y, z) and n != "minecraft:farmland":
-                o.trocar(x, y, z, "red_terracotta" if e.chance(0.75) else "terracotta")
+                o.trocar(x, y, z, SANGUE_SECO)
             if e.vazio(x, y + 1, z) or e.nome(x, y + 1, z) in PLANTAS:
                 if e.cheio(x, y, z) and e.chance(0.45) and o.pode(x, y + 1, z):
                     e.por(x, y + 1, z, "redstone_wire", power=0, north="none", south="none", east="none", west="none")
@@ -771,7 +777,7 @@ def sangue(o):
         if v < 0.55:
             continue
         if ruido(x, y * 0.5, z, 1.4, SEMENTE + 81) > 1.0 - 0.18 * v ** 3 and e.chance(0.7):
-            o.trocar(x, y, z, "red_terracotta")
+            o.trocar(x, y, z, SANGUE_SECO)
     # o adro: a poça grande na frente do campanário e o arrasto que desce a escada do morro
     for cx, cz, r, d in ((60 + B_, 36 + B_, 2, 0.5), (49 + B_, 41 + B_, 2, 0.4), (57 + B_, 43 + B_, 1, 0.5)):
         for x in range(cx - r, cx + r + 1):
@@ -780,7 +786,7 @@ def sangue(o):
                 if e.cheio(x, yy, z) and e.chance(d) and o.pode(x, yy + 1, z) and e.vazio(x, yy + 1, z):
                     e.por(x, yy + 1, z, "redstone_wire", power=0, north="none", south="none", east="none", west="none")
                 if e.chance(0.15):
-                    o.trocar(x, yy, z, "red_terracotta")
+                    o.trocar(x, yy, z, SANGUE_SECO)
     # velas vermelhas apagadas no pé do campanário
     for x, z in ((58 + B_, 36 + B_), (63 + B_, 35 + B_), (61 + B_, 37 + B_), (56 + B_, 35 + B_)):
         if o.livre(x, PLAT + 1, z):
@@ -790,7 +796,97 @@ def sangue(o):
         if not protegido(x, z) or y != PLAT:
             continue
         if e.nome(x, y + 1, z) == "minecraft:redstone_wire" and e.chance(0.5):
-            o.trocar(x, y, z, "red_terracotta")
+            o.trocar(x, y, z, SANGUE_SECO)
+
+
+# ---------------------------------------------------------------------------
+# Rodada de 14/11 (dia limpo demais): pedra do chão escura e suja, sem musgo verde, ossos como resto
+# ---------------------------------------------------------------------------
+PEDRA_SUJA = [
+    Mistura(("cobbled_deepslate", 5), ("tuff", 2), ("blackstone", 1)),
+    Mistura(("tuff", 3), ("cobbled_deepslate", 2), ("cracked_deepslate_tiles", 2)),
+    Mistura(("mud", 4), ("coarse_dirt", 2), ("cobbled_deepslate", 2)),
+    Mistura(("blackstone", 2), ("cracked_deepslate_tiles", 4), ("deepslate_tiles", 1), ("tuff", 1)),
+    Mistura(("cobbled_deepslate", 3), ("cracked_stone_bricks", 1), ("gravel", 1), ("mud", 1)),
+]
+PEDRA_CLARA = {"minecraft:cobblestone", "minecraft:mossy_cobblestone", "minecraft:stone_bricks",
+               "minecraft:polished_andesite", "minecraft:andesite", "minecraft:mossy_stone_bricks",
+               "minecraft:cracked_stone_bricks", "minecraft:gravel", "minecraft:diorite"}
+CAMINHO_CLARO = Mistura(("cobblestone", 3), ("gravel", 3), ("tuff", 2), ("cracked_stone_bricks", 1))
+
+
+def escurecer(o, ruas):
+    """Chão de pedra clara (praça, adro, calçadas): pedra escura, tufo, lama e terra em manchas. A rua principal
+    continua um pouco mais clara para o caminho ainda se ler."""
+    e = o.e
+    for (x, y, z), (n, _) in sorted(e.blocos.items()):
+        if n not in PEDRA_CLARA or y > PLAT or not e.cheio(x, y, z):
+            continue
+        acima = e.nome(x, y + 1, z)
+        if not (acima is None or acima == "minecraft:air" or acima in PLANTAS or acima.endswith("carpet")
+                or acima.endswith("candle") or acima == "minecraft:redstone_wire"):
+            continue
+        if y != chao_y(e, x, z) and not (em_caixa(x, z, PRACA) and y == 1):
+            continue  # só o chão (e o pódio do poço)
+        principal = 48 + B_ <= x <= 51 + B_ and z >= 63  # a rua principal
+        n_r = ruido(x, 7, z, 6.0, SEMENTE + 90) * 0.8 + ruido(x, 8, z, 2.0, SEMENTE + 91) * 0.2
+        if principal and (x, z) in ruas:
+            if n_r < 0.55:
+                o.trocar(x, y, z, CAMINHO_CLARO)
+            continue
+        o.trocar(x, y, z, PEDRA_SUJA[min(4, int(n_r * 5))])
+
+
+def lajes_do_poco(o):
+    e = o.e
+    for (x, y, z), (n, _) in list(e.blocos.items()):
+        if n == "minecraft:stone_brick_slab" and em_caixa(x, z, PRACA):
+            o.trocar(x, y, z, Mistura(("deepslate_tile_slab", 3), ("cobblestone_slab", 2), ("stone_brick_slab", 1)))
+        elif n in ("minecraft:stone_bricks", "minecraft:cracked_stone_bricks") and em_caixa(x, z, PRACA) and y >= 1:
+            if e.chance(0.5):
+                o.trocar(x, y, z, Mistura(("cracked_stone_bricks", 2), ("cobbled_deepslate", 2), ("tuff", 1)))
+
+
+def sem_musgo(o):
+    """Nada de verde vivo: musgo vira pedra/terra morta (mesma forma onde for preciso)."""
+    e = o.e
+    troca = {
+        "minecraft:mossy_cobblestone": Mistura(("cobblestone", 3), ("cobbled_deepslate", 2), ("tuff", 1)),
+        "minecraft:mossy_stone_bricks": Mistura(("cracked_stone_bricks", 3), ("stone_bricks", 1)),
+        "minecraft:mossy_cobblestone_wall": "cobblestone_wall",
+        "minecraft:moss_block": Mistura(("podzol", 2), ("rooted_dirt", 1)),
+        "minecraft:moss_carpet": Mistura(("gray_carpet", 2), ("brown_carpet", 1)),  # pó e folha morta
+    }
+    for (x, y, z), (n, _) in list(e.blocos.items()):
+        if n in troca:
+            o.trocar(x, y, z, troca[n])
+        elif n == "minecraft:vine" and (x, y, z) not in o.fixos and not protegido(x, z):
+            e.ar(x, y, z)
+
+
+def enterrar_ossos(o):
+    """Osso solto em cima do chão parece bloco branco: afunda no chão (só o topo aparece), junta em pilha
+    meio enterrada e ganha crânio por perto."""
+    e = o.e
+    for (x, y, z), (n, p) in sorted(e.blocos.items()):
+        if n != "minecraft:bone_block" or y < 1 or not o.pode(x, y, z) or not o.pode(x, y - 1, z):
+            continue
+        if e.nome(x, y - 1, z) not in TERRA and not (e.nome(x, y - 1, z) or "").endswith("_dirt"):
+            continue  # pilha ou osso em cima de outra coisa: fica
+        if e.nome(x, y + 1, z) == "minecraft:bone_block":
+            continue
+        e.ar(x, y, z)
+        e.por(x, y - 1, z, "bone_block", **dict(p))
+        r = e.rng.random()
+        if r < 0.25 and o.livre(x, y, z):
+            e.por(x, y, z, "skeleton_skull", rotation=e.rng.randint(0, 15), powered=False)
+        elif r < 0.45:
+            # pilha meio enterrada: mais um osso ao lado, afundado, e uma laje de terra por cima de parte
+            dx, dz = e.rng.choice(((1, 0), (-1, 0), (0, 1), (0, -1)))
+            if o.pode(x + dx, y - 1, z + dz) and e.nome(x + dx, y - 1, z + dz) in TERRA and o.livre(x + dx, y, z + dz):
+                e.por(x + dx, y - 1, z + dz, "bone_block", axis=e.rng.choice("xz"))
+                if e.chance(0.5):
+                    e.por(x + dx, y, z + dz, "dark_oak_trapdoor", facing="north", **TAMPA)
 
 
 def luzes(o):

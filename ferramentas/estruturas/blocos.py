@@ -130,6 +130,7 @@ BLOCOS = {
     "cobbled_deepslate": ((77, 77, 80), "pedra"),
     "cobbled_deepslate_wall": ((77, 77, 80), "pedra"),
     "skeleton_skull": ((200, 198, 184), "liso"),
+    "red_nether_bricks": ((69, 7, 9), "tijolo_pedra"),
     "air": ((0, 0, 0), "nada"),
 }
 

@@ -79,7 +79,7 @@ Vila Calada: `light` (luz invisível, só contra monstro comum), `bone_block`, `
 Arredores (150): `structure_block` (só modo `data`, marcador), `jukebox`, `spruce_fence_gate`, `spruce_wall_sign`,
 `spruce_leaves`, `andesite`, `podzol`, `rooted_dirt`, `moss_block`, `pumpkin`, `brown_mushroom`, `wither_rose`, `white_wool`.
 Vila v2: `mangrove_planks`, `dark_oak_door`, `dark_oak_fence_gate`, `red_terracotta`, `terracotta`, `tuff`, `cobbled_deepslate`,
-`cobbled_deepslate_wall`, `skeleton_skull`.
+`cobbled_deepslate_wall`, `skeleton_skull`, `red_nether_bricks` (sangue seco).
 Para usar um bloco novo: acrescente em `BLOCOS` (e as propriedades em `_FAMILIAS`, se tiver).
 
 ## Limites conhecidos
