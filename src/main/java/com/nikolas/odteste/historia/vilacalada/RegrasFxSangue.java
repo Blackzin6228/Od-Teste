@@ -15,7 +15,9 @@ public final class RegrasFxSangue {
     public static final String CORACAO = "coracao";
     /** O tom do mundo inteiro (overworld), de dia também (sistemas/RegrasCorHorror). */
     public static final String COR_HORROR = "cor_horror";
-    public static final List<String> EFEITOS = List.of(CARMESIM, SANGUE, MARCADO, CORACAO, COR_HORROR);
+    /** Olho vermelho na lua: Lua de Sangue (Enhanced Celestials) ou Vila Calada à noite. */
+    public static final String OLHO_LUA = "olho_lua";
+    public static final List<String> EFEITOS = List.of(CARMESIM, SANGUE, MARCADO, CORACAO, COR_HORROR, OLHO_LUA);
     /** Efeitos que o mestre pode soltar num jogador (os outros dois são do lugar e da Marca). */
     public static final List<String> DO_MESTRE = List.of(SANGUE, CORACAO);
 
@@ -43,6 +45,34 @@ public final class RegrasFxSangue {
     // ---- visão do Marcado
     /** Intervalo da batida própria do Marcado (s), quando não há coração acelerado. */
     public static final float BATIDA_MARCADO = 1.0f;
+
+    // ---- olho na lua
+    /** Desenho do olho (0 íris-lua, 1 pálpebras, 2 a lua que sangra). O Nikolas escolhe pelas prévias. */
+    public static final int OLHO_VARIANTE = 0;
+    /** A pupila troca de rumo a cada 5 a 11 s enquanto vagueia. */
+    public static final int OLHO_VAGUEIA_MIN = 100;
+    public static final int OLHO_VAGUEIA_MAX = 220;
+    /** Encarar é raro: no mínimo 45 s entre um e outro (fica 5 a 9 s). */
+    public static final int OLHO_ENCARA_ESPERA = 45 * 20;
+    public static final int OLHO_ENCARA_MIN = 100;
+    public static final int OLHO_ENCARA_MAX = 180;
+    /** Quanto a pupila anda por tick até o alvo (devagar: escorrega). */
+    public static final float OLHO_PASSO = 0.025f;
+    /** Piscada (variante 1): duração em ticks e intervalo de 8 a 20 s. */
+    public static final int OLHO_PISCA = 7;
+
+    /** Força do olho: Lua de Sangue do Enhanced Celestials, ou vila × noite. */
+    public static float olhoAlvo(float luaDeSangue, float vila, float noite) {
+        float v = Math.max(0f, Math.min(1f, vila)) * Math.max(0f, Math.min(1f, noite));
+        return Math.max(Math.max(0f, Math.min(1f, luaDeSangue)), v);
+    }
+
+    /** Abertura das pálpebras numa piscada: 1 aberto, 0 fechado no meio (t em ticks desde o começo). */
+    public static float piscada(float t) {
+        if (t < 0 || t >= OLHO_PISCA) return 1f;
+        float m = OLHO_PISCA / 2f;
+        return Math.abs(t - m) / m;
+    }
 
     // ---- teste e gravação
     /** Quanto dura um efeito solto pelo comando (s), quando ninguém diz. */

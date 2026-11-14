@@ -65,3 +65,27 @@ Cataclysm, Twilight Forest, Mowzie's Mobs e chefes do Iron's. Mapa por elemento 
 | **SV Voice Changer 1.2.5** | Cada jogador escolhe a voz do personagem. Só cliente. Licença NC: Nikolas avalia |
 
 Regra técnica: cada linha acima vira um pacote `compat/<mod>/` (ou receitas com `neoforge:mod_loaded`) que só liga se o mod estiver no pack.
+
+## Efeitos de tela com shader pack (Iris) — limites (mesa Dev, 14/11/2026)
+Os efeitos de tela do odteste (`odfx_*`) **não** são shaders do pack: são um passo nosso depois da imagem pronta
+(com pack, no começo da HUD, por cima do que o pack desenhou). Por isso funcionam com qualquer pack, mas:
+- **Com profundidade** (o pack deixa ler: conferido a cada 2 s em `cliente/FxTela`): igual ao jogo sem pack.
+- **Sem profundidade** (a maioria dos packs): cada efeito tem uma versão própria, feita para ficar bonita assim:
+  - *Carmesim*: céu achado pela direção e pela cor; névoa pela altura do olhar; o brilho/bloom do pack em volta da
+    lua também fica vermelho.
+  - *Sangue*: não dá para achar parede e chão. O sangue escorre da borda de cima da tela e sobe da de baixo, como na
+    lente, com luz mínima própria (não some no escuro do pack).
+  - *Marcado* e *Batimento*: não usam profundidade; ficam iguais.
+  - *Olho na lua*: só muda os pixels claros da lua do próprio pack (o que estiver na frente da lua fica escuro e não
+    é pintado). Se o pack desenhar a lua muito pequena ou apagada, o olho aparece menor ou mais fraco. O brilho em
+    volta é mais fraco que sem pack.
+- O pack já tem vinheta, grão e bloom: os nossos são leves para não somar demais.
+- Não dá para pôr os nossos efeitos *dentro* do pack (o Iris ignora shaders de mod quando um pack está ligado:
+  documentação do Iris, "core shaders"). Nada a fazer aqui além do caminho acima.
+- Prévia "com pack" fora do jogo: `python3 ferramentas/fx/previa_sangue.py <efeito> --sem-profundidade --pack`
+  (imita a imagem de um pack: curva de filme, bloom, céu de noite azulado).
+
+## Enhanced Celestials (Lua de Sangue) — só cliente, por reflexão
+`compat/enhancedcelestials/LuaDeSangue`: pergunta o evento lunar de agora (`EnhancedCelestials.lunarForecastWorldData`)
+e se o id tem "blood" (o pack usa `enhancedcelestials2defaultlunarevents:blood_moon`). Com Lua de Sangue, a lua vira o
+olho vermelho em qualquer lugar do overworld. Sem o mod, o olho fica só na Vila Calada à noite.

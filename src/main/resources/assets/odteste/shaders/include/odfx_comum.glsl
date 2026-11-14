@@ -92,3 +92,28 @@ float od_fbm3(vec2 p) {
     v += 0.125 * od_ruido(p);
     return v / 0.875;
 }
+
+// Ruído "torcido": o fbm3 lido num ponto que já foi empurrado por outro ruído (fumaça, carne, névoa que rola).
+// t = tempo já escalado pelo chamador. Custa dois fbm3 (6 ruídos).
+float od_torcido(vec2 p, float t) {
+    vec2 q = vec2(od_ruido(p + vec2(0.0, t)), od_ruido(p + vec2(5.2, 1.3 - t * 0.7)));
+    return od_fbm3(p + 1.8 * q + vec2(t * 0.35, -t * 0.2));
+}
+
+// Sangue como camada que absorve (lei de Beer): fino = mancha a cor de baixo de vermelho (a textura do bloco
+// aparece por baixo); grosso = quase preto. Nunca clareia nada.
+vec3 od_absorve(vec3 base, float espessura) {
+    return base * exp(-espessura * vec3(1.6, 9.0, 8.0));
+}
+
+// Garante que o vermelho manda: nenhum realce de sangue vira branco ou rosa.
+vec3 od_semBranco(vec3 c) {
+    return vec3(c.r, min(c.g, c.r * 0.22), min(c.b, c.r * 0.26));
+}
+
+// Pontilhado (interleaved gradient noise): ±meio degrau de 8 bits por pixel. Tira as faixas (banding) dos
+// degradês escuros (vinheta vermelha, névoa) quase de graça.
+vec3 od_pontilhar(vec3 c, vec2 pixel) {
+    float n = fract(52.9829189 * fract(dot(pixel, vec2(0.06711056, 0.00583715))));
+    return c + (n - 0.5) / 255.0;
+}

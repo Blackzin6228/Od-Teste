@@ -32,6 +32,8 @@ import net.neoforged.bus.api.IEventBus;
  * <li><b>sangue</b>: quando uma criatura de Sangue chega perto (ou o mestre manda), sangue escorre das paredes e
  * se espalha pelo chão de verdade; depois seca e some. No máximo um a cada 3 min.</li>
  * <li><b>marcado</b>: quem tem a Marca de Sangue vê veias e pulso nas bordas, crescendo com o estágio.</li>
+ * <li><b>olho_lua</b>: a lua vira um olho vermelho com Lua de Sangue (Enhanced Celestials) ou na vila à noite
+ * ({@link FxOlhoLua}).</li>
  * <li><b>coracao</b>: com o Faminto (ou outra criatura de Sangue) perto, a tela bate e escurece junto com o
  * som de batida (vanilla, tom baixo).</li>
  * </ol>
@@ -95,6 +97,8 @@ final class FxSangue {
                     lua(sh, q);
                     camera(sh, q);
                 }),
+                // o olho vem depois do carmesim (que pinta a lua de ferida) e antes do que é do olho do jogador
+                passe(FxOlhoLua.SHADER, FxOlhoLua::ativo, FxOlhoLua::uniforms),
                 passe("odfx_marcado", () -> marcado * estagio > 0.002f, (sh, q) -> {
                     sh.safeGetUniform("Forca").set(marcado * forca());
                     sh.safeGetUniform("Estagio").set(estagio);
@@ -183,6 +187,8 @@ final class FxSangue {
         float alvoC = vila * ClimaVilaCliente.noiteVila() * ClimaVilaCliente.vermelhoVila();
         if (testando(RegrasFxSangue.CARMESIM)) alvoC = 1f;
         carmesim = aproximar(carmesim, alvoC, 1f / 60f);
+
+        FxOlhoLua.aoTick(relogio, nivel, p);
 
         // procura: criatura de Sangue mais perto (só na vila, a cada meio segundo)
         if (relogio % 10 == 0) {
@@ -352,6 +358,7 @@ final class FxSangue {
         sangueInicio = testeCoracaoInicio = -1;
         carmesim = marcado = perto = pertoAlvo = 0f;
         criaturaPertoAntes = marcadoSom = false;
+        FxOlhoLua.limpar();
         FxGravar.parar();
     }
 
@@ -365,6 +372,7 @@ final class FxSangue {
         criaturaPertoAntes = marcadoSom = false;
         batidaInicio = -1000;
         FxCorHorror.limpar();
+        FxOlhoLua.limpar();
         FxGravar.parar();
         FxTela.limpar();
     }
