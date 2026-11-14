@@ -151,6 +151,18 @@ final class ClimaVilaCliente {
         return p.position().add(Math.cos(ang) * d, 1 + r.nextDouble() * 3, Math.sin(ang) * d);
     }
 
+    // ---------- para os efeitos de shader (FxSangue) ----------
+
+    /** 0 = fora da vila, 1 = dentro (suave, ~3 s). */
+    static float fatorVila() {
+        return fator;
+    }
+
+    /** 0 = dia, 1 = noite (suave, ~10 s). */
+    static float noiteVila() {
+        return noite;
+    }
+
     // ---------- névoa ----------
 
     /** Fator que vale para a tela: dentro × força do efeitos_fortes. */

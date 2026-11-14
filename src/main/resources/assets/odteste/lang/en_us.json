@@ -284,5 +284,12 @@
   "odteste.configuration.intensidade": "Horror layer intensity",
   "odteste.configuration.intensidade.tooltip": "Grey sky, fog and darkness of the world, by day and by night. From 50% to 100%: can be reduced, not turned off.",
   "odteste.configuration.minimapa_tamanho.tooltip": "In % of the screen height. 0 = automatic.",
-  "odteste.configuration.minimapa_canto.nenhum": "None (no minimap)"
+  "odteste.configuration.minimapa_canto.nenhum": "None (no minimap)",
+  "odteste.fx.tocando": "Effect %s (path: %s)",
+  "odteste.fx.quebrado": "The %s effect can't run on this graphics card (see the log).",
+  "odteste.fx.gravado": "Recording done: %s frames in %s",
+  "odteste.comando.fx.desconhecido": "Unknown effect: %s. Use: %s",
+  "odteste.comando.fx.tocou": "Effect %s playing.",
+  "odteste.comando.fx.gravando": "Effect %s playing and recording to screenshots/odteste/.",
+  "odteste.comando.fx.mestre": "Effect %s sent to %s player(s)."
 }

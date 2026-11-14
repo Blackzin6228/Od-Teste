@@ -111,6 +111,14 @@ final class CamadaHorrorCliente {
         AreaHorror.definirReceptor(m -> area = m.area() == null ? "" : m.area());
         SustoCliente.iniciar();
         FalhaMinimapa.iniciar();
+        // Junta com o shader cor_horror (PR #76): a força da cor do mundo vem desta camada,
+        // e o shader passa a lavar a cor de dia no lugar do véu cinza de reserva.
+        FxCorHorror.usarFonte(new FonteHorror() {
+            public float dia() { return forcaDia(); }
+            public float noite() { return forcaNoite(); }
+            public float area() { return CamadaHorrorCliente.area().isEmpty() ? 0f : 1f; }
+        });
+        shaderCuidaDoDia = true;
     }
 
     // ---------- gancho (shader e outras partes do cliente) ----------

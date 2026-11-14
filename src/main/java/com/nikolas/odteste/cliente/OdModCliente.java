@@ -39,6 +39,9 @@ public final class OdModCliente {
 
         barramento.addListener((RegisterGuiLayersEvent e) -> e.registerAboveAll(
                 ResourceLocation.fromNamespaceAndPath(OdMod.MODID, IdsDados.CAMADA_TELA), Tela::desenhar));
+        // /odfx gravar: tira o quadro por último, com a imagem pronta.
+        barramento.addListener((RegisterGuiLayersEvent e) -> e.registerAboveAll(
+                ResourceLocation.fromNamespaceAndPath(OdMod.MODID, IdsDados.CAMADA_GRAVAR_FX), FxGravar::desenhar));
 
         // A Marca no corpo: uma camada a mais em cada tipo de modelo de jogador (largo e fino).
         barramento.addListener((EntityRenderersEvent.AddLayers e) -> {
@@ -57,6 +60,7 @@ public final class OdModCliente {
         NeoForge.EVENT_BUS.addListener((ClientTickEvent.Post e) -> {
             EfeitosLucidez.aoTick();
             ClimaVilaCliente.aoTick();
+            FxSangue.aoTick();
             if (ANIMADOR) AnimacaoJogador.aoTick();
         });
         // Clima da Vila Calada: névoa avermelhada e o Pendurado (desenhado, nunca entra no mundo).
@@ -65,6 +69,9 @@ public final class OdModCliente {
         NeoForge.EVENT_BUS.addListener(Pendurado::desenhar);
         NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut e) -> ClimaVilaCliente.limpar());
         ClimaVila.definirReceptor(ClimaVilaCliente::receber);
+        // Efeitos de tela do Sangue na vila (shader; funciona com shader pack): carmesim, sangue, marcado, coração.
+        FxSangue.iniciar(barramento);
+        NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut e) -> FxSangue.limpar());
         NeoForge.EVENT_BUS.addListener(Tela::aoCalcularCamera);
         NeoForge.EVENT_BUS.addListener(Tela::aoCalcularFov);
         NeoForge.EVENT_BUS.addListener(Tela::aoDesenharMao);
