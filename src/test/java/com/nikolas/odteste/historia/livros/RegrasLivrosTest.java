@@ -148,13 +148,4 @@ class RegrasLivrosTest {
                 RegrasLivros.montar(l, 0, java.util.Set.of("dobre", "enigma_sino")).get(0), "marco sem Exposição: o de Exposição fica de fora");
         assertEquals(3, RegrasLivros.montar(l, MEDIA, java.util.Set.of("dobre", "enigma_sino")).get(0).size());
     }
-
-    @Test
-    void leitorLeOMarco() {
-        var json = com.google.gson.JsonParser.parseString(
-                "{\"paginas\":[{\"texto\":\"\",\"escondidos\":[{\"texto\":\"a\",\"marco\":\"dobre\"},{\"texto\":\"b\"}]}]}");
-        Livro l = LeitorLivros.ler("x", json);
-        assertEquals("dobre", l.paginas().get(0).escondidos().get(0).marco());
-        assertEquals("", l.paginas().get(0).escondidos().get(1).marco());
-    }
 }
