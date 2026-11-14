@@ -63,7 +63,7 @@ public final class ComandosLivros {
             n++;
         }
         int total = n;
-        c.getSource().sendSuccess(() -> Component.literal("Livro " + id + " entregue a " + total + " jogador(es)."), true);
+        c.getSource().sendSuccess(() -> Component.literal("Livro " + id + " entregue a " + total + " jogador(es)."), false);
         return n;
     }
 
@@ -82,7 +82,7 @@ public final class ComandosLivros {
             if (lidos.esquecer(p.getUUID(), id)) n++;
         }
         int total = n;
-        c.getSource().sendSuccess(() -> Component.literal("Livro " + id + " esquecido por " + total + " jogador(es)."), true);
+        c.getSource().sendSuccess(() -> Component.literal("Livro " + id + " esquecido por " + total + " jogador(es)."), false);
         return n;
     }
 }

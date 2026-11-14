@@ -4,6 +4,46 @@ Status: **PROPOSTA.** Nada aqui está decidido até o Nikolas aprovar. Perguntas
 Base: `docs/decisoes.md` (08/11/2026), `lore/roteiro.md`, `docs/integracoes.md`.
 Sem IDs novos neste documento. Nomes de itens, cenas e telas são provisórios.
 
+## 0. O QUE JÁ FUNCIONA HOJE (comandos, Ato 1)
+Isto já está no mod (14/11/2026). O resto do documento ainda é proposta.
+
+**Quem é mestre.** Quem tem permissão 2 (op) e está na lista `mestres` do arquivo
+`serverconfig/odteste-mestre-server.toml` do mundo (ex.: `mestres = "Blackzin6228"`). Lista vazia = todo op.
+Só o mestre recebe os avisos automáticos ("resolveu o Sino da Vila", "não seguiu o sino").
+As respostas dos comandos do mod saem só para quem digitou (os outros ops não veem mais "[Fulano: ...]").
+
+**Acompanhar em espectador ("mestre ouvindo").** Em espectador, o mestre ouve e vê o que o grupo recebe perto dele:
+o sino em Morse, o sino rachado (se estiver a até 128 blocos de quem ouviu, ou com a câmera presa nele),
+o rastro de sangue da cama, a névoa e os sons da Vila Calada e os sustos de quem ele assiste pela câmera.
+Ele **não conta** para nada: não para aldeão, não lê placa, não marca chegada, não perde Lucidez, não vira alvo de susto.
+Quando sai um susto grande em alguém, aparece em cinza na barra do mestre: *Susto "passos" em Fulano*.
+- `/odteste mestre ouvir on` · `/odteste mestre ouvir off` (padrão: ligado; volta ao padrão quando o servidor reinicia)
+
+**Painel.** `/odteste mestre status <grupo>` mostra só para o mestre: marcos (Primeiro Sinal, FERRO, chegou),
+se é dia ou noite e quanto falta, quando o sino rachado toca de novo, onde ficam as duas vilas e, para cada um do
+grupo, a distância até a vila comum e até a Vila Calada, Exposição, Lucidez, sustos nesta noite e se já leu o Livro do Sineiro.
+
+**Vila Calada colocada à mão.** `/odteste vila_calada preparar` (ou `/odteste vila_calada preparar <x y z do canto>`)
+põe o Livro do Sineiro no atril, comida no baú do poço (uma vez só), "Aqui ele ouvia." na placa do poço,
+a vela da capela e 4 poças de sangue (3 na praça, 1 no curral). Só mexe em ar ou no bloco que a própria estrutura
+pôs ali; nunca em bloco de jogador nem em claim. Pode rodar de novo à vontade: o que já está lá fica, e se alguém
+levou o livro, um novo volta ao atril. Fique perto do campanário (a vila precisa estar carregada).
+Sem canto, o mod acha sozinho pelo sino rachado perto da âncora.
+
+**Outros comandos úteis no evento:** `/odteste susto <tipo> <jogador>` (passos, porta, luz, sussurro, silencio; se
+você estiver ouvindo, também vê) · `/odteste vila_calada tocar <jogadores>` (sino rachado agora) ·
+`/odteste vila_calada ver` · `/odteste evento retrancar <grupo>`.
+
+**Cenas de câmera (14/11).** `/odteste cena tocar <cena> <alvos>` (ex.: `/odteste cena tocar chegada_vila_calada @a[distance=..40]`),
+`/odteste cena parar <alvos>`, `/odteste cena lista`. Quem vê a cena fica parado e sem tomar dano até ela acabar.
+Em espectador com o ouvir ligado, você vê junto. Para não deixar pular: `pular_cenas = false` na config do mestre.
+A `chegada_vila_calada` precisa do grupo a até 96 blocos do sino rachado (senão toca onde cada um está).
+
+**Ritmo (números, 14/11).** O sino rachado toca de noite a cada 2 a 4 minutos, o primeiro de cada noite
+5 a 30 s depois de escurecer. Se o grupo escrever FERRO de noite, o sino rachado responde em até 15 s.
+Depois do FERRO, os aldeões parados da vila comum deixam de olhar o sino e viram todos para a Vila Calada
+(é a pista 2). Fora da vila, aldeões em volta de um membro viram para lá a cada 2 a 4 min, por 15 s, e a cada toque.
+
 ## O problema (palavras do Nikolas sobre o mod antigo)
 - Poucos efeitos.
 - Grind chato: só juntar recurso. O mod não desenvolvia.

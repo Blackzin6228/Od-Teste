@@ -158,7 +158,7 @@ public final class RegrasHorror {
 
     /**
      * Cada alucinação e a partir de que faixa ela aparece em cada sistema (índice do horror.md; -1 = nunca por esse
-     * sistema). "visual" = some quando "efeitos fortes" está DESLIGADO. Os nomes não são salvos: podem mudar.
+     * sistema). "visual" = some só com força 0 de "efeitos fortes" (desde 14/11/2026 nada chega a 0: o DESLIGADO vale 0,25). Os nomes não são salvos: podem mudar.
      */
     public enum Alucinacao {
         /** Sussurro grave, com eco. Exposição Baixa, Lucidez Alta. */
@@ -347,7 +347,7 @@ public final class RegrasHorror {
 
     /**
      * Quanto a cor some (0 a 1), horror.md 1.2 e 2.2: Exposição Alta 20%, Crítica 45%; Lucidez Média 15%,
-     * Baixa 40%. Vale o maior. (SUAVE corta pela metade; DESLIGADO zera: isso é feito na Tela.)
+     * Baixa 40%. Vale o maior. (a Tela multiplica pela força: SUAVE metade, DESLIGADO/Mínimo um quarto.)
      */
     public static float dessaturar(FaixaLucidez f, Degrau d) {
         float e = switch (faixa(d)) {
