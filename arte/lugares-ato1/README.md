@@ -41,6 +41,7 @@ Cada lugar tem `00_prancha.png` (resumo) e, em `previas/`: `dia_<lado>` (4 lados
 | Lugar | Arquivo | Tamanho (x, y, z) | y_chao | Marcadores |
 |---|---|---|---|---|
 | 1. Moinho Parado | `moinho_parado/moinho_parado.nbt` | 36 x 26 x 30 | 2 | 6 |
+| 2. Casa do Açougueiro | `casa_acougueiro/casa_acougueiro.nbt` | 48 x 23 x 36 | 7 | 23 |
 
 ## 1. Moinho Parado
 
@@ -66,3 +67,37 @@ Outros pontos (sem marcador, só no json):
 - `nota` (19, 14, 11): Bloco de nota 4 de 5 (agudo = ponto).
 - `nota` (20, 14, 11): Bloco de nota 5 de 5 (grave = traço).
 - `estandarte` (5, 6, 2): Cruz de Ferro rasgada (provisória: o desenho final é do Modelador).
+
+## 2. Casa do Açougueiro
+
+O grande lugar do Ato 1. Entradas: **porta da frente** (sul, duas folhas: acorda o Magarefe), **porta de ferro** de
+botão (leste, lado do curral: a entrada segura) e a **saída de serviço do porão** (alçapão no curral, escada de mão,
+túnel até o porão: pega o Magarefe de frente). A rota da perseguição (`rota:01` a `rota:08`) sai do porão, sobe pelo
+curral, contorna a casa e entra pela frente. Sem spawn em toda a estrutura (luz invisível fraca). Chão em
+`y_chao = 7`: o porão ocupa y 0 a 6.
+
+| metadata | posição | alvo | nota |
+|---|---|---|---|
+| `bau:porao_livro_trocas` | (28, 3, 12) | (28, 2, 12) | Barril aberto sobre a bancada. Livro de Trocas, metade direita do Mapa e Faca de Osso. Abre com a ordem certa das correntes. |
+| `atril:diario_p2_p3` | (31, 9, 20) | (31, 8, 20) | Na ponta do balcão. Diário do Açougueiro, páginas 2 e 3 (ordem dos bichos; tabela dos Riscos de Corte). |
+| `spawn:magarefe` | (21, 1, 12) | (21, 1, 12) | Lugar do Magarefe: porão de salga. Não morre no Ato 1. |
+| `rota:01` | (30, 2, 12) | (30, 2, 12) | Perseguição: porão, túnel, poço do curral, volta pela frente. |
+| `rota:02` | (38, 1, 12) | (38, 1, 12) |  |
+| `rota:03` | (42, 2, 12) | (42, 2, 12) |  |
+| `rota:04` | (43, 8, 14) | (43, 8, 14) |  |
+| `rota:05` | (42, 8, 30) | (42, 8, 30) |  |
+| `rota:06` | (34, 8, 30) | (34, 8, 30) |  |
+| `rota:07` | (26, 8, 28) | (26, 8, 28) |  |
+| `rota:08` | (25, 8, 23) | (25, 8, 23) |  |
+| `evento:porta_frente` | (24, 10, 25) | (24, 10, 25) | Abrir a porta da frente acorda o Magarefe. |
+| `evento:porta_ferro` | (36, 8, 12) | (36, 8, 12) | Porta de ferro de botão (lado do curral): a entrada segura (E1). |
+| `evento:saida_servico` | (43, 8, 12) | (43, 8, 12) | Alçapão da saída de serviço do porão (curral). |
+| `evento:alcapao_porao` | (25, 8, 14) | (25, 8, 14) | Alçapão grande (2 x 2) trancado: abre com a ordem certa das correntes. |
+| `evento:corrente_cao` | (18, 10, 12) | (18, 10, 12) | Corrente 'Cão': placa em (18, 8, 13), alavanca em (18, 8, 12). Erro: balança. |
+| `evento:corrente_vaca` | (22, 10, 12) | (22, 10, 12) | Corrente 'Vaca': placa em (22, 8, 13), alavanca em (22, 8, 12). Erro: balança. |
+| `evento:corrente_lebre` | (28, 10, 12) | (28, 10, 12) | Corrente 'Lebre': placa em (28, 8, 13), alavanca em (28, 8, 12). Erro: balança. |
+| `evento:corrente_javali` | (32, 10, 12) | (32, 10, 12) | Corrente 'Javali': placa em (32, 8, 13), alavanca em (32, 8, 12). Erro: balança. |
+| `evento:pendurado` | (16, 9, 10) | (16, 9, 10) | Corrente vazia: o Pendurado aparece aqui (quem tem mais Exposição). |
+| `evento:palheiro_palavra` | (24, 13, 18) | (24, 13, 18) | Viga do palheiro: a palavra riscada que abre o vídeo E7 (a Lore decide; não vai no repositório). |
+| `som:moscas` | (26, 10, 12) | (26, 10, 12) | Moscas e correntes rangendo na casa de abate. |
+| `evento:defumador` | (24, 9, 18) | (24, 9, 18) | Defumadores (x 20 e 29, z 17) soltando fumaça sem fogo. |

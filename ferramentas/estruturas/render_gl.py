@@ -313,7 +313,7 @@ void main(){
   vec3 luz;
   if (emis > 0.5) { luz = vec3(1.25); }
   else if (noite == 1) {
-    vec3 lua = vec3(0.30, 0.15, 0.17) * curva(sky);
+    vec3 lua = vec3(0.40, 0.19, 0.21) * curva(sky);
     vec3 fogo = vec3(1.25, 0.82, 0.48) * curva(blk);
     luz = (vec3(0.035, 0.028, 0.035) + lua + fogo) * shade;
   } else {

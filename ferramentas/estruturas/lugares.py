@@ -183,14 +183,13 @@ def chao_morto(e, x0, z0, x1, z1, y, borda_irregular=3, so_vazio=True, material=
 
 
 def colar(e, x0, z0, x1, z1, y, largura=2):
-    """Colar de terra em volta do pé de uma construção (encaixa em terreno torto): y e y - 1."""
+    """Colar de terra escura em volta do pé de uma construção (encaixa em terreno torto)."""
     for x in range(x0 - largura, x1 + largura + 1):
         for z in range(z0 - largura, z1 + largura + 1):
             if x0 <= x <= x1 and z0 <= z <= z1:
                 continue
-            for yy in (y, y - 1):
-                if e.dentro(x, yy, z) and (x, yy, z) not in e.blocos:
-                    e.por(x, yy, z, TERRA_ESCURA if yy == y else "dirt")
+            if e.dentro(x, y, z) and (x, y, z) not in e.blocos:
+                e.por(x, y, z, TERRA_ESCURA)
 
 
 def mato_seco(e, x0, z0, x1, z1, y, chance=0.08):

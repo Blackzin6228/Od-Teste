@@ -1,0 +1,337 @@
+{
+  "estrutura": "casa_acougueiro",
+  "titulo": "2. Casa do Açougueiro",
+  "tamanho": [
+    48,
+    23,
+    36
+  ],
+  "y_chao": 7,
+  "origem": "canto noroeste de baixo (x leste, y cima, z sul)",
+  "colocar": "origem y = (y do bloco de cima do terreno) - 7",
+  "marcadores": [
+    {
+      "pos": [
+        28,
+        3,
+        12
+      ],
+      "metadata": "bau:porao_livro_trocas",
+      "alvo": [
+        28,
+        2,
+        12
+      ],
+      "nota": "Barril aberto sobre a bancada. Livro de Trocas, metade direita do Mapa e Faca de Osso. Abre com a ordem certa das correntes."
+    },
+    {
+      "pos": [
+        31,
+        9,
+        20
+      ],
+      "metadata": "atril:diario_p2_p3",
+      "alvo": [
+        31,
+        8,
+        20
+      ],
+      "nota": "Na ponta do balcão. Diário do Açougueiro, páginas 2 e 3 (ordem dos bichos; tabela dos Riscos de Corte)."
+    },
+    {
+      "pos": [
+        21,
+        1,
+        12
+      ],
+      "metadata": "spawn:magarefe",
+      "alvo": [
+        21,
+        1,
+        12
+      ],
+      "nota": "Lugar do Magarefe: porão de salga. Não morre no Ato 1."
+    },
+    {
+      "pos": [
+        30,
+        2,
+        12
+      ],
+      "metadata": "rota:01",
+      "alvo": [
+        30,
+        2,
+        12
+      ],
+      "nota": "Perseguição: porão, túnel, poço do curral, volta pela frente."
+    },
+    {
+      "pos": [
+        38,
+        1,
+        12
+      ],
+      "metadata": "rota:02",
+      "alvo": [
+        38,
+        1,
+        12
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        42,
+        2,
+        12
+      ],
+      "metadata": "rota:03",
+      "alvo": [
+        42,
+        2,
+        12
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        43,
+        8,
+        14
+      ],
+      "metadata": "rota:04",
+      "alvo": [
+        43,
+        8,
+        14
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        42,
+        8,
+        30
+      ],
+      "metadata": "rota:05",
+      "alvo": [
+        42,
+        8,
+        30
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        34,
+        8,
+        30
+      ],
+      "metadata": "rota:06",
+      "alvo": [
+        34,
+        8,
+        30
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        26,
+        8,
+        28
+      ],
+      "metadata": "rota:07",
+      "alvo": [
+        26,
+        8,
+        28
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        25,
+        8,
+        23
+      ],
+      "metadata": "rota:08",
+      "alvo": [
+        25,
+        8,
+        23
+      ],
+      "nota": ""
+    },
+    {
+      "pos": [
+        24,
+        10,
+        25
+      ],
+      "metadata": "evento:porta_frente",
+      "alvo": [
+        24,
+        10,
+        25
+      ],
+      "nota": "Abrir a porta da frente acorda o Magarefe."
+    },
+    {
+      "pos": [
+        36,
+        8,
+        12
+      ],
+      "metadata": "evento:porta_ferro",
+      "alvo": [
+        36,
+        8,
+        12
+      ],
+      "nota": "Porta de ferro de botão (lado do curral): a entrada segura (E1)."
+    },
+    {
+      "pos": [
+        43,
+        8,
+        12
+      ],
+      "metadata": "evento:saida_servico",
+      "alvo": [
+        43,
+        8,
+        12
+      ],
+      "nota": "Alçapão da saída de serviço do porão (curral)."
+    },
+    {
+      "pos": [
+        25,
+        8,
+        14
+      ],
+      "metadata": "evento:alcapao_porao",
+      "alvo": [
+        25,
+        8,
+        14
+      ],
+      "nota": "Alçapão grande (2 x 2) trancado: abre com a ordem certa das correntes."
+    },
+    {
+      "pos": [
+        18,
+        10,
+        12
+      ],
+      "metadata": "evento:corrente_cao",
+      "alvo": [
+        18,
+        10,
+        12
+      ],
+      "nota": "Corrente 'Cão': placa em (18, 8, 13), alavanca em (18, 8, 12). Erro: balança."
+    },
+    {
+      "pos": [
+        22,
+        10,
+        12
+      ],
+      "metadata": "evento:corrente_vaca",
+      "alvo": [
+        22,
+        10,
+        12
+      ],
+      "nota": "Corrente 'Vaca': placa em (22, 8, 13), alavanca em (22, 8, 12). Erro: balança."
+    },
+    {
+      "pos": [
+        28,
+        10,
+        12
+      ],
+      "metadata": "evento:corrente_lebre",
+      "alvo": [
+        28,
+        10,
+        12
+      ],
+      "nota": "Corrente 'Lebre': placa em (28, 8, 13), alavanca em (28, 8, 12). Erro: balança."
+    },
+    {
+      "pos": [
+        32,
+        10,
+        12
+      ],
+      "metadata": "evento:corrente_javali",
+      "alvo": [
+        32,
+        10,
+        12
+      ],
+      "nota": "Corrente 'Javali': placa em (32, 8, 13), alavanca em (32, 8, 12). Erro: balança."
+    },
+    {
+      "pos": [
+        16,
+        9,
+        10
+      ],
+      "metadata": "evento:pendurado",
+      "alvo": [
+        16,
+        9,
+        10
+      ],
+      "nota": "Corrente vazia: o Pendurado aparece aqui (quem tem mais Exposição)."
+    },
+    {
+      "pos": [
+        24,
+        13,
+        18
+      ],
+      "metadata": "evento:palheiro_palavra",
+      "alvo": [
+        24,
+        13,
+        18
+      ],
+      "nota": "Viga do palheiro: a palavra riscada que abre o vídeo E7 (a Lore decide; não vai no repositório)."
+    },
+    {
+      "pos": [
+        26,
+        10,
+        12
+      ],
+      "metadata": "som:moscas",
+      "alvo": [
+        26,
+        10,
+        12
+      ],
+      "nota": "Moscas e correntes rangendo na casa de abate."
+    },
+    {
+      "pos": [
+        24,
+        9,
+        18
+      ],
+      "metadata": "evento:defumador",
+      "alvo": [
+        24,
+        9,
+        18
+      ],
+      "nota": "Defumadores (x 20 e 29, z 17) soltando fumaça sem fogo."
+    }
+  ],
+  "pistas": []
+}
