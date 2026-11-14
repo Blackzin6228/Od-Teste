@@ -3,7 +3,7 @@
 Aprovado pelo Nikolas (respostas na conversa com a mesa CEO):
 
 ## Onde e quanto
-- A camada de horror (cor lavada, neblina, escuridão, som) vale **à noite e nas áreas da história**. De dia, no mundo comum, fica leve.
+- A camada de horror (cor lavada, neblina, escuridão, som) vale **no mundo inteiro, forte, de dia também** (mudança do Nikolas na mesma noite: antes era só à noite e nas áreas da história). À noite e nas áreas da história ela fica ainda mais pesada.
 - Noite **bem escura**, com o **gamma travado**: brilho no máximo não clareia o escuro.
 - **Música** do Minecraft e dos mods **cortada** à noite e nas áreas da história. No lugar: silêncio e sons (só sons vanilla, regra da lore).
 - **Sustos raros e fortes**: uma ou duas coisas grandes por noite por jogador; o resto é tensão e silêncio.
