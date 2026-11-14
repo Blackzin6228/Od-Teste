@@ -31,7 +31,9 @@ public final class ConfigCliente {
 
     /** Onde fica o minimapa na tela (para o chiado cobrir o lugar certo). */
     public enum Canto implements TranslatableEnum {
-        AUTOMATICO, CIMA_DIREITA, CIMA_ESQUERDA, BAIXO_DIREITA, BAIXO_ESQUERDA;
+        AUTOMATICO, CIMA_DIREITA, CIMA_ESQUERDA, BAIXO_DIREITA, BAIXO_ESQUERDA,
+        /** Escondi o minimapa: sem chiado nenhum. */
+        NENHUM;
 
         @Override
         public Component getTranslatedName() {
@@ -49,7 +51,7 @@ public final class ConfigCliente {
         EFEITOS_FORTES = b.comment("Efeitos fortes de tela (tremor, piscada, distorção). LIGADO, SUAVE ou DESLIGADO (= mínimo: diminui, não tira).")
                 .translation("odteste.configuration.efeitos_fortes")
                 .defineEnum("efeitos_fortes", Forca.LIGADO);
-        MINIMAPA_CANTO = b.comment("Canto do minimapa (JourneyMap e outros), para a falha cobrir o lugar certo. AUTOMATICO = canto padrão do mod.")
+        MINIMAPA_CANTO = b.comment("Canto do minimapa (JourneyMap e outros), para a falha cobrir o lugar certo. AUTOMATICO = canto padrão do mod; NENHUM = sem chiado (minimapa escondido).")
                 .translation("odteste.configuration.minimapa_canto")
                 .defineEnum("minimapa_canto", Canto.AUTOMATICO);
         MINIMAPA_TAMANHO = b.comment("Tamanho do minimapa em % da altura da tela (0 = automático).")

@@ -1,6 +1,7 @@
 package com.nikolas.odteste.cliente;
 
 import com.nikolas.odteste.OdMod;
+import com.nikolas.odteste.compat.Compat;
 import com.nikolas.odteste.horror.IdsHorror;
 import com.nikolas.odteste.horror.RegrasCamadaHorror;
 import com.nikolas.odteste.horror.RegrasCamadaHorror.Momento;
@@ -41,7 +42,8 @@ import org.joml.Vector3f;
  * <li><b>Noite escura, brilho travado:</b> pelo mapa de luz ({@link LuzDaNoite}): onde não há luz de bloco, a luz cai
  * e o brilho (gamma) do jogador é desfeito. Tocha, lanterna e vela continuam clareando. A opção de brilho do
  * jogador nunca é mexida (nada fica salvo errado no options.txt). Se outro mod trocou o céu do overworld, entra um
- * véu escuro na tela no lugar (menos perto de luz).</li>
+ * véu escuro na tela no lugar (menos perto de luz). Com shader pack do Iris ligado, também o véu (a maioria dos packs
+ * não usa o mapa de luz).</li>
  * <li><b>Névoa:</b> de noite chega mais perto e escurece de cor.</li>
  * <li><b>Música:</b> a do jogo e a dos mods param e não tocam enquanto a camada estiver ligada. Volta depois.
  * No lugar: silêncio e, de vez em quando, um som vanilla grave e longe (fora das áreas, que têm os sons delas).</li>
@@ -64,9 +66,12 @@ final class CamadaHorrorCliente {
     private static float gamma;
     private static boolean cortandoMusica;
     private static boolean luzNossa;
+    private static boolean packLigado;
     private static boolean avisouLuz;
     private static long tick;
     private static long proximoSom = -1;
+    /** Iris no pack: com shader pack ligado, a maioria dos packs ignora o mapa de luz (o véu entra no lugar). */
+    private static final boolean IRIS = Compat.Integracao.IRIS.ligada();
     /** A mesa de shaders liga isto quando o shader dela já escurece a tela. */
     static volatile boolean shaderCuidaDoVeu;
 
@@ -131,14 +136,21 @@ final class CamadaHorrorCliente {
         if (mc.isPaused()) return;
         tick++;
         BlockPos olhos = BlockPos.containing(p.getEyePosition());
-        momento = RegrasCamadaHorror.momento(nivel.dimension() == Level.OVERWORLD, nivel.getDayTime(),
+        boolean overworld = nivel.dimension() == Level.OVERWORLD;
+        momento = RegrasCamadaHorror.momento(overworld, nivel.getDayTime(),
                 nivel.getBrightness(LightLayer.SKY, olhos), !area.isEmpty());
-        forca = RegrasCamadaHorror.aproximar(forca, RegrasCamadaHorror.alvo(momento), RegrasCamadaHorror.PASSO);
-        forcaNoite = RegrasCamadaHorror.aproximar(forcaNoite, momento == Momento.NOITE ? 1f : 0f, RegrasCamadaHorror.PASSO);
+        if (!overworld && area.isEmpty()) {
+            // Nether, End e outras: a camada some na hora (nada de véu nem névoa da noite durante a troca).
+            forca = forcaNoite = 0f;
+        } else {
+            forca = RegrasCamadaHorror.aproximar(forca, RegrasCamadaHorror.alvo(momento), RegrasCamadaHorror.PASSO);
+            forcaNoite = RegrasCamadaHorror.aproximar(forcaNoite, momento == Momento.NOITE ? 1f : 0f, RegrasCamadaHorror.PASSO);
+        }
         gamma = (float) Math.max(0.0, Math.min(1.0, mc.options.gamma().get()));
 
         luzNossa = nivel.effects() instanceof LuzDaNoite;
-        if (!luzNossa && !avisouLuz && forca > 0) {
+        packLigado = IRIS && com.nikolas.odteste.compat.iris.PackIris.packLigado();
+        if (overworld && !luzNossa && !avisouLuz && forca > 0) {
             avisouLuz = true;
             OdMod.LOGGER.info("{}: outro mod troca o céu do overworld; a noite escura usa o véu de reserva.", OdMod.MODID);
         }
@@ -205,9 +217,12 @@ final class CamadaHorrorCliente {
                 RegrasCamadaHorror.canal(cor.z(), f, luzBloco, a, g));
     }
 
-    /** Véu de reserva: só quando a luz não é nossa (ou nenhum shader cuida). Embaixo da HUD (a barra fica visível). */
+    /**
+     * Véu de reserva: quando a luz não é nossa ou há shader pack ligado (a maioria dos packs calcula a luz sozinha e
+     * não usa o mapa de luz), e nenhum shader nosso cuida do escuro. Embaixo da HUD (a barra fica visível).
+     */
     private static void desenhar(GuiGraphics g, DeltaTracker delta) {
-        if (luzNossa || shaderCuidaDoVeu) return;
+        if ((luzNossa && !packLigado) || shaderCuidaDoVeu) return;
         float f = Math.max(forca, apagar);
         if (f <= 0.01f) return;
         Minecraft mc = Minecraft.getInstance();

@@ -24,8 +24,8 @@ import net.neoforged.neoforge.client.event.ViewportEvent;
  * <li><b>Sons:</b> vento, madeira rangendo, arrasto ao longe. Vanilla, tom 0,5-0,7, um a cada 25-70 s.</li>
  * <li><b>O Pendurado:</b> só para o jogador de maior Exposição do grupo ({@link Pendurado}), a cada 3-6 min.</li>
  * </ul>
- * {@code efeitos_fortes}: SUAVE = névoa e cinza pela metade, Pendurado some em 1 s. DESLIGADO = sons e névoa
- * (no nível do SUAVE; sem cinza nem Pendurado), igual às outras alucinações que se veem. Nenhum número na tela.
+ * {@code efeitos_fortes}: SUAVE = névoa e cinza pela metade, Pendurado some em 1 s. Desde 14/11/2026 o antigo
+ * DESLIGADO vale como "Mínimo" (força 0,25): cinza mais rara e Pendurado como no SUAVE. Nenhum número na tela.
  *
  * Sem lag: por tick, só contas simples e no máximo uma partícula; sons e Pendurado são decididos uma vez por segundo.
  */
@@ -62,7 +62,7 @@ final class ClimaVilaCliente {
         Pendurado.limpar();
     }
 
-    /** Força dos efeitos que se veem: 1 (LIGADO), 0,5 (SUAVE), 0 (DESLIGADO). */
+    /** Força dos efeitos que se veem: 1 (LIGADO), 0,5 (SUAVE), 0,25 (DESLIGADO = Mínimo, desde 14/11/2026). */
     private static float forca() {
         return ConfigCliente.tremor();
     }

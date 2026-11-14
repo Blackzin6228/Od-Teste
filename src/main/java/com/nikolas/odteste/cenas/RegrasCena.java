@@ -33,7 +33,7 @@ public final class RegrasCena {
         COMPLETO,
         /** SUAVE: igual, mas a câmera não balança (sem o "passo"). */
         SEM_BALANCO,
-        /** DESLIGADO: a câmera não anda; tela preta só com o texto e os sons. */
+        /** Força 0: a câmera não anda; tela preta só com o texto e os sons. Desde 14/11/2026 o DESLIGADO vale 0,25 (cai no SEM_BALANCO). */
         SO_TEXTO;
 
         /** Da força do efeitos_fortes (1 = LIGADO, entre 0 e 1 = SUAVE, 0 = DESLIGADO). */

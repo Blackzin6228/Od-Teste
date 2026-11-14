@@ -42,7 +42,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
  * {@code odteste_mestre}), criativo ou espectador, nem para quem outro sistema já está assustando.</li>
  * </ul>
  * Comando do mestre: {@code /odteste susto <tipo> <jogador>} (dispara na hora, de dia também).
- * Nada salvo no mundo: reiniciar zera as contas da noite.
+ * Contas da noite por jogador (UUID) em memória: sair e entrar não zera; só reiniciar o servidor zera.
  *
  * <b>Área nova da história:</b> {@link #registrarArea}("id", jogador -> está dentro?). A conta tem que ser leve
  * (roda uma vez por segundo por jogador).
@@ -68,7 +68,12 @@ public final class CamadaHorror {
     public static void iniciar() {
         registrarArea(IdsHorror.AREA_VILA_CALADA, ClimaVilaCalada::estaDentro);
         NeoForge.EVENT_BUS.addListener(CamadaHorror::aoTick);
-        NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> esquecer(e.getEntity().getUUID()));
+        // Sair e entrar não zera a noite: o diário (pequeno) fica até o servidor desligar; só o "último enviado" sai.
+        NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> {
+            ENVIADO.remove(e.getEntity().getUUID());
+            RegrasSusto.Diario d = DIARIOS.get(e.getEntity().getUUID());
+            if (d != null) d.camada(false, 0); // ao voltar, espera o minuto de tensão de novo (o limite continua)
+        });
         // Entrou de novo: o cliente começa sem área; manda de novo.
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedInEvent e) -> ENVIADO.remove(e.getEntity().getUUID()));
         NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> {
@@ -89,12 +94,6 @@ public final class CamadaHorror {
     /** Outro sistema avisa que está assustando o jogador: sem susto grande sozinho enquanto valer. */
     public static synchronized void ocupadoSe(Predicate<ServerPlayer> ocupado) {
         OCUPADO.add(ocupado);
-    }
-
-    private static void esquecer(UUID u) {
-        ENVIADO.remove(u);
-        DIARIOS.remove(u);
-        ULTIMO.remove(u);
     }
 
     /** Em que área o jogador está ("" = nenhuma). */

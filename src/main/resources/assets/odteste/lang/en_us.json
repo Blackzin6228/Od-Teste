@@ -274,12 +274,13 @@
   "odteste.configuration.efeitos_fortes.suave": "Soft",
   "odteste.configuration.efeitos_fortes.desligado": "Minimum",
   "odteste.configuration.minimapa_canto": "Minimap corner",
-  "odteste.configuration.minimapa_canto.tooltip": "Where your minimap is, so the glitch covers the right place. Automatic uses the mod's default corner.",
+  "odteste.configuration.minimapa_canto.tooltip": "Where your minimap is, so the glitch covers the right place. Automatic uses the mod's default corner; None removes the static (hidden minimap).",
   "odteste.configuration.minimapa_canto.automatico": "Automatic",
   "odteste.configuration.minimapa_canto.cima_direita": "Top right",
   "odteste.configuration.minimapa_canto.cima_esquerda": "Top left",
   "odteste.configuration.minimapa_canto.baixo_direita": "Bottom right",
   "odteste.configuration.minimapa_canto.baixo_esquerda": "Bottom left",
   "odteste.configuration.minimapa_tamanho": "Minimap size",
-  "odteste.configuration.minimapa_tamanho.tooltip": "In % of the screen height. 0 = automatic."
+  "odteste.configuration.minimapa_tamanho.tooltip": "In % of the screen height. 0 = automatic.",
+  "odteste.configuration.minimapa_canto.nenhum": "None (no minimap)"
 }

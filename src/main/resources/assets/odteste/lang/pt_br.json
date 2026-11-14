@@ -274,12 +274,13 @@
   "odteste.configuration.efeitos_fortes.suave": "Suave",
   "odteste.configuration.efeitos_fortes.desligado": "Mínimo",
   "odteste.configuration.minimapa_canto": "Canto do minimapa",
-  "odteste.configuration.minimapa_canto.tooltip": "Onde fica o seu minimapa, para a falha cobrir o lugar certo. Automático usa o canto padrão do mod.",
+  "odteste.configuration.minimapa_canto.tooltip": "Onde fica o seu minimapa, para a falha cobrir o lugar certo. Automático usa o canto padrão do mod; Nenhum tira o chiado (minimapa escondido).",
   "odteste.configuration.minimapa_canto.automatico": "Automático",
   "odteste.configuration.minimapa_canto.cima_direita": "Em cima, à direita",
   "odteste.configuration.minimapa_canto.cima_esquerda": "Em cima, à esquerda",
   "odteste.configuration.minimapa_canto.baixo_direita": "Embaixo, à direita",
   "odteste.configuration.minimapa_canto.baixo_esquerda": "Embaixo, à esquerda",
   "odteste.configuration.minimapa_tamanho": "Tamanho do minimapa",
-  "odteste.configuration.minimapa_tamanho.tooltip": "Em % da altura da tela. 0 = automático."
+  "odteste.configuration.minimapa_tamanho.tooltip": "Em % da altura da tela. 0 = automático.",
+  "odteste.configuration.minimapa_canto.nenhum": "Nenhum (sem minimapa)"
 }

@@ -119,6 +119,7 @@ final class FalhaMinimapa {
         int pct = ConfigCliente.minimapaTamanho();
         int lado = pct > 0 ? h * pct / 100 : Math.max(60, Math.min(140, (int) (h * 0.32f)));
         ConfigCliente.Canto canto = ConfigCliente.minimapaCanto();
+        if (canto == ConfigCliente.Canto.NENHUM) return;
         if (canto != ConfigCliente.Canto.AUTOMATICO) {
             boolean cima = canto == ConfigCliente.Canto.CIMA_DIREITA || canto == ConfigCliente.Canto.CIMA_ESQUERDA;
             boolean dir = canto == ConfigCliente.Canto.CIMA_DIREITA || canto == ConfigCliente.Canto.BAIXO_DIREITA;
@@ -134,7 +135,7 @@ final class FalhaMinimapa {
         }
     }
 
-    /** Chiado de TV fora do ar num quadrado do canto: cinzas sorteados a cada quadro, em blocos de 4 px. */
+    /** Chiado de TV fora do ar num quadrado do canto: cinzas sorteados a cada quadro, em blocos de 7 px (~400 no máximo). */
     private static void chiado(GuiGraphics g, int w, int h, int lado, boolean cima, boolean direita) {
         int margem = 2;
         int x0 = direita ? w - lado - margem : margem;
@@ -144,7 +145,7 @@ final class FalhaMinimapa {
         long semente = System.nanoTime() / 50_000_000L; // troca ~20 vezes por segundo
         g.drawManaged(() -> {
             if (some) g.fill(x0, y0, x0 + lado, y0 + lado, 0xF0080808);
-            int cel = 4;
+            int cel = 7;
             long r = semente * 6364136223846793005L + 1442695040888963407L;
             for (int y = y0; y < y0 + lado; y += cel) {
                 for (int x = x0; x < x0 + lado; x += cel) {

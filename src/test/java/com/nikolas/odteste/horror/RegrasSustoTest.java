@@ -65,6 +65,17 @@ class RegrasSustoTest {
     }
 
     @Test
+    void sairEEntrarNaoZeraOLimite() {
+        RegrasSusto.Diario d = new RegrasSusto.Diario();
+        long noite = RegrasSusto.noite(NOITE_0);
+        d.camada(true, 0);
+        d.marcar(noite, 2_000);
+        d.camada(false, 3_000); // saiu
+        d.camada(true, 4_000); // voltou na mesma noite
+        assertFalse(d.cabe(noite, 100_000, 0));
+    }
+
+    @Test
     void aNoiteInteiraTemOMesmoNumero() {
         assertEquals(RegrasSusto.noite(13_000), RegrasSusto.noite(22_999));
         assertEquals(RegrasSusto.noite(24_000 + 13_000), RegrasSusto.noite(24_000 + 22_000));
