@@ -4,6 +4,7 @@ import com.nikolas.odteste.OdMod;
 import com.nikolas.odteste.compat.Compat;
 import com.nikolas.odteste.compat.playeranimator.AnimacaoJogador;
 import com.nikolas.odteste.dados.IdsDados;
+import com.nikolas.odteste.rede.ClimaVila;
 import com.nikolas.odteste.rede.Momento;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
@@ -48,11 +49,20 @@ public final class OdModCliente {
         });
 
         ConteudoCliente.iniciar(barramento);
+        // Cenas de câmera (a chegada à Vila Calada; depois, outras).
+        CenaCliente.iniciar(barramento);
 
         NeoForge.EVENT_BUS.addListener((ClientTickEvent.Post e) -> {
             EfeitosLucidez.aoTick();
+            ClimaVilaCliente.aoTick();
             if (ANIMADOR) AnimacaoJogador.aoTick();
         });
+        // Clima da Vila Calada: névoa avermelhada e o Pendurado (desenhado, nunca entra no mundo).
+        NeoForge.EVENT_BUS.addListener(ClimaVilaCliente::aoNevoa);
+        NeoForge.EVENT_BUS.addListener(ClimaVilaCliente::aoCorDaNevoa);
+        NeoForge.EVENT_BUS.addListener(Pendurado::desenhar);
+        NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut e) -> ClimaVilaCliente.limpar());
+        ClimaVila.definirReceptor(ClimaVilaCliente::receber);
         NeoForge.EVENT_BUS.addListener(Tela::aoCalcularCamera);
         NeoForge.EVENT_BUS.addListener(Tela::aoCalcularFov);
         NeoForge.EVENT_BUS.addListener(Tela::aoDesenharMao);
@@ -62,6 +72,8 @@ public final class OdModCliente {
         NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut e) -> EfeitosLucidez.limpar());
 
         Momento.definirReceptor(MomentosCliente::receber);
+        // Magias (Talho Rubro): partículas, sons, manchas no chão e tela, por fase.
+        MagiaCliente.iniciar();
         if (ANIMADOR) AnimacaoJogador.iniciar();
         OdMod.LOGGER.info("{}: efeitos do cliente ligados (Player Animator: {}).", OdMod.MODID, ANIMADOR);
     }

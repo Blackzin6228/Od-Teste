@@ -25,29 +25,83 @@ Modid: `odteste` (definitivo, decisão de 2026-11-08) · Lançado no servidor: *
 | `odteste:marca_sobe` | animação do jogador (provisória, no código) | 08/11/2026 | usada também na troca de elemento |
 | `odteste:surto` | animação do jogador (provisória, no código) | 08/11/2026 | |
 | `odteste:marca_visivel` | pacote de rede (servidor → quem vê o jogador e ele mesmo) | 08/11/2026 | só elemento e estágio da Marca, para desenhar no corpo |
-| `odteste:paranormal` | tag de tipo de dano (`data/odteste/tags/damage_type/`), tag de criatura (`.../entity_type/`) **e** tag de item (`.../item/`, desde 08/11/2026) | 08/11/2026 | dano paranormal pesa mais na Lucidez; item paranormal faz a mão tremer (Exposição Média+, parado); hoje vazias |
+| `odteste:paranormal` | tag de tipo de dano (`data/odteste/tags/damage_type/`), tag de criatura (`.../entity_type/`) **e** tag de item (`.../item/`, desde 08/11/2026); desde 13/11/2026 também **tipo de dano** (`data/odteste/damage_type/paranormal.json`) | 08/11/2026 | dano paranormal pesa mais na Lucidez; item paranormal faz a mão tremer (Exposição Média+, parado). O tipo de dano é o golpe corpo a corpo das criaturas nossas (passa pela armadura normal; está na tag; não está em `bypasses_armor`); chaves de texto `death.attack.odteste.paranormal`, `.player`, `.item` |
 | `odteste:comida_quente` | tag de item (`data/odteste/tags/item/comida_quente.json`, `"replace": false`) | 08/11/2026 | comer devolve Lucidez; hoje os 4 ensopados, a batata assada e as 5 carnes cozidas vanilla; outros mods somam por datapack/compat |
-| `odteste:marca_sangue_1` | textura gerada no cliente (veias, estágio 1) | 08/11/2026 | provisória, desenhada em código (`PadraoVeias`) |
+| `odteste:marca_sangue_1` | textura gerada no cliente (veias, estágio 1) | 08/11/2026 | **aposentada em 13/11/2026** (trocada pela v2 abaixo); era só do cliente, nunca foi salva no mundo |
 | `odteste:marca_sangue_2` | textura gerada no cliente (estágio 2) | 08/11/2026 | idem |
 | `odteste:marca_sangue_3` | textura gerada no cliente (estágio 3) | 08/11/2026 | idem |
 | `odteste:marca_sangue_4` | textura gerada no cliente (estágio 4) | 08/11/2026 | idem |
+| `odteste:textures/entity/marca_sangue` | pasta de texturas da Marca de Sangue v2 (`estagio_N.png`, `estagio_N_alex.png`, `estagio_N_brilho.png`, `estagio_N_brilho_alex.png`, N = 1 a 4) | 13/11/2026 | 64x64 no molde da skin; o `_brilho` é emissivo e pulsa; fonte em `arte/marca-sangue/v2/` |
 | `odteste:exposicao_repeticao` | dado do jogador (mapa `fonte/elemento` → [início da janela em tempo do mundo, vezes]) | 08/11/2026 | freio de repetição da Exposição; salvo para relogar não zerar; só guarda janelas abertas (10 min); sobrevive à morte; não vai para o cliente |
 | `efeitos_fortes` | chave de config do cliente (`config/odteste-client.toml`: `LIGADO`, `SUAVE`, `DESLIGADO`) | 08/11/2026 | fica no PC do jogador; renomear perde a escolha de quem usa suave/desligado. Desde 08/11 também desliga as alucinações que se veem (vulto, criatura, porta), a tela lavada, o balanço e a mão tremendo; SUAVE: porta só com som, vulto e criatura somem em 1 s, tela e corpo pela metade |
 | `odteste:lucidez_lentidao` | modificador de atributo (velocidade de movimento) | 08/11/2026 | temporário (não fica salvo); só Lucidez Quebrando (e surto) **com luz 7 ou menos**: −8% (`docs/horror.md` 2.3); conferido na checagem de 2 s do Vigia, na troca de faixa, ao entrar e ao renascer |
+| `odteste:analisador_sinal` | bloco **e** item do bloco | 2026-11-08 | Analisador de Sinal (aparelho FE, mesa Integrador). Modelo provisório |
+| `odteste:analisador_sinal` | tipo de block entity | 2026-11-08 | guarda a energia; aceita FE de qualquer lado (capacidade de energia do NeoForge), não entrega |
+| `energia` | chave NBT dentro do block entity `odteste:analisador_sinal` (inteiro 0–100.000) | 2026-11-08 | valor fora da faixa é corrigido ao carregar. Quebrar o bloco perde a energia (não vai no item) |
+| `facing`, `ligado`, `sinal` | propriedades do estado do bloco `odteste:analisador_sinal` (`facing`: north/east/south/west; `ligado`, `sinal`: true/false) | 2026-11-08 | ficam salvas no mundo com o bloco: renomear exige remap |
+| `odteste:compat/mekanism/analisador_sinal`, `odteste:compat/create/analisador_sinal`, `odteste:reserva/analisador_sinal` | receitas | 2026-11-08 | Mekanism e Create só com o mod no pack; a reserva vanilla (mais cara) só sem nenhum dos dois. Livro de receitas guarda o ID: mudar só com aviso |
 | `odteste_historia` | dado do mundo (`SavedData`, arquivo `data/odteste_historia.dat` do overworld) | 2026-11-08 | grupos (membros e marcos), pontos ancorados, vilas marcadas (com backup dos blocos e o aldeão que sumiu), estruturas colocadas por comando e aldeões que ainda vão voltar ao normal. Chaves dentro do arquivo também não mudam: `grupos`, `ancoras`, `vilas`, `colocacoes`, `descongelar`, `proxima_colocacao` |
 | `odteste:substituivel` | tag de bloco (`data/odteste/tags/block/substituivel.json`, `"replace": false`) | 2026-11-08 | o que a história pode ocupar além do ar: grama curta e alta, samambaia, arbusto morto, neve fina. Tudo o resto conta como possível construção de jogador |
 | `odteste:livro_carniceiro_1` | peça de história (item vanilla `minecraft:written_book` com custom_data `{odteste_peca: "odteste:livro_carniceiro_1"}`) | 2026-11-08 | Livro do Carniceiro, página 1 (Enigma 1). Texto provisório |
 | `odteste:mapa_rasgado_esquerda` | peça de história (item vanilla `minecraft:paper` com custom_data `{odteste_peca: "odteste:mapa_rasgado_esquerda"}`) | 2026-11-08 | metade esquerda do Mapa Rasgado (Enigma 1). Provisório: vira mapa de verdade no Enigma 2 |
 | `odteste_peca` | chave do custom_data dos itens de história | 2026-11-08 | o mod reconhece as peças por ela; o valor é o ID da peça (linhas acima) |
+| `odteste:livro` | chave do custom_data dos livros de história (item vanilla `minecraft:written_book` com `{"odteste:livro": "<id>"}`) | 2026-11-09 | fica gravado no item e nunca muda; o valor é o id do livro (nome do arquivo em `data/odteste/odteste_livros/`). O texto é remontado a cada leitura |
+| `sineiro` | id de livro de história (`data/odteste/odteste_livros/sineiro.json`) | 2026-11-09 | Livro do Sineiro (Ato 1). Fica gravado no item: renomear o arquivo quebra os livros que já existem. Texto provisório |
+| `odteste_livros_lidos` | dado do mundo (`SavedData`, arquivo `data/odteste_livros_lidos.dat` do overworld) | 2026-11-09 | quem já abriu cada livro (uuid → lista de ids), para o gancho `LivroAbertoPrimeiraVez` disparar uma vez só |
+| `odteste:aldeao_parado` | modificador de atributo (velocidade de movimento, −100%) | 2026-11-09 | temporário (não fica salvo); só nos aldeões parados olhando o sino do Primeiro Sinal, com jogador perto |
+| `odteste:aldeao_virado` | modificador de atributo (velocidade de movimento, −100%) | 2026-11-09 | temporário (não fica salvo); aldeões parados 15 s olhando para a Vila Calada (pista 2) |
+| `odteste_vila_calada` | dado do mundo (`SavedData`, arquivo `data/odteste_vila_calada.dat` do overworld) | 2026-11-09 | pistas da Vila Calada. Chaves dentro do arquivo também não mudam: `ligado`, `colocacao`, `ancora_auto`, `ancora_auto_dim`, `vistas` |
+| `odteste:vila_calada` | nome do template de estrutura (`data/odteste/structure/vila_calada.nbt`, quando entrar) | 2026-11-09 | o único template que ancora a Vila Calada sozinho ao terminar de ser colocado. Renomear quebra a âncora automática |
+| `odteste_gatilhos` | dado do mundo (`SavedData`, arquivo `data/odteste_gatilhos.dat` do overworld) | 2026-11-09 | gatilhos do Ato 1 (Primeiro Sinal sozinho na noite de neblina, aviso "não seguiu o sino"). Chaves dentro do arquivo também não mudam: `versao`, `grupos` → {nome do grupo} → `ja_teve`, `armado`, `livro_lido`, `noites`, `ultima_noite`, `avisado`, `falha_avisada`. Na primeira criação (mundo que já existe), todos os grupos que já existem ficam `ja_teve` |
+| `gatilhos.primeiro_sinal_automatico` | chave de config do servidor (`serverconfig/odteste-gatilhos-server.toml` do mundo, seção `[gatilhos]`; booleano, padrão `false`) | 2026-11-09 | o Primeiro Sinal solta sozinho na primeira noite de neblina para grupo novo. Desligado até o Nikolas aprovar "neblina = chuva" |
+| `gatilhos.neblina_precisa_chuva` | chave de config do servidor (mesmo arquivo e seção; booleano, padrão `true`) | 2026-11-09 | noite de neblina = noite com chuva no overworld; `false` = qualquer noite |
+| `gatilhos.aviso_sino_ligado` | chave de config do servidor (mesmo arquivo e seção; booleano, padrão `true`) | 2026-11-09 | aviso só para admins "{grupo} não seguiu o sino" |
+| `gatilhos.noites_aviso_sino` | chave de config do servidor (mesmo arquivo e seção; inteiro, padrão 5, mínimo 1, máximo 100) | 2026-11-09 | noites (com alguém do grupo online) depois do Primeiro Sinal até o aviso |
+| `estruturas.blocos_por_tick` | chave de config do servidor (`serverconfig/odteste-server.toml` do mundo, seção `[estruturas]`; inteiro, padrão 4096, mínimo 256, máximo 65536) | 2026-11-09 | blocos por tick ao conferir, colocar e desfazer estrutura grande em partes. Mudar no meio só vale para a próxima colocação (cada uma guarda o `limite` com que começou) |
+| `odteste:vela_da_capela` | bloco + item do bloco + tipo de bloco com dados (block entity) | 2026-11-09 | vela da capela da Vila Calada: devolve Lucidez a quem está perto. Inquebrável no sobrevivência, sem drop, item escondido. O nome fica gravado no chunk |
+| `odteste:poca_de_sangue` | bloco + item do bloco | 2026-11-09 | poça fina sem colisão: quem fica nela perde Lucidez. Nome genérico para servir a outros lugares. Inquebrável no sobrevivência, sem drop, item escondido |
+| `odteste:cenas_vistas` | dado do jogador (lista de ids de cena, até 64) | 2026-11-12 | cenas que o jogador já viu (a cena do gatilho só toca uma vez). Sobrevive à morte; não vai para o cliente; id vazio ou repetido é ignorado ao ler. `/odteste cena esquecer` tira |
+| `entrada_vila_calada` | id de cena (`cenas/CenasConhecidas`) | 2026-11-12 | chegada à Vila Calada. Fica salvo em `odteste:cenas_vistas`: renomear faz todo mundo ver de novo. Chaves de texto `odteste.cena.entrada_vila_calada.1` e `.2` |
+| `odteste:tocar_cena` | pacote de rede (servidor → só o próprio jogador) | 2026-11-12 | "toque a cena X com esta âncora" (id, x, y, z, giro). Cena que o cliente não conhece é ignorada |
+| `odteste:cena` | camada da HUD (cliente) | 2026-11-12 | preto, legenda e aviso de pular das cenas; enquanto a câmera é da cena, as outras camadas somem |
+| `odteste:clima_vila` | pacote de rede (servidor → só o próprio jogador) | 2026-11-12 | clima da Vila Calada: "está dentro do muro" e "vê o Pendurado" (dois sim/não), mandado só quando muda; o ponto da vila não vai para o cliente. Versão da rede subiu para 3. Nada salvo |
+| `odteste:sangue` | escola de magia do Iron's (`irons_spellbooks:schools`) | 2026-11-13 | só existe com o Iron's no pack; nome na tela provisório "Sangue do Limiar" (chave `school.odteste.sangue`). Fica gravada nos itens do Iron's que dão bônus por escola. Morte, Conhecimento e Energia entram depois com `odteste:<elemento>` |
+| `odteste:talho_rubro` | magia do Iron's (`irons_spellbooks:spells`) **e** id da magia no nosso código (`/odteste magia`) **e** animação do jogador (gancho, ainda sem animação) | 2026-11-13 | Sangue, Básico. O Iron's grava o id em pergaminhos e grimórios: renomear apaga a magia deles. O Iron's cria a seção `[odteste:talho_rubro]` no config de magias dele (mana, recarga, nível); fora do forjador e do loot aleatório dele. Ícone `odteste:textures/gui/spell_icons/talho_rubro.png` ainda falta (Modelador) |
+| `odteste:magia_sangue` | tipo de dano (`data/odteste/damage_type/magia_sangue.json`) | 2026-11-13 | dano das magias de Sangue (com e sem Iron's); mensagens `death.attack.odteste.magia_sangue[.player]`. Fora das tags `odteste:paranormal` e `bypasses_armor` (armadura conta) |
+| `odteste:poder_sangue`, `odteste:resistencia_sangue` | atributos (poder e resistência da escola `odteste:sangue`) | 2026-11-13 | só existem com o Iron's no pack; padrão 1 (100%). O jogo grava o valor base no jogador: se o Iron's sair, o jogo só ignora (aviso no log, sem crash) |
+| `odteste:foco_sangue` | tag de item (`data/odteste/tags/item/foco_sangue.json`, `"replace": false`) | 2026-11-13 | foco da escola no Iron's; **hoje vazia** (a magia não sai da forja dele) |
+| `odteste:magia_fase` | pacote de rede (servidor → quem vê quem conjura e ele mesmo) | 2026-11-13 | "a magia X entrou na fase Y" (preparação, golpe), com posição, giro e semente do desenho; o rastro e as manchas nascem no cliente. Versão da rede subiu para 4. Nada salvo |
+| `/odteste magia testar <magia>`, `/odteste magia afinidade <magia>` | comandos de admin (permissão 2) | 2026-11-13 | `testar`: solta de graça em quem digitou; `afinidade`: o mesmo caminho da futura tecla de Afinidade (paga Lucidez, recarga de 2 s só em memória) |
+| `lodestone` | integração opcional (`Compat.Integracao.LODESTONE`, só cliente) | 2026-11-13 | brilho no corte das magias; sem ele, pó vanilla. Não é salvo |
+| `odteste_mestre` | tag vanilla do jogador (`/tag <nome> add odteste_mestre`) | 2026-11-13 | quem tem a tag nunca é escolhido para ver o Pendurado. Salva pelo próprio jogo nas tags do jogador |
 
 História (Ato 1, parte A). Ficam salvos dentro de `odteste_historia`, então também não mudam:
-- **Marcos do grupo:** `primeiro_sinal` (Cena 1 solta para o grupo), `enigma_sino` (FERRO escrito na placa, baú aberto).
-- **Lugares que o admin ancora:** `vila_do_sino` (onde procurar a vila da Cena 1).
+- **Marcos do grupo:** `primeiro_sinal` (Cena 1 solta para o grupo), `enigma_sino` (FERRO escrito na placa, baú aberto), `vila_calada` (desde 2026-11-09: o grupo chegou à Vila Calada; as pistas param).
+- **Lugares que o admin ancora:** `vila_do_sino` (onde procurar a vila da Cena 1), `vila_calada` (desde 2026-11-09: centro da Vila Calada; também ancorado sozinho quando o template principal termina de ser colocado).
 - **Nomes de grupo:** quem escolhe é o admin (`/odteste grupo criar <nome>`). Renomear um grupo perde o progresso dele.
 - Os eventos do comando (`/odteste evento primeiro_sinal`) e os ids de colocação (`e1`, `e2`...) não são IDs de conteúdo:
   o evento não fica salvo pelo nome, e o id de colocação só serve para o `desfazer`.
-- Aldeões parados olhando o sino ficam com `NoAI` e invulneráveis **só enquanto há jogador perto**; o estado antigo
-  deles fica salvo para voltar igual (desfazer, chunk recarregado ou ninguém perto).
+- **Chaves dentro de `odteste_historia`** (também não mudam; o mundo já tem arquivos com elas):
+  - topo: `grupos`, `ancoras`, `vilas`, `colocacoes`, `descongelar`, `proxima_colocacao`; em cada grupo `nome`,
+    `membros`, `marcos`; em cada âncora `dim`, `pos`.
+  - cada vila (`vilas`): `grupo`, `dim`, `sino`, `nota`, `bau`, `placa`, `estandarte`, `cama`, `aldeao`, `blocos`,
+    `congelados`, `resolvido`, `marcos`, e desde 2026-11-09 `apoio_placa`, `apoio_placa_bloco`, `apoio_estandarte`,
+    `apoio_estandarte_bloco` (blocos da vila que seguram a placa e o estandarte; mundos antigos ganham na primeira
+    vez que o mod vê o bloco). Vila sem `sino` é ignorada (não roda), mas fica no arquivo igual.
+  - cada colocação (`colocacoes`): `id`, `template`, `dim`, `canto`, `backup`, e desde 2026-11-09 `partes` (só em
+    estrutura grande, colocada em partes; colocação sem `partes` é a pequena, de uma vez, e continua igual).
+    Dentro de `partes`: `rotacao` (`none`, `clockwise_90`, `clockwise_180`, `counterclockwise_90`), `limite` (blocos
+    por fatia usados quando começou), `total` (fatias), `fatia` (próxima fatia), `fase`, `admin` (UUID de quem pediu,
+    pode faltar), e só enquanto desfaz `vizinhos` (posições já devolvidas que ainda ajustam os vizinhos) e
+    `vizinhos_feitos`. Valores de `fase`: `conferindo`, `colocando`, `pausada`, `pronta`, `desfazendo` (valor
+    desconhecido vira `pausada`: para e espera o admin). O backup de uma estrutura pronta fica no arquivo até o
+    `desfazer` (a Vila Calada são centenas de milhares de posições).
+  - cada backup de blocos (`blocos` da vila e `backup` da colocação): `paleta`, `pos`, `original`, `colocado`.
+- Aldeões parados olhando o sino (desde 2026-11-09): **nada fica salvo**. O freio é o modificador temporário
+  `odteste:aldeao_parado` (o jogo não grava no disco), o olhar é uma memória que o jogo não grava e o dano é barrado
+  por evento. Chunk descarregado, crash ou o mod sair do pack nunca deixam aldeão travado.
+  `congelados` (na vila) e `descongelar` (no topo) só servem para mundos da versão antiga, que parava com `NoAI` e
+  invulnerável salvos: cada aldeão desses volta ao normal quando carrega, e as listas esvaziam sozinhas.
 
 Alucinações (só no cliente, **nada registrado nem salvo**): o vulto e a criatura falsa usam os modelos vanilla
 `minecraft:enderman` e `minecraft:zombie` como molde provisório, **desenhados por evento de render e nunca
@@ -55,6 +109,9 @@ adicionados ao mundo do cliente** (minimapa, radar e Jade não veem). A porta fa
 cliente, dentro da "previsão de bloco" do jogo, que guarda o estado real e devolve ele no fim. A lentidão sutil com
 o vulto perto (Exposição Crítica, −5%) é só no movimento do cliente, sem atributo nem ID. Os nomes das alucinações
 (`RegrasHorror.Alucinacao`) não são salvos e podem mudar.
+O **Pendurado** da Vila Calada (2026-11-12) segue a mesma regra: aldeão vanilla (`minecraft:villager`) e corrente
+(`minecraft:chain`) desenhados escuros por evento de render, nunca no mundo. Névoa, cinza e sons do clima da vila
+também não registram nada (sons e partículas vanilla).
 
 Chaves de texto (não são IDs salvos), da Lore (`docs/horror.md` seção 4): `odteste.horror.exposicao.<faixa>.<1-3>`
 (`comum`, `baixa`, `media`, `alta`, `critica`), `odteste.horror.lucidez.<faixa>.<1-3>` (`firme`, `alta`, `media`,
@@ -66,14 +123,15 @@ seguidas), e `odteste.horror.sussurro.nome`, `.nome.2`, `.voz` (nome sussurrado 
 | `odteste:dedal_dentado` | item (Artefato Paranormal de Sangue, incomum) | 2026-11-08 | sem receita |
 | `odteste:sino_de_matadouro` | item (Artefato Paranormal de Sangue, raro) | 2026-11-08 | sem receita |
 | `odteste:materia_sangue_bruta` | item (matéria paranormal de Sangue, bruta) | 2026-11-08 | cai do Retalhado e da Sanguessuga-Mãe; nome no jogo provisório ("Sangue Coalhado") |
-| `odteste:retalhado` | criatura (GeckoLib) **e** modificador de bioma (`data/odteste/neoforge/biome_modifier/`) **e** tabela de drop (`odteste:entities/retalhado`) | 2026-11-08 | modelo provisório; nome "(?)" ainda proposta da Lore |
-| `odteste:sanguessuga_mae` | criatura (GeckoLib) **e** modificador de bioma **e** tabela de drop (`odteste:entities/sanguessuga_mae`) | 2026-11-08 | modelo provisório; nome "(?)" ainda proposta da Lore |
+| `odteste:retalhado` | criatura (GeckoLib) **e** modificador de bioma (`data/odteste/neoforge/biome_modifier/`) **e** tabela de drop (`odteste:entities/retalhado`) | 2026-11-08 | modelo 5.2 desde 13/11/2026; nome "(?)" ainda proposta da Lore |
+| `odteste:sanguessuga_mae` | criatura (GeckoLib) **e** modificador de bioma **e** tabela de drop (`odteste:entities/sanguessuga_mae`) | 2026-11-08 | modelo 5.2 desde 13/11/2026; nome "(?)" ainda proposta da Lore |
 | `odteste:sangramento` | efeito **e** tipo de dano (`data/odteste/damage_type/`) | 2026-11-08 | dano está nas tags `odteste:paranormal` e `minecraft:bypasses_armor`; o efeito não mostra ícone nem tempo |
 | `odteste:principal` | aba do modo criativo | 2026-11-08 | hoje vazia (o jogo esconde): itens sem receita ficam fora do criativo e do JEI/EMI; admin usa `/give` |
 | `odteste:dedal_coracao` | modificador de atributo (vida máxima, −2) | 2026-11-08 | **fica salvo** no jogador até ele dormir a noite toda |
 | `odteste:chamado_de_sangue` | fábrica de ritual do Occultism (`occultism:ritual_factories`) | 2026-11-08 | só existe com o Occultism no pack |
 | `odteste:ritual/chamado_de_sangue` | receita de ritual do Occultism | 2026-11-08 | condição `neoforge:mod_loaded` occultism; chaves de texto `ritual.odteste.chamado_de_sangue.*` |
-| `odteste:textures/entity/retalhado.png`, `odteste:textures/entity/sanguessuga_mae.png` | texturas geradas no cliente | 2026-11-08 | provisórias (código em `cliente/ModeloCriatura`); o Modelador troca por PNG no mesmo caminho |
+| `odteste:textures/entity/retalhado.png`, `odteste:textures/entity/sanguessuga_mae.png` | texturas das criaturas (PNG) | 2026-11-08 | desde 13/11/2026 são os PNG da 5.2 (Retalhado 160x160 + `retalhado_glowmask.png`, Sanguessuga-Mãe 160x128); geo e animações 5.2 no mesmo nome; desde 13/11/2026 também a **variante B** (`retalhado_b.png` + `retalhado_b_glowmask.png`, `sanguessuga_mae_b.png`), escolhida no cliente pelo UUID da criatura (**nenhum dado salvo novo**) |
+| `odteste:geo/entity/magarefe.geo.json`, `odteste:animations/entity/magarefe.animation.json`, `odteste:textures/entity/magarefe.png` | modelo 5.2 do Magarefe (só arquivos) | 2026-11-13 | **sem criatura registrada** (o Magarefe ainda não tem ID); fica pronto para quando tiver |
 | `odteste_sem_materia` | etiqueta de criatura (scoreboard tag, salva na criatura) | 2026-11-08 | criatura de spawner: não solta matéria |
 | `odteste:criatura_noite` | dado do jogador (número da noite = dia do relógio; −1 = nunca) | 2026-11-08 | noite em que a última criatura de Sangue nasceu sozinha perto dele (limite de 1 por jogador Tocado por noite); sobrevive à morte; não vai para o cliente |
 | `odteste:elemento` | dado do jogador (texto: `nenhum`, `sangue`, `conhecimento`, `morte`, `energia`) | 2026-11-08 | elemento definido pelo admin (`/odteste elemento`); sobrevive à morte; texto desconhecido vira `nenhum`; **nunca vai para o cliente** (nem do dono) |
@@ -81,6 +139,35 @@ seguidas), e `odteste.horror.sussurro.nome`, `.nome.2`, `.voz` (nome sussurrado 
 | `odteste_sentiram` | chave salva na criatura de Sangue (lista de UUIDs, até 32) | 2026-11-08 | jogadores que já viram esta criatura (Exposição e Lucidez só uma vez); sobrevive a reinício |
 | `odteste:esconder_jei` | plugin do JEI (`compat/jei`) | 2026-11-08 | esconde itens sem receita e as receitas `odteste:` (ritual do Occultism); não é salvo. O EMI usa `compat/emi` (sem ID) |
 | `efeitos_fortes` | chave de config do cliente (`config/odteste-client.toml`: `LIGADO`, `SUAVE`, `DESLIGADO`) | 08/11/2026 | fica no PC do jogador; renomear perde a escolha de quem usa suave/desligado |
+
+Balanceamento tech (2026-11-13, `docs/decisoes/2026-11-13-balanceamento-tech.md`, mesa Integrador). Não registram
+nada novo no jogo: só põem IDs nossos em tags e data maps de outros mods (sempre `"replace": false`). Sem o mod no
+pack, o arquivo é ignorado. Tirar uma criatura ou bloco daqui reabre a brecha: só com aviso.
+| ID | Tipo | Desde | Observação |
+|---|---|---|---|
+| `odteste:paranormal` | tipo de dano (**referência**: quem cria é a mesa Dev) | 2026-11-13 | usado no data map `mekanism:mekasuit_absorption` com `absorption` 0,5 (a MekaSuit segura metade, igual à nossa A4; decisão `2026-11-13-balanceamento-ajustes`). Até o tipo existir, o servidor só avisa no log que o ID não existe |
+| `c:capturing_not_supported`, `c:teleporting_not_supported` | tags de criatura (NeoForge) | 2026-11-13 | Retalhado e Sanguessuga-Mãe |
+| `industrialforegoing:mob_imprisonment_tool_blacklist`, `mob_duplicator_blacklist`, `mob_crusher_blacklist`; `justdirethings:paradox_deny`, `paradox_absorb_deny`, `polymorphic_target_deny`, `no_ai_deny`, `creature_catcher_deny`; `ars_nouveau:drygmy_blacklist`; `enderio:spawner_blacklist` | tags de criatura de outros mods | 2026-11-13 | idem. Toda criatura nova nossa entra em todas (o `BalanceamentoTechTest` cobra pela lista `IdsDados.CRIATURAS`) |
+| `tiab:un_acceleratable`, `justdirethings:tick_speed_deny`, `industrialforegoingsouls:cant_accelerate` | tags de bloco de outros mods | 2026-11-13 | Analisador, vela e poça. Todo bloco novo nosso entra (o teste cobra pelos arquivos de `blockstates/`) |
+
+Artefatos achados e ronda (2026-11-12, `docs/decisoes/2026-11-12-artefatos-e-ronda.md`):
+| ID | Tipo | Desde | Observação |
+|---|---|---|---|
+| `odteste_recompensa` | chave NBT no template de estrutura (baú, baú armadilhado ou barril) | 2026-11-12 | marca o baú que ganha recompensa de enigma ao colocar a estrutura; só se o baú estiver vazio |
+| `artefato_sangue` | valor da marca `odteste_recompensa` | 2026-11-12 | baú com um artefato de Sangue |
+| `chests/recompensa_artefato_sangue` | tabela de loot (`data/odteste/loot_table/chests/`, sequência `odteste:chests/recompensa_artefato_sangue`) | 2026-11-12 | única tabela com artefatos; nunca entra em tabela do vanilla ou de outro mod |
+| `/odteste artefato dar <jogador> <artefato>` | comando de admin (permissão 2) | 2026-11-12 | evento do admin; `<artefato>` é um dos três ids de item |
+
+Balanceamento tech: combate e proteção (2026-11-13, `docs/decisoes/2026-11-13-balanceamento-tech.md`):
+| ID | Tipo | Desde | Observação |
+|---|---|---|---|
+| `odteste:arma_paranormal` | tag de item (`data/odteste/tags/item/arma_paranormal.json`, `"replace": false`) | 2026-11-13 | golpe com teto de 20; contra criatura nossa conta como paranormal (x2). Hoje só a Rubra |
+| `odteste:magia` | tag de tipo de dano (`data/odteste/tags/damage_type/magia.json`, `"replace": false`) | 2026-11-13 | magia de outros mods passa por cima da resistência das criaturas nossas (0/30/60%). Só entradas opcionais: tags de escola do Iron's e os danos do Ars Nouveau. Fora de propósito: `neoforge:is_magic` (traz espinhos, veneno, wither e poção) |
+| `odteste:contencao_voo` | modificador de atributo (`neoforge:creative_flight`, −1000) | 2026-11-13 | temporário (não fica salvo); só nas dimensões `odteste:` e durante perseguição, tira o voo dado por outros mods |
+| `/odteste perseguicao comecar <jogadores> <segundos>`, `/odteste perseguicao parar <jogadores>` | comando de admin (permissão 2) | 2026-11-13 | perseguição de 1 s a 30 min: teleporte e voo falham ("Algo segura você aqui"). Só em memória: reiniciar solta |
+
+Nada novo é salvo por esta parte. Dimensão nossa = qualquer dimensão com namespace `odteste` (nenhuma existe ainda).
+Chaves de texto (não salvas): `odteste.contencao.preso`, `odteste.comando.perseguicao.*`.
 
 Fontes de Exposição (usadas no comando `/exposicao contato` e no freio de repetição). Ficam salvas dentro de
 `odteste:exposicao_repeticao` como `fonte/elemento` (ex.: `criatura_vista/sangue`), então também não mudam:
@@ -90,6 +177,28 @@ Abalos de Lucidez (comando `/lucidez abalar`, **não** ficam salvos): `batalha_r
 
 Os textos de elemento (`nenhum`, `sangue`…) também são IDs: ficam salvos no jogador.
 
+Sinais do Analisador (`sinais/Sinal`): o `id` do sinal (ex.: `sino_vila`) **não é salvo**; serve para log e para achar
+os textos `odteste.sinal.<id>.decifrado` e `odteste.sinal.<id>.camada`. Os pontos marcados com `SinaisNoMundo.marcar`
+ficam só em memória (quem marca guarda no próprio dado salvo e marca de novo ao ligar).
+
+Fontes de sinal fixas (`sinais/FontesFixas`, mesa Integrador, 2026-11-09): **dado do mundo** `odteste_sinais`
+(`SavedData`, arquivo `data/odteste_sinais.dat` do overworld). Mundo que já existe começa sem o arquivo (vazio).
+Chaves dentro do arquivo não mudam: `fontes` (lista), e em cada uma `id`, `dim`, `pos` (long), `tipo`, `camada`.
+O `id` da fonte (ex.: `sino_vila_calada`) é escolhido por quem registra (`Sinais.registrarFonteFixa` ou
+`/odteste sinal fonte adicionar`) e fica salvo: renomear perde a fonte. O `tipo` escolhe os textos
+`odteste.sinal.<tipo>.*` (ex.: `sino_vila`). No máximo 256 fontes. Tipos conhecidos (vão no campo `tipo`, não mudam):
+`sino_vila` e `vila_calada` (2026-11-09, PR #47: o tipo da Vila Calada; a vila em si não é salva aqui, vem da âncora
+`vila_calada` da história). Textos novos (não salvos):
+`odteste.analisador.longe.<fraca|media|forte>`, `odteste.analisador.direcao.<frente|frente_direita|direita|tras_direita|tras|tras_esquerda|esquerda|frente_esquerda>`, `odteste.sinal.fonte.*` (admin).
+
 Marcadores de texto dos eventos (não ficam salvos, mas os textos da Lore usam): `escolhido_sangue`,
 `escolhido_conhecimento`, `escolhido_morte`, `escolhido_energia` (nome de quem é daquele elemento no grupo;
 `ElementoJogador.marcadores`).
+
+Balanceamento tech: matéria e eventos (2026-11-13, `docs/decisoes/2026-11-13-balanceamento-tech.md`):
+| ID | Tipo | Desde | Observação |
+|---|---|---|---|
+| `odteste:cansaco_elemento` | dado do jogador (objeto `{dia: long, brutas: int}`) | 2026-11-13 | cansaço do elemento: dia de jogo (`gameTime / 24000`) e matérias brutas ganhas nele; depois de 8 no dia a chance de cada unidade cai à metade, depois de 16 a um quarto; dia diferente conta como 0. Sobrevive à morte; não vai para o cliente; jogador antigo começa sem nada (`dia: -1`). Chaves dentro do dado também não mudam: `dia`, `brutas` |
+
+Chaves de texto (não salvas): `odteste.cansaco.1`, `odteste.cansaco.2`. Os eventos de Energia
+(`sistemas/EventoEnergia`: `CASA_OCUPADA`, `APAGAO`, `FOME_DA_LINHA`) não são salvos por nome.

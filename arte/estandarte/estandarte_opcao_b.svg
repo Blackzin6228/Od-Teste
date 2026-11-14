@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Estandarte da vila comum, opção B: "Lâmina na Boca".
+     Uma lâmina de açougue enferrujada, apontada para baixo, dentro de um arco de dentes (uma boca aberta).
+     Arte própria da mesa Modelador (09/11/2026). Cores do Sangue: #3A0306 #7A0A10 #B3131B #E0313A, fundo preto. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="800" viewBox="0 0 200 400">
+  <defs>
+    <linearGradient id="pano" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d0203"/>
+      <stop offset="1" stop-color="#000000"/>
+    </linearGradient>
+    <linearGradient id="lamina" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7A0A10"/>
+      <stop offset="0.5" stop-color="#B3131B"/>
+      <stop offset="1" stop-color="#3A0306"/>
+    </linearGradient>
+  </defs>
+
+  <!-- haste -->
+  <rect x="0" y="0" width="200" height="8" fill="#2a1a12"/>
+  <!-- pano com ponta em V -->
+  <path d="M10 8 H190 V350 L100 396 L10 350 Z" fill="url(#pano)"/>
+  <path d="M20 18 H180 V344 L100 384 L20 344 Z" fill="none" stroke="#3A0306" stroke-width="3"/>
+
+  <!-- arco de dentes: maxila em cima, mandíbula embaixo, boca aberta -->
+  <g transform="translate(100 180)">
+    <path d="M-66 -10 A66 66 0 0 1 66 -10" fill="none" stroke="#7A0A10" stroke-width="8"/>
+    <path d="M-66 10 A66 66 0 0 0 66 10" fill="none" stroke="#7A0A10" stroke-width="8"/>
+    <!-- dentes de cima, apontando para dentro -->
+    <g fill="#B3131B">
+      <path d="M-58 -30 L-48 -12 L-44 -38 Z"/>
+      <path d="M-40 -48 L-30 -22 L-24 -54 Z"/>
+      <path d="M-14 -60 L-6 -30 L4 -62 Z"/>
+      <path d="M12 -60 L18 -30 L26 -56 Z"/>
+      <path d="M32 -50 L34 -22 L44 -42 Z"/>
+      <path d="M50 -36 L48 -12 L58 -28 Z"/>
+    </g>
+    <!-- dentes de baixo -->
+    <g fill="#B3131B">
+      <path d="M-58 30 L-48 12 L-44 38 Z"/>
+      <path d="M-36 50 L-28 22 L-20 54 Z"/>
+      <path d="M-8 62 L0 30 L8 62 Z"/>
+      <path d="M20 54 L28 22 L36 50 Z"/>
+      <path d="M44 38 L48 12 L58 30 Z"/>
+    </g>
+    <!-- lâmina: cutelo largo, ponta para baixo, atravessando a boca -->
+    <!-- cabo sem guarda (de propósito: com guarda viraria uma cruz, e cruz é da obra) -->
+    <rect x="-6" y="-92" width="12" height="30" rx="2" fill="#3A0306"/>
+    <circle cx="0" cy="-84" r="2" fill="#7A0A10"/>
+    <path d="M-12 -62 H12 L16 40 L0 78 L-16 40 Z" fill="url(#lamina)"/>
+    <!-- fio da lâmina e manchas de ferrugem -->
+    <path d="M12 -62 L16 40 L0 78" fill="none" stroke="#E0313A" stroke-width="2"/>
+    <circle cx="-6" cy="-30" r="3" fill="#3A0306"/>
+    <circle cx="4" cy="6" r="4" fill="#3A0306"/>
+    <circle cx="-4" cy="34" r="2.5" fill="#3A0306"/>
+  </g>
+
+  <!-- gota que cai da ponta -->
+  <path d="M100 268 C104 276 106 280 106 284 C106 288 103 291 100 291 C97 291 94 288 94 284 C94 280 96 276 100 268 Z" fill="#E0313A"/>
+</svg>

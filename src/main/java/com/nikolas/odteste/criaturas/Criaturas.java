@@ -30,14 +30,14 @@ public final class Criaturas {
     public static final DeferredHolder<EntityType<?>, EntityType<Retalhado>> RETALHADO = Registro.CRIATURAS.register(
             IdsDados.CRIATURA_RETALHADO,
             () -> EntityType.Builder.<Retalhado>of(Retalhado::new, MobCategory.MONSTER)
-                    .sized(1.5f, 3.0f)
+                    .sized(1.9f, 3.1f)
                     .clientTrackingRange(10)
                     .build(OdMod.MODID + ":" + IdsDados.CRIATURA_RETALHADO));
 
     public static final DeferredHolder<EntityType<?>, EntityType<SanguessugaMae>> SANGUESSUGA = Registro.CRIATURAS.register(
             IdsDados.CRIATURA_SANGUESSUGA,
             () -> EntityType.Builder.<SanguessugaMae>of(SanguessugaMae::new, MobCategory.MONSTER)
-                    .sized(2.6f, 1.9f)
+                    .sized(2.8f, 2.1f)
                     .clientTrackingRange(10)
                     .build(OdMod.MODID + ":" + IdsDados.CRIATURA_SANGUESSUGA));
 

@@ -30,10 +30,13 @@ public final class IdsDados {
     /** Se a história já revelou o elemento ao jogador. Nunca vai para o cliente. */
     public static final String ELEMENTO_REVELADO = "elemento_revelado";
 
+    /** Cansaço do elemento: dia de jogo e matérias brutas ganhas nele (metade depois de 8, um quarto depois de 16). */
+    public static final String CANSACO_ELEMENTO = "cansaco_elemento";
+
     public static final List<String> TODOS = List.of(
             EXPOSICAO, LUCIDEZ, LUCIDEZ_MAX, MARCA_ELEMENTO, MARCA_ESTAGIO, TRANSCENDER_NIVEL,
             EXPOSICAO_RESTO, CONTATO_ELEMENTO, EXPOSICAO_REPETICAO, ARTEFATO_RECARGA, CRIATURA_NOITE,
-            ELEMENTO, ELEMENTO_REVELADO);
+            ELEMENTO, ELEMENTO_REVELADO, CANSACO_ELEMENTO);
 
     // ---------- Play test de Sangue, parte 2: conteúdo ----------
 
@@ -46,6 +49,15 @@ public final class IdsDados {
     /** Matéria paranormal de Sangue, bruta (cai das criaturas). */
     public static final String ITEM_MATERIA_SANGUE = "materia_sangue_bruta";
     public static final List<String> ITENS = List.of(ITEM_RUBRA, ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO, ITEM_MATERIA_SANGUE);
+    /** Artefatos de Sangue, do mais comum ao mais raro (mesma ordem de RegrasAchados.PESOS). */
+    public static final List<String> ARTEFATOS = List.of(ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO);
+
+    /** Chave NBT que marca, no template de uma estrutura, o baú que ganha recompensa de enigma. */
+    public static final String RECOMPENSA_CHAVE = "odteste_recompensa";
+    /** Valor da marca: baú com um artefato de Sangue (tabela abaixo). */
+    public static final String RECOMPENSA_ARTEFATO_SANGUE = "artefato_sangue";
+    /** Tabela de loot (data/odteste/loot_table/chests/) aplicada ao baú marcado quando a estrutura é colocada. */
+    public static final String LOOT_RECOMPENSA_ARTEFATO_SANGUE = "chests/recompensa_artefato_sangue";
 
     /** Criaturas de Sangue (GeckoLib). Mesmo nome no modificador de bioma e na tabela de drop. */
     public static final String CRIATURA_RETALHADO = "retalhado";
@@ -89,8 +101,8 @@ public final class IdsDados {
     public static final String TAG_PARANORMAL = "paranormal";
     /** Tag de item: comida quente que devolve Lucidez (data/odteste/tags/item/comida_quente.json). */
     public static final String TAG_COMIDA_QUENTE = "comida_quente";
-    /** Textura (gerada no cliente) das veias da Marca de Sangue; uma por estágio: marca_sangue_1 a _4. */
-    public static final String TEXTURA_MARCA_SANGUE = "marca_sangue";
+    /** Pasta das texturas da Marca de Sangue v2 (estagio_N[_brilho][_alex].png). Só cliente, não é dado salvo. */
+    public static final String TEXTURA_MARCA_SANGUE = "textures/entity/marca_sangue";
     /** Modificador de velocidade da Lucidez baixa (temporário: não fica salvo no jogador). */
     public static final String MODIFICADOR_LENTIDAO = "lucidez_lentidao";
 
@@ -102,12 +114,23 @@ public final class IdsDados {
     /** Arquivo de dados do mundo com grupos, progresso e eventos (data/odteste_historia.dat). Sem "odteste:". */
     public static final String ARQUIVO_HISTORIA = "odteste_historia";
 
+    // ---------- Balanceamento tech (13/11/2026) ----------
+
+    /** Tipo de dano paranormal (data/odteste/damage_type/paranormal.json): golpe de criatura nossa. */
+    public static final String DANO_PARANORMAL = "paranormal";
+    /** Tag de item: arma paranormal (teto 20; x2 contra criatura nossa). */
+    public static final String TAG_ARMA_PARANORMAL = "arma_paranormal";
+    /** Tag de tipo de dano: magia de outros mods (passa por cima da resistência das criaturas nossas). */
+    public static final String TAG_MAGIA = "magia";
+    /** Modificador do voo criativo (NeoForge) nas nossas dimensões e na perseguição (temporário). */
+    public static final String MODIFICADOR_VOO = "contencao_voo";
+
     /** Todos os IDs que não são dado salvo, mas também precisam estar em docs/ids.md. */
     public static final List<String> OUTROS = List.of(
+            DANO_PARANORMAL, TAG_ARMA_PARANORMAL, TAG_MAGIA, MODIFICADOR_VOO,
             PACOTE_SINCRONIZAR, PACOTE_MOMENTO, MODIFICADOR_SANGUE, MODIFICADOR_LENTIDAO, CAMADA_TELA,
             ANIM_MARCA_APARECE, ANIM_MARCA_SOBE, ANIM_SURTO, CAMADA_ANIMACAO,
-            PACOTE_MARCA_VISIVEL, TAG_PARANORMAL, TAG_COMIDA_QUENTE, TEXTURA_MARCA_SANGUE + "_1", TEXTURA_MARCA_SANGUE + "_2",
-            TEXTURA_MARCA_SANGUE + "_3", TEXTURA_MARCA_SANGUE + "_4",
+            PACOTE_MARCA_VISIVEL, TAG_PARANORMAL, TAG_COMIDA_QUENTE, TEXTURA_MARCA_SANGUE,
             ITEM_RUBRA, ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO, ITEM_MATERIA_SANGUE,
             CRIATURA_RETALHADO, CRIATURA_SANGUESSUGA, SANGRAMENTO, ABA, MODIFICADOR_DEDAL, RITUAL_CHAMADO,
             "ritual/" + RITUAL_CHAMADO, PLUGIN_JEI,

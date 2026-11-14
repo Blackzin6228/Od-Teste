@@ -175,6 +175,40 @@ class RegrasConteudoTest {
             assertTrue(Files.exists(DATA.resolve("neoforge/biome_modifier/" + id + ".json")), "falta o spawn de " + id);
             assertTrue(pt.contains("\"entity.odteste." + id + "\""), "falta o nome de " + id);
             assertTrue(tag.contains("\"odteste:" + id + "\""), id + " precisa estar na tag paranormal");
+            assertTrue(Files.exists(ASSETS.resolve("textures/entity/" + id + ".png")), "falta a textura de " + id);
+        }
+    }
+
+    /** As animações que o código chama (corpo, golpes, especial, presença, dano e morte) precisam existir no arquivo. */
+    @Test
+    void animacoesUsadasNoCodigoExistem() throws Exception {
+        String r = Files.readString(ASSETS.resolve("animations/entity/retalhado.animation.json"));
+        for (String a : java.util.List.of("parado", "andar", "investida", "ataque", "afiar", "dano", "morrer")) {
+            assertTrue(r.contains("\"animation.retalhado." + a + "\""), "falta animation.retalhado." + a);
+        }
+        String s = Files.readString(ASSETS.resolve("animations/entity/sanguessuga_mae.animation.json"));
+        for (String a : java.util.List.of("parado", "andar", "lancar", "mordida", "chocar", "dano", "morrer")) {
+            assertTrue(s.contains("\"animation.sanguessuga_mae." + a + "\""), "falta animation.sanguessuga_mae." + a);
+        }
+    }
+
+    /** Variante B de textura (escolhida pelo UUID no cliente): o PNG precisa existir, e o brilho do Retalhado também. */
+    @Test
+    void criaturasTemVarianteB() {
+        for (String id : java.util.List.of("retalhado", "sanguessuga_mae")) {
+            assertTrue(Files.exists(ASSETS.resolve("textures/entity/" + id + "_b.png")), "falta a textura B de " + id);
+        }
+        assertTrue(Files.exists(ASSETS.resolve("textures/entity/retalhado_b_glowmask.png")), "falta o brilho da textura B");
+    }
+
+    /** Marca de Sangue v2: base e brilho, Steve e Alex, nos 4 estágios. */
+    @Test
+    void marcaDeSangueTemAsDezesseisTexturas() {
+        for (int e = 1; e <= 4; e++) {
+            for (String sufixo : java.util.List.of("", "_alex", "_brilho", "_brilho_alex")) {
+                Path png = ASSETS.resolve(IdsDados.TEXTURA_MARCA_SANGUE + "/estagio_" + e + sufixo + ".png");
+                assertTrue(Files.exists(png), "falta " + png);
+            }
         }
     }
 

@@ -70,6 +70,22 @@ public final class Espaco {
         public Caixa mover(int dx, int dy, int dz) {
             return new Caixa(x0 + dx, y0 + dy, z0 + dz, x1 + dx, y1 + dy, z1 + dz);
         }
+
+        public boolean contem(int x, int y, int z) {
+            return x >= x0 && x <= x1 && y >= y0 && y <= y1 && z >= z0 && z <= z1;
+        }
+
+        public int largura() {
+            return x1 - x0 + 1;
+        }
+
+        public int altura() {
+            return y1 - y0 + 1;
+        }
+
+        public int fundo() {
+            return z1 - z0 + 1;
+        }
     }
 
     /** Resultado: cabe, ou o primeiro bloqueio (posição e motivo). */
@@ -95,22 +111,31 @@ public final class Espaco {
         return Resultado.OK;
     }
 
-    /** Cabe e tem chão firme embaixo de pelo menos {@link #CHAO_MINIMO} do piso. */
+    /**
+     * Cabe e tem chão firme embaixo de pelo menos {@link #CHAO_MINIMO} do piso. Confere o chão primeiro (é só
+     * uma camada, e para assim que faltar chão demais): em cima de ravina ou água, nem lê a caixa.
+     */
     public static Resultado checarComChao(Caixa c, Mundo m) {
-        Resultado r = checar(c, m);
-        if (!r.cabe()) return r;
-        int firmes = 0;
-        int total = 0;
+        Resultado chao = checarChao(c, m);
+        return chao.cabe() ? checar(c, m) : chao;
+    }
+
+    /**
+     * Só o chão embaixo da caixa (uma camada; para assim que faltar chão demais). A estrutura grande confere só
+     * isto no {@code prever}: o resto da caixa é conferido em partes, um pedaço por tick.
+     */
+    public static Resultado checarChao(Caixa c, Mundo m) {
+        int area = c.largura() * c.fundo();
+        int maxFalhas = area - (int) Math.ceil(area * CHAO_MINIMO);
+        int falhas = 0;
         int y = c.y0() - 1;
         for (int x = c.x0(); x <= c.x1(); x++) {
             for (int z = c.z0(); z <= c.z1(); z++) {
                 Tipo t = m.tipo(x, y, z);
                 if (t == Tipo.NAO_CARREGADO || t == Tipo.PROTEGIDO) return new Resultado(false, x, y, z, t);
-                total++;
-                if (t.chao) firmes++;
+                if (!t.chao && ++falhas > maxFalhas) return new Resultado(false, c.x0(), y, c.z0(), Tipo.AR);
             }
         }
-        if (firmes < Math.ceil(total * CHAO_MINIMO)) return new Resultado(false, c.x0(), y, c.z0(), Tipo.AR);
         return Resultado.OK;
     }
 
@@ -123,10 +148,25 @@ public final class Espaco {
      */
     public static Optional<int[]> procurar(int x, int z, int largura, int altura, int fundo,
                                            int raio, int passo, int maxTentativas, Mundo m, Chao chao) {
+        return procurar(x, z, largura, altura, fundo, raio, passo, maxTentativas, Long.MAX_VALUE, m, chao);
+    }
+
+    /**
+     * Igual, mas para depois de {@code orcamento} leituras de bloco no total (o servidor não trava num tick só).
+     * Uma checagem já começada termina, então o máximo é o orçamento mais uma caixa com o chão.
+     */
+    public static Optional<int[]> procurar(int x, int z, int largura, int altura, int fundo,
+                                           int raio, int passo, int maxTentativas, long orcamento, Mundo m, Chao chao) {
+        long[] lidos = {0};
+        Mundo contado = (bx, by, bz) -> {
+            lidos[0]++;
+            return m.tipo(bx, by, bz);
+        };
         for (int[] p : candidatos(x, z, raio, Math.max(1, passo), maxTentativas)) {
+            if (lidos[0] >= orcamento) break;
             int y = chao.y(p[0], p[1]);
             Caixa c = Caixa.deTamanho(p[0], y, p[1], largura, altura, fundo);
-            if (checarComChao(c, m).cabe()) return Optional.of(new int[] {p[0], y, p[1]});
+            if (checarComChao(c, contado).cabe()) return Optional.of(new int[] {p[0], y, p[1]});
         }
         return Optional.empty();
     }

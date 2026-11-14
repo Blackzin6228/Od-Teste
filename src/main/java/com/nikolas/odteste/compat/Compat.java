@@ -26,7 +26,9 @@ public final class Compat {
         /** Claims de chunk: estrutura e marca da história nunca entram em chunk com dono. */
         FTB_CHUNKS("ftbchunks"),
         /** Animação do corpo do jogador. Só cliente: usado em cliente/ via compat/playeranimator/. */
-        PLAYER_ANIMATOR("playeranimator");
+        PLAYER_ANIMATOR("playeranimator"),
+        /** Partículas com brilho (vem com o Malum). Só cliente: usado em cliente/ via compat/lodestone/. */
+        LODESTONE("lodestone");
 
         public final String modid;
 
@@ -44,6 +46,8 @@ public final class Compat {
     public static void iniciar(IEventBus barramento) {
         // Cada integração entra aqui quando tiver conteúdo, sempre atrás do if (a classe compat só é lida se o mod existir).
         if (Integracao.OCCULTISM.ligada()) com.nikolas.odteste.compat.occultism.OccultismCompat.iniciar(barramento);
+        // Escola odteste:sangue e o adaptador do Talho Rubro. Sem o Iron's, as magias saem pela Afinidade (magias/).
+        if (Integracao.IRONS.ligada()) com.nikolas.odteste.compat.irons.IronsCompat.iniciar(barramento);
     }
 
     public static List<String> ligadas() {

@@ -2,11 +2,13 @@ package com.nikolas.odteste.criaturas;
 
 import com.nikolas.odteste.efeitos.Sangramento;
 import java.util.EnumSet;
+import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -25,20 +27,27 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
 
 /**
  * Retalhado (lore/criaturas.md): bruto curvado, costurado, com um cutelo no antebraço e o coração exposto.
  * 3 blocos de altura. Ataque especial: **Investida de Ganchos** (corre em linha reta, crava os ganchos, arrasta o
  * alvo para perto e deixa sangrando). Cego nas costas: golpe por trás dói mais.
- * Modelo provisório (GeckoLib) até a mesa Modelador fazer o definitivo.
+ * Modelo 5.2 (GeckoLib), textura A ou B pelo UUID; animações ligadas em {@link CriaturaDeSangue#registrarControles}.
  */
 public final class Retalhado extends CriaturaDeSangue {
     private static final RawAnimation PARADO = RawAnimation.begin().thenLoop("animation.retalhado.parado");
     private static final RawAnimation ANDAR = RawAnimation.begin().thenLoop("animation.retalhado.andar");
     private static final RawAnimation INVESTIDA = RawAnimation.begin().thenPlay("animation.retalhado.investida");
+    private static final RawAnimation ATAQUE = RawAnimation.begin().thenPlay("animation.retalhado.ataque");
+    private static final RawAnimation AFIAR = RawAnimation.begin().thenPlay("animation.retalhado.afiar");
+    private static final RawAnimation DANO = RawAnimation.begin().thenPlay("animation.retalhado.dano");
+    private static final RawAnimation MORRER = RawAnimation.begin().thenPlayAndHold("animation.retalhado.morrer");
+    /** Durações das animações (retalhado.animation.json): morrer 2,6 s, afiar 3,6 s. */
+    private static final int TICKS_MORRER = 52;
+    private static final int TICKS_AFIAR = 72;
+    /** Durante a investida o golpe faz parte dela: não troca para a animação de ataque. */
+    private boolean investindo;
 
     public Retalhado(EntityType<? extends Monster> tipo, Level level) {
         super(tipo, level);
@@ -74,11 +83,31 @@ public final class Retalhado extends CriaturaDeSangue {
     }
 
     @Override
+    protected int ticksMorrendo() {
+        return TICKS_MORRER;
+    }
+
+    @Override
+    protected String presenca() {
+        return "afiar";
+    }
+
+    @Override
+    protected int ticksPresenca() {
+        return TICKS_AFIAR;
+    }
+
+    @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controles) {
-        controles.add(new AnimationController<>(this, "corpo", 5,
-                estado -> estado.setAndContinue(estado.isMoving() ? ANDAR : PARADO)));
-        controles.add(new AnimationController<>(this, "acao", 2, estado -> PlayState.STOP)
-                .triggerableAnim("investida", INVESTIDA));
+        registrarControles(controles, PARADO, ANDAR, DANO, MORRER,
+                Map.of("investida", INVESTIDA, "ataque", ATAQUE, "afiar", AFIAR));
+    }
+
+    /** Golpe comum (corpo a corpo): toca o ataque do cutelo. */
+    @Override
+    public boolean doHurtTarget(Entity alvo) {
+        if (!investindo && !level().isClientSide) triggerAnim(CONTROLE_ACAO, "ataque");
+        return super.doHurtTarget(alvo);
     }
 
     /** Cego nas costas: golpe que vem de trás dói mais. */
@@ -164,7 +193,8 @@ public final class Retalhado extends CriaturaDeSangue {
             dono.getLookControl().setLookAt(alvo, 30f, 30f);
             dono.level().playSound(null, dono.getX(), dono.getY(), dono.getZ(), SoundEvents.RAVAGER_ROAR,
                     SoundSource.HOSTILE, 1.2f, 0.5f);
-            dono.triggerAnim("acao", "investida");
+            dono.investindo = true;
+            dono.triggerAnim(CONTROLE_ACAO, "investida");
         }
 
         @Override
@@ -193,6 +223,7 @@ public final class Retalhado extends CriaturaDeSangue {
         @Override
         public void stop() {
             proximaEm = dono.level().getGameTime() + ESPERA;
+            dono.investindo = false;
             dono.setDeltaMovement(dono.getDeltaMovement().multiply(0.2, 1, 0.2));
         }
     }

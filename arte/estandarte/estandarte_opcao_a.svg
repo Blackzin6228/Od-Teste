@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Estandarte da vila comum, opção A: "Gota Coroada".
+     Uma gota de sangue grossa, cercada por uma coroa fechada de espinhos.
+     Arte própria da mesa Modelador (09/11/2026). Cores do Sangue: #3A0306 #7A0A10 #B3131B #E0313A, fundo preto. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="800" viewBox="0 0 200 400">
+  <defs>
+    <linearGradient id="pano" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d0203"/>
+      <stop offset="1" stop-color="#000000"/>
+    </linearGradient>
+    <radialGradient id="gota" cx="0.42" cy="0.62" r="0.6">
+      <stop offset="0" stop-color="#E0313A"/>
+      <stop offset="0.55" stop-color="#B3131B"/>
+      <stop offset="1" stop-color="#7A0A10"/>
+    </radialGradient>
+  </defs>
+
+  <!-- haste -->
+  <rect x="0" y="0" width="200" height="8" fill="#2a1a12"/>
+  <!-- pano, com a ponta de baixo rasgada -->
+  <path d="M10 8 H190 V360 L172 392 L150 366 L128 396 L100 370 L74 398 L52 366 L30 390 L10 360 Z" fill="url(#pano)"/>
+  <!-- borda fina -->
+  <path d="M18 16 H182 V352" fill="none" stroke="#3A0306" stroke-width="3"/>
+  <path d="M18 16 V352" fill="none" stroke="#3A0306" stroke-width="3"/>
+
+  <!-- coroa de espinhos: anel com 12 espinhos voltados para dentro e para fora -->
+  <g transform="translate(100 170)">
+    <circle r="58" fill="none" stroke="#7A0A10" stroke-width="7"/>
+    <circle r="58" fill="none" stroke="#3A0306" stroke-width="2" stroke-dasharray="6 9"/>
+    <g fill="#B3131B">
+      <path id="espinho" d="M-4 -55 L0 -82 L4 -55 Z"/>
+      <use href="#espinho" transform="rotate(30)"/>
+      <use href="#espinho" transform="rotate(60)"/>
+      <use href="#espinho" transform="rotate(90)"/>
+      <use href="#espinho" transform="rotate(120)"/>
+      <use href="#espinho" transform="rotate(150)"/>
+      <use href="#espinho" transform="rotate(180)"/>
+      <use href="#espinho" transform="rotate(210)"/>
+      <use href="#espinho" transform="rotate(240)"/>
+      <use href="#espinho" transform="rotate(270)"/>
+      <use href="#espinho" transform="rotate(300)"/>
+      <use href="#espinho" transform="rotate(330)"/>
+    </g>
+    <g fill="#7A0A10">
+      <path id="espinho_dentro" d="M-3 -54 L0 -40 L3 -54 Z" transform="rotate(15)"/>
+      <use href="#espinho_dentro" transform="rotate(60)"/>
+      <use href="#espinho_dentro" transform="rotate(120)"/>
+      <use href="#espinho_dentro" transform="rotate(180)"/>
+      <use href="#espinho_dentro" transform="rotate(240)"/>
+      <use href="#espinho_dentro" transform="rotate(300)"/>
+    </g>
+    <!-- a gota, pesada, com a ponta para cima -->
+    <path d="M0 -38 C10 -20 26 0 26 14 C26 30 14 40 0 40 C-14 40 -26 30 -26 14 C-26 0 -10 -20 0 -38 Z" fill="url(#gota)"/>
+    <ellipse cx="-9" cy="12" rx="4" ry="8" fill="#E0313A" opacity="0.7"/>
+  </g>
+
+  <!-- escorrido: a gota vaza do anel e desce pelo pano -->
+  <path d="M100 228 C98 250 102 262 100 290 C99 300 101 306 100 312" fill="none" stroke="#7A0A10" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="100" cy="318" r="5" fill="#B3131B"/>
+  <path d="M84 222 C83 236 85 244 84 256" fill="none" stroke="#3A0306" stroke-width="3" stroke-linecap="round"/>
+  <path d="M117 224 C118 232 116 238 117 246" fill="none" stroke="#3A0306" stroke-width="3" stroke-linecap="round"/>
+</svg>

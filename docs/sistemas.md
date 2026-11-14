@@ -225,8 +225,9 @@ O conteúdo chama o ponto de entrada:
 | 3 | +1,5 de dano | fome um pouco mais rápida | + braço esquerdo e pescoço · 3 |
 | 4 | +2,5 de dano | fome bem mais rápida (1 ponto a cada ~40 s) | + pernas · 4 |
 
-- **No corpo:** uma camada de veias vermelhas por cima da skin, que cresce com o estágio (`marcas/PadraoVeias`,
-  desenhada em código; provisória até a textura do Modelador). Todos que veem o jogador veem a camada: o servidor manda
+- **No corpo:** uma camada de veias vermelhas por cima da skin, que cresce com o estágio (Marca v2 desde
+  13/11/2026: PNG 64x64 por estágio em `textures/entity/marca_sangue/`, Steve e Alex, e uma camada de brilho emissiva
+  que pulsa devagar, só nas rachaduras, na ferida e no coração; `cliente/CamadaMarca`). Todos que veem o jogador veem a camada: o servidor manda
   elemento e estágio (pacote `odteste:marca_visivel`) quando a Marca muda e quando alguém começa a ver o jogador.
   Lucidez e Exposição continuam só para o dono. Jogador invisível não mostra a camada.
 - As partículas são vistas por todos por perto (o servidor manda poucas, a cada 2 s). Os outros elementos já têm
