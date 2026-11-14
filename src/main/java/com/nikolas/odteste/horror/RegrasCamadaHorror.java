@@ -13,7 +13,10 @@ import com.nikolas.odteste.historia.vilacalada.RegrasVilaCalada;
  * <li><b>Noite:</b> por cima do fundo, mais pesada, perto da superfície (alguma luz do céu chega ali). Mina funda de
  * noite fica só com o fundo: o ATM10 tem muita mineração e a mina já é escura.</li>
  * <li><b>Área da história</b> (hoje a Vila Calada): vale de dia também, mas leve.</li>
- * <li><b>Luz:</b> o escuro pesa onde a luz de bloco é fraca. Tocha, lanterna e vela continuam clareando.
+ * <li><b>Luz:</b> o escuro pesa onde a luz de bloco é fraca. Tocha, lanterna, fogueira e lâmpada clareiam um
+ * círculo útil: com luz de bloco {@link #LUZ_CHEIA} (6) ou mais a camada não escurece nada (tocha 14 → ~8 blocos),
+ * e de 6 até 0 o escuro entra devagar (curva suave). Vale também para luz de bloco de mod de luz dinâmica (tocha
+ * na mão), que entra pelo mesmo mapa de luz. Só o susto "luz" apaga tudo.
  * O brilho (gamma) do jogador é desfeito nesses pontos: brilho no máximo não clareia o escuro.</li>
  * </ul>
  */
@@ -50,6 +53,12 @@ public final class RegrasCamadaHorror {
     public static final float VEU_DIA_MAX = 0.18f;
     /** Quanto a camada de fundo pesa no "total" que o shader lê (a noite e as áreas chegam a 1). */
     public static final float FORCA_DIA_TOTAL = 0.5f;
+    /**
+     * Luz de bloco a partir da qual a camada não escurece (14/11: a tocha tem de iluminar bem de noite; antes a
+     * borda da luz da tocha, 1 a 9, ainda escurecia bastante: com luz 6 pesava 36%). Tocha 14 dá luz 6 a 8 blocos.
+     */
+    public static final int LUZ_CHEIA = 6;
+
     /** Opção {@code intensidade} do cliente (%): dá para diminuir até aqui, não desligar. */
     public static final int INTENSIDADE_MIN = 50;
 
@@ -147,10 +156,17 @@ public final class RegrasCamadaHorror {
      * {@code apagar} (0 a 1) é a "luz que falha" do susto: aí até a luz de bloco escurece.
      */
     public static float peso(float forca, int luzBloco, float apagar) {
-        float b = Math.max(0, Math.min(15, luzBloco)) / 15f;
-        float semTocha = (1 - b) * (1 - b);
-        float w = forca * semTocha;
+        float w = forca * semLuz(luzBloco);
         return Math.max(w, Math.max(0f, Math.min(1f, apagar)));
+    }
+
+    /**
+     * Quanto falta de luz de bloco (1 = nenhuma, 0 = luz {@link #LUZ_CHEIA} ou mais), em curva suave (smoothstep):
+     * 0 → 1; 1 → 0,93; 2 → 0,74; 3 → 0,5; 4 → 0,26; 5 → 0,07; 6+ → 0.
+     */
+    public static float semLuz(int luzBloco) {
+        float t = Math.max(0, Math.min(LUZ_CHEIA, luzBloco)) / (float) LUZ_CHEIA;
+        return 1f - t * t * (3f - 2f * t);
     }
 
     /** O jogo aplica o brilho assim: mistura a cor com 1-(1-c)^4 pelo valor do brilho (0 a 1). */
@@ -197,16 +213,14 @@ public final class RegrasCamadaHorror {
     public static float canalDia(float c, float forcaDia, int luzBloco, int luzCeu) {
         float f = limitar(forcaDia);
         if (f <= 0.001f) return c;
-        float b = Math.max(0, Math.min(15, luzBloco)) / 15f;
         float s = Math.max(0, Math.min(15, luzCeu)) / 15f;
-        return limitar(c) * (1 - ESCURO_DIA * f * s * (1 - b) * (1 - b));
+        return limitar(c) * (1 - ESCURO_DIA * f * s * semLuz(luzBloco));
     }
 
     /** Véu de reserva de dia (cinza escuro): só onde chega luz do céu e longe de tocha. */
     public static float veuDia(float forcaDia, int luzCeu, int luzBloco) {
-        float b = Math.max(0, Math.min(15, luzBloco)) / 15f;
         float s = Math.max(0, Math.min(15, luzCeu)) / 15f;
-        return VEU_DIA_MAX * limitar(forcaDia) * s * (1 - b);
+        return VEU_DIA_MAX * limitar(forcaDia) * s * semLuz(luzBloco);
     }
 
     /** Névoa de dia: só chega mais perto, nunca empurra para longe. */

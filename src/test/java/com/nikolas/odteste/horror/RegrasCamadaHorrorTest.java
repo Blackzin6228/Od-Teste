@@ -160,6 +160,28 @@ class RegrasCamadaHorrorTest {
         assertEquals(c, RegrasCamadaHorror.canal(c, 1f, 15, 0f, 1f), 0.0001f); // luz de bloco cheia: nada muda
         assertTrue(RegrasCamadaHorror.peso(1f, 14, 0f) < 0.01f);
         assertTrue(RegrasCamadaHorror.peso(1f, 0, 0f) > 0.99f);
+        // Círculo útil da tocha (14 na chama, cai 1 por bloco): até luz 6 (~8 blocos) a camada não escurece nada.
+        for (int luz = RegrasCamadaHorror.LUZ_CHEIA; luz <= 15; luz++) {
+            assertEquals(0f, RegrasCamadaHorror.peso(1f, luz, 0f), 0.0001f, "luz " + luz);
+            assertEquals(c, RegrasCamadaHorror.canal(c, 1f, luz, 0f, 1f), 0.0001f, "luz " + luz + " fica normal, com o brilho");
+            assertEquals(0f, RegrasCamadaHorror.veu(1f, luz), 0.0001f);
+        }
+        assertEquals(0.5f, RegrasCamadaHorror.peso(1f, 3, 0f), 0.001f);
+    }
+
+    @Test
+    void bordaDaLuzEntraDevagar() {
+        // Do escuro até a luz cheia o peso só cai, sem degrau grande entre um nível e o próximo.
+        float antes = RegrasCamadaHorror.peso(1f, 0, 0f);
+        for (int luz = 1; luz <= RegrasCamadaHorror.LUZ_CHEIA; luz++) {
+            float agora = RegrasCamadaHorror.peso(1f, luz, 0f);
+            assertTrue(agora <= antes, "luz " + luz);
+            assertTrue(antes - agora <= 0.27f, "degrau grande na luz " + luz);
+            antes = agora;
+        }
+        // De dia, a tocha também tira o cinza e a luz mais baixa.
+        assertEquals(0.5f, RegrasCamadaHorror.canalDia(0.5f, 1f, RegrasCamadaHorror.LUZ_CHEIA, 15), 0.0001f);
+        assertEquals(0f, RegrasCamadaHorror.veuDia(1f, 15, RegrasCamadaHorror.LUZ_CHEIA), 0.0001f);
     }
 
     @Test
