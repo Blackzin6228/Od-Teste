@@ -28,7 +28,14 @@ public final class Compat {
         /** Animação do corpo do jogador. Só cliente: usado em cliente/ via compat/playeranimator/. */
         PLAYER_ANIMATOR("playeranimator"),
         /** Partículas com brilho (vem com o Malum). Só cliente: usado em cliente/ via compat/lodestone/. */
-        LODESTONE("lodestone");
+        LODESTONE("lodestone"),
+        /** Shader pack. Só cliente: só perguntamos (por reflexão, em compat/iris/) se há um pack ligado. */
+        IRIS("iris"),
+        /** Minimapa do pack. Só cliente: a falha do minimapa (cliente/FalhaMinimapa via compat/journeymap/). */
+        JOURNEYMAP("journeymap"),
+        /** Minimapas do Xaero (fora do pack hoje). Só cliente, via compat/xaero/. */
+        XAERO_MINIMAPA("xaerominimap"),
+        XAERO_MINIMAPA_JUSTO("xaerominimapfair");
 
         public final String modid;
 

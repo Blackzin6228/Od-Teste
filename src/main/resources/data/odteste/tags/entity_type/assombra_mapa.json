@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#odteste:paranormal",
+    { "id": "odteste:o_que_segue", "required": false }
+  ]
+}
