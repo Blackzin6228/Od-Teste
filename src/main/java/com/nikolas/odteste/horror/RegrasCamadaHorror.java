@@ -26,6 +26,8 @@ public final class RegrasCamadaHorror {
     public static final float FORCA_AREA_DIA = 0.35f;
     /** Quanto a luz cai onde só há luz do céu, com a camada inteira (0,6 = fica com 40%). */
     public static final float ESCURO = 0.45f; // 14/11: noite escura demais no jogo; era 0,6
+    /** Susto "luz" (a luz do jogador falha): continua forte mesmo com a noite mais clara. */
+    public static final float ESCURO_SUSTO = 0.7f;
     /** Névoa da noite: até onde se enxerga, com a camada inteira (blocos). */
     public static final float NEVOA_NOITE = 88f; // era 72
     /** Cor da névoa e do céu de noite: quanto escurece (0,55 = fica com 45%). */
@@ -182,7 +184,8 @@ public final class RegrasCamadaHorror {
         float w = peso(forca, luzBloco, apagar);
         if (w <= 0.001f) return c;
         float normal = aplicarGamma(c, gamma);
-        float escuro = limitar(c) * (1 - ESCURO * w);
+        float fator = Math.max(ESCURO, ESCURO_SUSTO * apagar);
+        float escuro = limitar(c) * (1 - fator * w);
         float mostrar = normal + (escuro - normal) * w;
         return desfazerGamma(mostrar, gamma);
     }
