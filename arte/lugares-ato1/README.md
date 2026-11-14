@@ -43,6 +43,7 @@ Cada lugar tem `00_prancha.png` (resumo) e, em `previas/`: `dia_<lado>` (4 lados
 | 1. Moinho Parado | `moinho_parado/moinho_parado.nbt` | 36 x 26 x 30 | 2 | 6 |
 | 2. Casa do Açougueiro | `casa_acougueiro/casa_acougueiro.nbt` | 48 x 23 x 36 | 7 | 23 |
 | 3. Casa do Cartógrafo | `casa_cartografo/casa_cartografo.nbt` | 26 x 30 x 22 | 0 | 19 |
+| 4. Torre das Correntes | `torre_correntes/torre_correntes.nbt` | 20 x 48 x 20 | 8 | 8 |
 
 ## 1. Moinho Parado
 
@@ -135,3 +136,32 @@ A torre tem escada em caracol até o mirante (luneta, círculo de giz). Sem spaw
 Outros pontos (sem marcador, só no json):
 
 - `escada` (19, 9, 4): Meio da escada em caracol: onde o Pendurado aparece.
+
+## 4. Torre das Correntes
+
+Isolamento, vento e correntes: aqui o som é o personagem. Entra-se pelo portão (aberto) ou escalando o muro (tira
+Lucidez). O vão da escada é aberto do térreo ao patamar: quem cai bate no feno (o mod segura o dano, decisão N7).
+O alçapão do teto do patamar tem cadeado de letras (resposta do Atlas): certo, as correntes travam, o sino cala e os
+blocos de nota tocam em Morse o rumo da Fazenda. Porão: jukebox (Disco Riscado) e caderno do vigia; quem desce
+sozinho perde Lucidez. Chão em `y_chao = 8`: o porão ocupa y 0 a 7.
+
+| metadata | posição | alvo | nota |
+|---|---|---|---|
+| `disco:disco_riscado` | (6, 2, 12) | (6, 1, 12) | Jukebox com o Disco Riscado (E6: a imagem escondida no som). |
+| `atril:caderno_vigia` | (12, 2, 12) | (12, 1, 12) | Caderno do vigia: fala do barulho, sem explicar. |
+| `som:sino_correntes` | (9, 36, 9) | (9, 36, 9) | O sino de ferro sem badalo: correntes balançam e arrastam na pedra sem vento. Cala com a palavra de retorno. |
+| `evento:cadeado_alcapao` | (7, 33, 9) | (7, 33, 9) | Alçapão do teto do patamar (x 6, z 9): cadeado de letras, resposta do Atlas. Certo: correntes travam, o sino cala e as notas tocam o rumo da Fazenda. |
+| `som:notas_rumo` | (9, 33, 7) | (9, 33, 7) | Os 6 blocos de nota do patamar (x 7-12, z 6). |
+| `evento:queda` | (9, 11, 9) | (9, 11, 9) | Fundo do vão: o feno amortece. Queda não mata (dano segurado pelo mod). |
+| `evento:porao_sozinho` | (9, 2, 9) | (9, 2, 9) | Porão: quem desce sozinho perde Lucidez; em dupla, não. |
+| `evento:portao` | (9, 10, 19) | (9, 10, 19) | Portão aberto (sul). Escalar o muro tira Lucidez e sobe Exposição. |
+
+Outros pontos (sem marcador, só no json):
+
+- `nota` (7, 32, 6): Bloco de nota 1 de 6: tocam o rumo da Fazenda em Morse.
+- `nota` (8, 32, 6): Bloco de nota 2 de 6: tocam o rumo da Fazenda em Morse.
+- `nota` (9, 32, 6): Bloco de nota 3 de 6: tocam o rumo da Fazenda em Morse.
+- `nota` (10, 32, 6): Bloco de nota 4 de 6: tocam o rumo da Fazenda em Morse.
+- `nota` (11, 32, 6): Bloco de nota 5 de 6: tocam o rumo da Fazenda em Morse.
+- `nota` (12, 32, 6): Bloco de nota 6 de 6: tocam o rumo da Fazenda em Morse.
+- `estandarte` (8, 11, 19): Cruz de Ferro no pilar do portão (provisória: desenho final do Modelador).
