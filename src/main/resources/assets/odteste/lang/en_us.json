@@ -267,5 +267,12 @@
   "odteste.comando.magia.desconhecida": "Unknown spell: %s",
   "odteste.comando.magia.recarga": "%s is still on cooldown.",
   "odteste.comando.magia.sem_lucidez": "Lucidity too low for %s.",
-  "odteste.comando.magia.ocupado": "%s is already being prepared."
+  "odteste.comando.magia.ocupado": "%s is already being prepared.",
+  "odteste.fx.tocando": "Effect %s (path: %s)",
+  "odteste.fx.quebrado": "The %s effect can't run on this graphics card (see the log).",
+  "odteste.fx.gravado": "Recording done: %s frames in %s",
+  "odteste.comando.fx.desconhecido": "Unknown effect: %s. Use: %s",
+  "odteste.comando.fx.tocou": "Effect %s playing.",
+  "odteste.comando.fx.gravando": "Effect %s playing and recording to screenshots/odteste/.",
+  "odteste.comando.fx.mestre": "Effect %s sent to %s player(s)."
 }

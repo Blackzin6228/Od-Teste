@@ -6,6 +6,7 @@ import com.nikolas.odteste.achados.Ronda;
 import com.nikolas.odteste.aparelhos.Aparelhos;
 import com.nikolas.odteste.blocos.capela.BlocosCapela;
 import com.nikolas.odteste.comandos.ComandosAdmin;
+import com.nikolas.odteste.comandos.ComandosFx;
 import com.nikolas.odteste.comandos.ComandosHistoria;
 import com.nikolas.odteste.historia.PrimeiroSinal;
 import com.nikolas.odteste.historia.vilacalada.CenaEntradaVila;
@@ -52,6 +53,7 @@ public final class OdMod {
         Rede.iniciar(barramento);
         ComandosAdmin.iniciar();
         ComandosHistoria.iniciar();
+        ComandosFx.iniciar();
         Vigia.iniciar();
         Combate.iniciar();
         Contencao.iniciar();

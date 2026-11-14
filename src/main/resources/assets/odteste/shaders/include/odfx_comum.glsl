@@ -54,3 +54,38 @@ vec4 od_vista(sampler2D profundidade, mat4 invProj, vec2 uv) {
 vec3 od_cinza(vec3 c) {
     return vec3(dot(c, vec3(0.299, 0.587, 0.114)));
 }
+
+// Direção do raio desta coordenada de tela, nos eixos do mundo (sem precisar de profundidade).
+vec3 od_raio(mat4 invProj, mat4 invView, vec2 uv) {
+    vec4 v = invProj * vec4(uv * 2.0 - 1.0, 1.0, 1.0);
+    return normalize((invView * vec4(normalize(v.xyz / v.w), 0.0)).xyz);
+}
+
+// Ponto da vista -> relativo à câmera, nos eixos do mundo.
+vec3 od_rel(mat4 invView, vec3 vista) {
+    return (invView * vec4(vista, 1.0)).xyz;
+}
+
+// Normal da superfície pela variação da posição entre pixels vizinhos (virada para a câmera).
+vec3 od_normal(vec3 rel) {
+    vec3 n = cross(dFdx(rel), dFdy(rel));
+    float l = length(n);
+    if (l < 1e-9) return vec3(0.0, 1.0, 0.0);
+    n /= l;
+    if (dot(n, rel) > 0.0) n = -n;
+    return n;
+}
+
+float od_lum(vec3 c) {
+    return dot(c, vec3(0.2126, 0.7152, 0.0722));
+}
+
+// Ruído com 3 oitavas (mais barato que o fbm, para camadas grandes).
+float od_fbm3(vec2 p) {
+    float v = 0.5 * od_ruido(p);
+    p = mat2(1.6, 1.2, -1.2, 1.6) * p + vec2(3.1, 7.7);
+    v += 0.25 * od_ruido(p);
+    p = mat2(1.6, 1.2, -1.2, 1.6) * p + vec2(3.1, 7.7);
+    v += 0.125 * od_ruido(p);
+    return v / 0.875;
+}

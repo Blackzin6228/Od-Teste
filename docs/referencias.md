@@ -88,6 +88,23 @@ Legenda das licenças, em uma frase cada:
   **impacto** (partícula + som + às vezes tremor). A cor da escola é constante em todos os tempos.
 - **Para nós:** é a régua das magias (decisão de 07/11: nível Apex Arcana). Licença do Apex Arcana: **não confirmada**.
 
+### Apex Arcana (efeitos de tela com shader)
+- **Licença:** o `neoforge.mods.toml` do jar declara **MIT** (conferido em 14/11/2026 pela mesa Dev). Mesmo assim,
+  nada foi copiado: aprendemos a técnica e escrevemos os nossos do zero.
+- **O que aprendemos:** (1) copiar a tela (cor e profundidade) para uma textura e desenhar um quadro na tela inteira
+  que lê dela; (2) voltar da profundidade para o ponto no mundo com a inversa da projeção e da vista, e tirar a
+  normal pela variação entre pixels (assim o sangue fica só no chão de verdade, ou só na parede); (3) perguntar ao
+  Iris por reflexão se há shader pack; (4) com pack, desenhar **depois** que o pack terminou a imagem, guardando as
+  matrizes do quadro antes. Os shaders `fx_blood_floor`/`fx_blood_wall` deles mostraram a ideia de poça por
+  profundidade.
+- **Onde está no nosso:** `cliente/FxTela.java` (base), `compat/iris/PackIris.java`, `cliente/FxSangue.java`,
+  `shaders/core/odfx_*.fsh`. Diferenças nossas: o Apex desliga a passada de tela com pack; nós desenhamos no começo
+  da HUD por cima da imagem do pack, conferimos se a profundidade que o pack deixou presta e, se não, usamos a
+  versão sem profundidade em vez de desligar.
+
+### Hand of God (estudo, sem copiar)
+- **Licença:** todos os direitos reservados. Só estudado (como encadeia efeitos de tela). Nada copiado.
+
 ---
 
 ## Modelos e animação de criaturas
@@ -202,5 +219,5 @@ Legenda das licenças, em uma frase cada:
 - **Malum** e **Alex's Caves**: o Modrinth declara LGPL, mas o repositório não tem arquivo de licença. Arte não confirmada.
   Enquanto isso: só olhar, nada copiado.
 - **Occultism** e **Mekanism**: licença da arte não conferida separadamente.
-- **Apex Arcana** (referência de magia): licença não confirmada.
+- **Apex Arcana** (referência de magia): o jar declara MIT (conferido em 14/11/2026); a arte não foi usada.
 - Licenças mudam. Antes de copiar qualquer coisa, conferir de novo no repositório e registrar em `arte/LICENCAS.md`.
