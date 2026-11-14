@@ -71,12 +71,8 @@ final class FxSangue {
     private FxSangue() {}
 
     static void iniciar(IEventBus barramentoDoMod) {
+        // Ordem: o que está no mundo (sangue) antes do ar (névoa carmesim), e o que é do olho (veias, batida) por último.
         FxTela.iniciar(barramentoDoMod, List.of(
-                passe("odfx_carmesim", () -> carmesim > 0.002f, (sh, q) -> {
-                    sh.safeGetUniform("Forca").set(carmesim * forca());
-                    lua(sh, q);
-                    camera(sh, q);
-                }),
                 passe("odfx_sangue", () -> sangueInicio >= 0, (sh, q) -> {
                     float t = segundosDesde(sangueInicio, q.parcial());
                     sh.safeGetUniform("Forca").set(RegrasFxSangue.sangueForca(t) * forca());
@@ -86,6 +82,11 @@ final class FxSangue {
                     sh.safeGetUniform("Origem").set((float) o.x, (float) o.y, (float) o.z);
                     sh.safeGetUniform("Chao").set((float) (sangueChao - q.camera().y));
                     sh.safeGetUniform("Alcance").set(RegrasFxSangue.SANGUE_ALCANCE);
+                    lua(sh, q);
+                    camera(sh, q);
+                }),
+                passe("odfx_carmesim", () -> carmesim > 0.002f, (sh, q) -> {
+                    sh.safeGetUniform("Forca").set(carmesim * forca());
                     lua(sh, q);
                     camera(sh, q);
                 }),

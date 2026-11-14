@@ -27,12 +27,13 @@ out vec4 fragColor;
 const vec3 SANGUE_ESCURO = vec3(0.180, 0.004, 0.012);
 const vec3 SANGUE = vec3(0.478, 0.039, 0.063);   // #7A0A10
 const vec3 CEU_ALTO = vec3(0.010, 0.000, 0.002);
-const vec3 HORIZONTE = vec3(0.150, 0.010, 0.014);
+const vec3 HORIZONTE = vec3(0.120, 0.016, 0.018);
 
 // Lava a cor: o que não é vermelho vira cinza escuro; o vermelho fica.
 vec3 lavar(vec3 c, float k) {
     float l = od_lum(c);
-    float vermelho = clamp((c.r - max(c.g, c.b)) * 3.0, 0.0, 1.0);
+    // pela saturação do vermelho (não pelo brilho): sangue escuro continua vermelho
+    float vermelho = smoothstep(0.25, 0.7, (c.r - max(c.g, c.b)) / max(c.r, 0.015));
     vec3 cinza = vec3(l) * vec3(1.0, 0.93, 0.92);
     vec3 r = mix(cinza, c, vermelho * 0.85);
     // as sombras puxam para o vinho, as luzes ficam frias e sujas
@@ -69,7 +70,7 @@ vec3 acabamento(vec3 c, vec2 uv, float k) {
     float g = od_hash(uv * ScreenSize + fract(Tempo * 7.0) * 113.0) - 0.5;
     c += g * 0.035 * k * (0.3 + od_lum(c));
     vec2 d = uv - 0.5;
-    c *= 1.0 - k * 0.45 * od_suave(dot(d, d) * 2.2);
+    c *= 1.0 - k * 0.30 * od_suave(dot(d, d) * 2.2);
     return max(c, 0.0);
 }
 
@@ -97,8 +98,8 @@ void main() {
         vec2 w = (rel.xz + Camera.xz);
         float deriva = od_fbm3(w * 0.06 + vec2(Tempo * 0.03, -Tempo * 0.018));
         float rasteira = exp(-max(altura, 0.0) / 1.6) * (0.55 + 0.6 * deriva);
-        float longe = 1.0 - exp(-dist * 0.045);
-        float perto = smoothstep(2.0, 9.0, dist);
+        float longe = 1.0 - exp(-dist * 0.036);
+        float perto = smoothstep(4.0, 16.0, dist);
         float n = clamp(longe * 0.78 + rasteira * perto * 0.55, 0.0, 0.93);
         // a névoa brilha um pouco do lado da lua
         float lado = pow(max(dot(rd, normalize(LuaDir)), 0.0), 6.0);

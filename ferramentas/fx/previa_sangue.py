@@ -60,6 +60,23 @@ class Previa:
             "LuaDir": tuple(LUA),
         }
 
+    def cadeia(self, lista, u):
+        """Vários efeitos em sequência, como no jogo (cada um lê a saída do anterior)."""
+        class Entrada:
+            pass
+        ent = Entrada()
+        ent.cor, ent.prof = self.cena.cor, self.cena.prof
+        img = None
+        for nome, extra in lista:
+            fx = self.efeito(nome)
+            uu = dict(u)
+            uu.update(extra)
+            img = fx.desenhar(ent, self.proj, self.view, uu)
+            nova = Entrada()
+            nova.cor, nova.prof = fx.saida, self.cena.prof
+            ent = nova
+        return img
+
     def quadro(self, nome, u):
         return self.efeito(nome).desenhar(self.cena, self.proj, self.view, u)
 
@@ -158,6 +175,27 @@ def rodar(efeito, saida, pref, prof):
         chave["d2_batida_pico"] = pv.quadro("odfx_coracao", u)
         u["Batida"] = 0.0
         chave["d1_entre_batidas"] = pv.quadro("odfx_coracao", u)
+    elif efeito == "junto":
+        # O que o jogador vê de verdade: carmesim de noite, a coisa chega (sangue + coração), Marca no estágio 3.
+        total = 16.0
+        origem = (-6.0, -1.62, -16.0)
+        intervalo, ultima = 1.1, -10.0
+        for i in range(int(total * FPS)):
+            t = i / FPS
+            perto = suave((t - 2.0) / 6.0)
+            if t - ultima >= intervalo:
+                ultima, intervalo = t, 1.15 - 0.6 * perto
+            bat = batida(t - ultima, 99.0)
+            ts = t - 1.0
+            forca_s, seca, _ = curva_sangue(ts)
+            u = pv.comuns(t, prof)
+            u.update({"Forca": 1.0 if ts >= 0 else 0.0, "Idade": max(ts, 0.0), "Seca": seca, "Origem": origem,
+                      "Chao": -1.62, "Alcance": 12.0, "Estagio": 0.75, "Pulso": bat, "Batida": bat, "Mexer": 1.0})
+            img = pv.cadeia([("odfx_sangue", {"Forca": forca_s if ts >= 0 else 0.0}), ("odfx_carmesim", {"Forca": 1.0}),
+                             ("odfx_marcado", {"Forca": 1.0}), ("odfx_coracao", {"Forca": perto})], u)
+            quadros.append(img)
+            for nome, tc in (("e1_chegando", 3.0), ("e2_perto", 9.0), ("e3_colado_batida", 13.0)):
+                if abs(t - tc) < 0.5 / FPS: chave[nome + sufixo] = img
     salvar(saida, pref, chave, quadros, efeito + sufixo)
     print("ok:", efeito, len(quadros), "quadros")
 
@@ -187,7 +225,7 @@ def folha(saida, rodadas, nome="folha_rodadas.png"):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("efeito", choices=["cena", "carmesim", "sangue", "marcado", "coracao", "tudo", "folha"])
+    ap.add_argument("efeito", choices=["cena", "carmesim", "sangue", "marcado", "coracao", "junto", "tudo", "folha"])
     ap.add_argument("--saida", default=os.path.join(RAIZ, "arte", "previas", "fx", "sangue"))
     ap.add_argument("--rodada", default="")
     ap.add_argument("--rodadas", default="")
@@ -198,7 +236,7 @@ def main():
     if a.efeito == "folha":
         folha(a.saida, [r for r in a.rodadas.split(",") if r])
         return
-    lista = ["cena", "carmesim", "sangue", "marcado", "coracao"] if a.efeito == "tudo" else [a.efeito]
+    lista = ["cena", "carmesim", "sangue", "marcado", "coracao", "junto"] if a.efeito == "tudo" else [a.efeito]
     for e in lista:
         rodar(e, a.saida, pref, not a.sem_profundidade)
 

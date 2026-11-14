@@ -56,13 +56,16 @@ float veias(vec2 da, float px) {
     float ang = atan(da.y, da.x) / (2.0 * OD_PI) + 0.5;
     float rr = length(da);
     vec2 w = vec2(od_fbm3(da * 3.0 + 1.7), od_fbm3(da * 3.0 - 4.2)) - 0.5;
-    vec2 q1 = vec2(ang * 22.0, rr * 4.0) + w * vec2(1.4, 0.6);
-    vec2 q2 = vec2(ang * 54.0, rr * 10.0) + w * vec2(3.0, 1.2);
-    float e1 = vaso(q1, 22.0);
-    float e2 = vaso(q2, 54.0);
-    float l1 = 1.0 - smoothstep(0.0, max(fwidth(e1), 1e-5) * px, e1);
-    float l2 = 1.0 - smoothstep(0.0, max(fwidth(e2), 1e-5) * px * 0.5, e2);
-    return max(l1, l2 * 0.75);
+    vec2 q1 = vec2(ang * 30.0, rr * 2.6) + w * vec2(1.8, 0.5);
+    vec2 q2 = vec2(ang * 70.0, rr * 7.0) + w * vec2(3.5, 1.0);
+    float e1 = vaso(q1, 30.0);
+    float e2 = vaso(q2, 70.0);
+    float f1 = max(fwidth(e1), 1e-5);
+    float l1 = 1.0 - smoothstep(0.0, f1 * px, e1);
+    // sombra em volta do tronco (a veia fica embaixo da pele, não desenhada por cima)
+    float s1 = (1.0 - smoothstep(0.0, f1 * px * 4.0, e1)) * 0.35;
+    float l2 = 1.0 - smoothstep(0.0, max(fwidth(e2), 1e-5) * px * 0.45, e2);
+    return max(max(l1, s1), l2 * 0.6);
 }
 
 void main() {
@@ -96,8 +99,8 @@ void main() {
     // borda quente e escura (como olhar por dentro da pálpebra)
     float lum = od_lum(c);
     vec3 quente = vec3(lum * 0.9 + 0.025, lum * 0.12, lum * 0.10);
-    c = mix(c, quente, zona * k * 0.75);
-    c *= 1.0 - zona * k * (0.45 + Pulso * 0.25);
+    c = mix(c, quente, zona * k * 0.6);
+    c *= 1.0 - zona * k * (0.30 + Pulso * 0.20);
 
     // veias: só na zona da borda, mais grossas perto dela; enchem com o pulso
     float px = mix(0.6, 3.0, zona * zona) * (1.0 + Pulso * 0.5) * (ScreenSize.y / 720.0);
@@ -106,6 +109,8 @@ void main() {
     // veia: quase preta, vinho por dentro; quando enche, o vinho aparece
     vec3 sangueVeia = mix(vec3(0.035, 0.0, 0.006), vec3(0.20, 0.008, 0.02), Pulso);
     c = mix(c, sangueVeia, v * vMask * 0.95);
+    // no escuro a veia ainda se vê: um vermelho fraco por dentro, mais forte quando enche
+    c += vec3(0.075, 0.0, 0.008) * v * vMask * (0.35 + 0.9 * Pulso);
 
     fragColor = vec4(max(c, 0.0), 1.0);
 }

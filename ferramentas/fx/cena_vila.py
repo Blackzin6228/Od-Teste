@@ -151,7 +151,7 @@ void main() {
         vec3 a = albedo(h.mat, p, h.n);
         // luz do jogo: céu de noite (fraca, fria), lanterna numa porta (quente), ambiente
         float lua = max(dot(h.n, normalize(LuaDir)), 0.0);
-        vec3 luz = vec3(0.10, 0.11, 0.15) * (0.45 + 0.55 * lua) + vec3(0.035);
+        vec3 luz = vec3(0.15, 0.16, 0.21) * (0.45 + 0.55 * lua) + vec3(0.05);
         vec3 lant = vec3(-5.6, CHAO + 2.6, -6.0);
         float dl = length(p - lant);
         float l2 = max(dot(h.n, normalize(lant - p)), 0.0) * 0.6 + 0.4;
