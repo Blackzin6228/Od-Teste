@@ -34,7 +34,7 @@ import net.neoforged.neoforge.client.event.MovementInputUpdateEvent;
  * - frequência pela espera mínima da pior faixa (RegrasHorror.esperaMinima), pela metade com outro jogador perto;
  * - uma alucinação por vez, a mesma não repete antes de 2 min;
  * - SUAVE: porta só com som, vulto e criatura somem em 1 s, tela e corpo pela metade;
- * - DESLIGADO: só vinheta, som e texto.
+ * - DESLIGADO: desde 14/11/2026 vale como "Mínimo" (força 0,25, igual ao SUAVE nas alucinações; nada desliga).
  */
 final class EfeitosLucidez {
     /** 5 s na faixa antes de valer. */
@@ -138,7 +138,7 @@ final class EfeitosLucidez {
         };
 
         // Cena tocando: nada de alucinação no meio (a que estava na tela some); depois da cena, espera um pouco.
-        if (CenaCliente.tocando()) {
+        if (CenaCliente.tocando() || SustoCliente.tocando()) { // susto grande também: um por vez
             if (Alucinacoes.ocupado()) Alucinacoes.limpar();
             ativa = null;
             AGENDA.adiar(agora);
