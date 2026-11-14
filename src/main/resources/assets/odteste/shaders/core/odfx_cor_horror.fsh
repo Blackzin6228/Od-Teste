@@ -2,9 +2,9 @@
 
 // Cor do horror (overworld inteiro, de dia também). Escrito do zero pela mesa Dev.
 //
-// O mundo fica lavado e frio, como um dia nublado que não termina: pouca cor (o que é colorido continua
-// reconhecível, só sem vida), sombras leitosas de contraste baixo, céu puxado para cinza, um ar frio que engole
-// a distância, grão leve e cantos escuros. À noite e nas áreas da história fica mais pesado. Não mexe na luz:
+// O mundo fica morto e frio: quase sem cor (o verde vira oliva-cinza), um tom doente nos médios, sombras fundas,
+// céu de chumbo baixo com nuvens escuras, uma névoa fria que engole a distância, grão leve e cantos escuros.
+// Fica com cor só o que acende (tocha, lanterna, painel de máquina) e o vermelho vivo. À noite e nas áreas da história fica mais pesado. Não mexe na luz:
 // quem escurece a noite é a camada de horror (mapa de luz); aqui é só a cor.
 // Sem profundidade (shader pack que não deixa ler): o mesmo tom, com o céu achado pela direção e pela cor.
 
@@ -24,40 +24,51 @@ out vec4 fragColor;
 
 #moj_import <odteste:odfx_comum.glsl>
 
-// Ar frio: cinza azulado de dia, quase preto de noite.
+// Ar frio: cinza-chumbo de dia, quase preto de noite.
 vec3 corDoAr(float noite) {
-    return mix(vec3(0.40, 0.43, 0.46), vec3(0.030, 0.034, 0.042), noite);
+    return mix(vec3(0.27, 0.29, 0.30), vec3(0.026, 0.030, 0.036), noite);
 }
 
-// O tom do mundo: menos cor, frio, sombra leitosa, luz contida.
+// O tom do mundo: quase sem cor, verde morto, frio e doente, sombra funda, luz contida.
 vec3 graduar(vec3 c, float p, float noite) {
     float l = od_lum(c);
-    // 1) cor: de dia sobra ~45% da saturação, de noite ~25%
-    float sat = mix(0.34, 0.22, noite);
-    // luz que se acende (tocha, lanterna, fogo, painel de máquina) guarda a cor: o calor no meio do frio
     float viva = max(max(c.r, c.g), c.b);
-    float acesa = smoothstep(mix(0.30, 0.16, noite), mix(0.65, 0.45, noite), viva) * smoothstep(0.25, 0.55, (viva - min(min(c.r, c.g), c.b)) / max(viva, 0.01));
-    sat = mix(sat, 0.92, acesa * mix(0.35, 1.0, noite));
-    vec3 r = mix(vec3(l), c, mix(1.0, sat, p));
-    // 2) frio: sombras puxam para azul-esverdeado, meios para cinza azulado
-    vec3 frioSombra = vec3(0.86, 0.96, 1.08);
-    vec3 frioLuz = vec3(0.95, 0.98, 1.02);
-    r *= mix(vec3(1.0), mix(frioSombra, frioLuz, smoothstep(0.05, 0.6, l)), p * (1.0 - acesa * 0.9));
-    // 3) contraste baixo nas sombras: o preto vira um cinza frio (de noite bem pouco, a noite é escura)
-    float ergue = mix(0.060, 0.012, noite) * p;
-    r = vec3(0.80, 0.92, 1.05) * ergue + r * (1.0 - ergue);
-    // 4) luz contida: o branco não estoura e o dia fica um pouco mais baixo
+    float croma = (viva - min(min(c.r, c.g), c.b)) / max(viva, 0.01);
+    // luz que se acende (tocha, lanterna, fogo, painel de máquina) guarda a cor: o calor no meio do frio
+    float acesa = smoothstep(mix(0.30, 0.16, noite), mix(0.65, 0.45, noite), viva) * smoothstep(0.25, 0.55, croma);
+    // o vermelho vivo (sangue, redstone, flor) também fica
+    float vermelho = smoothstep(0.45, 0.75, (c.r - max(c.g, c.b)) / max(c.r, 0.02)) * smoothstep(0.12, 0.3, c.r);
+    float guarda = max(acesa * mix(0.30, 1.0, noite), vermelho * 0.85);
+    // 1) verde vira oliva-cinza morto (grama, folha)
+    float verde = smoothstep(0.02, 0.10, c.g - max(c.r, c.b));
+    vec3 oliva = vec3(l) * vec3(1.02, 1.0, 0.80);
+    vec3 r = mix(c, oliva, verde * 0.95 * p * (1.0 - guarda));
+    // 2) cor: de dia sobra ~22% da saturação, de noite ~18%
+    float sat = mix(mix(0.22, 0.18, noite), 0.92, guarda);
+    r = mix(vec3(od_lum(r)), r, mix(1.0, sat, p));
+    // 3) tom doente nos médios (esverdeado-amarelado frio), sombras frias
+    float medio = smoothstep(0.06, 0.25, l) * smoothstep(0.75, 0.35, l);
+    vec3 tom = mix(vec3(0.88, 0.95, 1.06), vec3(0.97, 1.0, 0.84), medio);
+    r *= mix(vec3(1.0), tom, p * (1.0 - guarda * 0.9));
+    // 4) sombra funda: o escuro desce mais que o claro (um pouco de leite frio só de dia)
+    float ergue = mix(0.022, 0.006, noite) * p;
+    vec3 fundo = pow(max(r, 0.0), vec3(1.0 + 0.30 * p * (1.0 - 0.6 * noite)));
+    r = mix(r, fundo, 1.0 - guarda * 0.7);
+    r = vec3(0.80, 0.92, 1.0) * ergue + r * (1.0 - ergue);
+    // 5) luz contida: o branco não estoura e o dia fica mais baixo
     float topo = smoothstep(0.45, 1.0, l);
-    r *= 1.0 - p * (0.20 + 0.12 * topo);
+    r *= 1.0 - p * (0.16 + 0.16 * topo) * (1.0 - guarda * 0.6);
     return r;
 }
 
-// Céu: o azul vira cinza de nuvem carregada (o brilho do sol e das nuvens fica, só sem cor).
+// Céu: chumbo baixo e pesado; as nuvens ficam MAIS escuras que o céu (sem branco nenhum).
 vec3 ceuCinza(vec3 c, float p, float noite) {
     float l = od_lum(c);
-    vec3 cinza = vec3(l * 0.62 + 0.08) * vec3(0.95, 0.98, 1.02);
-    cinza = mix(cinza, vec3(l * 0.9) * vec3(0.90, 0.95, 1.05), noite);
-    return mix(c, cinza, p * 0.85);
+    float nuvem = smoothstep(0.72, 0.92, l);
+    vec3 chumbo = vec3(0.30, 0.32, 0.33) - vec3(0.10, 0.10, 0.09) * nuvem;
+    vec3 escuro = vec3(l * 0.6) * vec3(0.90, 0.95, 1.05);
+    vec3 cinza = mix(chumbo, escuro, noite);
+    return mix(c, cinza, p * 0.92);
 }
 
 // Grão de filme e cantos escuros.
@@ -86,15 +97,15 @@ void main() {
         vec4 v = od_vista(Sampler1, InvProj, uv);
         if (v.w < 0.5) {
             vec3 r = ceuCinza(c, p, noite);
-            r = graduar(r, p * 0.6, noite);
+            r = graduar(r, p * 0.3, noite);
             fragColor = vec4(acabamento(r, uv, p, noite), 1.0);
             return;
         }
         float dist = length(od_rel(InvView, v.xyz));
         vec3 r = graduar(c, p, noite);
         // ar frio que engole a distância (mais curto de noite e nas áreas)
-        float alcance = mix(0.016, 0.022, max(noite, Area * 0.6));
-        float ar = (1.0 - exp(-dist * alcance)) * mix(0.65, 0.75, noite) * p;
+        float alcance = mix(0.030, 0.034, max(noite, Area * 0.6));
+        float ar = (1.0 - exp(-dist * alcance)) * mix(0.70, 0.78, noite) * p;
         // o ar fica no tom do próprio céu ali (a névoa do jogo já existe: aqui só esfria e acinzenta)
         r = mix(r, corDoAr(noite), ar);
         fragColor = vec4(acabamento(r, uv, p, noite), 1.0);
@@ -106,7 +117,7 @@ void main() {
     float azul = smoothstep(0.02, 0.14, c.b - max(c.r, c.g * 0.92));
     float escuroNoAlto = smoothstep(0.10, 0.03, l) * noite;
     float ceu = smoothstep(0.0, 0.12, rd.y) * clamp(max(azul, escuroNoAlto) + smoothstep(0.75, 0.95, l) * 0.6, 0.0, 1.0);
-    vec3 r = mix(graduar(c, p, noite), graduar(ceuCinza(c, p, noite), p * 0.6, noite), ceu);
+    vec3 r = mix(graduar(c, p, noite), graduar(ceuCinza(c, p, noite), p * 0.3, noite), ceu);
     float horizonte = exp(-abs(rd.y) * 7.0) * (1.0 - ceu);
     r = mix(r, corDoAr(noite), horizonte * 0.28 * p);
     fragColor = vec4(acabamento(r, uv, p, noite), 1.0);

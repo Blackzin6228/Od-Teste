@@ -119,6 +119,9 @@ vec3 albedo(int mat, vec3 p, vec3 n) {
     if (mat == 4) return vec3(0.40, 0.27, 0.16) * (0.8 + g * 2.0) * (0.8 + 0.2 * borda);
     if (mat == 5) return vec3(0.45, 0.33, 0.20);
     if (mat == 7) return vec3(0.55, 0.70, 0.80);
+    if (mat == 17) return vec3(0.00, 0.62, 0.62) * (0.8 + 0.2 * px);   // camisa do zumbi
+    if (mat == 18) return vec3(0.27, 0.24, 0.55) * (0.8 + 0.2 * px);   // calça
+    if (mat == 19) return vec3(0.33, 0.52, 0.27) * (0.8 + 0.2 * px);   // cabeça
     if (mat == 8) return vec3(0.36, 0.27, 0.16) * (0.8 + 0.3 * px);
     if (mat == 9) return vec3(0.20, 0.42, 0.12) * (0.6 + 0.6 * px);
     // metal: borda mais escura, rebite, leve brilho
@@ -192,6 +195,12 @@ void main() {
     arvore(ro, rd, vec3(26.0, CHAO, -30.0), 6.0, h);
     arvore(ro, rd, vec3(-30.0, CHAO, -48.0), 7.0, h);
     base(ro, rd, h);
+    // um zumbi a ~20 blocos (conferir se dá para ver um mob)
+    vec3 z = vec3(-1.8, CHAO, -16.0);
+    caixa(ro, rd, z + vec3(-0.25, 0.0, -0.12), z + vec3(0.25, 0.75, 0.12), 18, h);
+    caixa(ro, rd, z + vec3(-0.25, 0.75, -0.12), z + vec3(0.25, 1.5, 0.12), 17, h);
+    caixa(ro, rd, z + vec3(-0.5, 1.0, -0.12), z + vec3(0.5, 1.5, 0.6), 17, h);
+    caixa(ro, rd, z + vec3(-0.25, 1.5, -0.25), z + vec3(0.25, 2.0, 0.25), 19, h);
 
     vec3 col;
     if (h.t > 1e8) {
