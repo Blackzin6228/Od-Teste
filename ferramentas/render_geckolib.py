@@ -627,11 +627,15 @@ def renderizar(modelo, tex, cam, pose=None, glow=None, escala=6.0, tamanho=(320,
         if np.dot(n, cam.f) > 0:
             n = -n
         dif = max(0.0, float(np.dot(n, cam.luz)))
-        sombra = 0.42 + 0.58 * dif
+        amb = getattr(cam, "ambiente", 0.42)  # luz de noite: câmera com ambiente menor
+        sombra = amb + (1 - amb) * dif
         if abs(n[1]) > 0.9 and n[1] > 0:
             sombra = min(1.0, sombra + 0.08)
         u0, v0, u1, v1 = f["uv"]
         uvq = np.array([[u0, v0], [u1, v0], [u1, v1], [u0, v1]], float)
+        # textura HD (ex.: 32 px por bloco): a PNG pode ter o dobro do tamanho declarado no .geo.json
+        uvq[:, 0] *= tex.shape[1] / modelo.tex_w
+        uvq[:, 1] *= tex.shape[0] / modelo.tex_h
         pts = np.stack([sx, sy], axis=1)
         for tri in ((0, 1, 2), (0, 2, 3)):
             _preencher_triangulo(img, zbuf, pts[list(tri)], sz[list(tri)], uvq[list(tri)], tex,
