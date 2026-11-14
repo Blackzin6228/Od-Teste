@@ -2,10 +2,13 @@
 
 // Visão do Marcado (Sangue). Escrito do zero pela mesa Dev.
 //
-// Quem carrega a Marca de Sangue vê o mundo por dentro de uma pálpebra: veias escuras entram pelas bordas da
-// tela e se ramificam, enchem a cada batida do coração e esvaziam devagar; a borda fica quente e úmida, a imagem
-// treme e se separa um pouco em vermelho onde as veias passam. Cresce com o estágio da Marca. Não precisa
-// de profundidade (o mesmo nos dois caminhos).
+// Quem carrega a Marca de Sangue vê o mundo por dentro de uma pálpebra. Camadas, de fora para dentro:
+//  1) beira quase preta, de contorno orgânico (ruído torcido que se mexe devagar);
+//  2) membrana vermelha translúcida: o mundo atrás fica vermelho e escuro (absorve, não pinta por cima),
+//     com manchas de capilar; brilha por dentro a cada batida (a luz atravessa a parte fina);
+//  3) veias em grupos (não uma rede igual na tela toda), que enchem na batida;
+//  4) aberração cromática leve que cresce para a borda e na batida.
+// Tudo pulsa junto com o coração. Cresce com o estágio da Marca. Não precisa de profundidade.
 
 uniform sampler2D Sampler0;
 uniform sampler2D Sampler1;
@@ -78,39 +81,52 @@ void main() {
     float asp = ScreenSize.x / max(ScreenSize.y, 1.0);
     vec2 d = uv - 0.5;
     vec2 da = vec2(d.x * asp, d.y);
-    // distância até a borda (0 na borda, ~0.5 no meio), com a borda "mordida" pelo ruído
-    float borda = min(min(uv.x, 1.0 - uv.x) * asp, min(uv.y, 1.0 - uv.y));
-    borda += (od_fbm3(da * 4.0 + Tempo * 0.03) - 0.5) * 0.08;
-    float alcance = mix(0.10, 0.34, Estagio) * (1.0 + Pulso * 0.12);
+    float p = clamp(Pulso, 0.0, 1.0);
+    // distância até a borda (0 na borda, ~0.5 no meio), com a beira mordida por ruído torcido que se mexe devagar
+    // (metade retângulo da tela, metade oval: a pálpebra é redonda, não uma moldura)
+    float reta = min(min(uv.x, 1.0 - uv.x) * asp, min(uv.y, 1.0 - uv.y));
+    float oval = (1.0 - length(da) / length(vec2(0.5 * asp, 0.5))) * 0.62;
+    float borda = mix(reta, oval, 0.55);
+    float carne = od_torcido(da * 3.2, Tempo * 0.06);
+    borda += (carne - 0.5) * 0.11;
+    // respira devagar e incha na batida
+    float alcance = mix(0.11, 0.36, Estagio) * (1.0 + p * 0.16 + 0.04 * sin(Tempo * 0.8));
     float zona = 1.0 - smoothstep(0.0, alcance, borda);
 
-    // distorção: a imagem incha para fora a cada batida e ondula perto das veias
+    // distorção: a imagem incha para fora a cada batida e ondula perto da borda
     float onda = sin(Tempo * 1.7 + da.y * 9.0) * 0.5 + sin(Tempo * 1.1 - da.x * 7.0) * 0.5;
-    vec2 desloca = d * (Pulso * 0.010 + 0.002 * onda) * Estagio * Forca * Mexer;
+    vec2 desloca = d * (p * 0.010 + 0.002 * onda) * Estagio * Forca * Mexer;
     desloca += vec2(onda, -onda) * 0.0025 * zona * k * Mexer;
     vec2 uvD = uv - desloca;
-    // separação de cor nas bordas (o vermelho escorre para fora)
-    float sep = zona * k * (0.004 + Pulso * 0.004) * Mexer;
+    // aberração cromática: radial, mais forte na borda e na batida (o vermelho escapa para fora).
+    // Fica um pouco mesmo sem tremor (é leve); o tremor só aumenta.
+    float sep = (0.0012 + zona * (0.006 + p * 0.006)) * k * mix(0.4, 1.0, Mexer);
     vec3 c;
     c.r = texture(Sampler0, uvD + d * sep).r;
     c.g = texture(Sampler0, uvD).g;
-    c.b = texture(Sampler0, uvD - d * sep * 0.5).b;
+    c.b = texture(Sampler0, uvD - d * sep * 0.7).b;
 
-    // borda quente e escura (como olhar por dentro da pálpebra)
-    float lum = od_lum(c);
-    vec3 quente = vec3(lum * 0.9 + 0.025, lum * 0.12, lum * 0.10);
-    c = mix(c, quente, zona * k * 0.6);
-    c *= 1.0 - zona * k * (0.30 + Pulso * 0.20);
+    // membrana: espessura cresce para a borda, manchada de capilar
+    float capilar = od_fbm3(da * 9.0 + vec2(0.0, Tempo * 0.02));
+    float esp = zona * zona * (1.4 + 1.6 * capilar) * k;
+    vec3 atravessa = od_absorve(c, esp);
+    // brilho por dentro: a luz atravessa a parte fina (meio da zona), mais na batida
+    float fina = zona * (1.0 - zona) * 4.0;
+    float mancha = smoothstep(0.35, 0.75, capilar);
+    vec3 brilhoDentro = vec3(0.34, 0.020, 0.030) * fina * (0.2 + 0.8 * p) * (0.25 + 1.1 * mancha) * k;
+    c = atravessa + brilhoDentro * (0.10 + od_lum(c) * 1.4);
+    // beira quase preta (fora de tudo), com o contorno de carne
+    float beira = 1.0 - smoothstep(0.0, alcance * 0.35, borda + (carne - 0.5) * 0.04);
+    c = mix(c, vec3(0.018, 0.0, 0.003), beira * k * (0.85 + 0.15 * p));
 
-    // veias: só na zona da borda, mais grossas perto dela; enchem com o pulso
-    float px = mix(0.6, 3.0, zona * zona) * (1.0 + Pulso * 0.5) * (ScreenSize.y / 720.0);
-    float v = veias(da, px);
-    float vMask = smoothstep(0.05, 0.9, zona) * k;
-    // veia: quase preta, vinho por dentro; quando enche, o vinho aparece
-    vec3 sangueVeia = mix(vec3(0.035, 0.0, 0.006), vec3(0.20, 0.008, 0.02), Pulso);
-    c = mix(c, sangueVeia, v * vMask * 0.95);
-    // no escuro a veia ainda se vê: um vermelho fraco por dentro, mais forte quando enche
-    c += vec3(0.075, 0.0, 0.008) * v * vMask * (0.35 + 0.9 * Pulso);
+    // veias em grupos: o ruído decide onde há feixe; ficam mais grossas perto da borda e enchem na batida
+    float px = mix(0.6, 3.0, zona * zona) * (1.0 + p * 0.5) * (ScreenSize.y / 720.0);
+    float grupo = smoothstep(0.38, 0.62, od_fbm3(da * 2.2 + 11.0));
+    float v = veias(da, px) * mix(0.35, 1.0, grupo);
+    float vMask = smoothstep(0.05, 0.9, zona) * k * (1.0 - beira * 0.6);
+    vec3 sangueVeia = mix(vec3(0.030, 0.0, 0.006), vec3(0.22, 0.008, 0.02), p);
+    c = mix(c, sangueVeia, v * vMask * 0.9);
+    c += vec3(0.08, 0.0, 0.008) * v * vMask * (0.3 + 0.9 * p);
 
-    fragColor = vec4(max(c, 0.0), 1.0);
+    fragColor = vec4(max(od_pontilhar(c, uv * ScreenSize), 0.0), 1.0);
 }

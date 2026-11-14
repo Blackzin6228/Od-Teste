@@ -71,4 +71,17 @@ class RegrasFxSangueTest {
         assertTrue(ids.contains("`odteste:efeito_fx`"));
         for (String e : RegrasFxSangue.EFEITOS) assertTrue(ids.contains("`" + e + "`"), "falta " + e + " em docs/ids.md");
     }
+
+    @Test
+    void olhoNaLuaSoComLuaDeSangueOuVilaDeNoite() {
+        assertEquals(0f, RegrasFxSangue.olhoAlvo(0f, 1f, 0f), 1e-6, "vila de dia: sem olho");
+        assertEquals(0f, RegrasFxSangue.olhoAlvo(0f, 0f, 1f), 1e-6, "noite fora da vila: sem olho");
+        assertEquals(1f, RegrasFxSangue.olhoAlvo(0f, 1f, 1f), 1e-6);
+        assertEquals(0.7f, RegrasFxSangue.olhoAlvo(0.7f, 0f, 0f), 1e-6, "Lua de Sangue vale em qualquer lugar");
+        assertEquals(1f, RegrasFxSangue.olhoAlvo(Float.MAX_VALUE, 0f, 0f), 1e-6);
+        assertEquals(1f, RegrasFxSangue.piscada(-5f), 1e-6);
+        assertEquals(0f, RegrasFxSangue.piscada(RegrasFxSangue.OLHO_PISCA / 2f), 1e-6, "fecha no meio da piscada");
+        assertEquals(1f, RegrasFxSangue.piscada(RegrasFxSangue.OLHO_PISCA), 1e-6);
+        assertTrue(RegrasFxSangue.OLHO_VARIANTE >= 0 && RegrasFxSangue.OLHO_VARIANTE <= 2);
+    }
 }

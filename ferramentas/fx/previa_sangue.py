@@ -35,6 +35,28 @@ def contexto():
     return moderngl.create_standalone_context(backend="egl", require=330)
 
 
+# --pack: imita a imagem pronta de um shader pack (curva de filme, brilho que vaza, céu de noite mais claro e azul,
+# lua com halo grande). Serve para conferir a versão sem profundidade, que é a que roda com a maioria dos packs.
+PACK = False
+
+
+def jeito_de_pack(cena):
+    from PIL import ImageFilter
+    raw = np.frombuffer(cena.cor.read(), dtype=np.uint8).reshape(ALT, LARG, 4)[..., :3].astype(np.float32) / 255.0
+    lin = raw ** 2.2
+    lin = lin * 1.8 + np.array([0.004, 0.006, 0.014], dtype=np.float32)      # exposição + céu de noite azulado
+    claro = np.clip(lin - 0.35, 0.0, None)
+    im = Image.fromarray((np.clip(claro, 0, 1) * 255).astype(np.uint8))
+    halo = np.asarray(im.filter(ImageFilter.GaussianBlur(28)), dtype=np.float32) / 255.0
+    lin = lin + halo * 1.4
+    a, b, c, d, e = 2.51, 0.03, 2.43, 0.59, 0.14                               # ACES
+    t = np.clip((lin * (a * lin + b)) / (lin * (c * lin + d) + e), 0, 1)
+    out = t ** (1 / 2.2)
+    m = out.mean(axis=2, keepdims=True)
+    out = np.clip(m + (out - m) * 1.25, 0, 1)                                  # mais saturado
+    cena.cor.write((np.concatenate([out, np.ones((ALT, LARG, 1), np.float32)], axis=2) * 255).astype(np.uint8).tobytes())
+
+
 class Previa:
     def __init__(self, yaw=-4.0, pitch=-8.0, pedra=False, ctx=None):
         self.ctx = ctx or contexto()
@@ -42,6 +64,8 @@ class Previa:
         self.proj = perspectiva(FOV_Y, LARG / ALT, PERTO, LONGE)
         self.view, _ = vista(yaw, pitch)
         self.cena.desenhar(self.proj, self.view, LUA, CAM, pedra)
+        if PACK:
+            jeito_de_pack(self.cena)
         self.fx = {}
         self.desloca = np.zeros(3, dtype=np.float32)   # só no uniform Camera: coordenada grande como no jogo
 
@@ -201,6 +225,51 @@ def rodar(efeito, saida, pref, prof):
     print("ok:", efeito, len(quadros), "quadros")
 
 
+NOMES_OLHO = ("iris_lua", "palpebras", "lua_que_sangra")
+
+
+def olho(saida, pref, prof):
+    """Olho vermelho na lua, nas 3 variantes: rua da vila (com e sem carmesim) e olhando para a lua (perto)."""
+    ctx = contexto()
+    sufixo = "" if prof else "_semprof"
+    rua = Previa(ctx=ctx)
+    lua = Previa(14.0, 21.0, ctx=ctx)
+    lua.cena.desenhar(lua.proj, lua.view, LUA, CAM + np.array([0.0, 6.0, 4.0], dtype=np.float32), False)
+    if PACK:
+        jeito_de_pack(lua.cena)
+    olhar_lado = tuple(float(x) for x in (dir_de(60.0, -10.0) * 0.8 - LUA * 0.2))
+    encara = tuple(float(x) for x in -LUA)
+    for vi, vnome in enumerate(NOMES_OLHO):
+        quadros = []
+        for i in range(int(8.0 * FPS)):
+            t = i / FPS
+            # vagueia, depois encara (a pupila desliza), pisca no fim
+            m = min(max((t - 3.0) / 1.5, 0.0), 1.0)
+            ol = tuple(float(a * (1 - m) + b * m) for a, b in zip(olhar_lado, encara))
+            ab = 1.0 if t < 6.6 or t > 7.2 else abs(t - 6.9) / 0.3
+            u = rua.comuns(t, prof)
+            u.update({"Forca": min(1.0, t / 1.0), "Olhar": ol, "Abertura": ab, "Variante": float(vi)})
+            quadros.append(rua.cadeia([("odfx_carmesim", {"Forca": 1.0}), ("odfx_olho_lua", {})], u))
+        for nome, pv, cad, ol in (("rua_carmesim", rua, True, encara), ("rua_lua_de_sangue", rua, False, encara),
+                                  ("perto_vagueia", lua, True, olhar_lado), ("perto_encara", lua, True, encara)):
+            u = pv.comuns(5.0, prof)
+            u.update({"Forca": 1.0, "Olhar": ol, "Abertura": 1.0, "Variante": float(vi)})
+            lista = ([("odfx_carmesim", {"Forca": 1.0})] if cad else []) + [("odfx_olho_lua", {})]
+            img = pv.cadeia(lista, u)
+            if nome.startswith("perto"):
+                img = img.crop((640 - 180, 360 - 120, 640 + 180, 360 + 120)).resize((960, 640), Image.LANCZOS)
+            img.save(os.path.join(saida, pref + "f_" + vnome + "_" + nome + sufixo + ".png"))
+        salvar(saida, pref, {}, quadros, "olho_" + vnome + sufixo)
+    if not os.path.exists(os.path.join(saida, pref + "f_0_lua_perto_sem_efeito.png")):
+        u = lua.comuns(5.0, prof)
+        u.update({"Forca": 1.0})
+        lua.cadeia([("odfx_carmesim", {"Forca": 1.0})], u).crop((460, 240, 820, 480)).resize((960, 640), Image.LANCZOS).save(
+            os.path.join(saida, pref + "f_0_lua_perto_so_carmesim.png"))
+        lua.sem_efeito().crop((460, 240, 820, 480)).resize((960, 640), Image.LANCZOS).save(
+            os.path.join(saida, pref + "f_0_lua_perto_sem_efeito.png"))
+    print("ok: olho")
+
+
 VISTAS_PAREDE = (("media", -4.0, -6.0), ("longe", 32.0, -3.0))
 TEMPOS_PAREDE = (("escorrendo", 4.0), ("espalhado", 10.0))
 
@@ -277,12 +346,15 @@ def folha(saida, rodadas, nome="folha_rodadas.png"):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("efeito", choices=["cena", "carmesim", "sangue", "marcado", "coracao", "junto", "tudo", "folha",
-                                       "parede", "folha_parede"])
+                                       "parede", "folha_parede", "olho"])
     ap.add_argument("--saida", default=os.path.join(RAIZ, "arte", "previas", "fx", "sangue"))
     ap.add_argument("--rodada", default="")
     ap.add_argument("--rodadas", default="")
     ap.add_argument("--sem-profundidade", action="store_true")
+    ap.add_argument("--pack", action="store_true", help="imita a imagem de um shader pack (use com --sem-profundidade)")
     a = ap.parse_args()
+    global PACK
+    PACK = a.pack
     os.makedirs(a.saida, exist_ok=True)
     pref = (a.rodada + "_") if a.rodada else ""
     if a.efeito == "folha":
@@ -290,6 +362,9 @@ def main():
         return
     if a.efeito == "folha_parede":
         folha_parede(a.saida, [r for r in a.rodadas.split(",") if r])
+        return
+    if a.efeito == "olho":
+        olho(a.saida, pref, not a.sem_profundidade)
         return
     if a.efeito == "parede":
         parede(a.saida, pref, not a.sem_profundidade)

@@ -35,7 +35,9 @@ public final class Compat {
         JOURNEYMAP("journeymap"),
         /** Minimapas do Xaero (fora do pack hoje). Só cliente, via compat/xaero/. */
         XAERO_MINIMAPA("xaerominimap"),
-        XAERO_MINIMAPA_JUSTO("xaerominimapfair");
+        XAERO_MINIMAPA_JUSTO("xaerominimapfair"),
+        /** Luas especiais. Só cliente: só perguntamos (por reflexão, em compat/enhancedcelestials/) se é Lua de Sangue. */
+        ENHANCED_CELESTIALS("enhancedcelestials2core");
 
         public final String modid;
 

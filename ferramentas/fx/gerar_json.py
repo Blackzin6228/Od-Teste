@@ -17,6 +17,7 @@ EFEITOS = {
                     ("Origem", "float", 3), ("Chao", "float", 1), ("Alcance", "float", 1)],
     "odfx_marcado": [("Estagio", "float", 1), ("Pulso", "float", 1), ("Mexer", "float", 1)],
     "odfx_coracao": [("Batida", "float", 1), ("Mexer", "float", 1)],
+    "odfx_olho_lua": [("LuaDir", "float", 3), ("Olhar", "float", 3), ("Abertura", "float", 1), ("Variante", "float", 1)],
 }
 
 
