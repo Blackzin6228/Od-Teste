@@ -26,10 +26,13 @@ public final class RegrasVilaCalada {
     public static final double RAIO_SOM_DIRETO = 48;
     /** Longe: o som sai a esta distância do jogador (dá para ouvir de que lado vem). */
     public static final double DISTANCIA_FONTE = 6;
-    /** Mais longe que isso, ninguém ouve. */
-    public static final double ALCANCE_SINO = 4_096;
-    /** Distância em que o volume chega no mínimo. */
-    public static final double LONGE = 1_500;
+    /** Mais longe que isso, ninguém ouve (a vila comum do grupo fica a ~4.480 blocos da Vila Calada). */
+    public static final double ALCANCE_SINO = 6_500;
+    /**
+     * Distância em que o volume chega no mínimo. Passa da distância da vila comum (~4.480): o toque sai baixo,
+     * mas já um pouco acima do mínimo, e vai subindo durante toda a caminhada até lá.
+     */
+    public static final double LONGE = 5_000;
     public static final float VOLUME_PERTO = 1.0f;
     public static final float VOLUME_MINIMO = 0.3f;
     /** Volume do toque quando o jogador já está na vila (o som sai do ponto da vila e chega longe). */
