@@ -105,7 +105,7 @@ public final class ComandosHistoria {
 
     private static int responder(CommandContext<CommandSourceStack> c, boolean ok, Component msg) {
         if (ok) {
-            c.getSource().sendSuccess(() -> msg, true);
+            c.getSource().sendSuccess(() -> msg, false);
             return 1;
         }
         c.getSource().sendFailure(msg);

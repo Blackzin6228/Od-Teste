@@ -51,7 +51,7 @@ public final class ComandosArtefato {
         };
         ItemStack pilha = new ItemStack(item);
         if (!p.getInventory().add(pilha)) p.drop(pilha, false);
-        c.getSource().sendSuccess(() -> Component.translatable("odteste.comando.artefato.dar", nome, p.getDisplayName()), true);
+        c.getSource().sendSuccess(() -> Component.translatable("odteste.comando.artefato.dar", nome, p.getDisplayName()), false);
         return 1;
     }
 }
