@@ -267,5 +267,10 @@
   "odteste.comando.magia.desconhecida": "Magia desconhecida: %s",
   "odteste.comando.magia.recarga": "%s ainda está recarregando.",
   "odteste.comando.magia.sem_lucidez": "Lucidez baixa demais para %s.",
-  "odteste.comando.magia.ocupado": "%s já está sendo preparada."
+  "odteste.comando.magia.ocupado": "%s já está sendo preparada.",
+  "entity.odteste.o_que_segue": "O Que Segue",
+  "odteste.comando.segue.chamar": "Algo começou a seguir %s.",
+  "odteste.comando.segue.sem_lugar": "Não achei lugar para ela aparecer perto de %s (só no Overworld, de 30 a 45 blocos, fora da vista).",
+  "odteste.comando.segue.afastar": "O que seguia %s foi embora (por enquanto).",
+  "odteste.comando.segue.nenhuma": "Nada segue %s agora."
 }

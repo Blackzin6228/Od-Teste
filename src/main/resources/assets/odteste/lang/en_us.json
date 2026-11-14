@@ -267,5 +267,10 @@
   "odteste.comando.magia.desconhecida": "Unknown spell: %s",
   "odteste.comando.magia.recarga": "%s is still on cooldown.",
   "odteste.comando.magia.sem_lucidez": "Lucidity too low for %s.",
-  "odteste.comando.magia.ocupado": "%s is already being prepared."
+  "odteste.comando.magia.ocupado": "%s is already being prepared.",
+  "entity.odteste.o_que_segue": "The One That Follows",
+  "odteste.comando.segue.chamar": "Something started following %s.",
+  "odteste.comando.segue.sem_lugar": "Found no place for it to appear near %s (Overworld only, 30 to 45 blocks away, out of sight).",
+  "odteste.comando.segue.afastar": "What was following %s went away (for now).",
+  "odteste.comando.segue.nenhuma": "Nothing is following %s right now."
 }

@@ -41,12 +41,26 @@ public final class Criaturas {
                     .clientTrackingRange(10)
                     .build(OdMod.MODID + ":" + IdsDados.CRIATURA_SANGUESSUGA));
 
+    /**
+     * "O Que Segue" (nome provisório): não nasce sozinha pelo bioma; quem chama é o {@link Segue}. Nunca é salva no mundo.
+     * Categoria MISC: não ocupa vaga de monstro.
+     */
+    public static final DeferredHolder<EntityType<?>, EntityType<OQueSegue>> O_QUE_SEGUE = Registro.CRIATURAS.register(
+            IdsDados.CRIATURA_O_QUE_SEGUE,
+            () -> EntityType.Builder.<OQueSegue>of(OQueSegue::new, MobCategory.MISC)
+                    .sized(0.6f, 2.8f)
+                    .fireImmune()
+                    .clientTrackingRange(6)
+                    .build(OdMod.MODID + ":" + IdsDados.CRIATURA_O_QUE_SEGUE));
+
     private Criaturas() {}
 
     public static void iniciar(IEventBus barramento) {
+        Segue.iniciar();
         barramento.addListener((EntityAttributeCreationEvent e) -> {
             e.put(RETALHADO.get(), Retalhado.atributos().build());
             e.put(SANGUESSUGA.get(), SanguessugaMae.atributos().build());
+            e.put(O_QUE_SEGUE.get(), OQueSegue.atributos().build());
         });
         barramento.addListener((RegisterSpawnPlacementsEvent e) -> {
             e.register(RETALHADO.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,

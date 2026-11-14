@@ -1,16 +1,20 @@
 package com.nikolas.odteste.cliente;
 
+import com.nikolas.odteste.OdMod;
 import com.nikolas.odteste.criaturas.Criaturas;
+import com.nikolas.odteste.criaturas.OQueSegue;
 import com.nikolas.odteste.criaturas.Retalhado;
 import com.nikolas.odteste.criaturas.SanguessugaMae;
 import com.nikolas.odteste.efeitos.Sangramento;
 import com.nikolas.odteste.itens.Itens;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientMobEffectExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
 
@@ -51,6 +55,12 @@ final class ConteudoCliente {
                 }
             });
         });
+
+        // O Que Segue (nome provisório): silhueta preta, modelo simples nosso (o_que_segue.geo.json), sem brilho.
+        barramento.addListener((EntityRenderersEvent.RegisterRenderers e) -> e.registerEntityRenderer(
+                Criaturas.O_QUE_SEGUE.get(), ctx -> new GeoEntityRenderer<OQueSegue>(ctx,
+                        new DefaultedEntityGeoModel<OQueSegue>(
+                                ResourceLocation.fromNamespaceAndPath(OdMod.MODID, "o_que_segue")))));
 
         barramento.addListener((RegisterColorHandlersEvent.Item e) -> {
             e.register((item, camada) -> camada == 0 ? COR_RUBRA : -1, Itens.RUBRA.get());
