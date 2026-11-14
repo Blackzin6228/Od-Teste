@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "blockbench": {
+      "type": "http",
+      "url": "http://localhost:3000/bb-mcp"
+    },
+    "mcmodding": {
+      "type": "stdio",
+      "command": "mcmodding-mcp",
+      "args": []
+    }
+  }
+}
