@@ -2,7 +2,7 @@
 
 Leia este mapa primeiro. Abra o arquivo de detalhe só se precisar.
 
-Atualizado em 13/11/2026. Decisão nova vale mais que texto antigo. Onde há conflito, está marcado "(substituído por ...)".
+Atualizado em 14/11/2026. Decisão nova vale mais que texto antigo. Onde há conflito, está marcado "(substituído por ...)".
 
 ## Premissa
 Agentes do Gabinete do Limiar escutam um barulho numa floresta e atravessam para outro mundo, o do Minecraft. Lá há monstros, entidades e relíquias. Eles querem voltar para casa. Outras pessoas já atravessaram antes, e o rastro delas é a história. Os protagonistas são quem joga: textos usam marcadores como `{grupo}` e `{marcado}`, nunca nome de jogador. Detalhe: [canon](canon.md), [roteiro](roteiro.md).
@@ -102,6 +102,8 @@ Clareira e Carroça, Matadouro do Nono Marco, Estalagem, Frigorífico, Pousada e
 | [artefatos-paranormais.md](artefatos-paranormais.md) | Os 12 artefatos e regras anti-abuso |
 | [dimensoes.md](dimensoes.md) | Clareira e dimensões dos elementos |
 | [cenas/entrada-vila-calada.md](cenas/entrada-vila-calada.md) | Roteiro da cena de entrada da Vila Calada (PR #56) |
+| [metodo-horror-rpg.md](metodo-horror-rpg.md) | Estudo: 18 princípios de RPG e jogo de terror (pistas, medo, ambiente) e checklist para lugar ou evento novo. Não é canon |
+| [propostas-ato1-ato2.md](propostas-ato1-ato2.md) | Proposta: pistas que faltam no Ato 1, significado da Lua com olho vermelho (3 opções) e 3 formas do Ato 2. Não é canon |
 | [../docs/estilo-do-genero.md](../docs/estilo-do-genero.md) | Guia do gênero e o que não pode copiar |
 | [../docs/decisoes.md](../docs/decisoes.md) e `../docs/decisoes/` | Decisões do Nikolas (as novas ficam na pasta) |
 | [../docs/plano-ato1.md](../docs/plano-ato1.md) | Fases, PRs e o que ficou para a 0.2 |
