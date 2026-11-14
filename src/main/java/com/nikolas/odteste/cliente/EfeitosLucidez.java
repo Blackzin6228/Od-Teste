@@ -138,7 +138,7 @@ final class EfeitosLucidez {
         };
 
         // Cena tocando: nada de alucinação no meio (a que estava na tela some); depois da cena, espera um pouco.
-        if (CenaCliente.tocando()) {
+        if (CenaCliente.tocando() || SustoCliente.tocando()) { // susto grande também: um por vez
             if (Alucinacoes.ocupado()) Alucinacoes.limpar();
             ativa = null;
             AGENDA.adiar(agora);

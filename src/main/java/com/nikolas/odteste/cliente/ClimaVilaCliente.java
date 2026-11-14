@@ -94,7 +94,7 @@ final class ClimaVilaCliente {
 
     /** Uma vez por segundo, dentro da vila: sons e Pendurado. */
     private static void segundo(LocalPlayer p, float f) {
-        if (CenaCliente.tocando()) { // a cena tem os sons dela: o clima espera e volta uns segundos depois
+        if (CenaCliente.tocando() || SustoCliente.tocando()) { // a cena (ou o susto) tem os sons dela: o clima espera e volta uns segundos depois
             if (proximoSom >= 0) proximoSom = Math.max(proximoSom, tick + DEPOIS_DA_CENA);
             if (proximoPendurado >= 0) proximoPendurado = Math.max(proximoPendurado, tick + DEPOIS_DA_CENA);
             return;
