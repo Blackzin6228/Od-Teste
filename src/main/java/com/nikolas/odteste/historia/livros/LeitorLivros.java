@@ -16,7 +16,8 @@ import java.util.function.Consumer;
  *   "paginas": [
  *     { "texto": "Texto que todos leem." },
  *     { "texto": "Texto.", "escondidos": [ { "texto": "Em vermelho.", "exposicao_minima": "marcado" } ] },
- *     { "texto": "Página que só existe com Exposição.", "exposicao_minima": 60 }
+ *     { "texto": "Página que só existe com Exposição.", "exposicao_minima": 60 },
+ *     { "texto": "", "escondidos": [ { "texto": "Só para o grupo com o marco.", "marco": "dobre" } ] }
  *   ]
  * }
  * </pre>
@@ -79,7 +80,7 @@ public final class LeitorLivros {
         if (p.has("escondidos")) {
             for (JsonElement t : p.getAsJsonArray("escondidos")) {
                 JsonObject to = t.getAsJsonObject();
-                escondidos.add(new Livro.Trecho(texto(to, "texto", ""), limiar(to)));
+                escondidos.add(new Livro.Trecho(texto(to, "texto", ""), limiar(to), texto(to, "marco", "")));
             }
         }
         return new Livro.Pagina(texto(p, "texto", ""), limiar(p), escondidos);

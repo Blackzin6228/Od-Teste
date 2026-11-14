@@ -17,8 +17,9 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  *
  * @param dentro    dentro do muro da vila
  * @param pendurado é o jogador de maior Exposição do grupo (e está dentro)
+ * @param calada    o grupo dele já fez o Dobre: névoa só cinza, sem Pendurado, sem vermelho (desde 14/11/2026)
  */
-public record ClimaVila(boolean dentro, boolean pendurado) implements CustomPacketPayload {
+public record ClimaVila(boolean dentro, boolean pendurado, boolean calada) implements CustomPacketPayload {
 
     public static final Type<ClimaVila> TIPO =
             new Type<>(ResourceLocation.fromNamespaceAndPath(OdMod.MODID, IdsVilaCalada.PACOTE_CLIMA));
@@ -26,6 +27,7 @@ public record ClimaVila(boolean dentro, boolean pendurado) implements CustomPack
     public static final StreamCodec<ByteBuf, ClimaVila> CODEC = StreamCodec.composite(
             ByteBufCodecs.BOOL, ClimaVila::dentro,
             ByteBufCodecs.BOOL, ClimaVila::pendurado,
+            ByteBufCodecs.BOOL, ClimaVila::calada,
             ClimaVila::new);
 
     /** Quem trata no cliente (cliente/ troca ao carregar). No servidor não faz nada e nada de cliente carrega. */

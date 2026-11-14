@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "odteste:retalhado",
+    "odteste:sanguessuga_mae",
+    { "id": "odteste:faminto", "required": false }
+  ]
+}

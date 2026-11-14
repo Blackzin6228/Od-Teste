@@ -69,6 +69,10 @@ public final class OdModCliente {
         NeoForge.EVENT_BUS.addListener(Pendurado::desenhar);
         NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut e) -> ClimaVilaCliente.limpar());
         ClimaVila.definirReceptor(ClimaVilaCliente::receber);
+        com.nikolas.odteste.rede.PenduradoSino.definirReceptor(m -> {
+            var p = net.minecraft.client.Minecraft.getInstance().player;
+            if (p != null) Pendurado.aparecerNoSino(p, m.teto());
+        });
         // Efeitos de tela do Sangue na vila (shader; funciona com shader pack): carmesim, sangue, marcado, coração.
         FxSangue.iniciar(barramento);
         NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut e) -> FxSangue.limpar());

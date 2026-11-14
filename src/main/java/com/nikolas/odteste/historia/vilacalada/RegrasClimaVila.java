@@ -111,6 +111,19 @@ public final class RegrasClimaVila {
         return limitar(fator) * (MISTURA_DIA + (MISTURA_NOITE - MISTURA_DIA) * limitar(noite));
     }
 
+    /** Névoa da vila calada (depois do Dobre): perde o vermelho, fica só cinza. */
+    public static final int COR_CALADA = 0x3A3A3E;
+
+    /**
+     * Um canal de cor puxado para a névoa da vila, com {@code vermelho} de 1 (vila com fome, {@link #COR_NEVOA}) a
+     * 0 (calada, {@link #COR_CALADA}).
+     */
+    public static float misturarCanal(float canal, int deslocamento, float mistura, float vermelho) {
+        float v = limitar(vermelho);
+        float alvo = (((COR_NEVOA >> deslocamento) & 0xFF) * v + ((COR_CALADA >> deslocamento) & 0xFF) * (1 - v)) / 255f;
+        return canal + (alvo - canal) * limitar(mistura);
+    }
+
     /** Um canal de cor (0 a 1) puxado para o mesmo canal da cor da névoa. */
     public static float misturarCanal(float canal, int deslocamento, float mistura) {
         float alvo = ((COR_NEVOA >> deslocamento) & 0xFF) / 255f;

@@ -48,7 +48,10 @@ public final class IdsDados {
     public static final String ITEM_SINO = "sino_de_matadouro";
     /** Matéria paranormal de Sangue, bruta (cai das criaturas). */
     public static final String ITEM_MATERIA_SANGUE = "materia_sangue_bruta";
-    public static final List<String> ITENS = List.of(ITEM_RUBRA, ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO, ITEM_MATERIA_SANGUE);
+    /** Martelo do Ferreiro (14/11/2026): o que bate no sino rachado no Dobre da Vila Calada (sem receita). */
+    public static final String ITEM_MARTELO = "martelo_do_ferreiro";
+    public static final List<String> ITENS = List.of(ITEM_RUBRA, ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO, ITEM_MATERIA_SANGUE,
+            ITEM_MARTELO);
     /** Artefatos de Sangue, do mais comum ao mais raro (mesma ordem de RegrasAchados.PESOS). */
     public static final List<String> ARTEFATOS = List.of(ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO);
 
@@ -136,7 +139,7 @@ public final class IdsDados {
             PACOTE_SINCRONIZAR, PACOTE_MOMENTO, MODIFICADOR_SANGUE, MODIFICADOR_LENTIDAO, CAMADA_TELA,
             ANIM_MARCA_APARECE, ANIM_MARCA_SOBE, ANIM_SURTO, CAMADA_ANIMACAO,
             PACOTE_MARCA_VISIVEL, TAG_PARANORMAL, TAG_COMIDA_QUENTE, TEXTURA_MARCA_SANGUE,
-            ITEM_RUBRA, ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO, ITEM_MATERIA_SANGUE,
+            ITEM_RUBRA, ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO, ITEM_MATERIA_SANGUE, ITEM_MARTELO,
             CRIATURA_RETALHADO, CRIATURA_SANGUESSUGA, SANGRAMENTO, ABA, MODIFICADOR_DEDAL, RITUAL_CHAMADO,
             "ritual/" + RITUAL_CHAMADO, PLUGIN_JEI,
             TAG_SUBSTITUIVEL, PECA_LIVRO_CARNICEIRO_1, PECA_MAPA_ESQUERDA, PACOTE_EFEITO_FX, CAMADA_GRAVAR_FX);

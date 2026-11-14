@@ -33,6 +33,10 @@ final class ClimaVilaCliente {
     /** O que o servidor disse por último. */
     private static boolean dentro;
     private static boolean pendurado;
+    /** O grupo fez o Dobre: a vila se calou (névoa só cinza, sem vermelho). */
+    private static boolean calada;
+    /** 1 = vermelho do Sangue, 0 = calada (suave, ~5 s). */
+    private static float vermelho = 1f;
     /** 0 = fora, 1 = dentro (suave). */
     private static float fator;
     /** 0 = dia, 1 = noite (suave, ~10 s). */
@@ -48,6 +52,7 @@ final class ClimaVilaCliente {
     static void receber(ClimaVila m) {
         dentro = m.dentro();
         pendurado = m.dentro() && m.pendurado();
+        if (m.dentro()) calada = m.calada();
         if (!dentro) proximoSom = -1;
         if (!pendurado) {
             proximoPendurado = -1;
@@ -79,6 +84,7 @@ final class ClimaVilaCliente {
         if (!dentro && fator <= 0f && !Pendurado.presente()) return; // fora da vila: nada a fazer
         tick++;
         fator = RegrasClimaVila.aproximar(fator, dentro ? 1f : 0f, RegrasClimaVila.PASSO_FATOR);
+        vermelho = RegrasClimaVila.aproximar(vermelho, calada ? 0f : 1f, 1f / 100f);
         boolean deNoite = !nivel.dimensionType().hasFixedTime() && RegrasVilaCalada.noite(nivel.getDayTime());
         noite = RegrasClimaVila.aproximar(noite, deNoite ? 1f : 0f, 1f / 200f);
 
@@ -163,6 +169,11 @@ final class ClimaVilaCliente {
         return noite;
     }
 
+    /** 1 = vila com fome (vermelho), 0 = calada depois do Dobre (só cinza). Suave, ~5 s. */
+    static float vermelhoVila() {
+        return vermelho;
+    }
+
     // ---------- névoa ----------
 
     /** Fator que vale para a tela: dentro × força do efeitos_fortes. */
@@ -180,9 +191,10 @@ final class ClimaVilaCliente {
         float f = fatorNevoa();
         if (f <= 0.001f || e.getCamera().getFluidInCamera() != FogType.NONE) return;
         float m = RegrasClimaVila.mistura(f, noite);
-        e.setRed(RegrasClimaVila.misturarCanal(e.getRed(), 16, m));
-        e.setGreen(RegrasClimaVila.misturarCanal(e.getGreen(), 8, m));
-        e.setBlue(RegrasClimaVila.misturarCanal(e.getBlue(), 0, m));
+        // Calada (depois do Dobre): o vermelho vira cinza, devagar.
+        e.setRed(RegrasClimaVila.misturarCanal(e.getRed(), 16, m, vermelho));
+        e.setGreen(RegrasClimaVila.misturarCanal(e.getGreen(), 8, m, vermelho));
+        e.setBlue(RegrasClimaVila.misturarCanal(e.getBlue(), 0, m, vermelho));
     }
 
     /** A névoa chega mais perto. Nunca mais longe do que o jogo já ia pôr (cegueira, escuridão continuam valendo). */
