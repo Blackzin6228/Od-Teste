@@ -1,6 +1,8 @@
 package com.nikolas.odteste.historia.vilacalada;
 
 import com.nikolas.odteste.cenas.Cenas;
+import com.nikolas.odteste.cenas.Cinema;
+import com.nikolas.odteste.cenas.RegrasRoteiro;
 import com.nikolas.odteste.cenas.IdsCena;
 import com.nikolas.odteste.cenas.RegrasCena;
 import com.nikolas.odteste.estruturas.Colocacao;
@@ -21,7 +23,7 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
  * Cena de entrada da Vila Calada, lado do servidor: na primeira vez que cada jogador entra no muro (com os pés no
  * chão, sem montaria e sem élitro), manda o pacote
  * da cena e marca "já viu" ({@code odteste:cenas_vistas}). Morrer, sair e voltar não repetem. O admin repete com
- * {@code /odteste cena tocar <jogador> entrada_vila_calada}.
+ * {@code /odteste cena tocar entrada_vila_calada <jogador>}.
  *
  * Vale para qualquer jogador (com ou sem grupo). Desliga junto com as pistas ({@code /odteste vila_calada desligar})
  * ou sem âncora.
@@ -35,6 +37,25 @@ public final class CenaEntradaVila {
     public static void iniciar() {
         NeoForge.EVENT_BUS.addListener(CenaEntradaVila::aoTick);
         Cenas.definirLugar(IdsCena.ENTRADA_VILA_CALADA, CenaEntradaVila::ancora);
+        Cinema.definirLugar(IdsCena.LUGAR_SINO_RACHADO, CenaEntradaVila::sinoRachado);
+    }
+
+    /**
+     * Lugar {@code sino_rachado} das cenas em JSON: o sino rachado da Vila Calada (achado como no
+     * {@code /odteste vila_calada preparar}), olhando do jogador para o sino. Vazio sem vila, em outra dimensão ou
+     * se o sino não foi achado (chunk descarregado ou vila sem o atril no lugar). Só roda quando uma cena toca.
+     */
+    static Optional<RegrasRoteiro.Ancora> sinoRachado(ServerPlayer p) {
+        MinecraftServer s = p.getServer();
+        if (s == null) return Optional.empty();
+        GlobalPos centro = DadosHistoria.de(s).ancoras.get(IdsVilaCalada.LUGAR_VILA_CALADA);
+        if (centro == null || p.level().dimension() != centro.dimension()) return Optional.empty();
+        ServerLevel nivel = (ServerLevel) p.level();
+        return PrepararVilaCalada.acharCanto(nivel, centro.pos()).map(canto -> {
+            BlockPos sino = PrepararVilaCalada.em(canto, RegrasPrepararVila.SINO);
+            double x = sino.getX() + 0.5, z = sino.getZ() + 0.5;
+            return new RegrasRoteiro.Ancora(x, sino.getY() + 0.5, z, RegrasCena.giroDe(x - p.getX(), z - p.getZ()));
+        });
     }
 
     private static void aoTick(ServerTickEvent.Post e) {

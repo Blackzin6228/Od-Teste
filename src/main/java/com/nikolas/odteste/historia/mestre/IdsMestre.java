@@ -10,7 +10,9 @@ public final class IdsMestre {
     public static final String SECAO_CONFIG = "mestre";
     public static final String CHAVE_MESTRES = "mestres";
     public static final String CHAVE_OUVIR_PADRAO = "ouvir_padrao";
-    public static final List<String> CHAVES_CONFIG = List.of(CHAVE_MESTRES, CHAVE_OUVIR_PADRAO);
+    /** Desde 14/11/2026: os jogadores podem pular as cenas de câmera (segurando o pulo). */
+    public static final String CHAVE_PULAR_CENAS = "pular_cenas";
+    public static final List<String> CHAVES_CONFIG = List.of(CHAVE_MESTRES, CHAVE_OUVIR_PADRAO, CHAVE_PULAR_CENAS);
 
     private IdsMestre() {}
 }

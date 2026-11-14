@@ -5,6 +5,7 @@ import com.nikolas.odteste.cenas.Cena;
 import com.nikolas.odteste.cenas.CenasConhecidas;
 import com.nikolas.odteste.cenas.IdsCena;
 import com.nikolas.odteste.cenas.RegrasCena;
+import com.nikolas.odteste.rede.FimCena;
 import com.nikolas.odteste.rede.TocarCena;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ import net.neoforged.neoforge.client.event.RenderHighlightEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.client.event.ViewportEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 /**
  * Toca uma cena de câmera no cliente (sistema genérico: a chegada à Vila Calada hoje, o Diabo depois).
@@ -68,6 +70,9 @@ public final class CenaCliente {
     private static final List<SoundInstance> TOCANDO = new ArrayList<>();
     private static boolean sonsCortados;
     private static RegrasCena.Modo modo = RegrasCena.Modo.COMPLETO;
+    private static boolean podePular = true;
+    /** Posição da câmera do quadro (o giro é posto antes; a posição, logo depois da montagem: ver CinemaCliente). */
+    private static Vec3 posicaoQuadro;
 
     private static LocalPlayer jogador;
     private static ClientLevel nivel;
@@ -104,11 +109,13 @@ public final class CenaCliente {
         });
         NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut e) -> encerrar());
         NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.Clone e) -> encerrar());
+        // Cenas em JSON (barras de cinema, curvas, eventos): mesmo jeito de câmera, outra classe.
+        CinemaCliente.iniciar(barramento);
     }
 
-    /** Tem cena tocando (de qualquer fase)? */
+    /** Tem cena tocando (de qualquer fase; esta ou uma cena em JSON)? Sustos, alucinações e clima esperam. */
     public static boolean tocando() {
-        return cena != null;
+        return cena != null || CinemaCliente.tocando();
     }
 
     private static boolean travado() {
@@ -142,11 +149,13 @@ public final class CenaCliente {
             return;
         }
         if (cena != null) encerrar(); // uma por vez: a nova começa do zero
+        CinemaCliente.encerrar(false);
         cena = c;
         ax = m.x();
         ay = m.y();
         az = m.z();
         giro = m.giro();
+        podePular = m.pular();
         tick = -RegrasCena.ENTRADA;
         pulouEm = RegrasCena.SEM_PULO;
         segurando = 0;
@@ -166,12 +175,22 @@ public final class CenaCliente {
         quadro = RegrasCena.quadro(cena, tick, pulouEm, modo);
     }
 
-    /** Devolve tudo como estava. Pode ser chamado a qualquer hora (sem cena, não faz nada). */
+    /** Devolve tudo como estava. Pode ser chamado a qualquer hora (sem cena, não faz nada). Não avisa o servidor. */
     static void encerrar() {
+        encerrar(false);
+    }
+
+    /** {@code avisar}: conta ao servidor que a cena acabou (ele solta o jogador). */
+    private static void encerrar(boolean avisar) {
         if (cena == null) return;
+        String id = cena.id();
         desligarCamera();
         pararSons();
         cena = null;
+        posicaoQuadro = null;
+        if (avisar && Minecraft.getInstance().getConnection() != null) {
+            PacketDistributor.sendToServer(new FimCena(id));
+        }
         jogador = null;
         nivel = null;
         quadro = new RegrasCena.Quadro(false, 0f, true);
@@ -210,7 +229,7 @@ public final class CenaCliente {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.player != jogador || mc.level != nivel || jogador.isRemoved()
                 || jogador.isDeadOrDying()) {
-            encerrar();
+            encerrar(true);
             return;
         }
         if (mc.isPaused()) return;
@@ -220,7 +239,7 @@ public final class CenaCliente {
         if (emCena && Double.isNaN(pulouEm)) {
             if (jogador.hurtTime > 0) {
                 pulouEm = tick; // tomou dano: devolve o controle já
-            } else if (mc.screen == null && mc.options.keyJump.isDown()) {
+            } else if (podePular && mc.screen == null && mc.options.keyJump.isDown()) {
                 if (++segurando >= RegrasCena.SEGURAR_PARA_PULAR) pulouEm = tick;
             } else {
                 segurando = 0;
@@ -235,7 +254,7 @@ public final class CenaCliente {
 
         quadro = RegrasCena.quadro(cena, tick, pulouEm, modo);
         if (quadro.acabou()) {
-            encerrar();
+            encerrar(true);
             return;
         }
         if (quadro.camera() && !cameraLigada && modo.moveCamera()) ligarCamera();
@@ -278,14 +297,20 @@ public final class CenaCliente {
         double[] cam = RegrasCena.paraMundo(ax, ay, az, giro, pose.camera());
         double[] alvo = RegrasCena.paraMundo(ax, ay, az, giro, pose.alvo());
         float[] olhar = RegrasCena.olhar(alvo[0] - cam[0], alvo[1] - cam[1], alvo[2] - cam[2]);
-        e.getCamera().setPosition(new Vec3(cam[0], cam[1], cam[2]));
+        // A posição só "pega" depois da montagem da câmera (o jogo põe a dele logo depois deste evento): vai no FOV.
+        posicaoQuadro = new Vec3(cam[0], cam[1], cam[2]);
         e.setYaw(olhar[0]);
         e.setPitch(olhar[1]);
         e.setRoll(0f);
     }
 
+    /**
+     * Depois da montagem da câmera e antes do mundo ser desenhado: põe a posição da cena (corrige 14/11/2026: antes ia
+     * no evento do giro e o jogo trocava pela dele logo depois, então a câmera só girava no lugar do jogador).
+     */
     private static void aoCalcularFov(ViewportEvent.ComputeFov e) {
         if (!cameraLigada || cena == null || !e.usedConfiguredFov()) return;
+        if (posicaoQuadro != null) e.getCamera().setPosition(posicaoQuadro);
         double t = tick + (Minecraft.getInstance().isPaused() ? 0 : e.getPartialTick());
         float zoom = RegrasCena.pose(cena, t, modo.balanca()).zoom();
         // Sempre do campo de visão escolhido pelo jogador (sem o efeito de correr ou de poção).
@@ -342,7 +367,7 @@ public final class CenaCliente {
                 g.pose().popPose();
             }
             // Aviso de pular, fraco, no canto de baixo. Sem número nem contagem.
-            if (q.camera()) {
+            if (q.camera() && podePular) {
                 Component aviso = Component.translatable("odteste.cena.pular", mc.options.keyJump.getTranslatedKeyMessage());
                 float a = segurando > 0 ? 0.75f : 0.35f;
                 g.drawString(font, aviso, w - font.width(aviso) - 8, h - font.lineHeight - 6, cor(0xC8C8C8, a), false);

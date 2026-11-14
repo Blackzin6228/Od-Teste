@@ -13,6 +13,7 @@ public final class ConfigMestre {
     public static final ModConfigSpec SPEC;
     public static final ModConfigSpec.ConfigValue<String> MESTRES;
     public static final ModConfigSpec.BooleanValue OUVIR_PADRAO;
+    public static final ModConfigSpec.BooleanValue PULAR_CENAS;
 
     static {
         ModConfigSpec.Builder b = new ModConfigSpec.Builder();
@@ -24,6 +25,10 @@ public final class ConfigMestre {
         OUVIR_PADRAO = b.comment("Mestre em espectador ouve e vê o que o grupo recebe perto dele (sino, pistas, clima).",
                         "Cada mestre muda o dele com /odteste mestre ouvir on|off (vale até o servidor reiniciar).")
                 .define(IdsMestre.CHAVE_OUVIR_PADRAO, true);
+        PULAR_CENAS = b.comment("Os jogadores podem pular as cenas de câmera segurando o pulo por 1 s.",
+                        "false = a cena vai até o fim (o mestre que assiste sempre pode pular a dele).",
+                        "Cada cena também pode proibir no próprio arquivo (\"pular\": false).")
+                .define(IdsMestre.CHAVE_PULAR_CENAS, true);
         b.pop();
         SPEC = b.build();
     }
@@ -41,6 +46,14 @@ public final class ConfigMestre {
             return RegrasMestre.nomes(MESTRES.get());
         } catch (IllegalStateException carregando) {
             return List.of();
+        }
+    }
+
+    public static boolean pularCenas() {
+        try {
+            return PULAR_CENAS.get();
+        } catch (IllegalStateException carregando) {
+            return true;
         }
     }
 
