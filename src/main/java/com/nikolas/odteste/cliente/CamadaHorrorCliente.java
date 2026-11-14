@@ -179,7 +179,7 @@ final class CamadaHorrorCliente {
         boolean overworld = nivel.dimension() == Level.OVERWORLD;
         momento = RegrasCamadaHorror.momento(overworld, nivel.getDayTime(),
                 nivel.getBrightness(LightLayer.SKY, olhos), !area.isEmpty());
-        if (!overworld && area.isEmpty()) {
+        if (!overworld) {
             // Nether, End e outras: a camada some na hora (nada de véu nem névoa durante a troca).
             forca = forcaNoite = forcaDia = 0f;
         } else {

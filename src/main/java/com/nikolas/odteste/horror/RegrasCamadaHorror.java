@@ -71,10 +71,11 @@ public final class RegrasCamadaHorror {
      * @param emArea      dentro de uma área da história
      */
     public static Momento momento(boolean overworld, long horaDoDia, int luzDoCeu, boolean emArea) {
-        boolean noite = overworld && RegrasVilaCalada.noite(horaDoDia);
+        if (!overworld) return Momento.NADA; // Nether, End e outras: fora, mesmo numa área
+        boolean noite = RegrasVilaCalada.noite(horaDoDia);
         if (noite && (emArea || luzDoCeu >= CEU_MINIMO)) return Momento.NOITE;
         if (emArea) return Momento.AREA_DIA;
-        return overworld ? Momento.MUNDO : Momento.NADA;
+        return Momento.MUNDO;
     }
 
     public static boolean ligada(Momento m) {
