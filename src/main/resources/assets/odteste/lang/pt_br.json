@@ -267,5 +267,12 @@
   "odteste.comando.magia.desconhecida": "Magia desconhecida: %s",
   "odteste.comando.magia.recarga": "%s ainda está recarregando.",
   "odteste.comando.magia.sem_lucidez": "Lucidez baixa demais para %s.",
-  "odteste.comando.magia.ocupado": "%s já está sendo preparada."
+  "odteste.comando.magia.ocupado": "%s já está sendo preparada.",
+  "odteste.fx.tocando": "Efeito %s (caminho: %s)",
+  "odteste.fx.quebrado": "O efeito %s não roda nesta placa de vídeo (veja o log).",
+  "odteste.fx.gravado": "Gravação pronta: %s quadros em %s",
+  "odteste.comando.fx.desconhecido": "Efeito desconhecido: %s. Use: %s",
+  "odteste.comando.fx.tocou": "Efeito %s tocando.",
+  "odteste.comando.fx.gravando": "Efeito %s tocando e gravando em screenshots/odteste/.",
+  "odteste.comando.fx.mestre": "Efeito %s solto em %s jogador(es)."
 }

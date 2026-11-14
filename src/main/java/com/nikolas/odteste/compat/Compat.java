@@ -28,7 +28,9 @@ public final class Compat {
         /** Animação do corpo do jogador. Só cliente: usado em cliente/ via compat/playeranimator/. */
         PLAYER_ANIMATOR("playeranimator"),
         /** Partículas com brilho (vem com o Malum). Só cliente: usado em cliente/ via compat/lodestone/. */
-        LODESTONE("lodestone");
+        LODESTONE("lodestone"),
+        /** Shader pack. Só cliente: só perguntamos (por reflexão, em compat/iris/) se há um pack ligado. */
+        IRIS("iris");
 
         public final String modid;
 
