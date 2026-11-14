@@ -174,21 +174,26 @@ void main() {
         return;
     }
 
-    // ---- sem profundidade: escorre de cima da tela, sobe de baixo
+    // ---- sem profundidade: escorre da borda de cima (mais nos cantos, nunca no meio da mira), sobe da de baixo
     float asp = ScreenSize.x / max(ScreenSize.y, 1.0);
     vec2 p = vec2(uv.x * asp, uv.y);
-    float larg = 0.018;
+    float lado = abs(uv.x - 0.5) * 2.0;                       // 0 no meio, 1 na borda
+    float larg = 0.012;
     float col = floor(p.x / larg);
     float fu = fract(p.x / larg) - 0.5;
     float semente = od_hash(vec2(col, 2.0));
-    float atraso = od_hash(vec2(col, 4.0)) * 3.0;
-    float desce = max(Idade - atraso, 0.0) * (0.03 + 0.06 * od_hash(vec2(col, 6.0)));
+    float ativa = step(mix(0.93, 0.45, smoothstep(0.2, 0.9, lado)), semente);
+    float atraso = od_hash(vec2(col, 4.0)) * 4.0;
+    float maximo = mix(0.08, 0.38, smoothstep(0.3, 1.0, lado)) * (0.5 + 0.5 * od_hash(vec2(col, 8.0)));
+    float desce = min(max(Idade - atraso, 0.0) * (0.015 + 0.03 * od_hash(vec2(col, 6.0))), maximo);
     float fim = 1.0 - desce;
     float x = fu + (od_ruido(vec2(p.y * 9.0, col)) - 0.5) * 0.4;
-    float fio = step(0.55, semente) * step(fim, p.y) * (1.0 - smoothstep(0.18, 0.32, abs(x)));
-    float gota = step(0.55, semente) * (1.0 - smoothstep(0.32, 0.5, length(vec2(x, (p.y - fim) * asp * 30.0))));
-    float baixo = 1.0 - smoothstep(0.0, 0.05, p.y - 0.12 * od_suave(Idade / 8.0) * (0.6 + 0.8 * od_fbm3(vec2(p.x * 6.0, 1.0))));
-    float k = max(max(fio, gota), baixo) * sobra(p * 8.0);
+    float fio = ativa * step(fim, p.y) * (1.0 - smoothstep(0.16, 0.3, abs(x)));
+    float gota = ativa * step(0.003, desce) * (1.0 - smoothstep(0.3, 0.48, length(vec2(x, (p.y - fim) * asp * 40.0))));
+    float faixaCima = (1.0 - smoothstep(0.0, 0.02 + 0.03 * od_fbm3(vec2(p.x * 5.0, 3.0)), 1.0 - p.y)) * od_suave(Idade / 2.0);
+    faixaCima *= smoothstep(0.1, 0.6, lado + od_fbm3(vec2(p.x * 2.0, 7.0)) * 0.5);
+    float baixo = 1.0 - smoothstep(0.0, 0.04, p.y - 0.08 * od_suave(Idade / 8.0) * (0.4 + 1.2 * od_fbm3(vec2(p.x * 6.0, 1.0))) * smoothstep(0.1, 0.8, lado + 0.2));
+    float k = max(max(max(fio, gota), baixo), faixaCima) * sobra(p * 8.0);
     vec3 s = tingir(c, 0.7, 1.0 - Seca * 0.92, vec3(0.0, 0.0, 1.0), vec3(0.0, 0.0, -1.0), 0.0);
     c = mix(c, s, k);
     fragColor = vec4(c, 1.0);

@@ -114,9 +114,9 @@ def salvar(saida, pref, chave, quadros, nome_gif):
     for nome, img in chave.items():
         img.save(os.path.join(saida, pref + nome + ".png"))
     if quadros:
-        pequenos = [q.resize((640, 360), Image.LANCZOS) for q in quadros]
+        pequenos = [q.resize((480, 270), Image.LANCZOS) for q in quadros[::2]]
         pequenos[0].save(os.path.join(saida, pref + nome_gif + ".gif"), save_all=True, append_images=pequenos[1:],
-                         duration=int(1000 / FPS), loop=0, optimize=True)
+                         duration=int(2000 / FPS), loop=0, optimize=True)
 
 
 def rodar(efeito, saida, pref, prof):
@@ -202,7 +202,7 @@ def rodar(efeito, saida, pref, prof):
 
 def folha(saida, rodadas, nome="folha_rodadas.png"):
     """Uma linha por rodada, com uma fase de cada efeito."""
-    fases = ["a2_carmesim_cheio", "b2_espalhado", "c3_estagio4_pulso", "d2_batida_pico"]
+    fases = ["a2_carmesim_cheio", "b2_espalhado", "c3_estagio4_pulso", "d2_batida_pico", "e2_perto"]
     linhas = []
     for r in rodadas:
         imgs = []
