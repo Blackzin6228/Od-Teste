@@ -14,7 +14,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  * Servidor → só o jogador alvo: "toque o efeito de tela X" (comando {@code /odfx}, teste ou mestre).
  * Mandado só quando alguém digita o comando. Nada salvo.
  *
- * @param efeito   carmesim, sangue, marcado ou coracao (RegrasFxSangue.EFEITOS); outro nome é ignorado
+ * @param efeito   carmesim, sangue, marcado, coracao ou cor_horror (RegrasFxSangue.EFEITOS); outro nome é ignorado
  * @param segundos quanto tempo (0 = padrão)
  * @param gravar   salvar os quadros em screenshots/odteste/ no PC do jogador
  */

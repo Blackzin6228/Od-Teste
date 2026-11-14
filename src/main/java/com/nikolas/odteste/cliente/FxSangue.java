@@ -26,7 +26,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.IEventBus;
 
 /**
- * Os quatro efeitos de tela do Sangue, só na Vila Calada (decisão de 14/11/2026, camada de horror):
+ * Os quatro efeitos de tela do Sangue, só na Vila Calada (e, antes deles, o {@link FxCorHorror} do mundo inteiro) (decisão de 14/11/2026, camada de horror):
  * <ol>
  * <li><b>carmesim</b>: à noite, céu, lua e névoa puxam para vermelho escuro; cor lavada fora do vermelho.</li>
  * <li><b>sangue</b>: quando uma criatura de Sangue chega perto (ou o mestre manda), sangue escorre das paredes e
@@ -72,7 +72,9 @@ final class FxSangue {
 
     static void iniciar(IEventBus barramentoDoMod) {
         // Ordem: o que está no mundo (sangue) antes do ar (névoa carmesim), e o que é do olho (veias, batida) por último.
+        // O tom do mundo (cor_horror) vem primeiro: o sangue e as veias por cima ficam vermelhos de verdade.
         FxTela.iniciar(barramentoDoMod, List.of(
+                passe(FxCorHorror.SHADER, FxCorHorror::ativo, FxCorHorror::uniforms),
                 passe("odfx_sangue", () -> sangueInicio >= 0, (sh, q) -> {
                     float t = segundosDesde(sangueInicio, q.parcial());
                     sh.safeGetUniform("Forca").set(RegrasFxSangue.sangueForca(t) * forca());
@@ -167,6 +169,7 @@ final class FxSangue {
         }
         if (mc.isPaused()) return;
         relogio++;
+        FxCorHorror.aoTick();
         TESTE.entrySet().removeIf(t -> relogio >= t.getValue());
         float vila = ClimaVilaCliente.fatorVila();
         boolean naVila = vila > 0.3f;
@@ -241,7 +244,12 @@ final class FxSangue {
         FxGravar.aoTick(relogio);
     }
 
-    private static boolean testando(String efeito) {
+    /** Quanto o carmesim está ligado agora (o cor_horror sai na mesma medida). */
+    static float carmesimAgora() {
+        return carmesim;
+    }
+
+    static boolean testando(String efeito) {
         return TESTE.containsKey(efeito);
     }
 
@@ -331,6 +339,7 @@ final class FxSangue {
         sangueProximoPermitido = 0;
         criaturaPertoAntes = marcadoSom = false;
         batidaInicio = -1000;
+        FxCorHorror.limpar();
         FxGravar.parar();
         FxTela.limpar();
     }

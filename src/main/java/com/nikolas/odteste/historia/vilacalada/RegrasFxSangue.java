@@ -13,7 +13,9 @@ public final class RegrasFxSangue {
     public static final String SANGUE = "sangue";
     public static final String MARCADO = "marcado";
     public static final String CORACAO = "coracao";
-    public static final List<String> EFEITOS = List.of(CARMESIM, SANGUE, MARCADO, CORACAO);
+    /** O tom do mundo inteiro (overworld), de dia também (sistemas/RegrasCorHorror). */
+    public static final String COR_HORROR = "cor_horror";
+    public static final List<String> EFEITOS = List.of(CARMESIM, SANGUE, MARCADO, CORACAO, COR_HORROR);
     /** Efeitos que o mestre pode soltar num jogador (os outros dois são do lugar e da Marca). */
     public static final List<String> DO_MESTRE = List.of(SANGUE, CORACAO);
 
