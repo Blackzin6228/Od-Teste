@@ -26,7 +26,8 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
  *
  * ver · ligar · desligar · ancorar <ponto> · desancorar · tocar <jogadores> (toca o sino rachado agora, para testar)
  * · chegou <grupo> (marca que o grupo chegou: pistas de longe param) · reabrir <grupo> (tira o marco: pistas voltam)
- * · preparar [canto] (põe livro, comida do poço, placa, vela e poças na vila colocada à mão; ver PrepararVilaCalada)
+ * · preparar [canto] (põe livro, comida do poço, placa, vela, poças, martelo e peitoril na vila colocada à mão; ver PrepararVilaCalada)
+ * · dobre resolver|reabrir|pendurado <grupo> · dobre empurrao <grupo> cliques|bigorna|corrente (ver {@link Dobre})
  *
  * Para o admin, número aparece. Para o jogador, nunca.
  */
@@ -57,7 +58,16 @@ public final class ComandosVilaCalada {
                         .then(Commands.literal("chegou").then(argGrupo().executes(c -> chegou(c, true))))
                         .then(Commands.literal("reabrir").then(argGrupo().executes(c -> chegou(c, false))))
                         .then(Commands.literal("preparar").executes(c -> preparar(c, false))
-                                .then(Commands.argument(CANTO, BlockPosArgument.blockPos()).executes(c -> preparar(c, true))))));
+                                .then(Commands.argument(CANTO, BlockPosArgument.blockPos()).executes(c -> preparar(c, true))))
+                        .then(Commands.literal("dobre")
+                                .then(Commands.literal("resolver").then(argGrupo().executes(ComandosVilaCalada::dobreResolver)))
+                                .then(Commands.literal("reabrir").then(argGrupo().executes(ComandosVilaCalada::dobreReabrir)))
+                                .then(Commands.literal("pendurado").then(argGrupo().executes(ComandosVilaCalada::dobrePendurado)))
+                                .then(Commands.literal("empurrao").then(argGrupo()
+                                        .then(Commands.argument("qual", StringArgumentType.word())
+                                                .suggests((c, b) -> SharedSuggestionProvider.suggest(
+                                                        java.util.List.of("cliques", "bigorna", "corrente"), b))
+                                                .executes(ComandosVilaCalada::dobreEmpurrao)))))));
     }
 
     private static com.mojang.brigadier.builder.RequiredArgumentBuilder<CommandSourceStack, String> argGrupo() {
@@ -167,5 +177,49 @@ public final class ComandosVilaCalada {
         else dh.grupos.desmarcar(g.get().nome(), IdsVilaCalada.MARCO_CHEGOU);
         dh.setDirty();
         return ok(c, chegou ? "odteste.vila_calada.marcou_chegada" : "odteste.vila_calada.reabriu", g.get().nome());
+    }
+
+    // ------------------------------------------------------------------ dobre
+
+    private static Optional<Grupos.Grupo> grupo(CommandContext<CommandSourceStack> c) {
+        return DadosHistoria.de(c.getSource().getServer()).grupos.grupo(StringArgumentType.getString(c, GRUPO));
+    }
+
+    /** Resolver à força (teste e emergência): o mesmo fim do dobre certo, no sino rachado. */
+    private static int dobreResolver(CommandContext<CommandSourceStack> c) {
+        Optional<Grupos.Grupo> g = grupo(c);
+        if (g.isEmpty()) return erro(c, "odteste.evento.erro.sem_grupo", StringArgumentType.getString(c, GRUPO));
+        var s = c.getSource().getServer();
+        ServerLevel nivel = Dobre.nivel(s);
+        Optional<BlockPos> canto = nivel == null ? Optional.empty() : Dobre.canto(s, true);
+        if (canto.isEmpty()) return erro(c, "odteste.vila_calada.preparar.sem_canto");
+        BlockPos sino = PrepararVilaCalada.em(canto.get(), RegrasPrepararVila.SINO);
+        Dobre.feito(nivel, DadosHistoria.de(s), PistasVilaCalada.dados(s), g.get().nome(), sino, canto.get(), true);
+        return ok(c, "odteste.dobre.cmd.resolvido", g.get().nome());
+    }
+
+    private static int dobreReabrir(CommandContext<CommandSourceStack> c) {
+        Optional<Grupos.Grupo> g = grupo(c);
+        if (g.isEmpty()) return erro(c, "odteste.evento.erro.sem_grupo", StringArgumentType.getString(c, GRUPO));
+        Dobre.reabrir(c.getSource().getServer(), g.get().nome());
+        return ok(c, "odteste.dobre.cmd.reaberto", g.get().nome());
+    }
+
+    private static int dobrePendurado(CommandContext<CommandSourceStack> c) {
+        Optional<Grupos.Grupo> g = grupo(c);
+        if (g.isEmpty()) return erro(c, "odteste.evento.erro.sem_grupo", StringArgumentType.getString(c, GRUPO));
+        var s = c.getSource().getServer();
+        Optional<BlockPos> canto = Dobre.nivel(s) == null ? Optional.empty() : Dobre.canto(s, true);
+        if (canto.isEmpty()) return erro(c, "odteste.vila_calada.preparar.sem_canto");
+        int n = Dobre.penduradoNoSino(s, g.get(), PrepararVilaCalada.em(canto.get(), RegrasPrepararVila.SINO));
+        return ok(c, "odteste.dobre.cmd.pendurado", n);
+    }
+
+    private static int dobreEmpurrao(CommandContext<CommandSourceStack> c) {
+        Optional<Grupos.Grupo> g = grupo(c);
+        if (g.isEmpty()) return erro(c, "odteste.evento.erro.sem_grupo", StringArgumentType.getString(c, GRUPO));
+        String qual = StringArgumentType.getString(c, "qual");
+        if (!Dobre.empurrar(c.getSource().getServer(), g.get(), qual)) return erro(c, "odteste.dobre.cmd.empurrao_falhou", qual);
+        return ok(c, "odteste.dobre.cmd.empurrao", qual, g.get().nome());
     }
 }

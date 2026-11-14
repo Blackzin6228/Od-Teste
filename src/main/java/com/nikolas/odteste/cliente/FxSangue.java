@@ -180,7 +180,7 @@ final class FxSangue {
         boolean naVila = vila > 0.3f;
 
         // 1) carmesim: noite × dentro da vila (ou teste)
-        float alvoC = vila * ClimaVilaCliente.noiteVila();
+        float alvoC = vila * ClimaVilaCliente.noiteVila() * ClimaVilaCliente.vermelhoVila();
         if (testando(RegrasFxSangue.CARMESIM)) alvoC = 1f;
         carmesim = aproximar(carmesim, alvoC, 1f / 60f);
 

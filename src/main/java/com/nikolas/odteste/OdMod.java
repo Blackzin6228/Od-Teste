@@ -60,6 +60,7 @@ public final class OdMod {
         Contencao.iniciar();
         PrimeiroSinal.iniciar();
         PistasVilaCalada.iniciar();
+        com.nikolas.odteste.historia.vilacalada.Dobre.iniciar();
         CenaEntradaVila.iniciar();
         ClimaVilaCalada.iniciar();
         CamadaHorror.iniciar();

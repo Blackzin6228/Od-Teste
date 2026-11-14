@@ -9,11 +9,13 @@ import com.nikolas.odteste.historia.Grupos;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
+import java.util.Set;
 import java.util.UUID;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -113,17 +115,19 @@ public final class LivrosHistoria {
     }
 
     private static void montar(ItemStack item, Livro l, ServerPlayer leitor) {
-        escrever(item, l, DadosJogador.exposicao(leitor), marcadores(leitor));
+        Set<String> marcos = DadosHistoria.de(leitor.server).grupos.grupoDe(leitor.getUUID())
+                .map(g -> (Set<String>) new HashSet<>(g.marcos())).orElse(Set.of());
+        escrever(item, l, DadosJogador.exposicao(leitor), marcos, marcadores(leitor));
     }
 
     /** A versão que fica guardada no item: só o que todo mundo lê (Exposição 0), sem nome de ninguém. */
     private static void montarNeutro(ItemStack item, Livro l) {
-        escrever(item, l, 0, MARCADORES_NEUTROS);
+        escrever(item, l, 0, Set.of(), MARCADORES_NEUTROS);
     }
 
-    private static void escrever(ItemStack item, Livro l, int exposicao, Map<String, String> marcadores) {
+    private static void escrever(ItemStack item, Livro l, int exposicao, Set<String> marcos, Map<String, String> marcadores) {
         List<Filterable<Component>> paginas = new ArrayList<>();
-        for (List<RegrasLivros.Pedaco> pedacos : RegrasLivros.montar(l, exposicao, marcadores, LeitorLivros.MAX_PAGINA)) {
+        for (List<RegrasLivros.Pedaco> pedacos : RegrasLivros.montar(l, exposicao, marcos, marcadores, LeitorLivros.MAX_PAGINA)) {
             MutableComponent pagina = Component.empty();
             for (int i = 0; i < pedacos.size(); i++) {
                 RegrasLivros.Pedaco p = pedacos.get(i);

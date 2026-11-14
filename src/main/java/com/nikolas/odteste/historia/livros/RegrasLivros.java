@@ -41,13 +41,21 @@ public final class RegrasLivros {
      * não cumpridos somem. Uma página sem nenhum pedaço fica em branco (lista vazia).
      */
     public static List<List<Pedaco>> montar(Livro livro, int exposicao) {
+        return montar(livro, exposicao, java.util.Set.of());
+    }
+
+    /** Igual, com os marcos do grupo de quem lê (trecho com {@code marco} só aparece se o grupo tem). */
+    public static List<List<Pedaco>> montar(Livro livro, int exposicao, java.util.Set<String> marcos) {
         List<List<Pedaco>> paginas = new ArrayList<>();
         for (Livro.Pagina p : livro.paginas()) {
             if (exposicao < p.exposicaoMinima()) continue;
             List<Pedaco> pedacos = new ArrayList<>();
             if (!p.texto().isEmpty()) pedacos.add(new Pedaco(p.texto(), false));
             for (Livro.Trecho t : p.escondidos()) {
-                if (exposicao >= t.exposicaoMinima() && !t.texto().isEmpty()) pedacos.add(new Pedaco(t.texto(), true));
+                if (exposicao >= t.exposicaoMinima() && !t.texto().isEmpty()
+                        && (t.marco().isEmpty() || marcos.contains(t.marco()))) {
+                    pedacos.add(new Pedaco(t.texto(), true));
+                }
             }
             paginas.add(pedacos);
         }
@@ -59,8 +67,14 @@ public final class RegrasLivros {
      * de {grupo} pode passar do limite mesmo com o arquivo dentro dele).
      */
     public static List<List<Pedaco>> montar(Livro livro, int exposicao, Map<String, String> marcadores, int max) {
+        return montar(livro, exposicao, java.util.Set.of(), marcadores, max);
+    }
+
+    /** Igual, com os marcos do grupo de quem lê. */
+    public static List<List<Pedaco>> montar(Livro livro, int exposicao, java.util.Set<String> marcos,
+                                            Map<String, String> marcadores, int max) {
         List<List<Pedaco>> paginas = new ArrayList<>();
-        for (List<Pedaco> pedacos : montar(livro, exposicao)) {
+        for (List<Pedaco> pedacos : montar(livro, exposicao, marcos)) {
             List<Pedaco> trocados = new ArrayList<>(pedacos.size());
             for (Pedaco p : pedacos) trocados.add(new Pedaco(substituir(p.texto(), marcadores), p.escondido()));
             paginas.add(cortar(trocados, max));

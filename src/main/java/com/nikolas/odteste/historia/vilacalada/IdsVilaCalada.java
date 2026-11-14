@@ -17,7 +17,21 @@ public final class IdsVilaCalada {
     public static final String ARQUIVO = "odteste_vila_calada";
 
     /** Chaves dentro do arquivo. */
-    public static final List<String> CHAVES = List.of("ligado", "colocacao", "ancora_auto", "ancora_auto_dim", "vistas", "preparados");
+    public static final List<String> CHAVES = List.of("ligado", "colocacao", "ancora_auto", "ancora_auto_dim", "vistas", "preparados", "dobre");
+    /** Chaves de cada grupo dentro de {@code dobre}. */
+    public static final List<String> CHAVES_DOBRE = List.of("noite_gasta", "erros_conta", "noites_sem_tentar",
+            "ultima_noite_contada", "outra_coisa", "empurroes", "feito_dia");
+
+    /** Marco do grupo: o dobre foi feito (os Famintos se ajoelharam, a vila se calou). */
+    public static final String MARCO_DOBRE = "dobre";
+    /** Tag de criatura que ouve o dobre (para no toque, sobe a rua no chamado, ajoelha no fim). */
+    public static final String TAG_OUVE_DOBRE = "ouve_o_dobre";
+    /** Modificador de velocidade das criaturas paradas pelo dobre (temporário, nunca salvo). */
+    public static final String MODIFICADOR_DOBRE = "dobre_parado";
+    /** Pacote servidor → cliente: o Pendurado aparece em cima do sino (empurrão do mestre). Nada salvo. */
+    public static final String PACOTE_PENDURADO_SINO = "pendurado_sino";
+    /** Lugar que o admin pode ancorar: de onde vem o rangido do Moinho Parado (sem âncora: do noroeste). */
+    public static final String LUGAR_MOINHO = "moinho_parado";
 
     /**
      * Modificador de velocidade dos aldeões virados para a Vila Calada ({@code odteste:aldeao_virado}).

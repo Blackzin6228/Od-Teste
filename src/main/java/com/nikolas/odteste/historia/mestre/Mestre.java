@@ -160,6 +160,7 @@ public final class Mestre {
         linhas.add(Component.translatable(noite ? "odteste.mestre.status.hora.noite" : "odteste.mestre.status.hora.dia",
                 RegrasMestre.minutos(RegrasMestre.ateMudar(hora))));
         linhas.add(sino(s, g, dv, calada, noite, chegou));
+        if (chegou) linhas.add(com.nikolas.odteste.historia.vilacalada.Dobre.status(s, g));
         linhas.add(Component.translatable("odteste.mestre.status.lugares",
                 v == null ? Component.translatable("odteste.mestre.status.sem_lugar") : Component.literal(xyz(v.sino)),
                 calada == null ? Component.translatable("odteste.mestre.status.sem_lugar") : Component.literal(xyz(calada.pos()))));

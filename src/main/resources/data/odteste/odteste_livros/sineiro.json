@@ -1,5 +1,5 @@
 {
-  "_status": "Texto provisório (lore/livro-do-sineiro.md, rascunho). Exposição média = degrau marcado, alta = fundo.",
+  "_status": "Texto provisório (lore/livro-do-sineiro.md, rascunho). Exposição média = degrau marcado, alta = fundo. 14/11/2026 (Dobre): linhas novas nas págs. 10, 11 e 13 (Exposição média) e na 14 por marco do grupo (enigma_sino, dobre).",
   "titulo": "Livro do Sineiro",
   "autor": "o Sineiro",
   "geracao": 3,
@@ -24,16 +24,27 @@
     { "texto": "Na última noite subi à torre e toquei sem parar, para quem estivesse longe. Pedi que viessem. O sino não é só bronze, descobri. É uma porta com dois lados, e eu a abri sem saber para onde dava." },
     {
       "texto": "O fogo começou no curral. Não vi quem acendeu. As casas caíram umas sobre as outras e ninguém correu, porque já não havia para onde. Só a capela ficou de pé, sem teto. A cadeira a mais ficou virada para a porta.",
-      "escondidos": [ { "texto": "Uma cadeira para cada um que viria.", "exposicao_minima": "marcado" } ]
+      "escondidos": [
+        { "texto": "Uma cadeira para cada um que viria.", "exposicao_minima": "marcado" },
+        { "texto": "Toquei para chamar. Nunca toquei para despedir.", "exposicao_minima": "marcado" }
+      ]
     },
-    { "texto": "Rachei o sino com o martelo do ferreiro, para que não chamasse mais ninguém. Rachado, ele só toca de noite, e fraco. Mas o que entra por uma porta só sai por ela. O sino precisa tocar ao contrário." },
+    {
+      "texto": "Rachei o sino com o martelo do ferreiro, para que não chamasse mais ninguém. Rachado, ele só toca de noite, e fraco. Mas o que entra por uma porta só sai por ela. O sino precisa tocar ao contrário.",
+      "escondidos": [ { "texto": "Quando o sino rachou, dei minha voz à madeira. Ela vai aonde eu não posso.", "exposicao_minima": "marcado" } ]
+    },
     { "texto": "O pai do meu pai dizia que o mundo tem quatro portas pequenas: a que sangra, a que cala, a que lembra e a que acende. E uma quinta que não é porta, é parede. Para o sino tocar ao contrário, as quatro precisam responder. Eu só consegui fechar uma: a que sangrava. E mal." },
-    { "texto": "Deixo o que sei do sino, pois só ele me ouviu. Fala em dois tons: o grave é demorado, o agudo é pressa. Eu contava de cinco em cinco, como meu pai. Outro sino, em outra vila, aprendeu a minha voz. Ouçam o que ele disser." },
+    {
+      "texto": "Deixo o que sei do sino, pois só ele me ouviu. Fala em dois tons: o grave é demorado, o agudo é pressa. Eu contava de cinco em cinco, como meu pai. Outro sino, em outra vila, aprendeu a minha voz. Ouçam o que ele disser.",
+      "escondidos": [ { "texto": "Ao outro sino ensinei uma palavra só. É o metal do martelo, o gosto do sangue e a única coisa que segura o que sangra.", "exposicao_minima": "marcado" } ]
+    },
     {
       "texto": "",
       "escondidos": [
         { "texto": "Eu toquei o sino uma vez. O sino tocou duas. Na segunda, ninguém tocou.", "exposicao_minima": "marcado" },
-        { "texto": "Estava chamando vocês. {marcado}: sua cama aqui já estava feita.", "exposicao_minima": "fundo" }
+        { "texto": "Estava chamando vocês. {marcado}: sua cama aqui já estava feita.", "exposicao_minima": "fundo" },
+        { "texto": "Vocês disseram a palavra antes de ouvir. Quem pôs a palavra na boca de vocês?", "marco": "enigma_sino" },
+        { "texto": "Obrigado. Agora eles sabem.", "marco": "dobre" }
       ]
     }
   ]

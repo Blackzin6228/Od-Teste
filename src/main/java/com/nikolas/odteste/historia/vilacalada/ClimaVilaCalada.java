@@ -32,9 +32,9 @@ import net.neoforged.neoforge.network.PacketDistributor;
  * Sem lag: uma conta de distância por jogador por segundo (teto {@link RegrasClimaVila#MAX_JOGADORES}).
  */
 public final class ClimaVilaCalada {
-    private record Enviado(boolean dentro, boolean pendurado) {}
+    private record Enviado(boolean dentro, boolean pendurado, boolean calada) {}
 
-    private static final Enviado NADA = new Enviado(false, false);
+    private static final Enviado NADA = new Enviado(false, false, false);
     private static final Map<UUID, Enviado> ENVIADO = new HashMap<>();
     /** Tag vanilla do mestre: nunca vê o Pendurado. Quem testa sem a tag vê normal. */
     public static final String TAG_MESTRE = "odteste_mestre";
@@ -89,12 +89,14 @@ public final class ClimaVilaCalada {
         for (ServerPlayer p : s.getPlayerList().getPlayers()) {
             if (n++ >= RegrasClimaVila.MAX_JOGADORES) break;
             boolean dentro = dentroDaVila.contains(p.getUUID()) || mestres.contains(p.getUUID());
-            Enviado agora = dentro ? new Enviado(true, veemPendurado.contains(p.getUUID())) : NADA;
+            // Grupo que fez o Dobre: a vila está calada para ele (névoa cinza, sem Pendurado).
+            boolean calada = dentro && dh.grupos.grupoDe(p.getUUID()).map(Dobre::calada).orElse(false);
+            Enviado agora = dentro ? new Enviado(true, !calada && veemPendurado.contains(p.getUUID()), calada) : NADA;
             Enviado antes = ENVIADO.getOrDefault(p.getUUID(), NADA);
             if (agora.equals(antes)) continue;
             if (agora.equals(NADA)) ENVIADO.remove(p.getUUID());
             else ENVIADO.put(p.getUUID(), agora);
-            PacketDistributor.sendToPlayer(p, new ClimaVila(agora.dentro(), agora.pendurado()));
+            PacketDistributor.sendToPlayer(p, new ClimaVila(agora.dentro(), agora.pendurado(), agora.calada()));
         }
     }
 
@@ -142,6 +144,7 @@ public final class ClimaVilaCalada {
     private static Set<UUID> maisExpostos(MinecraftServer s, DadosHistoria dh, Set<UUID> dentroDaVila) {
         Set<UUID> r = new HashSet<>();
         for (Grupos.Grupo g : dh.grupos.todos()) {
+            if (Dobre.calada(g)) continue; // o Pendurado sumiu da torre: a corrente fica vazia
             Map<UUID, Integer> exp = new HashMap<>();
             for (UUID u : g.membros().keySet()) {
                 if (!dentroDaVila.contains(u)) continue;

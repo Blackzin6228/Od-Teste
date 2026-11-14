@@ -18,7 +18,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
+import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.AABB;
+import com.nikolas.odteste.itens.Itens;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.Block;
@@ -33,7 +36,7 @@ import net.minecraft.world.level.block.state.BlockState;
 /**
  * {@code /odteste vila_calada preparar [canto]}: põe na Vila Calada v2 colocada à mão o que o template não guarda
  * (posições em {@link RegrasPrepararVila}): o Livro do Sineiro no atril, a comida no baú do poço, a placa do poço,
- * a vela da capela e as poças de sangue.
+ * a vela da capela, as poças de sangue, o Martelo do Ferreiro (moldura no campanário) e o peitoril da Moça do Terço.
  *
  * Nunca mexe em bloco de jogador: só ocupa ar ou o bloco que o próprio template pôs ali (vela comum, pó de
  * redstone), fora de claim, em chunk carregado. Idempotente: o que já está lá fica; o baú do poço enche uma vez só
@@ -86,6 +89,8 @@ final class PrepararVilaCalada {
         for (RegrasPrepararVila.Peca p : RegrasPrepararVila.POCAS) {
             r.add(trocar(nivel, mundo, canto, p, BlocosCapela.POCA.get().defaultBlockState(), false));
         }
+        r.add(martelo(nivel, mundo, canto));
+        r.add(peitoril(nivel, mundo, canto));
         OdMod.LOGGER.info("Vila Calada: preparada a partir do canto {}", canto.toShortString());
         return r;
     }
@@ -172,6 +177,68 @@ final class PrepararVilaCalada {
         BlockState st = nivel.getBlockState(p);
         nivel.sendBlockUpdated(p, st, st, Block.UPDATE_ALL);
         return linha(peca, p, Fim.POSTO);
+    }
+
+    /**
+     * Martelo do Ferreiro numa moldura deitada no chão do campanário, ao lado do atril (o template não guarda item).
+     * Moldura nossa vazia (alguém levou o martelo): põe outro. Moldura com outra coisa: não mexe.
+     */
+    private static Component martelo(ServerLevel nivel, MundoReal mundo, BlockPos canto) {
+        RegrasPrepararVila.Peca peca = RegrasDobre.MARTELO;
+        BlockPos p = em(canto, peca);
+        Fim f = pode(mundo, p);
+        if (f != null) return linha(peca, p, f);
+        ItemStack martelo = new ItemStack(Itens.MARTELO.get());
+        for (ItemFrame q : nivel.getEntitiesOfClass(ItemFrame.class, new AABB(p))) {
+            if (q.getItem().is(Itens.MARTELO.get())) return linha(peca, p, Fim.JA);
+            if (q.getItem().isEmpty()) {
+                q.setItem(martelo, true);
+                return linha(peca, p, Fim.POSTO);
+            }
+            return linha(peca, p, Fim.BLOQUEADO);
+        }
+        if (!RegrasPrepararVila.ar(id(nivel.getBlockState(p)))) return linha(peca, p, Fim.BLOQUEADO);
+        ItemFrame q = new ItemFrame(nivel, p, Direction.UP);
+        if (!q.survives()) return linha(peca, p, Fim.BLOQUEADO);
+        q.setItem(martelo, false);
+        nivel.addFreshEntity(q);
+        return linha(peca, p, Fim.POSTO);
+    }
+
+    /**
+     * Peitoril da Moça do Terço: a tábua e os seis botões de pedra (o template já traz; só repõe o que falta, no ar).
+     * O espaço do Sineiro (a sétima posição) nunca é preenchido aqui: é o grupo que põe.
+     */
+    private static Component peitoril(ServerLevel nivel, MundoReal mundo, BlockPos canto) {
+        RegrasPrepararVila.Peca peca = new RegrasPrepararVila.Peca("peitoril", RegrasDobre.PEITORIL_X,
+                RegrasDobre.PEITORIL_Y, RegrasDobre.PEITORIL_Z0);
+        BlockPos inicio = em(canto, peca);
+        Fim f = pode(mundo, inicio);
+        if (f != null) return linha(peca, inicio, f);
+        int[][] pos = RegrasDobre.peitoril();
+        boolean posAlgo = false;
+        boolean bloqueou = false;
+        for (int i = 0; i < pos.length; i++) {
+            BlockPos b = canto.offset(pos[i][0], pos[i][1], pos[i][2]);
+            BlockPos tabua = b.below();
+            if (RegrasPrepararVila.ar(id(nivel.getBlockState(tabua)))) {
+                nivel.setBlock(tabua, Blocks.STRIPPED_SPRUCE_LOG.defaultBlockState()
+                        .setValue(net.minecraft.world.level.block.RotatedPillarBlock.AXIS, Direction.Axis.Z), Block.UPDATE_ALL);
+                posAlgo = true;
+            }
+            if (i >= RegrasDobre.BOTOES_NO_PEITORIL) continue; // o do Sineiro fica vazio
+            String agora = id(nivel.getBlockState(b));
+            if (RegrasDobre.botaoDePedra(agora)) continue;
+            if (!RegrasPrepararVila.ar(agora)) {
+                bloqueou = true;
+                continue;
+            }
+            nivel.setBlock(b, Blocks.STONE_BUTTON.defaultBlockState()
+                    .setValue(net.minecraft.world.level.block.ButtonBlock.FACE, net.minecraft.world.level.block.state.properties.AttachFace.FLOOR)
+                    .setValue(net.minecraft.world.level.block.ButtonBlock.FACING, Direction.EAST), Block.UPDATE_ALL);
+            posAlgo = true;
+        }
+        return linha(peca, inicio, bloqueou ? Fim.BLOQUEADO : posAlgo ? Fim.POSTO : Fim.JA);
     }
 
     /** Vela ou poça: entra só no ar ou no bloco que o template pôs ali. */
