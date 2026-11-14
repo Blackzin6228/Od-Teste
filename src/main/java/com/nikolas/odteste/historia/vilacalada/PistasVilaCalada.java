@@ -8,6 +8,8 @@ import com.nikolas.odteste.historia.DadosHistoria;
 import com.nikolas.odteste.historia.Grupos;
 import com.nikolas.odteste.historia.IdsHistoria;
 import com.nikolas.odteste.historia.VilaMarcada;
+import com.nikolas.odteste.historia.mestre.Mestre;
+import com.nikolas.odteste.historia.mestre.RegrasMestre;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -143,6 +145,7 @@ public final class PistasVilaCalada {
             if (!g.tem(IdsHistoria.MARCO_PRIMEIRO_SINAL)) continue;
             // O relógio do grupo só anda com alguém dele online aqui (decide no primeiro membro achado).
             Boolean toca = null;
+            List<ServerPlayer> ouviram = new ArrayList<>();
             for (UUID u : g.membros().keySet()) {
                 if (n >= RegrasVilaCalada.MAX_JOGADORES) break;
                 ServerPlayer p = s.getPlayerList().getPlayer(u);
@@ -160,6 +163,7 @@ public final class PistasVilaCalada {
                 if (toca == null) toca = toqueDoGrupo(nivel, g.nome(), chegou, agora);
                 if (toca && RegrasVilaCalada.ouve(dist, chegou)) {
                     tocar(nivel, p, ancora.pos());
+                    ouviram.add(p);
                     // Os aldeões acordados em volta viram para o som.
                     if (st.virados.isEmpty()) olhada(nivel, p, st, ancora.pos(), agora);
                 }
@@ -168,6 +172,15 @@ public final class PistasVilaCalada {
                 } else {
                     aldeoes(nivel, p, st, ancora.pos(), agora);
                     cama(nivel, p, dh.vilas.get(g.nome()), ancora.pos());
+                }
+            }
+            // Mestre ouvindo perto de quem ouviu (ou assistindo pela câmera): ouve o mesmo toque, da posição dele.
+            if (!ouviram.isEmpty()) {
+                Set<UUID> jaOuviu = new HashSet<>();
+                for (ServerPlayer p : ouviram) {
+                    for (ServerPlayer m : Mestre.ouvintesPerto(nivel, p.position(), RegrasMestre.RAIO_PERTO_DO_GRUPO, p)) {
+                        if (jaOuviu.add(m.getUUID())) tocar(nivel, m, ancora.pos());
+                    }
                 }
             }
         }
@@ -275,6 +288,16 @@ public final class PistasVilaCalada {
         if (agora < proximo) return false;
         TOQUE_GRUPO.put(grupo, agora + RegrasVilaCalada.proximoToque(nivel.getRandom().nextDouble()));
         return true;
+    }
+
+    /** Próximo toque marcado para o grupo (tempo do mundo), ou null (dia, sem membro online, ou já chegou). */
+    public static Long proximoToque(String grupo) {
+        return TOQUE_GRUPO.get(grupo);
+    }
+
+    /** O grupo resolveu o enigma: o sino rachado responde logo, se for noite (de dia, nada muda). */
+    public static void adiantarToque(String grupo, long agora) {
+        TOQUE_GRUPO.put(grupo, RegrasVilaCalada.adiantar(TOQUE_GRUPO.get(grupo), agora));
     }
 
     /** Um toque do sino rachado só para este jogador (também usado pelo comando de teste do admin). */
@@ -429,9 +452,17 @@ public final class PistasVilaCalada {
         if (!nivel.hasChunk(cama.getX() >> 4, cama.getZ() >> 4)) return;
         if (!nivel.getBlockState(cama).is(BlockTags.BEDS)) return;
         double[] d = RegrasVilaCalada.direcao(ancora.getX() - cama.getX(), ancora.getZ() - cama.getZ());
+        // Quem vê: o membro e o mestre ouvindo perto da cama (nunca outro jogador).
+        List<ServerPlayer> veem = new ArrayList<>();
+        veem.add(p);
+        for (ServerPlayer m : Mestre.ouvintesPerto(nivel, Vec3.atCenterOf(cama), RegrasVilaCalada.RAIO_CAMA * 2, p)) {
+            if (!veem.contains(m)) veem.add(m);
+        }
         // Mancha no lençol, do lado de lá.
-        nivel.sendParticles(p, GOTA, false, cama.getX() + 0.5 + d[0] * 0.3, cama.getY() + 0.6,
-                cama.getZ() + 0.5 + d[1] * 0.3, 2, 0.15, 0.0, 0.15, 0);
+        for (ServerPlayer q : veem) {
+            nivel.sendParticles(q, GOTA, false, cama.getX() + 0.5 + d[0] * 0.3, cama.getY() + 0.6,
+                    cama.getZ() + 0.5 + d[1] * 0.3, 2, 0.15, 0.0, 0.15, 0);
+        }
         for (int i = 1; i <= RegrasVilaCalada.GOTAS; i++) {
             double x = cama.getX() + 0.5 + d[0] * (i + 0.5);
             double z = cama.getZ() + 0.5 + d[1] * (i + 0.5);
@@ -439,7 +470,7 @@ public final class PistasVilaCalada {
             if (!nivel.hasChunk(coluna.getX() >> 4, coluna.getZ() >> 4)) return;
             BlockPos chao = chao(nivel, coluna);
             if (chao == null) return; // parede ou buraco: o rastro para ali
-            nivel.sendParticles(p, GOTA, false, x, chao.getY() + 0.05, z, 1, 0.08, 0.0, 0.08, 0);
+            for (ServerPlayer q : veem) nivel.sendParticles(q, GOTA, false, x, chao.getY() + 0.05, z, 1, 0.08, 0.0, 0.08, 0);
         }
     }
 

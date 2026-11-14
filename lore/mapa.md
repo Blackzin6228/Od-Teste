@@ -2,7 +2,7 @@
 
 Leia este mapa primeiro. Abra o arquivo de detalhe só se precisar.
 
-Atualizado em 13/11/2026. Decisão nova vale mais que texto antigo. Onde há conflito, está marcado "(substituído por ...)".
+Atualizado em 14/11/2026. Decisão nova vale mais que texto antigo. Onde há conflito, está marcado "(substituído por ...)".
 
 ## Premissa
 Agentes do Gabinete do Limiar escutam um barulho numa floresta e atravessam para outro mundo, o do Minecraft. Lá há monstros, entidades e relíquias. Eles querem voltar para casa. Outras pessoas já atravessaram antes, e o rastro delas é a história. Os protagonistas são quem joga: textos usam marcadores como `{grupo}` e `{marcado}`, nunca nome de jogador. Detalhe: [canon](canon.md), [roteiro](roteiro.md).
@@ -25,7 +25,7 @@ Cada jogador tem um elemento escondido, definido pelo admin ([decisão](../docs/
 | Nome | O que é | Status | Detalhe |
 |---|---|---|---|
 | Vila comum | Abertura: sino toca sozinho, aldeão some, Morse FERRO | no jogo (0.1) | [roteiro](roteiro.md), [guia 0.1](../docs/versao-0-1.md) |
-| Vila Calada | Destino do Ato 1. Vila destruída, campanário com o Livro do Sineiro. Passa a ~150x150 (substitui 100x100, [decisão](../docs/decisoes/2026-11-12-vila-calada-150x150.md)) | pistas e capela no jogo; estrutura final planejada | [ficha](fichas-estruturas.md#vila-calada-ato-1) |
+| Vila Calada | Destino do Ato 1. Vila destruída, campanário com o Livro do Sineiro. Passa a ~150x150 (substitui 100x100, [decisão](../docs/decisoes/2026-11-12-vila-calada-150x150.md)) | pistas e capela no jogo; estrutura final planejada; grande enigma em proposta (3 opções) | [ficha](fichas-estruturas.md#vila-calada-ato-1), [enigma v2](enigma-vila-calada-v2.md) |
 | Moinho Parado | Blocos de nota tocam PORTA. Baú com Diário p. 1 e metade do Mapa | planejado (0.2) | [ficha](fichas-estruturas.md#1-moinho-parado) |
 | Casa do Açougueiro | Quatro correntes, Magarefe, Livro de Trocas | planejado (0.2) | [ficha](fichas-estruturas.md#2-casa-do-açougueiro) |
 | Casa do Cartógrafo | Círculo de giz, vídeo, Terço da Moça | planejado (0.2) | [ficha](fichas-estruturas.md#3-casa-do-cartógrafo) |
@@ -59,7 +59,7 @@ Clareira e Carroça, Matadouro do Nono Marco, Estalagem, Frigorífico, Pousada e
 | Cálice do Faminto, Lente do Escriba, Ampulheta Quebrada, Bobina do Último Chamado | Relíquias dos elementos. Só lore: ninguém pega | lore | [relíquias e espadas](reliquias-e-espadas.md) |
 | Agulha de Cerzir Carne, Dedal Dentado, Sino de Matadouro | Artefatos de Sangue | no jogo (`/give`) | [artefatos](artefatos-paranormais.md) |
 | Outros 9 artefatos (Conhecimento, Morte, Energia) | Objetos comuns que ficaram "errados" | ideia | [artefatos](artefatos-paranormais.md) |
-| Livro do Sineiro | Cada leitor vê a própria versão. Abrir toca o sino | no jogo | [livro](livro-do-sineiro.md), [textos](textos-vila-calada.md) |
+| Livro do Sineiro | Cada leitor vê a própria versão. Abrir toca o sino. Linhas novas propostas (por que FERRO, a voz no bloco de notas) | no jogo | [livro](livro-do-sineiro.md), [textos](textos-vila-calada.md), [enigma v2](enigma-vila-calada-v2.md#como-melhorar-o-que-já-passou-sem-refazer) |
 | Livro do Carniceiro | Livro da 0.1, provisório (substituído por Diário do Açougueiro, [N4](../docs/plano-ato1.md)) | no jogo, provisório | [guia 0.1](../docs/versao-0-1.md) |
 | Mapa Rasgado, Livro de Trocas, Faca de Osso, Terço da Moça | Peças de história do Ato 1 | planejado | [roteiro](roteiro.md) |
 | Analisador de Sinal | Aparelho que capta sinais. Funciona com FE | no jogo | [guia 0.1](../docs/versao-0-1.md), [tech](../docs/tech-paranormal.md) |
@@ -102,6 +102,9 @@ Clareira e Carroça, Matadouro do Nono Marco, Estalagem, Frigorífico, Pousada e
 | [artefatos-paranormais.md](artefatos-paranormais.md) | Os 12 artefatos e regras anti-abuso |
 | [dimensoes.md](dimensoes.md) | Clareira e dimensões dos elementos |
 | [cenas/entrada-vila-calada.md](cenas/entrada-vila-calada.md) | Roteiro da cena de entrada da Vila Calada (PR #56) |
+| [metodo-horror-rpg.md](metodo-horror-rpg.md) | Estudo: 18 princípios de RPG e jogo de terror (pistas, medo, ambiente) e checklist para lugar ou evento novo. Não é canon |
+| [enigma-vila-calada-v2.md](enigma-vila-calada-v2.md) | Proposta: grande enigma da Vila Calada em 3 opções (o Dobre, a Procissão, a Cama do Compadre), sentido novo para o FERRO e o bloco de notas, som vindo do mundo. Não é canon |
+| [propostas-ato1-ato2.md](propostas-ato1-ato2.md) | Proposta: pistas que faltam no Ato 1, significado da Lua com olho vermelho (3 opções) e 3 formas do Ato 2. Não é canon |
 | [../docs/estilo-do-genero.md](../docs/estilo-do-genero.md) | Guia do gênero e o que não pode copiar |
 | [../docs/decisoes.md](../docs/decisoes.md) e `../docs/decisoes/` | Decisões do Nikolas (as novas ficam na pasta) |
 | [../docs/plano-ato1.md](../docs/plano-ato1.md) | Fases, PRs e o que ficou para a 0.2 |

@@ -17,7 +17,7 @@ public final class IdsVilaCalada {
     public static final String ARQUIVO = "odteste_vila_calada";
 
     /** Chaves dentro do arquivo. */
-    public static final List<String> CHAVES = List.of("ligado", "colocacao", "ancora_auto", "ancora_auto_dim", "vistas");
+    public static final List<String> CHAVES = List.of("ligado", "colocacao", "ancora_auto", "ancora_auto_dim", "vistas", "preparados");
 
     /**
      * Modificador de velocidade dos aldeões virados para a Vila Calada ({@code odteste:aldeao_virado}).
