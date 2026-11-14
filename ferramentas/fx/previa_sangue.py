@@ -5,7 +5,7 @@ Roda O MESMO .fsh do mod (odfx_carmesim, odfx_sangue, odfx_marcado, odfx_coracao
 à noite (cena_vila.py), com as mesmas curvas de tempo do FxSangue.java, e salva PNG por fase e um GIF.
 
 Uso:
-    python3 ferramentas/fx/previa_sangue.py <cena|carmesim|sangue|marcado|coracao|tudo|folha>
+    python3 ferramentas/fx/previa_sangue.py <cena|carmesim|sangue|marcado|coracao|tudo|folha|parede|folha_parede>
         [--saida arte/previas/fx/sangue] [--rodada r1] [--sem-profundidade]
 
 --sem-profundidade roda a versão que o jogo usa quando o shader pack não deixa ler a profundidade.
@@ -36,13 +36,14 @@ def contexto():
 
 
 class Previa:
-    def __init__(self, yaw=-4.0, pitch=-8.0):
-        self.ctx = contexto()
+    def __init__(self, yaw=-4.0, pitch=-8.0, pedra=False, ctx=None):
+        self.ctx = ctx or contexto()
         self.cena = CenaVila(self.ctx, LARG, ALT)
         self.proj = perspectiva(FOV_Y, LARG / ALT, PERTO, LONGE)
         self.view, _ = vista(yaw, pitch)
-        self.cena.desenhar(self.proj, self.view, LUA, CAM)
+        self.cena.desenhar(self.proj, self.view, LUA, CAM, pedra)
         self.fx = {}
+        self.desloca = np.zeros(3, dtype=np.float32)   # só no uniform Camera: coordenada grande como no jogo
 
     def efeito(self, nome):
         if nome not in self.fx:
@@ -56,7 +57,7 @@ class Previa:
     def comuns(self, t, prof):
         return {
             "Tempo": t, "ComProfundidade": 1.0 if prof else 0.0,
-            "Camera": tuple(float(x) % 4096.0 for x in CAM),
+            "Camera": tuple(float(x) % 4096.0 for x in (CAM + self.desloca)),
             "LuaDir": tuple(LUA),
         }
 
@@ -200,6 +201,56 @@ def rodar(efeito, saida, pref, prof):
     print("ok:", efeito, len(quadros), "quadros")
 
 
+VISTAS_PAREDE = (("media", -4.0, -6.0), ("longe", 32.0, -3.0))
+TEMPOS_PAREDE = (("escorrendo", 4.0), ("espalhado", 10.0))
+
+
+def parede(saida, pref, prof):
+    """Sala de pedra iluminada (como o print do jogo de 14/11): parede a média (~10) e longa (~19) distância."""
+    ctx = contexto()
+    for vnome, yaw, pitch in VISTAS_PAREDE:
+        pv = Previa(yaw, pitch, pedra=True, ctx=ctx)
+        # o print do jogo foi em x 4002, z 4006: com número grande o ruído perde precisão (era isso o código de barras)
+        pv.desloca = np.array([4002.0, 0.0, 4000.0], dtype=np.float32)
+        if not os.path.exists(os.path.join(saida, "pedra_" + vnome + "_cena.png")):
+            pv.sem_efeito().save(os.path.join(saida, "pedra_" + vnome + "_cena.png"))
+        for tnome, t in TEMPOS_PAREDE:
+            forca, seca, _ = curva_sangue(t)
+            u = pv.comuns(t, prof)
+            u.update({"Forca": forca, "Idade": t, "Seca": seca, "Origem": (-1.0, -1.62, -6.0), "Chao": -1.62,
+                      "Alcance": 12.0})
+            pv.quadro("odfx_sangue", u).save(os.path.join(saida, pref + "p_" + vnome + "_" + tnome + ".png"))
+    print("ok: parede")
+
+
+def folha_parede(saida, rodadas, nome="folha_parede.png"):
+    """Uma linha por rodada (antes x depois): quadro inteiro de cada vista e um recorte 2x (sem filtro)."""
+    linhas = []
+    for r in rodadas:
+        imgs = []
+        for vnome, _, _ in VISTAS_PAREDE:
+            c = os.path.join(saida, r + "_p_" + vnome + "_espalhado.png")
+            if not os.path.exists(c):
+                imgs += [None, None]
+                continue
+            im = Image.open(c)
+            imgs.append(im.resize((640, 360), Image.LANCZOS))
+            cx, cy = (640, 300) if vnome == "media" else (600, 330)
+            imgs.append(im.crop((cx - 160, cy - 90, cx + 160, cy + 90)).resize((640, 360), Image.NEAREST))
+        linhas.append((r, imgs))
+    w = 10 + 4 * 650
+    img = Image.new("RGB", (w, len(linhas) * 390 + 10), (10, 8, 8))
+    d = ImageDraw.Draw(img)
+    for i, (r, imgs) in enumerate(linhas):
+        y = 10 + i * 390
+        d.text((12, y + 2), r + "  (media | recorte 2x | longe | recorte 2x)", fill=(220, 60, 60))
+        for j, im in enumerate(imgs):
+            if im is not None:
+                img.paste(im, (10 + j * 650, y + 22))
+    img.save(os.path.join(saida, nome))
+    print("folha:", os.path.join(saida, nome))
+
+
 def folha(saida, rodadas, nome="folha_rodadas.png"):
     """Uma linha por rodada, com uma fase de cada efeito."""
     fases = ["a2_carmesim_cheio", "b2_espalhado", "c3_estagio4_pulso", "d2_batida_pico", "e2_perto"]
@@ -225,7 +276,8 @@ def folha(saida, rodadas, nome="folha_rodadas.png"):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("efeito", choices=["cena", "carmesim", "sangue", "marcado", "coracao", "junto", "tudo", "folha"])
+    ap.add_argument("efeito", choices=["cena", "carmesim", "sangue", "marcado", "coracao", "junto", "tudo", "folha",
+                                       "parede", "folha_parede"])
     ap.add_argument("--saida", default=os.path.join(RAIZ, "arte", "previas", "fx", "sangue"))
     ap.add_argument("--rodada", default="")
     ap.add_argument("--rodadas", default="")
@@ -235,6 +287,12 @@ def main():
     pref = (a.rodada + "_") if a.rodada else ""
     if a.efeito == "folha":
         folha(a.saida, [r for r in a.rodadas.split(",") if r])
+        return
+    if a.efeito == "folha_parede":
+        folha_parede(a.saida, [r for r in a.rodadas.split(",") if r])
+        return
+    if a.efeito == "parede":
+        parede(a.saida, pref, not a.sem_profundidade)
         return
     lista = ["cena", "carmesim", "sangue", "marcado", "coracao", "junto"] if a.efeito == "tudo" else [a.efeito]
     for e in lista:

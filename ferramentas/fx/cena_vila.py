@@ -23,6 +23,7 @@ uniform mat4 Proj;
 uniform mat4 View;
 uniform vec3 LuaDir;
 uniform vec3 CamPos;     // posição da câmera no mundo
+uniform float Pedra;     // 1 = sala de pedra iluminada (como o print do jogo de 14/11), 0 = vila à noite
 layout(location = 0) out vec4 cor;
 layout(location = 1) out float prof;
 
@@ -93,6 +94,15 @@ vec3 albedo(int mat, vec3 p, vec3 n) {
         float m = smoothstep(0.35, 0.7, ruido(q * 5.0));
         return vec3(0.38, 0.38, 0.38) * (0.55 + 0.45 * px) * (0.7 + 0.3 * m) * (0.85 + 0.15 * borda);
     }
+    if (mat == 8) {           // tijolo de pedra (a sala do print)
+        vec2 q = (abs(n.y) > 0.5) ? p.xz : (abs(n.x) > 0.5 ? p.zy : p.xy);
+        vec2 t = q * vec2(2.0, 2.0);
+        t.x += step(1.0, mod(floor(t.y), 2.0)) * 0.5;
+        vec2 ft = fract(t);
+        float junta = smoothstep(0.0, 0.07, min(min(ft.x, 1.0 - ft.x), min(ft.y, 1.0 - ft.y)) * vec2(1.0, 2.0).x);
+        float px = hash(floor(q * 16.0));
+        return vec3(0.47, 0.47, 0.47) * (0.78 + 0.22 * px) * (0.6 + 0.4 * junta) * (0.9 + g);
+    }
     if (mat == 4) return vec3(0.17, 0.13, 0.11) * (0.8 + g * 2.0) * (0.8 + 0.2 * borda); // telhado
     if (mat == 5) return vec3(0.12, 0.08, 0.05);                                          // porta
     if (mat == 7) return vec3(0.02, 0.02, 0.025);                                         // janela escura
@@ -130,8 +140,18 @@ void main() {
     Hit h; h.t = 1e9; h.n = vec3(0); h.mat = 0;
     if (rd.y < 0.0) {
         float tc = (CHAO - ro.y) / rd.y;
-        if (tc > 0.0 && tc < h.t) { h.t = tc; h.n = vec3(0, 1, 0); h.mat = 1; }
+        if (tc > 0.0 && tc < h.t) { h.t = tc; h.n = vec3(0, 1, 0); h.mat = Pedra > 0.5 ? 8 : 1; }
     }
+    if (Pedra > 0.5) {
+        // sala de pedra: parede de frente a ~10 blocos, parede do fundo à direita a ~16-25, paredes laterais em ângulo raso
+        caixa(ro, rd, vec3(-12.0, CHAO, -5.0), vec3(3.0, CHAO + 5.0, -4.0), 8, h);
+        caixa(ro, rd, vec3(3.0, CHAO, -11.0), vec3(30.0, CHAO + 5.0, -10.0), 8, h);
+        caixa(ro, rd, vec3(3.0, CHAO, -10.0), vec3(4.0, CHAO + 5.0, -5.0), 8, h);
+        caixa(ro, rd, vec3(-7.0, CHAO, -4.0), vec3(-6.0, CHAO + 5.0, 9.0), 8, h);
+        caixa(ro, rd, vec3(-3.5, CHAO, -1.0), vec3(-0.5, CHAO + 1.0, 0.0), 8, h);
+        caixa(ro, rd, vec3(5.0, CHAO, -9.0), vec3(8.0, CHAO + 1.0, -8.0), 8, h);
+        caixa(ro, rd, vec3(-12.0, CHAO + 5.0, -11.0), vec3(30.0, CHAO + 6.0, 9.0), 8, h);   // teto
+    } else {
     // casas dos dois lados da rua (a rua corre em -z)
     casa(ro, rd, vec3(-9.0, CHAO, -8.0), vec3(6.0, 5.0, 7.0), h);
     casa(ro, rd, vec3(-9.5, CHAO, -21.0), vec3(7.0, 4.0, 8.0), h);
@@ -141,6 +161,7 @@ void main() {
     caixa(ro, rd, vec3(-40.0, CHAO, -38.0), vec3(40.0, CHAO + 4.0, -37.0), 6, h);
     // poço na rua
     caixa(ro, rd, vec3(-1.0, CHAO, -16.0), vec3(1.0, CHAO + 1.0, -14.0), 3, h);
+    }
 
     vec3 col;
     if (h.t > 1e8) {
@@ -149,6 +170,16 @@ void main() {
     } else {
         vec3 p = ro + rd * h.t;
         vec3 a = albedo(h.mat, p, h.n);
+        if (Pedra > 0.5) {
+            // sala iluminada por tochas espalhadas: luz quase branca, mais fraca no teto e nos cantos
+            vec3 luzP = vec3(0.66, 0.64, 0.62) * (0.75 + 0.25 * abs(h.n.x) + 0.1 * h.n.y);
+            col = a * luzP;
+            col = mix(col, vec3(0.13, 0.13, 0.15), smoothstep(14.0, 60.0, h.t));
+            cor = vec4(col, 1.0);
+            vec4 clipP = Proj * View * vec4(p - ro, 1.0);
+            prof = clamp(clipP.z / clipP.w * 0.5 + 0.5, 0.0, 0.99998);
+            return;
+        }
         // luz do jogo: céu de noite (fraca, fria), lanterna numa porta (quente), ambiente
         float lua = max(dot(h.n, normalize(LuaDir)), 0.0);
         vec3 luz = vec3(0.15, 0.16, 0.21) * (0.45 + 0.55 * lua) + vec3(0.05);
@@ -191,9 +222,10 @@ class CenaVila:
         self.vbo = ctx.buffer(quad.tobytes())
         self.vao = ctx.vertex_array(self.prog, [(self.vbo, "2f", "pos")])
 
-    def desenhar(self, proj, view, lua_dir, cam_pos):
+    def desenhar(self, proj, view, lua_dir, cam_pos, pedra=False):
         self.fbo.use()
         p = self.prog
+        p["Pedra"].value = 1.0 if pedra else 0.0
         p["InvProj"].write(np.linalg.inv(proj).T.astype("f4").tobytes())
         p["InvView"].write(np.linalg.inv(view).T.astype("f4").tobytes())
         p["Proj"].write(proj.T.astype("f4").tobytes())
