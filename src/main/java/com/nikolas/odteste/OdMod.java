@@ -17,6 +17,7 @@ import com.nikolas.odteste.criaturas.CansacoDoElemento;
 import com.nikolas.odteste.criaturas.Criaturas;
 import com.nikolas.odteste.dados.DadosJogador;
 import com.nikolas.odteste.efeitos.Sangramento;
+import com.nikolas.odteste.horror.CamadaHorror;
 import com.nikolas.odteste.itens.Itens;
 import com.nikolas.odteste.magias.Magias;
 import com.nikolas.odteste.rede.Rede;
@@ -59,6 +60,7 @@ public final class OdMod {
         PistasVilaCalada.iniciar();
         CenaEntradaVila.iniciar();
         ClimaVilaCalada.iniciar();
+        CamadaHorror.iniciar();
         ComandosArtefato.iniciar();
         Ronda.iniciar();
         Magias.iniciar();

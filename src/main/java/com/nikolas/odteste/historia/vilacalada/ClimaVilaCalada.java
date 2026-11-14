@@ -38,6 +38,11 @@ public final class ClimaVilaCalada {
     /** Tag vanilla do mestre: nunca vê o Pendurado. Quem testa sem a tag vê normal. */
     public static final String TAG_MESTRE = "odteste_mestre";
 
+    /** O que o último segundo achou (para a camada de horror e a vila morta, sem recalcular). */
+    private static Set<UUID> dentroAgora = Set.of();
+    private static ServerLevel nivelAgora;
+    private static BlockPos ancoraAgora;
+
     private ClimaVilaCalada() {}
 
     public static void iniciar() {
@@ -45,7 +50,12 @@ public final class ClimaVilaCalada {
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> ENVIADO.remove(e.getEntity().getUUID()));
         // Entrou de novo: o cliente começa sem clima; manda de novo se ainda estiver dentro.
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedInEvent e) -> ENVIADO.remove(e.getEntity().getUUID()));
-        NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> ENVIADO.clear());
+        NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> {
+            ENVIADO.clear();
+            dentroAgora = Set.of();
+            nivelAgora = null;
+            ancoraAgora = null;
+        });
     }
 
     private static void aoTick(ServerTickEvent.Post e) {
@@ -63,6 +73,9 @@ public final class ClimaVilaCalada {
                 dentroDaVila.add(p.getUUID());
             }
         }
+        dentroAgora = dentroDaVila;
+        nivelAgora = nivel;
+        ancoraAgora = nivel == null ? null : ancora.pos();
         Set<UUID> veemPendurado = dentroDaVila.isEmpty() ? Set.of() : maisExpostos(s, dh, dentroDaVila);
 
         n = 0;
@@ -76,6 +89,33 @@ public final class ClimaVilaCalada {
             else ENVIADO.put(p.getUUID(), agora);
             PacketDistributor.sendToPlayer(p, new ClimaVila(agora.dentro(), agora.pendurado()));
         }
+    }
+
+    /** Estava dentro do muro na última conferência (uma vez por segundo)? */
+    public static boolean estaDentro(ServerPlayer p) {
+        return dentroAgora.contains(p.getUUID());
+    }
+
+    /** Alguém estava dentro da vila na última conferência? */
+    public static boolean alguemDentro() {
+        return !dentroAgora.isEmpty();
+    }
+
+    /** Este ponto fica dentro do muro da vila (com as pistas ligadas)? Conta simples, sem ler arquivo. */
+    public static boolean naVila(ServerLevel nivel, double x, double y, double z) {
+        BlockPos a = ancoraAgora;
+        if (a == null || nivel != nivelAgora) return false;
+        return RegrasClimaVila.dentro(x - (a.getX() + 0.5), y - a.getY(), z - (a.getZ() + 0.5));
+    }
+
+    /** Para onde os bichos olham: o campanário, no alto do ponto da vila. Null sem vila. */
+    public static net.minecraft.world.phys.Vec3 campanario() {
+        BlockPos a = ancoraAgora;
+        return a == null ? null : net.minecraft.world.phys.Vec3.atCenterOf(a).add(0, 8, 0);
+    }
+
+    public static ServerLevel nivelDaVila() {
+        return nivelAgora;
     }
 
     private static boolean dentro(ServerPlayer p, BlockPos ancora) {
