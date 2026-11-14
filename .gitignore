@@ -11,3 +11,6 @@ libs/
 
 # cache do graphify (o grafo em graphify-out/ vai no git)
 graphify-out/cache/
+
+# cache do Python
+__pycache__/

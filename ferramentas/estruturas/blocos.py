@@ -120,6 +120,47 @@ BLOCOS = {
     "brown_mushroom": ((150, 120, 90), "planta"),
     "wither_rose": ((36, 34, 36), "planta"),
     "white_wool": ((230, 230, 230), "la"),
+    # Lugares do Ato 1 (Moinho, Açougueiro, Cartógrafo, Torre, Fazenda)
+    "note_block": ((92, 60, 42), "barril"),
+    "iron_block": ((196, 196, 198), "metal"),
+    "iron_door": ((186, 186, 188), "porta"),
+    "iron_trapdoor": ((170, 170, 172), "grade"),
+    "smooth_stone": ((158, 158, 158), "liso"),
+    "smooth_stone_slab": ((158, 158, 158), "liso"),
+    "white_terracotta": ((176, 150, 136), "liso"),
+    "terracotta": ((150, 92, 66), "liso"),
+    "light_gray_terracotta": ((132, 104, 96), "liso"),
+    "gray_terracotta": ((58, 42, 36), "liso"),
+    "brown_terracotta": ((77, 51, 36), "liso"),
+    "red_terracotta": ((132, 56, 42), "liso"),
+    "red_wool": ((132, 28, 26), "la"),
+    "red_carpet": ((132, 28, 26), "la"),
+    "gray_wool": ((62, 68, 71), "la"),
+    "light_gray_wool": ((136, 136, 130), "la"),
+    "black_wool": ((24, 24, 28), "la"),
+    "lever": ((110, 100, 90), "pedra"),
+    "cartography_table": ((90, 66, 46), "tabuas"),
+    "skeleton_skull": ((200, 198, 190), "liso"),
+    "skeleton_wall_skull": ((200, 198, 190), "liso"),
+    "grindstone": ((140, 140, 140), "liso"),
+    "soul_campfire": ((70, 60, 50), "tronco_liso"),
+    "stone_brick_wall": ((122, 121, 122), "tijolo_pedra"),
+    "cobbled_deepslate": ((78, 78, 82), "pedra"),
+    "cobbled_deepslate_wall": ((78, 78, 82), "pedra"),
+    "deepslate_bricks": ((72, 72, 74), "tijolo_pedra"),
+    "cracked_deepslate_bricks": ((66, 66, 68), "tijolo_pedra_rachado"),
+    "deepslate_brick_stairs": ((72, 72, 74), "tijolo_pedra"),
+    "deepslate_brick_slab": ((72, 72, 74), "tijolo_pedra"),
+    "polished_deepslate": ((72, 72, 74), "liso"),
+    "stripped_dark_oak_log": ((72, 54, 36), "tronco_liso"),
+    "dark_oak_door": ((66, 43, 20), "porta"),
+    "dark_oak_fence_gate": ((66, 43, 20), "tabuas"),
+    "packed_mud": ((142, 106, 80), "terra"),
+    "light_gray_wall_banner": ((150, 150, 146), "la"),
+    "light_gray_banner": ((150, 150, 146), "la"),
+    "red_banner": ((132, 28, 26), "la"),
+    "tripwire_hook": ((120, 110, 100), "metal"),
+    "chiseled_bookshelf": ((110, 84, 52), "estante"),
     "air": ((0, 0, 0), "nada"),
 }
 
@@ -127,6 +168,7 @@ BLOCOS = {
 EXTRA_PREVIA = {
     "__chama": ((255, 196, 96), "luz"),
     "__luz_lanterna": ((255, 206, 120), "luz"),
+    "__chama_alma": ((110, 210, 220), "luz"),
 }
 
 PERMITIDOS = {"minecraft:" + n for n in BLOCOS}
@@ -142,6 +184,18 @@ _FAMILIAS = [
                                        "waterlogged": _BOOL}),
     (lambda n: n == "structure_block", {"mode": {"save", "load", "corner", "data"}}),
     (lambda n: n == "jukebox", {"has_record": _BOOL}),
+    (lambda n: n == "note_block", {"instrument": {"harp", "bass", "basedrum", "snare", "hat", "bell", "flute",
+                                                  "chime", "guitar", "xylophone", "iron_xylophone", "cow_bell",
+                                                  "didgeridoo", "bit", "banjo", "pling"},
+                                   "note": {str(i) for i in range(25)}, "powered": _BOOL}),
+    (lambda n: n == "lever", {"face": {"floor", "wall", "ceiling"}, "facing": _DIR4, "powered": _BOOL}),
+    (lambda n: n == "grindstone", {"face": {"floor", "wall", "ceiling"}, "facing": _DIR4}),
+    (lambda n: n == "skeleton_skull", {"rotation": {str(i) for i in range(16)}, "powered": _BOOL}),
+    (lambda n: n == "skeleton_wall_skull", {"facing": _DIR4, "powered": _BOOL}),
+    (lambda n: n == "light_gray_banner" or n == "red_banner", {"rotation": {str(i) for i in range(16)}}),
+    (lambda n: n == "light_gray_wall_banner", {"facing": _DIR4}),
+    (lambda n: n == "tripwire_hook", {"facing": _DIR4, "attached": _BOOL, "powered": _BOOL}),
+    (lambda n: n == "chiseled_bookshelf", {"facing": _DIR4, **{f"slot_{i}_occupied": _BOOL for i in range(6)}}),
     (lambda n: n.endswith("_stairs"), {"facing": _DIR4, "half": {"top", "bottom"},
                                        "shape": {"straight", "inner_left", "inner_right", "outer_left", "outer_right"},
                                        "waterlogged": _BOOL}),
@@ -154,6 +208,7 @@ _FAMILIAS = [
      {"north": _BOOL, "south": _BOOL, "east": _BOOL, "west": _BOOL, "waterlogged": _BOOL}),
     (lambda n: n.endswith("_bed"), {"facing": _DIR4, "part": {"head", "foot"}, "occupied": _BOOL}),
     (lambda n: n.endswith("_log") or n in ("hay_block", "bone_block"), {"axis": {"x", "y", "z"}}),
+    (lambda n: n == "cartography_table", {}),
     (lambda n: n == "light", {"level": {str(i) for i in range(16)}, "waterlogged": _BOOL}),
     (lambda n: n == "stone_button", {"face": {"floor", "wall", "ceiling"}, "facing": _DIR4, "powered": _BOOL}),
     (lambda n: n == "spruce_sign", {"rotation": {str(i) for i in range(16)}, "waterlogged": _BOOL}),
@@ -165,7 +220,7 @@ _FAMILIAS = [
                              "facing": _DIR4, "powered": _BOOL}),
     (lambda n: n == "ladder", {"facing": _DIR4, "waterlogged": _BOOL}),
     (lambda n: n == "vine", {"north": _BOOL, "south": _BOOL, "east": _BOOL, "west": _BOOL, "up": _BOOL}),
-    (lambda n: n == "campfire", {"facing": _DIR4, "lit": _BOOL, "signal_fire": _BOOL, "waterlogged": _BOOL}),
+    (lambda n: n in ("campfire", "soul_campfire"), {"facing": _DIR4, "lit": _BOOL, "signal_fire": _BOOL, "waterlogged": _BOOL}),
     (lambda n: n in ("furnace", "smoker"), {"facing": _DIR4, "lit": _BOOL}),
     (lambda n: n == "chest", {"facing": _DIR4, "type": {"single", "left", "right"}, "waterlogged": _BOOL}),
     (lambda n: n == "barrel", {"facing": _DIR4 | {"up", "down"}, "open": _BOOL}),
@@ -251,6 +306,26 @@ def formas(nome, p):
         return [((0, 0, 0, 1, .9375, 1), n)]
     if n == "wheat":
         return [((.125, 0, .125, .875, .25 + .09 * int(p.get("age", "7")), .875), n)]
+    if n == "lever":
+        return [((.3125, 0, .25, .6875, .1875, .75), "cobblestone"), ((.4375, .1875, .4375, .5625, .625, .5625), "spruce_planks")]
+    if n == "tripwire_hook":
+        return [({"north": (.375, .3, .875, .625, .7, 1), "south": (.375, .3, 0, .625, .7, .125),
+                  "east": (0, .3, .375, .125, .7, .625), "west": (.875, .3, .375, 1, .7, .625)}[p.get("facing", "north")], n)]
+    if n == "skeleton_skull":
+        return [((.25, 0, .25, .75, .5, .75), n)]
+    if n == "skeleton_wall_skull":
+        return [({"north": (.25, .25, .5, .75, .75, 1), "south": (.25, .25, 0, .75, .75, .5),
+                  "east": (0, .25, .25, .5, .75, .75), "west": (.5, .25, .25, 1, .75, .75)}[p.get("facing", "north")], n)]
+    if n == "grindstone":
+        return [((.125, .25, .25, .875, .9, .75), n), ((.2, 0, .4, .3, .3, .6), "dark_oak_planks"),
+                ((.7, 0, .4, .8, .3, .6), "dark_oak_planks")]
+    if n in ("light_gray_banner", "red_banner"):
+        return [((.4375, 0, .4375, .5625, 1, .5625), "dark_oak_planks"), ((.0625, .9, .4375, .9375, 1, .5625), "dark_oak_planks"),
+                ((.0625, .05, .45, .9375, .9, .55), n)]
+    if n == "light_gray_wall_banner":
+        return [({"north": (.0625, .0, .875, .9375, .875, 1), "south": (.0625, .0, 0, .9375, .875, .125),
+                  "east": (0, .0, .0625, .125, .875, .9375), "west": (.875, .0, .0625, 1, .875, .9375)}
+                 [p.get("facing", "south")], n)]
     if n == "red_wall_banner":
         return [({"north": (.0625, .0, .875, .9375, .875, 1), "south": (.0625, .0, 0, .9375, .875, .125),
                   "east": (0, .0, .0625, .125, .875, .9375), "west": (.875, .0, .0625, 1, .875, .9375)}
@@ -320,8 +395,11 @@ def formas(nome, p):
         return [((.25, .25, .25, .75, .8125, .75), n), ((.4375, .8125, .4375, .5625, 1, .5625), "chain")]
     if n == "lectern":
         return [((0, 0, 0, 1, .125, 1), n), ((.25, .125, .25, .75, .8125, .75), n), ((0, .8125, 0, 1, .9375, 1), n)]
-    if n == "campfire":
-        return [((0, 0, 0, 1, .4375, 1), n)]
+    if n in ("campfire", "soul_campfire"):
+        caixas = [((0, 0, 0, 1, .4375, 1), n)]
+        if _verdade(p, "lit"):
+            caixas.append(((.3, .4375, .3, .7, .75, .7), "__chama" if n == "campfire" else "__chama_alma"))
+        return caixas
     if n == "flower_pot":
         return [((.3125, 0, .3125, .6875, .375, .6875), n)]
     if n == "chest":

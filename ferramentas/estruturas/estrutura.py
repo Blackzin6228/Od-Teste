@@ -83,6 +83,7 @@ class Estrutura:
         self.dados = {}  # (x,y,z) -> NBT do bloco (block entity), gravado no campo "nbt" da estrutura
         self.marcadores = []  # blocos de estrutura em modo DATA: onde o mod põe recompensa
         self.travado = None  # caixa (x0, z0, x1, z1) que não pode mais mudar (ex.: o centro pronto da vila)
+        self.y_chao = 0  # camada do piso térreo (abaixo dela: porão/cripta). A prévia põe o chão do mundo aqui
 
     # ---- leitura ---------------------------------------------------------
     def dentro(self, x, y, z):
@@ -150,7 +151,7 @@ class Estrutura:
             raise ValueError(f"{self.titulo}: dados sem bloco em {(x, y, z)}")
         self.dados[(x, y, z)] = nbt
 
-    def marcador(self, x, y, z, nome, nota=""):
+    def marcador(self, x, y, z, nome, nota="", alvo="abaixo"):
         """Bloco de estrutura em modo DATA com metadata = nome: o mod acha o ponto e põe a recompensa.
 
         Convenção: o marcador fica UM BLOCO ACIMA do baú (ou da jukebox) de verdade. O baú já existe no
@@ -165,7 +166,11 @@ class Estrutura:
             "rotation": "NONE", "mirror": "NONE", "ignoreEntities": N.Byte(1), "powered": N.Byte(0),
             "showair": N.Byte(0), "showboundingbox": N.Byte(0), "integrity": N.Float(1.0), "seed": N.Long(0),
         })
-        self.marcadores.append({"pos": [x, y, z], "metadata": nome, "alvo": [x, y - 1, z], "nota": nota})
+        if alvo == "abaixo":
+            alvo = [x, y - 1, z]
+        elif alvo == "aqui":
+            alvo = [x, y, z]
+        self.marcadores.append({"pos": [x, y, z], "metadata": nome, "alvo": list(alvo), "nota": nota})
 
     def encher(self, x0, y0, z0, x1, y1, z1, bloco, so_vazio=False, **props):
         for x in range(min(x0, x1), max(x0, x1) + 1):
