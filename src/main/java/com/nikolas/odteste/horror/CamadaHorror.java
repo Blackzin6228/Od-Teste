@@ -6,6 +6,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.nikolas.odteste.dados.DadosJogador;
+import com.nikolas.odteste.historia.mestre.Mestre;
 import com.nikolas.odteste.historia.vilacalada.ClimaVilaCalada;
 import com.nikolas.odteste.rede.AreaHorror;
 import com.nikolas.odteste.rede.Susto;
@@ -117,7 +118,10 @@ public final class CamadaHorror {
         int n = 0;
         for (ServerPlayer p : s.getPlayerList().getPlayers()) {
             if (n++ >= MAX_JOGADORES) break;
-            String area = p.isSpectator() ? "" : areaDe(p);
+            // Mestre ouvindo vê a área da vila (névoa, som) sem virar alvo: o resto abaixo já pula espectador.
+            String area = p.isSpectator()
+                    ? (ClimaVilaCalada.mestreDentro(p) ? IdsHorror.AREA_VILA_CALADA : "")
+                    : areaDe(p);
             if (!area.equals(ENVIADO.get(p.getUUID()))) {
                 ENVIADO.put(p.getUUID(), area);
                 PacketDistributor.sendToPlayer(p, new AreaHorror(area));
@@ -157,6 +161,21 @@ public final class CamadaHorror {
         d.marcar(noite, agora);
         ULTIMO.put(p.getUUID(), t);
         PacketDistributor.sendToPlayer(p, new Susto(t.id));
+        // Mestre ouvindo com a câmera nele vê o mesmo susto (na tela dele) e sabe de quem foi.
+        for (ServerPlayer m : Mestre.assistindo(p)) {
+            PacketDistributor.sendToPlayer(m, new Susto(t.id));
+        }
+        Component aviso = Component.translatable("odteste.mestre.susto_saiu", t.id, p.getDisplayName())
+                .withStyle(net.minecraft.ChatFormatting.DARK_GRAY);
+        for (ServerPlayer m : p.server.getPlayerList().getPlayers()) {
+            if (m != p && Mestre.ouvindo(m)) m.displayClientMessage(aviso, true);
+        }
+    }
+
+    /** Quantos sustos grandes este jogador já levou nesta noite (painel do mestre). */
+    public static int sustosNaNoite(ServerPlayer p) {
+        RegrasSusto.Diario d = DIARIOS.get(p.getUUID());
+        return d == null ? 0 : d.feitos(RegrasSusto.noite(p.level().getDayTime()));
     }
 
     // ---------- comando do mestre ----------
@@ -177,7 +196,11 @@ public final class CamadaHorror {
         ServerPlayer p = EntityArgument.getPlayer(c, "jogador");
         RegrasSusto.Diario d = DIARIOS.computeIfAbsent(p.getUUID(), u -> new RegrasSusto.Diario());
         enviar(p, t, d, RegrasSusto.noite(p.level().getDayTime()), p.server.overworld().getGameTime());
-        c.getSource().sendSuccess(() -> Component.translatable("odteste.comando.susto", t.id, p.getDisplayName()), true);
+        // O mestre que disparou, em espectador com o ouvir ligado, também vê (se já não viu pela câmera).
+        if (c.getSource().getEntity() instanceof ServerPlayer m && m != p && Mestre.ouvindo(m) && m.getCamera() != p) {
+            PacketDistributor.sendToPlayer(m, new Susto(t.id));
+        }
+        c.getSource().sendSuccess(() -> Component.translatable("odteste.comando.susto", t.id, p.getDisplayName()), false);
         return 1;
     }
 }

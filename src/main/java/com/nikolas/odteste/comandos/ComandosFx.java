@@ -98,7 +98,7 @@ public final class ComandosFx {
             PacketDistributor.sendToPlayer(p, new EfeitoFx(efeito, segundos, false));
         }
         int n = alvos.size();
-        c.getSource().sendSuccess(() -> Component.translatable("odteste.comando.fx.mestre", efeito, n), true);
+        c.getSource().sendSuccess(() -> Component.translatable("odteste.comando.fx.mestre", efeito, n), false);
         return n;
     }
 }

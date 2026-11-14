@@ -3,6 +3,7 @@ package com.nikolas.odteste.historia.vilacalada;
 import com.nikolas.odteste.dados.DadosJogador;
 import com.nikolas.odteste.historia.DadosHistoria;
 import com.nikolas.odteste.historia.Grupos;
+import com.nikolas.odteste.historia.mestre.Mestre;
 import com.nikolas.odteste.rede.ClimaVila;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -40,6 +41,8 @@ public final class ClimaVilaCalada {
 
     /** O que o último segundo achou (para a camada de horror e a vila morta, sem recalcular). */
     private static Set<UUID> dentroAgora = Set.of();
+    /** Mestres ouvindo dentro do muro: veem o clima, mas não contam para nada (horror, vila morta, Pendurado). */
+    private static Set<UUID> mestresDentro = Set.of();
     private static ServerLevel nivelAgora;
     private static BlockPos ancoraAgora;
 
@@ -53,6 +56,7 @@ public final class ClimaVilaCalada {
         NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> {
             ENVIADO.clear();
             dentroAgora = Set.of();
+            mestresDentro = Set.of();
             nivelAgora = null;
             ancoraAgora = null;
         });
@@ -66,14 +70,17 @@ public final class ClimaVilaCalada {
         GlobalPos ancora = dh.ancoras.get(IdsVilaCalada.LUGAR_VILA_CALADA);
         ServerLevel nivel = ancora == null || !dv.ligado ? null : s.getLevel(ancora.dimension());
         Set<UUID> dentroDaVila = new HashSet<>();
+        Set<UUID> mestres = new HashSet<>();
         int n = 0;
         for (ServerPlayer p : s.getPlayerList().getPlayers()) {
             if (n++ >= RegrasClimaVila.MAX_JOGADORES) break;
-            if (nivel != null && p.level() == nivel && !p.isSpectator() && dentro(p, ancora.pos())) {
-                dentroDaVila.add(p.getUUID());
+            if (nivel != null && p.level() == nivel && dentro(p, ancora.pos())) {
+                if (!p.isSpectator()) dentroDaVila.add(p.getUUID());
+                else if (Mestre.ouvindo(p)) mestres.add(p.getUUID());
             }
         }
         dentroAgora = dentroDaVila;
+        mestresDentro = mestres;
         nivelAgora = nivel;
         ancoraAgora = nivel == null ? null : ancora.pos();
         Set<UUID> veemPendurado = dentroDaVila.isEmpty() ? Set.of() : maisExpostos(s, dh, dentroDaVila);
@@ -81,7 +88,7 @@ public final class ClimaVilaCalada {
         n = 0;
         for (ServerPlayer p : s.getPlayerList().getPlayers()) {
             if (n++ >= RegrasClimaVila.MAX_JOGADORES) break;
-            boolean dentro = dentroDaVila.contains(p.getUUID());
+            boolean dentro = dentroDaVila.contains(p.getUUID()) || mestres.contains(p.getUUID());
             Enviado agora = dentro ? new Enviado(true, veemPendurado.contains(p.getUUID())) : NADA;
             Enviado antes = ENVIADO.getOrDefault(p.getUUID(), NADA);
             if (agora.equals(antes)) continue;
@@ -94,6 +101,11 @@ public final class ClimaVilaCalada {
     /** Estava dentro do muro na última conferência (uma vez por segundo)? */
     public static boolean estaDentro(ServerPlayer p) {
         return dentroAgora.contains(p.getUUID());
+    }
+
+    /** Mestre ouvindo dentro do muro (só para mostrar o clima a ele; não conta para regra nenhuma). */
+    public static boolean mestreDentro(ServerPlayer p) {
+        return mestresDentro.contains(p.getUUID());
     }
 
     /** Alguém estava dentro da vila na última conferência? */
