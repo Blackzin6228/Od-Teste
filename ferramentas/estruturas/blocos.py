@@ -161,6 +161,10 @@ BLOCOS = {
     "red_banner": ((132, 28, 26), "la"),
     "tripwire_hook": ((120, 110, 100), "metal"),
     "chiseled_bookshelf": ((110, 84, 52), "estante"),
+    "black_stained_glass_pane": ((30, 28, 34), "vidro"),
+    "gray_bed": ((70, 74, 78), "la"),
+    "brown_bed": ((100, 66, 40), "la"),
+    "polished_blackstone_bricks": ((50, 44, 52), "tijolo_pedra"),
     "air": ((0, 0, 0), "nada"),
 }
 

@@ -39,9 +39,40 @@ SAIDA = os.path.join(RAIZ, "arte", "lugares-ato1")
 LADOS = [("sudeste", 0), ("nordeste", 1), ("noroeste", 2), ("sudoeste", 3)]
 
 
+ALVOS = {"bau": ("chest", "barrel"), "atril": ("lectern",), "disco": ("jukebox",)}
+
+
+def conferir(est):
+    """Marcadores: nome único, bloco de estrutura no lugar, alvo certo (baú, atril, jukebox, mural)."""
+    erros, vistos, lugares = [], set(), {}
+    for mk in est.marcadores:
+        meta, pos, alvo = mk["metadata"], tuple(mk["pos"]), tuple(mk["alvo"])
+        if meta in vistos:
+            erros.append(f"marcador repetido: {meta}")
+        vistos.add(meta)
+        if pos in lugares:
+            erros.append(f"{meta} e {lugares[pos]} no mesmo bloco {pos}")
+        lugares[pos] = meta
+        if est.dados.get(pos, {}).get("metadata") != meta:
+            erros.append(f"{meta}: o bloco em {pos} foi sobrescrito")
+        if est.nome(*pos) != "minecraft:structure_block":
+            erros.append(f"{meta}: sem bloco de estrutura em {pos}")
+        tipo = meta.split(":")[0]
+        if tipo in ALVOS and (est.nome(*alvo) or "").split(":")[-1] not in ALVOS[tipo]:
+            erros.append(f"{meta}: alvo {alvo} é {est.nome(*alvo)}")
+        if tipo == "mapa" and not (est.nome(*alvo) or "").endswith("terracotta"):
+            erros.append(f"{meta}: alvo {alvo} não é o mural")
+    return erros
+
+
 def gerar(mod, previa=True):
     t0 = time.time()
     est = mod.construir()
+    problemas = conferir(est)
+    for p in problemas:
+        print("   ERRO", p)
+    if problemas:
+        return None
     pasta = os.path.join(SAIDA, mod.NOME)
     os.makedirs(pasta, exist_ok=True)
     caminho = os.path.join(pasta, mod.NOME + ".nbt")

@@ -502,11 +502,11 @@ def _desenhar(est, vista, proj, w, h, noite, y_max=None, chao=True, nevoa=None, 
     fbo.release()
     img = img.resize((w, h), Image.LANCZOS)
     if marcadores:
-        img = _rotulos(img, est, mvp, w, h)
+        img = _rotulos(img, est, mvp, w, h, y_min, y_max)
     return img
 
 
-def _rotulos(img, est, mvp, w, h):
+def _rotulos(img, est, mvp, w, h, y_min=None, y_max=None):
     """Marcadores por cima de tudo (como raio X), com o nome: para a Dev achar cada ponto."""
     from PIL import ImageDraw, ImageFont
     try:
@@ -517,6 +517,8 @@ def _rotulos(img, est, mvp, w, h):
     usados = []
     for mk in sorted(est.marcadores, key=lambda k: -k["pos"][1]):
         x, y, z = mk["pos"]
+        if (y_min is not None and y < y_min) or (y_max is not None and y > y_max + 2):
+            continue
         v = mvp @ np.array([x + .5, y + .5, z + .5, 1.0])
         if v[3] <= 0:
             continue

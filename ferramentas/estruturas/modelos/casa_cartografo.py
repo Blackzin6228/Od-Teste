@@ -138,10 +138,10 @@ def casa(e):
         for dz in (0, 1):
             for y in (G + 2, G + 3):
                 e.por(X1 - 1, y, z0 + dz, PAPEL)
-    L.bau(e, 13, G + 1, 16, "north", "cartografo_terco",
+    L.bau(e, 13, G + 1, 12, "west", "cartografo_terco",
           "Baú do salão: abre com a senha do Atlas (a mesma do vídeo). Guarda o Terço da Moça (gancho do Ato 2).")
-    e.por(14, G + 1, 16, "barrel", facing="up", open=False)
-    e.por(14, G + 1, 15, "barrel", facing="west", open=False)
+    e.por(13, G + 1, 14, "barrel", facing="up", open=False)
+    e.por(13, G + 1, 15, "barrel", facing="west", open=False)
     m.lanterna_pendurada(e, 8, G + 4, 14, com_lanterna=False, comprimento_corrente=0)
     # papéis no chão (tapete branco) e um tinteiro derrubado
     for x, z in ((6, 14), (9, 15), (10, 13), (5, 11)):

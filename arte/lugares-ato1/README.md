@@ -44,6 +44,7 @@ Cada lugar tem `00_prancha.png` (resumo) e, em `previas/`: `dia_<lado>` (4 lados
 | 2. Casa do Açougueiro | `casa_acougueiro/casa_acougueiro.nbt` | 48 x 23 x 36 | 7 | 23 |
 | 3. Casa do Cartógrafo | `casa_cartografo/casa_cartografo.nbt` | 26 x 30 x 22 | 0 | 19 |
 | 4. Torre das Correntes | `torre_correntes/torre_correntes.nbt` | 20 x 48 x 20 | 8 | 8 |
+| 5. Fazenda do Sino Mudo | `fazenda_sino_mudo/fazenda_sino_mudo.nbt` | 72 x 24 x 60 | 6 | 27 |
 
 ## 1. Moinho Parado
 
@@ -113,7 +114,7 @@ A torre tem escada em caracol até o mirante (luneta, círculo de giz). Sem spaw
 
 | metadata | posição | alvo | nota |
 |---|---|---|---|
-| `bau:cartografo_terco` | (13, 2, 16) | (13, 1, 16) | Baú do salão: abre com a senha do Atlas (a mesma do vídeo). Guarda o Terço da Moça (gancho do Ato 2). |
+| `bau:cartografo_terco` | (13, 2, 12) | (13, 1, 12) | Baú do salão: abre com a senha do Atlas (a mesma do vídeo). Guarda o Terço da Moça (gancho do Ato 2). |
 | `mapa:p01` | (4, 1, 10) | (4, 1, 9) | Ponto possível da marca (alvo = bloco do mural atrás). A cada manhã o mod sorteia onde ficam as marcas; a última tem o nome de {marcado}. |
 | `mapa:p02` | (5, 3, 10) | (5, 3, 9) |  |
 | `mapa:p03` | (6, 2, 10) | (6, 2, 9) |  |
@@ -165,3 +166,46 @@ Outros pontos (sem marcador, só no json):
 - `nota` (11, 32, 6): Bloco de nota 5 de 6: tocam o rumo da Fazenda em Morse.
 - `nota` (12, 32, 6): Bloco de nota 6 de 6: tocam o rumo da Fazenda em Morse.
 - `estandarte` (8, 11, 19): Cruz de Ferro no pilar do portão (provisória: desenho final do Modelador).
+
+## 5. Fazenda do Sino Mudo
+
+Clímax do Ato 1. Entra-se pelo portão da fazenda (sul, aberto). A capela fica **de portas fechadas** até o sino da
+Torre das Correntes ser calado (`evento:portas_capela`); antes disso o sino do terreiro toca. Dentro da capela o chat
+de texto fica bloqueado (`evento:area_capela`). A Mesa do Pacto tem 12 lugares (`lugar:01` a `lugar:12`, o mod usa
+um por jogador) e o lugar a mais na cabeceira (`spawn:convidada`). Aldeões de uma vila próxima aparecem parados na
+cerca (`spawn:aldeao_cerca_*`). Sem monstro. O Evento do Diabo fica para depois (decisão de 14/11). Chão em
+`y_chao = 6`: porão e cripta ocupam y 0 a 5.
+
+| metadata | posição | alvo | nota |
+|---|---|---|---|
+| `bau:carta_selo` | (53, 2, 10) | (53, 1, 10) | Carta com o selo de cera (Pista do Ato 2). Só aparece depois do Evento do Diabo. |
+| `atril:diario_p4` | (27, 13, 35) | (27, 12, 35) | Escritório do fazendeiro: Diário do Açougueiro p. 4 (o poema). |
+| `bau:sotao_terco_vazio` | (26, 18, 37) | (26, 17, 37) | Baú vazio com a marca de um terço que alguém levou (o terço está na Casa do Cartógrafo). |
+| `lugar:01` | (52, 9, 15) | (52, 8, 15) | Lugar na Mesa do Pacto: prato com o nome do jogador (item do mod), vela de altura diferente e cálice vazio. O mod usa um por jogador. |
+| `lugar:02` | (53, 9, 15) | (53, 8, 15) |  |
+| `lugar:03` | (52, 9, 16) | (52, 8, 16) |  |
+| `lugar:04` | (53, 9, 16) | (53, 8, 16) |  |
+| `lugar:05` | (52, 9, 17) | (52, 8, 17) |  |
+| `lugar:06` | (53, 9, 17) | (53, 8, 17) |  |
+| `lugar:07` | (52, 9, 18) | (52, 8, 18) |  |
+| `lugar:08` | (53, 9, 18) | (53, 8, 18) |  |
+| `lugar:09` | (52, 9, 19) | (52, 8, 19) |  |
+| `lugar:10` | (53, 9, 19) | (53, 8, 19) |  |
+| `lugar:11` | (52, 9, 20) | (52, 8, 20) |  |
+| `lugar:12` | (53, 9, 20) | (53, 8, 20) |  |
+| `spawn:convidada` | (52, 8, 23) | (52, 8, 23) | O lugar a mais, na cabeceira: a Convidada (susto do Ato 1). |
+| `evento:area_capela` | (52, 11, 18) | (52, 11, 18) | Centro da capela: dentro, o chat de texto fica bloqueado (a voz continua). Velas fora de ordem apagam todas e tiram Lucidez do grupo. |
+| `evento:portas_capela` | (53, 8, 28) | (53, 8, 28) | Portas fechadas até o sino da Torre das Correntes ser calado. Antes disso, o sino do terreiro toca. |
+| `evento:altar_aceite` | (53, 10, 10) | (53, 10, 10) | Altar que gira e revela o Altar do Aceite (cálice de pedra com 'Chame.'). |
+| `som:sino_terreiro` | (31, 9, 26) | (31, 9, 26) | Sino do terreiro, no poste: toca sozinho até a capela abrir. |
+| `som:sino_mudo` | (52, 20, 26) | (52, 20, 26) | Sino da espadana da capela: mudo. |
+| `evento:retrato_virado` | (25, 18, 40) | (25, 18, 40) | Quarto fechado do sótão: o retrato virado (pintura nossa). Virado, mostra um velho sem olhos; atrás, um recado a carvão. |
+| `spawn:aldeao_cerca_1` | (70, 8, 30) | (70, 8, 30) | Aldeão de uma vila próxima, parado na cerca, olhando para a capela. |
+| `spawn:aldeao_cerca_2` | (70, 8, 20) | (70, 8, 20) |  |
+| `spawn:aldeao_cerca_3` | (66, 8, 58) | (66, 8, 58) |  |
+| `spawn:aldeao_cerca_4` | (20, 8, 58) | (20, 8, 58) |  |
+| `evento:chegada` | (41, 8, 56) | (41, 8, 56) | Portão da fazenda (aberto). |
+
+Outros pontos (sem marcador, só no json):
+
+- `altar` (52, 9, 9): Cálice de pedra do Altar do Aceite ('Chame.'). O altar gira (evento).
