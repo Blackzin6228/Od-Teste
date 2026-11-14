@@ -78,7 +78,8 @@ final class FalhaMinimapa {
         if (mc.isPaused()) return;
         tick++;
         if (tick % 20 == 0) alvo = procurar(mc, p);
-        forca += (alvo - forca) * 0.08f;
+        // Sobe rápido (o susto chega de uma vez) e desce devagar.
+        forca += (alvo - forca) * (alvo > forca ? 0.30f : 0.06f);
         if (forca < 0.005f) forca = 0f;
     }
 
@@ -86,16 +87,16 @@ final class FalhaMinimapa {
         if (SustoCliente.tocando() || Pendurado.presente() || Alucinacoes.ocupado()) return 1f;
         AABB caixa = p.getBoundingBox().inflate(RAIO);
         if (!mc.level.getEntities(p, caixa, e -> e.getType().is(ASSOMBRA)).isEmpty()) return 1f;
-        if (!CamadaHorrorCliente.area().isEmpty() && CamadaHorrorCliente.ehNoite()) return 0.35f;
+        if (!CamadaHorrorCliente.area().isEmpty() && CamadaHorrorCliente.ehNoite()) return 0.6f;
         return 0f;
     }
 
     /** Neste instante o minimapa "some" de vez? Pedaços de 4 ticks, sorteados pelo relógio. */
     private static boolean sumido() {
-        if (forca < 0.5f) return false;
+        if (forca < 0.35f) return false;
         long bloco = tick / 4;
         int h = (int) ((bloco * 0x9E3779B97F4A7C15L) >>> 40) & 0xFF;
-        return h < 90 * forca;
+        return h < 150 * forca;
     }
 
     private static void aoCamada(RenderGuiLayerEvent.Pre e) {
@@ -135,31 +136,56 @@ final class FalhaMinimapa {
         }
     }
 
-    /** Chiado de TV fora do ar num quadrado do canto: cinzas sorteados a cada quadro, em blocos de 7 px (~400 no máximo). */
+    /**
+     * Chiado de TV fora do ar num quadrado do canto (14/11: o Nikolas achou fraco no jogo). Fundo escurecido, grão fino
+     * de 3 px que troca ~25 vezes por segundo, faixas de imagem rasgada que rolam, um clarão branco raro e, com a falha
+     * forte, pontos vermelhos onde não tem nada (o mapa "mostra coisa errada").
+     */
     private static void chiado(GuiGraphics g, int w, int h, int lado, boolean cima, boolean direita) {
         int margem = 2;
         int x0 = direita ? w - lado - margem : margem;
         int y0 = cima ? margem : h - lado - margem;
         boolean some = sumido();
         float f = Math.min(1f, forca);
-        long semente = System.nanoTime() / 50_000_000L; // troca ~20 vezes por segundo
+        long semente = System.nanoTime() / 40_000_000L; // troca ~25 vezes por segundo
         g.drawManaged(() -> {
-            if (some) g.fill(x0, y0, x0 + lado, y0 + lado, 0xF0080808);
-            int cel = 7;
+            // Fundo: com a falha forte o mapa quase não se lê; "sumido" é preto.
+            int fundo = some ? 0xF5050505 : ((int) (150 * f) << 24) | 0x0A0A0A;
+            g.fill(x0, y0, x0 + lado, y0 + lado, fundo);
+            int cel = 3;
             long r = semente * 6364136223846793005L + 1442695040888963407L;
             for (int y = y0; y < y0 + lado; y += cel) {
                 for (int x = x0; x < x0 + lado; x += cel) {
                     r = r * 6364136223846793005L + 1442695040888963407L;
                     int v = (int) (r >>> 56) & 0xFF;
-                    int alfa = (int) ((some ? 200 : 60 + (v & 0x7F)) * f);
-                    int cinza = 30 + (v * 170 >> 8);
+                    int alfa = (int) ((some ? 210 : 110 + (v & 0x7F)) * f);
+                    int cinza = 20 + (v * 210 >> 8);
                     g.fill(x, y, Math.min(x + cel, x0 + lado), Math.min(y + cel, y0 + lado),
                             (alfa << 24) | (cinza << 16) | (cinza << 8) | cinza);
                 }
             }
-            // Uma faixa clara que rola, como imagem fora de sintonia.
-            int faixa = (int) ((semente * 7) % Math.max(1, lado));
-            g.fill(x0, y0 + faixa, x0 + lado, Math.min(y0 + lado, y0 + faixa + 2), ((int) (120 * f) << 24) | 0xC8C8C8);
+            // Faixas de imagem rasgada que rolam (duas claras, uma escura), como sinal fora de sintonia.
+            for (int i = 0; i < 3; i++) {
+                int faixa = (int) (((semente * (5 + i * 3)) + i * 37L) % Math.max(1, lado));
+                int alt = 2 + i * 2;
+                int cor = i == 2 ? ((int) (200 * f) << 24) : (((int) (170 * f) << 24) | 0xD8D8D8);
+                g.fill(x0, y0 + faixa, x0 + lado, Math.min(y0 + lado, y0 + faixa + alt), cor);
+            }
+            // Clarão branco raro (1 quadro a cada ~2 s com a falha forte).
+            if (f > 0.6f && Math.floorMod(semente * 2654435761L, 50) == 0) {
+                g.fill(x0, y0, x0 + lado, y0 + lado, ((int) (180 * f) << 24) | 0xF0F0F0);
+            }
+            // O mapa mostra coisa errada: um ou dois pontos vermelhos que piscam onde não tem nada.
+            if (f > 0.5f && !some) {
+                long p = (semente / 6) * 0x9E3779B97F4A7C15L;
+                for (int i = 0; i < 2; i++) {
+                    p = p * 6364136223846793005L + 1442695040888963407L;
+                    if (((p >>> 33) & 3) == 0) continue;
+                    int px = x0 + 4 + (int) ((p >>> 40) & 0xFFFF) % Math.max(1, lado - 8);
+                    int py = y0 + 4 + (int) ((p >>> 20) & 0xFFFF) % Math.max(1, lado - 8);
+                    g.fill(px - 2, py - 2, px + 2, py + 2, ((int) (230 * f) << 24) | 0xB00000);
+                }
+            }
         });
     }
 }
