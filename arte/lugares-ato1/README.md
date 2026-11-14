@@ -42,6 +42,7 @@ Cada lugar tem `00_prancha.png` (resumo) e, em `previas/`: `dia_<lado>` (4 lados
 |---|---|---|---|---|
 | 1. Moinho Parado | `moinho_parado/moinho_parado.nbt` | 36 x 26 x 30 | 2 | 6 |
 | 2. Casa do Açougueiro | `casa_acougueiro/casa_acougueiro.nbt` | 48 x 23 x 36 | 7 | 23 |
+| 3. Casa do Cartógrafo | `casa_cartografo/casa_cartografo.nbt` | 26 x 30 x 22 | 0 | 19 |
 
 ## 1. Moinho Parado
 
@@ -101,3 +102,36 @@ curral, contorna a casa e entra pela frente. Sem spawn em toda a estrutura (luz 
 | `evento:palheiro_palavra` | (24, 13, 18) | (24, 13, 18) | Viga do palheiro: a palavra riscada que abre o vídeo E7 (a Lore decide; não vai no repositório). |
 | `som:moscas` | (26, 10, 12) | (26, 10, 12) | Moscas e correntes rangendo na casa de abate. |
 | `evento:defumador` | (24, 9, 18) | (24, 9, 18) | Defumadores (x 20 e 29, z 17) soltando fumaça sem fogo. |
+
+## 3. Casa do Cartógrafo
+
+Casa isolada de papel e silêncio. Entra-se pela porta da frente (sem tranca) ou pela janela grande do salão. O mapa-mural
+(parede norte do salão, x 4-12, y 1-4, z 8) tem **12 pontos possíveis** (`mapa:p01` a `mapa:p12`): o mod troca o bloco
+alvo por `red_terracotta` (a marca) e devolve o original na manhã seguinte. `mapa:vila_calada` é a marca fixa.
+A torre tem escada em caracol até o mirante (luneta, círculo de giz). Sem spawn dentro. Chão em `y_chao = 0`.
+
+| metadata | posição | alvo | nota |
+|---|---|---|---|
+| `bau:cartografo_terco` | (13, 2, 16) | (13, 1, 16) | Baú do salão: abre com a senha do Atlas (a mesma do vídeo). Guarda o Terço da Moça (gancho do Ato 2). |
+| `mapa:p01` | (4, 1, 10) | (4, 1, 9) | Ponto possível da marca (alvo = bloco do mural atrás). A cada manhã o mod sorteia onde ficam as marcas; a última tem o nome de {marcado}. |
+| `mapa:p02` | (5, 3, 10) | (5, 3, 9) |  |
+| `mapa:p03` | (6, 2, 10) | (6, 2, 9) |  |
+| `mapa:p04` | (6, 4, 10) | (6, 4, 9) |  |
+| `mapa:p05` | (7, 1, 10) | (7, 1, 9) |  |
+| `mapa:p06` | (8, 3, 10) | (8, 3, 9) |  |
+| `mapa:p07` | (9, 2, 10) | (9, 2, 9) |  |
+| `mapa:p08` | (9, 4, 10) | (9, 4, 9) |  |
+| `mapa:p09` | (11, 1, 10) | (11, 1, 9) |  |
+| `mapa:p10` | (11, 3, 10) | (11, 3, 9) |  |
+| `mapa:p11` | (12, 2, 10) | (12, 2, 9) |  |
+| `mapa:p12` | (12, 4, 10) | (12, 4, 9) |  |
+| `mapa:vila_calada` | (10, 3, 10) | (10, 3, 9) | Marca fixa (já é red_terracotta no arquivo): a Vila Calada. |
+| `evento:circulo_giz` | (20, 20, 7) | (20, 20, 7) | Centro do círculo de giz do mirante: ritual em dupla ou mais, de noite; as cinzas formam a palavra. |
+| `evento:luneta` | (19, 21, 4) | (19, 21, 4) | Luneta na janela norte (vire a janela para o lado da Fazenda ao colocar). Depois do Atlas, mostra a Torre das Correntes na neblina. |
+| `evento:mesa_cartografia` | (7, 2, 13) | (7, 2, 13) | Mesa de cartografia com o mapa pela metade. |
+| `evento:entrada` | (9, 3, 15) | (9, 3, 15) | Porta da frente (sem tranca) e janela grande quebrada do salão. |
+| `evento:pendurado_escada` | (21, 9, 4) | (21, 9, 4) | Escada em caracol: o Pendurado aparece; quem fica sozinho aqui perde Lucidez devagar. |
+
+Outros pontos (sem marcador, só no json):
+
+- `escada` (19, 9, 4): Meio da escada em caracol: onde o Pendurado aparece.
