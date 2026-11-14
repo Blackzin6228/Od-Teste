@@ -52,5 +52,19 @@ siga `docs/ceo.md`. Você coordena as outras mesas pela ferramenta Agent e respo
 - `./gradlew build` — compila e testa.
 - `bash ferramentas/teste_servidor.sh build/libs/<jar>` — liga servidor com o pack inteiro (precisa de ~12 GB de RAM).
 
+## Ferramentas MCP (Blockbench e mcmodding)
+Registradas em `.mcp.json` (escopo do projeto). Precisam do PC do Nikolas: Blockbench desktop aberto no Windows com o plugin
+MCP (`https://jasonjgardner.github.io/blockbench-mcp-plugin/mcp.js`, porta 3000, endpoint `/bb-mcp`) e `mcmodding-mcp` instalado
+(`npm install -g mcmodding-mcp` + `npx mcmodding-mcp manage` para baixar o banco Parchment). Se uma delas não responder, avise
+e siga sem ela; não mude `.mcp.json` para contornar.
+- **API de NeoForge 1.21.1:** antes de escrever código que usa classe, método ou evento do Minecraft/NeoForge, consulte o
+  `mcmodding` (`search_fabric_docs` com `loader: "neoforge"`, `search_mappings`, `get_class_details`, `search_mod_examples`).
+  Não confie na memória: a API muda a cada versão.
+- **Modelos:** a mesa Modelador abre o `.bbmodel` no Blockbench pelo MCP (carregue a skill `blockbench-use` antes de qualquer
+  ferramenta `mcp__blockbench__*`) e **sempre** tira captura de frente, lado e costas (`capture_screenshot`), salva em
+  `arte/previas/<peça>/` e compara com a referência aprovada **antes** de mostrar ao Nikolas. Sem as três capturas, não há prévia.
+- Skills em `.claude/skills/blockbench-*` vêm de `jasonjgardner/blockbench-mcp-project` (Apache 2.0). Para atualizar:
+  `npx skills add https://github.com/jasonjgardner/blockbench-mcp-project --skill <nome>`.
+
 ## Commits
 - Mensagens em português, curtas, dizendo o que mudou para quem joga.
