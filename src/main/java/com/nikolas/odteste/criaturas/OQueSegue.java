@@ -186,11 +186,6 @@ public final class OQueSegue extends PathfinderMob implements GeoEntity {
     }
 
     @Override
-    public boolean canBreatheUnderwater() {
-        return true;
-    }
-
-    @Override
     public boolean shouldBeSaved() {
         return false;
     }
