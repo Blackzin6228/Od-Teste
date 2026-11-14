@@ -274,6 +274,7 @@ class Efeito:
             self.prog["Sampler1"].value = 1
         self.uniform("InvProj", np.linalg.inv(proj).T.astype("f4").tobytes())
         self.uniform("InvView", np.linalg.inv(view).T.astype("f4").tobytes())
+        self.uniform("ProjVista", (proj @ view).T.astype("f4").tobytes())
         self.uniform("ScreenSize", (self.larg, self.alt))
         for k, v in uniforms.items():
             self.uniform(k, v)

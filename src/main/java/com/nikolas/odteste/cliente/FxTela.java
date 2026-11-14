@@ -272,6 +272,7 @@ final class FxTela {
 
             sh.safeGetUniform("InvProj").set(new Matrix4f(q.projecao()).invert());
             sh.safeGetUniform("InvView").set(new Matrix4f(q.vista()).invert());
+            sh.safeGetUniform("ProjVista").set(new Matrix4f(q.projecao()).mul(q.vista()));
             sh.safeGetUniform("ScreenSize").set((float) w, (float) h);
             sh.safeGetUniform("ComProfundidade").set(q.comProfundidade() ? 1f : 0f);
             passe.uniforms(sh, q);

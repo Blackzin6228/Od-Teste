@@ -12,6 +12,7 @@ uniform sampler2D Sampler0;
 uniform sampler2D Sampler1;
 uniform mat4 InvProj;
 uniform mat4 InvView;
+uniform mat4 ProjVista;          // projeção × vista (para achar na tela o que a poça reflete)
 uniform vec2 ScreenSize;
 uniform float Tempo;
 uniform float Forca;             // 0..1: some aos pedaços quando cai
@@ -34,6 +35,17 @@ const vec3 FRESCO = vec3(0.300, 0.012, 0.022);
 const vec3 SECO = vec3(0.075, 0.022, 0.014);
 
 // Cor do sangue sobre uma superfície, iluminado como ela (a luz da cena é estimada pela própria cor).
+// O que a poça reflete: projeta o raio refletido (bem longe) de volta na tela e lê a cor ali.
+// Fora da tela, ou batendo em algo perto demais, vira escuro.
+vec3 reflexo(vec3 rd, vec3 n) {
+    vec3 r = reflect(rd, n);
+    vec4 clip = ProjVista * vec4(r * 200.0, 1.0);
+    if (clip.w <= 0.0) return vec3(0.0);
+    vec2 q = clip.xy / clip.w * 0.5 + 0.5;
+    float dentro = smoothstep(0.0, 0.08, q.x) * smoothstep(1.0, 0.92, q.x) * smoothstep(0.0, 0.08, q.y) * smoothstep(1.0, 0.92, q.y);
+    return texture(Sampler0, clamp(q, 0.001, 0.999)).rgb * dentro;
+}
+
 vec3 tingir(vec3 cena, float grosso, float molhado, vec3 n, vec3 rd, float brilhoLuz) {
     float luz = clamp(od_lum(cena) * 2.6, 0.0, 1.5);
     vec3 b = mix(FRESCO, FRESCO_FUNDO, clamp(grosso, 0.0, 1.0) * 0.75);
@@ -47,7 +59,8 @@ vec3 tingir(vec3 cena, float grosso, float molhado, vec3 n, vec3 rd, float brilh
     float esp = pow(max(dot(n, h), 0.0), 220.0) * 0.55;
     float fres = pow(1.0 - clamp(dot(n, -rd), 0.0, 1.0), 5.0);
     r += vec3(0.55, 0.30, 0.30) * esp * molhado;
-    r = mix(r, vec3(0.020, 0.004, 0.006), fres * molhado * 0.5);
+    vec3 espelho = reflexo(rd, n) * vec3(0.75, 0.22, 0.20);
+    r = mix(r, espelho, clamp(0.12 + fres * 0.75, 0.0, 0.85) * molhado * step(0.5, ComProfundidade));
     r += vec3(0.8, 0.20, 0.14) * pow(brilhoLuz, 2.0) * molhado * 0.35;
     return r;
 }
@@ -83,39 +96,44 @@ void main() {
         float grosso = 0.0;
         vec3 nw = n;
 
-        // ---- parede: fios que descem
+        // ---- parede: uma faixa molhada mais alta, e dela descem fios finos com uma gota na ponta
         float parede = 1.0 - smoothstep(0.25, 0.45, abs(n.y));
         if (parede > 0.01 && perto > 0.0) {
-            float u = abs(n.x) > abs(n.z) ? w.z : w.x;           // ao longo da parede
-            float faceId = abs(n.x) > abs(n.z) ? floor(w.x - n.x * 0.5) : floor(w.z - n.z * 0.5);
-            float largCol = 0.22;
+            bool emX = abs(n.x) > abs(n.z);
+            float u = emX ? w.z : w.x;                              // ao longo da parede
+            float face = emX ? floor(w.x - n.x * 0.5) : floor(w.z - n.z * 0.5);
+            float y = rel.y;
+            float nasce = od_suave(Idade / 1.8);
+            // a faixa: altura e grossura variam devagar ao longo da parede
+            float alto = Chao + 2.5 + 1.1 * od_fbm3(vec2(u * 0.25, face * 3.7));
+            float grossa = (0.10 + 0.22 * od_ruido(vec2(u * 1.3, face))) * nasce;
+            float bordaBaixo = (od_ruido(vec2(u * 9.0, face + 3.0)) - 0.5) * 0.12;
+            float faixa = smoothstep(alto - grossa - 0.03 + bordaBaixo, alto - grossa + 0.03 + bordaBaixo, y)
+                    * (1.0 - smoothstep(alto + 0.02, alto + 0.12, y));
+            faixa *= smoothstep(0.25, 0.55, od_fbm3(vec2(u * 0.7, face * 1.3 + 5.0)) + 0.15);
+            // os fios
+            float largCol = 0.11;
             float col = floor(u / largCol);
-            float fu = fract(u / largCol);
-            float semente = od_hash(vec2(col, faceId * 1.37));
-            float ativa = step(0.55, semente);                  // nem toda coluna tem fio
-            float atraso = od_hash(vec2(col, 7.1 + faceId)) * 3.5;
-            float vel = 0.35 + 0.5 * od_hash(vec2(col, 3.3 + faceId));
-            float topo = Chao + 1.6 + 2.6 * od_hash(vec2(col, 5.9 + faceId));
+            float fu = fract(u / largCol) - 0.5;
+            float semente = od_hash(vec2(col, face * 1.37));
+            float ativa = step(0.45, semente) * step(0.35, faixa + od_fbm3(vec2(col * largCol * 0.7, face * 1.3 + 5.0)));
+            float atraso = 0.6 + od_hash(vec2(col, 7.1 + face)) * 4.5;
+            float vel = 0.18 + 0.55 * od_hash(vec2(col, 3.3 + face)) * od_hash(vec2(col, 1.1 + face));
+            float topo = alto - grossa * 0.5;
             float desce = max(Idade - atraso, 0.0) * vel;
             float fim = max(topo - desce, Chao);
-            float y = rel.y;
-            // o fio balança um pouco e afina para baixo; uma gota mais gorda na ponta
-            float x = fu - 0.5 + (od_ruido(vec2(y * 2.3, col)) - 0.5) * 0.35;
-            float largura = mix(0.07, 0.17, od_hash(vec2(col, 9.7))) * mix(0.55, 1.0, od_suave((y - fim) / max(topo - fim, 0.01)));
-            float dentro = step(fim, y) * step(y, topo + 0.05);
-            float fio = (1.0 - smoothstep(largura * 0.6, largura, abs(x))) * dentro;
-            float gota = 1.0 - smoothstep(0.16, 0.24, length(vec2(x, (y - fim - 0.08) * 1.6)));
-            gota *= step(Chao + 0.05, fim) * step(0.01, desce);
-            // mancha borrada onde o fio nasce
-            float borrao = od_ruido(vec2(u * 6.0, y * 9.0));
-            float nasce = (1.0 - smoothstep(0.2, 1.0, length(vec2(x * 0.35, (y - topo - 0.05) * 3.5)) + (borrao - 0.5) * 0.9))
-                    * od_suave(desce * 2.0) * 0.55;
-            float k = max(max(fio, gota), nasce * 0.8) * ativa;
-            // poça no pé da parede
-            float pe = (1.0 - smoothstep(0.0, 0.35 + 0.25 * od_ruido(vec2(u * 3.0, faceId)), y - Chao)) * od_suave((Idade - 3.0) / 4.0);
+            float x = fu + (od_ruido(vec2(y * 3.1, col)) - 0.5) * 0.5;
+            float largura = mix(0.16, 0.34, od_hash(vec2(col, 9.7))) * mix(0.6, 1.0, od_suave((y - fim) / 0.6));
+            float fio = (1.0 - smoothstep(largura * 0.55, largura, abs(x))) * step(fim, y) * step(y, topo);
+            float gota = 1.0 - smoothstep(0.30, 0.45, length(vec2(x, (y - fim - 0.035) * 3.2)));
+            gota *= step(Chao + 0.03, fim) * step(0.02, desce);
+            float k = max(faixa, max(fio, gota) * ativa);
+            // poça no pé da parede, quando os fios chegam
+            float pe = (1.0 - smoothstep(0.0, 0.12 + 0.25 * od_ruido(vec2(u * 3.0, face)), y - Chao))
+                    * od_suave((Idade - 4.0) / 5.0) * smoothstep(0.4, 0.6, od_fbm3(vec2(u * 0.6, face)) + 0.2);
             k = max(k, pe * 0.9);
             cobre = max(cobre, k * parede);
-            grosso = max(grosso, mix(0.3, 1.0, fio) * k);
+            grosso = max(grosso, max(fio * ativa, faixa) * 0.9);
         }
 
         // ---- chão: poça que cresce a partir da Origem, em dedos
@@ -124,7 +142,7 @@ void main() {
             vec2 d = rel.xz - Origem.xz;
             float r = length(d);
             float frente = Alcance * od_suave(Idade / 9.0);
-            float campo = od_fbm(w.xz * 0.42) * 1.15 + 0.35 * od_ruido(w.xz * 2.4);
+            float campo = od_fbm(w.xz * 0.42) * 1.15 + 0.30 * od_ruido(w.xz * 2.4) + 0.12 * od_ruido(w.xz * 9.0);
             float alvo = 1.0 - r / max(frente, 0.01);         // 1 no centro, 0 na frente
             float k = smoothstep(0.0, 0.07, alvo * 0.75 + (campo - 0.78) * 1.5);
             // fios no chão indo para quem olha (a coisa vem atrás dele)

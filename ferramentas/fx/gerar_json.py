@@ -12,7 +12,7 @@ COMUNS = [("InvProj", "matrix4x4", 16), ("InvView", "matrix4x4", 16), ("ScreenSi
 
 EFEITOS = {
     "odfx_carmesim": [("LuaDir", "float", 3), ("Camera", "float", 3)],
-    "odfx_sangue": [("LuaDir", "float", 3), ("Camera", "float", 3), ("Idade", "float", 1), ("Seca", "float", 1),
+    "odfx_sangue": [("ProjVista", "matrix4x4", 16), ("LuaDir", "float", 3), ("Camera", "float", 3), ("Idade", "float", 1), ("Seca", "float", 1),
                     ("Origem", "float", 3), ("Chao", "float", 1), ("Alcance", "float", 1)],
     "odfx_marcado": [("Estagio", "float", 1), ("Pulso", "float", 1), ("Mexer", "float", 1)],
     "odfx_coracao": [("Batida", "float", 1), ("Mexer", "float", 1)],
