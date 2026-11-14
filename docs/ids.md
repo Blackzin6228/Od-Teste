@@ -171,7 +171,7 @@ Chaves de texto (não salvas): `odteste.contencao.preso`, `odteste.comando.perse
 
 Fontes de Exposição (usadas no comando `/exposicao contato` e no freio de repetição). Ficam salvas dentro de
 `odteste:exposicao_repeticao` como `fonte/elemento` (ex.: `criatura_vista/sangue`), então também não mudam:
-`criatura_vista`, `criatura_luta`, `criatura_morta`, `reliquia_pegar`, `reliquia_usar`, `ritual`, `dimensao`, `aparicao`.
+`criatura_vista`, `criatura_luta`, `criatura_morta`, `reliquia_pegar`, `reliquia_usar`, `ritual`, `dimensao`, `aparicao`, `maquinas` (2026-11-13, máquinas com energia perto: "a tech chama o paranormal").
 
 Abalos de Lucidez (comando `/lucidez abalar`, **não** ficam salvos): `batalha_reliquia`, `aparicao`, `mob_sangue`.
 
@@ -202,3 +202,14 @@ Balanceamento tech: matéria e eventos (2026-11-13, `docs/decisoes/2026-11-13-ba
 
 Chaves de texto (não salvas): `odteste.cansaco.1`, `odteste.cansaco.2`. Os eventos de Energia
 (`sistemas/EventoEnergia`: `CASA_OCUPADA`, `APAGAO`, `FOME_DA_LINHA`) não são salvos por nome.
+
+O Que Segue e "a tech chama o paranormal" (2026-11-13, **proposta**, `docs/decisoes/2026-11-13-o-que-segue.md`):
+| ID | Tipo | Desde | Observação |
+|---|---|---|---|
+| `odteste:o_que_segue` | criatura (GeckoLib, categoria MISC) | 2026-11-13 | nome provisório ("O Que Segue"); o ID fica. **Nunca é salva no mundo** (some ao descarregar o chunk ou reiniciar). Não nasce por bioma, sem drop, fora da tag `odteste:paranormal` |
+| `serverconfig/odteste-segue-server.toml` | config do servidor | 2026-11-13 | seções `o_que_segue` (`ligado`, `distancia_min`, `distancia_max`, `recarga_minutos`, `volta_minutos`, `chance_por_cento`, `dano`, `raio_sozinho`) e `tech_chama` (`ligado`, `raio`) |
+| `/odteste segue chamar <jogador>`, `/odteste segue afastar <jogador>` | comando de admin (permissão 2) | 2026-11-13 | chamar ignora noite, recarga e a tag `odteste_mestre`; só no Overworld |
+
+Nada novo é salvo no jogador ou no mundo: recargas e contagem de máquinas ficam só em memória (reiniciar zera).
+Fonte de Exposição nova: `maquinas` (fica dentro de `odteste:exposicao_repeticao`, ver acima).
+Chaves de texto (não salvas): `entity.odteste.o_que_segue`, `odteste.comando.segue.*`.

@@ -63,6 +63,11 @@ public final class IdsDados {
     public static final String CRIATURA_RETALHADO = "retalhado";
     public static final String CRIATURA_SANGUESSUGA = "sanguessuga_mae";
     public static final List<String> CRIATURAS = List.of(CRIATURA_RETALHADO, CRIATURA_SANGUESSUGA);
+    /**
+     * "O Que Segue" (nome provisório; o ID não muda). Fora de {@link #CRIATURAS}: não nasce por bioma, não tem drop
+     * e não é de Sangue. Nunca é salva no mundo.
+     */
+    public static final String CRIATURA_O_QUE_SEGUE = "o_que_segue";
 
     /** Efeito "Sangramento" e o tipo de dano com o mesmo nome (data/odteste/damage_type/). */
     public static final String SANGRAMENTO = "sangramento";

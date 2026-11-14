@@ -28,7 +28,9 @@ public enum Fonte {
     /** Tempo numa dimensão de elemento (o conteúdo chama a cada minuto lá dentro). */
     DIMENSAO("dimensao", 50),
     /** Uma aparição (evento do paranormal ou do narrador). */
-    APARICAO("aparicao", 300);
+    APARICAO("aparicao", 300),
+    /** Muita máquina com energia perto (a cada ~30 s; a tech chama o paranormal). Pouco, e o freio de repetição corta. */
+    MAQUINAS("maquinas", 10);
 
     private final String id;
     /** Ganho da primeira vez com intensidade 1, em centésimos de ponto. */
