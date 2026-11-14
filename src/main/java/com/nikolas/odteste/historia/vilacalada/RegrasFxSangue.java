@@ -47,8 +47,8 @@ public final class RegrasFxSangue {
     public static final float BATIDA_MARCADO = 1.0f;
 
     // ---- olho na lua
-    /** Desenho do olho (0 íris-lua, 1 pálpebras, 2 a lua que sangra). O Nikolas escolhe pelas prévias. */
-    public static final int OLHO_VARIANTE = 0;
+    /** Desenho do olho (0 íris-lua, 1 pálpebras, 2 a lua que sangra). Escolhido: 2 (decisão 2026-11-14-lua-olho). */
+    public static final int OLHO_VARIANTE = 2;
     /** A pupila troca de rumo a cada 5 a 11 s enquanto vagueia. */
     public static final int OLHO_VAGUEIA_MIN = 100;
     public static final int OLHO_VAGUEIA_MAX = 220;

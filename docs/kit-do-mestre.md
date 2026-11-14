@@ -34,6 +34,12 @@ Sem canto, o mod acha sozinho pelo sino rachado perto da âncora.
 você estiver ouvindo, também vê) · `/odteste vila_calada tocar <jogadores>` (sino rachado agora) ·
 `/odteste vila_calada ver` · `/odteste evento retrancar <grupo>`.
 
+**O Dobre (14/11).** Os jogadores batem o Martelo do Ferreiro no sino rachado à meia-noite (detalhes em `docs/progresso.md`).
+`/odteste vila_calada preparar` também põe o martelo (moldura) e o peitoril; `/odteste mestre status <grupo>` mostra o dobre.
+- `/odteste vila_calada dobre resolver <grupo>` · `/odteste vila_calada dobre reabrir <grupo>`
+- `/odteste vila_calada dobre pendurado <grupo>` (o Pendurado aparece em cima do sino rachado)
+- `/odteste vila_calada dobre empurrao <grupo> <cliques|bigorna|corrente>` (pista para quem está travado)
+
 **Cenas de câmera (14/11).** `/odteste cena tocar <cena> <alvos>` (ex.: `/odteste cena tocar chegada_vila_calada @a[distance=..40]`),
 `/odteste cena parar <alvos>`, `/odteste cena lista`. Quem vê a cena fica parado e sem tomar dano até ela acabar.
 Em espectador com o ouvir ligado, você vê junto. Para não deixar pular: `pular_cenas = false` na config do mestre.
