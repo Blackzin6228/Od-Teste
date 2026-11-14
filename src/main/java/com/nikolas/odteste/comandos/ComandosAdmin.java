@@ -199,7 +199,7 @@ public final class ComandosAdmin {
         Elemento salvo = DadosJogador.marcaElemento(p);
         int estagioSalvo = DadosJogador.marcaEstagio(p);
         c.getSource().sendSuccess(() -> Component.translatable("odteste.comando.marca.definir",
-                p.getDisplayName(), Component.translatable(salvo.chaveTraducao()), estagioSalvo), true);
+                p.getDisplayName(), Component.translatable(salvo.chaveTraducao()), estagioSalvo), false);
         return estagioSalvo;
     }
 
@@ -216,7 +216,7 @@ public final class ComandosAdmin {
         float intensidade = comIntensidade ? FloatArgumentType.getFloat(c, INTENSIDADE) : 1f;
         int ganho = Exposicao.contato(p, f, e, intensidade);
         c.getSource().sendSuccess(() -> Component.translatable("odteste.comando.exposicao.contato",
-                p.getDisplayName(), f.id(), ganho, DadosJogador.exposicao(p)), true);
+                p.getDisplayName(), f.id(), ganho, DadosJogador.exposicao(p)), false);
         return ganho;
     }
 
@@ -262,7 +262,7 @@ public final class ComandosAdmin {
 
     /** Mensagem de "definir" vai para os outros admins também (fica no log). */
     private static int ok(CommandContext<CommandSourceStack> c, String chave, int valor, ServerPlayer p) {
-        return ok(c, chave, valor, p, true);
+        return ok(c, chave, valor, p, false);
     }
 
     private static int ok(CommandContext<CommandSourceStack> c, String chave, int valor, ServerPlayer p, boolean avisarAdmins) {

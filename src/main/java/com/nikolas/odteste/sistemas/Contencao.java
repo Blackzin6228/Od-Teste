@@ -176,14 +176,14 @@ public final class Contencao {
         int segundos = IntegerArgumentType.getInteger(c, "segundos");
         for (ServerPlayer p : alvos) perseguir(p, segundos * 20);
         c.getSource().sendSuccess(() -> Component.translatable("odteste.comando.perseguicao.comecar",
-                alvos.size(), segundos), true);
+                alvos.size(), segundos), false);
         return alvos.size();
     }
 
     private static int parar(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
         Collection<ServerPlayer> alvos = EntityArgument.getPlayers(c, "jogadores");
         for (ServerPlayer p : alvos) soltar(p);
-        c.getSource().sendSuccess(() -> Component.translatable("odteste.comando.perseguicao.parar", alvos.size()), true);
+        c.getSource().sendSuccess(() -> Component.translatable("odteste.comando.perseguicao.parar", alvos.size()), false);
         return alvos.size();
     }
 }

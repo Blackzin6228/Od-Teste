@@ -47,6 +47,10 @@ final class Pendurado {
     private static float giroBase;
     private static int idade;
     private static int vida;
+    /** Empurrão do mestre (em cima do sino): não some ao olhar direto, só com o tempo ou chegando perto. */
+    private static boolean fixo;
+    /** Quanto dura o Pendurado do sino (8 s). */
+    private static final int VIDA_SINO = 160;
 
     private Pendurado() {}
 
@@ -67,6 +71,7 @@ final class Pendurado {
      */
     static boolean aparecer(LocalPlayer p, boolean suave) {
         if (corpo != null) return false;
+        fixo = false;
         RandomSource r = p.getRandom();
         for (int i = 0; i < 3; i++) {
             float yaw = p.getYRot() + RegrasClimaVila.anguloPendurado(r.nextDouble(), r.nextBoolean());
@@ -97,6 +102,33 @@ final class Pendurado {
         return false;
     }
 
+    /**
+     * Empurrão do mestre no Dobre: o Pendurado aparece pendurado de {@code teto} (em cima do sino rachado), à vista
+     * de todos do grupo, uma vez. Troca o que estiver aparecendo.
+     */
+    static void aparecerNoSino(LocalPlayer p, BlockPos teto) {
+        Villager v = new Villager(EntityType.VILLAGER, p.level());
+        v.setId(-0x0D7F0001);
+        Vec3 pes = new Vec3(teto.getX() + 0.5, teto.getY() - 1 - ALTURA, teto.getZ() + 0.5);
+        giroBase = (float) (Mth.atan2(p.getZ() - pes.z, p.getX() - pes.x) * Mth.RAD_TO_DEG) - 90f; // de frente para quem olha
+        v.moveTo(pes.x, pes.y, pes.z, giroBase, CABECA);
+        v.xRotO = CABECA;
+        v.yRotO = giroBase;
+        v.setYHeadRot(giroBase);
+        v.setYBodyRot(giroBase);
+        v.yHeadRotO = giroBase;
+        v.yBodyRotO = giroBase;
+        v.setSilent(true);
+        v.setNoGravity(true);
+        corpo = v;
+        nivel = (ClientLevel) p.level();
+        corrente = teto.below();
+        idade = 0;
+        vida = VIDA_SINO;
+        fixo = true;
+        Sons.em(Vec3.atCenterOf(corrente), SoundEvents.CHAIN_STEP, 0.6f, 0.5f);
+    }
+
     /** Uma vez por tick do cliente. Sem Pendurado, sai na primeira linha. */
     static void aoTick(LocalPlayer p) {
         if (corpo == null) return;
@@ -105,7 +137,7 @@ final class Pendurado {
             return;
         }
         idade++;
-        if (idade >= vida || p.distanceToSqr(corpo) <= PERTO_SQ || cosOlhar(p) >= RegrasHorror.COS_OLHOU) {
+        if (idade >= vida || p.distanceToSqr(corpo) <= PERTO_SQ || (!fixo && cosOlhar(p) >= RegrasHorror.COS_OLHOU)) {
             limpar(); // some sem barulho
             return;
         }

@@ -35,6 +35,12 @@ public final class LivrosLidos extends SavedData {
         return novo;
     }
 
+    /** Já abriu este livro alguma vez? (painel do mestre) */
+    public boolean leu(UUID jogador, String livro) {
+        Set<String> s = lidos.get(jogador);
+        return s != null && s.contains(livro);
+    }
+
     /** Para o admin repetir o gancho num teste. */
     public boolean esquecer(UUID jogador, String livro) {
         Set<String> s = lidos.get(jogador);

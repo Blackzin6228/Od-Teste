@@ -126,7 +126,7 @@ public final class Cenas {
         }
         int n = jogadores.size();
         int sl = semLugar;
-        c.getSource().sendSuccess(() -> Component.translatable("odteste.cena.cmd.tocou", cena, n), true);
+        c.getSource().sendSuccess(() -> Component.translatable("odteste.cena.cmd.tocou", cena, n), false);
         if (sl > 0) c.getSource().sendSuccess(() -> Component.translatable("odteste.cena.cmd.sem_lugar", sl), false);
         return n;
     }
@@ -140,7 +140,7 @@ public final class Cenas {
         Collection<ServerPlayer> jogadores = EntityArgument.getPlayers(c, "jogadores");
         for (ServerPlayer p : jogadores) esquecer(p, cena);
         int n = jogadores.size();
-        c.getSource().sendSuccess(() -> Component.translatable("odteste.cena.cmd.esqueceu", cena, n), true);
+        c.getSource().sendSuccess(() -> Component.translatable("odteste.cena.cmd.esqueceu", cena, n), false);
         return n;
     }
 }

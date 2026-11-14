@@ -127,11 +127,25 @@ class RegrasLivrosTest {
             RegrasLivros.limiar(limiares.group(1));
             n++;
         }
-        assertEquals(6, n, "5 trechos de Exposição média e 1 de alta");
+        assertEquals(9, n, "8 trechos de Exposição média e 1 de alta (3 novos do Dobre, 14/11/2026)");
+        Matcher marcos = Pattern.compile("\"marco\"\\s*:\\s*\"([^\"]*)\"").matcher(json);
+        List<String> m = new java.util.ArrayList<>();
+        while (marcos.find()) m.add(marcos.group(1));
+        assertEquals(List.of("enigma_sino", "dobre"), m, "pág. 14: FERRO acertado e dobre feito");
         // No Sineiro, só os trechos escondidos têm condição: o resto dos "texto" são as páginas.
         long textos = Pattern.compile("\"texto\"\\s*:").matcher(json).results().count();
-        assertEquals(14, textos - n);
+        assertEquals(14, textos - n - m.size());
         Matcher conteudo = Pattern.compile("\"texto\"\\s*:\\s*\"((?:[^\"\\\\]|\\\\.)*)\"").matcher(json);
         while (conteudo.find()) assertTrue(conteudo.group(1).length() <= 320, "texto grande demais: " + conteudo.group(1));
+    }
+
+    @Test
+    void trechoPorMarcoDoGrupo() {
+        Livro l = new Livro("x", "T", "A", 3, List.of(new Livro.Pagina("", 0, List.of(
+                new Livro.Trecho("todos", 0), new Livro.Trecho("feito", 0, "dobre"), new Livro.Trecho("ferro", MEDIA, "enigma_sino")))));
+        assertEquals(List.of(new RegrasLivros.Pedaco("todos", true)), RegrasLivros.montar(l, ALTA).get(0), "sem marco, só o comum");
+        assertEquals(List.of(new RegrasLivros.Pedaco("todos", true), new RegrasLivros.Pedaco("feito", true)),
+                RegrasLivros.montar(l, 0, java.util.Set.of("dobre", "enigma_sino")).get(0), "marco sem Exposição: o de Exposição fica de fora");
+        assertEquals(3, RegrasLivros.montar(l, MEDIA, java.util.Set.of("dobre", "enigma_sino")).get(0).size());
     }
 }

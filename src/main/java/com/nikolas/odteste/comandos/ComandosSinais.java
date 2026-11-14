@@ -73,7 +73,7 @@ public final class ComandosSinais {
             default -> { }
         }
         s.sendSuccess(() -> Component.translatable("odteste.sinal.fonte.adicionada",
-                id, tipo, pos.getX(), pos.getY(), pos.getZ()), true);
+                id, tipo, pos.getX(), pos.getY(), pos.getZ()), false);
         return 1;
     }
 
@@ -83,7 +83,7 @@ public final class ComandosSinais {
             c.getSource().sendFailure(Component.translatable("odteste.sinal.fonte.erro.nao_existe", id));
             return 0;
         }
-        c.getSource().sendSuccess(() -> Component.translatable("odteste.sinal.fonte.removida", id), true);
+        c.getSource().sendSuccess(() -> Component.translatable("odteste.sinal.fonte.removida", id), false);
         return 1;
     }
 
