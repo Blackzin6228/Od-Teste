@@ -86,7 +86,7 @@ final class FalhaMinimapa {
         if (SustoCliente.tocando() || Pendurado.presente() || Alucinacoes.ocupado()) return 1f;
         AABB caixa = p.getBoundingBox().inflate(RAIO);
         if (!mc.level.getEntities(p, caixa, e -> e.getType().is(ASSOMBRA)).isEmpty()) return 1f;
-        if (!CamadaHorrorCliente.area().isEmpty() && CamadaHorrorCliente.forcaNoite() > 0.5f) return 0.35f;
+        if (!CamadaHorrorCliente.area().isEmpty() && CamadaHorrorCliente.ehNoite()) return 0.35f;
         return 0f;
     }
 

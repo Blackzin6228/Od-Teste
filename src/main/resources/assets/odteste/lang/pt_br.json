@@ -281,6 +281,8 @@
   "odteste.configuration.minimapa_canto.baixo_direita": "Embaixo, à direita",
   "odteste.configuration.minimapa_canto.baixo_esquerda": "Embaixo, à esquerda",
   "odteste.configuration.minimapa_tamanho": "Tamanho do minimapa",
+  "odteste.configuration.intensidade": "Intensidade da camada de horror",
+  "odteste.configuration.intensidade.tooltip": "Céu cinza, névoa e escuro do mundo, de dia e de noite. De 50% a 100%: dá para diminuir, não para desligar.",
   "odteste.configuration.minimapa_tamanho.tooltip": "Em % da altura da tela. 0 = automático.",
   "odteste.configuration.minimapa_canto.nenhum": "Nenhum (sem minimapa)"
 }

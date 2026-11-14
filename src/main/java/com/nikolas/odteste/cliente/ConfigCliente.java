@@ -45,6 +45,7 @@ public final class ConfigCliente {
     public static final ModConfigSpec.EnumValue<Forca> EFEITOS_FORTES;
     public static final ModConfigSpec.EnumValue<Canto> MINIMAPA_CANTO;
     public static final ModConfigSpec.IntValue MINIMAPA_TAMANHO;
+    public static final ModConfigSpec.IntValue INTENSIDADE;
 
     static {
         ModConfigSpec.Builder b = new ModConfigSpec.Builder();
@@ -57,6 +58,9 @@ public final class ConfigCliente {
         MINIMAPA_TAMANHO = b.comment("Tamanho do minimapa em % da altura da tela (0 = automático).")
                 .translation("odteste.configuration.minimapa_tamanho")
                 .defineInRange("minimapa_tamanho", 0, 0, 100);
+        INTENSIDADE = b.comment("Intensidade da camada de horror (céu cinza, névoa, escuro), em %. De 50 a 100: diminui, não desliga. A música cortada não muda.")
+                .translation("odteste.configuration.intensidade")
+                .defineInRange("intensidade", 100, 50, 100);
         SPEC = b.build();
     }
 
@@ -98,6 +102,15 @@ public final class ConfigCliente {
             return MINIMAPA_TAMANHO.get();
         } catch (IllegalStateException carregando) {
             return 0;
+        }
+    }
+
+    /** Intensidade da camada de horror em % (50 a 100). Seguro de chamar antes da config carregar. */
+    public static int intensidade() {
+        try {
+            return INTENSIDADE.get();
+        } catch (IllegalStateException carregando) {
+            return 100;
         }
     }
 }
