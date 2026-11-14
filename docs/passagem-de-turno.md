@@ -21,6 +21,9 @@ Leia isto ao abrir um chat novo. Atualize no fim de cada sessão grande.
 - Cutscenes: PR #84 (`mesa-dev/cutscenes`, 72767e5, Actions verde, não testado no jogo). Cena `chegada_vila_calada` só por comando. Rede versão 7. Comando agora é `tocar <cena> <alvos>`.
 - Modelos: branch `mesa-modelador/martelo-faminto` (3b54fde), prévias Faminto A/B e Martelo V1/V2 em `previas-modelos/`. Aguardando escolha + resolução 16/32.
 
+- O Dobre: PR #83 (`mesa-dev/dobre`, fea9d9b, Actions verde, não testado no jogo). Item `odteste:martelo_do_ferreiro` (textura provisória). Comandos de teste em `docs/kit-do-mestre.md`/PR. **Atenção:** #83 e #84 sobem a rede para versão 7 e mexem em `Rede.java`: ao juntar, resolver o conflito e subir para 8.
+- Próximo passo combinado: juntar #80 + #83 + #84 + FX numa versão de teste única, Nikolas testa no PC (vídeo/prints) antes de ir ao servidor.
+
 ## Pendente do Nikolas
 - Olho na lua: significado A/B/C (Lore sugere B+C) e nome ("Lua Injetada" / "A Lua que Olha").
 - Baús da v2, mapa da pista 3, livro levado (recomendado: só baú da cova; mapa comum com X; volta pelo `preparar`).
