@@ -1,139 +1,168 @@
-# Graph Report - bal-tech  (2026-11-13)
+# Graph Report - od-cena  (2026-11-14)
 
 ## Corpus Check
-- 296 files · ~336,458 words
-- Verdict: corpus is large enough that graph structure adds value.
-- Unclassified: 25 file(s) not represented in the graph (top: .nbt 7, (none) 6, .bbmodel 5)
+- cluster-only mode — file stats not available
 
 ## Summary
-- 3353 nodes · 9854 edges · 146 communities (67 shown, 79 thin omitted)
-- Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 330 edges (avg confidence: 0.85)
+- 4401 nodes · 13069 edges · 183 communities (83 shown, 100 thin omitted)
+- Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 370 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `996b294e`
+- Built from commit: `88d3db35`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- net.minecraft.resources.ResourceLocation
-- Tela
+- list
+- EstadoGrupo
+- previa_sangue.py
 - Busca de Espaço
-- CenaCliente.java
+- PrimeiroSinal
 - Grupos de Jogadores
-- PrimeiroSinal.java
+- net.minecraft.world.level.Level
 - Ouvinte do Primeiro Sinal
 - Workflow de Compilação CI
-- Achados.java
+- PrimeiroSinal.java
 - Faixas de Lucidez
-- net.minecraft.world.entity.player.Player
-- net.minecraft.world.entity.LivingEntity
-- org.junit.jupiter.api.Test
-- Combate.java
-- net.minecraft.server.level.ServerPlayer
+- resourcelocation
+- vila_calada_150.py
+- net.minecraft.resources.ResourceLocation
+- net.minecraft.world.item.ItemStack
 - Investida de Ganchos
 - Sistema de Lucidez
 - Agenda de Horror
-- .sincronizar
-- EstadoGrupo
+- FxTela.java
+- gerar_marca_v2.py
+- PistasVilaCalada
 - Renderização da Marca
-- ClaimsFtbChunks.java
+- net.minecraft.server.level.ServerLevel
 - Alucinações no Cliente
 - OdMod.java
-- LivrosHistoria
-- vila_calada_150.py
+- RegrasRoteiroTest
+- Cenas
 - Tipos de Alucinação
-- net.minecraft.server.level.ServerLevel
-- ComandosHistoria.java
+- vila_calada_150_v2.py
+- RegrasHorror
 - Leitura do Mundo Real
-- CriaturaDeSangue.java
-- RegrasConteudoTest.java
-- net.minecraft.world.level.block.state.BlockState
+- .aoTick
+- RegrasCena
 - RegrasAto1Test
-- EsconderNoJei.java
+- .aoTick
 - Chuva de Filhotes
 - Padrão de Veias
-- net.minecraft.core.BlockPos
+- net.minecraft.world.entity.LivingEntity
 - Regras de Lucidez
-- EfeitosLucidez
+- DadosJogador
 - Comandos de Admin
 - Integrações com Mods
 - Limites de Valores
-- ruido
-- CriaturaDeSangue
+- gerar_png.py
+- ClimaVilaCalada
 - Marca de Sangue
-- net.minecraft.server.MinecraftServer
+- .lucidez
 - Testes de Regras de Elemento
-- modulos.py
-- net.minecraft.world.entity.Entity
-- math
+- net.minecraft.commands.CommandSourceStack
+- Caixa
+- Tipo
 - Tipos de Momento
-- .contato
+- Contencao
 - Testes de Consistência
-- RegrasClimaVila
+- Script Gradle Wrapper
+- BalanceamentoTechTest
 - Script Baixar Libs
 - Script Teste de Servidor
-- RegrasSinal
-- gerar_marca_v2.py
-- veias.py
-- retalhado.py
-- gerar_png.py
-- vila_destruida.py
-- Contencao
-- Estrutura
-- Combate.java
-- PistasVilaCalada
-- render.py
-- net.minecraft.nbt.CompoundTag
-- sombreado
-- os
+- Build Gradle
+- Settings Gradle
+- Pacote Cliente
+- Pacote Comandos
+- Pacote Criaturas
+- Pacote Dados
+- Pacote Elementos
+- Pacote Estruturas
+- Pacote História
+- Pacote Itens
+- Pacote Magias
+- Pacote Marcas
+- Pacote Rede
+- Pacote Rituais
+- Pacote Sistemas
 - gerar_sons.py
+- net.minecraft.world.entity.player.Player
+- RegrasLucidez
+- RegrasFxSangue
+- FxTela
 - nbt_io.py
-- .sortearDrop
+- Momento
+- Alucinacao
+- SanguessugaMae
+- AnimacaoJogador.java
+- net.minecraft.util.RandomSource
+- MagiaTalhoRubro.java
+- render3d.py
+- .de
+- .marcaQueAparece
+- net.minecraft.world.phys.Vec3
+- .tremor
+- Direcao
 - com.mojang.brigadier.context.CommandContext
-- tom
-- CenaCliente
-- RegrasAnalisadorTest
-- montagem.py
-- AnalisadorSinalEntidade
-- gerar_marca.py
-- previa_vila_calada_150.py
-- capela_fazenda.py
-- testar.py
+- FalhaMinimapa
+- sanguessuga_mae.py
+- MomentosCliente.java
+- SustoCliente
+- Integracao
 - Cena
-- Cenas
-- net.minecraft.client.player.AbstractClientPlayer
+- net.minecraft.client.player.LocalPlayer
+- CamadaHorrorCliente
+- RegrasAnalisadorTest
+- EspacoTest
+- RegrasArtefato
+- FxCorHorror
+- .marcaElemento
+- RegrasMestre
 - RegrasFonteVilaTest
 - Imagem
-- corpo.py
-- .pose
-- .de
+- ClaimsFtbChunks.java
+- MundoReal
+- RegrasTalhoRubro
 - Criatura
-- ConfigCliente
-- AnimacaoJogador.java
-- RegrasCenaTest
+- .ler
+- ProtecaoCena
+- Partes
+- Quadro
+- Fonte
 - comparacao.py
-- net.minecraft.commands.CommandSourceStack
-- .faces
-- .desenhar
+- LuzDaNoite.java
+- Obra
+- LivrosLidos
+- .checar
 - canal
 - blocos.py
 - RegrasCenaVilaTest
-- DadosAnalisadorTest
-- desenhar
+- Ritmo
+- TipoMomento
+- EsconderNoEmi.java
 - SomVento.java
+- ComandosFx
 - .colocacoes
-- ComandosLivros
-- main
-- _Pincel
-- CamadaMarca
-- Modo
-- TochaNaoProtege
+- EventoEnergia
+- ConsistenciaTest
+- FxCorHorror.java
+- .legenda
+- Momento
+- PararCena
+- TocarCena
+- TocarCinema
+- Repeticao
+- FonteHorror
+- .rodar
+- RegrasPrepararVilaTest
 - ComandosArtefato
-- .tremor
-- Ruido
 - BlocosCapelaIds.java
-- IdsGatilhos.java
+- MinimapaJourneyMap.java
+- MinimapaXaero.java
+- IdsMestre.java
+- baixar_libs.sh
 - comparar_criaturas_sangue.sh
 - criaturas_sangue.sh
 - gerar.sh script
@@ -144,323 +173,390 @@
 - marca_sangue.sh
 - marca_sangue_v2.sh
 - render_geckolib.sh script
+- teste_servidor.sh
 
 ## God Nodes (most connected - your core abstractions)
-1. `Elemento` - 78 edges
-2. `PrimeiroSinal` - 66 edges
-3. `tom()` - 53 edges
-4. `ruido()` - 52 edges
-5. `DadosJogador` - 49 edges
-6. `DadosHistoria` - 41 edges
-7. `OdMod` - 40 edges
-8. `Backup` - 40 edges
-9. `Estrutura` - 40 edges
+1. `PrimeiroSinal` - 66 edges
+2. `Elemento` - 64 edges
+3. `ruido()` - 63 edges
+4. `OdMod` - 62 edges
+5. `DadosJogador` - 59 edges
+6. `tom()` - 53 edges
+7. `Estrutura` - 42 edges
+8. `DadosHistoria` - 41 edges
+9. `Backup` - 40 edges
 10. `ComandosHistoria` - 38 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `TesteVila150` --uses--> `Estrutura`  [INFERRED]
-  ferramentas/estruturas/testar.py → ferramentas/estruturas/estrutura.py
 - `Image` --uses--> `Imagem`  [INFERRED]
   arte/marca-sangue/gerar_marca.py → arte/marca-sangue/imagem_simples.py
+- `Obra` --uses--> `Mistura`  [INFERRED]
+  ferramentas/estruturas/modelos/vila_calada_150_v2.py → ferramentas/estruturas/estrutura.py
 - `mat()` --calls--> `sombreado()`  [EXTRACTED]
   arte/previas/criaturas/fonte/sanguessuga_mae.py → arte/previas/criaturas/fonte/montagem.py
-- `Tentativa` --references--> `Backup`  [EXTRACTED]
-  src/main/java/com/nikolas/odteste/estruturas/Estruturas.java → src/main/java/com/nikolas/odteste/estruturas/Backup.java
-- `EfeitosLucidez` --references--> `Degrau`  [EXTRACTED]
-  src/main/java/com/nikolas/odteste/cliente/EfeitosLucidez.java → src/main/java/com/nikolas/odteste/sistemas/Degrau.java
+- `CenaCliente` --references--> `Cena`  [EXTRACTED]
+  src/main/java/com/nikolas/odteste/cliente/CenaCliente.java → src/main/java/com/nikolas/odteste/cenas/Cena.java
+- `RegrasCenaTest` --references--> `Cena`  [EXTRACTED]
+  src/test/java/com/nikolas/odteste/cenas/RegrasCenaTest.java → src/main/java/com/nikolas/odteste/cenas/Cena.java
 
 ## Import Cycles
+- 2-file cycle: `ferramentas/estruturas/modelos/__init__.py -> ferramentas/estruturas/modelos/vila_calada_150_v2.py -> ferramentas/estruturas/modelos/__init__.py`
 - 2-file cycle: `ferramentas/estruturas/modelos/__init__.py -> ferramentas/estruturas/modelos/vila_calada_150.py -> ferramentas/estruturas/modelos/__init__.py`
+- 3-file cycle: `ferramentas/estruturas/modelos/__init__.py -> ferramentas/estruturas/modelos/vila_calada_150_v2.py -> ferramentas/estruturas/modelos/vila_calada_150.py -> ferramentas/estruturas/modelos/__init__.py`
 
-## Communities (146 total, 79 thin omitted)
+## Communities (183 total, 100 thin omitted)
 
-### Community 0 - "net.minecraft.resources.ResourceLocation"
-Cohesion: 0.15
-Nodes (3): Resultado, Estruturas, Tentativa
+### Community 1 - "EstadoGrupo"
+Cohesion: 0.05
+Nodes (14): ConfigEstruturas, ConfigGatilhos, DadosGatilhos, EstadoGrupo, Gatilhos, Acao, AVISAR_ADMIN, NADA (+6 more)
 
-### Community 1 - "Tela"
-Cohesion: 0.19
-Nodes (3): Envelope, Pulso, Tela
+### Community 2 - "previa_sangue.py"
+Cohesion: 0.06
+Nodes (26): ImageDraw, CenaDia, CenaVila, forca_visual(), lado_a_lado(), main(), Previa, batida() (+18 more)
 
 ### Community 3 - "Busca de Espaço"
+Cohesion: 0.06
+Nodes (5): RitualChamadoDeSangue, IdsDados, Sangramento, Exposicao, Lucidez
+
+### Community 4 - "PrimeiroSinal"
 Cohesion: 0.07
-Nodes (18): Caixa, Chao, Espaco, Mundo, Tipo, AR, COM_DADOS, FORA_DO_MUNDO (+10 more)
+Nodes (6): DadosHistoria, Ouvinte, PrimeiroSinal, Resposta, Som, VilaMarcada
 
 ### Community 5 - "Grupos de Jogadores"
-Cohesion: 0.12
-Nodes (3): Grupo, Grupos, GruposTest
+Cohesion: 0.05
+Nodes (7): RegrasExposicao, Resultado, RegrasAchadosTest, DadosAnalisadorTest, ElementoTest, RegrasConteudoTest, RegrasTest
+
+### Community 6 - "net.minecraft.world.level.Level"
+Cohesion: 0.06
+Nodes (3): Criaturas, Paranormal, RegrasCombate
 
 ### Community 7 - "Ouvinte do Primeiro Sinal"
-Cohesion: 0.08
-Nodes (4): DadosHistoria, PrimeiroSinal, Resposta, VilaMarcada
+Cohesion: 0.05
+Nodes (7): Aparelhos, BlocosCapela, Freio, IronsCompat, OccultismCompat, Itens, Registro
 
 ### Community 8 - "Workflow de Compilação CI"
-Cohesion: 0.06
-Nodes (39): outputs, runs-on, steps, timeout-minutes, concurrency, cancel-in-progress, group, jobs (+31 more)
+Cohesion: 0.07
+Nodes (35): hash01(), c(), gerar(), main(), _salvar(), main(), recorte(), salvar() (+27 more)
 
-### Community 9 - "Achados.java"
-Cohesion: 0.05
-Nodes (8): Aparelhos, BlocosCapela, Freio, OccultismCompat, Sangramento, Itens, Registro, Paranormal
+### Community 9 - "PrimeiroSinal.java"
+Cohesion: 0.04
+Nodes (4): BrilhoLodestone, IdsGatilhos, PecaDeTraje, IdsMagia
 
 ### Community 10 - "Faixas de Lucidez"
-Cohesion: 0.08
-Nodes (14): Degrau, A_BEIRA, ATRAVESSADO, COMUM, FUNDO, MARCADO, TOCADO, FaixaLucidez (+6 more)
+Cohesion: 0.07
+Nodes (38): capela(), parede(), casa(), parede(), construir(), desgaste(), exterior(), passagem() (+30 more)
 
-### Community 12 - "net.minecraft.world.entity.LivingEntity"
-Cohesion: 0.11
-Nodes (3): CuriosCompat, DedalDentado, Rubra
-
-### Community 13 - "org.junit.jupiter.api.Test"
-Cohesion: 0.05
-Nodes (7): RegrasExposicao, Resultado, LimitesTest, ElementoTest, RegrasVilaCaladaTest, RegrasConteudoTest, RegrasTest
-
-### Community 15 - "net.minecraft.server.level.ServerPlayer"
-Cohesion: 0.05
-Nodes (24): RitualChamadoDeSangue, Elemento, CONHECIMENTO, ENERGIA, MORTE, NENHUM, SANGUE, AgulhaDeCerzir (+16 more)
-
-### Community 18 - "Agenda de Horror"
-Cohesion: 0.11
-Nodes (4): Agenda, RegrasHorror, Sorteio, RegrasHorrorTest
-
-### Community 20 - "EstadoGrupo"
-Cohesion: 0.06
-Nodes (13): ConfigGatilhos, DadosGatilhos, EstadoGrupo, Gatilhos, Acao, AVISAR_ADMIN, NADA, SOLTAR_PRIMEIRO_SINAL (+5 more)
-
-### Community 24 - "Alucinações no Cliente"
+### Community 11 - "resourcelocation"
 Cohesion: 0.09
-Nodes (3): Alucinacoes, Figura, Porta
+Nodes (8): IdsCena, IdsHorror, AreaHorror, EfeitoFx, FaseMagia, MarcaVisivel, SincronizarJogador, Susto
 
-### Community 25 - "OdMod.java"
-Cohesion: 0.05
-Nodes (10): OdModCliente, Compat, EsconderNoEmi, IdsDados, OdMod, ClimaVila, MarcaVisivel, Momento (+2 more)
-
-### Community 26 - "LivrosHistoria"
-Cohesion: 0.05
-Nodes (11): LeitorLivros, Livro, Pagina, Trecho, LivrosHistoria, SimpleJsonResourceReloadListener, LivrosLidos, Pedaco (+3 more)
-
-### Community 27 - "vila_calada_150.py"
+### Community 12 - "vila_calada_150.py"
 Cohesion: 0.09
 Nodes (40): arvore_morta(), arvores_mortas(), caminho(), caminho_dos_enterros(), campos(), carroca(), cemiterio(), cerca() (+32 more)
 
-### Community 28 - "Tipos de Alucinação"
-Cohesion: 0.12
-Nodes (15): Alucinacao, CISCO, CORACAO, ESCURECER, ESTALO, INCLINAR, MOB_FALSO, NOME (+7 more)
+### Community 14 - "net.minecraft.resources.ResourceLocation"
+Cohesion: 0.06
+Nodes (4): Leitor, CamadaMarca, ModeloCriatura, EsconderNoJei
 
-### Community 32 - "CriaturaDeSangue.java"
-Cohesion: 0.05
-Nodes (3): Ronda, ConteudoCliente, Criaturas
-
-### Community 33 - "RegrasConteudoTest.java"
-Cohesion: 0.07
-Nodes (12): RegrasCriaturas, RegrasSangramento, Bloqueio, COMPARTILHADA, LIVRE, RECARGA, SEM_LUCIDEZ, Raridade (+4 more)
-
-### Community 34 - "net.minecraft.world.level.block.state.BlockState"
+### Community 15 - "net.minecraft.world.item.ItemStack"
 Cohesion: 0.08
-Nodes (4): AnalisadorSinalBloco, PocaDeSangue, VelaDaCapela, VelaDaCapelaDados
+Nodes (10): LeitorLivros, Livro, Pagina, Trecho, LivrosHistoria, SimpleJsonResourceReloadListener, Pedaco, RegrasLivros (+2 more)
+
+### Community 16 - "Investida de Ganchos"
+Cohesion: 0.06
+Nodes (8): Estrutura, nome_completo(), _texto(), construida(), TesteModelos, TesteNBT, TesteVila150, TesteVila150V2
+
+### Community 17 - "Sistema de Lucidez"
+Cohesion: 0.07
+Nodes (28): Animacao, _avaliar(), Camera, centro_para(), _chaves(), _ease(), escala_m(), faixa_titulo() (+20 more)
+
+### Community 18 - "Agenda de Horror"
+Cohesion: 0.08
+Nodes (36): ruido(), arvore(), arvores_queimadas(), campanario(), campos(), capela(), casa(), casas() (+28 more)
+
+### Community 19 - "FxTela.java"
+Cohesion: 0.05
+Nodes (4): ConteudoCliente, OdModCliente, Compat, ClimaVila
+
+### Community 20 - "gerar_marca_v2.py"
+Cohesion: 0.09
+Nodes (30): _caixa(), corpo(), faces(), mapa(), render(), _rot(), skin_teste(), skins_teste() (+22 more)
+
+### Community 21 - "PistasVilaCalada"
+Cohesion: 0.09
+Nodes (4): Estado, PistasVilaCalada, RegrasVilaCalada, RegrasVilaCaladaTest
+
+### Community 22 - "Renderização da Marca"
+Cohesion: 0.08
+Nodes (4): ClimaVilaCliente, Pendurado, RegrasClimaVila, RegrasClimaVilaTest
+
+### Community 23 - "net.minecraft.server.level.ServerLevel"
+Cohesion: 0.08
+Nodes (11): FonteDeSinal, Fonte, FontesFixas, FonteVilaCalada, Resultado, CHEIO, NOME_INVALIDO, OK (+3 more)
+
+### Community 24 - "Alucinações no Cliente"
+Cohesion: 0.09
+Nodes (5): VelaDaCapelaDados, Porta, Backup, Restauracao, SinaisNoMundo
+
+### Community 25 - "OdMod.java"
+Cohesion: 0.08
+Nodes (4): CenaEntradaVila, DadosVilaCalada, OdMod, RegrasSinal
+
+### Community 26 - "RegrasRoteiroTest"
+Cohesion: 0.11
+Nodes (7): Ancora, ChaveMundo, Olhos, Pose, RegrasRoteiro, Veu, RegrasRoteiroTest
+
+### Community 27 - "Cenas"
+Cohesion: 0.08
+Nodes (10): Ancora, Cenas, Cinema, Resultado, DESCONHECIDA, NAO_PODE, SEM_LUGAR, TOCOU (+2 more)
+
+### Community 28 - "Tipos de Alucinação"
+Cohesion: 0.09
+Nodes (18): faixa(), topo(), amostrar(), _c(), coracao(), corpo_veia(), costura(), _desdobrar() (+10 more)
+
+### Community 29 - "vila_calada_150_v2.py"
+Cohesion: 0.11
+Nodes (30): aberto(), adro(), arvore_morta(), caixas_viradas(), carroca_virada(), casas(), chao(), chao_y() (+22 more)
+
+### Community 30 - "RegrasHorror"
+Cohesion: 0.10
+Nodes (4): Agenda, RegrasHorror, Sorteio, RegrasHorrorTest
+
+### Community 31 - "Leitura do Mundo Real"
+Cohesion: 0.07
+Nodes (8): Area, CamadaHorror, AgulhaDeCerzir, Artefato, DedalDentado, SinoDeMatadouro, Magias, MarcaSangue
+
+### Community 32 - ".aoTick"
+Cohesion: 0.10
+Nodes (10): Diario, RegrasSusto, Sorteio, TipoSusto, LUZ, PASSOS, PORTA, SILENCIO (+2 more)
+
+### Community 33 - "RegrasCena"
+Cohesion: 0.08
+Nodes (9): Local, Modo, COMPLETO, SEM_BALANCO, SO_TEXTO, Pose, Quadro, RegrasCena (+1 more)
 
 ### Community 35 - "RegrasAto1Test"
 Cohesion: 0.08
-Nodes (11): Morse, Sequencia, Toque, Ouvinte, Fonte, NOTA, SINO, RegrasAto1 (+3 more)
+Nodes (9): Morse, Sequencia, Toque, Fonte, NOTA, SINO, RegrasAto1, MorseTest (+1 more)
+
+### Community 36 - ".aoTick"
+Cohesion: 0.09
+Nodes (14): Degrau, A_BEIRA, ATRAVESSADO, COMUM, FUNDO, MARCADO, TOCADO, FaixaLucidez (+6 more)
+
+### Community 37 - "Chuva de Filhotes"
+Cohesion: 0.06
+Nodes (39): outputs, runs-on, steps, timeout-minutes, concurrency, cancel-in-progress, group, jobs (+31 more)
 
 ### Community 38 - "Padrão de Veias"
-Cohesion: 0.23
-Nodes (3): PadraoVeias, Regiao, PadraoVeiasTest
-
-### Community 39 - "net.minecraft.core.BlockPos"
 Cohesion: 0.09
-Nodes (12): FonteDeSinal, Fonte, FontesFixas, FonteVilaCalada, Resultado, CHEIO, NOME_INVALIDO, OK (+4 more)
+Nodes (21): ampliar_molde(), caixa(), corpo(), crescer(), desenhar(), fluxo(), fonte(), Image (+13 more)
+
+### Community 39 - "net.minecraft.world.entity.LivingEntity"
+Cohesion: 0.09
+Nodes (6): CuriosCompat, Rubra, AplicarDano, Esperando, TalhoRubro, Combate
 
 ### Community 40 - "Regras de Lucidez"
-Cohesion: 0.10
-Nodes (4): RegrasCapela, Acumulo, RegrasLucidez, RegrasCapelaTest
+Cohesion: 0.16
+Nodes (31): cor(), costura_h(), patchwork(), eh_costura(), p(), regiao(), sementes(), tom() (+23 more)
 
 ### Community 43 - "Integrações com Mods"
-Cohesion: 0.12
-Nodes (14): Integracao, BOTANIA, CREATE, CURIOS, EMI, FTB_CHUNKS, IRONS, JEI (+6 more)
-
-### Community 45 - "ruido"
-Cohesion: 0.08
-Nodes (35): ruido(), c(), arvore(), arvores_queimadas(), campanario(), campos(), casa(), casas() (+27 more)
-
-### Community 48 - "net.minecraft.server.MinecraftServer"
-Cohesion: 0.34
-Nodes (3): Colocacao, EmPartes, Memoria
-
-### Community 49 - "Testes de Regras de Elemento"
-Cohesion: 0.11
-Nodes (3): RegrasElemento, RegrasMarca, RegrasElementoTest
-
-### Community 50 - "modulos.py"
-Cohesion: 0.09
-Nodes (31): capela(), casa(), parede(), desgaste(), casa_do_coveiro(), capela(), desgaste(), igreja() (+23 more)
-
-### Community 52 - "math"
-Cohesion: 0.09
-Nodes (25): _rot(), Animacao, _avaliar(), Camera, centro_para(), _chaves(), _ease(), escala_m() (+17 more)
-
-### Community 53 - "Tipos de Momento"
-Cohesion: 0.20
-Nodes (7): Momentos, TipoMomento, DEGRAU, MARCA_APARECEU, MARCA_SUBIU, MARCA_TROCOU, SURTO
-
-### Community 57 - "RegrasClimaVila"
-Cohesion: 0.06
-Nodes (6): ClimaVilaCliente, Pendurado, ClimaVilaCalada, Enviado, RegrasClimaVila, RegrasClimaVilaTest
-
-### Community 75 - "RegrasSinal"
-Cohesion: 0.07
-Nodes (16): Direcao, DIREITA, ESQUERDA, FRENTE, FRENTE_DIREITA, FRENTE_ESQUERDA, TRAS, TRAS_DIREITA (+8 more)
-
-### Community 76 - "gerar_marca_v2.py"
-Cohesion: 0.12
-Nodes (22): render(), carregar_v1(), folha_antes_depois(), folha_comparacao_hd(), folha_ferida(), folha_geral(), folha_zoom(), gif_brilho() (+14 more)
-
-### Community 77 - "veias.py"
-Cohesion: 0.08
-Nodes (16): amostrar(), _c(), coracao(), corpo_veia(), costura(), _desdobrar(), F(), ferida() (+8 more)
-
-### Community 78 - "retalhado.py"
 Cohesion: 0.13
-Nodes (30): cor(), costura_h(), patchwork(), eh_costura(), p(), regiao(), sementes(), bico_gancho() (+22 more)
+Nodes (3): Grupo, Grupos, GruposTest
 
-### Community 79 - "gerar_png.py"
+### Community 44 - "Limites de Valores"
+Cohesion: 0.11
+Nodes (24): Mistura, arvores_queimadas(), casa(), casa_do_livro(), casas(), chao(), chao_queimado(), cinzas() (+16 more)
+
+### Community 45 - "gerar_png.py"
 Cohesion: 0.12
 Nodes (26): afim(), amostra(), compor(), cor(), cruz(), cruzar(), cubos_no_mundo(), andar() (+18 more)
 
-### Community 80 - "vila_destruida.py"
+### Community 46 - "ClimaVilaCalada"
 Cohesion: 0.11
-Nodes (22): Mistura, arvores_queimadas(), casa(), casa_do_livro(), casas(), chao(), chao_queimado(), cinzas() (+14 more)
+Nodes (3): ClimaVilaCalada, Enviado, VilaMorta
 
-### Community 83 - "Combate.java"
-Cohesion: 0.12
-Nodes (6): Raridade, CHEFE, COMUM, RARA, RegrasCombate, RegrasCombateTest
-
-### Community 84 - "PistasVilaCalada"
-Cohesion: 0.11
-Nodes (4): DadosVilaCalada, Estado, PistasVilaCalada, RegrasVilaCalada
-
-### Community 85 - "render.py"
-Cohesion: 0.14
-Nodes (14): hash01(), _amostrador(), cor_px(), _clamp(), _face(), _girar(), _girar_dir(), _girar_props() (+6 more)
-
-### Community 86 - "net.minecraft.nbt.CompoundTag"
+### Community 47 - "Marca de Sangue"
 Cohesion: 0.09
-Nodes (7): Fase, COLOCANDO, CONFERINDO, DESFAZENDO, PAUSADA, PRONTA, Partes
+Nodes (7): CansacoDoElemento, Destino, CONTA, TIRA, RegrasCansaco, Cansaco, RegrasMateriaTest
 
-### Community 87 - "sombreado"
+### Community 48 - ".lucidez"
+Cohesion: 0.12
+Nodes (8): Resultado, CONJUROU, DESCONHECIDA, OCUPADO, RECARGA, SEM_LUCIDEZ, Estado, Vigia
+
+### Community 51 - "Caixa"
+Cohesion: 0.20
+Nodes (3): Caixa, Fatias, FatiasTest
+
+### Community 52 - "Tipo"
+Cohesion: 0.10
+Nodes (14): Chao, Espaco, Mundo, Resultado, Tipo, AR, COM_DADOS, FORA_DO_MUNDO (+6 more)
+
+### Community 58 - "Script Baixar Libs"
+Cohesion: 0.18
+Nodes (9): Fim, BLOQUEADO, DONO, JA, LONGE, POSTO, PrepararVilaCalada, Peca (+1 more)
+
+### Community 60 - "Build Gradle"
+Cohesion: 0.24
+Nodes (4): Colocacao, Acesso, EmPartes, Memoria
+
+### Community 62 - "Pacote Cliente"
+Cohesion: 0.09
+Nodes (6): RegrasCriaturas, Raridade, CHEFE, COMUM, RARA, RegrasCombateTest
+
+### Community 65 - "Pacote Dados"
+Cohesion: 0.11
+Nodes (7): AnalisadorSinalEntidade, BateriaAparelho, Intensidade, FORTE, FRACA, MEDIA, NENHUMA
+
+### Community 66 - "Pacote Elementos"
+Cohesion: 0.10
+Nodes (18): Chave, Curva, CATMULL, CORTE, LINEAR, Evento, Fade, Fx (+10 more)
+
+### Community 67 - "Pacote Estruturas"
+Cohesion: 0.10
+Nodes (7): Elemento, CONHECIMENTO, ENERGIA, MORTE, NENHUM, SANGUE, RegrasElemento
+
+### Community 68 - "Pacote História"
+Cohesion: 0.13
+Nodes (5): ComandosAdmin, Abalo, APARICAO, BATALHA_RELIQUIA, MOB_SANGUE
+
+### Community 69 - "Pacote Itens"
+Cohesion: 0.09
+Nodes (12): Canto, AUTOMATICO, BAIXO_DIREITA, BAIXO_ESQUERDA, CIMA_DIREITA, CIMA_ESQUERDA, NENHUM, ConfigCliente (+4 more)
+
+### Community 70 - "Pacote Magias"
+Cohesion: 0.12
+Nodes (3): Achados, RegrasAchados, Ronda
+
+### Community 72 - "Pacote Rede"
+Cohesion: 0.13
+Nodes (4): FxGravar, Ativo, FxSangue, Uniforms
+
+### Community 73 - "Pacote Rituais"
+Cohesion: 0.15
+Nodes (14): ampliar(), gerar(), main(), arquivo_animacoes(), bbmodel(), grupo(), clamp(), costura_v() (+6 more)
+
+### Community 74 - "Pacote Sistemas"
 Cohesion: 0.21
 Nodes (21): _aba(), aba_pintor(), aba_pintor2(), antebraco(), avental(), bota(), calca(), camisa() (+13 more)
 
-### Community 88 - "os"
-Cohesion: 0.17
-Nodes (11): gerar(), main(), _salvar(), main(), recorte(), salvar(), main(), salvar() (+3 more)
-
-### Community 89 - "gerar_sons.py"
+### Community 75 - "gerar_sons.py"
 Cohesion: 0.14
 Nodes (10): arrasto(), Biquad, eco(), envelope_bordas(), gravar_wav(), main(), normalizar(), para_ogg() (+2 more)
 
-### Community 90 - "nbt_io.py"
+### Community 78 - "RegrasLucidez"
+Cohesion: 0.10
+Nodes (4): RegrasCapela, Acumulo, RegrasLucidez, RegrasCapelaTest
+
+### Community 81 - "nbt_io.py"
 Cohesion: 0.14
 Nodes (13): Byte, Double, _escrever(), Float, Int, _Leitor, ler(), Lista (+5 more)
 
-### Community 91 - ".sortearDrop"
+### Community 82 - "Momento"
+Cohesion: 0.13
+Nodes (5): Momento, AREA_DIA, MUNDO, NADA, NOITE
+
+### Community 83 - "Alucinacao"
+Cohesion: 0.12
+Nodes (15): Alucinacao, CISCO, CORACAO, ESCURECER, ESTALO, INCLINAR, MOB_FALSO, NOME (+7 more)
+
+### Community 88 - "render3d.py"
+Cohesion: 0.14
+Nodes (7): Atlas, _cantos(), Cena, _olhar(), _orto(), _perspectiva(), _uv()
+
+### Community 90 - ".marcaQueAparece"
+Cohesion: 0.13
+Nodes (3): RegrasSangramento, RegrasMarca, RegrasElementoTest
+
+### Community 91 - "net.minecraft.world.phys.Vec3"
+Cohesion: 0.21
+Nodes (3): Gota, MagiaCliente, Mancha
+
+### Community 92 - ".tremor"
+Cohesion: 0.15
+Nodes (3): Envelope, Pulso, Tela
+
+### Community 93 - "Direcao"
 Cohesion: 0.11
-Nodes (3): Achados, RegrasAchados, RegrasAchadosTest
+Nodes (10): Direcao, DIREITA, ESQUERDA, FRENTE, FRENTE_DIREITA, FRENTE_ESQUERDA, TRAS, TRAS_DIREITA (+2 more)
 
-### Community 93 - "tom"
-Cohesion: 0.24
-Nodes (18): tom(), barriga(), cabeca_larva(), canela_pintor(), casco(), cauda_larva(), coxa_pintor(), cume() (+10 more)
+### Community 95 - "FalhaMinimapa"
+Cohesion: 0.14
+Nodes (3): FonteHorror, FalhaMinimapa, Mapa
 
-### Community 97 - "montagem.py"
+### Community 96 - "sanguessuga_mae.py"
 Cohesion: 0.19
-Nodes (12): ampliar(), gerar(), main(), arquivo_animacoes(), bbmodel(), grupo(), clamp(), costura_v() (+4 more)
+Nodes (17): barriga(), cabeca_larva(), canela_pintor(), casco(), cauda_larva(), coxa_pintor(), cume(), dente() (+9 more)
 
-### Community 99 - "gerar_marca.py"
-Cohesion: 0.22
-Nodes (11): caixa(), corpo(), crescer(), mapa(), ponto(), regiao_de(), regioes(), render() (+3 more)
+### Community 99 - "Integracao"
+Cohesion: 0.10
+Nodes (18): Integracao, BOTANIA, CREATE, CURIOS, EMI, FTB_CHUNKS, IRIS, IRONS (+10 more)
 
-### Community 100 - "previa_vila_calada_150.py"
+### Community 100 - "Cena"
 Cohesion: 0.16
-Nodes (9): nome_completo(), _texto(), com_chao_do_mundo(), conferir_centro(), main(), recortar(), salvar_nbt(), salvar_png() (+1 more)
-
-### Community 101 - "capela_fazenda.py"
-Cohesion: 0.15
-Nodes (11): parede(), construir(), exterior(), passagem(), pistas(), reboco(), sangue(), mancha() (+3 more)
-
-### Community 102 - "testar.py"
-Cohesion: 0.15
-Nodes (3): construida(), TesteModelos, TesteVila150
-
-### Community 103 - "Cena"
-Cohesion: 0.18
 Nodes (5): Cena, Plano, Ponto, Som, CenasConhecidas
 
-### Community 104 - "Cenas"
-Cohesion: 0.16
-Nodes (3): Ancora, Cenas, CenaEntradaVila
+### Community 105 - "RegrasArtefato"
+Cohesion: 0.13
+Nodes (10): Bloqueio, COMPARTILHADA, LIVRE, RECARGA, SEM_LUCIDEZ, Raridade, COMUM, INCOMUM (+2 more)
 
-### Community 108 - "corpo.py"
+### Community 112 - "ClaimsFtbChunks.java"
 Cohesion: 0.19
-Nodes (9): _caixa(), corpo(), faces(), faixa(), mapa(), skin_teste(), skins_teste(), topo() (+1 more)
+Nodes (3): ClaimsFtbChunks, PackIris, Protecao
 
-### Community 109 - ".pose"
-Cohesion: 0.20
-Nodes (4): Local, Pose, Quadro, RegrasCena
-
-### Community 111 - "Criatura"
+### Community 115 - "Criatura"
 Cohesion: 0.16
 Nodes (3): Criatura, Cubo, Osso
 
-### Community 119 - "comparacao.py"
+### Community 118 - "Partes"
+Cohesion: 0.19
+Nodes (7): Fase, COLOCANDO, CONFERINDO, DESFAZENDO, PAUSADA, PRONTA, Partes
+
+### Community 120 - "Fonte"
+Cohesion: 0.17
+Nodes (9): Fonte, APARICAO, CRIATURA_LUTA, CRIATURA_MORTA, CRIATURA_VISTA, DIMENSAO, RELIQUIA_PEGAR, RELIQUIA_USAR (+1 more)
+
+### Community 121 - "comparacao.py"
 Cohesion: 0.33
 Nodes (5): carregar(), colunas(), folha(), main(), textura_provisoria()
 
-### Community 121 - ".faces"
-Cohesion: 0.24
-Nodes (4): Modelo, visitar(), _retangulos_box_uv(), trans()
-
-### Community 123 - "canal"
+### Community 126 - "canal"
 Cohesion: 0.27
 Nodes (7): anims(), animacao(), canal(), anims(), lubdub(), anims(), wiggle()
 
-### Community 124 - "blocos.py"
+### Community 127 - "blocos.py"
 Cohesion: 0.31
 Nodes (5): cheio(), curto(), formas(), material(), _verdade()
 
-### Community 128 - "desenhar"
-Cohesion: 0.25
-Nodes (3): desenhar(), fluxo(), profundidade_ponta()
-
-### Community 134 - "main"
-Cohesion: 0.47
-Nodes (5): ampliar_molde(), fonte(), Image, main(), skin_teste()
-
-### Community 138 - "Modo"
+### Community 129 - "Ritmo"
 Cohesion: 0.22
-Nodes (4): Modo, COMPLETO, SEM_BALANCO, SO_TEXTO
+Nodes (5): Ritmo, ENTRA, LINEAR, SAI, SUAVE
 
-### Community 142 - ".tremor"
-Cohesion: 0.14
-Nodes (5): ConfigCliente, Forca, DESLIGADO, LIGADO, SUAVE
+### Community 130 - "TipoMomento"
+Cohesion: 0.22
+Nodes (6): TipoMomento, DEGRAU, MARCA_APARECEU, MARCA_SUBIU, MARCA_TROCOU, SURTO
+
+### Community 135 - "EventoEnergia"
+Cohesion: 0.25
+Nodes (4): EventoEnergia, APAGAO, CASA_OCUPADA, FOME_DA_LINHA
 
 ## Knowledge Gaps
-- **108 isolated node(s):** `IRONS`, `OCCULTISM`, `MALUM`, `VAMPIRISM`, `BOTANIA` (+103 more)
-  These have ≤1 connection - possible missing edges. (Counts symbols only; 752 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **79 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **157 isolated node(s):** `AVISAR_ADMIN`, `NADA`, `SOLTAR_PRIMEIRO_SINAL`, `COMPARTILHADA`, `LIVRE` (+152 more)
+  These have ≤1 connection - possible missing edges. (Counts symbols only; 964 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **100 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Elemento` connect `net.minecraft.server.level.ServerPlayer` to `CriaturaDeSangue.java`, `assertequals`, `CenaCliente.java`, `PrimeiroSinal.java`, `net.minecraft.client.player.AbstractClientPlayer`, `net.minecraft.world.entity.player.Player`, `Limites de Valores`, `org.junit.jupiter.api.Test`, `Testes de Regras de Elemento`, `.sincronizar`, `Tipos de Momento`, `.contato`, `OdMod.java`, `ComandosHistoria.java`?**
-  _High betweenness centrality (0.051) - this node is a cross-community bridge._
-- **What connects `IRONS`, `OCCULTISM`, `MALUM` to the rest of the system?**
-  _108 weakly-connected nodes found - possible missing edges._
-- **Should `net.minecraft.resources.ResourceLocation` be split into smaller, more focused modules?**
-  _Cohesion score 0.14709851551956815 - nodes in this community are weakly interconnected._
+- **Why does `Elemento` connect `Pacote Estruturas` to `list`, `MomentosCliente.java`, `Busca de Espaço`, `Pacote Marcas`, `DadosJogador`, `RegrasArtefato`, `resourcelocation`, `.marcaElemento`, `net.minecraft.world.entity.player.Player`, `assertequals`, `.marcaQueAparece`, `Script Teste de Servidor`, `Leitura do Mundo Real`?**
+  _High betweenness centrality (0.027) - this node is a cross-community bridge._
+- **What connects `AVISAR_ADMIN`, `NADA`, `SOLTAR_PRIMEIRO_SINAL` to the rest of the system?**
+  _157 weakly-connected nodes found - possible missing edges._
+- **Should `list` be split into smaller, more focused modules?**
+  _Cohesion score 0.0824561403508772 - nodes in this community are weakly interconnected._
 - **Why does `Lista` connect `nbt_io.py` to `list`?**
-  _High betweenness centrality (0.037) - this node is a cross-community bridge._
-- **Should `assertequals` be split into smaller, more focused modules?**
-  _Cohesion score 0.14285714285714285 - nodes in this community are weakly interconnected._
-- **Why does `Degrau` connect `Faixas de Lucidez` to `RegrasAto1Test`, `CenaCliente.java`, `PrimeiroSinal.java`, `EfeitosLucidez`, `OdMod.java`, `Tipos de Alucinação`, `ComandosHistoria.java`?**
-  _High betweenness centrality (0.023) - this node is a cross-community bridge._
-- **Should `Busca de Espaço` be split into smaller, more focused modules?**
-  _Cohesion score 0.0735930735930736 - nodes in this community are weakly interconnected._
+  _High betweenness centrality (0.026) - this node is a cross-community bridge._
+- **Should `EstadoGrupo` be split into smaller, more focused modules?**
+  _Cohesion score 0.051685393258426963 - nodes in this community are weakly interconnected._
+- **Why does `BalanceamentoTechTest` connect `BalanceamentoTechTest` to `assertequals`?**
+  _High betweenness centrality (0.017) - this node is a cross-community bridge._
+- **Should `previa_sangue.py` be split into smaller, more focused modules?**
+  _Cohesion score 0.05516431924882629 - nodes in this community are weakly interconnected._

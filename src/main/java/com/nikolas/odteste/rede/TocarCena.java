@@ -17,8 +17,10 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  * @param cena id da cena ({@code cenas/CenasConhecidas}); id que o cliente não conhece é ignorado
  * @param x    âncora no mundo
  * @param giro para onde a âncora "olha" (graus, jeito do Minecraft: 0 = sul)
+ * @param pular pode pular segurando o pulo (config {@code mestre.pular_cenas})
  */
-public record TocarCena(String cena, double x, double y, double z, float giro) implements CustomPacketPayload {
+public record TocarCena(String cena, double x, double y, double z, float giro, boolean pular)
+        implements CustomPacketPayload {
 
     public static final Type<TocarCena> TIPO =
             new Type<>(ResourceLocation.fromNamespaceAndPath(OdMod.MODID, IdsCena.PACOTE_TOCAR));
@@ -29,6 +31,7 @@ public record TocarCena(String cena, double x, double y, double z, float giro) i
             ByteBufCodecs.DOUBLE, TocarCena::y,
             ByteBufCodecs.DOUBLE, TocarCena::z,
             ByteBufCodecs.FLOAT, TocarCena::giro,
+            ByteBufCodecs.BOOL, TocarCena::pular,
             TocarCena::new);
 
     /** Quem toca no cliente. O código de cliente troca isto ao carregar; no servidor fica o padrão (nada). */

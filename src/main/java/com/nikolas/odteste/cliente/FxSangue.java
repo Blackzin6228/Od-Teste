@@ -311,6 +311,15 @@ final class FxSangue {
     // ---------------------------------------------------------------- comando /odfx
 
     static void receber(EfeitoFx m) {
+        tocar(m, true);
+    }
+
+    /** Liga o efeito por uma cena (sem a mensagem do /odfx). */
+    static void tocarNaCena(String efeito, int segundos) {
+        tocar(new EfeitoFx(efeito, segundos, false), false);
+    }
+
+    private static void tocar(EfeitoFx m, boolean avisar) {
         Minecraft mc = Minecraft.getInstance();
         LocalPlayer p = mc.player;
         if (p == null || !RegrasFxSangue.conhecido(m.efeito())) return;
@@ -329,6 +338,7 @@ final class FxSangue {
         if (m.gravar()) {
             FxGravar.comecar(e, relogio, Math.min(ticks, RegrasFxSangue.GRAVAR_MAXIMO));
         }
+        if (!avisar) return;
         if (FxTela.quebrado("odfx_" + e)) {
             p.displayClientMessage(Component.translatable("odteste.fx.quebrado", e), false);
         } else {

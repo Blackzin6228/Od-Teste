@@ -34,6 +34,11 @@ Sem canto, o mod acha sozinho pelo sino rachado perto da âncora.
 você estiver ouvindo, também vê) · `/odteste vila_calada tocar <jogadores>` (sino rachado agora) ·
 `/odteste vila_calada ver` · `/odteste evento retrancar <grupo>`.
 
+**Cenas de câmera (14/11).** `/odteste cena tocar <cena> <alvos>` (ex.: `/odteste cena tocar chegada_vila_calada @a[distance=..40]`),
+`/odteste cena parar <alvos>`, `/odteste cena lista`. Quem vê a cena fica parado e sem tomar dano até ela acabar.
+Em espectador com o ouvir ligado, você vê junto. Para não deixar pular: `pular_cenas = false` na config do mestre.
+A `chegada_vila_calada` precisa do grupo a até 96 blocos do sino rachado (senão toca onde cada um está).
+
 **Ritmo (números, 14/11).** O sino rachado toca de noite a cada 2 a 4 minutos, o primeiro de cada noite
 5 a 30 s depois de escurecer. Se o grupo escrever FERRO de noite, o sino rachado responde em até 15 s.
 Depois do FERRO, os aldeões parados da vila comum deixam de olhar o sino e viram todos para a Vila Calada
