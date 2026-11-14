@@ -8,7 +8,10 @@ float od_suave(float u) {
     return u * u * (3.0 - 2.0 * u);
 }
 
+// Com coordenada de mundo grande (x 4000) o float perde casas e o hash vira padrão repetido (listras).
+// Por isso a entrada volta para 0..289 antes (igual para valores pequenos; o ruído repete a cada 289 células).
 float od_hash(vec2 p) {
+    p = mod(p, 289.0);
     p = fract(p * vec2(443.897, 441.423));
     p += dot(p, p.yx + 19.19);
     return fract((p.x + p.y) * p.x);
