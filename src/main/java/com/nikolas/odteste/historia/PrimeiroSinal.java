@@ -7,6 +7,9 @@ import com.nikolas.odteste.estruturas.Backup;
 import com.nikolas.odteste.estruturas.Espaco;
 import com.nikolas.odteste.estruturas.MundoReal;
 import com.nikolas.odteste.historia.gatilhos.Gatilhos;
+import com.nikolas.odteste.historia.mestre.Mestre;
+import com.nikolas.odteste.historia.vilacalada.IdsVilaCalada;
+import com.nikolas.odteste.historia.vilacalada.PistasVilaCalada;
 import com.nikolas.odteste.sistemas.Degrau;
 import com.nikolas.odteste.sistemas.Lucidez;
 import java.util.ArrayList;
@@ -143,6 +146,8 @@ public final class PrimeiroSinal {
     public static void iniciar() {
         // Soltar sozinho na noite de neblina e o aviso "não seguiu o sino" (pacote gatilhos).
         Gatilhos.iniciar();
+        // Mestre: avisos só para ele, modo "ouvindo" em espectador e o painel (/odteste mestre).
+        Mestre.iniciar();
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoTick);
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoInteragirComAldeao);
         NeoForge.EVENT_BUS.addListener(PrimeiroSinal::aoClicarBloco);
@@ -708,11 +713,20 @@ public final class PrimeiroSinal {
         boolean alguemPertoDaCama = false;
         boolean alguemPertoDaPlaca = false;
         List<UUID> presentes = new ArrayList<>();
+        List<UUID> manter = new ArrayList<>();
         for (ServerPlayer p : nivel.players()) {
-            if (p.isSpectator()) continue;
             double d2 = p.position().distanceToSqr(centro);
             if (d2 > RegrasAto1.RAIO_OUVIR * RegrasAto1.RAIO_OUVIR) continue;
+            if (p.isSpectator()) {
+                // Mestre ouvindo: ouve o Morse como o grupo, mas não conta para nenhuma regra (aldeões, placa, cama).
+                if (Mestre.ouvindo(p)) {
+                    manter.add(p.getUUID());
+                    ouvintes.computeIfAbsent(p.getUUID(), u -> novoOuvinte(p, agora));
+                }
+                continue;
+            }
             presentes.add(p.getUUID());
+            manter.add(p.getUUID());
             ouvintes.computeIfAbsent(p.getUUID(), u -> novoOuvinte(p, agora));
             if (d2 <= RegrasAto1.RAIO_ALDEOES * RegrasAto1.RAIO_ALDEOES) alguemPertoDosAldeoes = true;
             if (v.cama != null && p.position().distanceToSqr(Vec3.atCenterOf(v.cama)) <= RegrasAto1.RAIO_CAMA * RegrasAto1.RAIO_CAMA) {
@@ -722,7 +736,7 @@ public final class PrimeiroSinal {
                 alguemPertoDaPlaca = true;
             }
         }
-        ouvintes.keySet().retainAll(presentes);
+        ouvintes.keySet().retainAll(manter);
 
         if (alguemPertoDosAldeoes) {
             congelar(nivel, v, d);
@@ -782,7 +796,7 @@ public final class PrimeiroSinal {
                 o.avaliado = true;
                 // Ouviu a sequência inteira de perto: o som entra na cabeça. Contar de longe não tira nada.
                 long ultima = ULTIMA_PERDA.getOrDefault(p.getUUID(), -1L);
-                if (!p.isCreative() && RegrasAto1.perdeLucidez(o.pertoTodo, agora, ultima)) {
+                if (!p.isCreative() && !p.isSpectator() && RegrasAto1.perdeLucidez(o.pertoTodo, agora, ultima)) {
                     Lucidez.perder(p, RegrasAto1.PERDA_LUCIDEZ_SEQUENCIA);
                     ULTIMA_PERDA.put(p.getUUID(), agora);
                 }
@@ -858,6 +872,7 @@ public final class PrimeiroSinal {
                 it.remove();
             }
         }
+        BlockPos calada = caladaParaOlhar(nivel, v, d);
         List<Villager> aldeoes = nivel.getEntitiesOfClass(Villager.class,
                 new AABB(v.sino).inflate(RegrasAto1.RAIO_ALDEOES), Villager::isAlive);
         for (Villager a : aldeoes) {
@@ -868,18 +883,39 @@ public final class PrimeiroSinal {
                 d.setDirty();
             }
             if (PARADOS_IDS.contains(a.getUUID()) || parados.size() >= RegrasAto1.MAX_ALDEOES) continue;
-            parar(a, v.sino);
+            parar(a, alvoDoOlhar(a, v, calada));
             parados.add(a);
             PARADOS_IDS.add(a.getUUID());
         }
-        Vec3 alvo = Vec3.atCenterOf(v.sino);
         for (Villager a : parados) {
-            a.getBrain().setMemory(MemoryModuleType.LOOK_TARGET, new BlockPosTracker(v.sino));
+            Vec3 alvo = alvoDoOlhar(a, v, calada);
+            if (calada != null) olharPara(a, alvo); // virou depois do enigma: o corpo vira junto, não só a cabeça
+            a.getBrain().setMemory(MemoryModuleType.LOOK_TARGET, new BlockPosTracker(BlockPos.containing(alvo)));
             a.getLookControl().setLookAt(alvo.x, alvo.y, alvo.z);
         }
     }
 
-    private static void parar(Villager a, BlockPos sino) {
+    /**
+     * Para onde olha o aldeão parado. Antes do enigma: o sino. Depois do FERRO (pista 2 da Vila Calada, roteiro):
+     * nenhum olha mais o sino; todos ficam de frente para a Vila Calada, até o grupo chegar lá.
+     */
+    private static Vec3 alvoDoOlhar(Villager a, VilaMarcada v, BlockPos calada) {
+        if (calada == null) return Vec3.atCenterOf(v.sino);
+        double dx = calada.getX() + 0.5 - a.getX();
+        double dz = calada.getZ() + 0.5 - a.getZ();
+        double n = Math.sqrt(dx * dx + dz * dz);
+        if (n < 1) return Vec3.atCenterOf(v.sino);
+        return new Vec3(a.getX() + dx / n * 32, a.getEyeY(), a.getZ() + dz / n * 32);
+    }
+
+    /** A Vila Calada, se o enigma já foi resolvido, a âncora existe nesta dimensão e o grupo ainda não chegou. */
+    private static BlockPos caladaParaOlhar(ServerLevel nivel, VilaMarcada v, DadosHistoria d) {
+        if (!v.resolvido || d.grupos.tem(v.grupo, IdsVilaCalada.MARCO_CHEGOU)) return null;
+        GlobalPos a = d.ancoras.get(IdsVilaCalada.LUGAR_VILA_CALADA);
+        return a == null || a.dimension() != nivel.dimension() ? null : a.pos();
+    }
+
+    private static void parar(Villager a, Vec3 alvo) {
         AttributeInstance vel = a.getAttribute(Attributes.MOVEMENT_SPEED);
         if (vel != null && !vel.hasModifier(MODIFICADOR_PARADO)) {
             vel.addTransientModifier(new AttributeModifier(MODIFICADOR_PARADO, -1.0,
@@ -887,7 +923,7 @@ public final class PrimeiroSinal {
         }
         a.getNavigation().stop();
         a.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
-        olharPara(a, Vec3.atCenterOf(sino));
+        olharPara(a, alvo);
     }
 
     private static void soltar(Villager a) {
@@ -969,13 +1005,12 @@ public final class PrimeiroSinal {
         }
         nivel.playSound(null, v.bau, SoundEvents.IRON_TRAPDOOR_OPEN, SoundSource.BLOCKS, 0.6f, 0.5f);
         d.setDirty();
-        // O jogo avisa o admin (o ritmo dos eventos grandes é dele).
-        Component aviso = Component.translatable("odteste.ato1.admin.enigma_sino",
+        // O jogo avisa o mestre (o ritmo dos eventos grandes é dele). Só os mestres: op comum não fica sabendo.
+        Mestre.avisar(s, Component.translatable("odteste.ato1.admin.enigma_sino",
                         d.grupos.grupo(v.grupo).map(PrimeiroSinal::nomes).orElse(Component.literal(v.grupo)))
-                .withStyle(ChatFormatting.GOLD);
-        for (ServerPlayer p : s.getPlayerList().getPlayers()) {
-            if (p.hasPermissions(2)) p.sendSystemMessage(aviso);
-        }
+                .withStyle(ChatFormatting.GOLD));
+        // O sino rachado responde logo (se for noite): o grupo liga uma coisa à outra.
+        PistasVilaCalada.adiantarToque(v.grupo, nivel.getGameTime());
         OdMod.LOGGER.info("Enigma do sino resolvido pelo grupo {}", v.grupo);
     }
 

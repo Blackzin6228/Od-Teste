@@ -29,6 +29,8 @@ public final class DadosVilaCalada extends SavedData {
     public String ancoraAutoDim = "";
     /** Colocações da vila já vistas: cada uma ancora uma vez só (o admin pode mudar a âncora depois). */
     public final Set<String> vistas = new LinkedHashSet<>();
+    /** Peças que o {@code preparar} já pôs uma vez ("<canto>:<peça>"): rodar de novo não enche o baú de novo. */
+    public final Set<String> preparados = new LinkedHashSet<>();
 
     public static DadosVilaCalada de(MinecraftServer s) {
         return s.overworld().getDataStorage().computeIfAbsent(FABRICA, IdsVilaCalada.ARQUIVO);
@@ -43,6 +45,9 @@ public final class DadosVilaCalada extends SavedData {
         ListTag l = new ListTag();
         for (String v : vistas) l.add(StringTag.valueOf(v));
         t.put("vistas", l);
+        ListTag pr = new ListTag();
+        for (String v : preparados) pr.add(StringTag.valueOf(v));
+        t.put("preparados", pr);
         return t;
     }
 
@@ -54,6 +59,8 @@ public final class DadosVilaCalada extends SavedData {
         d.ancoraAutoDim = t.getString("ancora_auto_dim");
         ListTag l = t.getList("vistas", Tag.TAG_STRING);
         for (int i = 0; i < l.size(); i++) d.vistas.add(l.getString(i));
+        ListTag pr = t.getList("preparados", Tag.TAG_STRING);
+        for (int i = 0; i < pr.size(); i++) d.preparados.add(pr.getString(i));
         return d;
     }
 }
