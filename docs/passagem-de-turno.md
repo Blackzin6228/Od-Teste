@@ -30,7 +30,8 @@ Leia isto ao abrir um chat novo. Atualize no fim de cada sessão grande.
 - Versão de teste única: PR #85 (`mesa-dev/teste-unico-2026-11-14`, rede versão 8, Actions verde). Falta: Revisor, desenho 2 no código, teste no PC do Nikolas.
 
 - Lua sem nome na tela; texturas em 32 px; baús/mapa/livro da v2 como a Lore recomendou (`docs/decisoes/2026-11-14-vila-calada-baus-mapa-livro.md`).
-- Nikolas autorizou a mesa CEO testar o PR #85 no PC dele hoje (uso do computador), depois do Revisor.
+- Revisor no #85: sem crash; 3 itens (Famintos ajoelhados voltam ao descarregar o chunk; olho após o Dobre; cache do canto). Dev corrigindo 1 e 3; olho pós-Dobre decidido: para de abrir na vila.
+- Nikolas pediu para levar o #85 direto ao servidor (sem teste no PC). Vai pelo `extras/mod-novo.txt` do Conguitos-ATM10.
 
 ## Pendente do Nikolas
 - PRs #74–#77, #79, #80 ainda não juntados no `main` (o servidor usa o branch).
