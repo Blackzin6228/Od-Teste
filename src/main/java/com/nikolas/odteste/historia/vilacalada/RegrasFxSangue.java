@@ -61,6 +61,14 @@ public final class RegrasFxSangue {
     /** Piscada (variante 1): duração em ticks e intervalo de 8 a 20 s. */
     public static final int OLHO_PISCA = 7;
 
+    /**
+     * Abertura da fenda no desenho 2: o anel e a pupila ficam sempre à vista (como na prévia aprovada, vagueando
+     * ou encarando); encarar só abre a fenda até o fim. Antes era 0,15 sem encarar, e o olho quase sumia.
+     */
+    public static float olhoAberturaFenda(float encara) {
+        return 0.8f + 0.2f * Math.max(0f, Math.min(1f, encara));
+    }
+
     /** Força do olho: Lua de Sangue do Enhanced Celestials, ou vila × noite (a vila já vem zerada depois do Dobre). */
     public static float olhoAlvo(float luaDeSangue, float vila, float noite) {
         float v = Math.max(0f, Math.min(1f, vila)) * Math.max(0f, Math.min(1f, noite));

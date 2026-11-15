@@ -13,6 +13,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 /**
  * Efeito de tela {@code olho_lua}: a lua vira um olho vermelho (Sangue). Vale com Lua de Sangue do Enhanced
@@ -92,7 +93,8 @@ final class FxOlhoLua {
             proximaPiscada = relogio + 160 + r.nextInt(240);
         }
         float pisca = RegrasFxSangue.piscada(relogio - piscaInicio);
-        abertura = RegrasFxSangue.OLHO_VARIANTE == 2 ? 0.15f + 0.85f * encara : pisca;
+        // variante 2: anel e fenda sempre à vista (como na prévia aprovada); encarar só abre a fenda de vez
+        abertura = RegrasFxSangue.OLHO_VARIANTE == 2 ? RegrasFxSangue.olhoAberturaFenda(encara) : pisca;
     }
 
     static void uniforms(ShaderInstance sh, FxTela.Quadro q) {
@@ -104,12 +106,24 @@ final class FxOlhoLua {
         sh.safeGetUniform("Olhar").set(DESVIO.x, DESVIO.y, DESVIO.z);
         sh.safeGetUniform("Abertura").set(abertura);
         sh.safeGetUniform("Variante").set((float) RegrasFxSangue.OLHO_VARIANTE);
+        // onde a lua cai na tela (sem profundidade, o shader confere se o meio da lua está à vista)
+        Vector4f t = new Vector4f(lua.x, lua.y, lua.z, 0f);
+        q.vista().transform(t);
+        q.projecao().transform(t);
+        if (t.w > 1e-4f) {
+            sh.safeGetUniform("LuaTela").set(t.x / t.w * 0.5f + 0.5f, t.y / t.w * 0.5f + 0.5f, 1f);
+        } else {
+            sh.safeGetUniform("LuaTela").set(0.5f, 0.5f, 0f);
+        }
     }
 
-    /** Igual ao FxSangue: o sol gira no plano x-y; a lua fica do lado oposto. */
-    private static Vector3f luaDir(ClientLevel nivel, float parcial) {
+    /**
+     * Direção exata da lua do jogo (a mesma conta do céu vanilla, que o Enhanced Celestials não muda): o sol gira
+     * no plano x-y e a lua fica do lado oposto. Sem desvio em z: um desvio de 0,05 tirava o olho de cima da lua.
+     */
+    static Vector3f luaDir(ClientLevel nivel, float parcial) {
         float a = nivel == null ? 0f : nivel.getSunAngle(parcial);
-        return new Vector3f(Mth.sin(a), -Mth.cos(a), 0.05f).normalize();
+        return new Vector3f(Mth.sin(a), -Mth.cos(a), 0f);
     }
 
     static void limpar() {

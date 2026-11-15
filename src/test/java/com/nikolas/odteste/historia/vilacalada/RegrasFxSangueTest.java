@@ -73,6 +73,13 @@ class RegrasFxSangueTest {
     }
 
     @Test
+    void fendaDoDesenho2SempreAVista() {
+        assertTrue(RegrasFxSangue.olhoAberturaFenda(0f) >= 0.8f, "vagueando, o anel e a fenda aparecem");
+        assertEquals(1f, RegrasFxSangue.olhoAberturaFenda(1f), 1e-6, "encarando, abre de vez");
+        assertEquals(1f, RegrasFxSangue.olhoAberturaFenda(5f), 1e-6);
+    }
+
+    @Test
     void olhoNaLuaSoComLuaDeSangueOuVilaDeNoite() {
         assertEquals(0f, RegrasFxSangue.olhoAlvo(0f, 1f, 0f), 1e-6, "vila de dia: sem olho");
         assertEquals(0f, RegrasFxSangue.olhoAlvo(0f, 0f, 1f), 1e-6, "noite fora da vila: sem olho");

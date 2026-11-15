@@ -156,7 +156,7 @@ final class FxSangue {
         ClientLevel nivel = Minecraft.getInstance().level;
         float a = nivel == null ? 0f : nivel.getSunAngle(q.parcial());
         // O sol gira no plano x-y (nasce a leste, +x); a lua fica do lado oposto.
-        sh.safeGetUniform("LuaDir").set(Mth.sin(a), -Mth.cos(a), 0.05f);
+        sh.safeGetUniform("LuaDir").set(Mth.sin(a), -Mth.cos(a), 0f);   // a mesma direção do céu vanilla
     }
 
     private static void camera(ShaderInstance sh, FxTela.Quadro q) {

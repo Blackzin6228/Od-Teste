@@ -12,8 +12,9 @@
 //    um anel vermelho fino, e uma lágrima de sangue escorre da beira de baixo.
 // A pupila olha para onde o Java manda (Olhar): quase sempre vagueia; raramente encara o jogador e segue devagar.
 // Com profundidade: o olho só aparece no céu (nada pinta por cima de telhado). Sem profundidade (shader pack que
-// não deixa ler): o olho só muda os pixels claros da própria lua do pack (o que estiver na frente fica escuro e
-// não é pintado); o brilho em volta é bem fraco.
+// não deixa ler): o olho pinta a lua clara do pack (vale lua vermelha/escura, como a Lua de Sangue do Enhanced
+// Celestials) e, se o meio da lua está à vista, o disco do olho todo; o brilho em volta é bem fraco.
+// A base do olho segue o "cima" da tela: a fenda fica em pé e a lágrima escorre para baixo mesmo com a lua no alto.
 
 uniform sampler2D Sampler0;
 uniform sampler2D Sampler1;
@@ -27,6 +28,7 @@ uniform vec3 LuaDir;             // direção da lua, eixos do mundo
 uniform vec3 Olhar;              // para onde a pupila aponta, eixos do mundo (-LuaDir = encarando quem olha)
 uniform float Abertura;          // 0..1: pálpebras (piscar) e abertura da fenda
 uniform float Variante;          // 0, 1 ou 2
+uniform vec3 LuaTela;            // xy: onde o meio da lua cai na tela; z: 1 se está na frente da câmera
 
 in vec2 texCoord;
 out vec4 fragColor;
@@ -81,6 +83,11 @@ float rachas(vec2 q, float r) {
     return n;
 }
 
+// Claridade da lua contando o vermelho (a lua da Lua de Sangue é vermelha: pela luminância ela parece escura).
+float od_claroLua(vec3 c) {
+    return max(od_lum(c), c.r * 0.6);
+}
+
 void main() {
     vec2 uv = texCoord;
     vec3 cena = texture(Sampler0, uv).rgb;
@@ -96,8 +103,11 @@ void main() {
         fragColor = vec4(cena, 1.0);
         return;
     }
-    // base em volta da lua, com "cima" o mais perto possível do cima do mundo (o olho fica deitado)
-    vec3 bx = normalize(cross(abs(l.y) < 0.97 ? vec3(0.0, 1.0, 0.0) : vec3(0.0, 0.0, 1.0), l));
+    // base em volta da lua com o "cima" da tela (câmera): com a lua alta, o cima do mundo deitava o olho e a
+    // lágrima virava um risco de lado
+    vec3 cimaTela = normalize((InvView * vec4(0.0, 1.0, 0.0, 0.0)).xyz);
+    vec3 bx = cross(cimaTela, l);
+    bx = length(bx) > 1e-3 ? normalize(bx) : normalize(cross(vec3(0.0, 0.0, 1.0), l));
     vec3 by = cross(l, bx);
     vec2 q = vec2(dot(rd, bx), dot(rd, by)) / frente;
     float r = length(q);
@@ -110,7 +120,20 @@ void main() {
         ceu = od_vista(Sampler1, InvProj, uv).w < 0.5 ? 1.0 : 0.0;
         luaClara = ceu;
     } else {
-        luaClara = smoothstep(0.10, 0.32, lum);
+        // "claro" conta o vermelho: a Lua de Sangue do Enhanced Celestials é vermelha e escura e não passava
+        luaClara = smoothstep(0.12, 0.30, od_claroLua(cena));
+        // o meio da lua à vista (5 amostras) libera o disco do olho inteiro, que é maior que a lua quadrada
+        float vis = 0.0;
+        if (LuaTela.z > 0.5) {
+            vec2 px = 3.0 / ScreenSize;
+            vis = max(od_claroLua(texture(Sampler0, LuaTela.xy).rgb),
+                    max(max(od_claroLua(texture(Sampler0, LuaTela.xy + vec2(px.x, 0.0)).rgb),
+                            od_claroLua(texture(Sampler0, LuaTela.xy - vec2(px.x, 0.0)).rgb)),
+                        max(od_claroLua(texture(Sampler0, LuaTela.xy + vec2(0.0, px.y)).rgb),
+                            od_claroLua(texture(Sampler0, LuaTela.xy - vec2(0.0, px.y)).rgb))));
+            vis = smoothstep(0.12, 0.30, vis);
+        }
+        luaClara = max(luaClara, vis * (1.0 - smoothstep(RAIO * 0.97, RAIO * 1.02, r)));
         ceu = luaClara * 0.6 + 0.4 * smoothstep(0.0, 0.3, dot(rd, vec3(0.0, 1.0, 0.0)));
     }
 
