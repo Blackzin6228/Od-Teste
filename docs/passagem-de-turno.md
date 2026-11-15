@@ -31,7 +31,8 @@ Leia isto ao abrir um chat novo. Atualize no fim de cada sessão grande.
 
 - Lua sem nome na tela; texturas em 32 px; baús/mapa/livro da v2 como a Lore recomendou (`docs/decisoes/2026-11-14-vila-calada-baus-mapa-livro.md`).
 - Revisor no #85: sem crash; 3 itens (Famintos ajoelhados voltam ao descarregar o chunk; olho após o Dobre; cache do canto). Dev corrigindo 1 e 3; olho pós-Dobre decidido: para de abrir na vila.
-- Nikolas pediu para levar o #85 direto ao servidor (sem teste no PC). Vai pelo `extras/mod-novo.txt` do Conguitos-ATM10.
+- Nikolas pediu para levar o #85 direto ao servidor (sem teste no PC). **Publicado 14/11 21:30:** Conguitos-ATM10 PR #16, `extras/mod-novo.txt` → Od-Teste `b488cc6` (rede versão 8). Voltar: `88d3db3`. Revisor aprovou as correções. Nada testado no jogo ainda: pedir prints/vídeo ao Nikolas.
+- PR #85 ainda é rascunho e não está no `main` (como os outros: o servidor usa o commit fixo).
 
 ## Pendente do Nikolas
 - PRs #74–#77, #79, #80 ainda não juntados no `main` (o servidor usa o branch).
