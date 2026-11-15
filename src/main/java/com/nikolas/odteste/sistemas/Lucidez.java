@@ -40,7 +40,8 @@ public final class Lucidez {
 
     /** Tira Lucidez (dano, abalo). Logo depois de um surto, não tira nada. Comando de admin não passa por aqui. */
     public static void perder(ServerPlayer p, int quanto) {
-        if (quanto <= 0 || protegido(p)) return;
+        // Espectador (o mestre olhando) nunca perde: ele não conta como presente.
+        if (quanto <= 0 || p.isSpectator() || protegido(p)) return;
         DadosJogador.definirLucidez(p, DadosJogador.lucidez(p) - quanto);
     }
 

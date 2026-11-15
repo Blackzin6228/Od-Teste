@@ -22,14 +22,24 @@ public final class RegrasVilaCalada {
     public static final int PRIMEIRO_TOQUE_MIN = 100;
     public static final int PRIMEIRO_TOQUE_MAX = 600;
 
+    /**
+     * Depois que o grupo escreve FERRO de noite, o sino rachado responde em até 15 s (a primeira vez que o grupo o
+     * ouve vem ligada ao enigma; decisão de 14/11: o primeiro toque depois do enigma vem cedo). De dia, a próxima
+     * noite já começa com o primeiro toque cedo ({@link #PRIMEIRO_TOQUE_MIN} a {@link #PRIMEIRO_TOQUE_MAX}).
+     */
+    public static final int TOQUE_DEPOIS_ENIGMA = 300;
+
     /** Perto assim, o som sai da própria vila. Mais longe, de um ponto perto do jogador na direção dela. */
     public static final double RAIO_SOM_DIRETO = 48;
     /** Longe: o som sai a esta distância do jogador (dá para ouvir de que lado vem). */
     public static final double DISTANCIA_FONTE = 6;
-    /** Mais longe que isso, ninguém ouve. */
-    public static final double ALCANCE_SINO = 4_096;
-    /** Distância em que o volume chega no mínimo. */
-    public static final double LONGE = 1_500;
+    /** Mais longe que isso, ninguém ouve (a vila comum do grupo fica a ~4.480 blocos da Vila Calada). */
+    public static final double ALCANCE_SINO = 6_500;
+    /**
+     * Distância em que o volume chega no mínimo. Passa da distância da vila comum (~4.480): o toque sai baixo,
+     * mas já um pouco acima do mínimo, e vai subindo durante toda a caminhada até lá.
+     */
+    public static final double LONGE = 5_000;
     public static final float VOLUME_PERTO = 1.0f;
     public static final float VOLUME_MINIMO = 0.3f;
     /** Volume do toque quando o jogador já está na vila (o som sai do ponto da vila e chega longe). */
@@ -71,6 +81,15 @@ public final class RegrasVilaCalada {
 
     public static int primeiroToque(double sorteio) {
         return entre(PRIMEIRO_TOQUE_MIN, PRIMEIRO_TOQUE_MAX, sorteio);
+    }
+
+    /**
+     * Próximo toque depois do enigma resolvido: o que já estava marcado, se vier antes; senão, logo.
+     * @param marcado o próximo toque marcado (null = nenhum)
+     */
+    public static long adiantar(Long marcado, long agora) {
+        long cedo = agora + TOQUE_DEPOIS_ENIGMA;
+        return marcado == null || marcado > cedo || marcado < agora - TOQUE_MAX ? cedo : marcado;
     }
 
     public static int proximaOlhada(double sorteio) {

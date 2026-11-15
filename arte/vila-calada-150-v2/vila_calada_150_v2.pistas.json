@@ -1,0 +1,438 @@
+{
+  "estrutura": "vila_calada_150_v2",
+  "tamanho": [
+    150,
+    27,
+    150
+  ],
+  "origem": "canto noroeste de baixo (x leste, y cima, z sul); a camada y 0 assenta em cima do terreno",
+  "nota": "mesmas posições da v1 (vila_calada_150.pistas.json) mais as duas do Adro do Sino",
+  "marcadores": {
+    "convencao": "bloco de estrutura em modo DATA, metadata = nome, UM bloco ACIMA do baú/jukebox (alvo). O mod ignora o bloco de estrutura ao colocar e enche o alvo.",
+    "lista": [
+      {
+        "pos": [
+          71,
+          2,
+          140
+        ],
+        "metadata": "bau_carroca",
+        "alvo": [
+          71,
+          1,
+          140
+        ],
+        "nota": "Baú de viagem na carga da carroça tombada (estrada sul)."
+      },
+      {
+        "pos": [
+          71,
+          3,
+          137
+        ],
+        "metadata": "disco_carroca",
+        "alvo": [
+          71,
+          2,
+          137
+        ],
+        "nota": "Jukebox em cima do feno da carroça (o mod põe o disco)."
+      },
+      {
+        "pos": [
+          95,
+          1,
+          16
+        ],
+        "metadata": "bau_cova",
+        "alvo": [
+          95,
+          0,
+          16
+        ],
+        "nota": "Baú no fundo de uma cova aberta do cemitério grande (no lugar do corpo)."
+      },
+      {
+        "pos": [
+          136,
+          1,
+          80
+        ],
+        "metadata": "bau_poco_fora",
+        "alvo": [
+          136,
+          0,
+          80
+        ],
+        "nota": "Baú no fundo do poço seco fora do muro (leste)."
+      },
+      {
+        "pos": [
+          44,
+          1,
+          140
+        ],
+        "metadata": "bau_espantalho",
+        "alvo": [
+          44,
+          0,
+          140
+        ],
+        "nota": "Baú enterrado aos pés do espantalho do campo (sudoeste)."
+      }
+    ]
+  },
+  "pistas": [
+    {
+      "pos": [
+        87,
+        18,
+        56
+      ],
+      "tipo": "atril",
+      "nota": "LIVRO DO SINEIRO: atril no alto do campanário, ao pé do sino. Abrir = o sino toca uma vez, fraco."
+    },
+    {
+      "pos": [
+        86,
+        18,
+        56
+      ],
+      "tipo": "martelo",
+      "nota": "Martelo do ferreiro ao lado do atril (item do mod ou moldura; o schematic não guarda item)."
+    },
+    {
+      "pos": [
+        85,
+        19,
+        57
+      ],
+      "tipo": "sino",
+      "nota": "Sino rachado, torto na viga quebrada. Toca de noite (som do mod)."
+    },
+    {
+      "pos": [
+        85,
+        19,
+        59
+      ],
+      "tipo": "vao",
+      "nota": "Vão quebrado do campanário (sul do arquivo): girar a vila ao colocar para ele apontar a vila comum."
+    },
+    {
+      "pos": [
+        74,
+        4,
+        46
+      ],
+      "tipo": "vela",
+      "nota": "A ÚNICA VELA ACESA da vila, na mesa da capela: refúgio (Lucidez volta; Famintos não entram)."
+    },
+    {
+      "pos": [
+        74,
+        3,
+        47
+      ],
+      "tipo": "cadeira",
+      "nota": "A cadeira a mais, virada para a porta."
+    },
+    {
+      "pos": [
+        74,
+        0,
+        78
+      ],
+      "tipo": "bau",
+      "nota": "Nicho no fundo do poço (descida pela escada): baú de mantimentos (pão, maçã)."
+    },
+    {
+      "pos": [
+        74,
+        1,
+        78
+      ],
+      "tipo": "cruz",
+      "nota": "Cruz de Ferro riscada na pedra, em cima do nicho (bloco cinzelado; desenho nosso pendente)."
+    },
+    {
+      "pos": [
+        72,
+        3,
+        83
+      ],
+      "tipo": "placa",
+      "nota": "Placa na beira do poço: \"Aqui ele ouvia.\" (texto posto pelo mod/admin)."
+    },
+    {
+      "pos": [
+        54,
+        2,
+        85
+      ],
+      "tipo": "botoes",
+      "nota": "Casa da Moça do Terço: botões de pedra no peitoril (z 60 a 65, do mais velho ao mais novo). O vazio da ponta é z 66."
+    },
+    {
+      "pos": [
+        99,
+        1,
+        72
+      ],
+      "tipo": "bigorna",
+      "nota": "Casa do ferreiro: bigorna rachada, forja apagada. Falta o martelo (está no campanário)."
+    },
+    {
+      "pos": [
+        110,
+        1,
+        104
+      ],
+      "tipo": "cama",
+      "nota": "Casa do Compadre: a única cama limpa, de lençol branco. Travesseiro marcado com {marcado} para Exposição alta."
+    },
+    {
+      "pos": [
+        106,
+        1,
+        101
+      ],
+      "tipo": "mesa",
+      "nota": "Casa do Compadre: mesa comprida posta para muita gente, pratos vazios."
+    },
+    {
+      "pos": [
+        109,
+        1,
+        55
+      ],
+      "tipo": "cama",
+      "nota": "Cama manchada (lençol vermelho), mancha e arrasto até a porta oeste."
+    },
+    {
+      "pos": [
+        76,
+        3,
+        33
+      ],
+      "tipo": "lapide",
+      "nota": "Cemitério: a lápide com o risco da Cruz de Ferro (bloco cinzelado). Covas abertas, nenhum corpo."
+    },
+    {
+      "pos": [
+        32,
+        2,
+        39
+      ],
+      "tipo": "estandarte",
+      "nota": "Curral: estandartes vermelhos lisos (trocar pelo da Cruz de Ferro quando desenhado). Cheiro de ferro mais forte aqui."
+    },
+    {
+      "pos": [
+        68,
+        1,
+        74
+      ],
+      "tipo": "poca",
+      "nota": "Praça: poça que pulsa (partícula rala; parado nela perde Lucidez). Outras: (56, 1, 62) e (41, 1, 60)."
+    },
+    {
+      "pos": [
+        45,
+        1,
+        43
+      ],
+      "tipo": "poca",
+      "nota": "Curral: valas com vermelho (poças que pulsam)."
+    },
+    {
+      "pos": [
+        65,
+        1,
+        119
+      ],
+      "tipo": "espantalho",
+      "nota": "Campo queimado da entrada: espantalho de cabeça para baixo. Pegadas de cinza na estrada, todas para dentro."
+    },
+    {
+      "pos": [
+        39,
+        1,
+        73
+      ],
+      "tipo": "faminto",
+      "nota": "Lugar de Faminto parado, de frente para a parede (dia)."
+    },
+    {
+      "pos": [
+        109,
+        1,
+        41
+      ],
+      "tipo": "faminto",
+      "nota": "Lugar de Faminto parado, de frente para a parede (dia)."
+    },
+    {
+      "pos": [
+        53,
+        1,
+        102
+      ],
+      "tipo": "faminto",
+      "nota": "Lugar de Faminto parado, de frente para a parede (dia)."
+    },
+    {
+      "pos": [
+        98,
+        1,
+        55
+      ],
+      "tipo": "faminto",
+      "nota": "Lugar de Faminto parado (casa queimada)."
+    },
+    {
+      "pos": [
+        73,
+        1,
+        137
+      ],
+      "tipo": "carroca",
+      "nota": "Estrada sul: carroça tombada de lado, uma roda no ar, bois mortos nos varais. Mesma cena-tipo do Ato 1 (jukebox e disco): se levar objeto de enigma, a Lore descreve antes."
+    },
+    {
+      "pos": [
+        70,
+        1,
+        136
+      ],
+      "tipo": "poca",
+      "nota": "Onde o carroceiro caiu: mancha e arrasto PARA DENTRO da vila (ninguém saiu)."
+    },
+    {
+      "pos": [
+        44,
+        4,
+        139
+      ],
+      "tipo": "espantalho",
+      "nota": "Campo oeste da estrada: espantalho em pé, de costas para a vila, olhando quem chega. Os de dentro estão caídos ou de cabeça para baixo."
+    },
+    {
+      "pos": [
+        103,
+        5,
+        10
+      ],
+      "tipo": "portao",
+      "nota": "Cemitério grande (norte, fora do muro): portão de ferro a leste, corrente por cima, folhas da grade caídas."
+    },
+    {
+      "pos": [
+        95,
+        1,
+        15
+      ],
+      "tipo": "lapide",
+      "nota": "A lápide cinzelada (risco da Cruz de Ferro, desenho pendente) da cova que tem o baú no lugar do corpo."
+    },
+    {
+      "pos": [
+        45,
+        1,
+        8
+      ],
+      "tipo": "cama",
+      "nota": "Casa do coveiro sem teto: cama cinza, carriola (barril) e montes de terra na porta."
+    },
+    {
+      "pos": [
+        131,
+        3,
+        76
+      ],
+      "tipo": "cruz",
+      "nota": "Cruzeiro de barras de ferro na bifurcação do caminho dos enterros (placeholder da Cruz de Ferro)."
+    },
+    {
+      "pos": [
+        136,
+        2,
+        80
+      ],
+      "tipo": "balde",
+      "nota": "Poço fora do muro: seco, balde (caldeirão) pendurado na corrente, telhadinho pela metade."
+    },
+    {
+      "pos": [
+        134,
+        1,
+        110
+      ],
+      "tipo": "ossos",
+      "nota": "Pasto leste: cerca caída, gado morto espalhado (morreu correndo), um trecho da cerca derrubado para o lado da vila."
+    },
+    {
+      "pos": [
+        21,
+        2,
+        78
+      ],
+      "tipo": "placa",
+      "nota": "Bifurcação da trilha: placa quebrada (metade no chão). Texto pelo mod/admin."
+    },
+    {
+      "pos": [
+        78,
+        3,
+        145
+      ],
+      "tipo": "placa",
+      "nota": "Marco de pedra na entrada da estrada (dois pilares, trave caída): a placa com o nome da vila. Texto pelo mod/admin."
+    },
+    {
+      "pos": [
+        139,
+        2,
+        113
+      ],
+      "tipo": "paiol",
+      "nota": "Pasto leste: paiol aberto com feno. Lugar de Faminto parado à sombra (dia)."
+    },
+    {
+      "pos": [
+        12,
+        1,
+        60
+      ],
+      "tipo": "fogueira",
+      "nota": "Trilha: fogueira apagada e troncos de sentar. Alguém esperou aqui, olhando para a vila."
+    },
+    {
+      "pos": [
+        9,
+        1,
+        61
+      ],
+      "tipo": "arrasto",
+      "nota": "Trilha para a floresta: dois sulcos e gotas, da floresta PARA a vila. Sai pelo canto noroeste (girar a vila ao colocar para apontar a floresta do Ato 1)."
+    },
+    {
+      "pos": [
+        85,
+        3,
+        61
+      ],
+      "tipo": "efeito_sangue",
+      "nota": "ADRO DO SINO (v2): chão largo de pedra colado na parede sul do campanário (21 de altura) e na fachada da capela. Melhor lugar para o sangue escorrer pela parede e se espalhar no chão (shader de 14/11)."
+    },
+    {
+      "pos": [
+        74,
+        1,
+        67
+      ],
+      "tipo": "efeito_sangue",
+      "nota": "Adro baixo (v2): chão de pedra entre o morro e a praça, com o muro de arrimo (4 a 6) e duas paredes altas (5 a 9) nas pontas. Segundo lugar para o sangue escorrer e se espalhar."
+    }
+  ]
+}

@@ -26,6 +26,7 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
  *
  * ver · ligar · desligar · ancorar <ponto> · desancorar · tocar <jogadores> (toca o sino rachado agora, para testar)
  * · chegou <grupo> (marca que o grupo chegou: pistas de longe param) · reabrir <grupo> (tira o marco: pistas voltam)
+ * · preparar [canto] (põe livro, comida do poço, placa, vela e poças na vila colocada à mão; ver PrepararVilaCalada)
  *
  * Para o admin, número aparece. Para o jogador, nunca.
  */
@@ -33,6 +34,7 @@ public final class ComandosVilaCalada {
     private static final String GRUPO = "grupo";
     private static final String PONTO = "ponto";
     private static final String JOGADORES = "jogadores";
+    private static final String CANTO = "canto";
 
     private ComandosVilaCalada() {}
 
@@ -53,7 +55,9 @@ public final class ComandosVilaCalada {
                         .then(Commands.literal("tocar").then(Commands.argument(JOGADORES, EntityArgument.players())
                                 .executes(ComandosVilaCalada::tocar)))
                         .then(Commands.literal("chegou").then(argGrupo().executes(c -> chegou(c, true))))
-                        .then(Commands.literal("reabrir").then(argGrupo().executes(c -> chegou(c, false))))));
+                        .then(Commands.literal("reabrir").then(argGrupo().executes(c -> chegou(c, false))))
+                        .then(Commands.literal("preparar").executes(c -> preparar(c, false))
+                                .then(Commands.argument(CANTO, BlockPosArgument.blockPos()).executes(c -> preparar(c, true))))));
     }
 
     private static com.mojang.brigadier.builder.RequiredArgumentBuilder<CommandSourceStack, String> argGrupo() {
@@ -63,7 +67,7 @@ public final class ComandosVilaCalada {
     }
 
     private static int ok(CommandContext<CommandSourceStack> c, String chave, Object... args) {
-        c.getSource().sendSuccess(() -> Component.translatable(chave, args), true);
+        c.getSource().sendSuccess(() -> Component.translatable(chave, args), false);
         return 1;
     }
 
@@ -127,6 +131,31 @@ public final class ComandosVilaCalada {
             n++;
         }
         return ok(c, "odteste.vila_calada.tocou", n);
+    }
+
+    private static int preparar(CommandContext<CommandSourceStack> c, boolean comCanto) {
+        DadosHistoria dh = DadosHistoria.de(c.getSource().getServer());
+        GlobalPos a = dh.ancoras.get(IdsVilaCalada.LUGAR_VILA_CALADA);
+        ServerLevel nivel;
+        BlockPos canto;
+        if (comCanto) {
+            nivel = c.getSource().getLevel();
+            canto = BlockPosArgument.getBlockPos(c, CANTO);
+        } else {
+            if (a == null) return erro(c, "odteste.evento.erro.lugar", IdsVilaCalada.LUGAR_VILA_CALADA);
+            nivel = c.getSource().getServer().getLevel(a.dimension());
+            if (nivel == null) return erro(c, "odteste.evento.erro.dimensao");
+            Optional<BlockPos> achou = PrepararVilaCalada.acharCanto(nivel, a.pos());
+            if (achou.isEmpty()) return erro(c, "odteste.vila_calada.preparar.sem_canto");
+            canto = achou.get();
+        }
+        BlockPos k = canto;
+        c.getSource().sendSuccess(() -> Component.translatable("odteste.vila_calada.preparar.canto",
+                k.getX(), k.getY(), k.getZ()).withStyle(ChatFormatting.GOLD), false);
+        for (Component l : PrepararVilaCalada.preparar(nivel, canto, PistasVilaCalada.dados(c.getSource().getServer()))) {
+            c.getSource().sendSuccess(() -> l, false);
+        }
+        return 1;
     }
 
     private static int chegou(CommandContext<CommandSourceStack> c, boolean chegou) {

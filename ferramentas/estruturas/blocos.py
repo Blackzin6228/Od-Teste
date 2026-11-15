@@ -94,7 +94,7 @@ BLOCOS = {
     "light_gray_carpet": ((132, 132, 126), "la"),
     "red_wall_banner": ((150, 30, 28), "la"),
     # sangue (o acento vermelho): pó de redstone sem energia, deitado no chão
-    "redstone_wire": ((112, 8, 6), "sangue"),
+    "redstone_wire": ((86, 6, 4), "sangue"),
     # Vila Calada (100 x 100)
     "light": ((0, 0, 0), "nada"),  # bloco de luz invisível (só para não nascer monstro)
     "bone_block": ((222, 218, 198), "liso"),
@@ -120,6 +120,17 @@ BLOCOS = {
     "brown_mushroom": ((150, 120, 90), "planta"),
     "wither_rose": ((36, 34, 36), "planta"),
     "white_wool": ((230, 230, 230), "la"),
+    # Vila Calada v2 (14/11/2026): chão morto, madeira gasta, vermelho perto do campanário, ossos
+    "mangrove_planks": ((117, 54, 48), "tabuas"),
+    "dark_oak_door": ((66, 43, 20), "porta"),
+    "dark_oak_fence_gate": ((66, 43, 20), "tabuas"),
+    "red_terracotta": ((143, 61, 46), "terra"),
+    "terracotta": ((152, 94, 67), "terra"),
+    "tuff": ((100, 101, 94), "pedra"),
+    "cobbled_deepslate": ((77, 77, 80), "pedra"),
+    "cobbled_deepslate_wall": ((77, 77, 80), "pedra"),
+    "skeleton_skull": ((200, 198, 184), "liso"),
+    "red_nether_bricks": ((69, 7, 9), "tijolo_pedra"),
     "air": ((0, 0, 0), "nada"),
 }
 
@@ -179,6 +190,7 @@ _FAMILIAS = [
       "east": {"none", "low", "tall"}, "west": {"none", "low", "tall"}, "waterlogged": _BOOL}),
     (lambda n: n == "red_wall_banner", {"facing": _DIR4}),
     (lambda n: n == "grass_block", {"snowy": _BOOL}),
+    (lambda n: n == "skeleton_skull", {"rotation": {str(i) for i in range(16)}, "powered": _BOOL}),
     (lambda n: n == "farmland", {"moisture": {str(i) for i in range(8)}}),
     (lambda n: n == "wheat", {"age": {str(i) for i in range(8)}}),
     (lambda n: n == "water", {"level": {str(i) for i in range(16)}}),
@@ -221,6 +233,8 @@ def formas(nome, p):
         if p.get("facing") in ("east", "west"):
             return [((.375, .375, 0, .625, 1, 1), n), ((.375, 0, 0, .625, 1, .125), n), ((.375, 0, .875, .625, 1, 1), n)]
         return [((0, .375, .375, 1, 1, .625), n), ((0, 0, .375, .125, 1, .625), n), ((.875, 0, .375, 1, 1, .625), n)]
+    if n == "skeleton_skull":
+        return [((.25, 0, .25, .75, .5, .75), n)]
     if n == "brown_mushroom":
         return [((.3125, 0, .3125, .6875, .375, .6875), n)]
     if n == "stone_button":

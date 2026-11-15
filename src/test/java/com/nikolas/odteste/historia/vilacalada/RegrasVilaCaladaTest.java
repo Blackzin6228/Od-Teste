@@ -33,8 +33,19 @@ class RegrasVilaCaladaTest {
         float meio = RegrasVilaCalada.volumeLonge(600);
         float perto = RegrasVilaCalada.volumeLonge(60);
         assertTrue(longe < meio && meio < perto);
-        assertEquals(RegrasVilaCalada.VOLUME_MINIMO, RegrasVilaCalada.volumeLonge(3_000), 1e-6);
+        assertEquals(RegrasVilaCalada.VOLUME_MINIMO, RegrasVilaCalada.volumeLonge(6_000), 1e-6);
         assertEquals(0f, RegrasVilaCalada.volumeLonge(RegrasVilaCalada.ALCANCE_SINO + 1), 1e-6);
+    }
+
+    @Test
+    void ouveDaVilaComumDoGrupo() {
+        // No servidor: vila comum (902, 794) e Vila Calada (4002, 4034), ~4.480 blocos.
+        double d = Math.hypot(4_002 - 902, 4_034 - 794);
+        assertTrue(d > 4_400 && d < 4_500);
+        assertTrue(RegrasVilaCalada.ouve(d, false), "o sino tem que chegar à vila comum");
+        float v = RegrasVilaCalada.volumeLonge(d);
+        assertTrue(v >= RegrasVilaCalada.VOLUME_MINIMO && v < RegrasVilaCalada.VOLUME_PERTO, "baixo, mas audível: " + v);
+        assertTrue(v > RegrasVilaCalada.volumeLonge(6_000), "ainda sobe ao andar para lá");
     }
 
     @Test
