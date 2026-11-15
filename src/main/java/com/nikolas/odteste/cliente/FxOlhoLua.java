@@ -50,7 +50,9 @@ final class FxOlhoLua {
         if (relogio % 20 == 0) {
             luaDeSangue = overworld && Compat.Integracao.ENHANCED_CELESTIALS.ligada() ? LuaDeSangue.forca(nivel) : 0f;
         }
-        float alvo = overworld ? RegrasFxSangue.olhoAlvo(luaDeSangue, ClimaVilaCliente.fatorVila(), ClimaVilaCliente.noiteVila()) : 0f;
+        // Na vila, só enquanto ela tem fome: depois do Dobre (vila calada) o olho não abre ali, só na Lua de Sangue.
+        float vila = ClimaVilaCliente.fatorVila() * ClimaVilaCliente.vermelhoVila();
+        float alvo = overworld ? RegrasFxSangue.olhoAlvo(luaDeSangue, vila, ClimaVilaCliente.noiteVila()) : 0f;
         if (FxSangue.testando(RegrasFxSangue.OLHO_LUA)) alvo = 1f;
         forca = forca < alvo ? Math.min(alvo, forca + 1f / 80f) : Math.max(alvo, forca - 1f / 80f);
         if (forca <= 0.002f) {

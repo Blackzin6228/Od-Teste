@@ -61,7 +61,7 @@ public final class RegrasFxSangue {
     /** Piscada (variante 1): duração em ticks e intervalo de 8 a 20 s. */
     public static final int OLHO_PISCA = 7;
 
-    /** Força do olho: Lua de Sangue do Enhanced Celestials, ou vila × noite. */
+    /** Força do olho: Lua de Sangue do Enhanced Celestials, ou vila × noite (a vila já vem zerada depois do Dobre). */
     public static float olhoAlvo(float luaDeSangue, float vila, float noite) {
         float v = Math.max(0f, Math.min(1f, vila)) * Math.max(0f, Math.min(1f, noite));
         return Math.max(Math.max(0f, Math.min(1f, luaDeSangue)), v);
