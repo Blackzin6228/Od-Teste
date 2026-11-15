@@ -36,6 +36,10 @@ public final class Itens {
                 }
             });
 
+    /** Martelo do Ferreiro: bate no sino rachado (Dobre). Item de história, sem receita. */
+    public static final DeferredItem<MarteloDoFerreiro> MARTELO =
+            Registro.ITENS.register(IdsDados.ITEM_MARTELO, MarteloDoFerreiro::new);
+
     /**
      * Aba do criativo. Fica registrada (o ID não some), mas vazia: o jogo esconde aba sem item. Itens sem receita
      * não aparecem no criativo nem no JEI/EMI (docs/progressao.md, regra 6); o admin pega por /give.
@@ -53,7 +57,7 @@ public final class Itens {
     /** Itens sem receita: fora da aba do criativo e escondidos no JEI/EMI (compat/jei, compat/emi). */
     public static List<Item> escondidos() {
         List<Item> todos = new ArrayList<>(
-                List.of(RUBRA.get(), AGULHA.get(), DEDAL.get(), SINO.get(), MATERIA_SANGUE.get()));
+                List.of(RUBRA.get(), AGULHA.get(), DEDAL.get(), SINO.get(), MATERIA_SANGUE.get(), MARTELO.get()));
         todos.addAll(BlocosCapela.escondidos());
         return todos;
     }

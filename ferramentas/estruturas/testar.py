@@ -15,6 +15,7 @@ from estrutura import Estrutura  # noqa: E402
 from modelos import MODELOS  # noqa: E402
 from modelos import vila_calada as VILA  # noqa: E402
 from modelos import vila_calada_150 as VILA150  # noqa: E402
+from modelos import vila_calada_150_v2 as VILA150V2  # noqa: E402
 
 _PRONTAS = {}
 
@@ -72,7 +73,7 @@ class TesteModelos(unittest.TestCase):
 
     def test_mesma_semente_mesmo_arquivo(self):
         for nome, mod in MODELOS.items():
-            if nome == VILA150.NOME:
+            if nome in (VILA150.NOME, VILA150V2.NOME):
                 continue  # é o centro (testado aqui) mais arredores com a mesma semente; demora demais duas vezes
             a = N.para_bytes(construida(nome).para_nbt())
             b = N.para_bytes(mod.construir().para_nbt())
@@ -154,6 +155,52 @@ class TesteVila150(unittest.TestCase):
         for n in B.BLOCOS:
             for _, mat in B.formas("minecraft:" + n, {}):
                 B.material(mat)
+
+
+class TesteVila150V2(unittest.TestCase):
+    """A v2 (vila morta, 14/11/2026) não pode mexer no que a história usa."""
+
+    def test_capela_e_campanario_so_trocam_material(self):
+        v1, v2 = construida(VILA150.NOME), construida(VILA150V2.NOME)
+        for caixa in VILA150V2.PROTEGIDAS:
+            x0, z0, x1, z1 = caixa
+            for x in range(x0, x1 + 1):
+                for z in range(z0, z1 + 1):
+                    for y in range(VILA150.TAM[1]):
+                        a, b = v1.blocos.get((x, y, z)), v2.blocos.get((x, y, z))
+                        self.assertEqual(a is None, b is None, (x, y, z))
+                        if a is None:
+                            continue
+                        fa = [c for c, _ in B.formas(a[0], dict(a[1]))]
+                        fb = [c for c, _ in B.formas(b[0], dict(b[1]))]
+                        self.assertEqual(fa, fb, ((x, y, z), a, b))
+
+    def test_pistas_e_marcadores_no_mesmo_lugar(self):
+        v1, v2 = construida(VILA150.NOME), construida(VILA150V2.NOME)
+        self.assertEqual([p["pos"] for p in v1.pistas], [p["pos"] for p in v2.pistas[:len(v1.pistas)]])
+        self.assertEqual(v1.marcadores, v2.marcadores)
+        for mk in v2.marcadores:
+            for pos in (mk["pos"], mk["alvo"]):
+                self.assertEqual(v1.blocos[tuple(pos)], v2.blocos[tuple(pos)], pos)
+            self.assertEqual(v1.dados[tuple(mk["pos"])], v2.dados[tuple(mk["pos"])])
+        for p in v1.pistas:
+            pos = tuple(p["pos"])
+            self.assertEqual(v1.blocos.get(pos), v2.blocos.get(pos), (p["tipo"], pos))
+
+    def test_vila_morta_sem_grama_nem_caminho_amarelo(self):
+        e = construida(VILA150V2.NOME)
+        cont = e.contagem()
+        pistas = {tuple(p["pos"]) for p in e.pistas}
+        proibidos = {"minecraft:" + n for n in ("grass_block", "dirt_path", "short_grass", "fern", "stripped_spruce_log")}
+        for pos, (n, _) in e.blocos.items():
+            if n in proibidos:
+                self.assertIn(pos, pistas, (n, pos))  # só o bloco da própria pista fica como era
+        self.assertLess(cont.get("minecraft:spruce_planks", 0), cont.get("minecraft:dark_oak_planks", 0))
+
+    def test_a_unica_vela_acesa_continua_unica(self):
+        e = construida(VILA150V2.NOME)
+        acesas = [p for p, (n, pr) in e.blocos.items() if n.endswith("candle") and dict(pr).get("lit") == "true"]
+        self.assertEqual(len(acesas), 1)
 
 
 if __name__ == "__main__":

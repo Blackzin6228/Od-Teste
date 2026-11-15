@@ -1,0 +1,43 @@
+{
+  "duracao": 400,
+  "ancora": "sino_rachado",
+  "pular": true,
+  "barras": 0.11,
+  "saida": "direta",
+  "mostrar_jogador": true,
+  "chaves": [
+    { "t": 0,   "em": "jogador", "pos": [0.6, 1.2, -4.5], "olhar": [0, 3, 0], "olhar_em": "entre", "olhar_entre": 0.35, "fov": 62, "ritmo": "entra" },
+    { "t": 90,  "em": "entre", "entre": 0.3,  "pos": [-6, 9, 0],  "olhar": [0, 2, 0], "olhar_em": "entre", "olhar_entre": 0.75, "fov": 66, "roll": -3 },
+    { "t": 170, "em": "entre", "entre": 0.68, "pos": [5, 7, 0],   "olhar": [0, 0, 0], "olhar_em": "ancora", "fov": 60, "roll": 2 },
+    { "t": 240, "em": "ancora", "pos": [-5, 2.5, -7],   "olhar": [0, 0.2, 0], "fov": 52 },
+    { "t": 320, "em": "ancora", "pos": [-2.2, -0.6, -3.2], "olhar": [0, 0.1, 0], "fov": 44, "roll": -5, "curva": "corte" },
+    { "t": 330, "em": "olhos", "pos": [0.05, 0.04, 1.2], "olhar": "jogador", "fov": 38, "ritmo": "sai" },
+    { "t": 384, "em": "olhos", "pos": [0.02, 0.02, 0.5], "olhar": "jogador", "fov": 34, "curva": "corte" },
+    { "t": 392, "em": "olhos", "pos": [0, 0, 0], "giro": 0, "inclinacao": 0, "curva": "linear" },
+    { "t": 400, "em": "olhos", "pos": [0, 0, 0], "giro": 0, "inclinacao": 0 }
+  ],
+  "eventos": [
+    { "t": 0,   "tipo": "fade", "cor": "preto", "de": 1, "ate": 0, "duracao": 24 },
+    { "t": 0,   "tipo": "som", "som": "minecraft:ambient.cave", "volume": 0.5, "tom": 0.6 },
+    { "t": 20,  "tipo": "som", "som": "minecraft:item.elytra.flying", "volume": 0.18, "tom": 0.5 },
+    { "t": 70,  "tipo": "som", "som": "minecraft:ambient.soul_sand_valley.mood", "volume": 0.35, "tom": 0.6 },
+    { "t": 120, "tipo": "texto", "chave": "odteste.cena.chegada_vila_calada.1", "linha": 0, "duracao": 70 },
+    { "t": 136, "tipo": "texto", "chave": "odteste.cena.chegada_vila_calada.2", "linha": 1, "duracao": 54 },
+    { "t": 200, "tipo": "som", "som": "minecraft:block.chain.hit", "volume": 0.3, "tom": 0.5 },
+    { "t": 252, "tipo": "parar_sons" },
+    { "t": 256, "tipo": "som", "som": "minecraft:block.bell.use", "volume": 0.7, "tom": 0.5 },
+    { "t": 256, "tipo": "som", "som": "minecraft:block.bell.use", "volume": 0.55, "tom": 0.53 },
+    { "t": 259, "tipo": "som", "som": "minecraft:block.bell.resonate", "volume": 0.3, "tom": 0.5 },
+    { "t": 256, "tipo": "tremor", "forca": 0.8, "duracao": 26 },
+    { "t": 256, "tipo": "fade", "cor": "vermelho", "de": 0.4, "ate": 0, "duracao": 30 },
+    { "t": 262, "tipo": "fx", "efeito": "coracao", "segundos": 8 },
+    { "t": 316, "tipo": "fade", "cor": "preto", "ate": 1, "duracao": 6 },
+    { "t": 330, "tipo": "fade", "cor": "preto", "ate": 0, "duracao": 8 },
+    { "t": 334, "tipo": "som", "som": "minecraft:entity.warden.heartbeat", "volume": 0.7, "tom": 0.8 },
+    { "t": 340, "tipo": "texto", "chave": "odteste.cena.chegada_vila_calada.3", "linha": 1, "duracao": 40 },
+    { "t": 356, "tipo": "som", "som": "minecraft:entity.warden.heartbeat", "volume": 0.8, "tom": 0.8 },
+    { "t": 378, "tipo": "som", "som": "minecraft:entity.warden.heartbeat", "volume": 0.9, "tom": 0.85 },
+    { "t": 384, "tipo": "fade", "cor": "preto", "ate": 1, "duracao": 5 },
+    { "t": 392, "tipo": "fade", "cor": "preto", "ate": 0, "duracao": 8 }
+  ]
+}

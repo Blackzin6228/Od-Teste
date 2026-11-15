@@ -24,10 +24,18 @@ public record Livro(String id, String titulo, String autor, int geracao, List<Pa
         }
     }
 
-    /** Texto escondido (vermelho): só aparece com a Exposição mínima. */
-    public record Trecho(String texto, int exposicaoMinima) {
+    /**
+     * Texto escondido (vermelho): só aparece com a Exposição mínima e, se {@code marco} não for vazio, só para quem
+     * é de um grupo com esse marco (ex.: {@code enigma_sino}, {@code dobre}).
+     */
+    public record Trecho(String texto, int exposicaoMinima, String marco) {
         public Trecho {
             texto = texto == null ? "" : texto;
+            marco = marco == null ? "" : marco;
+        }
+
+        public Trecho(String texto, int exposicaoMinima) {
+            this(texto, exposicaoMinima, "");
         }
     }
 }

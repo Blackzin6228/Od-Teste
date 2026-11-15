@@ -105,7 +105,7 @@ public final class ComandosHistoria {
 
     private static int responder(CommandContext<CommandSourceStack> c, boolean ok, Component msg) {
         if (ok) {
-            c.getSource().sendSuccess(() -> msg, true);
+            c.getSource().sendSuccess(() -> msg, false);
             return 1;
         }
         c.getSource().sendFailure(msg);
@@ -252,6 +252,9 @@ public final class ComandosHistoria {
         DadosHistoria d = dados(c);
         d.ancoras.put(lugar, GlobalPos.of(c.getSource().getLevel().dimension(), p));
         d.setDirty();
+        if (lugar.equals(com.nikolas.odteste.historia.vilacalada.IdsVilaCalada.LUGAR_VILA_CALADA)) {
+            com.nikolas.odteste.historia.vilacalada.Dobre.esquecerCanto();
+        }
         return ok(c, "odteste.evento.ancorado", lugar, p.getX(), p.getY(), p.getZ());
     }
 

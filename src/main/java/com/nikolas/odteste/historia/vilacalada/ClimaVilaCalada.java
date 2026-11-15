@@ -3,6 +3,7 @@ package com.nikolas.odteste.historia.vilacalada;
 import com.nikolas.odteste.dados.DadosJogador;
 import com.nikolas.odteste.historia.DadosHistoria;
 import com.nikolas.odteste.historia.Grupos;
+import com.nikolas.odteste.historia.mestre.Mestre;
 import com.nikolas.odteste.rede.ClimaVila;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,12 +32,19 @@ import net.neoforged.neoforge.network.PacketDistributor;
  * Sem lag: uma conta de distância por jogador por segundo (teto {@link RegrasClimaVila#MAX_JOGADORES}).
  */
 public final class ClimaVilaCalada {
-    private record Enviado(boolean dentro, boolean pendurado) {}
+    private record Enviado(boolean dentro, boolean pendurado, boolean calada) {}
 
-    private static final Enviado NADA = new Enviado(false, false);
+    private static final Enviado NADA = new Enviado(false, false, false);
     private static final Map<UUID, Enviado> ENVIADO = new HashMap<>();
     /** Tag vanilla do mestre: nunca vê o Pendurado. Quem testa sem a tag vê normal. */
     public static final String TAG_MESTRE = "odteste_mestre";
+
+    /** O que o último segundo achou (para a camada de horror e a vila morta, sem recalcular). */
+    private static Set<UUID> dentroAgora = Set.of();
+    /** Mestres ouvindo dentro do muro: veem o clima, mas não contam para nada (horror, vila morta, Pendurado). */
+    private static Set<UUID> mestresDentro = Set.of();
+    private static ServerLevel nivelAgora;
+    private static BlockPos ancoraAgora;
 
     private ClimaVilaCalada() {}
 
@@ -45,7 +53,13 @@ public final class ClimaVilaCalada {
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> ENVIADO.remove(e.getEntity().getUUID()));
         // Entrou de novo: o cliente começa sem clima; manda de novo se ainda estiver dentro.
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedInEvent e) -> ENVIADO.remove(e.getEntity().getUUID()));
-        NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> ENVIADO.clear());
+        NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> {
+            ENVIADO.clear();
+            dentroAgora = Set.of();
+            mestresDentro = Set.of();
+            nivelAgora = null;
+            ancoraAgora = null;
+        });
     }
 
     private static void aoTick(ServerTickEvent.Post e) {
@@ -56,26 +70,66 @@ public final class ClimaVilaCalada {
         GlobalPos ancora = dh.ancoras.get(IdsVilaCalada.LUGAR_VILA_CALADA);
         ServerLevel nivel = ancora == null || !dv.ligado ? null : s.getLevel(ancora.dimension());
         Set<UUID> dentroDaVila = new HashSet<>();
+        Set<UUID> mestres = new HashSet<>();
         int n = 0;
         for (ServerPlayer p : s.getPlayerList().getPlayers()) {
             if (n++ >= RegrasClimaVila.MAX_JOGADORES) break;
-            if (nivel != null && p.level() == nivel && !p.isSpectator() && dentro(p, ancora.pos())) {
-                dentroDaVila.add(p.getUUID());
+            if (nivel != null && p.level() == nivel && dentro(p, ancora.pos())) {
+                if (!p.isSpectator()) dentroDaVila.add(p.getUUID());
+                else if (Mestre.ouvindo(p)) mestres.add(p.getUUID());
             }
         }
+        dentroAgora = dentroDaVila;
+        mestresDentro = mestres;
+        nivelAgora = nivel;
+        ancoraAgora = nivel == null ? null : ancora.pos();
         Set<UUID> veemPendurado = dentroDaVila.isEmpty() ? Set.of() : maisExpostos(s, dh, dentroDaVila);
 
         n = 0;
         for (ServerPlayer p : s.getPlayerList().getPlayers()) {
             if (n++ >= RegrasClimaVila.MAX_JOGADORES) break;
-            boolean dentro = dentroDaVila.contains(p.getUUID());
-            Enviado agora = dentro ? new Enviado(true, veemPendurado.contains(p.getUUID())) : NADA;
+            boolean dentro = dentroDaVila.contains(p.getUUID()) || mestres.contains(p.getUUID());
+            // Grupo que fez o Dobre: a vila está calada para ele (névoa cinza, sem Pendurado).
+            boolean calada = dentro && dh.grupos.grupoDe(p.getUUID()).map(Dobre::calada).orElse(false);
+            Enviado agora = dentro ? new Enviado(true, !calada && veemPendurado.contains(p.getUUID()), calada) : NADA;
             Enviado antes = ENVIADO.getOrDefault(p.getUUID(), NADA);
             if (agora.equals(antes)) continue;
             if (agora.equals(NADA)) ENVIADO.remove(p.getUUID());
             else ENVIADO.put(p.getUUID(), agora);
-            PacketDistributor.sendToPlayer(p, new ClimaVila(agora.dentro(), agora.pendurado()));
+            PacketDistributor.sendToPlayer(p, new ClimaVila(agora.dentro(), agora.pendurado(), agora.calada()));
         }
+    }
+
+    /** Estava dentro do muro na última conferência (uma vez por segundo)? */
+    public static boolean estaDentro(ServerPlayer p) {
+        return dentroAgora.contains(p.getUUID());
+    }
+
+    /** Mestre ouvindo dentro do muro (só para mostrar o clima a ele; não conta para regra nenhuma). */
+    public static boolean mestreDentro(ServerPlayer p) {
+        return mestresDentro.contains(p.getUUID());
+    }
+
+    /** Alguém estava dentro da vila na última conferência? */
+    public static boolean alguemDentro() {
+        return !dentroAgora.isEmpty();
+    }
+
+    /** Este ponto fica dentro do muro da vila (com as pistas ligadas)? Conta simples, sem ler arquivo. */
+    public static boolean naVila(ServerLevel nivel, double x, double y, double z) {
+        BlockPos a = ancoraAgora;
+        if (a == null || nivel != nivelAgora) return false;
+        return RegrasClimaVila.dentro(x - (a.getX() + 0.5), y - a.getY(), z - (a.getZ() + 0.5));
+    }
+
+    /** Para onde os bichos olham: o campanário, no alto do ponto da vila. Null sem vila. */
+    public static net.minecraft.world.phys.Vec3 campanario() {
+        BlockPos a = ancoraAgora;
+        return a == null ? null : net.minecraft.world.phys.Vec3.atCenterOf(a).add(0, 8, 0);
+    }
+
+    public static ServerLevel nivelDaVila() {
+        return nivelAgora;
     }
 
     private static boolean dentro(ServerPlayer p, BlockPos ancora) {
@@ -90,6 +144,7 @@ public final class ClimaVilaCalada {
     private static Set<UUID> maisExpostos(MinecraftServer s, DadosHistoria dh, Set<UUID> dentroDaVila) {
         Set<UUID> r = new HashSet<>();
         for (Grupos.Grupo g : dh.grupos.todos()) {
+            if (Dobre.calada(g)) continue; // o Pendurado sumiu da torre: a corrente fica vazia
             Map<UUID, Integer> exp = new HashMap<>();
             for (UUID u : g.membros().keySet()) {
                 if (!dentroDaVila.contains(u)) continue;
