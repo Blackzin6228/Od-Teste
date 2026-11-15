@@ -29,8 +29,8 @@ Leia isto ao abrir um chat novo. Atualize no fim de cada sessão grande.
 - Faminto B e Martelo V2 (`docs/decisoes/2026-11-14-modelos-dobre.md`).
 - Versão de teste única: PR #85 (`mesa-dev/teste-unico-2026-11-14`, rede versão 8, Actions verde). Falta: Revisor, desenho 2 no código, teste no PC do Nikolas.
 
+- Lua sem nome na tela; texturas em 32 px; baús/mapa/livro da v2 como a Lore recomendou (`docs/decisoes/2026-11-14-vila-calada-baus-mapa-livro.md`).
+- Nikolas autorizou a mesa CEO testar o PR #85 no PC dele hoje (uso do computador), depois do Revisor.
+
 ## Pendente do Nikolas
-- Nome da lua na tela ("Lua Injetada" / "A Lua que Olha" / nenhum).
-- Resolução das texturas dos modelos: 16 ou 32 px.
-- Baús da v2, mapa da pista 3, livro levado (recomendado: só baú da cova; mapa comum com X; volta pelo `preparar`).
 - PRs #74–#77, #79, #80 ainda não juntados no `main` (o servidor usa o branch).
