@@ -8,7 +8,7 @@ Sem IDs novos neste documento. Nomes de itens, cenas e telas são provisórios.
 Isto já está no mod (14/11/2026). O resto do documento ainda é proposta.
 
 **Quem é mestre.** Quem tem permissão 2 (op) e está na lista `mestres` do arquivo
-`serverconfig/odteste-mestre-server.toml` do mundo (ex.: `mestres = "Blackzin6228"`). Lista vazia = todo op.
+`config/odteste-mestre-server.toml` (pasta `config` da raiz do servidor, não do mundo) (ex.: `mestres = "Blackzin6228"`). Lista vazia = todo op.
 Só o mestre recebe os avisos automáticos ("resolveu o Sino da Vila", "não seguiu o sino").
 As respostas dos comandos do mod saem só para quem digitou (os outros ops não veem mais "[Fulano: ...]").
 
