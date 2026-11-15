@@ -117,6 +117,7 @@ public final class ComandosVilaCalada {
         DadosHistoria dh = DadosHistoria.de(c.getSource().getServer());
         dh.ancoras.put(IdsVilaCalada.LUGAR_VILA_CALADA, GlobalPos.of(c.getSource().getLevel().dimension(), p));
         dh.setDirty();
+        Dobre.esquecerCanto();
         return ok(c, "odteste.evento.ancorado", IdsVilaCalada.LUGAR_VILA_CALADA, p.getX(), p.getY(), p.getZ());
     }
 
@@ -126,6 +127,7 @@ public final class ComandosVilaCalada {
             return erro(c, "odteste.evento.erro.lugar", IdsVilaCalada.LUGAR_VILA_CALADA);
         }
         dh.setDirty();
+        Dobre.esquecerCanto();
         PistasVilaCalada.aoDesligar();
         return ok(c, "odteste.evento.desancorado", IdsVilaCalada.LUGAR_VILA_CALADA);
     }

@@ -58,7 +58,10 @@ import net.minecraft.world.level.block.ChainBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.Entity;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
@@ -102,8 +105,13 @@ public final class Dobre {
             new PriorityQueue<>((x, y) -> Long.compare(x.quando(), y.quando()));
     /** Paradas pelo toque (até o tick). */
     private static final Map<Mob, Long> PARADOS = new HashMap<>();
-    /** Ajoelhadas pelo dobre feito (até virar cinza). */
+    /**
+     * Ajoelhadas pelo dobre feito (até virar cinza), só as carregadas agora. O que vale é a marca salva na própria
+     * criatura ({@link #TAG_AJOELHADO}): quem descarrega com o chunk ou com o servidor volta para cá ao carregar.
+     */
     private static final Set<Mob> AJOELHADOS = new HashSet<>();
+    /** Marca salva na criatura (dados persistentes do NeoForge): dia do dobre e o sino. Sem a marca = criatura normal. */
+    static final String TAG_AJOELHADO = "odteste:ajoelhado";
     /** Último chamado de cada grupo (tick do servidor). */
     private static final Map<String, Long> CHAMADO = new HashMap<>();
     /** Próximos cliques do peitoril de cada grupo (tick do servidor). */
@@ -123,6 +131,7 @@ public final class Dobre {
     public static void iniciar() {
         NeoForge.EVENT_BUS.addListener(Dobre::aoUsarBloco);
         NeoForge.EVENT_BUS.addListener(Dobre::aoTick);
+        NeoForge.EVENT_BUS.addListener(Dobre::aoEntrarNoMundo);
         NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> {
             ANDAMENTO.clear();
             AGENDA.clear();
@@ -162,7 +171,12 @@ public final class Dobre {
         GlobalPos ancora = DadosHistoria.de(s).ancoras.get(IdsVilaCalada.LUGAR_VILA_CALADA);
         ServerLevel nivel = ancora == null ? null : s.getLevel(ancora.dimension());
         if (nivel == null) return Optional.empty();
-        if (cantoCache != null && nivelCache == nivel) return Optional.of(cantoCache);
+        if (cantoCache != null && nivelCache == nivel) {
+            // Confere o atril só se o chunk já está carregado (não carrega chunk para isso).
+            BlockPos atril = PrepararVilaCalada.em(cantoCache, RegrasPrepararVila.ATRIL);
+            if (!nivel.isLoaded(atril) || nivel.getBlockState(atril).is(Blocks.LECTERN)) return Optional.of(cantoCache);
+            esquecerCanto(); // o atril saiu do lugar guardado: procura de novo (com o mesmo limite de uma vez por minuto)
+        }
         if (!forcar && s.getTickCount() < proximaBusca) return Optional.empty();
         proximaBusca = s.getTickCount() + 1_200;
         Optional<BlockPos> c = PrepararVilaCalada.acharCanto(nivel, ancora.pos());
@@ -171,6 +185,12 @@ public final class Dobre {
             nivelCache = nivel;
         });
         return c;
+    }
+
+    /** Esquece o canto guardado (vila ancorada de novo, desancorada ou preparada). A próxima busca segue o limite. */
+    public static void esquecerCanto() {
+        cantoCache = null;
+        nivelCache = null;
     }
 
     static ServerLevel nivel(MinecraftServer s) {
@@ -495,8 +515,29 @@ public final class Dobre {
         PARADOS.remove(m);
         travar(m, sino);
         m.setXRot(40f); // cabeça baixa (a animação de ajoelhar é do Modelador)
+        CompoundTag t = new CompoundTag();
+        t.putLong("dia", RegrasDobre.dia(nivel.getDayTime()));
+        t.putLong("sino", BlockPos.containing(sino).asLong());
+        m.getPersistentData().put(TAG_AJOELHADO, t);
         AJOELHADOS.add(m);
         nivel.sendParticles(ParticleTypes.ASH, m.getX(), m.getY() + 0.5, m.getZ(), 10, 0.3, 0.3, 0.3, 0.01);
+    }
+
+    /** Criatura marcada que carregou de novo (chunk ou servidor reiniciado): volta a ficar ajoelhada. */
+    private static void aoEntrarNoMundo(EntityJoinLevelEvent e) {
+        if (e.getLevel().isClientSide() || !(e.getEntity() instanceof Mob m)) return;
+        if (!m.getPersistentData().contains(TAG_AJOELHADO)) return;
+        BlockPos sino = BlockPos.of(m.getPersistentData().getCompound(TAG_AJOELHADO).getLong("sino"));
+        travar(m, Vec3.atCenterOf(sino));
+        m.setXRot(40f);
+        AJOELHADOS.add(m);
+    }
+
+    /** Vira cinza na manhã depois do dobre (ou se já passou dela enquanto estava descarregada). */
+    private static boolean horaDaCinza(Mob m, long horaDoMundo) {
+        if (RegrasDobre.manha(horaDoMundo)) return true;
+        long dia = m.getPersistentData().getCompound(TAG_AJOELHADO).getLong("dia");
+        return RegrasDobre.dia(horaDoMundo) > dia;
     }
 
     /** A roda do Moinho Parado, longe: só para quem do grupo está dentro da vila. */
@@ -658,13 +699,16 @@ public final class Dobre {
             return false;
         });
         ServerLevel nivel = nivel(s);
-        Vec3 torre = ClimaVilaCalada.campanario();
-        AJOELHADOS.removeIf(m -> m.isRemoved() || !m.isAlive());
-        if (!AJOELHADOS.isEmpty() && torre != null) {
-            boolean manha = nivel != null && RegrasDobre.manha(nivel.getDayTime());
+        // Saiu do mundo: morta/descartada (shouldDestroy) some de vez; só descarregada (chunk, servidor) guarda a marca
+        // salva e volta pelo aoEntrarNoMundo. Nos dois casos este objeto não serve mais.
+        AJOELHADOS.removeIf(m -> {
+            Entity.RemovalReason motivo = m.getRemovalReason();
+            return motivo != null || !m.isAlive();
+        });
+        if (!AJOELHADOS.isEmpty()) {
             for (Iterator<Mob> im = AJOELHADOS.iterator(); im.hasNext(); ) {
                 Mob m = im.next();
-                if (manha) {
+                if (horaDaCinza(m, m.level().getDayTime())) {
                     ((ServerLevel) m.level()).sendParticles(ParticleTypes.ASH, m.getX(), m.getY() + 0.8, m.getZ(), 30, 0.4, 0.6, 0.4, 0.02);
                     ((ServerLevel) m.level()).sendParticles(ParticleTypes.SMOKE, m.getX(), m.getY() + 0.5, m.getZ(), 8, 0.3, 0.4, 0.3, 0.01);
                     m.discard(); // vira cinza (sem drop)

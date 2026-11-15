@@ -80,6 +80,7 @@ final class PrepararVilaCalada {
 
     /** Prepara tudo. Devolve uma linha por peça, para o mestre. */
     static List<Component> preparar(ServerLevel nivel, BlockPos canto, DadosVilaCalada dv) {
+        Dobre.esquecerCanto(); // vila preparada (talvez em outro lugar): o canto guardado do dobre não vale mais
         MundoReal mundo = new MundoReal(nivel);
         List<Component> r = new ArrayList<>();
         r.add(livro(nivel, mundo, canto));
