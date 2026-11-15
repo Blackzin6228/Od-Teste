@@ -14,3 +14,6 @@ Arte própria (não precisa de linha na tabela, fica anotada para saber de onde 
 - Sons da Vila Calada (`arte/sons/*.ogg`, vento e arrasto): sintetizados **do zero** pela mesa Modelador
   (`arte/sons/gerar_sons.py`), só ruído e filtros. Nenhuma gravação de terceiros.
 - Estandarte da vila comum (`arte/estandarte/*.svg`): desenhado à mão em SVG pela mesa Modelador. Símbolos nossos.
+
+## Skills de agente (não é arte do jogo)
+- `.claude/skills/minecraft-*`: de Jahrome907/minecraft-agent-skills (GitHub), licença MIT (cópia em `.claude/skills/LICENCA-minecraft-agent-skills.txt`). Instalado em 15/11/2026 a pedido do Nikolas. Só instruções para as mesas; nada disso vai para o jar.
