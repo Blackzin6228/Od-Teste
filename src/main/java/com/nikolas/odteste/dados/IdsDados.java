@@ -125,6 +125,11 @@ public final class IdsDados {
     /** Modificador do voo criativo (NeoForge) nas nossas dimensões e na perseguição (temporário). */
     public static final String MODIFICADOR_VOO = "contencao_voo";
 
+    /** Pacote servidor → um jogador: "toque o efeito de tela X" (comando /odfx). Nada salvo. */
+    public static final String PACOTE_EFEITO_FX = "efeito_fx";
+    /** Camada da HUD que grava os quadros do /odfx gravar (cliente). */
+    public static final String CAMADA_GRAVAR_FX = "gravar_fx";
+
     /** Todos os IDs que não são dado salvo, mas também precisam estar em docs/ids.md. */
     public static final List<String> OUTROS = List.of(
             DANO_PARANORMAL, TAG_ARMA_PARANORMAL, TAG_MAGIA, MODIFICADOR_VOO,
@@ -134,7 +139,7 @@ public final class IdsDados {
             ITEM_RUBRA, ITEM_AGULHA, ITEM_DEDAL, ITEM_SINO, ITEM_MATERIA_SANGUE,
             CRIATURA_RETALHADO, CRIATURA_SANGUESSUGA, SANGRAMENTO, ABA, MODIFICADOR_DEDAL, RITUAL_CHAMADO,
             "ritual/" + RITUAL_CHAMADO, PLUGIN_JEI,
-            TAG_SUBSTITUIVEL, PECA_LIVRO_CARNICEIRO_1, PECA_MAPA_ESQUERDA);
+            TAG_SUBSTITUIVEL, PECA_LIVRO_CARNICEIRO_1, PECA_MAPA_ESQUERDA, PACOTE_EFEITO_FX, CAMADA_GRAVAR_FX);
 
     private IdsDados() {}
 }

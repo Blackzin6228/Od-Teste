@@ -6,6 +6,7 @@ import com.nikolas.odteste.historia.Grupos;
 import com.nikolas.odteste.historia.IdsHistoria;
 import com.nikolas.odteste.historia.PrimeiroSinal;
 import com.nikolas.odteste.historia.livros.LivroAbertoPrimeiraVez;
+import com.nikolas.odteste.historia.mestre.Mestre;
 import com.nikolas.odteste.historia.vilacalada.IdsVilaCalada;
 import com.nikolas.odteste.historia.vilacalada.RegrasVilaCalada;
 import java.util.ArrayList;
@@ -118,17 +119,14 @@ public final class Gatilhos {
         return false;
     }
 
+    /** Mestre online (op na lista {@code mestres}; lista vazia = todo op): o aviso espera até ter quem leia. */
     private static boolean adminOnline(MinecraftServer s) {
-        for (ServerPlayer p : s.getPlayerList().getPlayers()) {
-            if (p.hasPermissions(2)) return true;
-        }
-        return false;
+        return Mestre.algumOnline(s);
     }
 
+    /** Avisos só para os mestres: op comum (que também joga) não fica sabendo do mistério. */
     private static void paraAdmins(MinecraftServer s, Component msg) {
-        for (ServerPlayer p : s.getPlayerList().getPlayers()) {
-            if (p.hasPermissions(2)) p.sendSystemMessage(msg);
-        }
+        Mestre.avisar(s, msg);
     }
 
     // ------------------------------------------------------------------ Livro do Sineiro
